@@ -23888,1776 +23888,411 @@
         <type>test-jar</type><!-- io.debezium:debezium-bom:3.2.1.Final -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>5.2.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>5.5.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>4.1.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>4.1.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>quarkus-test-hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>quarkus-test-hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>4.1.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-bom-quarkus-platform-descriptor</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>json</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <classifier>3.0.0.Final</classifier><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-bom-quarkus-platform-descriptor</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <type>json</type><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <classifier>3.26.2</classifier><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>com.fasterxml.jackson.datatype</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jackson-datatype-javax-money</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.19.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-observability-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>com.fasterxml.jackson.datatype</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jackson-datatype-moneta</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.19.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>com.google.protobuf</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>protobuf-kotlin</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.25.5</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11dms_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.netty</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>netty-tcnative</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.0.72.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <classifier>osx-aarch_64</classifier><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.perfmark</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>perfmark-api</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>0.27.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-observability-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus.gizmo</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>gizmo2</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.0.0.Beta6</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-arc-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8dms_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-assistant-deployment-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>dms</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-assistant-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-observability</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-assistant-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11dms</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-assistant</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-observability</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-cache-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8dms</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-container-image-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.security</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>osdt_cert</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-datasource-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.security</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>osdt_core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-devui-deployment-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>com.sun.mail</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>jakarta.mail</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>2.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-devui-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8.kubernetes</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kubernetes-karaf-itests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-devui-resources</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>camel-k-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-devui-test-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>camel-k-model-v1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-devui</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>camel-k-model-v1alpha1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-extension-processor</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>camel-k-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-flyway-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-grpc-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-model-v1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-hibernate-orm-derby-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-model-v1alpha2</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-hibernate-orm-derby</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-model-v1alpha3</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-hibernate-orm-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-model-v1beta1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-hibernate-search-orm-elasticsearch-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>certmanager-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-hibernate-search-standalone-elasticsearch-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>chaosmesh-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-infinispan-client-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>chaosmesh-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-kafka-client-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>crd-generator-test</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-kafka-streams-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>istio-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-liquibase-common</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>istio-model-v1alpha3</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-liquibase-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>istio-model-v1beta1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-messaging-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>istio-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-messaging-rabbitmq-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>java-generator-integration-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-observability-devservices-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>knative-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-oidc-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>knative-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-rest-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kubernetes-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-scheduler-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kubernetes-model-jsonschema2pojo</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-smallrye-fault-tolerance-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kubernetes-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-smallrye-graphql-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kubernetes-test</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-smallrye-health-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-agent-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-smallrye-openapi-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-apps-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-tls-registry-deployment-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-cluster-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-tls-registry-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-discovery-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-websockets-next-dev</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-observability-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>quarkus-websockets-next-spi</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.26.2</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-operator-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.common</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-common-process</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.13.8</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-placementruleapps-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.config</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-config-events</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.13.4</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-policy-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.config</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-config-jasypt</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.13.4</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-search-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.config</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-config-source-hocon</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.13.4</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>open-cluster-management-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.config</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-config-source-injection</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.13.4</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>openclustermanagement-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.config</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-config-source-zookeeper</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.13.4</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>openshift-model-clusterautoscaling</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-reactive-messaging-aws-sns</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>4.28.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>openshift-model-machineconfig</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.stork</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>stork-service-registration-eureka</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.7.3</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>openshift-server-mock</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jandex-gizmo2</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.4.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>service-catalog-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>jakarta.data</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jakarta.data-api</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.0.1</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>servicecatalog-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.crac</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>crac</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.5.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>servicecatalog-model</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.models</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-models</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.0.1</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>servicecatalog-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.orm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-processor</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>7.1.0.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.orm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-vector</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>7.1.0.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-model-triggers-v1alpha1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.search</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-search-backend-lucene-next</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>8.1.0.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-model-triggers-v1beta1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.search</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-search-processor</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>8.1.0.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-model-v1alpha1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.hibernate.tool</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>hibernate-tools-language</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>7.1.0.Final</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-model-v1beta1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>kotlin-stdlib-common</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>2.2.10</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <type>pom</type><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tekton-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.jspecify</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jspecify</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.0.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>verticalpodautoscaler-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm.at.qomponent</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>qui-directory-tree</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.0.3</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>verticalpodautoscaler-model-v1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm.at.qomponent</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>qui-dot</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>0.0.1</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>verticalpodautoscaler-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm.at.viz-js</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>viz</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.12.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>volcano-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>dompurify</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>3.2.6</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>volcano-model-v1beta1</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>ldrs</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.1.7</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>volcano-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>marked</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>15.0.12</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>volumesnapshot-examples</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>style-observer</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>0.0.8</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
-        <groupId>io.fabric8</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>volumesnapshot-tests</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.5.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.jaegertracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>jaeger-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.jaegertracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>jaeger-thrift</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.tomcat.embed</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>tomcat-embed-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>javax.annotation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>javax.annotation-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.tomcat</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>tomcat-annotations-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.jaegertracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>jaeger-zipkin</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>commons-logging</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>javax.annotation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>javax.annotation-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.tomcat.embed</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>tomcat-embed-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.micrometer</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>micrometer-registry-cloudwatch</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.10.5</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-resources</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.squareup.okhttp3</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>okhttp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-xray-propagator</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-xray</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk-trace</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-databind</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.squareup.okhttp3</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>okhttp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-instrumentation-api-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-jaeger-spring-boot-starter</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-runtime-metrics</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-spring-boot</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-spring-webflux-5.0</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-executors-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-jaxrs-common-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-jdbc-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-kafka-clients-0.11-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-rmi-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-servlet-common-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-spring-scheduling-3.1-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-tomcat</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-undertow-1.4-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-bootstrap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-extension-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-internal-logging-simple</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-tooling-java9</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-javaagent-tooling</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.javaagent</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-muzzle</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-api-events</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-api-logs</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-exporter-jaeger-proto</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.17.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-exporter-jaeger-thrift</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-exporter-jaeger</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-exporter-otlp-logs</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-extension-annotations</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.18.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-extension-aws</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.20.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-extension-incubator</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-sdk-extension-aws</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.19.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-sdk-extension-resources</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.19.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-sdk-logs-testing</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-jdbc</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.2.4</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-kafka-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.1.15</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-mongo-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.1.5</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-mock</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-noop</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-util</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-util</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>test-jar</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentracing-util</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.33.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>test-jar</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <classifier>tests</classifier><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-container-image-s2i-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-container-image-s2i</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-csrf-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-csrf-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-elasticsearch-rest-high-level-client-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-elasticsearch-rest-high-level-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-jaeger-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-jaeger</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-jaxrs-client-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-jaxrs-client-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-junit5-properties</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-keycloak-admin-client-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-keycloak-admin-client-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-keycloak-admin-client-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-keycloak-admin-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-client-filter-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-client-filter</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-client-reactive-filter-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-client-reactive-filter</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-token-propagation-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-token-propagation-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-token-propagation-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-oidc-token-propagation</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-opentelemetry-exporter-jaeger-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-opentelemetry-exporter-jaeger</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-opentelemetry-exporter-otlp-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-opentelemetry-exporter-otlp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-mutiny-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-mutiny</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jackson-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jackson</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jaxb-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jaxb</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jsonb-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-jsonb</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-kotlin-serialization-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-kotlin-serialization</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive-spi-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-rest-client-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-common-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>test-jar</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>test</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>test-jar</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <classifier>tests</classifier><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>test</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jackson-common-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jackson-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jackson-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jackson</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jaxb-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jaxb</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jsonb-common-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jsonb-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jsonb-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-jsonb</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin-serialization-common-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin-serialization-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin-serialization-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin-serialization</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-kotlin</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-links-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-links</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-qute-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-qute</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-server-spi-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-servlet-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-servlet</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive-spi-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-resteasy-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-opentracing-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-opentracing</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-amqp-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-amqp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-kafka-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-kotlin</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-mqtt-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-mqtt</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-rabbitmq-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging-rabbitmq</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-smallrye-reactive-messaging</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-spring-web-resteasy-classic-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-spring-web-resteasy-classic</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-spring-web-resteasy-reactive-deployment</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-spring-web-resteasy-reactive</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-test-infinispan-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-test-openshift-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>smallrye-mutiny-vertx-health-checks</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.2.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.smallrye</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>smallrye-opentracing-contrib</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.3</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.smallrye</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>smallrye-opentracing</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.3</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.eclipse.microprofile.config</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>microprofile-config-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.james</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>apache-mime4j</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>0.8.9</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.microprofile.opentracing</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>microprofile-opentracing-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.osgi</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>org.osgi.annotation.versioning</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.elasticsearch.client</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>elasticsearch-rest-high-level-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>7.10.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.logging.log4j</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>log4j-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.graalvm.nativeimage</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>svm</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>22.3.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>provided</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>*</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>*</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.hibernate.search</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>hibernate-search-mapper-orm-coordination-outbox-polling-orm6</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.1.7.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.hibernate.search</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>hibernate-search-mapper-orm-orm6</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.1.7.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.hibernate.common</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>hibernate-commons-annotations</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.infinispan</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>infinispan-client-hotrod-jakarta</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>14.0.7.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.infinispan</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>infinispan-commons-jakarta</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>14.0.7.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>lra-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>lra-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>lra-coordinator-jar</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.servlet</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jboss-servlet-api_3.1_spec</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>lra-proxy-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>lra-proxy-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>lra-service-base</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>lra-service-base</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>commons-logging</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>commons-logging</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>narayana-lra</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.narayana.rts</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>narayana-lra</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>commons-logging</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>commons-logging</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.resteasy</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>resteasy-client</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.resteasy</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>resteasy-jackson2-provider</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>resteasy-context-propagation</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.2.1.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kotlin-script-util</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.10</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kotlin-stdlib-js</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.10</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kotlin-test-annotations-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.10</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kotlin-test-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.10</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>kotlin-test-js</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.8.10</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.junit-pioneer</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>junit-pioneer</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.5.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>keycloak-adapter-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>commons-logging</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>keycloak-adapter-spi</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>keycloak-admin-client-jakarta</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.checkerframework</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>checker-qual</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>keycloak-common</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>keycloak-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>mockito-inline</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>5.2.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>accordion</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>app-layout</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>avatar-group</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>avatar</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>button</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>checkbox-group</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>checkbox</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>combo-box</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>component-base</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>confirm-dialog</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>context-menu</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>custom-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>date-picker</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>date-time-picker</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>details</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>dialog</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>email-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>field-base</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>form-layout</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>grid</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>horizontal-layout</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>icon</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>vaadin-lumo-styles</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>icons</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>input-container</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>integer-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>item</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>list-box</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>lit-renderer</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>login</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>menu-bar</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>message-input</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>message-list</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>multi-select-combo-box</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>notification</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>number-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>overlay</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>password-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>progress-bar</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>radio-group</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>scroller</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>select</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>split-layout</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tabs</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tabsheet</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>text-area</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>text-field</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>time-picker</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>tooltip</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>upload</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>vaadin-lumo-styles</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>icon</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>vaadin-material-styles</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>vaadin-themable-mixin</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>vertical-layout</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vaadin</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>virtual-list</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>24.0.2</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.vanillawc</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>wc-codemirror</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>2.1.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>importmap</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.0.7</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.sonatype.plexus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>plexus-cipher</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.7</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.mvnpm</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>type-fest</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>4.41.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>
         <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->

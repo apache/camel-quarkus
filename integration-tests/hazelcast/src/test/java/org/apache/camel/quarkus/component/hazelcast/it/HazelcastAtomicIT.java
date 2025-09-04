@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("Requires the Hazelcast CP subsystem, which is a licensed feature")
 @QuarkusIntegrationTest
 class HazelcastAtomicIT extends HazelcastAtomicTest {
 

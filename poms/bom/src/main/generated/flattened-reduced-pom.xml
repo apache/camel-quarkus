@@ -9003,12 +9003,22 @@
       <dependency>
         <groupId>com.hazelcast</groupId>
         <artifactId>hazelcast</artifactId>
-        <version>5.2.3</version>
+        <version>5.5.0</version>
       </dependency>
       <dependency>
         <groupId>net.openhft</groupId>
         <artifactId>affinity</artifactId>
         <version>3.23.3</version>
+      </dependency>
+      <dependency>
+        <groupId>com.hazelcast</groupId>
+        <artifactId>quarkus-hazelcast-client</artifactId>
+        <version>4.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.hazelcast</groupId>
+        <artifactId>quarkus-hazelcast-client-deployment</artifactId>
+        <version>4.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.smooks</groupId>
