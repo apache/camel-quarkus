@@ -148,6 +148,7 @@
         <module>knative</module>
         <module>kubernetes</module>
         <module>kudu</module>
+        <module>langchain4j-agent</module>
         <module>langchain4j-chat</module>
         <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
