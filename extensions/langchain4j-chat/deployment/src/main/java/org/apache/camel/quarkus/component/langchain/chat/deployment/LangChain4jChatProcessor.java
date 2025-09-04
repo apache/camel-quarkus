@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.langchain.chat.deployment;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class LangChain4jChatProcessor {
     private static final String FEATURE = "camel-langchain4j-chat";
@@ -28,35 +25,5 @@ class LangChain4jChatProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    NativeImageProxyDefinitionBuildItem nativeImageProxyConfig() {
-        return new NativeImageProxyDefinitionBuildItem("dev.langchain4j.model.ollama.OllamaApi");
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClass() {
-        return ReflectiveClassBuildItem.builder(PropertyNamingStrategies.SnakeCaseStrategy.class).constructors().build();
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(
-                "dev.langchain4j.model.ollama.FormatSerializer",
-                "dev.langchain4j.model.ollama.Function",
-                "dev.langchain4j.model.ollama.FunctionCall",
-                "dev.langchain4j.model.ollama.Message",
-                "dev.langchain4j.model.ollama.OllamaChatRequest",
-                "dev.langchain4j.model.ollama.OllamaChatResponse",
-                "dev.langchain4j.model.ollama.Options",
-                "dev.langchain4j.model.ollama.Parameters",
-                "dev.langchain4j.model.ollama.Role",
-                "dev.langchain4j.model.ollama.Tool",
-                "dev.langchain4j.model.ollama.ToolCall",
-                "dev.langchain4j.model.ollama.ChatRequest",
-                "dev.langchain4j.model.ollama.ChatResponse")
-                .methods(true)
-                .build();
     }
 }
