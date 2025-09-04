@@ -54,16 +54,6 @@ class DebeziumPostgresTest extends AbstractDebeziumTest {
     }
 
     @Test
-    @Override
-    public void testUpdate() throws SQLException {
-    }
-
-    @Test
-    @Override
-    public void testDelete() throws SQLException {
-    }
-
-    @Test
     @Order(4)
     public void testAdditionalProperty() {
         //https://github.com/apache/camel-quarkus/issues/3488
