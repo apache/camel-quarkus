@@ -38,6 +38,7 @@ group-02:
   - aws2
   - beanio
   - google-pubsub
+  - groovy-xml
   - grpc
   - iso8583
   - jackson-avro

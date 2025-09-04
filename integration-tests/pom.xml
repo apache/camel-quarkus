@@ -102,6 +102,7 @@
         <module>graphql</module>
         <module>grok</module>
         <module>groovy</module>
+        <module>groovy-xml</module>
         <module>grpc</module>
         <module>hashicorp-vault</module>
         <module>hazelcast</module>
