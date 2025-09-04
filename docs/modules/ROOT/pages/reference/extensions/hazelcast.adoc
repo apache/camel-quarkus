@@ -4,17 +4,17 @@
 = Hazelcast Atomic Number
 :linkattrs:
 :cq-artifact-id: camel-quarkus-hazelcast
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: n/a
+:cq-native-since: 1.6.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
 endif::[]
 
 Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
@@ -39,6 +39,10 @@ Please refer to the above links for usage and configuration details.
 [id="extensions-hazelcast-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-hazelcast[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -49,3 +53,43 @@ Please refer to the above links for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-hazelcast-ssl-in-native-mode"]
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
+
+[id="extensions-hazelcast-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+This extension leverages https://github.com/hazelcast/quarkus-hazelcast-client[Hazelcast Client for Quarkus]. The configuration of the HazelcastInstance is managed by the extension. To configure Hazelcast Instance, check the https://github.com/hazelcast/quarkus-hazelcast-client[Hazelcast Client for Quarkus] guide.
+
+IMPORTANT: `camel-quarkus-hazelcast` works only in client mode.
+
+To use the `HazelcastInstance` bean in the Hazelcast component, you should configure the component as follows.
+
+[source,java]
+----
+    <1>
+    @Inject
+    HazelcastInstance hazelcastInstance;
+
+    @Produces
+    @ApplicationScoped
+    @Unremovable
+    @Named("hazelcast-map")
+    HazelcastDefaultComponent hazelcastMap() {
+        final HazelcastMapComponent hazelcastComponent = new HazelcastMapComponent();
+        hazelcastComponent.setHazelcastInstance(hazelcastInstance);
+        <2>
+        hazelcastComponent.setHazelcastMode(HazelcastConstants.HAZELCAST_CLIENT_MODE);
+        return getHazelcastComponent(hazelcastComponent);
+    }
+----
+<1> The `HazelcastInstance` bean instance created by the `quarkus-hazelcast` extension
+<2> The Hazelcast mode must be set to client mode
+
+Some more examples can be found in the Camel Quarkus Hazelcast https://github.com/apache/camel-quarkus/tree/main/integration-tests/hazelcast[integration tests].
+
