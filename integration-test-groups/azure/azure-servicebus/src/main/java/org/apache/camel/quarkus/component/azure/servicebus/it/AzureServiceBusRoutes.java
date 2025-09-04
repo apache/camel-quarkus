@@ -58,14 +58,14 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
 
             // Simple queue consumer
             from(azureServicebus(queueName.get())
-                    .connectionString(connectionString.get()))
+                    .connectionString("RAW(" + connectionString.get() + ")"))
                     .routeId("servicebus-queue-consumer-" + AmqpTransportType.AMQP)
                     .autoStartup(false)
                     .toD(mock(mockEndpointUri));
 
             // Consume from queue with web socket transport
             from(azureServicebus(queueName.get())
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .amqpTransportType(AmqpTransportType.AMQP_WEB_SOCKETS))
                     .autoStartup(false)
                     .routeId("servicebus-queue-consumer-" + AmqpTransportType.AMQP_WEB_SOCKETS)
@@ -89,7 +89,7 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
 
             // Queue consumer for scheduled messages
             from(azureServicebus(queueName.get())
-                    .connectionString(connectionString.get()))
+                    .connectionString("RAW(" + connectionString.get() + ")"))
                     .routeId("servicebus-queue-scheduled-consumer")
                     .autoStartup(false)
                     .to("mock:servicebus-queue-scheduled-consumer-results");
@@ -99,7 +99,7 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
                 from(azureServicebus(topicName.get())
                         .serviceBusType(ServiceBusType.topic)
                         .subscriptionName(topicSubscriptionName.get())
-                        .connectionString(connectionString.get()))
+                        .connectionString("RAW(" + connectionString.get() + ")"))
                         .routeId("servicebus-topic-consumer-" + AmqpTransportType.AMQP)
                         .autoStartup(false)
                         .toD(mock(mockEndpointUri));
@@ -108,7 +108,7 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
                 from(azureServicebus(topicName.get())
                         .serviceBusType(ServiceBusType.topic)
                         .subscriptionName(topicSubscriptionName.get())
-                        .connectionString(connectionString.get())
+                        .connectionString("RAW(" + connectionString.get() + ")")
                         .amqpTransportType(AmqpTransportType.AMQP_WEB_SOCKETS))
                         .autoStartup(false)
                         .routeId("servicebus-topic-consumer-" + AmqpTransportType.AMQP_WEB_SOCKETS)
@@ -137,7 +137,7 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
             // Produce scheduled messages
             from(direct("scheduled"))
                     .to(azureServicebus(queueName.get())
-                            .connectionString(connectionString.get())
+                            .connectionString("RAW(" + connectionString.get() + ")")
                             .producerOperation("scheduleMessages"));
 
             if (AzureServiceBusHelper.isAzureIdentityCredentialsAvailable()) {
