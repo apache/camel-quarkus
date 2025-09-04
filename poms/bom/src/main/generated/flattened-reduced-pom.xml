@@ -1369,6 +1369,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-groovy-xml</artifactId>
+        <version>4.15.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-grpc</artifactId>
         <version>4.14.0</version>
         <exclusions>
@@ -4278,6 +4283,16 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-groovy-deployment</artifactId>
         <version>3.29.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-groovy-xml</artifactId>
+        <version>3.27.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-groovy-xml-deployment</artifactId>
+        <version>3.27.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
@@ -8330,6 +8345,11 @@
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
+        <version>4.0.28</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-xml</artifactId>
         <version>4.0.28</version>
       </dependency>
       <dependency>
