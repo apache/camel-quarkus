@@ -9001,14 +9001,24 @@
         <version>3.2.1.Final</version><!-- io.debezium:debezium-bom:3.2.1.Final -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>5.2.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>5.5.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
-        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+      </dependency>
+      <dependency>
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>4.1.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+      </dependency>
+      <dependency>
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
+        <version>4.1.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.1.0 -->
       </dependency>
       <dependency>
         <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
