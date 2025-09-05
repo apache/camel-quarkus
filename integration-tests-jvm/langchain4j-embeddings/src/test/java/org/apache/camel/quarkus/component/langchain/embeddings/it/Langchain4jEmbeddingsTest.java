@@ -21,7 +21,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-class LangchainEmbeddingsTest {
+class Langchain4jEmbeddingsTest {
 
     @Test
     public void loadComponentLangchainEmbeddings() {

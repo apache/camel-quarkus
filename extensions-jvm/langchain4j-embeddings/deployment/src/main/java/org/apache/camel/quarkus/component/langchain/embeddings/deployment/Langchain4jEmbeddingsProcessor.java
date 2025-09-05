@@ -24,9 +24,9 @@ import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.jboss.logging.Logger;
 
-class LangchainEmbeddingsProcessor {
+class Langchain4jEmbeddingsProcessor {
 
-    private static final Logger LOG = Logger.getLogger(LangchainEmbeddingsProcessor.class);
+    private static final Logger LOG = Logger.getLogger(Langchain4jEmbeddingsProcessor.class);
     private static final String FEATURE = "camel-langchain4j-embeddings";
 
     @BuildStep
