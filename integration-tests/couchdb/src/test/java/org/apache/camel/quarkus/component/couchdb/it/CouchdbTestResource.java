@@ -18,6 +18,7 @@
 package org.apache.camel.quarkus.component.couchdb.it;
 
 import java.util.Map;
+import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
@@ -40,11 +41,20 @@ public class CouchdbTestResource implements QuarkusTestResourceLifecycleManager 
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new GenericContainer(COUCHDB_IMAGE).withExposedPorts(COUCHDB_PORT).waitingFor(Wait.forListeningPort());
+            final String user = "admin";
+            final String pwd = UUID.randomUUID().toString();
+            container = new GenericContainer(COUCHDB_IMAGE)
+                    .withEnv("COUCHDB_USER", user)
+                    .withEnv("COUCHDB_PASSWORD", pwd)
+                    .withExposedPorts(COUCHDB_PORT)
+                    .waitingFor(Wait.forListeningPort());
             container.start();
 
             final String authority = container.getHost() + ":" + container.getMappedPort(COUCHDB_PORT).toString();
-            return CollectionHelper.mapOf("camel.couchdb.test.server.authority", authority);
+            return CollectionHelper.mapOf(
+                    "camel.couchdb.test.server.authority", authority,
+                    "camel.couchdb.test.username", user,
+                    "camel.couchdb.test.password", pwd);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
