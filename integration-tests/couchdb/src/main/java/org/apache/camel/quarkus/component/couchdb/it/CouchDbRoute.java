@@ -26,15 +26,17 @@ import static org.apache.camel.quarkus.component.couchdb.it.CouchdbTestDocument.
 @ApplicationScoped
 public class CouchDbRoute extends RouteBuilder {
 
-    static final String COUCHDB_ENDPOINT_URI = "couchdb:http://{{camel.couchdb.test.server.authority}}/database";
+    static final String COUCHDB_ENDPOINT_URI = "couchdb:http://{{camel.couchdb.test.server.authority}}/database?username={{camel.couchdb.test.username}}&password={{camel.couchdb.test.password}}";
 
     @Inject
     CouchdbResource resource;
 
     @Override
     public void configure() {
-        from(COUCHDB_ENDPOINT_URI + "?createDatabase=true&heartbeat=100").process(e -> {
-            resource.logEvent(fromJsonObject(e.getIn().getBody(JsonObject.class)));
-        });
+        from(COUCHDB_ENDPOINT_URI
+                + "&createDatabase=true&heartbeat=100")
+                .process(e -> {
+                    resource.logEvent(fromJsonObject(e.getIn().getBody(JsonObject.class)));
+                });
     }
 }
