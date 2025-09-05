@@ -8860,34 +8860,34 @@
         <version>1.5.1</version><!-- org.apache.cassandra:java-driver-bom:4.19.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0-beta7</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0-beta10</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
-        <version>1.1.0</version><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
+        <version>1.4.0</version><!-- dev.langchain4j:langchain4j-bom:1.4.0 -->
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:3.2.1.Final -->
