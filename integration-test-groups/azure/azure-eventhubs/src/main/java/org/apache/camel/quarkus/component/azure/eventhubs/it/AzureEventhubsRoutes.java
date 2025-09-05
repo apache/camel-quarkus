@@ -63,9 +63,9 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             // Consumes EventHub messages and routes them based on which partition they are associated with
             from(azureEventhubs("")
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .blobAccountName(azureStorageAccountName)
-                    .blobAccessKey(azureStorageAccountKey)
+                    .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                     .blobContainerName(azureBlobContainerName.get()))
                     .routeId("eventhubs-consumer")
                     .autoStartup(false)
@@ -80,7 +80,7 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             // Consumes events from partition 2 with InMemoryCheckpointStore
             from(azureEventhubs("")
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .checkpointStore(new InMemoryCheckpointStore()))
                     .routeId("eventhubs-consumer-custom-checkpoint-store")
                     .autoStartup(false)
@@ -93,7 +93,7 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             // Reads all events sent to partition 2 from the beginning
             from(azureEventhubs("")
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .checkpointStore(new InMemoryCheckpointStore())
                     .eventPosition(Map.of("2", EventPosition.earliest())))
                     .routeId("eventhubs-consumer-with-event-position")
@@ -110,7 +110,7 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
                     .credentialType(CredentialType.TOKEN_CREDENTIAL)
                     .tokenCredential(tokenCredential)
                     .blobAccountName(azureStorageAccountName)
-                    .blobAccessKey(azureStorageAccountKey)
+                    .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                     .blobContainerName(azureBlobContainerName.get()))
                     .routeId("eventhubs-consumer-custom-token-credential")
                     .autoStartup(false)
@@ -123,9 +123,9 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             // Consumes events from partition 4 using WS transport
             from(azureEventhubs("")
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .blobAccountName(azureStorageAccountName)
-                    .blobAccessKey(azureStorageAccountKey)
+                    .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                     .blobContainerName(azureBlobContainerName.get())
                     .amqpTransportType(AmqpTransportType.AMQP_WEB_SOCKETS))
                     .routeId("eventhubs-consumer-with-amqp-ws-transport")
@@ -138,11 +138,11 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             from("direct:sendEvent")
                     .to(azureEventhubs("")
-                            .connectionString(connectionString.get()));
+                            .connectionString("RAW(" + connectionString.get() + ")"));
 
             from("direct:sendEventUsingAmqpWebSockets")
                     .to(azureEventhubs("")
-                            .connectionString(connectionString.get())
+                            .connectionString("RAW(" + connectionString.get() + ")")
                             .amqpTransportType(AmqpTransportType.AMQP_WEB_SOCKETS));
 
             from("direct:sendEventUsingTokenCredential")
@@ -152,9 +152,9 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
             // Consumes EventHub messages that are produced by the custom client in direct:sendEventUsingCustomClient
             from(azureEventhubs("")
-                    .connectionString(connectionString.get())
+                    .connectionString("RAW(" + connectionString.get() + ")")
                     .blobAccountName(azureStorageAccountName)
-                    .blobAccessKey(azureStorageAccountKey)
+                    .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                     .blobContainerName(azureBlobContainerName.get()))
                     .routeId("eventhubs-consumer-for-custom-client")
                     .autoStartup(false)
@@ -172,9 +172,9 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
             // Consumes using an auto-generated connection string from the shared access configuration
             from(azureEventhubs(eventHubsPath)
                     .sharedAccessName(connectionProperties.get("SharedAccessKey"))
-                    .sharedAccessKey(connectionProperties.get("SharedAccessKeyValue"))
+                    .sharedAccessKey("RAW(" + connectionProperties.get("SharedAccessKeyValue") + ")")
                     .blobAccountName(azureStorageAccountName)
-                    .blobAccessKey(azureStorageAccountKey)
+                    .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                     .blobContainerName(azureBlobContainerName.get()))
                     .routeId("eventhubs-consumer-generated-connection-string")
                     .autoStartup(false)
@@ -188,14 +188,14 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
             from("direct:sendEventWithGeneratedConnectionString")
                     .to(azureEventhubs(eventHubsPath)
                             .sharedAccessName(connectionProperties.get("SharedAccessKey"))
-                            .sharedAccessKey(connectionProperties.get("SharedAccessKeyValue")));
+                            .sharedAccessKey("RAW(" + connectionProperties.get("SharedAccessKeyValue") + ")"));
 
             if (AzureCredentialsHelper.isAzureIdentityCredentialsAvailable()) {
                 // Consumes events from partition 4 using AZURE_IDENTITY credential type
                 from(azureEventhubs(eventHubsPath)
                         .credentialType(CredentialType.AZURE_IDENTITY)
                         .blobAccountName(azureStorageAccountName)
-                        .blobAccessKey(azureStorageAccountKey)
+                        .blobAccessKey("RAW(" + azureStorageAccountKey + ")")
                         .blobContainerName(azureBlobContainerName.get()))
                         .routeId("eventhubs-consumer-azure-identity-credential")
                         .autoStartup(false)
