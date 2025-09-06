@@ -20,16 +20,11 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import io.quarkus.bootstrap.model.ApplicationModel;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.maven.dependency.ResolvedDependency;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -40,22 +35,6 @@ class Langchain4jWebSearchProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void indexDependencies(
-            BuildProducer<IndexDependencyBuildItem> indexedDependency,
-            CurateOutcomeBuildItem curateOutcome) {
-
-        // Index any dependencies with artifactId prefix langchain4j-web-search-engine
-        ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
-            if (dependency.getGroupId().equals("dev.langchain4j")
-                    && dependency.getArtifactId().startsWith("langchain4j-web-search-engine")) {
-                String artifactId = dependency.getArtifactId();
-                indexedDependency.produce(new IndexDependencyBuildItem(dependency.getGroupId(), artifactId));
-            }
-        }
     }
 
     @BuildStep

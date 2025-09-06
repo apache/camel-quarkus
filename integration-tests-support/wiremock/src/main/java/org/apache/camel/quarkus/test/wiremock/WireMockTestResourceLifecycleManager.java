@@ -95,6 +95,8 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
                 SnapshotRecordResult recordResult = server.stopRecording();
 
                 List<StubMapping> stubMappings = recordResult.getStubMappings();
+                processRecordedStubMappings(stubMappings);
+
                 if (isDeleteRecordedMappingsOnError()) {
                     for (StubMapping mapping : stubMappings) {
                         int status = mapping.getResponse().getStatus();
@@ -207,6 +209,12 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
      * Customizes the {@link WireMockConfiguration} that will be used to create the next {@Link WireMockServer}.
      */
     protected void customizeWiremockConfiguration(WireMockConfiguration config) {
+    }
+
+    /**
+     * Hook to get a handle on any record stub mappings. Useful for performing stub post-processing or cleanup tasks.
+     */
+    protected void processRecordedStubMappings(List<StubMapping> stubMappings) {
     }
 
     /**
