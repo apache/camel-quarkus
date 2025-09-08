@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core.runtime;
 
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
@@ -42,7 +43,9 @@ class CamelBindToRegistryTest {
         assertNotNull(registry.lookupByName("anotherServiceA"));
         assertNotNull(registry.lookupByName("serviceB"));
         assertNotNull(registry.lookupByName("ServiceC"));
+        assertNotNull(registry.lookupByName("anotherServiceC"));
         assertNotNull(registry.lookupByName("ServiceD"));
+        assertNotNull(registry.lookupByName("serviceCdiBeanB"));
     }
 
     @BindToRegistry
@@ -59,6 +62,22 @@ class CamelBindToRegistryTest {
         @BindToRegistry
         public ServiceB serviceB() {
             return new ServiceB();
+        }
+    }
+
+    @ApplicationScoped
+    public static class ServiceCdiBeanA {
+        @BindToRegistry("anotherServiceC")
+        public ServiceC serviceC() {
+            return new ServiceC();
+        }
+    }
+
+    @ApplicationScoped
+    public static class ServiceCdiBeanB {
+        @BindToRegistry
+        public ServiceCdiBeanB serviceCdiBeanB() {
+            return new ServiceCdiBeanB();
         }
     }
 

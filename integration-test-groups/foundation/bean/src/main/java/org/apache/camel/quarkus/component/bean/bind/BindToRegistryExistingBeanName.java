@@ -16,21 +16,17 @@
  */
 package org.apache.camel.quarkus.component.bean.bind;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import org.apache.camel.BindToRegistry;
 
-@RegisterForReflection(fields = false)
-public class BindToRegistryBean {
-    private final String name;
+public class BindToRegistryExistingBeanName {
+    @BindToRegistry("fooBindToRegistryBean")
+    BindToRegistryBean bindToRegistryBean = new BindToRegistryBean("Camel Bean");
 
-    public BindToRegistryBean() {
-        this(null);
-    }
-
-    public BindToRegistryBean(String name) {
-        this.name = name;
-    }
-
-    public String hello(String name) {
-        return "Hello " + (this.name == null ? name : this.name);
+    @Produces
+    @Named("fooBindToRegistryBean")
+    BindToRegistryBean bindToRegistryBean() {
+        return new BindToRegistryBean("CDI Bean");
     }
 }
