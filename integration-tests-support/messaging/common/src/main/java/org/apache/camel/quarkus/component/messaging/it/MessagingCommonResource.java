@@ -49,7 +49,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.quarkus.component.messaging.it.util.resolver.JmsMessageResolver;
 import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
 
 @Path("/messaging")
@@ -63,9 +62,6 @@ public class MessagingCommonResource {
 
     @Inject
     CamelContext context;
-
-    @Inject
-    JmsMessageResolver messageResolver;
 
     @Inject
     ComponentScheme componentScheme;
@@ -128,7 +124,7 @@ public class MessagingCommonResource {
         mockEndpoint.assertIsSatisfied(5000);
 
         Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
-        jakarta.jms.Message message = messageResolver.resolve(exchange);
+        jakarta.jms.Message message = exchange.getMessage().getBody(jakarta.jms.Message.class);
 
         Object result;
         if ("string".equals(type) || "node".equals(type)) {
@@ -162,7 +158,7 @@ public class MessagingCommonResource {
         mockEndpoint.assertIsSatisfied(5000);
 
         Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
-        MapMessage mapMessage = (MapMessage) messageResolver.resolve(exchange);
+        MapMessage mapMessage = (MapMessage) exchange.getMessage().getBody(jakarta.jms.Message.class);
 
         Map<String, String> result = new HashMap<>();
         Enumeration<String> mapNames = mapMessage.getMapNames();

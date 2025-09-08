@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.messaging.sjms;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.inject.Named;
 import org.apache.camel.Exchange;
-import org.apache.camel.component.sjms.SjmsConstants;
 
 public class SjmsProducers {
 
@@ -34,7 +33,7 @@ public class SjmsProducers {
         public void setJmsDestinationHeader(Exchange exchange) {
             org.apache.camel.Message message = exchange.getMessage();
             String destinationName = message.getHeader("DestinationName", String.class);
-            message.setHeader(SjmsConstants.JMS_DESTINATION_NAME, destinationName);
+            message.setHeader("CamelJMSDestinationName", destinationName);
         }
     }
 }
