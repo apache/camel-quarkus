@@ -7738,6 +7738,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.jgroups</groupId>
+                <artifactId>jgroups</artifactId>
+                <version>${jgroups.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jolokia</groupId>
                 <artifactId>jolokia-agent-jvm</artifactId>
                 <version>${jolokia.version}</version>

@@ -124,6 +124,7 @@
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
         <javassist.version>${javassist-version}</javassist.version><!-- debezium -->
         <jetty.version>${jetty-version}</jetty.version>
+        <jgroups.version>${jgroups-version}</jgroups.version>
         <jira-rest-client.version>${jira-rest-client-api-version}</jira-rest-client.version>
         <jna-platform.version>5.13.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-constants.version>0.9.11</jnr-constants.version><!-- Mess in web3j transitive deps -->
