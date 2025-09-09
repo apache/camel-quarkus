@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.equalTo;
 class BindToRegistryTest {
     @ParameterizedTest
     @ValueSource(strings = { "BindToRegistryOnClassBean", "NestedBindToRegistryBean", "RouteNestedBindToRegistryBean",
-            "bindToRegistryByField", "bindToRegistryOnMethod" })
+            "bindToRegistryByField", "bindToRegistryOnMethod", "bindToRegistryBeanCdiTest" })
     void bindToRegistryBeanEndpointInvocation(String beanName) {
         RestAssured.given()
                 .get("/bean/route/invokeBindToRegistryBean/" + beanName)
@@ -43,5 +43,13 @@ class BindToRegistryTest {
                 .get("/bean/route/getAndInvokeBindToRegistryBean/" + beanName)
                 .then()
                 .body(equalTo("Hello " + beanName));
+    }
+
+    @Test
+    void bindToRegistryWhereNamedCdiBeanAlreadyExists() {
+        RestAssured.given()
+                .get("/bean/route/invokeBindToRegistryBean/fooBindToRegistryBean")
+                .then()
+                .body(equalTo("Hello CDI Bean"));
     }
 }

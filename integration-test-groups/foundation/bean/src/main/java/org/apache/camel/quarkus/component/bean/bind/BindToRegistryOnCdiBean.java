@@ -16,21 +16,11 @@
  */
 package org.apache.camel.quarkus.component.bean.bind;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.BindToRegistry;
 
-@RegisterForReflection(fields = false)
-public class BindToRegistryBean {
-    private final String name;
-
-    public BindToRegistryBean() {
-        this(null);
-    }
-
-    public BindToRegistryBean(String name) {
-        this.name = name;
-    }
-
-    public String hello(String name) {
-        return "Hello " + (this.name == null ? name : this.name);
-    }
+@ApplicationScoped
+public class BindToRegistryOnCdiBean {
+    @BindToRegistry
+    BindToRegistryBean bindToRegistryBeanCdiTest = new BindToRegistryBean();
 }

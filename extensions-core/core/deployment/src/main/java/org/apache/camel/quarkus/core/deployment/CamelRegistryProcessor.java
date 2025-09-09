@@ -34,6 +34,7 @@ import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanInfo;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
@@ -46,10 +47,15 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.apache.camel.util.ObjectHelper;
+import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.ClassInfo.NestingType;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.FieldInfo;
+import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -199,35 +205,80 @@ public class CamelRegistryProcessor {
             combinedIndex.getIndex()
                     .getAnnotations(DotName.createSimple(BindToRegistry.class))
                     .stream()
-                    .map(annotationInstance -> {
-                        AnnotationTarget target = annotationInstance.target();
-                        ClassInfo classInfo = null;
-                        if (target.kind().equals(AnnotationTarget.Kind.CLASS)) {
-                            classInfo = target.asClass();
-                        }
-
-                        if (target.kind().equals(AnnotationTarget.Kind.FIELD)) {
-                            classInfo = target.asField().declaringClass();
-                        }
-
-                        if (target.kind().equals(AnnotationTarget.Kind.METHOD)) {
-                            classInfo = target.asMethod().declaringClass();
-                        }
-                        return classInfo;
-                    })
-                    .filter(Objects::nonNull)
-                    .filter(classInfo -> camelRoutes.stream()
-                            .noneMatch(routeBuilder -> !classInfo.nestingType().equals(NestingType.TOP_LEVEL)
-                                    && routeBuilder.getDotName().equals(classInfo.enclosingClass())))
-                    .map(ClassInfo::name)
-                    .filter(name -> containerBeans.getClasses().stream()
-                            .noneMatch(containerBean -> containerBean.equals(name)))
-                    .map(DotName::toString)
+                    .map(BindToRegistryBeanInfo::new)
+                    .filter(BindToRegistryBeanInfo::isValid)
+                    // Filter out @BindToRegistry usage on RouteBuilder impls as Camel can already handle this internally
+                    .filter(bindToRegistryBeanInfo -> camelRoutes.stream()
+                            .noneMatch(routeBuilder -> !bindToRegistryBeanInfo.getDeclaringType().nestingType()
+                                    .equals(NestingType.TOP_LEVEL)
+                                    && routeBuilder.getDotName()
+                                            .equals(bindToRegistryBeanInfo.getDeclaringType().enclosingClass())))
+                    // Filter any existing named beans compared to the @BindToRegistry bean name
+                    .filter(bindToRegistryBeanInfo -> containerBeans.getBeans()
+                            .stream()
+                            .map(CamelBeanInfo::getName)
+                            .filter(Objects::nonNull)
+                            .noneMatch(camelBeanName -> camelBeanName.equals(bindToRegistryBeanInfo.getBeanName())))
+                    .map(BindToRegistryBeanInfo::getDeclaringTypeNameAsString)
                     .distinct()
                     .forEach(beanClassName -> {
                         recorder.postProcessBeanAndBindToRegistry(camelContextBuildItem.getCamelContext(),
                                 CamelSupport.loadClass(beanClassName, Thread.currentThread().getContextClassLoader()));
                     });
+        }
+    }
+
+    static class BindToRegistryBeanInfo {
+        private String beanName;
+        private ClassInfo declaringType;
+
+        BindToRegistryBeanInfo(AnnotationInstance instance) {
+            AnnotationTarget target = instance.target();
+            AnnotationValue value = instance.value();
+            if (value != null) {
+                this.beanName = value.asString();
+            } else {
+                this.beanName = "";
+            }
+
+            if (target.kind().equals(AnnotationTarget.Kind.CLASS)) {
+                this.declaringType = target.asClass();
+                if (ObjectHelper.isEmpty(beanName)) {
+                    this.beanName = this.declaringType.simpleName();
+                }
+            }
+
+            if (target.kind().equals(AnnotationTarget.Kind.FIELD)) {
+                FieldInfo field = target.asField();
+                this.declaringType = field.declaringClass();
+                if (ObjectHelper.isEmpty(this.beanName)) {
+                    this.beanName = field.declaringClass().simpleName();
+                }
+            }
+
+            if (target.kind().equals(AnnotationTarget.Kind.METHOD)) {
+                MethodInfo method = target.asMethod();
+                this.declaringType = method.declaringClass();
+                if (ObjectHelper.isEmpty(this.beanName)) {
+                    this.beanName = method.declaringClass().simpleName();
+                }
+            }
+        }
+
+        String getBeanName() {
+            return this.beanName;
+        }
+
+        ClassInfo getDeclaringType() {
+            return this.declaringType;
+        }
+
+        String getDeclaringTypeNameAsString() {
+            return this.declaringType.name().toString();
+        }
+
+        boolean isValid() {
+            return this.declaringType != null;
         }
     }
 }
