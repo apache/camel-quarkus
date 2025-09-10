@@ -37,8 +37,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.StartedProcess;
 
@@ -58,7 +56,6 @@ class MasterOpenShiftTest {
     }
 
     @Test
-    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "kubernetes.master contains ':' that would clash as JVM arg on windows")
     public void testFailover() throws IOException {
         Config config = ConfigProvider.getConfig();
         List<String> jvmArgs = new ArrayList<>();
