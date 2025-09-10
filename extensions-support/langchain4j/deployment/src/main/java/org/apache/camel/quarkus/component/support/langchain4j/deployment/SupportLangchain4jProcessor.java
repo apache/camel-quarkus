@@ -170,6 +170,7 @@ class SupportLangchain4jProcessor {
 
         // Register any types related to the AI service for reflection
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(aiServiceTypes.toArray(new String[0]))
+                .fields()
                 .methods()
                 .build());
 
