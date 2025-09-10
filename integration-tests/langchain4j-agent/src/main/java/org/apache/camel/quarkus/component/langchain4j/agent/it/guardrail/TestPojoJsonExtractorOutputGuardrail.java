@@ -32,7 +32,7 @@ public class TestPojoJsonExtractorOutputGuardrail extends JsonExtractorOutputGua
 
         if (parentResult.isSuccess()) {
             // Return JSON String representation of TestPojo since that's all the agent can handle
-            return OutputGuardrailResult.successWith(trimNonJson(aiMessage.text()));
+            return OutputGuardrailResult.successWith(parentResult.successfulText());
         }
 
         // Return failures
