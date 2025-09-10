@@ -24,12 +24,9 @@ import java.nio.file.Path;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import static org.hamcrest.Matchers.is;
 
-@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/7545")
 @QuarkusTest
 class Iso8583Test {
     @Test
