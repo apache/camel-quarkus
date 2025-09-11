@@ -25,6 +25,7 @@ import java.util.Map;
 import com.solab.iso8583.IsoMessage;
 import com.solab.iso8583.IsoValue;
 import com.solab.iso8583.MessageFactory;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -43,14 +44,14 @@ public class Iso8583Resource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    MessageFactory messageFactory;
+
     @Path("/marshal")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String marshal(File iso8583Message) throws IOException, ParseException {
-        MessageFactory<?> messageFactory = new MessageFactory<>();
-        messageFactory.setConfigPath("j8583-config.xml");
-
         byte[] bytes = context.getTypeConverter().convertTo(byte[].class, iso8583Message);
         IsoMessage message = messageFactory.parseMessage(bytes, "ISO015000055".getBytes().length);
 
@@ -71,5 +72,14 @@ public class Iso8583Resource {
                     .build();
         }
         return Response.noContent().build();
+    }
+
+    @jakarta.enterprise.inject.Produces
+    @ApplicationScoped
+    public MessageFactory messageFactory() throws IOException {
+        MessageFactory<?> messageFactory = new MessageFactory<>();
+        messageFactory.setCharacterEncoding("UTF-8");
+        messageFactory.setConfigPath("j8583-config.xml");
+        return messageFactory;
     }
 }
