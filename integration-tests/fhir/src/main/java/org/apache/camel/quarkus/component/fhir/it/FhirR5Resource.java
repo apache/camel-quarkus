@@ -315,7 +315,7 @@ public class FhirR5Resource {
                 .returnBundle(Bundle.class)
                 .execute();
 
-        String nextPageLink = getNextLink(bundle).getUrl();
+        String nextPageLink = bundle.getLink("next").getUrl();
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.url", nextPageLink);
@@ -351,9 +351,7 @@ public class FhirR5Resource {
                 .returnBundle(Bundle.class)
                 .execute();
 
-        // TODO: Work around bug in R5 link retrieval in hapi-fhir-core. Remove when upgraded to hapi-fhir-core >= 5.6.84
-        // String nextPageLink = bundle.getLink("next").getUrl();
-        String nextPageLink = getNextLink(bundle).getUrl();
+        String nextPageLink = bundle.getLink("next").getUrl();
 
         bundle = getFhirClient()
                 .loadPage()
@@ -1186,18 +1184,4 @@ public class FhirR5Resource {
         return FhirHelper.createClient(component.getConfiguration(), context);
     }
 
-    // TODO: Remove this. Work around bug in R5 link retrieval in hapi-fhir-core. Remove when upgraded to hapi-fhir-core >= 5.6.84
-    private static Bundle.BundleLinkComponent getNextLink(Bundle bundle) {
-        Bundle.BundleLinkComponent nextPageLink = null;
-        for (Bundle.BundleLinkComponent next : bundle.getLink()) {
-            if ("next".equals(next.getRelation().toCode())) {
-                nextPageLink = next;
-            }
-        }
-
-        if (nextPageLink == null) {
-            throw new IllegalStateException("Next page link cannot be null");
-        }
-        return nextPageLink;
-    }
 }
