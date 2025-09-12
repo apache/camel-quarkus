@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.tools.it;
 
-import com.fasterxml.jackson.databind.node.IntNode;
-import org.apache.camel.Exchange;
-import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 
 public class Langchain4jToolsRoutes extends RouteBuilder {
@@ -28,17 +25,7 @@ public class Langchain4jToolsRoutes extends RouteBuilder {
                 .to("langchain4j-tools:userInfo?tags=users");
 
         from("langchain4j-tools:userInfo?tags=users&description=Query database by user ID&parameter.user_id=integer")
-                .process(this::convertUserIdToIntIfRequired)
                 .to("sql:SELECT first_name, last_name FROM users WHERE id = :#user_id");
     }
 
-    private void convertUserIdToIntIfRequired(Exchange exchange) {
-        // Unfortunately, we sometimes need to cast header values to the correct type
-        // TODO: Investigate removing this with Camel >= 4.13
-        Message message = exchange.getMessage();
-        Object header = message.getHeader("user_id");
-        if (header instanceof IntNode) {
-            message.setHeader("user_id", ((IntNode) header).asInt());
-        }
-    }
 }
