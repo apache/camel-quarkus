@@ -28,6 +28,7 @@ public class GoogleStorageRoute extends RouteBuilder {
                 "&moveAfterRead=true" +
                 "&includeBody=true")
                 .id(GoogleStorageResource.POLLING_ROUTE_NAME)
+                .log("Test message body: ${body}")
                 .to(GoogleStorageResource.DIRECT_POLLING);
     }
 
