@@ -70,19 +70,19 @@ class GoogleStorageTest {
         log.info("testConsumer started");
         try {
             //producer - putObject
-            putObject("Sheldon", TEST_BUCKET3, FILE_NAME_007);
+            putObject("Leonard", TEST_BUCKET3, FILE_NAME_007);
 
             //get result from direct (for pooling) with timeout
             RestAssured.given()
                     .post("/google-storage/getFromDirect")
                     .then()
                     .statusCode(200)
-                    .body(is("Sheldon"));
+                    .body(is("Leonard"));
 
             //producer - getObject
             executeOperation(DEST_BUCKET, GoogleCloudStorageOperations.getObject,
                     Collections.singletonMap(GoogleCloudStorageConstants.OBJECT_NAME, FILE_NAME_007),
-                    is("Sheldon"));
+                    is("Leonard"));
 
         } finally {
             //stop route to allow bucket deletion without errors in real environment
