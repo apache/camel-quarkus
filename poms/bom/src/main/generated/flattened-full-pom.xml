@@ -7248,11 +7248,6 @@
         <version>3.1.8</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>io.smallrye.reactive</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>smallrye-reactive-messaging-camel</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.28.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>io.swagger.codegen.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>swagger-codegen</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.0.69</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7348,11 +7343,6 @@
         <groupId>net.i2p.crypto</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>eddsa</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.3.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>net.java.dev.jna</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>jna-platform</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>5.13.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>net.minidev</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7556,21 +7546,6 @@
         <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>bcmail-jdk18on</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>1.81</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>bcpg-jdk18on</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.81</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>bcutil-jdk18on</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.81</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.angus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>angus-mail</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.0.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8268,6 +8243,11 @@
         <groupId>org.codehaus.woodstox</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
         <artifactId>stax2-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
         <version>4.2.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.angus</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
+        <artifactId>angus-mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
+        <version>2.0.4</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
       </dependency>
       <dependency>
         <groupId>org.ehcache</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.26.2 -->
@@ -17870,6 +17850,11 @@
       </dependency>
       <dependency>
         <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>smallrye-reactive-messaging-camel</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>4.28.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+      </dependency>
+      <dependency>
+        <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <artifactId>smallrye-reactive-messaging-connector-archetype</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <version>4.28.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <type>maven-archetype</type><!-- io.quarkus:quarkus-bom:3.26.2 -->
@@ -19486,6 +19471,11 @@
       </dependency>
       <dependency>
         <groupId>net.java.dev.jna</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>jna-platform</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>5.8.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+      </dependency>
+      <dependency>
+        <groupId>net.java.dev.jna</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <artifactId>jna</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <version>5.8.0</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
@@ -19993,6 +19983,11 @@
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>bcpg-jdk18on</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.81</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <artifactId>bcpkix-jdk18on</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <version>1.81</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
@@ -20009,6 +20004,11 @@
       <dependency>
         <groupId>org.bouncycastle</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <artifactId>bctls-jdk18on</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <version>1.81</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId><!-- io.quarkus:quarkus-bom:3.26.2 -->
+        <artifactId>bcutil-jdk18on</artifactId><!-- io.quarkus:quarkus-bom:3.26.2 -->
         <version>1.81</version><!-- io.quarkus:quarkus-bom:3.26.2 -->
       </dependency>
       <dependency>

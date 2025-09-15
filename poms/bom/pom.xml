@@ -7362,11 +7362,6 @@
                 <version>${rxjava3.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.smallrye.reactive</groupId>
-                <artifactId>smallrye-reactive-messaging-camel</artifactId>
-                <version>${smallrye.reactive.messaging.camel.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.swagger.codegen.v3</groupId>
                 <artifactId>swagger-codegen</artifactId>
                 <version>${swagger-codegen.version}</version>
@@ -7462,11 +7457,6 @@
                 <groupId>net.i2p.crypto</groupId>
                 <artifactId>eddsa</artifactId>
                 <version>${eddsa.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-platform</artifactId>
-                <version>${jna-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.minidev</groupId>
@@ -7670,21 +7660,6 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcmail-jdk18on</artifactId>
                 <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpg-jdk18on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcutil-jdk18on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.angus</groupId>
-                <artifactId>angus-mail</artifactId>
-                <version>${angus-mail.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.graalvm.js</groupId>
