@@ -50,6 +50,9 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
     public Map<String, String> start() {
         Map<String, String> properties = new HashMap<>();
 
+        System.setProperty("keycloak.docker.image",
+                ConfigProvider.getConfig().getValue("keycloak.container.image", String.class));
+
         //Start keycloak container
         keycloak = new KeycloakContainer();
         keycloak.withStartupTimeout(Duration.ofMinutes(5));
