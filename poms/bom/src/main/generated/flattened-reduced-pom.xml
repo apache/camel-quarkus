@@ -7203,11 +7203,6 @@
         <version>3.1.8</version>
       </dependency>
       <dependency>
-        <groupId>io.smallrye.reactive</groupId>
-        <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.28.0</version>
-      </dependency>
-      <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen</artifactId>
         <version>3.0.69</version>
@@ -7303,11 +7298,6 @@
         <groupId>net.i2p.crypto</groupId>
         <artifactId>eddsa</artifactId>
         <version>0.3.0</version>
-      </dependency>
-      <dependency>
-        <groupId>net.java.dev.jna</groupId>
-        <artifactId>jna-platform</artifactId>
-        <version>5.13.0</version>
       </dependency>
       <dependency>
         <groupId>net.minidev</groupId>
@@ -7501,21 +7491,6 @@
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
         <version>1.81</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.81</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.81</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.angus</groupId>
-        <artifactId>angus-mail</artifactId>
-        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
@@ -8173,6 +8148,11 @@
         <groupId>org.codehaus.woodstox</groupId>
         <artifactId>stax2-api</artifactId>
         <version>4.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.angus</groupId>
+        <artifactId>angus-mail</artifactId>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>org.ehcache</groupId>
