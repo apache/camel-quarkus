@@ -30,6 +30,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
 import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 
 @Path("/aws2-kinesis-firehose")
 @ApplicationScoped
@@ -41,6 +42,8 @@ public class Aws2KinesisFirehoseResource extends BaseAws2Resource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    private static final Logger LOG = Logger.getLogger(Aws2KinesisFirehoseResource.class);
+
     public Aws2KinesisFirehoseResource() {
         super("kinesis-firehose");
     }
@@ -50,12 +53,15 @@ public class Aws2KinesisFirehoseResource extends BaseAws2Resource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response send(String message) throws Exception {
+        String componentUri = componentUri();
+        LOG.info("Executing send to componentUri: " + componentUri);
         final String response = producerTemplate.requestBodyAndHeader(
-                componentUri(),
+                componentUri,
                 message,
                 Kinesis2Constants.PARTITION_KEY,
                 "foo-partition-key",
                 String.class);
+        LOG.info("Response from componentUri: " + componentUri() + ": " + response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)

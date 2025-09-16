@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.test.support.aws2;
 
 import io.restassured.RestAssured;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,8 @@ public abstract class BaseAWs2TestSupport {
 
     //Rest path to connect to rest resource. Path differs for different aws2 extensions (like "/aws2-ddb" or "/aws2-s3")
     private final String restPath;
+
+    private static final Logger log = Logger.getLogger(BaseAWs2TestSupport.class);
 
     public BaseAWs2TestSupport(String restPath) {
         this.restPath = restPath;
@@ -54,6 +57,7 @@ public abstract class BaseAWs2TestSupport {
     @ExtendWith(Aws2DefaultCredentialsProviderAvailabilityCondition.class)
     @Test
     public void successfulDefaultCredentialsProviderTest() {
+        log.info("Testing successfulDefaultCredentialsProviderTest");
         try {
             RestAssured.given()
                     .body(true)
@@ -89,6 +93,7 @@ public abstract class BaseAWs2TestSupport {
     @ExtendWith(Aws2DefaultCredentialsProviderAvailabilityCondition.class)
     @Test
     public void failingDefaultCredentialsProviderTest() {
+        log.info("Testing failingDefaultCredentialsProviderTest");
         RestAssured.given()
                 .body(true)
                 .post(restPath + "/setUseDefaultCredentialsProvider")
