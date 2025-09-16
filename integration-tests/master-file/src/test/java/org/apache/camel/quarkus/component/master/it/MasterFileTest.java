@@ -63,7 +63,7 @@ class MasterFileTest {
                 return readLeaderFile("leader").equals("leader");
             });
 
-            // Verify the follower hasn't took leader role
+            // Verify the follower hasn't taken the leader role
             assertThat(readLeaderFile("follower"), emptyString());
 
             // Stop camel leader route to trigger fail-over
@@ -76,7 +76,7 @@ class MasterFileTest {
             });
         } finally {
             if (process != null && process.getProcess().isAlive()) {
-                process.getProcess().destroy();
+                quarkusProcessExecutor.destroy();
             }
         }
     }

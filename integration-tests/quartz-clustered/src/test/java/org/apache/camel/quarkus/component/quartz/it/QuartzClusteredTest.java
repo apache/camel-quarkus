@@ -88,7 +88,7 @@ class QuartzClusteredTest {
                     Files.readAllLines(quarkusLog).stream().anyMatch(line -> line.contains("Hello from NodeA")));
 
             // Stop NodeB to trigger failover to NodeA
-            process.getProcess().destroy();
+            quarkusProcessExecutor.destroy();
 
             // Verify failover
             Awaitility.await().atMost(1, TimeUnit.MINUTES).until(() -> {

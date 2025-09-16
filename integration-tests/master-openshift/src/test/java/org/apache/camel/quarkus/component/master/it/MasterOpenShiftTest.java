@@ -89,7 +89,7 @@ class MasterOpenShiftTest {
             followerProcess = followerProcessExecutor.start();
             awaitStartup(followerProcessExecutor);
 
-            // Verify the follower hasn't took leader role yet
+            // Verify the follower hasn't taken the leader role yet
             assertThat(readLeaderFile("follower"), emptyString());
 
             // Stop camel and delete the lease mock to trigger fail-over
@@ -103,7 +103,7 @@ class MasterOpenShiftTest {
             });
         } finally {
             if (followerProcess != null && followerProcess.getProcess().isAlive()) {
-                followerProcess.getProcess().destroy();
+                followerProcessExecutor.destroy();
             }
         }
     }
