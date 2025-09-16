@@ -17,13 +17,11 @@
 package org.apache.camel.quarkus.core;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.DisabledOnQuarkusPlatform;
 import org.apache.camel.support.DefaultLRUCacheFactory;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
@@ -165,14 +163,9 @@ public class CoreTest {
                 .body(emptyOrNullString());
     }
 
+    @DisabledOnQuarkusPlatform // https://github.com/apache/camel-quarkus/issues/7312
     @Test
     void classpathPackageScanDirectoryGlob() {
-        // TODO: Remove this suppression of test execution in the Quarkus Platform
-        // https://github.com/apache/camel-quarkus/issues/7312
-        Path moduleDir = Paths.get("").toAbsolutePath().getFileName();
-
-        Assumptions.assumeFalse(moduleDir.toString().equals("camel-quarkus-integration-test-foundation-grouped"));
-
         RestAssured.given()
                 .queryParam("path", "sub-resources-folder/**")
                 .get("/core/resource/resolve")

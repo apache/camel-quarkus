@@ -17,10 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.net.HttpURLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -31,7 +28,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
-import org.apache.camel.quarkus.test.EnabledIf;
+import org.apache.camel.quarkus.test.DisabledOnQuarkusPlatform;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
@@ -228,7 +225,7 @@ public class CoreMainTest {
     }
 
     // Avoid running in the Quarkus Platform where there are no .java source files
-    @EnabledIf(SrcDirectoryExists.class)
+    @DisabledOnQuarkusPlatform
     @Test
     public void routeSourceResource() {
         RestAssured.given()
@@ -238,10 +235,4 @@ public class CoreMainTest {
                 .body(containsString("public class " + CamelCdiBeanRoute.class.getSimpleName()));
     }
 
-    public static class SrcDirectoryExists implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return Files.exists(Paths.get("src/main/java"));
-        }
-    }
 }
