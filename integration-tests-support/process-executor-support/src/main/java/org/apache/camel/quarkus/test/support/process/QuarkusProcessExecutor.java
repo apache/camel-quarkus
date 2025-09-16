@@ -21,6 +21,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
@@ -39,6 +41,7 @@ public class QuarkusProcessExecutor {
     private final ProcessExecutor executor;
     private final int httpPort = AvailablePortFinder.getNextAvailable();
     private final int httpsPort = AvailablePortFinder.getNextAvailable();
+    private Process process;
 
     public QuarkusProcessExecutor(String... jvmArgs) {
         this(jvmArgs, (String[]) null);
@@ -70,7 +73,30 @@ public class QuarkusProcessExecutor {
     }
 
     public StartedProcess start() throws IOException {
-        return executor.start();
+        StartedProcess startedProcess = executor.start();
+        this.process = startedProcess.getProcess();
+        return startedProcess;
+    }
+
+    public void destroy() {
+        destroy(10, TimeUnit.SECONDS);
+    }
+
+    public void destroy(long timeout, TimeUnit unit) {
+        if (this.process != null) {
+            this.process.destroy();
+            try {
+                LOGGER.infof("Destroying process %d", this.process.pid());
+                this.process.onExit().get(timeout, unit);
+                LOGGER.infof("Process %d completed with exit code %d", this.process.pid(), this.process.exitValue());
+            } catch (TimeoutException e) {
+                LOGGER.warnf(e, "Timed out waiting to destroy process %d", this.process.pid());
+            } catch (ExecutionException | InterruptedException e) {
+                LOGGER.warnf(e, "Error occurred destroying process %d", this.process.pid());
+            } finally {
+                this.process = null;
+            }
+        }
     }
 
     public int getHttpPort() {
