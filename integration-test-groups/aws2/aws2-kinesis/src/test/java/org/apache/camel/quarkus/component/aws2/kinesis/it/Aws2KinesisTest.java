@@ -44,6 +44,7 @@ class Aws2KinesisTest extends BaseAWs2TestSupport {
     }
 
     public void kinesis() {
+        LOG.info("Testing kinesis");
         final String msg = "kinesis-" + java.util.UUID.randomUUID().toString().replace("-", "");
         RestAssured.given() //
                 .contentType(ContentType.TEXT)
@@ -64,6 +65,7 @@ class Aws2KinesisTest extends BaseAWs2TestSupport {
 
     @Override
     public void testMethodForDefaultCredentialsProvider() {
+        LOG.info("Testing testMethodForDefaultCredentialsProvider");
         kinesis();
     }
 }

@@ -61,6 +61,8 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     @Named("aws2KinesisMessages")
     Queue<String> aws2KinesisMessages;
 
+    private static final Logger LOG = Logger.getLogger(Aws2KinesisResource.class);
+
     public Aws2KinesisResource() {
         super("kinesis");
     }
@@ -70,12 +72,15 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response send(String message) throws Exception {
+        String componentUri = componentUri();
+        LOG.info("Executing send to componentUri: " + componentUri);
         final String response = producerTemplate.requestBodyAndHeader(
-                componentUri(),
+                componentUri,
                 message,
                 Kinesis2Constants.PARTITION_KEY,
                 "foo-partition-key",
                 String.class);
+        LOG.info("Response from componentUri: " + componentUri() + ": " + response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)
@@ -86,7 +91,9 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String receive() throws IOException {
-        return aws2KinesisMessages.poll();
+        String polledMsg = aws2KinesisMessages.poll();
+        LOG.info("Polled message: " + polledMsg);
+        return polledMsg;
     }
 
     private String componentUri() {
@@ -96,6 +103,7 @@ public class Aws2KinesisResource extends BaseAws2Resource {
 
     @Override
     protected void onDefaultCredentialsProviderChange() throws Exception {
+        log.info("onDefaultCredentialsProviderChange start");
         //reset connection, because irt is cached since https://github.com/apache/camel/pull/10919
         KinesisConnection kc = camelContext.getRegistry().findSingleByType(Kinesis2Component.class).getConnection();
         kc.close();

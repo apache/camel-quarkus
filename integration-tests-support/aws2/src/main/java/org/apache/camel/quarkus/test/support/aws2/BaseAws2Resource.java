@@ -57,6 +57,7 @@ public class BaseAws2Resource {
     @Path("/setUseDefaultCredentialsProvider")
     @POST
     public Response setUseDefaultCredentials(boolean useDefaultCredentialsProvider) throws Exception {
+        LOG.info("Called endpoint setUseDefaultCredentialsProvider: " + useDefaultCredentialsProvider);
         this.useDefaultCredentials = useDefaultCredentialsProvider;
         //call listener
         onDefaultCredentialsProviderChange();
@@ -68,6 +69,7 @@ public class BaseAws2Resource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response initializeDefaultCredentials(boolean initialize) throws Exception {
+        LOG.info("Called endpoint initializeDefaultCredentials: " + initialize);
         if (initialize) {
             //set flag to clear at the end
             clearAwsredentials = true;
@@ -94,6 +96,7 @@ public class BaseAws2Resource {
      * Tests are clearing them by itself, this is just a precaution.
      */
     void onStop(@Observes ShutdownEvent ev) {
+        LOG.info("onStop event - clearAwsCredentials: " + clearAwsredentials);
         if (clearAwsredentials) {
             Aws2Helper.clearAwsSystemCredentials();
         }
