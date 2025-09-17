@@ -7129,7 +7129,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.9.0</version>
+        <version>3.9.1</version>
         <exclusions>
           <exclusion>
             <groupId>io.swagger.core.v3</groupId>
