@@ -16,13 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jasypt.it;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import io.agroal.api.AgroalDataSource;
-import io.quarkus.arc.Arc;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -72,23 +65,6 @@ public class JasyptResource {
         } finally {
             endpoint.reset();
             camelContext.getRouteController().stopRoute("secret-timer");
-        }
-    }
-
-    @Path("/secure/database")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String connectToSecureDatabase() throws SQLException {
-        AgroalDataSource dataSource = Arc.container().instance(AgroalDataSource.class).get();
-        try (Connection connection = dataSource.getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                try (ResultSet rs = statement.executeQuery("SELECT USER_NAME FROM INFORMATION_SCHEMA.USERS")) {
-                    if (rs.next()) {
-                        return rs.getString("USER_NAME").toLowerCase();
-                    }
-                    return null;
-                }
-            }
         }
     }
 
