@@ -115,6 +115,16 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-acquire-lock
 The time to wait between attempts to try to acquire lock (defaults to 10000ms).
 | `string`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-heartbeat-timeout-multiplier]]`link:#quarkus-camel-cluster-file-heartbeat-timeout-multiplier[quarkus.camel.cluster.file.heartbeat-timeout-multiplier]`
+
+Multiplier applied to the cluster leader `acquireLockInterval` to determine how long followers should wait
+before considering the leader "stale".
+
+For example, if the leader updates its heartbeat every 2 seconds and the `heartbeatTimeoutMultiplier` is `3`,
+followers will tolerate up to `2s * 3 = 6s` of silence before declaring the leader unavailable.
+| `int`
+| 
 |===
 
 [.configuration-legend]

@@ -55,6 +55,7 @@ public class FileLockClusterServiceConfigNonDefaultEnabledTest {
         props.setProperty("quarkus.camel.cluster.file.attributes.key2", "value2");
         props.setProperty("quarkus.camel.cluster.file.acquire-lock-delay", "5");
         props.setProperty("quarkus.camel.cluster.file.acquire-lock-interval", "1h");
+        props.setProperty("quarkus.camel.cluster.file.heartbeat-timeout-multiplier", "1");
 
         try {
             props.store(writer, "");
@@ -93,5 +94,7 @@ public class FileLockClusterServiceConfigNonDefaultEnabledTest {
         assertEquals(TimeUnit.MILLISECONDS, service.getAcquireLockDelayUnit());
         assertEquals(3600000, service.getAcquireLockInterval());
         assertEquals(TimeUnit.MILLISECONDS, service.getAcquireLockIntervalUnit());
+
+        assertEquals(1, service.getHeartbeatTimeoutMultiplier());
     }
 }
