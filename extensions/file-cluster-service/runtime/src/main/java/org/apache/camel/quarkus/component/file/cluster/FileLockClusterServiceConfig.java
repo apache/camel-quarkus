@@ -82,6 +82,17 @@ public interface FileLockClusterServiceConfig {
      */
     Optional<String> acquireLockInterval();
 
+    /**
+     * Multiplier applied to the cluster leader `acquireLockInterval` to determine how long followers should wait
+     * before considering the leader "stale".
+     *
+     * For example, if the leader updates its heartbeat every 2 seconds and the `heartbeatTimeoutMultiplier` is `3`,
+     * followers will tolerate up to `2s * 3 = 6s` of silence before declaring the leader unavailable.
+     *
+     * @asciidoclet
+     */
+    Optional<Integer> heartbeatTimeoutMultiplier();
+
     final class Enabled implements BooleanSupplier {
         FileLockClusterServiceConfig config;
 
