@@ -30,7 +30,7 @@ public class MasterRoutes extends RouteBuilder {
     @Override
     public void configure() {
         // Output the id of the application into a file
-        from("master:ns:timer:test?period=100")
+        from("master:ns:timer:test?period=10000")
                 .id("leader")
                 .setBody(constant("leader"))
                 .setHeader(Exchange.FILE_NAME, constant(String.format("%s.txt", applicationId)))
