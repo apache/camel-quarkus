@@ -9,12 +9,12 @@
 :cq-status-deprecation: Stable
 :cq-description: Transform between XML and Groovy Node (Map structure) objects.
 :cq-deprecated: false
-:cq-jvm-since: 3.27.0
-:cq-native-since: 3.27.0
+:cq-jvm-since: 3.29.0
+:cq-native-since: 3.29.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.27.0## [.badge-key]##Native since##[.badge-supported]##3.27.0##
+[.badge-key]##JVM since##[.badge-supported]##3.29.0## [.badge-key]##Native since##[.badge-supported]##3.29.0##
 endif::[]
 
 Transform between XML and Groovy Node (Map structure) objects.
