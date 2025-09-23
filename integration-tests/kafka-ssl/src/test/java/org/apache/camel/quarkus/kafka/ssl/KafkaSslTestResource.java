@@ -18,8 +18,10 @@ package org.apache.camel.quarkus.kafka.ssl;
 
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.github.dockerjava.api.command.CreateContainerCmd;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
@@ -31,6 +33,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
 
     static final String KAFKA_KEYSTORE_PASSWORD = "changeit";
     static final String KAFKA_HOSTNAME = "localhost";
+    static final String KAFKA_BROKER_HOSTNAME = "broker-1";
     static final String CERTS_BASEDIR = "target/certs";
 
     static final String KAFKA_KEYSTORE_FILE = KAFKA_HOSTNAME + "-keystore.p12";
@@ -71,7 +74,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
         protected void configure() {
             super.configure();
 
-            String protocolMap = "SSL:SSL,BROKER1:PLAINTEXT";
+            String protocolMap = "SSL:SSL,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT";
             Map<String, String> config = Map.ofEntries(
                     Map.entry("inter.broker.listener.name", "BROKER1"),
                     Map.entry("listener.security.protocol.map", protocolMap),
@@ -83,8 +86,15 @@ public class KafkaSslTestResource extends KafkaTestResource {
                     Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
                     Map.entry("ssl.endpoint.identification.algorithm", ""));
 
-            withEnv("STRIMZI_TEST_ROOT_LOG_LEVEL", "DEBUG");
+            withCreateContainerCmdModifier(new Consumer<CreateContainerCmd>() {
+                @Override
+                public void accept(CreateContainerCmd createContainerCmd) {
+                    createContainerCmd.withName(KAFKA_BROKER_HOSTNAME);
+                    createContainerCmd.withHostName(KAFKA_BROKER_HOSTNAME);
+                }
+            });
             withBrokerId(1);
+            withNodeId(1);
             withKafkaConfigurationMap(config);
             withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
         }

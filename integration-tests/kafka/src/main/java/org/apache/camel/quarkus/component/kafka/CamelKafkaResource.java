@@ -120,7 +120,7 @@ public class CamelKafkaResource {
 
     @Path("idempotent/{id}")
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     public Response addMessage(@PathParam("id") Integer id, String message) {
         producerTemplate.sendBodyAndHeader("direct:idempotent", message, "id", id);
         return Response.accepted().build();

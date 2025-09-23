@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.kafka;
 
+import java.util.List;
+import java.util.Properties;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
@@ -23,6 +26,10 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.kafka.consumer.KafkaManualCommit;
 import org.apache.camel.processor.idempotent.kafka.KafkaIdempotentRepository;
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class CamelKafkaRoutes extends RouteBuilder {
@@ -38,10 +45,16 @@ public class CamelKafkaRoutes extends RouteBuilder {
     @ConfigProperty(name = "camel.component.kafka.brokers")
     String brokers;
 
-    @Produces
-    @ApplicationScoped
-    @Named("kafkaIdempotentRepository")
     KafkaIdempotentRepository kafkaIdempotentRepository() {
+        Properties props = new Properties();
+        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, KafkaTestSupport.getBootstrapServers());
+        props.put(CommonClientConfigs.GROUP_ID_CONFIG, "camel-quarkus-group");
+
+        try (AdminClient admin = AdminClient.create(props)) {
+            NewTopic topic = new NewTopic("idempotent-topic", 1, (short) 1);
+            admin.createTopics(List.of(topic));
+        }
+
         return new KafkaIdempotentRepository("idempotent-topic", brokers);
     }
 
@@ -60,7 +73,7 @@ public class CamelKafkaRoutes extends RouteBuilder {
 
         from("direct:idempotent")
                 .idempotentConsumer(header("id"))
-                .idempotentRepository("kafkaIdempotentRepository")
+                .idempotentRepository(kafkaIdempotentRepository())
                 .to("mock:idempotent-results")
                 .end();
 

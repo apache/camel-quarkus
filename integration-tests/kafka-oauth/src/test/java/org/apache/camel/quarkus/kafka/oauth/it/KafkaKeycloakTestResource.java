@@ -88,7 +88,7 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
         this.kafka = new StrimziKafkaContainer(imageName)
                 .withBrokerId(1)
                 .withKafkaConfigurationMap(Map.ofEntries(
-                        entry("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT"),
+                        entry("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT"),
                         entry("listener.name.jwt.oauthbearer.sasl.jaas.config",
                                 getOauthSaslJaasConfig(keycloak.getInternalUrl(), keycloak.getServerUrl())),
                         entry("listener.name.jwt.plain.sasl.jaas.config",

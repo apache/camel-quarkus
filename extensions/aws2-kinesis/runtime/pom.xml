@@ -37,6 +37,11 @@
     </properties>
 
     <dependencies>
+        <!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/7812 -->
+        <dependency>
+            <groupId>software.amazon.kinesis</groupId>
+            <artifactId>amazon-kinesis-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
