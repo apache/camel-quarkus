@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.10.6</version>
+        <version>4.10.7</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -40,7 +40,7 @@
 
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>4.10</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.6</camel.version>
+        <camel.version>${camel.major.minor}.7</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -146,7 +146,7 @@
         <murmur.version>1.0.0</murmur.version>
         <mvel2.version>2.5.2.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.19</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
-        <oak-jackrabbit-api.version>1.64.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
+        <oak-jackrabbit-api.version>1.82.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
         <okhttp.version>4.12.0</okhttp.version>
         <okio.version>3.6.0</okio.version><!-- @sync com.squareup.okhttp3:okhttp:${okhttp.version} dep:com.squareup.okio:okio-->
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
