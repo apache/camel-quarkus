@@ -7209,6 +7209,11 @@
                 <version>${commons-validator.version}</version>
             </dependency>
             <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings</artifactId>
+                <version>${langchain4j-beta.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>dropwizard-core</artifactId>
                 <version>${dropwizard-metrics.version}</version>
