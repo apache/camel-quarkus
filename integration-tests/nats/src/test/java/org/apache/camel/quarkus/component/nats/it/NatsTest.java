@@ -21,9 +21,6 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
-import io.smallrye.certs.Format;
-import io.smallrye.certs.junit5.Certificate;
-import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -31,9 +28,10 @@ import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@TestCertificates(certificates = {
-        @Certificate(name = "nats", formats = {
-                Format.PKCS12, Format.PEM }, password = "password") })
+// TODO: Restore TLS tests - https://github.com/apache/camel-quarkus/issues/7771
+//@TestCertificates(certificates = {
+//        @Certificate(name = "nats", formats = {
+//                Format.PKCS12, Format.PEM }, password = "password") })
 @QuarkusTestResource(NatsTestResource.class)
 @QuarkusTest
 class NatsTest {
