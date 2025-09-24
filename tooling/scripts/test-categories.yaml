@@ -126,6 +126,7 @@ group-07:
   - geocoder
   - jslt
   - ldap
+  - langchain4j-embeddings
   - lumberjack
   - ognl
   - olingo4

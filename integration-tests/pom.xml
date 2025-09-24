@@ -150,6 +150,7 @@
         <module>kudu</module>
         <module>langchain4j-agent</module>
         <module>langchain4j-chat</module>
+        <module>langchain4j-embeddings</module>
         <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
