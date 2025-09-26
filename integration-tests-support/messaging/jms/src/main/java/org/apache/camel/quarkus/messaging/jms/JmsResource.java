@@ -125,7 +125,7 @@ public class JmsResource {
     public Response testTransferException(@PathParam("queueName") String queueName) {
         try {
             producerTemplate.requestBody(
-                    componentScheme + ":queue:" + queueName + "?transferException=true",
+                    componentScheme + ":queue:" + queueName + "?transferException=true&replyTo=exception.queue",
                     "bad payload");
         } catch (RuntimeCamelException e) {
             Class<? extends Throwable> exception = e.getCause().getClass();
