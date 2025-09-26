@@ -17,11 +17,15 @@
 package org.apache.camel.quarkus.component.activemq.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
+import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 
 @QuarkusTest
-@QuarkusTestResource(ActiveMQTestResource.class)
+@QuarkusTestResource(initArgs = {
+        @ResourceArg(name = "modules", value = "camel.component.activemq")
+}, value = ActiveMQTestResource.class)
 class ActiveMQTest extends AbstractJmsMessagingTest {
 
 }

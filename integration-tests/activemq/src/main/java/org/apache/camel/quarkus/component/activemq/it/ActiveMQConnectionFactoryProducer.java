@@ -30,7 +30,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class ActiveMQConnectionFactoryProducer {
 
-    @ConfigProperty(name = "camel.component.activemq.broker-url")
+    @ConfigProperty(name = "camel.component.activemq.brokerUrl")
     String brokerUrl;
 
     @Singleton
