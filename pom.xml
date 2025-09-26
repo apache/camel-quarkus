@@ -224,7 +224,6 @@
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
         <!-- Test container image properties -->
-        <activemq.container.image>mirror.gcr.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
         <arangodb.container.image>mirror.gcr.io/arangodb:3.12.0</arangodb.container.image>
         <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.35.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
