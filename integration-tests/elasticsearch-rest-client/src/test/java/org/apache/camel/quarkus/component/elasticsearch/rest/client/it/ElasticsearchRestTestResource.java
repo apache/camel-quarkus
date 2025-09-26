@@ -68,6 +68,7 @@ public class ElasticsearchRestTestResource implements QuarkusTestResourceLifecyc
             container = new GenericContainer<>(ELASTICSEARCH_IMAGE)
                     .withExposedPorts(ELASTICSEARCH_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                    .withEnv("cluster.routing.allocation.disk.threshold_enabled", "false")
                     .withEnv("discovery.type", "single-node")
                     .withEnv("http.publish_host", DockerClientFactory.instance().dockerHostIpAddress())
                     .withEnv("xpack.security.enabled", "true")
@@ -80,6 +81,7 @@ public class ElasticsearchRestTestResource implements QuarkusTestResourceLifecyc
                     .withEnv("action.destructive_requires_name", "false") // needed for deleting all indexes after each test (allowing _all wildcard)
                     .withEnv("ELASTIC_USERNAME", ELASTICSEARCH_USERNAME)
                     .withEnv("ELASTIC_PASSWORD", ELASTICSEARCH_PASSWORD)
+                    .withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
                     .withCopyToContainer(
                             Transferable.of(Files.readAllBytes(Paths.get("target/certs/elasticsearch-keystore.p12"))),
                             "/usr/share/elasticsearch/config/certs/elasticsearch-keystore.p12")
