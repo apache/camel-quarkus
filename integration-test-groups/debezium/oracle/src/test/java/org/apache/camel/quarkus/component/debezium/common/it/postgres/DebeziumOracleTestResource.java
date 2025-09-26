@@ -63,22 +63,35 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
     @Override
     public Map<String, String> start() {
         Map<String, String> properties;
-        try {
-            properties = super.start();
-        } catch (Exception e) {
-            LOG.warn(e.getMessage());
-            throw e;
+
+        // TODO: Remove retry logic - https://github.com/apache/camel-quarkus/issues/7773
+        int maxRetries = 5;
+        for (int i = 1; i <= maxRetries; i++) {
+            try {
+                LOG.info("Starting {} attempt {} of {}", ORACLE_IMAGE, i, maxRetries);
+                properties = super.start();
+                historyFile = Files.createTempFile(getClass().getSimpleName() + "-history-file-", "");
+                properties.put(DebeziumOracleResource.PROPERTY_DB_HISTORY_FILE, historyFile.toString());
+                return properties;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                LOG.warn("Container startup failed", e);
+                LOG.warn(e.getMessage());
+                if (i == maxRetries) {
+                    LOG.warn("Giving up starting {} - max container startup attempts reached", ORACLE_IMAGE);
+                    throw e;
+                }
+
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
 
-        try {
-            historyFile = Files.createTempFile(getClass().getSimpleName() + "-history-file-", "");
-
-            properties.put(DebeziumOracleResource.PROPERTY_DB_HISTORY_FILE, historyFile.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return properties;
+        throw new IllegalStateException("Could not start container for " + ORACLE_IMAGE);
     }
 
     @Override
