@@ -33,7 +33,7 @@ import static io.strimzi.test.container.StrimziZookeeperContainer.ZOOKEEPER_PORT
 public class KafkaSaslSslTestResource extends KafkaTestResource {
     static final String KAFKA_KEYSTORE_PASSWORD = "changeit";
     //min lengthe is 32 because of SCRAM-SHA-512
-    static final String ALICE_PASSWORD = "alice_changeit";
+    static final String ALICE_PASSWORD = "changeitchangeitchangeitchangeit";
     static final String KAFKA_HOSTNAME = "localhost";
     static final String CERTS_BASEDIR = "target/certs";
 
