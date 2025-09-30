@@ -44,11 +44,13 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
             container = new GenericContainer<>(ELASTICSEARCH_IMAGE)
                     .withExposedPorts(ELASTICSEARCH_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                    .withEnv("cluster.routing.allocation.disk.threshold_enabled", "false")
                     .withEnv("discovery.type", "single-node")
                     .withEnv("xpack.security.enabled", "true")
                     .withEnv("action.destructive_requires_name", "false") // needed for deleting all indexes after each test (allowing _all wildcard)
                     .withEnv("ELASTIC_USERNAME", ELASTICSEARCH_USERNAME)
                     .withEnv("ELASTIC_PASSWORD", ELASTICSEARCH_PASSWORD)
+                    .withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
