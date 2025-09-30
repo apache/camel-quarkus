@@ -7125,7 +7125,7 @@
       <dependency>
         <groupId>dev.langchain4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>langchain4j-embeddings</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.5.0-beta11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.6.0-beta12</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -23397,449 +23397,454 @@
         <version>1.5.1</version><!-- org.apache.cassandra:java-driver-bom:4.19.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-test</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-test</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-kotlin</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-kotlin</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-reactor</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-reactor</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-easy-rag</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-easy-rag</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-anthropic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-anthropic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-bedrock</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-bedrock</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-cohere</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-cohere</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-github-models</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-github-models</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-jlama</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-jlama</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-jina</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-jina</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-onnx-scoring</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-onnx-scoring</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-local-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-local-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-mistral-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-mistral-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-nomic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-nomic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-ollama</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-ollama</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-open-ai-official</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-open-ai-official</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-ovh-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-ovh-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-vertex-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-vertex-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-vertex-ai-gemini</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-vertex-ai-gemini</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-google-ai-gemini</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-google-ai-gemini</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-workers-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-workers-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-voyage-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-voyage-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-watsonx</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-watsonx</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-ai-search</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-ai-search</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-cosmos-mongo-vcore</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-cosmos-mongo-vcore</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-cassandra</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-cassandra</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-chroma</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-chroma</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-coherence</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-coherence</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-couchbase</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-couchbase</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-elasticsearch</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-elasticsearch</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-infinispan</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-infinispan</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-mariadb</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-mariadb</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-milvus</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-milvus</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-mongodb-atlas</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-mongodb-atlas</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-opensearch</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-opensearch</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-pgvector</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-pgvector</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-pinecone</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-pinecone</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-qdrant</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-qdrant</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-tablestore</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-tablestore</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-vespa</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-vespa</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-weaviate</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-weaviate</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-cosmos-nosql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-cosmos-nosql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-oracle</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-oracle</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-en</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-en</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-en-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-en-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-en-v15-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-en-v15-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-zh</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-zh</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-zh-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-zh-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-zh-v15</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-zh-v15</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-bge-small-zh-v15-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-bge-small-zh-v15-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-e5-small-v2</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-e5-small-v2</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embeddings-e5-small-v2-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embeddings-e5-small-v2-q</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-code-execution-engine-graalvm-polyglot</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-code-execution-engine-graalvm-polyglot</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-code-execution-engine-judge0</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-code-execution-engine-judge0</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-amazon-s3</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-code-execution-engine-azure-acads</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-azure-storage-blob</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-amazon-s3</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-github</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-azure-storage-blob</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-selenium</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-github</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-playwright</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-selenium</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-tencent-cos</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-playwright</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-loader-google-cloud-storage</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-tencent-cos</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-parser-apache-pdfbox</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-loader-google-cloud-storage</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-parser-apache-poi</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-parser-apache-pdfbox</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-parser-apache-tika</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-parser-apache-poi</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-document-transformer-jsoup</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-parser-apache-tika</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-embedding-store-filter-parser-sql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-document-transformer-jsoup</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-web-search-engine-google-custom</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-embedding-store-filter-parser-sql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-web-search-engine-tavily</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-web-search-engine-google-custom</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-web-search-engine-searchapi</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-web-search-engine-tavily</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-experimental-sql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-web-search-engine-searchapi</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-agentic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-experimental-sql</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-agentic-a2a</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-agentic</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-agentic-a2a</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-anthropic-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-ai-search-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-anthropic-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-azure-open-ai-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-ai-search-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-ollama-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-azure-open-ai-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-ollama-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
+        <version>1.6.0-beta12</version><!-- dev.langchain4j:langchain4j-bom:1.6.0 -->
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId><!-- io.debezium:debezium-bom:3.2.1.Final -->
