@@ -191,6 +191,7 @@
         <module>management</module>
         <module>mapstruct</module>
         <module>master</module>
+        <module>mdc</module>
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>

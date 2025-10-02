@@ -1970,6 +1970,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mdc</artifactId>
+        <version>4.15.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-micrometer</artifactId>
         <version>4.15.0-SNAPSHOT</version>
       </dependency>
@@ -5087,6 +5092,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-master-deployment</artifactId>
+        <version>3.29.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mdc</artifactId>
+        <version>3.29.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mdc-deployment</artifactId>
         <version>3.29.0-SNAPSHOT</version>
       </dependency>
       <dependency>
