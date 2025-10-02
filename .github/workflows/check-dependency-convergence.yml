@@ -129,8 +129,6 @@ jobs:
             "org.ehcache:ehcache"
             # Mismatch between camel-quarkus-activemq & camel-quarkus-stomp
             "org.fusesource.hawtbuf:hawtbuf"
-            # Mismatch between camel-quarkus-aws2-kinesis & camel-quarkus-pubnub
-            "org.jetbrains.kotlinx:kotlinx-datetime-jvm"
             # Mismatch between camel-quarkus-aws2-jgroups & camel-quarkus-jgroups-raft
             "org.jgroups:jgroups"
             # Mismatch between camel-quarkus-box, camel-quarkus-oaipmh & camel-quarkus-shiro

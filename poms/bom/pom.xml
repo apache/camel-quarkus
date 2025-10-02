@@ -354,8 +354,16 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>io.github.classgraph</groupId>
+                        <artifactId>classgraph</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>javax.validation</groupId>
                         <artifactId>validation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.checkerframework</groupId>
@@ -363,7 +371,11 @@
                     </exclusion>
                     <exclusion>
                         <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-stdlib-common</artifactId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jetbrains.kotlinx</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
