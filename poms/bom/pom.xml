@@ -8158,4 +8158,38 @@
             </releases>
         </repository>
     </repositories>
+    <profiles>
+        <profile>
+            <id>full</id>
+            <activation>
+                <property>
+                    <name>!quickly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.l2x6.cq</groupId>
+                        <artifactId>cq-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- Fails the build if there are overlaps between our BOM and Quarkus BOM -->
+                                <id>bom-overlaps</id>
+                                <goals>
+                                    <goal>bom-overlaps</goal>
+                                </goals>
+                                <phase>test</phase><!-- after process-resources where we flatten the BOM -->
+                                <configuration>
+                                    <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
+                                    <ignoredOverlaps>
+                                        <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
+                                    </ignoredOverlaps>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
