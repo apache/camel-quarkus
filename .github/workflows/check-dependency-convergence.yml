@@ -79,6 +79,8 @@ jobs:
 
           # List of Maven GAVs to ignore from the dependency convergence check results. Keep sorted alphabetically
           IGNORED_GAVS=(
+            # Mismatch between camel-quarkus-djl & camel-quarkus-langchain4j-embeddings
+            "ai.djl:api"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
             "com.amazonaws:aws-java-sdk-core"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
