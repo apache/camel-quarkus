@@ -81,6 +81,7 @@ group-04:
   - jta
   - kudu
   - leveldb
+  - mdc
   - micrometer
   - minio
   - mongodb-grouped
