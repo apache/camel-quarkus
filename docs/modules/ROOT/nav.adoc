@@ -220,6 +220,7 @@
 *** xref:reference/extensions/management.adoc[Management]
 *** xref:reference/extensions/mapstruct.adoc[MapStruct]
 *** xref:reference/extensions/master.adoc[Master]
+*** xref:reference/extensions/mdc.adoc[Mdc]
 *** xref:reference/extensions/microprofile-health.adoc[MicroProfile Health]
 *** xref:reference/extensions/micrometer.adoc[Micrometer]
 *** xref:reference/extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]
