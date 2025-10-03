@@ -270,8 +270,16 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -279,7 +287,11 @@
           </exclusion>
           <exclusion>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-common</artifactId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>*</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1218,6 +1230,10 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
           </exclusion>
@@ -1293,6 +1309,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -2022,6 +2042,10 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
           </exclusion>
@@ -2365,6 +2389,10 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -6776,12 +6804,12 @@
       <dependency>
         <groupId>com.dylibso.chicory</groupId>
         <artifactId>runtime</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2</version>
       </dependency>
       <dependency>
         <groupId>com.dylibso.chicory</groupId>
         <artifactId>wasm</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2</version>
       </dependency>
       <dependency>
         <groupId>com.esotericsoftware.kryo</groupId>
@@ -6871,6 +6899,10 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
           </exclusion>
@@ -6906,6 +6938,10 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
           </exclusion>
@@ -6939,6 +6975,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -7160,12 +7200,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.26.3</version>
+        <version>3.28.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.26.3</version>
+        <version>3.28.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -7521,27 +7561,6 @@
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
         <version>3.30.2-GA</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-scripting-compiler-embeddable</artifactId>
-        <version>2.2.10</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-scripting-compiler-impl-embeddable</artifactId>
-        <version>2.2.10</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlinx</groupId>
-        <artifactId>kotlinx-serialization-core-jvm</artifactId>
-        <version>1.4.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-common</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.jolokia</groupId>
@@ -7924,144 +7943,149 @@
         <version>4.0.4</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity-engine-core</artifactId>
+        <version>2.4.1</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-bc-stub</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId>
-        <version>3.27.0</version>
+        <version>3.27.1</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.woodstox</groupId>
