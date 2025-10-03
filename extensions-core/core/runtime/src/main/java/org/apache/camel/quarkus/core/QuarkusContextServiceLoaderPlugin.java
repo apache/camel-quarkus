@@ -22,7 +22,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.spi.ContextServiceLoaderPluginResolver;
 import org.apache.camel.spi.ContextServicePlugin;
 import org.apache.camel.support.service.ServiceSupport;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
