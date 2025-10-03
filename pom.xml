@@ -140,7 +140,7 @@
         <langchain4j.version>1.5.0</langchain4j.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j.version -->
         <langchain4j-beta.version>1.5.0-beta11</langchain4j-beta.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j-beta.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
-        <minio.version>8.5.17</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
+        <minio.version>8.6.0</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.21.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <murmur.version>1.0.0</murmur.version>
         <mvel2.version>2.5.2.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
