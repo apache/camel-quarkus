@@ -7250,7 +7250,7 @@
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen</artifactId>
-        <version>3.0.69</version>
+        <version>3.0.74</version>
         <exclusions>
           <exclusion>
             <groupId>ch.qos.logback</groupId>
@@ -7285,7 +7285,7 @@
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen-generators</artifactId>
-        <version>1.0.57</version>
+        <version>1.0.58</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
