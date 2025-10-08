@@ -53,4 +53,5 @@ endif::[]
 [IMPORTANT]
 ====
 Due to an issue in GraalVM / Mandrel 23.1.x, you *must* build your native application with the https://quarkus.io/guides/all-config#quarkus-core_quarkus-native-report-errors-at-runtime[`--report-unsupported-elements-at-runtime`] option. You can do this by adding the following configuration to `application.properties`.
+====
 
