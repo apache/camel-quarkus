@@ -41,12 +41,12 @@ public class QdrantTestResource implements QuarkusTestResourceLifecycleManager {
         Map<String, String> properties = new HashMap<>();
 
         DockerImageName qdrantImageName = DockerImageName.parse(QDRANT_IMAGE).asCompatibleSubstituteFor("qdrant/qdrant");
-        GenericContainer<?> container = new QdrantContainer(qdrantImageName)
+        qdrantContainer = new QdrantContainer(qdrantImageName)
                 .withLogConsumer(new Slf4jLogConsumer(LOG));
-        container.start();
+        qdrantContainer.start();
 
-        String grpcHost = container.getHost();
-        Integer grpcPort = container.getMappedPort(QDRANT_GRPC_PORT);
+        String grpcHost = qdrantContainer.getHost();
+        Integer grpcPort = qdrantContainer.getMappedPort(QDRANT_GRPC_PORT);
 
         properties.put("camel.component.qdrant.host", grpcHost);
         properties.put("camel.component.qdrant.port", grpcPort.toString());
