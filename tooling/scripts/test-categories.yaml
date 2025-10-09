@@ -233,6 +233,7 @@ group-13:
   - java-joor-dsl
   - jdbc-grouped
   - kubernetes
+  - langchain4j-embeddingstore
   - salesforce
   - sap-netweaver
   - servicenow
