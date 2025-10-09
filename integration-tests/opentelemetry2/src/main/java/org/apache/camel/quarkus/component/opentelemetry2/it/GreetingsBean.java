@@ -16,41 +16,16 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry2.it;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.ProducerTemplate;
+import jakarta.inject.Named;
 
-@Path("/opentelemetry2")
 @ApplicationScoped
-public class OpenTelemetry2Resource {
+@Named("greetingsBean")
+public class GreetingsBean {
 
-    @Inject
-    ProducerTemplate producerTemplate;
-
-    @Path("/trace")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String traceRoute() {
-        return producerTemplate.requestBody("direct:start", null, String.class);
+    @WithSpan
+    public String greet(String name) {
+        return "Hello " + name;
     }
-
-    @Path("/greet/{name}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String traceRoute(@PathParam("name") String name) {
-        return producerTemplate.requestBody("direct:greet", name, String.class);
-    }
-
-    @Path("/jdbc/query")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public long jdbcQuery() {
-        return producerTemplate.requestBody("direct:jdbcQuery", null, Long.class);
-    }
-
 }
