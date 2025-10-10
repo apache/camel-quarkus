@@ -19,6 +19,13 @@ endif::[]
 
 Perform operations on the Langchain4jEmbeddingStores.
 
+[id="extensions-langchain4j-embeddingstore-whats-inside"]
+== What's inside
+
+* xref:{cq-camel-components}::langchain4j-embeddingstore-component.adoc[LangChain4j Embedding Store component], URI syntax: `langchain4j-embeddingstore:embeddingStoreId`
+
+Please refer to the above link for usage and configuration details.
+
 [id="extensions-langchain4j-embeddingstore-maven-coordinates"]
 == Maven coordinates
 
