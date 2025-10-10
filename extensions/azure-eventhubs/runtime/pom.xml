@@ -48,6 +48,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-azure-eventhubs</artifactId>
         </dependency>
+        <!-- required for the native build, referenced from com.microsoft.aad.msal4jextensions.PersistenceTokenCacheAccessAspect -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
