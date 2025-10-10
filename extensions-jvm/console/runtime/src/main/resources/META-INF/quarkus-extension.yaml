@@ -33,4 +33,4 @@ metadata:
   config:
   - "quarkus.camel.console"
   status:
-  - "preview"
+  - "stable"
