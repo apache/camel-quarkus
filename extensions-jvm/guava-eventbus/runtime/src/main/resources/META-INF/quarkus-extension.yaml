@@ -31,5 +31,5 @@ metadata:
   categories:
   - "integration"
   status:
-  - "preview"
+  - "stable"
   - "deprecated"
