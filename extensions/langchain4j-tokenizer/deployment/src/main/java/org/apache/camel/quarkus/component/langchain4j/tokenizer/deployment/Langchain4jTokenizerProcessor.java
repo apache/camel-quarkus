@@ -69,7 +69,6 @@ class Langchain4jTokenizerProcessor {
                 .map(ClassInfo::name)
                 .map(DotName::toString)
                 .collect(Collectors.toSet());
-        System.out.println(opennlpToolFactories);
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(opennlpToolFactories.toArray(new String[0]))
                 .methods()
                 .build());
