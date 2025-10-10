@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.15.0</version>
+        <version>4.16.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,7 +39,7 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>4.15</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.major.minor>4.16</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
@@ -77,8 +77,8 @@
         <assertj.version>3.27.6</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-        <azure-core.version>1.56.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
-        <azure-identity.version>1.17.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
+        <azure-core.version>1.56.1</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
+        <azure-identity.version>1.18.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <caffeine.version>3.2.2</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <chicory.version>${chicory-version}</chicory.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
@@ -142,7 +142,7 @@
         <langchain4j-beta.version>1.5.0-beta11</langchain4j-beta.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j-beta.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
         <minio.version>8.6.0</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
-        <msal4j.version>1.22.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
+        <msal4j.version>1.23.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <murmur.version>1.0.0</murmur.version>
         <mvel2.version>2.5.2.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.19</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
@@ -153,7 +153,7 @@
         <opentelemetry-semconv-legacy.version>1.29.0-alpha</opentelemetry-semconv-legacy.version><!-- Alignment for camel-opentelemetry and google-pubsub -->
         <org.json.version>20240303</org.json.version><!-- Used by amazon-kinesis-client, google-cloud-bigquery and com.ibm.mq.jakarta.client -->
         <re2j.version>1.7</re2j.version><!-- Used by google-cloud-pubsub and amazon-kinesis-client -->
-        <reactor-core.version>3.7.8</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
+        <reactor-core.version>3.7.9</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->

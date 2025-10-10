@@ -34,7 +34,7 @@ public class JiraTestResource extends WireMockTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         Map<String, String> options = super.start();
-        String jiraUrl = envOrDefault(JIRA_ENV_URL, "http://localhost:8080");
+        String jiraUrl = envOrDefault(JIRA_ENV_URL, "http://localhost:8080/");
         if (options.containsKey("wiremock.url")) {
             jiraUrl = options.get("wiremock.url");
         }

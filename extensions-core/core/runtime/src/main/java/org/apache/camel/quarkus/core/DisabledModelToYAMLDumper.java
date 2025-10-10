@@ -38,7 +38,7 @@ public class DisabledModelToYAMLDumper implements ModelToYAMLDumper {
 
     @Override
     public String dumpModelAsYaml(CamelContext context, NamedNode definition, boolean resolvePlaceholders,
-            boolean uriAsParameters, boolean generatedIds) throws Exception {
+            boolean uriAsParameters, boolean generatedIds, boolean sourceLocation) throws Exception {
         throw new UnsupportedOperationException(
                 "Please add a dependency to camel-quarkus-yaml-io");
     }
