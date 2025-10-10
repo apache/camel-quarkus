@@ -30,8 +30,8 @@ public class DisabledModelToXMLDumper implements ModelToXMLDumper {
     }
 
     @Override
-    public String dumpModelAsXml(CamelContext context, NamedNode definition, boolean resolvePlaceholders, boolean generatedIds)
-            throws Exception {
+    public String dumpModelAsXml(CamelContext context, NamedNode definition, boolean resolvePlaceholders, boolean generatedIds,
+            boolean sourceLocation) throws Exception {
         throw new UnsupportedOperationException(
                 "Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io-dsl");
     }

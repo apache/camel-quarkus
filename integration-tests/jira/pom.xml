@@ -112,7 +112,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
+                <profile>
             <id>virtualDependencies</id>
             <activation>
                 <property>

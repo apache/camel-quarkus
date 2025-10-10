@@ -1,0 +1,35 @@
+{
+  "id" : "65192c71-b297-4f84-9ea0-5fd0d859c1d7",
+  "name" : "rest_api_latest_serverinfo",
+  "request" : {
+    "url" : "/rest/api/latest/serverInfo",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"baseUrl\":\"http://localhost:8080\",\"version\":\"10.7.1\",\"versionNumbers\":[10,7,1],\"deploymentType\":\"Server\",\"buildNumber\":10070001,\"buildDate\":\"2025-06-17T00:00:00.000+0000\",\"databaseBuildNumber\":10070001,\"serverTime\":\"2025-10-24T09:52:28.940+0000\",\"scmInfo\":\"d721cdfa8cc2903939537bbe8eaf771e1418e6fa\",\"serverTitle\":\"Jira\"}",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x557x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=31",
+      "Date" : "Fri, 24 Oct 2025 09:52:28 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "39ene4",
+      "Set-Cookie" : [ "JSESSIONID=60CDFAF7F485EFD420E1C3437D363771; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_dc6e23bd0e6755b00dc547a8b9c480f9ef3bb693_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "65192c71-b297-4f84-9ea0-5fd0d859c1d7",
+  "persistent" : true,
+  "scenarioName" : "scenario-5-rest-api-latest-serverInfo",
+  "requiredScenarioState" : "scenario-5-rest-api-latest-serverInfo-3",
+  "newScenarioState" : "scenario-5-rest-api-latest-serverInfo-4",
+  "insertionIndex" : 30
+}
