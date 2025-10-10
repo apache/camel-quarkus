@@ -126,7 +126,6 @@ public class JacksonAvroResource {
                 // with the UTF_VALIDATOR object
                 Constructor cons = new Schema.Parser().getClass().getConstructor(clazz);
                 Schema.Parser sp = (Schema.Parser) cons.newInstance(validatorObject);
-                System.out.println(sp);
             } catch (NoSuchFieldException nsfe) {
                 throw new IOException(nsfe);
             } catch (IllegalAccessException iae) {
