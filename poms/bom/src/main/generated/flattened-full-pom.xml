@@ -7944,7 +7944,7 @@
       <dependency>
         <groupId>redis.clients</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>jedis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
