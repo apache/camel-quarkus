@@ -179,7 +179,6 @@ jobs:
             echo "Either fix the problem dependencies or add GAVs to the IGNORED_GAVS list in check-dependency-convergence.yml"
             exit 1
           fi
-      - name: Report Build Failure
-        if: failure() || cancelled()
+      - name: Report Build Status
         run: |
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=$(git rev-parse --abbrev-ref HEAD) -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
