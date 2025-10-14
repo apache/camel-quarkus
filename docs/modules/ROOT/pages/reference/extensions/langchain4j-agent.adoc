@@ -48,14 +48,14 @@ endif::[]
 == LangChain4j dependency management
 
 In order to ensure alignment across all Quarkus and LangChain4j related dependencies, it is recommended to import the LangChain4j BOM as below:
-[source,xml]
+[source,xml,subs=attributes+]
 ----
 <dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>dev.langchain4j</groupId>
       <artifactId>langchain4j-bom</artifactId>
-      <version>1.5.0</version>
+      <version>{langchain4j-version}</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
