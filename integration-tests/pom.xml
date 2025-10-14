@@ -87,6 +87,7 @@
         <module>fhir</module>
         <module>file</module>
         <module>flatpack</module>
+        <module>flink</module>
         <module>fop</module>
         <module>fory</module>
         <module>freemarker</module>

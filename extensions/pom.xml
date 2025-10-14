@@ -110,6 +110,7 @@
         <module>file-cluster-service</module>
         <module>file-watch</module>
         <module>flatpack</module>
+        <module>flink</module>
         <module>fop</module>
         <module>fory</module>
         <module>freemarker</module>
