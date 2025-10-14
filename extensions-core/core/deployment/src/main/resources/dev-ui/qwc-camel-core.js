@@ -84,8 +84,8 @@ export class QwcCamelCore extends QwcHotReloadElement {
 
     enableConsoleUpdates() {
         // If we're being inherited from outside camel-quarkus-core this allows JsonRpc calls to work
-        if (this.jsonRpc.getExtensionName() !== 'org.apache.camel.quarkus.camel-quarkus-core') {
-            this.jsonRpc._setExtensionName('org.apache.camel.quarkus.camel-quarkus-core');
+        if (this.jsonRpc.getExtensionName() !== 'camel-quarkus-core') {
+            this.jsonRpc._setExtensionName('camel-quarkus-core');
         }
 
         // Fetch initial data
