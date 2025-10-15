@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import {html} from 'qwc-hot-reload-element';
-import {QwcCamelCore} from "../org.apache.camel.quarkus.camel-quarkus-core/qwc-camel-core.js";
+import {QwcCamelCore} from "../camel-quarkus-core/qwc-camel-core.js";
 import {columnBodyRenderer} from '@vaadin/grid/lit.js';
 import '@vaadin/grid';
 import '@vaadin/grid/vaadin-grid-sort-column.js';
