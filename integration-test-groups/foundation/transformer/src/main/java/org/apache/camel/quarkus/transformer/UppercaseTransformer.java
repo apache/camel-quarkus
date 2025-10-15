@@ -16,22 +16,19 @@
  */
 package org.apache.camel.quarkus.transformer;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.Message;
+import org.apache.camel.spi.DataType;
+import org.apache.camel.spi.DataTypeTransformer;
+import org.apache.camel.spi.Transformer;
 
-@RegisterForReflection
-public class TransformerBean {
-    private final String message;
-
-    public TransformerBean(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
+/**
+ * Custom Transformer for "plain/text" to "plain/uppercase" transformation.
+ */
+@DataTypeTransformer(name = "uppercase", toType = "plain/uppercase", fromType = "plain/text", description = "Transforms from String to Uppercase string")
+public class UppercaseTransformer extends Transformer {
 
     @Override
-    public String toString() {
-        return "Transformed " + message;
+    public void transform(Message message, DataType fromType, DataType toType) {
+        message.setBody(("Transformed " + message.getBody(String.class)).toUpperCase());
     }
 }

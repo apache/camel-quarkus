@@ -21,15 +21,38 @@ import io.restassured.RestAssured;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class TransformerTest {
+
     @Test
     void testTransformerRegistryImpl() {
         RestAssured.get("/transformer/registry")
                 .then()
                 .body(is(DefaultTransformerRegistry.class.getName()));
+    }
+
+    /**
+     * Verify transformer using @DataTypeTransformer annotation is in registry
+     */
+    @Test
+    void testTransformerRegistryContainsDataTypeTransformerAnnotated() {
+        RestAssured.get("/transformer/registry/values")
+                .then()
+                .body(containsString("UppercaseTransformer"));
+    }
+
+    /**
+     * Verify named transformers are in registry
+     */
+    @Test
+    void testTransformerRegistryContainsNamedTransformers() {
+        RestAssured.get("/transformer/registry/values")
+                .then()
+                .body(containsString("TrimTransformer"))
+                .body(containsString("UppercaseTransformer"));
     }
 
     @Test
@@ -51,4 +74,70 @@ public class TransformerTest {
                 .then()
                 .body(is("Transformed To Bytes"));
     }
+
+    /**
+     * Test DataFormat Transformer
+     */
+    @Test
+    void testTransformBeanToJson() {
+        RestAssured.given()
+                .body("Transformed To Json")
+                .when()
+                .post("/transformer/toJson")
+                .then()
+                .body(is("{\"message\":\"Transformed To Json\"}"));
+    }
+
+    /**
+     * Test @DataTypeTransformer annotation
+     */
+    @Test
+    void testTransformStringToUppercase() {
+        RestAssured.given()
+                .body("To Uppercase")
+                .when()
+                .post("/transformer/toUppercase")
+                .then()
+                .body(is("TRANSFORMED TO UPPERCASE"));
+    }
+
+    /**
+     * Test Named @DataTypeTransformer annotation
+     */
+    @Test
+    void testTransformStringToTrimmed() {
+        RestAssured.given()
+                .body("  To Trimmed  ")
+                .when()
+                .post("/transformer/toTrimmed")
+                .then()
+                .body(is("Transformed To Trimmed"));
+    }
+
+    /**
+     * Test Custom Transformer
+     */
+    @Test
+    void testTransformStringToLowercase() {
+        RestAssured.given()
+                .body("To Lowercase")
+                .when()
+                .post("/transformer/toLowercase")
+                .then()
+                .body(is("transformed to lowercase"));
+    }
+
+    /**
+     * Test Endpoint Transformer
+     */
+    @Test
+    void testTransformStringToReversed() {
+        RestAssured.given()
+                .body("To Reversed")
+                .when()
+                .post("/transformer/toReversed")
+                .then()
+                .body(is("Transformed desreveR oT"));
+    }
+
 }

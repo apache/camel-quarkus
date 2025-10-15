@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.transformer;
 
+import java.util.stream.Collectors;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -30,6 +32,7 @@ import org.apache.camel.spi.TransformerRegistry;
 @Path("/transformer")
 @ApplicationScoped
 public class TransformerResource {
+
     @Inject
     CamelContext context;
 
@@ -43,6 +46,20 @@ public class TransformerResource {
         TransformerRegistry transformerRegistry = context.getTransformerRegistry();
         if (transformerRegistry != null) {
             return transformerRegistry.getClass().getName();
+        }
+        return null;
+    }
+
+    @Path("/registry/values")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String transformerRegistryValues() {
+        TransformerRegistry transformerRegistry = context.getTransformerRegistry();
+        if (transformerRegistry != null) {
+            String mapAsString = transformerRegistry.keySet().stream()
+                    .map(key -> key + "=" + transformerRegistry.get(key))
+                    .collect(Collectors.joining(", ", "{", "}"));
+            return mapAsString;
         }
         return null;
     }
@@ -61,5 +78,42 @@ public class TransformerResource {
     public byte[] transformBeanToBytes(String message) {
         TransformerBean bean = new TransformerBean(message);
         return (byte[]) producerTemplate.requestBody("direct:transformBeanToBytes", bean);
+    }
+
+    @Path("/toLowercase")
+    @POST
+    @Produces({ "plain/lowercase" })
+    public String stringToLowercase(String message) {
+        return (String) producerTemplate.requestBody("direct:stringToLowercase", message);
+    }
+
+    @Path("/toUppercase")
+    @POST
+    @Produces({ "plain/uppercase" })
+    public String stringToUppercase(String message) {
+        return (String) producerTemplate.requestBody("direct:stringToUppercase", message);
+    }
+
+    @Path("/toJson")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String transformBeanToJson(String message) {
+        TransformerBean bean = new TransformerBean(message);
+        Object marshalled = producerTemplate.requestBody("direct:transformBeanToJson", bean);
+        return context.getTypeConverter().convertTo(String.class, marshalled);
+    }
+
+    @Path("/toReversed")
+    @POST
+    @Produces({ "plain/reversed" })
+    public String stringToReversed(String message) {
+        return (String) producerTemplate.requestBody("direct:stringToReversed", message);
+    }
+
+    @Path("/toTrimmed")
+    @POST
+    @Produces({ "plain/trimmed" })
+    public String stringToTrimmed(String message) {
+        return (String) producerTemplate.requestBody("direct:stringToTrimmed", message);
     }
 }

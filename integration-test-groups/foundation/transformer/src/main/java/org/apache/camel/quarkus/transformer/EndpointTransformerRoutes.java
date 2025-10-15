@@ -18,21 +18,25 @@ package org.apache.camel.quarkus.transformer;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class TransformerRoutes extends RouteBuilder {
+public class EndpointTransformerRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         transformer()
-                .withDefaults();
+                .fromType("plain/text")
+                .toType("plain/reversed")
+                .withUri("direct:reverseProcessor");
 
-        from("direct:transformBeanToString")
-                .inputType(TransformerBean.class)
-                .outputType("text-plain")
-                .log("Transformed TransformerBean to String");
+        // Endpoint that does the actual transformation
+        from("direct:reverseProcessor")
+                .process(exchange -> {
+                    String body = exchange.getMessage().getBody(String.class);
+                    String reversed = new StringBuilder(body).reverse().toString();
+                    exchange.getMessage().setBody("Transformed " + reversed);
+                });
 
-        from("direct:transformBeanToBytes")
-                .inputType(TransformerBean.class)
-                .outputType("application-octet-stream")
-                .log("Transformed TransformerBean to byte[]");
-
+        from("direct:stringToReversed")
+                .inputType("plain/text")
+                .outputType("plain/reversed")
+                .log("Transformed message to reversed");
     }
 }
