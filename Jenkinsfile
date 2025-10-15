@@ -41,7 +41,7 @@ pipeline {
                 MAVEN_OPTS = "-Xmx4600m"
             }
             steps {
-                sh "./mvnw ${MAVEN_PARAMS} -Dquickly -pl catalog -am clean deploy"
+                sh "./mvnw ${MAVEN_PARAMS} -Ddeploy -Dquickly clean deploy"
             }
         }
     }
