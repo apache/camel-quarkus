@@ -211,4 +211,16 @@ class Langchain4jAgentTest {
                         "name", is(USER_JOHN),
                         "description", notNullValue());
     }
+
+    @Test
+    void agentWithCustomTools() {
+        RestAssured.given()
+                .body("Calculate the addition of 10 + 5")
+                .post("/langchain4j-agent/custom/tools")
+                .then()
+                .statusCode(200)
+                .body(
+                        "result", containsStringIgnoringCase("15"),
+                        "toolWasInvoked", is(true));
+    }
 }

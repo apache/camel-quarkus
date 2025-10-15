@@ -52,6 +52,7 @@ import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.Validat
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessInputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessOutputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.service.TestPojoAiAgent;
+import org.apache.camel.quarkus.component.langchain4j.agent.it.tool.AdditionTool;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.PersistentChatMemoryStore;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -211,5 +212,13 @@ public class AgentProducers {
             ObjectMapper objectMapper) {
         return new TestPojoAiAgent(new AgentConfiguration()
                 .withChatModel(chatModel), objectMapper);
+    }
+
+    @Produces
+    @Identifier("agentWithCustomTools")
+    Agent agentWithCustomTools(@Identifier("ollamaLlama31Model") ChatModel chatModel) {
+        return new AgentWithoutMemory(new AgentConfiguration()
+                .withChatModel(chatModel)
+                .withCustomTools(List.of(new AdditionTool())));
     }
 }

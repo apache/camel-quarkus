@@ -1,0 +1,24 @@
+{
+  "id" : "891a47a3-531c-48fd-920c-b8eff546c7ff",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"llama3.1:latest\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Calculate the addition of 10 + 5\"\n  }, {\n    \"role\" : \"assistant\",\n    \"tool_calls\" : [ {\n      \"function\" : {\n        \"name\" : \"addNumbers\",\n        \"arguments\" : {\n          \"arg1\" : 5,\n          \"arg0\" : 10\n        }\n      }\n    } ]\n  }, {\n    \"role\" : \"tool\",\n    \"content\" : \"15\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"addNumbers\",\n      \"description\" : \"Adds two numbers\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"arg0\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"First number\"\n          },\n          \"arg1\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"Second number\"\n          }\n        },\n        \"required\" : [ \"arg0\", \"arg1\" ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"llama3.1:latest\",\"created_at\":\"2025-10-14T13:43:19.525346678Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The result of the calculation is 15.\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":2396046130,\"load_duration\":18256574,\"prompt_eval_count\":108,\"prompt_eval_duration\":1392355389,\"eval_count\":10,\"eval_duration\":984595879}",
+    "headers" : {
+      "Date" : "Tue, 14 Oct 2025 13:43:19 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "891a47a3-531c-48fd-920c-b8eff546c7ff",
+  "persistent" : true,
+  "insertionIndex" : 20
+}
