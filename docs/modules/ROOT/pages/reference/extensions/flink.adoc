@@ -4,17 +4,17 @@
 = Flink
 :linkattrs:
 :cq-artifact-id: camel-quarkus-flink
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send DataSet jobs to an Apache Flink cluster.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: n/a
+:cq-native-since: 3.29.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##3.29.0##
 endif::[]
 
 Send DataSet jobs to an Apache Flink cluster.
@@ -28,6 +28,10 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-flink-maven-coordinates"]
 == Maven coordinates
+
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-flink[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----
