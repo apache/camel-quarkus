@@ -55,5 +55,8 @@ public class Langchain4jAgentRoutes extends RouteBuilder {
 
         from("langchain4j-tools:userDb?tags=users&description=Query user database by user ID&parameter.userId=integer")
                 .setBody().constant("{\"name\": \"" + USER_JOHN + "\", \"id\": \"123\"}");
+
+        from("direct:agent-with-custom-tools")
+                .to("langchain4j-agent:test-agent-custom-tools?agent=#agentWithCustomTools");
     }
 }

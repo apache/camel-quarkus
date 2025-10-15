@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import dev.langchain4j.agent.tool.Tool;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.JsonExtractorOutputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
@@ -186,6 +187,26 @@ class SupportLangchain4jProcessor {
                 .forEach(guardrailTypes::add);
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(guardrailTypes.toArray(new String[0])).build());
+    }
+
+    @BuildStep
+    void registerCustomToolsForReflection(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+        Set<String> customToolClasses = combinedIndex.getIndex()
+                .getAnnotations(Tool.class)
+                .stream()
+                .map(AnnotationInstance::target)
+                .map(AnnotationTarget::asMethod)
+                .map(MethodInfo::declaringClass)
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(customToolClasses.toArray(new String[0]))
+                .methods()
+                .build());
     }
 
     @BuildStep
