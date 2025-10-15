@@ -7210,7 +7210,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.2.10</version>
+        <version>1.2.11</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
@@ -7661,7 +7661,7 @@
       <dependency>
         <groupId>org.opensearch.client</groupId>
         <artifactId>opensearch-rest-client</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
       </dependency>
       <dependency>
         <groupId>org.snakeyaml</groupId>
