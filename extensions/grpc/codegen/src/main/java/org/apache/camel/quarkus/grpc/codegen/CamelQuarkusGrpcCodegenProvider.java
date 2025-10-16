@@ -166,8 +166,6 @@ public class CamelQuarkusGrpcCodegenProvider implements CodeGenProvider {
                     throw new CodeGenException("Failed to generate Java classes from proto files: " + protoFiles +
                             " to " + outDir.toAbsolutePath() + " with command " + String.join(" ", command));
                 }
-                new CamelQuarkusGrpcPostProcessor(outDir).process();
-                LOG.info("Successfully finished generating and post-processing sources from proto files");
                 return true;
             }
         } catch (IOException | InterruptedException e) {
