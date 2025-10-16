@@ -23,20 +23,15 @@ import java.util.function.Function;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
     protected static final String KAFKA_IMAGE_NAME = ConfigProvider.getConfig().getValue("kafka.container.image", String.class);
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaTestResource.class);
-
     private StrimziKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
         try {
             start(name -> new StrimziKafkaContainer(name));
-
             return Collections.singletonMap("camel.component.kafka.brokers", container.getBootstrapServers());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -45,13 +40,9 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
     public String start(Function<String, StrimziKafkaContainer> containerSupplier) {
         container = containerSupplier.apply(KAFKA_IMAGE_NAME);
-
-        /* Added container startup logging because of https://github.com/apache/camel-quarkus/issues/2461 */
         container.withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
-                //                .withEnv("KAFKA_LOG4J_OPTS", "-Dlog4j.configuration=file:/log4j.properties")
                 .waitForRunning()
                 .start();
-
         return container.getBootstrapServers();
     }
 
