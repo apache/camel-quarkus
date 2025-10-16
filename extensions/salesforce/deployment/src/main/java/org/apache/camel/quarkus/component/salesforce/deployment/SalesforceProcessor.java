@@ -25,6 +25,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
 import org.apache.camel.support.jsse.KeyStoreParameters;
@@ -82,6 +83,11 @@ class SalesforceProcessor {
 
         // Ensure package scanning for user DTO classes can work in native mode
         packageScanClass.produce(new CamelPackageScanClassBuildItem(userDtoClasses));
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 
     @BuildStep

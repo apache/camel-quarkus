@@ -8080,6 +8080,46 @@
                 <artifactId>aws-crt</artifactId>
                 <version>${awscrt.version}</version>
             </dependency>
+            <!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/7812 -->
+            <dependency>
+                <groupId>software.amazon.kinesis</groupId>
+                <artifactId>amazon-kinesis-client</artifactId>
+                <version>${amazon-kinesis-client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.github.classgraph</groupId>
+                        <artifactId>classgraph</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jetbrains.kotlinx</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>xalan</groupId>
                 <artifactId>xalan</artifactId>

@@ -63,11 +63,9 @@ public class CamelKafkaTest {
 
     @Test
     void testIndempotent() {
-
         for (int i = 0; i < 10; i++) {
             int id = i % 5;
             given()
-                    .contentType(ContentType.JSON)
                     .body("Test message")
                     .put("/kafka/idempotent/" + id)
                     .then()
@@ -76,7 +74,6 @@ public class CamelKafkaTest {
 
         String[] body = RestAssured.get("/kafka/idempotent").then().extract().body().as(String[].class);
         assertEquals(5, body.length);
-
     }
 
     @Test
