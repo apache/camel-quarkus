@@ -54,7 +54,7 @@
         <quarkiverse-fory.version>0.4.1</quarkiverse-fory.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/fury/quarkus-fury-parent/ -->
         <quarkiverse-groovy.version>3.28.3</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.4.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
-        <quarkiverse-jgit.version>3.6.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit/ -->
+        <quarkiverse-jgit.version>3.6.1</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit/ -->
         <quarkiverse-jsch.version>3.1.1</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch/ -->
         <quarkiverse-langchain4j.version>1.2.1</quarkiverse-langchain4j.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/langchain4j/quarkus-langchain4j-parent -->
         <quarkiverse-micrometer.version>3.4.1</quarkiverse-micrometer.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/micrometer/registry/quarkus-micrometer-registry-jmx/ -->
