@@ -25,7 +25,7 @@ For example, to create a simple table view:
 ----
 import {html} from 'qwc-hot-reload-element';
 // NOTE: if your Dev UI page lives outside of camel-quarkus-core then use the following instead of ./qwc-camel-core.js:
-// import ../org.apache.camel.quarkus.camel-quarkus-core/qwc-camel-core.js
+// import ../camel-quarkus-core/qwc-camel-core.js
 import {QwcCamelCore} from "./qwc-camel-core.js";
 import {columnBodyRenderer} from '@vaadin/grid/lit.js';
 import '@vaadin/grid';
