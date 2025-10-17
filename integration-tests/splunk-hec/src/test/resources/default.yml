@@ -1,0 +1,75 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+---
+splunk:
+  conf:
+    - key: indexes
+      value:
+        directory: /opt/splunk/etc/system/local
+        content:
+          testindex:
+            homePath: "$SPLUNK_DB/testindex/db"
+            coldPath: "$SPLUNK_DB/testindex/colddb"
+            thawedPath: "$SPLUNK_DB/testindex/thaweddb"
+    - key: inputs
+      value:
+        directory: /opt/splunk/etc/system/local
+        content:
+          default:
+            host: "localhost"
+          tcp://9998:
+            connection_host: "ip"
+            sourcetype: "TCP"
+            index: "testindex"
+            disabled: "false"
+          splunktcp-ssl:9997:
+            disabled: "0"
+    - key: server
+      value:
+        directory: /opt/splunk/etc/system/local
+        content:
+          general:
+            serverName: "b66b768099db"
+            pass4SymmKey: "$7$oeVDSaCZOSOMIVB0Yv2lBqldGvLt0pXWuQdDV7YvZ0d6Kwf/f0RwhQ=="
+            allowRemoteLogin: "always"
+          sslConfig:
+            caTrustStore: "splunk"
+            serverCert: "/opt/splunk/etc/auth/servercerts/myServerCert.pem"
+            sslPassword: "password"
+            requireClientCert: "false"
+            cipherSuite: "ECDHE-RSA-AES256-GCM-SHA384"
+            sslRootCAPath: "/etc/cacert.pem"
+          lmpool:auto_generated_pool_download-trial:
+            description: "auto_generated_pool_download-trial"
+            peers: "*"
+            quota: "MAX"
+            stack_id: "download-trial"
+          lmpool:auto_generated_pool_forwarder:
+            description: "auto_generated_pool_forwarder"
+            peers: "*"
+            quota: "MAX"
+            stack_id: "forwarder"
+          lmpool:auto_generated_pool_free:
+            description: "auto_generated_pool_free"
+            peers: "*"
+            quota: "MAX"
+            stack_id: "free"
+          license:
+            active_group: "Free"
+          diskUsage:
+            minFreeSpace: 100
