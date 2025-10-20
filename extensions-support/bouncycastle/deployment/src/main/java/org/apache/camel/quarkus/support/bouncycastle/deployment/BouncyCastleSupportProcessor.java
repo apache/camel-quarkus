@@ -28,7 +28,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
 import io.quarkus.security.deployment.SecurityConfig;
 import org.apache.camel.quarkus.support.bouncycastle.BouncyCastleRecorder;
@@ -70,8 +70,8 @@ public class BouncyCastleSupportProcessor {
     }
 
     @BuildStep(onlyIfNot = FipsProviderConfigured.class)
-    void secureRandomConfiguration(BuildProducer<RuntimeReinitializedClassBuildItem> reinitialized) {
-        reinitialized.produce(new RuntimeReinitializedClassBuildItem("java.security.SecureRandom"));
+    void secureRandomConfiguration(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitiailizedClass) {
+        runtimeInitiailizedClass.produce(new RuntimeInitializedClassBuildItem("java.security.SecureRandom"));
     }
 
     /**

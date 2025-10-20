@@ -30,7 +30,6 @@ import io.quarkus.deployment.builditem.*;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import io.quarkus.gizmo.Gizmo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -64,8 +63,8 @@ class Jt400Processor {
     }
 
     @BuildStep
-    RuntimeReinitializedClassBuildItem runtimeReiinitializedClass() {
-        return new RuntimeReinitializedClassBuildItem(AS400.class.getName());
+    RuntimeInitializedClassBuildItem runtimeInitializedClass() {
+        return new RuntimeInitializedClassBuildItem(AS400.class.getName());
     }
 
     @BuildStep
