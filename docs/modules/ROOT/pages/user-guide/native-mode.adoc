@@ -44,19 +44,16 @@ Using a value of `all` will include all available locales into the native image.
 Resources accessed via `Class.getResource()`, `Class.getResourceAsStream()`, `ClassLoader.getResource()`,
 `ClassLoader.getResourceAsStream()`, etc. at runtime need to be explicitly listed for including in the native executable.
 
-This can be done using Quarkus `quarkus.native.resources.includes` and `quarkus.native.resources.excludes` properties
-in `application.properties` file as demonstrated below:
+This can be done using the `quarkus.native.resources.includes` configuration option in `application.properties` as demonstrated below:
 
 [source,properties]
 ----
 quarkus.native.resources.includes = docs/*,images/*
-quarkus.native.resources.excludes = docs/ignored.adoc,images/ignored.png
 ----
 
-In the example above, resources named `docs/included.adoc` and `images/included.png` would be embedded in the native executable
-while `docs/ignored.adoc` and `images/ignored.png` would not.
+In the example above, resources named `docs/included.adoc` and `images/included.png` would be embedded in the native executable.
 
-`resources.includes` and `resources.excludes` are both lists of comma separated Ant-path style glob patterns.
+`quarkus.native.resources.includes` is a list of comma separated Ant-path style glob patterns.
 Please refer to https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.resources.includes[Quarkus documentation] for more details.
 
 [[using-onexception-clause-in-native-mode]]
