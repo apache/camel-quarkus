@@ -24,7 +24,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
@@ -53,7 +53,7 @@ class DisruptorProcessor {
     }
 
     @BuildStep
-    RuntimeReinitializedClassBuildItem reinitializedRingBufferFields() {
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
         // The `com.lmax.disruptor.RingBufferFields` class uses sun.misc.Unsafe behind the scenes to compute some static
         // fields and that confuses graalvm which emits warnings like:
         //
@@ -67,6 +67,6 @@ class DisruptorProcessor {
         // Even if this is reported as a warning and the native compilation succeed, some static field are not computed
         // properly which result in weird result as runtime. For such reason, the static init method need to re-run at
         // runtime.
-        return new RuntimeReinitializedClassBuildItem("com.lmax.disruptor.RingBufferFields");
+        return new RuntimeInitializedClassBuildItem("com.lmax.disruptor.RingBufferFields");
     }
 }

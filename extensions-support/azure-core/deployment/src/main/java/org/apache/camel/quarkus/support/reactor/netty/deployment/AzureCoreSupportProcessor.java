@@ -35,7 +35,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
 import io.smallrye.common.os.OS;
@@ -131,17 +131,17 @@ public class AzureCoreSupportProcessor {
     }
 
     @BuildStep(onlyIf = Msal4jAndIdentityIsPresent.class)
-    void enableLoadingOfNativeLibraries(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
+    void enableLoadingOfNativeLibraries(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         OS os = OS.current();
         if (os.equals(OS.LINUX) || os.equals(OS.MAC)) {
             String iSecurityLibraryClassName = "com.microsoft.aad.msal4jextensions.persistence.%s.ISecurityLibrary"
                     .formatted(os.name().toLowerCase());
-            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem(iSecurityLibraryClassName));
+            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(iSecurityLibraryClassName));
         }
 
         if (os.equals(OS.WINDOWS)) {
-            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Crypt32"));
-            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Kernel32"));
+            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("com.sun.jna.platform.win32.Crypt32"));
+            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("com.sun.jna.platform.win32.Kernel32"));
         }
     }
 
