@@ -33,18 +33,6 @@ public class CoreIT extends CoreTest {
     }
 
     @Test
-    public void resourceMatchingExcludedPatternOnlyCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/core/resources/exclude-pattern-folder/excluded.txt").then().assertThat()
-                .statusCode(204);
-    }
-
-    @Test
-    public void resourceMatchingIncludeAndExcludedPatternCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/core/resources/include-pattern-folder/excluded.txt").then().assertThat()
-                .statusCode(204);
-    }
-
-    @Test
     public void resourceMatchingIncludePatternOnlyCouldBeLoadedFromNativeExecutable() {
         String response = RestAssured.when().get("/core/resources/include-pattern-folder/included.txt").then()
                 .assertThat().statusCode(200).extract().asString();

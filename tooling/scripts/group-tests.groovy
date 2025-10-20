@@ -38,7 +38,7 @@ final String excludes = binding.properties.variables.'group-tests.files.excludes
 final String classNamePrefix = binding.properties.variables.'group-tests.class.name.prefix' ?: ""
 final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
-final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set
+final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes"] as Set
 
 final Map<String, ResourceConcatenator> mergedFiles = new HashMap<>()
 concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator(commaConcatenatePropertyNames)) }
