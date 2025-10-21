@@ -7544,7 +7544,7 @@
       <dependency>
         <groupId>org.apache.pdfbox</groupId>
         <artifactId>fontbox</artifactId>
-        <version>3.0.5</version>
+        <version>3.0.6</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -8991,6 +8991,11 @@
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-open-ai</artifactId>
         <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-mcp</artifactId>
+        <version>1.5.0-beta11</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
