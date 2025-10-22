@@ -7631,7 +7631,7 @@
       <dependency>
         <groupId>org.kiwiproject</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>consul-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.7.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7776,7 +7776,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>spring-data-redis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.5.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.5.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8753,84 +8753,84 @@
         <version>2.10.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:2.10.0 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-alpn-client</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-alpn-client</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-client</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-client</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-http</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-http</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-io</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-io</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-security</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-security</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-session</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-session</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-util</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-util</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-util-ajax</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-util-ajax</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.compression</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-compression-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.compression</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-compression-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.compression</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-compression-gzip</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.compression</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-compression-gzip</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-websocket-core-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-websocket-core-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-websocket-core-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-websocket-core-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-websocket-jetty-api</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-websocket-jetty-api</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-websocket-jetty-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-websocket-jetty-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <artifactId>jetty-websocket-jetty-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
-        <version>12.1.2</version><!-- org.eclipse.jetty:jetty-bom:12.1.2 -->
+        <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <artifactId>jetty-websocket-jetty-server</artifactId><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
+        <version>12.1.3</version><!-- org.eclipse.jetty:jetty-bom:12.1.3 -->
       </dependency>
       <dependency>
         <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.3.0 -->
