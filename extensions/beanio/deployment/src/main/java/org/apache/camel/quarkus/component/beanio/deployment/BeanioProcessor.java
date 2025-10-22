@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.beanio.deployment;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,8 +57,10 @@ class BeanioProcessor {
     BeanioPropertiesBuildItem beanioProperties() {
         try {
             Properties properties = new Properties();
-            properties.load(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("org/beanio/internal/config/beanio.properties"));
+            try (InputStream in = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream("org/beanio/internal/config/beanio.properties")) {
+                properties.load(in);
+            }
             return new BeanioPropertiesBuildItem(properties);
         } catch (IOException e) {
             throw new RuntimeException(e);
