@@ -31,7 +31,7 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.langchain4j.embeddings.LangChain4jEmbeddings;
+import org.apache.camel.component.langchain4j.embeddings.LangChain4jEmbeddingsHeaders;
 import org.apache.camel.support.LRUCacheFactory;
 
 @Path("/langchain4j-embeddings")
@@ -54,8 +54,8 @@ public class Langchain4jEmbeddingsResource {
             Exchange result = producerTemplate.request("direct:start", e -> e.getMessage().setBody(text));
             Message message = result.getMessage();
 
-            Embedding embedding = message.getHeader(LangChain4jEmbeddings.Headers.VECTOR, Embedding.class);
-            Integer inputTokenLength = message.getHeader(LangChain4jEmbeddings.Headers.INPUT_TOKEN_COUNT, Integer.class);
+            Embedding embedding = message.getHeader(LangChain4jEmbeddingsHeaders.VECTOR, Embedding.class);
+            Integer inputTokenLength = message.getHeader(LangChain4jEmbeddingsHeaders.INPUT_TOKEN_COUNT, Integer.class);
 
             return Response.ok()
                     .entity(Json.object()
