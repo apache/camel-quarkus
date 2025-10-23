@@ -38,8 +38,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
-import org.apache.camel.component.qdrant.Qdrant;
 import org.apache.camel.component.qdrant.QdrantAction;
+import org.apache.camel.component.qdrant.QdrantHeaders;
 
 @Path("/qdrant")
 @ApplicationScoped
@@ -54,7 +54,7 @@ public class QdrantResource {
     public Response createCollection() {
 
         producer.to("qdrant:testCollection")
-                .withHeader(Qdrant.Headers.ACTION, QdrantAction.CREATE_COLLECTION)
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.CREATE_COLLECTION)
                 .withBody(
                         Collections.VectorParams.newBuilder()
                                 .setSize(2)
@@ -70,7 +70,7 @@ public class QdrantResource {
     public Response upsert() {
 
         producer.to("qdrant:testCollection")
-                .withHeader(Qdrant.Headers.ACTION, QdrantAction.UPSERT)
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.UPSERT)
                 .withBody(
                         Points.PointStruct.newBuilder()
                                 .setId(PointIdFactory.id(8))
@@ -90,7 +90,7 @@ public class QdrantResource {
     public Response retrieve() {
 
         Exchange exchange = producer.to("qdrant:testCollection")
-                .withHeader(Qdrant.Headers.ACTION, QdrantAction.RETRIEVE)
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.RETRIEVE)
                 .withBody(PointIdFactory.id(8))
                 .request(Exchange.class);
 
@@ -105,13 +105,13 @@ public class QdrantResource {
     public Response delete() {
 
         Exchange exchange = producer.to("qdrant:testCollection")
-                .withHeader(Qdrant.Headers.ACTION, QdrantAction.DELETE)
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.DELETE)
                 .withBody(ConditionFactory.matchKeyword("foo", "hello"))
                 .request(Exchange.class);
 
-        Object operationId = exchange.getIn().getHeader(Qdrant.Headers.OPERATION_ID);
-        Object opeartionStatus = exchange.getIn().getHeader(Qdrant.Headers.OPERATION_STATUS);
-        Object operationValue = exchange.getIn().getHeader(Qdrant.Headers.OPERATION_STATUS_VALUE);
+        Object operationId = exchange.getIn().getHeader(QdrantHeaders.OPERATION_ID);
+        Object opeartionStatus = exchange.getIn().getHeader(QdrantHeaders.OPERATION_STATUS);
+        Object operationValue = exchange.getIn().getHeader(QdrantHeaders.OPERATION_STATUS_VALUE);
 
         return Response.ok(operationId + "/" + opeartionStatus + "/" + operationValue).build();
     }
