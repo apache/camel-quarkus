@@ -47,7 +47,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 class XsltProcessor {
     /*
@@ -128,7 +128,7 @@ class XsltProcessor {
                         .forEach(path -> {
                             try {
                                 final Path rel = destination.relativize(path);
-                                final String fqcn = StringUtils.removeEnd(rel.toString(), ".class").replace(File.separatorChar,
+                                final String fqcn = Strings.CI.removeEnd(rel.toString(), ".class").replace(File.separatorChar,
                                         '.');
                                 final byte[] data = Files.readAllBytes(path);
 
