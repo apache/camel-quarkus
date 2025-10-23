@@ -148,14 +148,15 @@
         <mybatis.version>3.5.19</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
         <oak-jackrabbit-api.version>1.82.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
         <okhttp.version>4.12.0</okhttp.version>
-        <okio.version>3.6.0</okio.version><!-- @sync com.squareup.okhttp3:okhttp:${okhttp.version} dep:com.squareup.okio:okio-->
+        <okhttp-jvm.version>5.2.1</okhttp-jvm.version>
+        <okio.version>3.16.1</okio.version><!-- @sync com.squareup.okhttp3:okhttp-jvm:${okhttp-jvm.version} dep:com.squareup.okio:okio-jvm-->
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <opentelemetry-semconv-legacy.version>1.29.0-alpha</opentelemetry-semconv-legacy.version><!-- Alignment for camel-opentelemetry and google-pubsub -->
         <org.json.version>20240303</org.json.version><!-- Used by amazon-kinesis-client, google-cloud-bigquery and com.ibm.mq.jakarta.client -->
         <re2j.version>1.7</re2j.version><!-- Used by google-cloud-pubsub and amazon-kinesis-client -->
         <reactor-core.version>3.7.9</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
-        <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
+        <retrofit.version>3.0.0</retrofit.version><!-- @sync org.kiwiproject:consul-client:${consul-client-version} prop:retrofit.version -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
         <smooks.version>${smooks-version}</smooks.version>
         <snakeyaml.version>2.5</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
