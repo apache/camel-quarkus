@@ -22,10 +22,10 @@ Post Quantum Computing Signature and Verification component.
 [id="extensions-pqc-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:dataformats:pqc-dataformat.adoc[PQC (Post-Quantum Cryptography) data format]
-* xref:{cq-camel-components}::pqc-component.adoc[PQC Algorithms component], URI syntax: `pqc:label`
+* PQC (Post-Quantum Cryptography)
+* PQC Algorithms
 
-Please refer to the above links for usage and configuration details.
+
 
 [id="extensions-pqc-maven-coordinates"]
 == Maven coordinates
