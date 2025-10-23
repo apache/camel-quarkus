@@ -58,6 +58,7 @@ class GooglePubsubProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         Stream.of(
+                "com.google.protobuf.JavaFeaturesProto",
                 "io.grpc.internal.RetriableStream" // Consider moving this to a separate support extension if we need this in multiple top level extensions
         )
                 .map(RuntimeInitializedClassBuildItem::new)

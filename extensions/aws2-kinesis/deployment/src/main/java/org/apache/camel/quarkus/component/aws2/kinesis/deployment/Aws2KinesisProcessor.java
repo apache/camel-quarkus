@@ -36,7 +36,9 @@ class Aws2KinesisProcessor {
 
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        Stream.of("software.amazon.awssdk.services.dynamodb.DynamoDbRetryPolicy",
+        Stream.of(
+                "com.google.protobuf.JavaFeaturesProto",
+                "software.amazon.awssdk.services.dynamodb.DynamoDbRetryPolicy",
                 "software.amazon.kinesis.lifecycle.ShutdownTask")
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClass::produce);
