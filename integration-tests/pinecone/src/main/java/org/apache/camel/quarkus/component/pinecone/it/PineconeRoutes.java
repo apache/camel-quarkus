@@ -17,9 +17,8 @@
 package org.apache.camel.quarkus.component.pinecone.it;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.pinecone.PineconeVectorDb;
+import org.apache.camel.component.pinecone.PineconeVectorDbHeaders;
 
-import static org.apache.camel.component.pinecone.PineconeVectorDb.Headers.ACTION;
 import static org.apache.camel.component.pinecone.PineconeVectorDbAction.CREATE_SERVERLESS_INDEX;
 import static org.apache.camel.component.pinecone.PineconeVectorDbAction.DELETE_INDEX;
 import static org.apache.camel.component.pinecone.PineconeVectorDbAction.QUERY;
@@ -33,29 +32,29 @@ public class PineconeRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:createServerlessIndex")
-                .setHeader(ACTION).constant(CREATE_SERVERLESS_INDEX)
-                .setHeader(PineconeVectorDb.Headers.INDEX_NAME).constant(INDEX_NAME)
-                .setHeader(PineconeVectorDb.Headers.COLLECTION_SIMILARITY_METRIC).constant("cosine")
-                .setHeader(PineconeVectorDb.Headers.COLLECTION_DIMENSION).constant(3)
-                .setHeader(PineconeVectorDb.Headers.COLLECTION_CLOUD).constant("aws")
-                .setHeader(PineconeVectorDb.Headers.COLLECTION_CLOUD_REGION).constant("us-east-1")
+                .setHeader(PineconeVectorDbHeaders.ACTION).constant(CREATE_SERVERLESS_INDEX)
+                .setHeader(PineconeVectorDbHeaders.INDEX_NAME).constant(INDEX_NAME)
+                .setHeader(PineconeVectorDbHeaders.COLLECTION_SIMILARITY_METRIC).constant("cosine")
+                .setHeader(PineconeVectorDbHeaders.COLLECTION_DIMENSION).constant(3)
+                .setHeader(PineconeVectorDbHeaders.COLLECTION_CLOUD).constant("aws")
+                .setHeader(PineconeVectorDbHeaders.COLLECTION_CLOUD_REGION).constant("us-east-1")
                 .toF("pinecone:%s", COLLECTION_NAME);
 
         from("direct:query")
-                .setHeader(ACTION).constant(QUERY)
-                .setHeader(PineconeVectorDb.Headers.INDEX_NAME).constant(INDEX_NAME)
-                .setHeader(PineconeVectorDb.Headers.QUERY_TOP_K).constant(3)
+                .setHeader(PineconeVectorDbHeaders.ACTION).constant(QUERY)
+                .setHeader(PineconeVectorDbHeaders.INDEX_NAME).constant(INDEX_NAME)
+                .setHeader(PineconeVectorDbHeaders.QUERY_TOP_K).constant(3)
                 .toF("pinecone:%s", COLLECTION_NAME);
 
         from("direct:upsert")
-                .setHeader(ACTION).constant(UPSERT)
-                .setHeader(PineconeVectorDb.Headers.INDEX_ID).constant(INDEX_ID)
-                .setHeader(PineconeVectorDb.Headers.INDEX_NAME).constant(INDEX_NAME)
+                .setHeader(PineconeVectorDbHeaders.ACTION).constant(UPSERT)
+                .setHeader(PineconeVectorDbHeaders.INDEX_ID).constant(INDEX_ID)
+                .setHeader(PineconeVectorDbHeaders.INDEX_NAME).constant(INDEX_NAME)
                 .toF("pinecone:%s", COLLECTION_NAME);
 
         from("direct:deleteIndex")
-                .setHeader(ACTION).constant(DELETE_INDEX)
-                .setHeader(PineconeVectorDb.Headers.INDEX_NAME).constant(INDEX_NAME)
+                .setHeader(PineconeVectorDbHeaders.ACTION).constant(DELETE_INDEX)
+                .setHeader(PineconeVectorDbHeaders.INDEX_NAME).constant(INDEX_NAME)
                 .toF("pinecone:%s", COLLECTION_NAME);
     }
 }
