@@ -32,7 +32,6 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
-import io.vertx.core.streams.Pump;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.jboss.logging.Logger;
 
@@ -142,8 +141,8 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
                             NetSocket serverSocket = httpServerRequest.toNetSocket().result();
                             serverSocket.closeHandler(v -> clientSocket.close());
                             clientSocket.closeHandler(v -> serverSocket.close());
-                            Pump.pump(serverSocket, clientSocket).start();
-                            Pump.pump(clientSocket, serverSocket).start();
+                            serverSocket.pipeTo(clientSocket);
+                            clientSocket.pipeTo(serverSocket);
                         } else {
                             response.setStatusCode(403).end();
                         }
