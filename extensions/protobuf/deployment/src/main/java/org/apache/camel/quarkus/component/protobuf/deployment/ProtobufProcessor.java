@@ -23,6 +23,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
@@ -55,4 +56,8 @@ class ProtobufProcessor {
         }
     }
 
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
+    }
 }

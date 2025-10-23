@@ -21,6 +21,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.IndexView;
 
 class WeaviateProcessor {
@@ -49,5 +50,10 @@ class WeaviateProcessor {
     @BuildStep
     IndexDependencyBuildItem registerDependencyForIndex() {
         return new IndexDependencyBuildItem("io.weaviate", "client");
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 }

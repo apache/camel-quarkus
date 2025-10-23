@@ -27,6 +27,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import oracle.jdbc.driver.OracleDriver;
 
 class DebeziumOracleProcessor {
@@ -54,5 +55,10 @@ class DebeziumOracleProcessor {
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-oracle"));
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 }
