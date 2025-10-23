@@ -37,7 +37,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.langchain4j.chat.LangChain4jChat;
+import org.apache.camel.component.langchain4j.chat.LangChain4jChatHeaders;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -90,7 +90,7 @@ public class LangChain4jChatResource {
         variables.put("ingredients", "potato, tomato, feta, olive oil");
 
         producerTemplate.sendBodyAndHeader("direct:send-message-prompt", variables,
-                LangChain4jChat.Headers.PROMPT_TEMPLATE, promptTemplate);
+                LangChain4jChatHeaders.PROMPT_TEMPLATE, promptTemplate);
 
         mockEndpoint.assertIsSatisfied(10000);
 
