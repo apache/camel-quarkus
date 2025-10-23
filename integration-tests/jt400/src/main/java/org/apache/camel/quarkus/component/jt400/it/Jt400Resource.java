@@ -37,13 +37,17 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.jt400.Jt400Component;
 import org.apache.camel.component.jt400.Jt400Endpoint;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path("/jt400")
 @ApplicationScoped
 public class Jt400Resource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Jt400Resource.class);
 
     @ConfigProperty(name = "cq.jt400.url")
     String jt400Url;
@@ -165,12 +169,17 @@ public class Jt400Resource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response stopRoute(@PathParam("route") String routeName) throws Exception {
+        LOGGER.info("Stopping route: {}", routeName);
+        ServiceStatus routeStatus = context.getRouteController().getRouteStatus(routeName);
         if (context.getRouteController().getRouteStatus(routeName).isStoppable()) {
+            LOGGER.info("Route {} before stop information: {}", routeName, routeStatus.toString());
             context.getRouteController().stopRoute(routeName);
+            LOGGER.info("Route {} stopped", routeName);
         }
-        boolean resp = context.getRouteController().getRouteStatus(routeName).isStopped();
+        routeStatus = context.getRouteController().getRouteStatus(routeName);
+        LOGGER.info("Route {} status: {}", routeName, routeStatus.toString());
 
-        return Response.ok().entity(resp).build();
+        return Response.ok().entity(routeStatus.isStopped()).build();
     }
 
     @Path("/component/stopWrong")
