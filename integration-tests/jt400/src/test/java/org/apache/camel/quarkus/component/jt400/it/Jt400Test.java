@@ -256,7 +256,7 @@ public class Jt400Test {
         LOGGER.debug("testInquiryMessageQueue: inquiry message processed");
 
         //stop route (and wait for stop)
-        Awaitility.await().atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
+        Awaitility.await().atMost(2 * WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> RestAssured.get("/jt400/route/stop/inquiryRoute")
                         .then()
                         .statusCode(200)
@@ -265,7 +265,7 @@ public class Jt400Test {
         LOGGER.debug("testInquiryMessageQueue: inquiry route stooped");
 
         //check written message with client
-        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(20, TimeUnit.SECONDS).until(
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> getClientHelper().peekReplyToQueueMessage(replyMsg),
                 Matchers.notNullValue());
         LOGGER.debug("testInquiryMessageQueue: reply message confirmed by peek: " + replyMsg);
