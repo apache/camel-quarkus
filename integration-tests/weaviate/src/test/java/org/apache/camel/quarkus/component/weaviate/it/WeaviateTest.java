@@ -25,8 +25,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import org.apache.camel.component.weaviate.WeaviateVectorDb;
 import org.apache.camel.component.weaviate.WeaviateVectorDbAction;
+import org.apache.camel.component.weaviate.WeaviateVectorDbHeaders;
 import org.hamcrest.Matchers;
 import org.hamcrest.text.IsEmptyString;
 import org.jboss.logging.Logger;
@@ -120,8 +120,8 @@ class WeaviateTest {
     private void createCollection(String name) {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(Map.of(WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.CREATE_COLLECTION,
-                        WeaviateVectorDb.Headers.COLLECTION_NAME, name))
+                .body(Map.of(WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.CREATE_COLLECTION,
+                        WeaviateVectorDbHeaders.COLLECTION_NAME, name))
                 .post("/weaviate/request")
                 .then()
                 .statusCode(200)
@@ -132,8 +132,8 @@ class WeaviateTest {
     private void deleteCollection(String name) {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(Map.of(WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.DELETE_COLLECTION,
-                        WeaviateVectorDb.Headers.COLLECTION_NAME, name))
+                .body(Map.of(WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.DELETE_COLLECTION,
+                        WeaviateVectorDbHeaders.COLLECTION_NAME, name))
                 .post("/weaviate/request")
                 .then()
                 .statusCode(200)
@@ -145,9 +145,9 @@ class WeaviateTest {
 
         Map<String, Object> payload = Map.of(
                 "body", values,
-                WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.CREATE,
-                WeaviateVectorDb.Headers.COLLECTION_NAME, collectionName,
-                WeaviateVectorDb.Headers.PROPERTIES, properties);
+                WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.CREATE,
+                WeaviateVectorDbHeaders.COLLECTION_NAME, collectionName,
+                WeaviateVectorDbHeaders.PROPERTIES, properties);
 
         String createdId = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -165,9 +165,9 @@ class WeaviateTest {
 
     public ValidatableResponse queryById(String collectionName, String id) {
         Map<String, Object> payload = Map.of(
-                WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.QUERY_BY_ID,
-                WeaviateVectorDb.Headers.COLLECTION_NAME, collectionName,
-                WeaviateVectorDb.Headers.INDEX_ID, id);
+                WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.QUERY_BY_ID,
+                WeaviateVectorDbHeaders.COLLECTION_NAME, collectionName,
+                WeaviateVectorDbHeaders.INDEX_ID, id);
 
         return RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -183,10 +183,10 @@ class WeaviateTest {
 
         Map<String, Object> payload = Map.of(
                 "body", values,
-                WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.UPDATE_BY_ID,
-                WeaviateVectorDb.Headers.COLLECTION_NAME, collectionName,
-                WeaviateVectorDb.Headers.INDEX_ID, id,
-                WeaviateVectorDb.Headers.PROPERTIES, properties);
+                WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.UPDATE_BY_ID,
+                WeaviateVectorDbHeaders.COLLECTION_NAME, collectionName,
+                WeaviateVectorDbHeaders.INDEX_ID, id,
+                WeaviateVectorDbHeaders.PROPERTIES, properties);
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -200,9 +200,9 @@ class WeaviateTest {
     public void deleteById(String collectionName, String id) {
 
         Map<String, Object> payload = Map.of(
-                WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.DELETE_BY_ID,
-                WeaviateVectorDb.Headers.COLLECTION_NAME, collectionName,
-                WeaviateVectorDb.Headers.INDEX_ID, id);
+                WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.DELETE_BY_ID,
+                WeaviateVectorDbHeaders.COLLECTION_NAME, collectionName,
+                WeaviateVectorDbHeaders.INDEX_ID, id);
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -217,10 +217,10 @@ class WeaviateTest {
 
         Map<String, Object> payload = Map.of(
                 "body", values,
-                WeaviateVectorDb.Headers.ACTION, WeaviateVectorDbAction.QUERY,
-                WeaviateVectorDb.Headers.COLLECTION_NAME, collectionName,
-                WeaviateVectorDb.Headers.QUERY_TOP_K, 2,
-                WeaviateVectorDb.Headers.FIELDS, fields);
+                WeaviateVectorDbHeaders.ACTION, WeaviateVectorDbAction.QUERY,
+                WeaviateVectorDbHeaders.COLLECTION_NAME, collectionName,
+                WeaviateVectorDbHeaders.QUERY_TOP_K, 2,
+                WeaviateVectorDbHeaders.FIELDS, fields);
 
         return RestAssured.given()
                 .contentType(ContentType.JSON)
