@@ -52,6 +52,7 @@
         <module>dfdl</module>
         <module>djl</module>
         <module>dns</module>
+        <module>docling</module>
         <module>drill</module>
         <module>dsl-modeline</module>
         <module>ehcache</module>

@@ -906,6 +906,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-docling</artifactId>
+        <version>4.15.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-drill</artifactId>
         <version>4.15.0</version>
         <exclusions>
@@ -4001,6 +4006,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dns-deployment</artifactId>
+        <version>3.29.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-docling</artifactId>
+        <version>3.29.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-docling-deployment</artifactId>
         <version>3.29.0-SNAPSHOT</version>
       </dependency>
       <dependency>
