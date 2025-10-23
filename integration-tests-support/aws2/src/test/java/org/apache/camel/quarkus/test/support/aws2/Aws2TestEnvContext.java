@@ -176,7 +176,8 @@ public class Aws2TestEnvContext {
             Supplier<B> builderSupplier) {
         B builder = builderSupplier.get()
                 .credentialsProvider(
-                        credentialsProvider == CredentialsProvider.defaultProvider ? DefaultCredentialsProvider.create()
+                        credentialsProvider == CredentialsProvider.defaultProvider
+                                ? DefaultCredentialsProvider.builder().build()
                                 : StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)));
         builder.region(Region.of(region));
 

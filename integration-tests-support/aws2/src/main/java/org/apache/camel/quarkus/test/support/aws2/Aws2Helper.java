@@ -25,7 +25,7 @@ public class Aws2Helper {
 
     public static boolean isDefaultCredentialsProviderDefinedOnSystem() {
         try {
-            DefaultCredentialsProvider.create().resolveCredentials();
+            DefaultCredentialsProvider.builder().build().resolveCredentials();
         } catch (Exception e) {
             //if message starts with "Unable to load credentials", allow testing
             if (e instanceof SdkClientException && e.getMessage() != null
