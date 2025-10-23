@@ -143,7 +143,7 @@ public class PerfRegressionCommand implements Runnable {
         String stdout = MvnwCmdHelper.execute(cqVersionUnderTestFolder, args);
 
         // Extract the throughput from a log line like "15:26:23,110 INFO  (main) [i.h.m.RunMojo] Requests/sec: 1153.56"
-        String throughput = RegExUtils.replacePattern(stdout, ".*RunMojo] Requests/sec: ([0-9.]+).*", "$1");
+        String throughput = RegExUtils.replacePattern((CharSequence) stdout, ".*RunMojo] Requests/sec: ([0-9.]+).*", "$1");
 
         try {
             return US_NUMBER_FORMAT.parse(throughput).doubleValue();
