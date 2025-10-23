@@ -116,6 +116,7 @@
 *** xref:reference/extensions/digitalocean.adoc[DigitalOcean]
 *** xref:reference/extensions/direct.adoc[Direct]
 *** xref:reference/extensions/disruptor.adoc[Disruptor]
+*** xref:reference/extensions/docling.adoc[Docling]
 *** xref:reference/extensions/drill.adoc[Drill]
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
 *** xref:reference/extensions/ehcache.adoc[Ehcache]
