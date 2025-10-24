@@ -1,0 +1,33 @@
+{
+  "id" : "bf655105-e6b7-4c2d-942a-91ec6054a1c9",
+  "name" : "rest_api_latest_myself",
+  "request" : {
+    "url" : "/rest/api/latest/myself",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"self\":\"http://localhost:8080/rest/api/2/user?username=test\",\"key\":\"JIRAUSER10000\",\"name\":\"test\",\"emailAddress\":\"ondrusek.jiri@gmail.com\",\"avatarUrls\":{\"48x48\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=48\",\"24x24\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=24\",\"16x16\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=16\",\"32x32\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=32\"},\"displayName\":\"test\",\"active\":true,\"deleted\":false,\"timeZone\":\"Etc/UTC\",\"locale\":\"en_US\",\"groups\":{\"size\":2,\"items\":[]},\"applicationRoles\":{\"size\":1,\"items\":[]},\"expand\":\"groups,applicationRoles\"}",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x542x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=31",
+      "Date" : "Fri, 24 Oct 2025 09:52:25 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "1dlv9i1",
+      "Set-Cookie" : [ "JSESSIONID=BBBDE6BE72DA693ACD423097E455DA43; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_595bec775e68b3d3d87393717314bd6fced404b5_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "bf655105-e6b7-4c2d-942a-91ec6054a1c9",
+  "persistent" : true,
+  "insertionIndex" : 45
+}

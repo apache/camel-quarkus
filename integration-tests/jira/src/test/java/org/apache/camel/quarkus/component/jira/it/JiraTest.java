@@ -40,7 +40,6 @@ import org.apache.camel.component.jira.oauth.OAuthAsynchronousJiraRestClientFact
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
@@ -50,7 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled // https://github.com/apache/camel-quarkus/issues/7882
+//@Disabled // https://github.com/apache/camel-quarkus/issues/7882
 @QuarkusTest
 @QuarkusTestResource(JiraTestResource.class)
 public class JiraTest {

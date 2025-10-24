@@ -1,0 +1,39 @@
+{
+  "id" : "1407c23f-373e-47bb-b788-4100a6ae85e6",
+  "name" : "rest_api_latest_issue_test-121",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/TEST-121",
+    "method" : "DELETE",
+    "queryParameters" : {
+      "deleteSubtasks" : {
+        "hasExactly" : [ {
+          "equalTo" : "true"
+        } ]
+      }
+    }
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x521x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=31",
+      "Date" : "Fri, 24 Oct 2025 09:52:23 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "frame-ancestors 'self'",
+      "X-ASESSIONID" : "vipks8",
+      "Set-Cookie" : [ "JSESSIONID=B11315C85A2463B8D51201D08E244E75; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_ea37e3f750b3105223b896f47e330588c6117da4_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "text/html;charset=UTF-8"
+    }
+  },
+  "uuid" : "1407c23f-373e-47bb-b788-4100a6ae85e6",
+  "persistent" : true,
+  "insertionIndex" : 64
+}
