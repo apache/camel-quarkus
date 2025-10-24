@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/7868
 @QuarkusTest
 @QuarkusTestResource(ConsulTestResource.class)
 class ConsulTest {
