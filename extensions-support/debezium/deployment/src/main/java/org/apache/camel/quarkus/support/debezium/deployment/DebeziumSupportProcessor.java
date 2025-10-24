@@ -38,8 +38,6 @@ import io.debezium.snapshot.mode.InitialSnapshotter;
 import io.debezium.snapshot.mode.NeverSnapshotter;
 import io.debezium.snapshot.mode.NoDataSnapshotter;
 import io.debezium.snapshot.mode.RecoverySnapshotter;
-import io.debezium.snapshot.mode.SchemaOnlyRecoverySnapshotter;
-import io.debezium.snapshot.mode.SchemaOnlySnapshotter;
 import io.debezium.snapshot.mode.WhenNeededSnapshotter;
 import io.debezium.snapshot.spi.SnapshotLock;
 import io.debezium.storage.file.history.FileSchemaHistory;
@@ -116,8 +114,6 @@ public class DebeziumSupportProcessor {
                 RecoverySnapshotter.class,
                 WhenNeededSnapshotter.class,
                 NeverSnapshotter.class,
-                SchemaOnlySnapshotter.class,
-                SchemaOnlyRecoverySnapshotter.class,
                 ConfigurationBasedSnapshotter.class,
                 SourceSignalChannel.class,
                 KafkaSignalChannel.class,
