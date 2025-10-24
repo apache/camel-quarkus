@@ -138,7 +138,7 @@ class XchangeProcessor {
 
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-        Stream.of(Order.class.getName())
+        Stream.of(Order.class.getName(), "org.apache.http.impl.auth.NTLMEngineImpl")
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClasses::produce);
     }
