@@ -49,7 +49,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@Disabled // https://github.com/apache/camel-quarkus/issues/7882
 @QuarkusTest
 @QuarkusTestResource(JiraTestResource.class)
 public class JiraTest {
