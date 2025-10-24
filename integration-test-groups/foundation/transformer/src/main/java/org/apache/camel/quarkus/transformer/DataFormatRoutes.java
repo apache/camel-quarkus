@@ -16,22 +16,27 @@
  */
 package org.apache.camel.quarkus.transformer;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonDataFormat;
+import org.apache.camel.model.dataformat.JsonLibrary;
 
-@RegisterForReflection
-public class TransformerBean {
-    private final String message;
-
-    public TransformerBean(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
+public class DataFormatRoutes extends RouteBuilder {
     @Override
-    public String toString() {
-        return "Transformed " + message;
+    public void configure() throws Exception {
+
+        JsonDataFormat jsondf = new JsonDataFormat()
+                .library(JsonLibrary.Jackson)
+                .allowUnmarshallType(true)
+                .unmarshalType(TransformerBean.class);
+
+        transformer()
+                .fromType(TransformerBean.class)
+                .toType("json")
+                .withDataFormat(jsondf);
+
+        from("direct:transformBeanToJson")
+                .inputType(TransformerBean.class)
+                .outputType("json")
+                .log("Transformed TransformerBean to json");
     }
 }

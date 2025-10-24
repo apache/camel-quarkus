@@ -16,22 +16,19 @@
  */
 package org.apache.camel.quarkus.transformer;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.builder.RouteBuilder;
 
-@RegisterForReflection
-public class TransformerBean {
-    private final String message;
-
-    public TransformerBean(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
+public class CustomTransformerRoutes extends RouteBuilder {
     @Override
-    public String toString() {
-        return "Transformed " + message;
+    public void configure() throws Exception {
+        transformer()
+                .fromType("plain/text")
+                .toType("plain/lowercase")
+                .withJava(org.apache.camel.quarkus.transformer.LowercaseTransformer.class);
+
+        from("direct:stringToLowercase")
+                .inputType("plain/text")
+                .outputType("plain/lowercase")
+                .log("transformed message to lowercase");
     }
 }

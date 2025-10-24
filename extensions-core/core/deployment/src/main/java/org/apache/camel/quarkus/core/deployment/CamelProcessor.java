@@ -43,6 +43,8 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.runtime.RuntimeValue;
 import io.smallrye.common.annotation.Identifier;
@@ -108,6 +110,8 @@ class CamelProcessor {
             "org.apache.camel.Predicate");
     private static final DotName CONVERTER_TYPE = DotName.createSimple(
             "org.apache.camel.Converter");
+    private static final DotName TRANSFORMER_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.Transformer");
 
     private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
             ROUTES_BUILDER_TYPE,
@@ -429,6 +433,49 @@ class CamelProcessor {
                 .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), TreeSet::new));
 
         return new CamelComponentNameResolverBuildItem(recorder.createComponentNameResolver(componentNames));
+    }
+
+    /**
+     * Discovers all Transformer implementations for package scanning and reflection.
+     * This enables transformer.scan() to work in native mode.
+     */
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void discoverTransformers(
+            ApplicationArchivesBuildItem applicationArchives,
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<CamelPackageScanClassBuildItem> packageScanClass,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+        IndexView index = combinedIndex.getIndex();
+
+        Set<String> internalTransformers = new HashSet<>();
+        // Ignore all Transformer implementations from org.apache.camel:camel-* dependencies
+        for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
+            ArtifactKey artifactKey = archive.getKey();
+            if (artifactKey != null && "org.apache.camel".equals(artifactKey.getGroupId())
+                    && artifactKey.getArtifactId().startsWith("camel-")) {
+                internalTransformers.addAll(archive.getIndex().getAllKnownSubclasses(TRANSFORMER_TYPE)
+                        .stream()
+                        .map(classInfo -> classInfo.name().toString())
+                        .collect(Collectors.toSet()));
+            }
+        }
+
+        Set<String> transformerClasses = index.getAllKnownSubclasses(TRANSFORMER_TYPE)
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(className -> !internalTransformers.contains(className))
+                .collect(Collectors.toSet());
+
+        if (!transformerClasses.isEmpty()) {
+            LOGGER.debug("Found Transformer classes: {}", transformerClasses);
+            packageScanClass.produce(new CamelPackageScanClassBuildItem(transformerClasses));
+
+            // Register transformer classes for reflection so they can be instantiated at runtime
+            transformerClasses.forEach(className -> reflectiveClass.produce(
+                    ReflectiveClassBuildItem.builder(className)
+                            .build()));
+        }
     }
 
     @Record(ExecutionTime.STATIC_INIT)

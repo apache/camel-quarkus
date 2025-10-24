@@ -16,22 +16,18 @@
  */
 package org.apache.camel.quarkus.transformer;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.builder.RouteBuilder;
 
-@RegisterForReflection
-public class TransformerBean {
-    private final String message;
-
-    public TransformerBean(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
+public class DataTypeTransformerRoutes extends RouteBuilder {
     @Override
-    public String toString() {
-        return "Transformed " + message;
+    public void configure() throws Exception {
+
+        transformer()
+                .scan("org.apache.camel.quarkus.transformer");
+
+        from("direct:stringToUppercase")
+                .inputType("plain/text")
+                .outputType("plain/uppercase")
+                .log("Transformed message to Uppercase");
     }
 }
