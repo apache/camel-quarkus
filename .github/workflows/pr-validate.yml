@@ -40,6 +40,7 @@ on:
       - '.github/workflows/camel-master-cron.yaml'
       - '.github/workflows/check-dependency-convergence.yml'
       - '.github/workflows/generate-sbom-main.yml'
+      - '.github/workflows/jdk25-build.yaml'
       - '.github/workflows/label-issue.yaml'
       - '.github/workflows/pr-validate.yml'
       - '.github/workflows/quarkus-lts-ci-build.yaml'
