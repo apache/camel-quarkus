@@ -17,6 +17,9 @@
 
 package org.apache.camel.quarkus.component.kudu.it;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -35,10 +38,11 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.DOCKER_HOST;
-import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.KUDU_TABLET_NETWORK_ALIAS;
 import static org.apache.camel.quarkus.component.kudu.it.KuduRoute.KUDU_AUTHORITY_CONFIG_KEY;
 
+/**
+ * Based on https://github.com/apache/kudu/blob/master/docker/quickstart.yml.
+ */
 public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(KuduTestResource.class);
     private static final int KUDU_MASTER_RPC_PORT = 7051;
@@ -47,6 +51,7 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
     private static final int KUDU_TABLET_HTTP_PORT = 8050;
     private static final String KUDU_IMAGE = ConfigProvider.getConfig().getValue("kudu.container.image", String.class);
     private static final String KUDU_MASTER_NETWORK_ALIAS = "kudu-master";
+    private static final String KUDU_TABLET_NETWORK_ALIAS = "kudu-tserver";
 
     private GenericContainer<?> masterContainer;
     private GenericContainer<?> tabletContainer;
@@ -54,11 +59,17 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         Network kuduNetwork = Network.newNetwork();
+        final String advertisingIpAddress = getAdvertisingIpAddress();
+        LOG.info("Advertising IP address: {}", advertisingIpAddress);
 
         // Setup the Kudu master server container
         masterContainer = new GenericContainer<>(KUDU_IMAGE)
                 .withCommand("master")
-                .withEnv("MASTER_ARGS", "--unlock_unsafe_flags=true")
+                .withEnv("MASTER_ARGS",
+                        "--unlock_unsafe_flags=true " +
+                        // we must advertise host IP address, otherwise Kudu client receives address internal to Docker container
+                                "--rpc_advertised_addresses=%s:%s".formatted(advertisingIpAddress, KUDU_MASTER_RPC_PORT))
+                .withEnv("KUDU_MASTERS", KUDU_MASTER_NETWORK_ALIAS)
                 .withExposedPorts(KUDU_MASTER_RPC_PORT, KUDU_MASTER_HTTP_PORT)
                 .withNetwork(kuduNetwork)
                 .withNetworkAliases(KUDU_MASTER_NETWORK_ALIAS)
@@ -67,6 +78,8 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
         masterContainer.start();
 
         // Force host name and port, so that the tablet container is accessible from KuduResource, KuduTest and KuduIT.
+        // It basically forces to use fixed ports, instead of dynamic, so we can advertise them and use them externally.
+        // See https://github.com/testcontainers/testcontainers-java/issues/3967 for more context.
         Consumer<CreateContainerCmd> consumer = cmd -> {
             Ports portBindings = new Ports();
             portBindings.bind(ExposedPort.tcp(KUDU_TABLET_RPC_PORT), Ports.Binding.bindPort(KUDU_TABLET_RPC_PORT));
@@ -80,7 +93,10 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
         // Setup the Kudu tablet server container
         tabletContainer = new GenericContainer<>(KUDU_IMAGE)
                 .withCommand("tserver")
-                .withEnv("TSERVER_ARGS", "--unlock_unsafe_flags=true")
+                .withEnv("TSERVER_ARGS",
+                        "--unlock_unsafe_flags=true " +
+                        // we must advertise host IP address, otherwise Kudu client receives address internal to Docker container
+                                "--rpc_advertised_addresses=%s:%s".formatted(advertisingIpAddress, KUDU_TABLET_RPC_PORT))
                 .withEnv("KUDU_MASTERS", KUDU_MASTER_NETWORK_ALIAS)
                 .withExposedPorts(KUDU_TABLET_RPC_PORT, KUDU_TABLET_HTTP_PORT)
                 .withNetwork(kuduNetwork)
@@ -106,8 +122,7 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
         LOG.info("Kudu tablet server HTTP accessible at " + tServerHttpAuthority);
 
         return CollectionHelper.mapOf(
-                KUDU_AUTHORITY_CONFIG_KEY, masterRpcAuthority,
-                DOCKER_HOST, DockerClientFactory.instance().dockerHostIpAddress());
+                KUDU_AUTHORITY_CONFIG_KEY, masterRpcAuthority);
     }
 
     @Override
@@ -122,5 +137,49 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
         } catch (Exception ex) {
             LOG.error("An issue occurred while stopping the KuduTestResource", ex);
         }
+    }
+
+    public String getRealHostIpAddress() {
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                NetworkInterface iface = interfaces.nextElement();
+
+                // skip loopback and non-active interfaces
+                if (iface.isLoopback() || !iface.isUp()) {
+                    continue;
+                }
+
+                // skip virtual/docker interfaces (they often starts with "docker" or "br-"
+                String name = iface.getName();
+                if (name.startsWith("docker") || name.startsWith("br-")) {
+                    continue;
+                }
+
+                Enumeration<InetAddress> addresses = iface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress addr = addresses.nextElement();
+
+                    // only IPv4 and host address (not link-local addresses)
+                    if (addr instanceof java.net.Inet4Address && !addr.isLinkLocalAddress()) {
+                        return addr.getHostAddress();
+                    }
+                }
+            }
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (Exception e) {
+            throw new RuntimeException("Error while getting host ip address", e);
+        }
+    }
+
+    public String getAdvertisingIpAddress() {
+        LOG.info("DOCKER_HOST is set to {}", System.getenv("DOCKER_HOST"));
+        String dockerHostIpAddress = DockerClientFactory.instance().dockerHostIpAddress();
+        if ("localhost".equals(dockerHostIpAddress)) {
+            LOG.info("Docker is running on local host - going to resolve real IP of the host");
+            return getRealHostIpAddress();
+        }
+        // else Docker is running remotely and thus use the IP of remote host.
+        return dockerHostIpAddress;
     }
 }
