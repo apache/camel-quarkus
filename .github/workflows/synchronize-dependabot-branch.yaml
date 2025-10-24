@@ -80,9 +80,9 @@ jobs:
               exit 1
             fi
 
-            echo "branch-ref=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)" >> $GITHUB_OUTPUT
-            echo "pr-head-sha=${PR_HEAD_SHA}" >> $GITHUB_OUTPUT
-            echo "pr-number=${PR_NUMBER}" >> $GITHUB_OUTPUT
+            echo "branch-ref=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)" >> "$GITHUB_OUTPUT"
+            echo "pr-head-sha=${PR_HEAD_SHA}" >> "$GITHUB_OUTPUT"
+            echo "pr-number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
           fi
       - name: Checkout dependabot branch
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
