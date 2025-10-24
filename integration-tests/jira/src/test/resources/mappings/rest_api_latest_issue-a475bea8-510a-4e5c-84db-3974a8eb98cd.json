@@ -1,0 +1,40 @@
+{
+  "id" : "a475bea8-510a-4e5c-84db-3974a8eb98cd",
+  "name" : "rest_api_latest_issue",
+  "request" : {
+    "url" : "/rest/api/latest/issue",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"fields\":{\"summary\":\"Camel Quarkus Test Issue Summary\",\"issuetype\":{\"id\":\"10002\"},\"project\":{\"key\":\"TEST\"},\"description\":\"Camel Quarkus Test Issue Description\"},\"properties\":[]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"id\":\"10131\",\"key\":\"TEST-127\",\"self\":\"http://localhost:8080/rest/api/latest/issue/10131\"}",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x568x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=31",
+      "Date" : "Fri, 24 Oct 2025 09:52:31 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "1e199cn",
+      "Set-Cookie" : [ "JSESSIONID=C47A89215CCD4DB54034863167221D9B; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_14f31f7309f3fd313d13cad28f3da48949f4937d_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "a475bea8-510a-4e5c-84db-3974a8eb98cd",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-rest-api-latest-issue",
+  "requiredScenarioState" : "scenario-2-rest-api-latest-issue-7",
+  "newScenarioState" : "scenario-2-rest-api-latest-issue-8",
+  "insertionIndex" : 21
+}
