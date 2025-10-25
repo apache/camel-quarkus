@@ -57,7 +57,7 @@ IMPORTANT: To learn about supported use cases and WS specifications, see the Qua
 [id="extensions-cxf-soap-usage-dependency-management"]
 === Dependency management
 
-The CXF and `quarkus-cxf` versions are xref:user-guide/dependency-management.adoc[managed] by {project-name}. You do not need select compatible versions for those projects.
+The CXF and `quarkus-cxf` versions are xref:user-guide/dependency-management.adoc[managed] by {project-name}. You do not need to select compatible versions for those projects.
 
 [id="extensions-cxf-soap-usage-client"]
 === Client
