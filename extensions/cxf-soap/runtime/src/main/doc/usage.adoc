@@ -7,7 +7,7 @@ IMPORTANT: To learn about supported use cases and WS specifications, see the Qua
 
 === Dependency management
 
-The CXF and `quarkus-cxf` versions are xref:user-guide/dependency-management.adoc[managed] by {project-name}. You do not need select compatible versions for those projects.
+The CXF and `quarkus-cxf` versions are xref:user-guide/dependency-management.adoc[managed] by {project-name}. You do not need to select compatible versions for those projects.
 
 === Client
 
