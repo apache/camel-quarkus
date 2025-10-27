@@ -40,6 +40,7 @@ updates:
       - dependency-name: "com.datastax.oss.quarkus:cassandra-quarkus-bom"
       - dependency-name: "com.hazelcast:quarkus-hazelcast-client-bom"
       - dependency-name: "com.squareup.okhttp3:okhttp"
+      - dependency-name: "io.debezium:debezum-bom"
       - dependency-name: "io.swagger.codegen.v3:swagger-codegen-generators"
       - dependency-name: "org.amqphub.quarkus:quarkus-qpid-jms-bom"
       - dependency-name: "org.jolokia:jolokia-agent-jvm"
