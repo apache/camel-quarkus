@@ -22,7 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
@@ -34,7 +33,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.StartedProcess;
 
-@QuarkusTestResource(QuartzClusteredTestResource.class)
 @QuarkusTest
 class QuartzClusteredTest {
 
@@ -65,7 +63,8 @@ class QuartzClusteredTest {
                 "-Dquarkus.datasource.jdbc.url=" + jdbcUrl,
                 "-Dquarkus.datasource.username=" + datasourceUsername,
                 "-Dquarkus.datasource.password=" + datasourcePassword,
-                "-Dquarkus.flyway.migrate-at-start=false");
+                "-Dquarkus.flyway.migrate-at-start=false",
+                "-Dquarkus.flyway.clean-at-start=false");
         StartedProcess process = quarkusProcessExecutor.start();
 
         // Wait until the process is fully initialized
