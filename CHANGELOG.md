@@ -18,6 +18,23 @@
 -->
 # Changelog
 
+## 3.20.3
+
+* [3.20.x] Fix SplunkTest for running with remote docker test container by @llowinge in https://github.com/apache/camel-quarkus/pull/7515
+* [3.20.x] Upgrade Quarkus to 3.20.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7528
+* [3.20.x] Register SimpleSearchTerm for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7552
+* [3.20.x] Fallback to resolving bean names from @Identifier for RuntimeBeanRepository.findByTypeWithName by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7561
+* [3.20.x] Wiremock Olingo4 test by @llowinge in https://github.com/apache/camel-quarkus/pull/7626
+* [3.20.x] Avoid configuring JasyptPropertiesParser unless encrypted properties are detected by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7636
+* [3.20.x] Use 4.10.x for components doc xrefs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7664
+* [3.20.x] Add type check for non-synthetic beans in RuntimeBeanRepository.getReferenceByName by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7690
+* [3.20.x] Upgrade Quarkus to 3.20.3 + backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7751
+* [3.20.x] Upgrade Camel to 4.10.7 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7770
+* [3.20.x] Ban io.grpc:grpc-netty-shaded by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7789
+* [3.20.x] Upgrade quarkus-minio to 3.8.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7857
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.20.2...3.20.3
+
 ## 3.26.0
 
 ## What's Changed
@@ -111,7 +128,6 @@
 * Bump quarkiverse-cxf.version from 3.25.0 to 3.26.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7668
 * Demote Hazelcast & OptaPlanner extensions to JVM only by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7661
 
-
 **Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.25.0...3.26.0
 
 ## 3.25.0
@@ -175,7 +191,6 @@
 * Bump quarkiverse-langchain4j.version from 1.1.0.CR2 to 1.1.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7536
 * Upgrade Quarkus to 3.25.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7540
 * Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.8.3 to 3.8.4 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7542
-
 
 **Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.24.0...3.25.0
 
