@@ -136,4 +136,10 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
     public boolean isNotNullJacksonAnnotation() {
         return notNullJacksonAnnotation;
     }
+
+    @Override
+    public String modelFileFolder() {
+        // Override the original impl to avoid redundant src/main/java directory prefix being added to the output path
+        return outputFolder + "/" + modelPackage().replace('.', '/');
+    }
 }
