@@ -107,7 +107,7 @@ class KameletTest {
         RestAssured.get("/kamelet/pipe")
                 .then()
                 .statusCode(200)
-                .body(is("Hello Pipe"));
+                .body(is("Hello+Pipe"));
     }
 
     @Test

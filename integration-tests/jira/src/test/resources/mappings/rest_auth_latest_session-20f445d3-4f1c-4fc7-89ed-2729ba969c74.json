@@ -1,0 +1,33 @@
+{
+  "id" : "20f445d3-4f1c-4fc7-89ed-2729ba969c74",
+  "name" : "rest_auth_latest_session",
+  "request" : {
+    "url" : "/rest/auth/latest/session",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"self\":\"http://localhost:8080/rest/api/latest/user?username=test\",\"name\":\"test\",\"loginInfo\":{\"failedLoginCount\":2,\"loginCount\":2024,\"lastFailedLoginTime\":\"2025-10-24T07:11:34.283+0000\",\"previousLoginTime\":\"2025-10-24T09:52:21.467+0000\"}}",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x555x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=34",
+      "Date" : "Fri, 24 Oct 2025 09:52:28 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "1wkjgts",
+      "Set-Cookie" : [ "JSESSIONID=F170CEB113891AFA3A3AD411E9C10EC4; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_1458cdebbec6d0868429896e15cd2a483f9895dd_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "20f445d3-4f1c-4fc7-89ed-2729ba969c74",
+  "persistent" : true,
+  "insertionIndex" : 32
+}
