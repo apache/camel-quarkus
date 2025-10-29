@@ -121,8 +121,16 @@ jobs:
               .forEach(prefix => prefixes.add(prefix));
 
             const prefixRegex = Array.from(prefixes).join('|');
+            const labelFilter = (label) => {
+                // Avoid removing user added labels on issue open or reopen
+                if (context.payload.action !== 'opened' && context.payload.action !== 'reopened') {
+                  return label.name.match("^(?!" + prefixRegex + ").*");
+                }
+                return true;
+            };
+
             issue.labels
-              .filter(label => label.name.match("^(?!" + prefixRegex + ").*"))
+              .filter(labelFilter)
               .map(label => label.name)
               .forEach(label => labels.add(label));
 
