@@ -61,6 +61,8 @@ updates:
       # Maven plugins
       # Quarkus is upgraded manually
       - dependency-name: "io.quarkus:quarkus-*-maven-plugin"
+      # Automatically aligned with the Quarkus Jandex version
+      - dependency-name: "io.smallrye:jandex-maven-plugin"
       # Camel is upgraded manually
       - dependency-name: "org.apache.camel.maven:*"
       # To be kept manually in alignment with the enforcer API version used in quarkus-enforcer-rules
