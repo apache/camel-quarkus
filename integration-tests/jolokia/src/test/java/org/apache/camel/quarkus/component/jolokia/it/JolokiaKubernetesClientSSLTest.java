@@ -28,11 +28,12 @@ import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
 import io.smallrye.certs.junit5.Certificates;
 import org.apache.http.NoHttpResponseException;
+import org.apache.http.client.ClientProtocolException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Certificates(baseDir = "target/certs", certificates = {
         @Certificate(name = "kubernetes-service-cert", formats = { Format.PKCS12,
@@ -53,12 +54,12 @@ class JolokiaKubernetesClientSSLTest {
     @Test
     void clientSSLAuthentication() {
         // Plain HTTP should be disabled
-        assertThrows(NoHttpResponseException.class, () -> {
+        assertThatThrownBy(() -> {
             RestAssured.given()
                     .get("/jolokia/")
                     .then()
                     .statusCode(200);
-        });
+        }).isInstanceOfAny(NoHttpResponseException.class, ClientProtocolException.class);
 
         RestAssured.config = RestAssured.config().with().sslConfig(getSSLConfig());
         RestAssured.given()
