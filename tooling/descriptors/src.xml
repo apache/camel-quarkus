@@ -45,7 +45,6 @@
         <exclude>**/eclipse-classes/**</exclude>
         <exclude>**/.*</exclude>
         <exclude>**/.github/**</exclude>
-        <exclude>**/.mvn/wrapper/**</exclude>
 
         <exclude>**/surefire*</exclude>
         <exclude>**/svn-commit*</exclude>
@@ -58,15 +57,13 @@
 
         <!-- Eclipse -->
         <exclude>**/.project</exclude>
-        <exclude>**/.classpath]</exclude>
+        <exclude>**/.classpath</exclude>
         <exclude>**/.settings/**</exclude>
 
         <exclude>**/cobertura.ser</exclude>
 
         <exclude>**/node_modules/**</exclude>
         <exclude>**/.flattened-pom.xml</exclude>
-
-        <exclude>**/mvnw**</exclude>
       </excludes>
     </fileSet>
 
