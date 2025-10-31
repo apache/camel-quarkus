@@ -21,6 +21,7 @@ import java.util.stream.IntStream;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 import org.eclipse.microprofile.config.Config;
@@ -81,7 +82,7 @@ public class JpaTestBase {
 
     @Test
     public void testConsumer() {
-        IntStream.range(1, 3).parallel().forEach((id) -> {
+        IntStream.range(1, 3).forEach((id) -> {
             await().atMost(10L, TimeUnit.SECONDS).until(() -> findFruit(id).getProcessed());
         });
 
@@ -157,12 +158,14 @@ public class JpaTestBase {
                 .body("size()", is(3));
     }
 
-    public Fruit findFruit(int id) {
-        return JsonbBuilder.create().fromJson(
-                RestAssured.get("/jpa/fruit/" + id)
-                        .then()
-                        .statusCode(200)
-                        .extract().body().asString(),
-                Fruit.class);
+    public Fruit findFruit(int id) throws Exception {
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            return jsonb.fromJson(
+                    RestAssured.get("/jpa/fruit/" + id)
+                            .then()
+                            .statusCode(200)
+                            .extract().body().asString(),
+                    Fruit.class);
+        }
     }
 }
