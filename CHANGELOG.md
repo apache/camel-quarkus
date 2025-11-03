@@ -18,6 +18,24 @@
 -->
 # Changelog
 
+## 3.27.1
+
+* [3.27.x] Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.2.0.CR2 to 1.2.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7768
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7780
+* [3.27.x] Ban io.grpc:grpc-netty-shaded by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7790
+* [3.27.x] fixed test password kafka sasl ssl test by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7787
+* [3.27.x] Set ES_JAVA_OPTS for ElasticSearch container JVM only tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7794
+* [3.27.x] Upgrade Camel to 4.14.1 + Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7802
+* [3.27.x] Bump quarkiverse-minio.version from 3.8.5 to 3.8.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7809
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7824
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7847
+* [3.27.x] Close the class path resource properly after reading from it in BeanioProcessor by @ppalaga in https://github.com/apache/camel-quarkus/pull/7859
+* [3.27.x] Disable NATS TLS testing due to #7771 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7888
+* [3.27.x] Prevent Swagger Java CodeGen prefixing src/main/java to the generated model source output path by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7919
+* [3.27.x] Upgrade Camel to 4.14.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7921
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.27.0...3.27.1
+
 ## 3.29.0
 
 * Remove not needed Agroal dependency from Jasypt tests by @llowinge in https://github.com/apache/camel-quarkus/pull/7758
