@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.io.output.TeeOutputStream;
+import org.gradle.internal.impldep.org.apache.commons.io.FileUtils;
 import org.jboss.logging.Logger;
 
 public class MvnwCmdHelper {
@@ -79,14 +81,42 @@ public class MvnwCmdHelper {
             int exitValue = executor.execute(cmd, environment);
             String outAndErr = stdoutAndStderrMemoryStream.toString(StandardCharsets.UTF_8);
             if (exitValue != 0) {
-                throw new RuntimeException("The command '" + cmd + "' has returned exitValue " + exitValue
-                        + ", process logs below:\n" + outAndErr);
+                if (Files.exists(logFile.toPath())) {
+                    LOGGER.info("About to throw RuntimeException1, log file exist with content:\n"
+                            + FileUtils.readFileToString(logFile, StandardCharsets.UTF_8));
+                } else {
+                    LOGGER.info("About to throw RuntimeException1, log file does not exist");
+                }
+                throw new RuntimeException(
+                        "The command '" + cmd + "' has returned exitValue " + exitValue
+                                + ", process logs below:\n" + outAndErr);
             }
 
             return outAndErr;
         } catch (IOException ex) {
-            throw new RuntimeException("An issue occurred while attempting to execute 'mvnw " + args
-                    + "', more logs may be found in " + cqVersionUnderTestFolder + "/logs.txt if exists", ex);
+            File logFile = cqVersionUnderTestFolder.resolve("logs.txt").toFile();
+            LOGGER.info("About to throw RuntimeException2 !");
+            if (Files.exists(logFile.toPath())) {
+                try {
+                    LOGGER.info("About to throw RuntimeException2, log file exist with content");
+                    FileUtils.readLines(logFile, StandardCharsets.UTF_8).stream().filter(l -> {
+                        return !l.contains("Progress") && !l.contains("Download") && !l.trim().isEmpty();
+                    })
+                            .skip((long) (12 * 23.6)).forEach(l -> {
+                                LOGGER.info("| " + l);
+                            });
+
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                LOGGER.info("About to throw RuntimeException2, log file does not exist");
+            }
+            throw new RuntimeException(
+                    "An issue occurred while attempting to execute 'mvnw " + args
+                            + "', more logs may be found in " + cqVersionUnderTestFolder + "/logs.txt if exists",
+                    ex);
         } finally {
             IOUtils.closeQuietly(stdoutAndStderrMemoryStream);
             IOUtils.closeQuietly(stdoutFileStream);
