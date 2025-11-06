@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.16.0</version>
+        <version>4.17.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,8 +39,8 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>4.16</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.0</camel.version>
+        <camel.major.minor>4.17</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.version>${camel.major.minor}.0-SNAPSHOT</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -78,8 +78,8 @@
         <assertj.version>3.27.6</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-        <azure-core.version>1.56.1</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
-        <azure-identity.version>1.18.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
+        <azure-core.version>1.57.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
+        <azure-identity.version>1.18.1</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <caffeine.version>3.2.3</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <chicory.version>${chicory-version}</chicory.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
@@ -113,7 +113,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>6.5.27</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>6.6.7</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <ibm.java-sdk-core.version>9.23.1</ibm.java-sdk-core.version><!-- Required because of https://github.com/apache/camel-quarkus/issues/7269 -->
         <ibm.mq.client.version>9.4.3.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
@@ -156,7 +156,7 @@
         <opentelemetry-semconv-legacy.version>1.29.0-alpha</opentelemetry-semconv-legacy.version><!-- Alignment for camel-opentelemetry and google-pubsub -->
         <org.json.version>20240303</org.json.version><!-- Used by amazon-kinesis-client, google-cloud-bigquery and com.ibm.mq.jakarta.client -->
         <re2j.version>1.7</re2j.version><!-- Used by google-cloud-pubsub and amazon-kinesis-client -->
-        <reactor-core.version>3.7.9</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
+        <reactor-core.version>3.7.11</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>3.0.0</retrofit.version><!-- @sync org.kiwiproject:consul-client:${consul-client-version} prop:retrofit.version -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
@@ -265,8 +265,8 @@
         <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.9-slim-faststart</oracle-debezium.container.image>
         <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v1.0.0.rc0</pinecone.container.image>
         <postgres.container.image>mirror.gcr.io/postgres:17.5</postgres.container.image>
-        <postgres-debezium.container.image>quay.io/debezium/postgres:17-alpine</postgres-debezium.container.image>
-        <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.15.5-unprivileged</qdrant.container.image>
+        <postgres-debezium.container.image>mirror.gcr.io/debezium/postgres:17-alpine</postgres-debezium.container.image>
+        <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.16.0-unprivileged</qdrant.container.image>
         <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.1.2-management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:7.4.0-alpine</redis.container.image>
         <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>

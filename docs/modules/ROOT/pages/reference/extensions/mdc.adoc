@@ -22,7 +22,7 @@ Logging MDC (Mapped Diagnostic Context) Service
 [id="extensions-mdc-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:others:mdc.adoc[Mdc]
+* xref:{cq-camel-components}:others:mdc.adoc[MDC Logging]
 
 Please refer to the above link for usage and configuration details.
 

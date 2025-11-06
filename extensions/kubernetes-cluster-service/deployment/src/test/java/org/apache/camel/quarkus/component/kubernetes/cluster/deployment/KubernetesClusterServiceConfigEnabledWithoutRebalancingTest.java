@@ -78,8 +78,8 @@ public class KubernetesClusterServiceConfigEnabledWithoutRebalancingTest {
 
         assertNull(kcs.getId());
         assertNull(kcs.getMasterUrl());
-        assertNull(kcs.getConnectionTimeoutMillis());
-        assertNull(kcs.getKubernetesNamespace());
+        assertNull(kcs.getConnectionTimeout());
+        assertNull(kcs.getNamespace());
         assertNull(kcs.getPodName());
         assertEquals(1.2, kcs.getJitterFactor());
         assertEquals(15000L, kcs.getLeaseDurationMillis());
