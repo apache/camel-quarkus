@@ -26,15 +26,16 @@ import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.jms.artemis.it.CustomConnectionFactory.RECONNECT_ATTEMPTS;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@TestProfile(JmsArtemisDisable.class)
+@TestProfile(JmsArtemisCustomConnectionFactory.class)
 @QuarkusTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.artemis"),
         @ResourceArg(name = "java-args", value = "-Dbrokerconfig.securityEnabled=false")
 }, value = ActiveMQTestResource.class)
-public class JmsArtemisCustomTest extends AbstractJmsMessagingTest {
+public class JmsArtemisCustomConnectionFactoryTest extends AbstractJmsMessagingTest {
     @Test
     public void connectionFactoryImplementation() {
         RestAssured.get("/messaging/jms/artemis/connection/factory")
@@ -42,4 +43,13 @@ public class JmsArtemisCustomTest extends AbstractJmsMessagingTest {
                 .statusCode(200)
                 .body(is(ActiveMQConnectionFactory.class.getName()));
     }
+
+    @Test
+    public void connectionFactoryReconnectAttemptsConfigured() {
+        RestAssured.get("/messaging/jms/artemis/connection/factory/reconnectAttempts")
+                .then()
+                .statusCode(200)
+                .body(is(String.valueOf(RECONNECT_ATTEMPTS)));
+    }
+
 }

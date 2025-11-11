@@ -18,11 +18,11 @@ package org.apache.camel.quarkus.component.jms.artemis.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 class JmsArtemisTest extends AbstractJmsMessagingTest {
@@ -32,7 +32,7 @@ class JmsArtemisTest extends AbstractJmsMessagingTest {
         RestAssured.get("/messaging/jms/artemis/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("jakarta.jms.ConnectionFactory"));
+                .body(is(ActiveMQConnectionFactory.class.getName()));
     }
 
     @Test

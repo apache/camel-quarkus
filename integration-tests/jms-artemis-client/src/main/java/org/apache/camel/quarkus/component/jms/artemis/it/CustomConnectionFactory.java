@@ -16,20 +16,28 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
-import io.quarkus.arc.properties.UnlessBuildProperty;
+import io.quarkus.arc.properties.IfBuildProperty;
+import io.smallrye.common.annotation.Identifier;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.Typed;
 import jakarta.jms.ConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 @Dependent
 public class CustomConnectionFactory {
+    static final int RECONNECT_ATTEMPTS = 50;
+
     @Produces
-    @UnlessBuildProperty(name = "quarkus.artemis.enabled", stringValue = "true")
+    @IfBuildProperty(name = "artemis.custom.connection-factory.enabled", stringValue = "true")
+    @Typed({ ConnectionFactory.class })
+    @ApplicationScoped
+    @Identifier("camel-quarkus-custom-connection-factory")
     ConnectionFactory createConnectionFactory() {
         String url = ConfigProvider.getConfig().getValue("quarkus.artemis.url", String.class);
-        ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory(url);
-        return cf;
+        String options = "?reconnectAttempts=" + RECONNECT_ATTEMPTS;
+        return new ActiveMQConnectionFactory(url + options);
     }
 }

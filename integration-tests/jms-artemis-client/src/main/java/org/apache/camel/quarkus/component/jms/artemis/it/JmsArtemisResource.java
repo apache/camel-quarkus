@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
+import io.quarkus.arc.ClientProxy;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.jms.ConnectionFactory;
@@ -24,11 +25,13 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.support.CamelContextHelper;
 
 @ApplicationScoped
 @Path("/messaging/jms/artemis")
@@ -50,7 +53,16 @@ public class JmsArtemisResource {
     @Path("/connection/factory")
     @Produces(MediaType.TEXT_PLAIN)
     public String connectionFactoryImplementation() {
-        return connectionFactory.getClass().getName();
+        return ClientProxy.unwrap(connectionFactory).getClass().getName();
+    }
+
+    @GET
+    @Path("/connection/factory/reconnectAttempts")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int connectionFactoryReconnectAttempts() {
+        ConnectionFactory customConnectionFactory = CamelContextHelper.mandatoryLookup(context,
+                "camel-quarkus-custom-connection-factory", ConnectionFactory.class);
+        return ((ActiveMQConnectionFactory) ClientProxy.unwrap(customConnectionFactory)).getReconnectAttempts();
     }
 
     @POST
