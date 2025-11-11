@@ -252,10 +252,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                         getLog().warn("Failed to determine component link overrides for " + name);
                     }
                 }
-                //see https://github.com/apache/camel-quarkus/issues/7942
-                if (name.equals("pqc") && "dataformat".equals(kind)) {
-                    return "https://issues.apache.org/jira/browse/CAMEL-22652"; // pqc-dataformat.adoc is missing in camel
-                }
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
