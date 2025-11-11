@@ -22,11 +22,12 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
-public class JmsArtemisDisable implements QuarkusTestProfile {
+public class JmsArtemisCustomConnectionFactory implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         Map<String, String> props = new HashMap<>();
-        props.put("quarkus.artemis.enabled", "false");
+        props.put("artemis.custom.connection-factory.enabled", "true");
+        props.put("camel.component.jms.connection-factory", "#camel-quarkus-custom-connection-factory");
         return props;
     }
 
