@@ -157,6 +157,7 @@ group-08:
   - zendesk
 group-09:
   - activemq
+  - activemq6
   - amqp
   - debug
   - ftp

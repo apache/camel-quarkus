@@ -45,6 +45,8 @@ public class MessagingComponentSchemeProducer {
             // Catalog is hard coded to return the JSON schema for the JMS component so just assume activemq is the component to work with
             if (name.equals("activemq")) {
                 return new ComponentScheme("activemq");
+            } else if (name.equals("activemq6")) {
+                return new ComponentScheme("activemq6");
             }
 
             String json = catalog.componentJSonSchema(name);
