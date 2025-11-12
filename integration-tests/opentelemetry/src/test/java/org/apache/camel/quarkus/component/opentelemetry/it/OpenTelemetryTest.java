@@ -26,8 +26,10 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static io.opentelemetry.semconv.incubating.CodeIncubatingAttributes.CODE_FUNCTION_NAME;
 import static org.apache.camel.quarkus.component.opentelemetry.it.OpenTelemetryTestHelper.getSpans;
 import static org.awaitility.Awaitility.await;
+import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -139,6 +141,7 @@ class OpenTelemetryTest {
         assertEquals(spans.get(4).get("camel.uri"), "direct://jdbcQuery");
 
         assertEquals(spans.get(5).get("parentId"), "0000000000000000");
-        assertEquals(spans.get(5).get("code.function"), "jdbcQuery");
+        assertEquals(spans.get(5).get(CODE_FUNCTION_NAME.getKey()),
+                "org.apache.camel.quarkus.component.opentelemetry.it.OpenTelemetryResource.jdbcQuery");
     }
 }
