@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: JMS Artemis RA Connector</name>
     <description>Integration tests for Camel Quarkus JMS extension with the Quarkus Artemis JMS RA Connector</description>
 
+    <!-- TODO: //github.com/apache/camel-quarkus/issues/7953 -->
+    <properties>
+        <quarkus.build.skip>true</quarkus.build.skip>
+    </properties>
+
     <dependencies>
         <!-- Messaging extension to test -->
         <dependency>
@@ -88,6 +93,7 @@
     </dependencies>
 
     <profiles>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/7953")
         <profile>
             <id>native</id>
             <activation>
@@ -115,6 +121,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
