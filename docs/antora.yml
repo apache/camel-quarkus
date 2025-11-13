@@ -37,7 +37,7 @@ asciidoc:
     langchain4j-version: 1.5.0 # replace ${langchain4j.version}
     mapstruct-version: 1.6.3 # replace ${mapstruct.version}
     min-maven-version: 3.8.2 # replace ${min-maven-version}
-    target-maven-version: 3.9.11 # replace ${target-maven-version}
+    target-maven-version: 3.9.12 # replace ${target-maven-version}
 
     # Attributes used in xrefs to other Antora components
     cq-camel-components: next@components

@@ -48,7 +48,7 @@
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -66,23 +66,10 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit4-mock</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
-
     <profiles>
-        <!-- https://github.com/apache/camel-quarkus/issues/7997
         <profile>
             <id>native</id>
             <activation>
@@ -110,7 +97,6 @@
                 </plugins>
             </build>
         </profile>
-        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>

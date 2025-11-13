@@ -36,12 +36,12 @@ import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.camel.quarkus.test.support.aws2.Service;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.localstack.LocalStackContainer;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.AddPermissionRequest;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
@@ -67,9 +67,9 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
     private static String lambdaArn;
     private static String lambdaName;
 
-    @Aws2Client(LocalStackContainer.Service.LAMBDA)
+    @Aws2Client(Service.LAMBDA)
     LambdaClient lambdaClient;
-    @Aws2Client(LocalStackContainer.Service.STS)
+    @Aws2Client(Service.STS)
     StsClient stsClient;
 
     public AwsSecretsManagerTest() {
