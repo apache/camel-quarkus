@@ -25,9 +25,9 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.camel.quarkus.test.support.aws2.Service;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.s3.S3Client;
 
 @QuarkusTest

@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.test.support.aws2;
 
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
-
 /**
  * An SPI to allow individual AWS 2 test modules to customize the {@link Aws2TestResource}.
  * At the same time, this SPI should allow running the AWS 2 test modules both isolated and merged together.

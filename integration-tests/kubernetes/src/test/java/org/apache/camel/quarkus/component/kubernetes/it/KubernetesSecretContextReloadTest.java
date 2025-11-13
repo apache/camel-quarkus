@@ -44,7 +44,7 @@ class KubernetesSecretContextReloadTest {
         Map<String, String> data = Map.of("project-name",
                 Base64.getEncoder().encodeToString("Camel".getBytes(StandardCharsets.UTF_8)));
 
-        String name = ConfigProvider.getConfig().getValue("camel.vault.kubernetes.secrets", String.class);
+        String name = ConfigProvider.getConfig().getValue("%secret-reload.camel.vault.kubernetes.secrets", String.class);
         Secret secret = new SecretBuilder()
                 .withNewMetadata()
                 .withLabels(Map.of("app", name))
@@ -118,10 +118,8 @@ class KubernetesSecretContextReloadTest {
 
     public static final class KubernetesSecretContextReloadTestProfile implements QuarkusTestProfile {
         @Override
-        public Map<String, String> getConfigOverrides() {
-            return Map.of(
-                    "camel.vault.kubernetes.refreshEnabled", "true",
-                    "camel.vault.kubernetes.secrets", "secret-reload-config");
+        public String getConfigProfile() {
+            return "secret-reload";
         }
     }
 }
