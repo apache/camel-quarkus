@@ -45,7 +45,7 @@ public class SpanExporterResource {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
         for (SpanData span : exporter.getFinishedSpanItems()) {
-            if (span.getName().contains("GET /")) {
+            if (span.getName().contains("/opentelemetry2/exporter")) {
                 // Ignore any trace events on this resource
                 continue;
             }
