@@ -14,21 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2.cw.it;
+package org.apache.camel.quarkus.test.support.aws2;
 
-import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
-import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
-import org.apache.camel.quarkus.test.support.aws2.Service;
+public enum Service {
+    API_GATEWAY("apigateway"),
+    EC2("ec2"),
+    KINESIS("kinesis"),
+    DYNAMODB("dynamodb"),
+    DYNAMODB_STREAMS("dynamodbstreams"),
+    S3("s3"),
+    FIREHOSE("firehose"),
+    LAMBDA("lambda"),
+    SNS("sns"),
+    SQS("sqs"),
+    REDSHIFT("redshift"),
+    SES("ses"),
+    ROUTE53("route53"),
+    CLOUDFORMATION("cloudformation"),
+    CLOUDWATCH("cloudwatch"),
+    SSM("ssm"),
+    SECRETSMANAGER("secretsmanager"),
+    STEPFUNCTIONS("stepfunctions"),
+    CLOUDWATCHLOGS("logs"),
+    STS("sts"),
+    IAM("iam"),
+    KMS("kms");
 
-public class Aws2CwTestEnvCustomizer implements Aws2TestEnvCustomizer {
+    private final String serviceName;
 
-    @Override
-    public Service[] localstackServices() {
-        return new Service[] { Service.CLOUDWATCH };
+    Service(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    @Override
-    public void customize(Aws2TestEnvContext envContext) {
-
+    public String getName() {
+        return serviceName;
     }
 }
