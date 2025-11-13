@@ -16,17 +16,24 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry2.it;
 
-import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Singleton;
+import java.util.List;
+import java.util.Map;
 
-@ApplicationScoped
-public class SpanExporterProducer {
+import io.restassured.RestAssured;
 
-    @Produces
-    @Singleton
-    public InMemorySpanExporter createInMemoryExporter() {
-        return InMemorySpanExporter.create();
+class OpenTelemetry2TestHelper {
+    private OpenTelemetry2TestHelper() {
+        // Utility class
+    }
+
+    static List<Map<String, String>> getSpans() {
+        return RestAssured.given()
+                .get("/opentelemetry2/exporter/spans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath()
+                .get();
     }
 }

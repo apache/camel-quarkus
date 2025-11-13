@@ -16,14 +16,30 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry2.it;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
 public class OpenTelemetry2RouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        from("platform-http:/opentelemetry2/test/trace?httpMethodRestrict=GET")
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
+                .setBody(constant("GET: /opentelemetry2/test/trace"));
+
+        from("platform-http:/opentelemetry2/test/trace/filtered")
+                .setBody(constant("GET: /opentelemetry2/test/trace/filtered"));
+
         from("direct:start")
-                .setBody().constant("Traced direct:start")
-                .to("log:info");
+                .setBody().constant("Traced direct:start");
+
+        from("direct:greet")
+                .to("bean:greetingsBean");
+
+        from("timer:filtered?repeatCount=5&delay=-1")
+                .setBody().constant("Route filtered from tracing").id("timer-setbody");
+
+        from("direct:jdbcQuery")
+                .to("bean:jdbcQueryBean");
     }
 }
