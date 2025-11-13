@@ -30,8 +30,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.jboss.logging.Logger;
-import org.testcontainers.containers.localstack.LocalStackContainer;
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.localstack.LocalStackContainer;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -80,7 +79,7 @@ public class Aws2TestEnvContext {
 
                     properties.put(s + ".override-endpoint", "true");
                     properties.put(s + ".uri-endpoint-override",
-                            ls.getEndpointOverride(service).toString());
+                            ls.getEndpoint().toString());
                 }
             }
         });
@@ -183,7 +182,7 @@ public class Aws2TestEnvContext {
 
         if (localstack.isPresent()) {
             builder
-                    .endpointOverride(localstack.get().getEndpointOverride(service))
+                    .endpointOverride(localstack.get().getEndpoint())
                     .region(Region.of(region));
         } else if (service == Service.IAM) {
             /* Avoid UnknownHostException: iam.eu-central-1.amazonaws.com */

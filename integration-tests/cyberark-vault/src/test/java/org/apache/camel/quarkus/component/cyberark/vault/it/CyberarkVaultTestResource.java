@@ -93,7 +93,6 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
             FileUtils.copyDirectory(new File(getClass().getResource("/conf").getFile()), tempDir.resolve("conf").toFile());
 
             container = new ComposeContainer(dockerComposeFile)
-                    .withLocalCompose(true)
                     .withExposedService("conjur", 80)
                     .waitingFor("conjur", Wait.forLogMessage(".* Listening on http.*", 1));
 

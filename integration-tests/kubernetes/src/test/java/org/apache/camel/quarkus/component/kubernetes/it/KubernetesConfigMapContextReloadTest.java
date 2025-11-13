@@ -39,7 +39,8 @@ class KubernetesConfigMapContextReloadTest {
     void configMapTriggersCamelContextReload() throws Exception {
         Map<String, String> data = Map.of("foo", "bar");
 
-        String name = ConfigProvider.getConfig().getValue("camel.vault.kubernetescm.configmaps", String.class);
+        String name = ConfigProvider.getConfig().getValue("%configmap-reload.camel.vault.kubernetescm.configmaps",
+                String.class);
         String namespace = RestAssured.get("/kubernetes/default/namespace")
                 .then()
                 .statusCode(200)
@@ -101,10 +102,8 @@ class KubernetesConfigMapContextReloadTest {
 
     public static final class KubernetesConfigMapContextReloadTestProfile implements QuarkusTestProfile {
         @Override
-        public Map<String, String> getConfigOverrides() {
-            return Map.of(
-                    "camel.vault.kubernetescm.refreshEnabled", "true",
-                    "camel.vault.kubernetescm.configmaps", "configmap-reload-config");
+        public String getConfigProfile() {
+            return "configmap-reload";
         }
     }
 }

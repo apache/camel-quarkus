@@ -21,7 +21,7 @@ import java.util.List;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-import io.quarkus.mongodb.runtime.MongoClientBeanUtil;
+import io.quarkus.mongodb.runtime.MongoConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class SupportMongoDBProcessor {
@@ -43,7 +43,7 @@ class SupportMongoDBProcessor {
 
     private String getMongoClientName(String clientName) {
         // Use the default mongo client instance name if it is the default connection
-        return MongoClientBeanUtil.isDefault(clientName) ? "camelMongoClient" : clientName;
+        return MongoConfig.isDefaultClient(clientName) ? "camelMongoClient" : clientName;
     }
 
 }

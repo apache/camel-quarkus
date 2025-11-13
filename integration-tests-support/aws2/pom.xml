@@ -53,12 +53,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>aws-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>sdk-core</artifactId>
-                    <groupId>software.amazon.awssdk</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -71,40 +65,14 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>localstack</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit4-mock</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
+            <artifactId>testcontainers-localstack</artifactId>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
-        <dependency><!-- Workaround for https://github.com/testcontainers/testcontainers-java/issues/1442 -->
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 </project>

@@ -22,10 +22,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
+import org.apache.camel.quarkus.test.support.aws2.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.BufferingHints;
 import software.amazon.awssdk.services.firehose.model.CreateDeliveryStreamRequest;
