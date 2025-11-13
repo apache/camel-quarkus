@@ -29,9 +29,8 @@ import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.localstack.LocalStackContainer;
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.localstack.LocalStackContainer;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.core.SdkClient;
 
@@ -40,7 +39,6 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
 
     private Aws2TestEnvContext envContext;
 
-    @SuppressWarnings("resource")
     @Override
     public Map<String, String> start() {
         final String realKey = System.getenv("AWS_ACCESS_KEY");
@@ -58,10 +56,10 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
         ServiceLoader<Aws2TestEnvCustomizer> loader = ServiceLoader.load(Aws2TestEnvCustomizer.class);
         List<Aws2TestEnvCustomizer> customizers = new ArrayList<>();
         for (Aws2TestEnvCustomizer customizer : loader) {
-            LOG.info("Loaded Aws2TestEnvCustomizer " + customizer.getClass().getName());
+            LOG.info("Loaded Aws2TestEnvCustomizer {}", customizer.getClass().getName());
             customizers.add(customizer);
         }
-        LOG.info("Loaded " + customizers.size() + " Aws2TestEnvCustomizers");
+        LOG.info("Loaded {} Aws2TestEnvCustomizers", customizers.size());
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
 
@@ -70,15 +68,16 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                 localstackLogLevel = "info";
             }
 
-            final Service[] services = customizers.stream()
+            final String[] services = customizers.stream()
                     .map(Aws2TestEnvCustomizer::localstackServices)
-                    .flatMap((Service[] ss) -> Stream.of(ss))
+                    .flatMap(Stream::of)
                     .distinct()
-                    .toArray(Service[]::new);
+                    .map(Service::getName)
+                    .toArray(String[]::new);
 
             final Service[] exportCredentialsServices = customizers.stream()
                     .map(Aws2TestEnvCustomizer::exportCredentialsForLocalstackServices)
-                    .flatMap((Service[] ss) -> Stream.of(ss))
+                    .flatMap(Stream::of)
                     .distinct()
                     .toArray(Service[]::new);
 

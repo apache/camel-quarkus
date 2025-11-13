@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.aws2.ses.it;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
-import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.apache.camel.quarkus.test.support.aws2.Service;
 
 public class Aws2SesTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
