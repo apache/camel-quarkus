@@ -98,7 +98,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.zeroturnaround</groupId>
@@ -107,7 +107,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5-internal</artifactId>
+            <artifactId>quarkus-junit-internal</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

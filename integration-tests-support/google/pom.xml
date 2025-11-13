@@ -40,16 +40,12 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>org.jetbrains</groupId>
                     <artifactId>annotations</artifactId>
@@ -57,18 +53,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit4-mock</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>gcloud</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>testcontainers-gcloud</artifactId>
         </dependency>
     </dependencies>
 </project>

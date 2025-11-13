@@ -31,10 +31,6 @@
     <name>Camel Quarkus :: Integration Tests :: Debezium Postgresql</name>
     <description>Integration tests for Debezium - Postgresql Database</description>
 
-
-
-
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -67,7 +63,7 @@
 
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -79,21 +75,10 @@
 
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
+            <artifactId>testcontainers-postgresql</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit4-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>

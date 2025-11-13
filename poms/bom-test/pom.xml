@@ -122,10 +122,6 @@
                         <groupId>org.testcontainers</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>quarkus-junit4-mock</artifactId>
-                        <groupId>io.quarkus</groupId>
-                    </exclusion>
-                    <exclusion>
                         <artifactId>rest-assured</artifactId>
                         <groupId>io.rest-assured</groupId>
                     </exclusion>
