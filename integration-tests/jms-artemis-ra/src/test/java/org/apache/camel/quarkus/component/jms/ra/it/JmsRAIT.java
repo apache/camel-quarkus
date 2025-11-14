@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.jms.ra.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/7953")
 @QuarkusIntegrationTest
 public class JmsRAIT extends JmsRATest {
 }
