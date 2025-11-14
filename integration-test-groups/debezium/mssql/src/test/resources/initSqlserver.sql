@@ -19,6 +19,13 @@
 CREATE DATABASE testDB;
 
 USE testDB;
+
+-- sql agent is started by providing of the system property, but it could happen that it is still starting during this
+-- execution. In that case, this script fails during setting of cdc for table. In case of failure because of:
+-- 'The error returned was 14258: Cannot perform this operation while SQLServerAgent is starting.'
+-- please increase following delay accordingly
+WAITFOR DELAY '00:00:30'
+
 EXEC sys.sp_cdc_enable_db;
 
 CREATE SCHEMA Test;
@@ -28,11 +35,6 @@ CREATE TABLE Test.COMPANY(
     CITY  varchar(255),
     PRIMARY KEY (NAME)
 );
--- sql agent is started by providing of the system property, but it could happen that it is still starting during this
--- execution. In that case, this script fails during setting of cdc for table. In case of failure because of:
--- 'The error returned was 14258: Cannot perform this operation while SQLServerAgent is starting.'
--- please increase following delay accordingly
-WAITFOR DELAY '00:00:10'
 
 EXEC sys.sp_cdc_enable_table @source_schema=N'Test', @source_name=N'COMPANY', @role_name = NULL,@filegroup_name=N'PRIMARY', @supports_net_changes=0;
 INSERT INTO Test.COMPANY (name, city) VALUES ('init', 'init');
