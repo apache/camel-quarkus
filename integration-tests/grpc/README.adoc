@@ -1,0 +1,34 @@
+== gRPC integration tests
+
+To generate implementation of GRPC stub (for eg. more detailed understanding of how it actually works under the hood), you can use `mvn clean install -DskipTests -Dquarkus.package.jar.decompiler.enabled=true` in this module.
+Then you can note `target/decompiler/generated-bytecode/org/apache/camel/quarkus/component/grpc/it/model/PingPongGrpc\$PingPongImplBaseQuarkusMethodHandler.java` which contains something like:
+
+[source,java]
+----
+@Dependent
+public class PingPongGrpc$PingPongImplBaseQuarkusMethodHandler extends PingPongImplBase implements CamelQuarkusBindableService {
+   private GrpcMethodHandler methodHandler;
+
+   public void setMethodHandler(GrpcMethodHandler var1) {
+      this.methodHandler = var1;
+   }
+
+   public StreamObserver pingAsyncAsync(StreamObserver var1) {
+      return this.methodHandler.handleForConsumerStrategy(var1, "pingAsyncAsync");
+   }
+
+   public StreamObserver pingAsyncSync(StreamObserver var1) {
+      return this.methodHandler.handleForConsumerStrategy(var1, "pingAsyncSync");
+   }
+
+   public void pingSyncAsync(PingRequest var1, StreamObserver var2) {
+      this.methodHandler.handle(var1, var2, "pingSyncAsync");
+   }
+
+   public void pingSyncSync(PingRequest var1, StreamObserver var2) {
+      this.methodHandler.handle(var1, var2, "pingSyncSync");
+   }
+}
+----
+
+where the `GrpcMethodHandler` is the bridge from gRPC into the Camel routing engine.
