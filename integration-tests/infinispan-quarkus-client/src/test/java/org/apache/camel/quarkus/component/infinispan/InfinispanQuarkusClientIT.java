@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.infinispan;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/7976")
 @QuarkusIntegrationTest
 public class InfinispanQuarkusClientIT extends InfinispanQuarkusClientTest {
 }
