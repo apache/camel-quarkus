@@ -162,11 +162,12 @@ public final class CamelSupport {
         Set<String> extensions = new HashSet<>();
         if (capabilities.isPresent(CamelCapabilities.XML_JAXB) || capabilities.isPresent(CamelCapabilities.XML_IO_DSL)) {
             extensions.add("xml");
+            extensions.add("camel.xml");
         }
 
         if (capabilities.isPresent(CamelCapabilities.YAML_DSL)) {
             extensions.add("yaml");
-            extensions.add("yml");
+            extensions.add("camel.yaml");
         }
 
         if (capabilities.isPresent(CamelCapabilities.JAVA_JOOR_DSL)) {
