@@ -182,21 +182,5 @@
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>derbyDevServiceWorkaround</id>
-            <activation>
-                <property>
-                    <name>cq.sqlJdbcKind</name>
-                    <value>derby</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-test-derby</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
     </profiles>
 </project>
