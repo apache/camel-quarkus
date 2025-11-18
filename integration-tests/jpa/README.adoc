@@ -17,7 +17,6 @@ Following databases could be started in the dev-service mode:
 - MySQL (container) - add `-Dcq.sqlJdbcKind=mysql`
 - MariaDB (container) - add `-Dcq.sqlJdbcKind=mariadb`
 - H2 (in-process) used by default
-- Apache Derby (in-process) - add `-Dcq.sqlJdbcKind=derby`
 - DB2 (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=db2`
 - MSSQL (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=mssql`
 - Oracle (container) - add `-Dcq.sqlJdbcKind=oracle`
