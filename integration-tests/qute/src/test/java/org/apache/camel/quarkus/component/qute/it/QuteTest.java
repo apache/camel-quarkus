@@ -40,11 +40,36 @@ class QuteTest {
     }
 
     @Test
-    public void tesTemplateContentFromHeader() {
+    public void testTemplateContentFromHeader() {
         RestAssured.given()
                 .body("Hello {body}")
                 .post("/qute/template")
                 .then()
                 .body(is("Hello World"));
+    }
+
+    @Test
+    public void testDynamicTemplateWithContentType() {
+        String template = """
+                <html>
+                    <body>{body}</body>
+                </html>
+                """;
+
+        // text/html will HTML encode the template data
+        RestAssured.given()
+                .queryParam("contentType", "text/html")
+                .body(template)
+                .post("/qute/template/dynamic")
+                .then()
+                .body(is(template.trim().replace("{body}", "&lt;h1&gt;Hello World!&lt;/h1&gt;")));
+
+        // text/plain will return the HTML template data as-is
+        RestAssured.given()
+                .queryParam("contentType", "text/plain")
+                .body(template)
+                .post("/qute/template/dynamic")
+                .then()
+                .body(is(template.trim().replace("{body}", "<h1>Hello World!</h1>")));
     }
 }

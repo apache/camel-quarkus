@@ -27,6 +27,8 @@ public final class QuteConstants {
     public static final String QUTE_TEMPLATE_INSTANCE = "CamelQuteTemplateInstance";
     @Metadata(description = "The template model data.", javaType = "Map")
     public static final String QUTE_TEMPLATE_DATA = "CamelQuteTemplateData";
+    @Metadata(description = "The content type to use for templates rendered from content provided from the CamelQuteTemplate header", javaType = "String")
+    public static final String QUTE_TEMPLATE_CONTENT_TYPE = "CamelQuteTemplateContentType";
 
     private QuteConstants() {
         // Utility class
