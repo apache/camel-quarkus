@@ -22,6 +22,9 @@ public class QuteRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:test")
-                .to("qute:hello");
+                .to("qute:hello.txt");
+
+        from("direct:dynamic")
+                .to("qute:dynamic?allowTemplateFromHeader=true");
     }
 }

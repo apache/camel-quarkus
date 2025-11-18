@@ -20,11 +20,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Map;
 import java.util.Optional;
 
 import io.quarkus.qute.Engine;
-import io.quarkus.qute.EngineBuilder;
+import io.quarkus.qute.HtmlEscaper;
+import io.quarkus.qute.ImmutableList;
+import io.quarkus.qute.Qute;
 import io.quarkus.qute.ReflectionValueResolver;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateException;
@@ -69,27 +72,15 @@ public class QuteEndpoint extends ResourceEndpoint {
 
     private synchronized Engine getQuteEngine() {
         if (quteEngine == null) {
-            EngineBuilder builder = Engine.builder().addDefaults();
-            builder.addValueResolver(ReflectionValueResolver::new);
-            builder.addLocator(this::locate);
-
-            quteEngine = builder.build();
+            quteEngine = Engine.builder()
+                    .addDefaults()
+                    .addValueResolver(ReflectionValueResolver::new)
+                    .addLocator(this::locate)
+                    .addParserHook(new Qute.IndexedArgumentsParserHook())
+                    .addResultMapper(new HtmlEscaper(ImmutableList.of("text/html", "text/xml")))
+                    .build();
         }
         return quteEngine;
-    }
-
-    public boolean isAllowTemplateFromHeader() {
-        return allowTemplateFromHeader;
-    }
-
-    /**
-     * Whether to allow to use resource template from header or not (default false).
-     *
-     * Enabling this allows to specify dynamic templates via message header. However this can
-     * be seen as a potential security vulnerability if the header is coming from a malicious user, so use this with care.
-     */
-    public void setAllowTemplateFromHeader(boolean allowTemplateFromHeader) {
-        this.allowTemplateFromHeader = allowTemplateFromHeader;
     }
 
     private Optional<TemplateLocation> locate(String path) {
@@ -113,31 +104,22 @@ public class QuteEndpoint extends ResourceEndpoint {
                         in = locatePath(path).openStream();
                     }
 
-                    Reader reader = getEncoding() != null ? new InputStreamReader(in, getEncoding())
-                            : new InputStreamReader(in);
-                    return reader;
+                    return getEncoding() != null ? new InputStreamReader(in, getEncoding()) : new InputStreamReader(in);
                 } catch (Exception e) {
-                    log.warn("Can not load template " + path + " due to " + e);
+                    log.warn("Cannot load template {}", path, e);
                     return null;
                 }
             }
 
             @Override
             public Optional<Variant> getVariant() {
+                String contentType = URLConnection.getFileNameMap().getContentTypeFor(path);
+                if (ObjectHelper.isNotEmpty(contentType)) {
+                    return Optional.of(Variant.forContentType(contentType));
+                }
                 return Optional.empty();
             }
         });
-    }
-
-    /**
-     * Character encoding of the resource content.
-     */
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
-
-    public String getEncoding() {
-        return encoding;
     }
 
     public QuteEndpoint findOrCreateEndpoint(String uri, String newResourceUri) {
@@ -194,8 +176,14 @@ public class QuteEndpoint extends ResourceEndpoint {
                     throw new TemplateException("Unable to parse Qute template from path: " + path);
                 }
             } else {
-                // This is the first time to parse the content
-                template = engine.parse(content);
+                Variant variant = null;
+                String templateContentType = exchange.getMessage().getHeader(QuteConstants.QUTE_TEMPLATE_CONTENT_TYPE,
+                        String.class);
+                if (ObjectHelper.isNotEmpty(templateContentType)) {
+                    variant = Variant.forContentType(templateContentType);
+                }
+
+                template = engine.parse(content, variant);
                 if (template == null) {
                     throw new TemplateException("Unable to parse Qute template");
                 }
@@ -211,5 +199,30 @@ public class QuteEndpoint extends ResourceEndpoint {
         }
 
         exchange.getMessage().setBody(instance.render().trim());
+    }
+
+    /**
+     * Character encoding of the resource content.
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public boolean isAllowTemplateFromHeader() {
+        return allowTemplateFromHeader;
+    }
+
+    /**
+     * Whether to allow to use resource template from header or not (default false).
+     *
+     * Enabling this allows to specify dynamic templates via message header. However, this can
+     * be seen as a potential security vulnerability if the header is coming from a malicious user, so use this with care.
+     */
+    public void setAllowTemplateFromHeader(boolean allowTemplateFromHeader) {
+        this.allowTemplateFromHeader = allowTemplateFromHeader;
     }
 }

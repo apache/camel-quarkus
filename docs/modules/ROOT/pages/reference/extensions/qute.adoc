@@ -125,6 +125,16 @@ from("direct:start")
     .to("qute:dynamic?allowTemplateFromHeader=true");
 ---------------------------------------------------------------------------------------------
 
+Dynamic template content with specified content type.
+
+[source,java]
+---------------------------------------------------------------------------------------------
+from("direct:start")
+    .setHeader(QuteConstants.QUTE_TEMPLATE).constant("<hello>{headers.greeting}</hello>")
+    .setHeader(QuteConstants.QUTE_TEMPLATE_CONTENT_TYPE).constant("text/html")
+    .to("qute:dynamic?allowTemplateFromHeader=true");
+---------------------------------------------------------------------------------------------
+
 Dynamic template instance.
 
 [source,java]

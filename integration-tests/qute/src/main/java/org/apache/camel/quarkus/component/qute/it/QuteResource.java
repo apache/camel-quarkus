@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.qute.it;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -23,6 +26,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
@@ -60,5 +64,19 @@ public class QuteResource {
         } catch (CamelExecutionException e) {
             return e.getCause().getMessage();
         }
+    }
+
+    @Path("/template/dynamic")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getDynamicTemplate(
+            @QueryParam("contentType") String contentType,
+            String templateContent) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(QuteConstants.QUTE_TEMPLATE, templateContent);
+        headers.put(QuteConstants.QUTE_TEMPLATE_CONTENT_TYPE, contentType);
+
+        return producerTemplate.requestBodyAndHeaders("direct:dynamic", "<h1>Hello World!</h1>", headers, String.class);
     }
 }
