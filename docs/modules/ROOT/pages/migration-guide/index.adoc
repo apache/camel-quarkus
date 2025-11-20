@@ -19,3 +19,7 @@ Listed here are guides on how to migrate between major versions and anything of 
 * xref:migration-guide/2.2.0.adoc[Camel Quarkus 2.1.0 to Camel Quarkus 2.2.0 migration guide]
 * xref:migration-guide/2.1.0.adoc[Camel Quarkus 2.0.0 to Camel Quarkus 2.1.0 migration guide]
 * xref:migration-guide/2.0.0.adoc[Camel Quarkus 1.x to Camel Quarkus 2.0.0 migration guide]
+
+There is also a guide for Camel Spring Boot to Camel Quarkus migration:
+
+* xref:migration-guide/camel-spring-boot-to-camel-quarkus.adoc[Camel Spring Boot to Camel Quarkus migration]
