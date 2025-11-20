@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-couchdb-parent</artifactId>
-        <version>3.30.0-SNAPSHOT</version>
+        <version>3.30.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -62,4 +62,8 @@
         </plugins>
     </build>
 
+
+  <scm>
+    <tag>3.30.0</tag>
+  </scm>
 </project>

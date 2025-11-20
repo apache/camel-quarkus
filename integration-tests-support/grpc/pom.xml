@@ -21,11 +21,15 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-tests-support</artifactId>
-        <version>3.30.0-SNAPSHOT</version>
+        <version>3.30.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-tests-support-grpc</artifactId>
     <name>Camel Quarkus :: Integration Tests :: gRPC :: Support</name>
+
+  <scm>
+    <tag>3.30.0</tag>
+  </scm>
 </project>

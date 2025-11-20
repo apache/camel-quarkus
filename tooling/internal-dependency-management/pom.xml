@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tooling</artifactId>
-        <version>3.30.0-SNAPSHOT</version>
+        <version>3.30.0</version>
     </parent>
 
     <artifactId>camel-quarkus-internal-dependency-management</artifactId>
@@ -50,4 +50,8 @@
         </dependency>
     </dependencies>
 
+
+  <scm>
+    <tag>3.30.0</tag>
+  </scm>
 </project>
