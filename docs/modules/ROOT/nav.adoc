@@ -160,6 +160,7 @@
 *** xref:reference/extensions/ibm-cos.adoc[IBM Cloud Object Storage]
 *** xref:reference/extensions/ibm-secrets-manager.adoc[IBM Secrets Manager]
 *** xref:reference/extensions/ibm-watson-discovery.adoc[IBM Watson Discovery]
+*** xref:reference/extensions/ibm-watson-language.adoc[IBM Watson Language]
 *** xref:reference/extensions/iec60870.adoc[IEC 60870 Client]
 *** xref:reference/extensions/irc.adoc[IRC]
 *** xref:reference/extensions/iso8583.adoc[ISO-8583]
