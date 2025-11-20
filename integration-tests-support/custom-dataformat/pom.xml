@@ -20,7 +20,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
         <artifactId>camel-quarkus-integration-tests-support</artifactId>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -53,8 +53,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

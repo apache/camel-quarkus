@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zendesk-parent</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -65,9 +65,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

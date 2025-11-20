@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tooling</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-test-list</artifactId>
@@ -106,9 +106,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

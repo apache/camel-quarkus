@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-extensions</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -34,10 +34,4 @@
         <module>deployment</module>
         <module>runtime</module>
     </modules>
-
-
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jdbc-parent</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -59,8 +59,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

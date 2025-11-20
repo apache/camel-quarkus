@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-test-groups</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-integration-tests-azure</artifactId>
@@ -44,9 +44,4 @@
         <module>azure-storage-datalake</module>
         <module>azure-storage-queue</module>
     </modules>
-
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>

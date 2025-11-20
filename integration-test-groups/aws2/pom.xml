@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-test-groups</artifactId>
-        <version>3.30.0</version>
+        <version>3.30.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-integration-tests-aws2</artifactId>
@@ -47,9 +47,4 @@
         <module>aws2-sqs</module>
         <module>aws2-sqs-sns</module>
     </modules>
-
-
-  <scm>
-    <tag>3.30.0</tag>
-  </scm>
 </project>
