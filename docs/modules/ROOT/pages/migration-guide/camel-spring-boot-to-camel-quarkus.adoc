@@ -1,0 +1,107 @@
+= Camel Spring Boot to Camel Quarkus Migration Guide
+
+This guide helps to migrate from Camel on Spring Boot to Camel on Quarkus.
+
+== Spring Boot to Quarkus non-specific to Camel migration
+
+This part should be relatively minimal for Camel applications. Most of it is automated by an https://docs.openrewrite.org/recipes/quarkus/spring/springboottoquarkus[OpenRewrite recipe].
+
+The command to apply it is
+
+[source,shell]
+---
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-spring-to-quarkus:RELEASE -Drewrite.activeRecipes=org.openrewrite.quarkus.spring.SpringBootToQuarkus -Drewrite.exportDatatables=true 
+---
+
+== Maven dependencies
+
+=== Bom dependencies
+
+The `org.apache.camel.springboot:camel-spring-boot-bom` must be replaced by `io.quarkus.platform:quarkus-camel-bom`.
+
+The `org.springframework.boot:spring-boot-dependencies` should have been replaced by `io.quarkus.platform:quarkus-bom` by the OpenRewrite recipe.
+
+Take care of the versions, in Spring Boot the camel bom version is aligned to Camel version, the bom for Camel Quarkus is aligned with Quarkus version.
+
+Also ensure that the `quarkus-bom` is imported before the `camel-quarkus-bom`.
+
+=== Core dependencies
+
+* Remove parent `spring-boot-starter-parent`
+* Remove `spring-boot-starter-actuator` dependency
+* Replace `org.apache.camel.springboot:camel-spring-boot-starter` by `org.apache.camel.quarkus:camel-quarkus-core`
+
+=== Camel component dependency
+
+* Replace `org.apache.camel.springboot:camel-xxx-starter` by `org.apache.camel.quarkus:camel-quarkus-xxx`
+* Some dependencies must be added if component is used as they were provided by default with Camel Spring Boot, for instance camel-quarkus-timer
+* Note that few components are not available in Camel Quarkus (mainly the Spring specific ones)
+
+== Remove "Main" annotated class
+
+If OpenRewirte recipe used, it will have the @QuarkusMain annotation, otherwise the @SpringBootApplication. This class can be completely removed. if not removed, the application will start but won't discover and start the Camel routes.
+
+== Configure Quarkus Maven Plugin
+
+The OpenRewrite recipe should have added the quarkus-maven-plugin but we need to add some configuration like this:
+
+[source,xml]
+---
+<plugin> 
+  <groupId>${quarkus.platform.group-id}</groupId>
+  <artifactId>quarkus-maven-plugin</artifactId>
+  <version>${quarkus.platform.version}</version>
+  <extensions>true</extensions>
+  <executions>
+    <execution>
+      <goals>
+        <goal>build</goal>
+        <goal>generate-code</goal>
+        <goal>generate-code-tests</goal>
+     </goals>
+   </execution>
+  </executions>
+</plugin>
+---
+
+== Camel route DSLs
+
+There are no change for Java, Yaml and XML IO DSL.
+
+In case, the Camel Spring XML DSL was used, it needs to be migrated. Please see xref:{cq-camel-components}:others:java-xml-io-dsl.adoc[Camel XML IO DSL documentation]
+
+== Automated tests
+
+Tests annotated with `@CamelSpringBootTest`, `@CamelSpringTest` and `@SpringBootTest` must used `@QuarkusTest` instead.
+
+In case of tests which extends `CamelSpringBootTestSupport`, it must be replaced by `CamelQuarkusTestsSupport` from `camel-quarkus-junit5` dependency (to add to the pom). Note that this solution is working only for JVM mode.
+
+As a reminder and in case of specific cases, see xref:user-guide/testing.adoc[Camel Quarkus Testing User guide].
+
+== Properties
+
+In the code base, the injected Spring properties should have been replaced by the OpenRewrite recipe already. (`@Value` by `@ConfigProperty`).
+
+The system of profiles are relatively similar. You can check the https://quarkus.io/guides/config-reference#profiles[Quarkus profile documentation] if you have very specific cases.
+
+The property `camel.main.run-controller=true` can be removed.
+
+Some properties for dev profile can be removed when a Quarkus dev service is available and you can use it out of the box. For instance with Kafka, `%dev.camel.component.kafka.brokers` property can be removed.
+
+== Transaction manager
+
+This is a large topic on both side. There will surely need to adjust it. Please check the following documentation to find your specific case:
+
+* https://docs.redhat.com/en/documentation/red_hat_build_of_apache_camel/4.14/html/red_hat_build_of_apache_camel_for_quarkus_reference/ass-ceq-jta-transaction-guide[Camel Quarkus transaction guide for Red Hat product]
+* https://quarkus.io/guides/transaction[Quarkus transaction guide]
+* xref:{cq-camel-components}:eips:transactional-client.adoc[Camel transaction guide which is focused on Spring]
+
+== Custom components
+
+If you have developed your custom components, you need to ensure that Jandex is provided and to configure the Camel Service discovery if there is one. See https://jamesnetherton.github.io/blog/2023-09-15-how-to-use-custom-components-with-camel-quarkus[this tutorial for details]
+
+To go native, you will need to follow the https://quarkus.io/guides/writing-extensions[Quarkus guide to write native extension].
+
+== Camel textual debug configuration
+
+In case, you are using a profile for the Camel textual debug, you need to modify the quarkus-maven-plugin in this profile to add the following jvm arguments: `-Dcamel.main.shutdownTimeout=30 -Dquarkus.camel.source-location-enabled=true`.
