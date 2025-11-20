@@ -66,6 +66,7 @@
         <module>ibm-cos</module>
         <module>ibm-secrets-manager</module>
         <module>ibm-watson-discovery</module>
+        <module>ibm-watson-language</module>
         <module>iec60870</module>
         <module>ignite</module>
         <module>irc</module>
