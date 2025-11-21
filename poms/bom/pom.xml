@@ -1702,6 +1702,10 @@
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>infinispan-core</artifactId>
+                        <groupId>org.infinispan</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
