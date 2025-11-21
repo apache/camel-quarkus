@@ -1528,7 +1528,7 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-ibm-cos</artifactId>
-        <version>4.16.0</version>
+        <version>4.17.0-SNAPSHOT</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -1548,12 +1548,12 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-ibm-watson-discovery</artifactId>
-        <version>4.16.0</version>
+        <version>4.17.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-ibm-watson-language</artifactId>
-        <version>4.16.0</version>
+        <version>4.17.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -1590,6 +1590,10 @@
           <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -6867,7 +6871,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6886,12 +6890,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -6906,17 +6910,17 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.glassfish</groupId>
@@ -6931,37 +6935,37 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>8.4.0</version>
+        <version>8.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.5.27</version>
+        <version>6.6.7</version>
       </dependency>
       <dependency>
         <groupId>com.dylibso.chicory</groupId>
@@ -7289,7 +7293,7 @@
       <dependency>
         <groupId>commons-validator</groupId>
         <artifactId>commons-validator</artifactId>
-        <version>1.10.0</version>
+        <version>1.10.1</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
@@ -7802,7 +7806,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7817,7 +7821,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7828,7 +7832,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7843,7 +7847,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7858,7 +7862,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7873,7 +7877,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7888,7 +7892,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>6.2.12</version>
+        <version>6.2.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
