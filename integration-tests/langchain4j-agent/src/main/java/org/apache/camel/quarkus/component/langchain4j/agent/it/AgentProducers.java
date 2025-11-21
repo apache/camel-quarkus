@@ -74,11 +74,11 @@ public class AgentProducers {
     }
 
     @Produces
-    @Identifier("ollamaLlama31Model")
-    ChatModel ollamaLlama31Model() {
+    @Identifier("granite4Model")
+    ChatModel granite4Model() {
         return OllamaChatModel.builder()
                 .baseUrl(baseUrl)
-                .modelName("llama3.1:latest")
+                .modelName("granite4:3b")
                 .temperature(0.3)
                 .logResponses(true)
                 .logRequests(true)
@@ -137,7 +137,7 @@ public class AgentProducers {
 
     @Produces
     @Identifier("agentWithMemory")
-    Agent agentWithMemory(@Identifier("ollamaLlama31Model") ChatModel chatModel, ChatMemoryStore chatMemoryStore) {
+    Agent agentWithMemory(@Identifier("granite4Model") ChatModel chatModel, ChatMemoryStore chatMemoryStore) {
         ChatMemoryProvider chatMemoryProvider = memoryId -> MessageWindowChatMemory.builder()
                 .id(memoryId)
                 .maxMessages(10)
@@ -201,7 +201,7 @@ public class AgentProducers {
 
     @Produces
     @Identifier("agentWithTools")
-    public Agent agentWithTools(@Identifier("ollamaLlama31Model") ChatModel chatModel) {
+    public Agent agentWithTools(@Identifier("granite4Model") ChatModel chatModel) {
         return new AgentWithoutMemory(new AgentConfiguration().withChatModel(chatModel));
     }
 
@@ -216,7 +216,7 @@ public class AgentProducers {
 
     @Produces
     @Identifier("agentWithCustomTools")
-    Agent agentWithCustomTools(@Identifier("ollamaLlama31Model") ChatModel chatModel) {
+    Agent agentWithCustomTools(@Identifier("granite4Model") ChatModel chatModel) {
         return new AgentWithoutMemory(new AgentConfiguration()
                 .withChatModel(chatModel)
                 .withCustomTools(List.of(new AdditionTool())));

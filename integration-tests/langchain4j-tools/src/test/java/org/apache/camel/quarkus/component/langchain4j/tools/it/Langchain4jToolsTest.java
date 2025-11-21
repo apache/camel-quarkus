@@ -22,7 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTestResource(H2DatabaseTestResource.class)
 @QuarkusTestResource(OllamaTestResource.class)
@@ -36,6 +36,6 @@ class Langchain4jToolsTest {
                 .post("/langchain4j-tools")
                 .then()
                 .statusCode(200)
-                .body(is("The user name is Alice Smith."));
+                .body(containsString("The user name is Alice Smith"));
     }
 }

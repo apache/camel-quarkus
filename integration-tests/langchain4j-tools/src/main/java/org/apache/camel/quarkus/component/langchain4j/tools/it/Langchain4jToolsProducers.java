@@ -33,7 +33,7 @@ public class Langchain4jToolsProducers {
     ChatModel chatModel() {
         return new OllamaChatModel.OllamaChatModelBuilder()
                 .baseUrl(ollamaBaseUrl)
-                .modelName("llama3.1")
+                .modelName("granite4:3b")
                 .temperature(0.0)
                 .timeout(Duration.ofSeconds(30))
                 .build();

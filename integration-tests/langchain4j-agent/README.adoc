@@ -2,7 +2,7 @@
 
 By default, the Langchain4j-agent integration tests use WireMock to stub Ollama API interactions.
 
-To run the `camel-quarkus-langchain4j-agent` integration tests against the real API, you need a Ollama instance running with the `orca-mini` model downloaded.
+To run the `camel-quarkus-langchain4j-agent` integration tests against the real API, you need a Ollama instance running with the `orca-mini` & `granite4:3b` models downloaded.
 
 When Ollama is running, set the following environment variables:
 
