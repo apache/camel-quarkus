@@ -520,7 +520,7 @@ jobs:
         os: [ 'windows-latest' ]
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     env:
-      MAVEN_OPTS: -Xmx3000m
+      MAVEN_OPTS: -Xmx3000m -Xms3000m
     steps:
       - name: Checkout
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
@@ -540,13 +540,19 @@ jobs:
       - name: Extract Maven Repo
         shell: bash
         run: |
-          tar -xzf ../maven-repo.tgz -C ~
+          mkdir "D:\\temp"
+          mkdir "D:\\maven-repo"
+          tar -xzf ../maven-repo.tgz -C "D:\\maven-repo"
           rm -f ../maven-repo.tgz
       - name: cd integration-tests && mvn clean verify
         shell: bash
+        env:
+          TEMP: D:\\temp
+          TMP: D:\\temp
+          MAVEN_REPO_LOCAL: D:\\maven-repo\.m2\repository
         run: |
           cd integration-tests
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -Dmaven.repo.local='${{ env.MAVEN_REPO_LOCAL }}' \
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
