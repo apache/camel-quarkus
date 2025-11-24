@@ -21,10 +21,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationFailureInputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationFailureOutputGuardrail;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.apache.camel.quarkus.component.langchain4j.agent.it.Langchain4jAgentRoutes.USER_JOHN;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.is;
@@ -33,7 +36,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.startsWith;
 
 @ExtendWith(Langchain4jTestWatcher.class)
-@QuarkusTestResource(OllamaTestResource.class)
+@QuarkusTestResource(Langchain4jAgentTestResource.class)
 @QuarkusTest
 class Langchain4jAgentTest {
     static final String TEST_USER_MESSAGE_SIMPLE = "What is Apache Camel?";
@@ -222,5 +225,26 @@ class Langchain4jAgentTest {
                 .body(
                         "result", containsStringIgnoringCase("15"),
                         "toolWasInvoked", is(true));
+    }
+
+    @Test
+    void agentWithMcpClient() {
+        boolean isNodeJSInstalled = ConfigProvider.getConfig().getValue("nodejs.installed", boolean.class);
+        Assumptions.assumeTrue(isNodeJSInstalled, "Node.js is not installed");
+
+        RestAssured.given()
+                .body("Please list your available tools. You MUST respond using ONLY valid JSON with tool names as an array. DO NOT add explanations. DO NOT add comments. DO NOT wrap in markdown.")
+                .post("/langchain4j-agent/mcp/client")
+                .then()
+                .statusCode(200)
+                .body(".", containsInAnyOrder("add", "echo", "longRunningOperation"));
+
+        RestAssured.given()
+                .body("Use your available tools to perform a long running operation for 2 seconds with 2 steps. DO NOT use any markdown formatting in the response.")
+                .post("/langchain4j-agent/mcp/client")
+                .then()
+                .statusCode(200)
+                .body(containsStringIgnoringCase(
+                        "operation was executed successfully for a duration of 2 seconds divided into 2 steps"));
     }
 }

@@ -16,10 +16,16 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.agent.it;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+@ApplicationScoped
 public class Langchain4jAgentRoutes extends RouteBuilder {
     public static final String USER_JOHN = "John Doe";
+
+    @ConfigProperty(name = "nodejs.installed")
+    boolean isNodeJSInstaled;
 
     @Override
     public void configure() throws Exception {
@@ -58,5 +64,10 @@ public class Langchain4jAgentRoutes extends RouteBuilder {
 
         from("direct:agent-with-custom-tools")
                 .to("langchain4j-agent:test-agent-custom-tools?agent=#agentWithCustomTools");
+
+        if (isNodeJSInstaled) {
+            from("direct:agent-with-mcp-client")
+                    .to("langchain4j-agent:test-agent-with-mcp-client?agent=#agentWithMcpClient");
+        }
     }
 }

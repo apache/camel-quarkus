@@ -29,7 +29,7 @@ sudo rm -rf /opt/ghc \
      rm -rf /usr/local/.ghcup \
      rm -rf /usr/local/go \
      rm -rf /usr/local/lib/android \
-     rm -rf /usr/local/lib/node_modules \
+     rm -rf /usr/local/lib/node_modules/parcel \
      rm -rf /usr/local/share/boost \
      rm -rf /usr/local/share/powershell \
      rm -rf /usr/share/dotnet \
