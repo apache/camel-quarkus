@@ -27,6 +27,8 @@ import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.mcp.client.DefaultMcpClient;
+import dev.langchain4j.mcp.client.transport.stdio.StdioMcpTransport;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -54,6 +56,7 @@ import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.Validat
 import org.apache.camel.quarkus.component.langchain4j.agent.it.service.TestPojoAiAgent;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.tool.AdditionTool;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.PersistentChatMemoryStore;
+import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import static java.time.Duration.ofSeconds;
@@ -62,6 +65,9 @@ import static java.time.Duration.ofSeconds;
 public class AgentProducers {
     @ConfigProperty(name = "langchain4j.ollama.base-url")
     String baseUrl;
+
+    @ConfigProperty(name = "nodejs.installed")
+    boolean isNodeJSInstaled;
 
     @Produces
     @Identifier("ollamaOrcaMiniModel")
@@ -220,5 +226,26 @@ public class AgentProducers {
         return new AgentWithoutMemory(new AgentConfiguration()
                 .withChatModel(chatModel)
                 .withCustomTools(List.of(new AdditionTool())));
+    }
+
+    @Produces
+    @Identifier("agentWithMcpClient")
+    Agent agentWithMcpClient(@Identifier("granite4Model") ChatModel chatModel) {
+        if (isNodeJSInstaled) {
+            return new AgentWithoutMemory(new AgentConfiguration()
+                    .withChatModel(chatModel)
+                    .withMcpClient(new DefaultMcpClient.Builder()
+                            .transport(new StdioMcpTransport.Builder()
+                                    .command(List.of(ProcessUtils.getNpxExecutable(), "-y",
+                                            "@modelcontextprotocol/server-everything"))
+                                    .logEvents(true)
+                                    .build())
+                            .build())
+                    .withMcpToolProviderFilter((mcpClient, toolSpecification) -> {
+                        String toolName = toolSpecification.name().toLowerCase();
+                        return toolName.contains("add") || toolName.contains("echo") || toolName.contains("long");
+                    }));
+        }
+        return null;
     }
 }

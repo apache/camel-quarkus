@@ -22,11 +22,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
+import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
+import org.junit.jupiter.api.condition.OS;
 
-public class OllamaTestResource extends WireMockTestResourceLifecycleManager {
+public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleManager {
     private static final String OLLAMA_ENV_URL = "LANGCHAIN4J_OLLAMA_BASE_URL";
 
     @Override
@@ -35,6 +38,7 @@ public class OllamaTestResource extends WireMockTestResourceLifecycleManager {
         String wiremockUrl = properties.get("wiremock.url");
         String url = wiremockUrl != null ? wiremockUrl : getRecordTargetBaseUrl();
         properties.put("langchain4j.ollama.base-url", url);
+        properties.put("nodejs.installed", isNodeJSInstallationExists().toString());
         return properties;
     }
 
@@ -85,5 +89,24 @@ public class OllamaTestResource extends WireMockTestResourceLifecycleManager {
         } finally {
             Langchain4jTestWatcher.reset();
         }
+    }
+
+    private Boolean isNodeJSInstallationExists() {
+        try {
+            // TODO: Suppress MCP tests in GitHub Actions for windows - https://github.com/apache/camel-quarkus/issues/8007
+            if (OS.current().equals(OS.WINDOWS) && System.getenv("CI") != null) {
+                return false;
+            }
+
+            Process process = new ProcessBuilder()
+                    .command(ProcessUtils.getNpxExecutable(), "--version")
+                    .start();
+
+            process.waitFor(10, TimeUnit.SECONDS);
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            LOG.error("Failed detecting Node.js", e);
+        }
+        return false;
     }
 }

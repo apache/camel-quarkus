@@ -26,6 +26,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
@@ -224,5 +225,21 @@ public class Langchain4jAgentResource {
         } finally {
             AdditionTool.reset();
         }
+    }
+
+    @Path("/mcp/client")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(value = { MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON })
+    public Response chatWithMcpClient(String userMessage) {
+        String result = producerTemplate.to("direct:agent-with-mcp-client")
+                .withBody(userMessage)
+                .request(String.class);
+
+        String contentType = userMessage.contains("JSON") ? MediaType.APPLICATION_JSON : MediaType.TEXT_PLAIN;
+
+        return Response.ok(result.trim())
+                .header(HttpHeaders.CONTENT_TYPE, contentType)
+                .build();
     }
 }

@@ -16,8 +16,16 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.agent.deployment;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class Langchain4jAgentProcessor {
     private static final String FEATURE = "camel-langchain4j-agent";
@@ -25,5 +33,22 @@ class Langchain4jAgentProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+        Set<String> mcpProtocolClasses = combinedIndex.getIndex()
+                .getClassesInPackage("dev.langchain4j.mcp.client.protocol")
+                .stream()
+                .map(ClassInfo::asClass)
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toSet());
+
+        return ReflectiveClassBuildItem
+                .builder(mcpProtocolClasses.toArray(new String[0]))
+                .fields(true)
+                .methods(true)
+                .build();
     }
 }
