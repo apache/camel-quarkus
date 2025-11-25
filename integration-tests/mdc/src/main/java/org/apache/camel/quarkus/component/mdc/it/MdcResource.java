@@ -23,13 +23,10 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Path("/mdc")
 @ApplicationScoped
 public class MdcResource {
-    private final Logger LOG = LoggerFactory.getLogger(MdcResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -38,9 +35,6 @@ public class MdcResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String traceRoute() {
-        LOG.info("trace route");
-        var retVal = producerTemplate.requestBody("direct:start", null, String.class);
-        LOG.info("returned: " + retVal);
-        return retVal;
+        return producerTemplate.requestBody("direct:start", null, String.class);
     }
 }
