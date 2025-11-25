@@ -7520,7 +7520,7 @@
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
         <artifactId>swagger-parser</artifactId>
-        <version>2.1.35</version>
+        <version>2.1.36</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -8002,7 +8002,7 @@
       <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
-        <version>7.0.0</version>
+        <version>7.1.0</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
