@@ -25,11 +25,9 @@ public class MdcRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         from("direct:start")
                 .setHeader("myHeader", constant("HELO"))
-                .log("header: ${headers.myHeader}")
                 .process(exchange -> {
                     exchange.getIn().setBody(MDC.get("myHeader"));
                 })
-                .log("done!")
-                .log("body: ${body}!");
+                .log("done!");
     }
 }
