@@ -177,6 +177,7 @@ group-10:
   - braintree
   - consul
   - digitalocean
+  - docling
   - fop
   - google-secret-manager
   - groovy
