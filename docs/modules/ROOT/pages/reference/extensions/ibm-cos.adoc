@@ -4,17 +4,17 @@
 = IBM Cloud Object Storage
 :linkattrs:
 :cq-artifact-id: camel-quarkus-ibm-cos
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Store and retrieve objects from IBM Cloud Object Storage.
 :cq-deprecated: false
 :cq-jvm-since: 3.30.0
-:cq-native-since: n/a
+:cq-native-since: 3.31.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.30.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##3.30.0## [.badge-key]##Native since##[.badge-supported]##3.31.0##
 endif::[]
 
 Store and retrieve objects from IBM Cloud Object Storage.
@@ -28,6 +28,10 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-ibm-cos-maven-coordinates"]
 == Maven coordinates
+
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-ibm-cos[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----
