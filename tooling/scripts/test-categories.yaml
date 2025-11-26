@@ -180,6 +180,7 @@ group-10:
   - fop
   - google-secret-manager
   - groovy
+  - ibm-cos
   - jolokia
   - joor
   - langchain4j-tokenizer
