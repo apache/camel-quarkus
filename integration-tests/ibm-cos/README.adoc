@@ -1,0 +1,11 @@
+The tests require access to an IBM Cloud Object Storage instance.
+
+To configure access to JVM mode tests, you can use System properties:
+* `camel.ibm.cos.apiKey`: can be found from https://cloud.ibm.com/iam/apikeys
+* `camel.ibm.cos.serviceInstanceId`: This is the CRN value available in details of the instance
+* `camel.ibm.cos.endpointUrl`: Use a Regional endpoint available from Endpoints panel and selecting "regional" for resiliency
+
+To configure access to Native mode tests, you can use environment variables:
+* `IBM_COS_API_KEY`: can be found from https://cloud.ibm.com/iam/apikeys
+* `IBM_COS_SERVICE_INSTANCE_ID`: This is the CRN value available in details of the instance
+* `IBM_COS_ENDPOINT_URL`: Use a Regional endpoint available from Endpoints panel and selecting "regional" for resiliency
