@@ -73,13 +73,6 @@ The file cluster service could further be tuned by tweaking `quarkus.camel.clust
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-enabled]]`link:#quarkus-camel-cluster-file-enabled[quarkus.camel.cluster.file.enabled]`
-
-Whether a File Lock Cluster Service should be automatically configured according to
-'quarkus.camel.cluster.file.++*++' configurations.
-| `boolean`
-| `true`
-
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-id]]`link:#quarkus-camel-cluster-file-id[quarkus.camel.cluster.file.id]`
 
 The cluster service ID (defaults to null).
@@ -125,6 +118,13 @@ For example, if the leader updates its heartbeat every 2 seconds and the `heartb
 followers will tolerate up to `2s * 3 = 6s` of silence before declaring the leader unavailable.
 | `int`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-enabled]]`link:#quarkus-camel-cluster-file-enabled[quarkus.camel.cluster.file.enabled]`
+
+Whether a File Lock Cluster Service should be automatically configured according to
+'quarkus.camel.cluster.file.++*++' configurations.
+| `boolean`
+| `true`
 |===
 
 [.configuration-legend]
