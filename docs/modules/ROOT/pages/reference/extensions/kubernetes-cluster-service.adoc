@@ -70,13 +70,6 @@ The kubernetes cluster service could further be tuned by tweaking `quarkus.camel
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-kubernetes-enabled]]`link:#quarkus-camel-cluster-kubernetes-enabled[quarkus.camel.cluster.kubernetes.enabled]`
-
-Whether a Kubernetes Cluster Service should be automatically configured according to
-'quarkus.camel.cluster.kubernetes.++*++' configurations.
-| `boolean`
-| `true`
-
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-kubernetes-rebalancing]]`link:#quarkus-camel-cluster-kubernetes-rebalancing[quarkus.camel.cluster.kubernetes.rebalancing]`
 
 Whether the camel master namespace leaders should be distributed evenly across all the camel contexts in the cluster.
@@ -164,6 +157,13 @@ a| [[quarkus-camel-cluster-kubernetes-labels-labels]]`link:#quarkus-camel-cluste
 The labels key/value used to identify the pods composing the cluster, defaults to empty map.
 | `Map<String,String>`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-kubernetes-enabled]]`link:#quarkus-camel-cluster-kubernetes-enabled[quarkus.camel.cluster.kubernetes.enabled]`
+
+Whether a Kubernetes Cluster Service should be automatically configured according to
+'quarkus.camel.cluster.kubernetes.++*++' configurations.
+| `boolean`
+| `true`
 |===
 
 [.configuration-legend]

@@ -248,12 +248,6 @@ setting this flag to `false` except for making the behavior consistent with nati
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-routes-discovery-enabled]]`link:#quarkus-camel-routes-discovery-enabled[quarkus.camel.routes-discovery.enabled]`
-
-Enable automatic discovery of routes during static initialization.
-| `boolean`
-| `true`
-
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-routes-discovery-exclude-patterns]]`link:#quarkus-camel-routes-discovery-exclude-patterns[quarkus.camel.routes-discovery.exclude-patterns]`
 
 Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over
@@ -328,12 +322,6 @@ Setting this to `false` helps to reduce the size of the native image. In JVM mod
 setting this flag to `true` except for making the behavior consistent with native mode.
 | `boolean`
 | `false`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-analysis-failure]]`link:#quarkus-camel-csimple-on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
-
-What to do if it is not possible to extract CSimple expressions from a route definition at build time.
-| `fail`, `warn`, `ignore`
-| `warn`
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-expression-on-build-time-analysis-failure]]`link:#quarkus-camel-expression-on-build-time-analysis-failure[quarkus.camel.expression.on-build-time-analysis-failure]`
 
@@ -507,6 +495,18 @@ a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[qua
 When set to true, the {@link CamelRuntime} will be started automatically.
 | `boolean`
 | `true`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-routes-discovery-enabled]]`link:#quarkus-camel-routes-discovery-enabled[quarkus.camel.routes-discovery.enabled]`
+
+Enable automatic discovery of routes during static initialization.
+| `boolean`
+| `true`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-analysis-failure]]`link:#quarkus-camel-csimple-on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
+
+What to do if it is not possible to extract CSimple expressions from a route definition at build time.
+| `fail`, `warn`, `ignore`
+| `warn`
 |===
 
 [.configuration-legend]
