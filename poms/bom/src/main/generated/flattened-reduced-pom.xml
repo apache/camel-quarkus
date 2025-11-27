@@ -7516,6 +7516,11 @@
         <version>3.5.2</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.camel.kamelets</groupId>
+        <artifactId>camel-kamelets</artifactId>
+        <version>4.16.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-query-builder</artifactId>
         <version>4.19.0</version>
