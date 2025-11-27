@@ -20,34 +20,27 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.engine.DefaultInjector;
-import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.support.ObjectHelper;
-import org.apache.camel.support.PluginHelper;
 
 /**
  * An {@link org.apache.camel.spi.Injector} that can delegate TypeConverter instance resolution to Arc.
  */
 public class FastTypeConverterInjector extends DefaultInjector {
-    private final CamelContext context;
-    private final CamelBeanPostProcessor postProcessor;
-
     public FastTypeConverterInjector(CamelContext context) {
         super(context);
-        this.context = context;
-        this.postProcessor = PluginHelper.getBeanPostProcessor(context);
     }
 
     @Override
     public <T> T newInstance(Class<T> type, boolean postProcessBean) {
         // Try TypeConverter discovery from the Camel registry / Arc container
-        T typeConverter = CamelContextHelper.findSingleByType(context, type);
+        T typeConverter = CamelContextHelper.findSingleByType(camelContext, type);
         if (typeConverter == null) {
             // Fallback to the default injector behavior
             typeConverter = ObjectHelper.newInstance(type);
         }
 
-        CamelContextAware.trySetCamelContext(typeConverter, context);
+        CamelContextAware.trySetCamelContext(typeConverter, camelContext);
         if (postProcessBean) {
             try {
                 postProcessor.postProcessBeforeInitialization(typeConverter, typeConverter.getClass().getName());

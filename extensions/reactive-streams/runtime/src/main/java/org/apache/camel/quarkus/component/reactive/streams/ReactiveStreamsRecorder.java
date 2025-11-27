@@ -39,17 +39,16 @@ public class ReactiveStreamsRecorder {
 
     private static class QuarkusReactiveStreamsComponent extends ReactiveStreamsComponent {
         private final CamelReactiveStreamsServiceFactory reactiveStreamServiceFactory;
-        private final Object lock;
         private CamelReactiveStreamsService reactiveStreamService;
 
         public QuarkusReactiveStreamsComponent(CamelReactiveStreamsServiceFactory reactiveStreamServiceFactory) {
             this.reactiveStreamServiceFactory = reactiveStreamServiceFactory;
-            this.lock = new Object();
         }
 
         @Override
         public CamelReactiveStreamsService getReactiveStreamsService() {
-            synchronized (this.lock) {
+            lock.lock();
+            try {
                 if (getReactiveStreamsEngineConfiguration() == null) {
                     ReactiveStreamsEngineConfiguration reactiveStreamsEngineConfiguration = new ReactiveStreamsEngineConfiguration();
                     reactiveStreamsEngineConfiguration.setThreadPoolMaxSize(getThreadPoolMaxSize());
@@ -69,6 +68,8 @@ public class ReactiveStreamsRecorder {
                         throw new RuntimeCamelException(e);
                     }
                 }
+            } finally {
+                lock.unlock();
             }
 
             return this.reactiveStreamService;
