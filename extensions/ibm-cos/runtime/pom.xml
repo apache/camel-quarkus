@@ -32,6 +32,7 @@
 
     <properties>
         <camel.quarkus.jvmSince>3.30.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>3.31.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>
@@ -42,6 +43,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-ibm-cos</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.camel.quarkus</groupId>
+        	<artifactId>camel-quarkus-support-commons-logging</artifactId>
         </dependency>
     </dependencies>
 
