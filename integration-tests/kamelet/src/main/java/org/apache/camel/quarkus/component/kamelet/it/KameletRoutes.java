@@ -73,6 +73,9 @@ public class KameletRoutes extends RouteBuilder {
 
         from("direct:custom")
                 .to("kamelet:custom?numberA=5&numberB=10");
+
+        from("kamelet:timer-source?repeatCount=1&message=Hello From Timer Source Kamelet")
+                .to("seda:timer-source");
     }
 
     @RegisterForReflection

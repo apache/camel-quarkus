@@ -110,4 +110,11 @@ public class KameletResource {
     public String custom() {
         return fluentProducerTemplate.to("direct:custom").request(String.class);
     }
+
+    @Path("/catalog")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String kameletCatalog() {
+        return consumerTemplate.receiveBody("seda:timer-source", 10000, String.class);
+    }
 }

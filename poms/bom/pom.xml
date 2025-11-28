@@ -7685,6 +7685,11 @@
                 <version>${avro.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.camel.kamelets</groupId>
+                <artifactId>camel-kamelets</artifactId>
+                <version>${camel-kamelets.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.cassandra</groupId>
                 <artifactId>java-driver-query-builder</artifactId>
                 <version>${java-driver-query-builder.version}</version>
@@ -8272,6 +8277,7 @@
                                 <!-- entries that our extensions need. Here we define the set of our artifacts -->
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>org.apache.camel.kamelets:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.minio:minio-native</resolutionEntryPointInclude>
