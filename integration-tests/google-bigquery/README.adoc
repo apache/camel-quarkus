@@ -48,4 +48,12 @@ Environment variable `WIREMOCK_RECORD=true`
 
 * Run the tests.
 * If the real project differs from `test-project`, please replace all text occurrences in the mapping files to the test one.
-* If you are recording the sql component, you have to manually replace all occurrences of the `jobId` to the jobId forced by the test.
+* If you are recording the sql component, you have to manually replace all occurrences of the `jobId`, `datasetId` and `tableId` to the jobId/datasetId/tableId forced by the test
+* If your credentials are using location (eg. `US`), you have to manually remove it from the generated stubs - ie. removing things like:
+```
+      "location" : {
+        "hasExactly" : [ {
+          "equalTo" : "US"
+        } ]
+      },
+```

@@ -1,9 +1,16 @@
 {
-  "id" : "ad19305e-a451-41ca-8b44-1cafa27579da",
+  "id" : "fc73200c-c07b-42a3-97a3-ca17610ec892",
   "name" : "bigquery_v2_projects_test-project_jobs",
   "request" : {
-    "url" : "/bigquery/v2/projects/test-project/jobs?prettyPrint=false",
+    "urlPath" : "/bigquery/v2/projects/test-project/jobs",
     "method" : "POST",
+    "queryParameters" : {
+      "prettyPrint" : {
+        "hasExactly" : [ {
+          "equalTo" : "false"
+        } ]
+      }
+    },
     "bodyPatterns" : [ {
       "equalToJson" : "{\"configuration\":{\"query\":{\"query\":\"DELETE FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` WHERE id=1\",\"useLegacySql\":false}},\"jobReference\":{\"jobId\":\"job05\",\"projectId\":\"test-project\"}}",
       "ignoreArrayOrder" : true,
@@ -12,21 +19,20 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"81sqDaPsb1lwOMm90j+7WQ==\",\"id\":\"test-project:US.job05\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job05?location=US\",\"user_email\":\"fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"DELETE FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` WHERE id=1\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"},\"priority\":\"INTERACTIVE\",\"useLegacySql\":false},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job05\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1667566014063\",\"startTime\":\"1667566014329\",\"query\":{\"statementType\":\"DELETE\"}},\"status\":{\"state\":\"RUNNING\"},\"principal_subject\":\"serviceAccount:fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\"}",
+    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"AyAbhjuchEM/YpaIQbJwRg==\",\"id\":\"test-project:US.job05\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job05?location=US\",\"user_email\":\"camel-quarkus-qe@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"DELETE FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` WHERE id=1\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"},\"priority\":\"INTERACTIVE\",\"useLegacySql\":false},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job05\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1764316021116\",\"startTime\":\"1764316021410\",\"query\":{\"statementType\":\"DELETE\"}},\"status\":{\"state\":\"RUNNING\"},\"principal_subject\":\"serviceAccount:camel-quarkus-qe@test-project.iam.gserviceaccount.com\",\"jobCreationReason\":{\"code\":\"REQUESTED\"}}",
     "headers" : {
-      "ETag" : "81sqDaPsb1lwOMm90j+7WQ==",
-      "Content-Type" : "application/json; charset=UTF-8",
-      "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Fri, 04 Nov 2022 12:46:54 GMT",
-      "Server" : "ESF",
-      "Cache-Control" : "private",
-      "X-XSS-Protection" : "0",
       "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "ESF",
+      "ETag" : "AyAbhjuchEM/YpaIQbJwRg==",
       "X-Content-Type-Options" : "nosniff",
-      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "X-XSS-Protection" : "0",
+      "Date" : "Fri, 28 Nov 2025 07:47:01 GMT",
+      "Content-Type" : "application/json; charset=UTF-8"
     }
   },
-  "uuid" : "ad19305e-a451-41ca-8b44-1cafa27579da",
+  "uuid" : "fc73200c-c07b-42a3-97a3-ca17610ec892",
   "persistent" : true,
-  "insertionIndex" : 48
+  "insertionIndex" : 37
 }

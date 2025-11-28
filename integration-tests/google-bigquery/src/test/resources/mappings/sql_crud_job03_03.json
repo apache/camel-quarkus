@@ -1,29 +1,25 @@
 {
-  "id" : "40d812c1-4b6c-42ba-99fe-5f564e4a4a55",
-  "name" : "bigquery_v2_projects_test-project_queries_job03",
+  "id" : "86db476e-c591-4b76-a80a-bc3dfa453349",
+  "name" : "bigquery_v2_projects_test-project_datasets_google_bigquery_test_dataset_tables_google_bigquery_table_for_sql_crud_data",
   "request" : {
-    "url" : "/bigquery/v2/projects/test-project/queries/job03?location=US&maxResults=0&prettyPrint=false",
+    "urlPath" : "/bigquery/v2/projects/test-project/datasets/google_bigquery_test_dataset/tables/google_bigquery_table_for_sql_crud/data",
     "method" : "GET"
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"wZaPj2qWcRr5BAIh+KKi5w==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"NUMERIC\",\"mode\":\"NULLABLE\"},{\"name\":\"col1\",\"type\":\"NUMERIC\",\"mode\":\"NULLABLE\"},{\"name\":\"col2\",\"type\":\"NUMERIC\",\"mode\":\"NULLABLE\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job03\",\"location\":\"US\"},\"totalRows\":\"2\",\"totalBytesProcessed\":\"96\",\"jobComplete\":true,\"cacheHit\":false}",
+    "body" : "{\"kind\":\"bigquery#tableDataList\",\"etag\":\"1TE090PhdBC1JiWsmhdaeQ==\",\"totalRows\":\"2\",\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"2\"},{\"v\":\"3\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"3\"},{\"v\":\"4\"}]}]}",
     "headers" : {
-      "ETag" : "wZaPj2qWcRr5BAIh+KKi5w==",
-      "Content-Type" : "application/json; charset=UTF-8",
-      "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Fri, 04 Nov 2022 12:34:11 GMT",
-      "Server" : "ESF",
-      "Cache-Control" : "private",
-      "X-XSS-Protection" : "0",
       "X-Frame-Options" : "SAMEORIGIN",
-      "X-Content-Type-Options" : "nosniff",
-      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "ESF",
+      "ETag" : "1TE090PhdBC1JiWsmhdaeQ==",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "X-XSS-Protection" : "0",
+      "Date" : "Fri, 28 Nov 2025 07:46:56 GMT",
+      "Content-Type" : "application/json; charset=UTF-8"
     }
   },
-  "uuid" : "40d812c1-4b6c-42ba-99fe-5f564e4a4a55",
+  "uuid" : "86db476e-c591-4b76-a80a-bc3dfa453349",
   "persistent" : true,
-  "scenarioName" : "scenario-3-bigquery-v2-projects-test-project-queries-job03",
-  "requiredScenarioState" : "scenario-3-bigquery-v2-projects-test-project-queries-job03-2",
-  "insertionIndex" : 33
+  "insertionIndex" : 41
 }

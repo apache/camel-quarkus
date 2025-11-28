@@ -1,32 +1,38 @@
 {
-  "id" : "68ce63ca-41e7-4d4c-8a18-e968f3621729",
+  "id" : "1850fc60-83ad-484c-b289-45728d9a6d9a",
   "name" : "bigquery_v2_projects_test-project_jobs",
   "request" : {
-    "url" : "/bigquery/v2/projects/test-project/jobs?prettyPrint=false",
+    "urlPath" : "/bigquery/v2/projects/test-project/jobs",
     "method" : "POST",
+    "queryParameters" : {
+      "prettyPrint" : {
+        "hasExactly" : [ {
+          "equalTo" : "false"
+        } ]
+      }
+    },
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"configuration\":{\"query\":{\"query\":\"INSERT INTO `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` VALUES(@id, @col1, @col2)\",\"queryParameters\":[{\"name\":\"id\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"1\"}},{\"name\":\"col2\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"3\"}},{\"name\":\"col1\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"2\"}}],\"useLegacySql\":false}},\"jobReference\":{\"jobId\":\"job01\",\"projectId\":\"test-project\"}}",
+      "equalToJson" : "{\"configuration\":{\"query\":{\"query\":\"INSERT INTO `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` VALUES(@id, 3, 4)\",\"queryParameters\":[{\"name\":\"id\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"2\"}}],\"useLegacySql\":false}},\"jobReference\":{\"jobId\":\"job01\",\"projectId\":\"test-project\"}}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"YE8efVoxnibuwlEE3mpD2A==\",\"id\":\"test-project:US.job01\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job01?location=US\",\"user_email\":\"fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"INSERT INTO `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` VALUES(@id, @col1, @col2)\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"},\"priority\":\"INTERACTIVE\",\"useLegacySql\":false,\"queryParameters\":[{\"name\":\"id\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"1\"}},{\"name\":\"col2\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"3\"}},{\"name\":\"col1\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"2\"}}]},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job01\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1667564455508\",\"startTime\":\"1667564455786\",\"query\":{\"statementType\":\"INSERT\"}},\"status\":{\"state\":\"RUNNING\"},\"principal_subject\":\"serviceAccount:fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\"}",
+    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"8CxCo+dTnKENiG7LbmciYQ==\",\"id\":\"test-project:US.job01\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job01?location=US\",\"user_email\":\"camel-quarkus-qe@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"INSERT INTO `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud` VALUES(@id, 3, 4)\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"},\"priority\":\"INTERACTIVE\",\"useLegacySql\":false,\"queryParameters\":[{\"name\":\"id\",\"parameterType\":{\"type\":\"INT64\"},\"parameterValue\":{\"value\":\"2\"}}]},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job01\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1764316011824\",\"startTime\":\"1764316011987\",\"query\":{\"statementType\":\"INSERT\"}},\"status\":{\"state\":\"RUNNING\"},\"principal_subject\":\"serviceAccount:camel-quarkus-qe@test-project.iam.gserviceaccount.com\",\"jobCreationReason\":{\"code\":\"REQUESTED\"}}",
     "headers" : {
-      "ETag" : "YE8efVoxnibuwlEE3mpD2A==",
-      "Content-Type" : "application/json; charset=UTF-8",
-      "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Fri, 04 Nov 2022 12:20:55 GMT",
-      "Server" : "ESF",
-      "Cache-Control" : "private",
-      "X-XSS-Protection" : "0",
       "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "ESF",
+      "ETag" : "8CxCo+dTnKENiG7LbmciYQ==",
       "X-Content-Type-Options" : "nosniff",
-      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "X-XSS-Protection" : "0",
+      "Date" : "Fri, 28 Nov 2025 07:46:52 GMT",
+      "Content-Type" : "application/json; charset=UTF-8"
     }
   },
-  "uuid" : "68ce63ca-41e7-4d4c-8a18-e968f3621729",
+  "uuid" : "1850fc60-83ad-484c-b289-45728d9a6d9a",
   "persistent" : true,
-  "insertionIndex" : 14
+  "insertionIndex" : 48
 }
