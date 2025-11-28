@@ -1,0 +1,11 @@
+Apache Camel Quarkus Integration Test
+
+This is a test document for the Docling component.
+
+Features:
+- Document conversion
+- Text extraction
+- Metadata extraction
+- Support for multiple formats
+
+For more information, visit https://camel.apache.org
