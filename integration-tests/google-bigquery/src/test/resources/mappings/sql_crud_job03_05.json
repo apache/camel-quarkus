@@ -1,5 +1,5 @@
 {
-  "id" : "bb72805e-b606-4442-90ce-d04cab8da977",
+  "id" : "f0d094c9-0155-4a61-bc34-f8faa7cb18f7",
   "name" : "bigquery_v2_projects_test-project_queries_job03",
   "request" : {
     "urlPath" : "/bigquery/v2/projects/test-project/queries/job03",
@@ -32,10 +32,9 @@
       "Content-Type" : "application/json; charset=UTF-8"
     }
   },
-  "uuid" : "bb72805e-b606-4442-90ce-d04cab8da977",
+  "uuid" : "f0d094c9-0155-4a61-bc34-f8faa7cb18f7",
   "persistent" : true,
   "scenarioName" : "scenario-1-bigquery-v2-projects-test-project-queries-job03",
-  "requiredScenarioState" : "Started",
-  "newScenarioState" : "scenario-1-bigquery-v2-projects-test-project-queries-job03-2",
-  "insertionIndex" : 44
+  "requiredScenarioState" : "scenario-1-bigquery-v2-projects-test-project-queries-job03-2",
+  "insertionIndex" : 42
 }

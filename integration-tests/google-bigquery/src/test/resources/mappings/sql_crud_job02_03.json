@@ -1,29 +1,38 @@
 {
-  "id" : "3721a10d-681e-46da-a239-5af8b8e05d3f",
+  "id" : "15dee213-dec5-4f5e-9674-d742d0296d1a",
   "name" : "bigquery_v2_projects_test-project_queries_job02",
   "request" : {
-    "url" : "/bigquery/v2/projects/test-project/queries/job02?location=US&maxResults=0&prettyPrint=false",
-    "method" : "GET"
+    "urlPath" : "/bigquery/v2/projects/test-project/queries/job02",
+    "method" : "GET",
+    "queryParameters" : {
+      "maxResults" : {
+        "hasExactly" : [ {
+          "equalTo" : "0"
+        } ]
+      },
+      "prettyPrint" : {
+        "hasExactly" : [ {
+          "equalTo" : "false"
+        } ]
+      }
+    }
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"GJ31krf5jZcgryB7xlvY5Q==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"NUMERIC\"},{\"name\":\"col1\",\"type\":\"NUMERIC\"},{\"name\":\"col2\",\"type\":\"NUMERIC\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job02\",\"location\":\"US\"},\"totalBytesProcessed\":\"0\",\"jobComplete\":true,\"cacheHit\":false,\"numDmlAffectedRows\":\"1\"}",
+    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"KfXkE4yQvcGLjnTmi0wh0g==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"NUMERIC\"},{\"name\":\"col1\",\"type\":\"NUMERIC\"},{\"name\":\"col2\",\"type\":\"NUMERIC\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job02\",\"location\":\"US\"},\"totalBytesProcessed\":\"0\",\"jobComplete\":true,\"cacheHit\":false,\"numDmlAffectedRows\":\"1\"}",
     "headers" : {
-      "ETag" : "GJ31krf5jZcgryB7xlvY5Q==",
-      "Content-Type" : "application/json; charset=UTF-8",
-      "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Fri, 04 Nov 2022 12:23:50 GMT",
-      "Server" : "ESF",
-      "Cache-Control" : "private",
-      "X-XSS-Protection" : "0",
       "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "ESF",
+      "ETag" : "KfXkE4yQvcGLjnTmi0wh0g==",
       "X-Content-Type-Options" : "nosniff",
-      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "X-XSS-Protection" : "0",
+      "Date" : "Fri, 28 Nov 2025 07:46:50 GMT",
+      "Content-Type" : "application/json; charset=UTF-8"
     }
   },
-  "uuid" : "3721a10d-681e-46da-a239-5af8b8e05d3f",
+  "uuid" : "15dee213-dec5-4f5e-9674-d742d0296d1a",
   "persistent" : true,
-  "scenarioName" : "scenario-2-bigquery-v2-projects-test-project-queries-job02",
-  "requiredScenarioState" : "scenario-2-bigquery-v2-projects-test-project-queries-job02-2",
-  "insertionIndex" : 25
+  "insertionIndex" : 50
 }
