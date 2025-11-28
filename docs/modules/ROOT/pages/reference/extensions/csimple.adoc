@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-csimple
 :cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Compiled Simple language
 :cq-deprecated: false
 :cq-jvm-since: 1.5.0
