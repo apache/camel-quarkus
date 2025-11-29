@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.langchain4j.agent.it;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
-import org.junit.jupiter.api.condition.OS;
 
 public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleManager {
     private static final String OLLAMA_ENV_URL = "LANGCHAIN4J_OLLAMA_BASE_URL";
@@ -93,20 +94,40 @@ public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleM
 
     private Boolean isNodeJSInstallationExists() {
         try {
-            // TODO: Suppress MCP tests in GitHub Actions for windows - https://github.com/apache/camel-quarkus/issues/8007
-            if (OS.current().equals(OS.WINDOWS) && System.getenv("CI") != null) {
+            ProcessBuilder pb = new ProcessBuilder()
+                    .command(ProcessUtils.getNpxExecutable(), "--version");
+            Process process = pb.start();
+
+            boolean finished = process.waitFor(20, TimeUnit.SECONDS);
+
+            if (!finished) {
+                process.destroyForcibly();
+                LOG.error("Command: %s took too long.".formatted(String.join(" ", pb.command())));
                 return false;
             }
 
-            Process process = new ProcessBuilder()
-                    .command(ProcessUtils.getNpxExecutable(), "--version")
-                    .start();
+            int exitCode = process.exitValue();
+            String output = readStream(process.getInputStream());
+            String errorOutput = readStream(process.getErrorStream());
 
-            process.waitFor(10, TimeUnit.SECONDS);
-            return process.exitValue() == 0;
+            if (exitCode == 0) {
+                LOG.info("Command: %s: %s".formatted(String.join(" ", pb.command()), output.trim()));
+            } else {
+                LOG.error("Command: %s failed with %s".formatted(String.join(" ", pb.command()), exitCode));
+                LOG.error("Process standard output %s".formatted(output.trim()));
+                LOG.error("Process error output %s".formatted(errorOutput.trim()));
+            }
+
+            return exitCode == 0;
         } catch (Exception e) {
             LOG.error("Failed detecting Node.js", e);
+            return false;
         }
-        return false;
+    }
+
+    private String readStream(InputStream inputStream) throws IOException {
+        try (inputStream) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
     }
 }

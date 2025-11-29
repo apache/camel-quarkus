@@ -235,6 +235,8 @@ public class AgentProducers {
             return new AgentWithoutMemory(new AgentConfiguration()
                     .withChatModel(chatModel)
                     .withMcpClient(new DefaultMcpClient.Builder()
+                            // Startup on Windows is really slow (around 1min).
+                            .initializationTimeout(Duration.ofSeconds(120))
                             .transport(new StdioMcpTransport.Builder()
                                     .command(List.of(ProcessUtils.getNpxExecutable(), "-y",
                                             "@modelcontextprotocol/server-everything"))
