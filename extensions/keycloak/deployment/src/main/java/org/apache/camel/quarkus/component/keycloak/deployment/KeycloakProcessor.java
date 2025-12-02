@@ -17,30 +17,14 @@
 package org.apache.camel.quarkus.component.keycloak.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
-import org.apache.camel.quarkus.core.JvmOnlyRecorder;
-import org.jboss.logging.Logger;
 
 class KeycloakProcessor {
 
-    private static final Logger LOG = Logger.getLogger(KeycloakProcessor.class);
     private static final String FEATURE = "camel-keycloak";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    /**
-     * Remove this once this extension starts supporting the native mode.
-     */
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
-    @Record(value = ExecutionTime.RUNTIME_INIT)
-    void warnJvmInNative(JvmOnlyRecorder recorder) {
-        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
-        recorder.warnJvmInNative(FEATURE); // warn at runtime
     }
 }

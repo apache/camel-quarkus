@@ -45,6 +45,7 @@ group-02:
   - jackson-protobuf
   - jfr
   - kafka-oauth
+  - keycloak
   - langchain4j-agent
   - oaipmh
   - pubnub
