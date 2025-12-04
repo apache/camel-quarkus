@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.core.SdkClient;
 
@@ -91,6 +92,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             localstack.withEnv("PROVIDER_OVERRIDE_CLOUDWATCH", "v1");
             localstack.withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId"); //has to be longer then `test`, to work on FIPS systems
             localstack.withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId");
+            localstack.waitingFor(Wait.forListeningPort()); // it could happen the port is not ready yet in rapid local development
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
             localstack.start();
 
