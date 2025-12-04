@@ -111,6 +111,7 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http-grouped</module>
+        <module>ibm-cos</module>
         <module>infinispan</module>
         <module>infinispan-common</module>
         <module>infinispan-quarkus-client</module>

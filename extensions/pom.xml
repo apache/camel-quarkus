@@ -138,6 +138,7 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
+        <module>ibm-cos</module>
         <module>ical</module>
         <module>infinispan</module>
         <module>influxdb</module>
