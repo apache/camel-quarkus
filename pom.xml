@@ -188,7 +188,7 @@
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.12.1</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
-        <unboundid-ldapsdk.version>7.0.3</unboundid-ldapsdk.version>
+        <unboundid-ldapsdk.version>7.0.4</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
         <xmlunit.version>2.11.0</xmlunit.version>
         <zt-exec.version>1.12</zt-exec.version>
