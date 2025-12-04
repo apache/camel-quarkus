@@ -1,0 +1,28 @@
+= AWS Secrets Manager tests
+
+== Rotating secret on real account
+
+To rotate secret on real account Lambda function has to be created at first.
+The code which will create it for you in `AwsSecretsManagerTest#setupLambdaFunction` expects following:
+
+* Created role (IAM -> Roles) with name `cq-lambda-role`.
+* The role has to have atleast `AWSLambdaBasicExecutionRole` and custom policy with:
+```
+			"Sid": "<unique-name>",
+			"Effect": "Allow",
+			"Action": [
+				"secretsmanager:DescribeSecret",
+				"secretsmanager:GetSecretValue",
+				"secretsmanager:PutSecretValue",
+				"secretsmanager:UpdateSecretVersionStage"
+			],
+			"Resource": "arn:aws:secretsmanager:<region>:<account-id>:secret:*"
+		}
+```
+where
+
+* `Sid` can be anything (eg. `CQSecretOperations`)
+* `region` the same which you export with `AWS_REGION` env
+* `account-id` can be found in the upper right corner in AWS Web UI
+
+
