@@ -2,6 +2,7 @@
 :page-aliases: kubernetes.adoc
 
 This guide describes different ways to configure and deploy a Camel Quarkus application on kubernetes. It also describes some specific use cases for Knative and Service Binding.
+
 == Kubernetes
 Quarkus supports generating resources for vanilla Kubernetes, OpenShift and Knative. Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster's API Server.
 More information in the https://quarkus.io/guides/deploying-to-kubernetes[`Quarkus Kubernetes guide`].
