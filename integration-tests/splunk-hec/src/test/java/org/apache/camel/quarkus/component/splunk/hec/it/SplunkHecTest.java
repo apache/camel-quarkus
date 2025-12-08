@@ -35,7 +35,6 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.hamcrest.core.StringContains;
 
 import static org.hamcrest.Matchers.containsString;
 
