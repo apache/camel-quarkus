@@ -1,0 +1,84 @@
+{
+  "realm": "camel",
+  "accessTokenLifespan": 300,
+  "ssoSessionMaxLifespan": 32140800,
+  "ssoSessionIdleTimeout": 32140800,
+  "enabled": true,
+  "sslRequired": "external",
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "firstName": "Alice",
+      "lastName": "Brown",
+      "email": "alice@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice"
+        }
+      ],
+      "realmRoles": [
+        "user"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin-password"
+        }
+      ],
+      "realmRoles": [
+        "admin"
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "realm-admin"
+        ]
+      }
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "User privileges"
+      },
+      {
+        "name": "admin",
+        "description": "Administrator privileges"
+      }
+    ],
+    "client": {}
+  },
+  "scopeMappings": [],
+  "clientScopeMappings": {},
+  "clients": [
+    {
+      "clientId": "camel-client",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "camel-client-secret",
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "consentRequired" : false,
+      "fullScopeAllowed" : false,
+      "redirectUris": [
+        "http://127.0.0.1:8080/auth",
+        "https://example.local/auth",
+        "https://example.k3s/auth"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://127.0.0.1:8080/##https://example.local/##https://example.k3s/"
+      }
+    }
+  ]
+}
