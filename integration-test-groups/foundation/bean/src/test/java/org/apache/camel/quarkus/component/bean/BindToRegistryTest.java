@@ -52,4 +52,12 @@ class BindToRegistryTest {
                 .then()
                 .body(equalTo("Hello CDI Bean"));
     }
+
+    @Test
+    void bindToRegistryBeanInstantiationCount() {
+        RestAssured.given()
+                .get("/bean/route/checkBeanInstantiationCount")
+                .then()
+                .body(equalTo("BindToRegistryProcessor instantiation count: 1"));
+    }
 }
