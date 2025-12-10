@@ -2110,7 +2110,7 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-milo</artifactId>
-        <version>4.16.0</version>
+        <version>4.17.0-SNAPSHOT</version>
         <exclusions>
           <exclusion>
             <groupId>com.sun.activation</groupId>
