@@ -1,0 +1,104 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+services:
+  openssl:
+    image: cyberark/conjur
+    entrypoint:
+     - openssl
+     - req
+     - -newkey
+     - rsa:2048
+     - -days
+     - "365"
+     - -nodes
+     - -x509
+     - -config
+     - /tmp/conf/tls.conf
+     - -extensions
+     - v3_ca
+     - -keyout
+     - /tmp/conf/nginx.key
+     - -out
+     - /tmp/conf/nginx.crt
+    volumes:
+     - ./conf/tls/:/tmp/conf:z
+
+  bot_app:
+    image: cfmanteiga/alpine-bash-curl-jq
+    privileged: true
+    command: tail -F anything
+    volumes:
+    - ./program.sh:/tmp/program.sh
+    restart: on-failure
+
+  database:
+    image: postgres:15
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: password
+      POSTGRES_PASSWORD: SuperSecretPg
+    ports:
+      - "0:5432"
+
+  pgadmin:
+#    https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    ports:
+      - "0:80"
+
+  conjur:
+    image: cyberark/conjur
+    command: server
+    environment:
+      DATABASE_URL: postgres://postgres:SuperSecretPg@database/postgres
+      CONJUR_DATA_KEY: changeitchangeitchangeitchangeitchangeitIhc=
+      CONJUR_AUTHENTICATORS:
+      CONJUR_TELEMETRY_ENABLED: 'false'
+      # By default Conjur API only returns 1000 resources (since 1.22.0)
+      # However this repo is used in testing scenarios where more than
+      # 1000 resources are present, so increase the limit.
+      # This is not a DoS risk as this code is not
+      # and must not be used for any form of production deployment.
+      CONJUR_API_RESOURCE_LIST_LIMIT_MAX: 5000
+    depends_on:
+    - database
+    restart: on-failure
+    ports:
+      - "0:80"
+
+  proxy:
+    image: nginx:latest
+    ports:
+      - "0:443"
+    volumes:
+      - ./conf/:/etc/nginx/conf.d/:ro,z
+      - ./conf/tls/:/etc/nginx/tls/:ro,z
+    depends_on:
+    - conjur
+    - openssl
+    restart: on-failure
+
+  client:
+    image: cyberark/conjur-cli:9
+    depends_on: [ proxy ]
+    entrypoint: sleep
+    command: infinity
+    volumes:
+    - ./conf/policy:/policy
