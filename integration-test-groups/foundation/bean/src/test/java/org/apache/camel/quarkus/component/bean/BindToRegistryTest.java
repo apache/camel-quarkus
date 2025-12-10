@@ -60,4 +60,12 @@ class BindToRegistryTest {
                 .then()
                 .body(equalTo("BindToRegistryProcessor instantiation count: 1"));
     }
+
+    @Test
+    void bindToRegistryNonRouteBuilderBeanWithInjection() {
+        RestAssured.given()
+                .get("/bean/route/invokeBindToRegistryBean/nonRouteBuilderBeanWithInjection")
+                .then()
+                .body(equalTo("Hello BindToRegistryEchoBean"));
+    }
 }
