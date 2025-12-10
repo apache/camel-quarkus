@@ -17,13 +17,19 @@
 package org.apache.camel.quarkus.component.bean.bind;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
+@ApplicationScoped
 public class BindToRegistryRoutes extends RouteBuilder {
+    @Inject
+    BindToRegistryConfig config;
+
     @Override
     public void configure() throws Exception {
         from("direct:invokeBindToRegistryBean")
@@ -39,6 +45,9 @@ public class BindToRegistryRoutes extends RouteBuilder {
                         exchange.getMessage().setBody(bean.hello("BindToRegistrySimpleBean"));
                     }
                 });
+
+        from("direct:checkBeanInstantiationCount")
+                .process("bindToRegistryProcessor");
     }
 
     @RegisterForReflection(fields = false)
@@ -47,5 +56,10 @@ public class BindToRegistryRoutes extends RouteBuilder {
         public String hello(String name) {
             return "Hello " + name;
         }
+    }
+
+    @BindToRegistry
+    public BindToRegistryProcessor bindToRegistryProcessor() {
+        return new BindToRegistryProcessor(config.message());
     }
 }

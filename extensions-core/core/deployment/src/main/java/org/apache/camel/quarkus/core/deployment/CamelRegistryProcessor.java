@@ -52,7 +52,6 @@ import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.ClassInfo.NestingType;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.MethodInfo;
@@ -209,10 +208,8 @@ public class CamelRegistryProcessor {
                     .filter(BindToRegistryBeanInfo::isValid)
                     // Filter out @BindToRegistry usage on RouteBuilder impls as Camel can already handle this internally
                     .filter(bindToRegistryBeanInfo -> camelRoutes.stream()
-                            .noneMatch(routeBuilder -> !bindToRegistryBeanInfo.getDeclaringType().nestingType()
-                                    .equals(NestingType.TOP_LEVEL)
-                                    && routeBuilder.getDotName()
-                                            .equals(bindToRegistryBeanInfo.getDeclaringType().enclosingClass())))
+                            .noneMatch(routeBuilder -> routeBuilder.getDotName()
+                                    .equals(bindToRegistryBeanInfo.getDeclaringType().name())))
                     // Filter any existing named beans compared to the @BindToRegistry bean name
                     .filter(bindToRegistryBeanInfo -> containerBeans.getBeans()
                             .stream()
