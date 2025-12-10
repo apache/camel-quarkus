@@ -75,6 +75,7 @@
         <module>csimple</module>
         <module>csv</module>
         <module>cxf-soap-grouped</module>
+        <module>cyberark-vault</module>
         <module>dataformat</module>
         <module>dataformats-json-grouped</module>
         <module>datasonnet</module>
