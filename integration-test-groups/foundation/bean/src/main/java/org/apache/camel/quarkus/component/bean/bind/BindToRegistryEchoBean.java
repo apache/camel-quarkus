@@ -16,23 +16,11 @@
  */
 package org.apache.camel.quarkus.component.bean.bind;
 
-import io.quarkus.arc.Unremovable;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.apache.camel.BindToRegistry;
 
-@Unremovable
 @ApplicationScoped
-public class BindToRegistryOnCdiBean {
-    @Inject
-    BindToRegistryEchoBean echoBean;
-
-    @BindToRegistry
-    BindToRegistryBean bindToRegistryBeanCdiTest = new BindToRegistryBean();
-
-    @BindToRegistry
-    public BindToRegistryBean nonRouteBuilderBeanWithInjection() {
-        String message = echoBean != null ? echoBean.echo("BindToRegistryEchoBean") : "Unknown";
-        return new BindToRegistryBean(message);
+public class BindToRegistryEchoBean {
+    public String echo(String message) {
+        return message;
     }
 }
