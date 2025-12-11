@@ -1,0 +1,42 @@
+{
+  "id" : "1d3199b6-e781-47a5-b5d9-b792ea866c39",
+  "name" : "rest_api_latest_issue_test-124",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/TEST-124",
+    "method" : "GET",
+    "queryParameters" : {
+      "expand" : {
+        "hasExactly" : [ {
+          "equalTo" : "schema,names,transitions"
+        } ]
+      }
+    }
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"errorMessages\":[\"Issue Does Not Exist\"],\"errors\":{}}",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x551x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=39",
+      "Date" : "Fri, 24 Oct 2025 09:52:28 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "aydxwn",
+      "Set-Cookie" : [ "JSESSIONID=0653EBBA99C65171007F26CE529953E9; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_d0a7139ee7536b40d4ee1991d2d1a8e403a24a0d_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "1d3199b6-e781-47a5-b5d9-b792ea866c39",
+  "persistent" : true,
+  "scenarioName" : "scenario-7-rest-api-latest-issue-TEST-124",
+  "requiredScenarioState" : "scenario-7-rest-api-latest-issue-TEST-124-2",
+  "insertionIndex" : 36
+}

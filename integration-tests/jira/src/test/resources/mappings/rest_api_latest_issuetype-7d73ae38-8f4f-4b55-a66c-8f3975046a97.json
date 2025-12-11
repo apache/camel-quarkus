@@ -1,0 +1,36 @@
+{
+  "id" : "7d73ae38-8f4f-4b55-a66c-8f3975046a97",
+  "name" : "rest_api_latest_issuetype",
+  "request" : {
+    "url" : "/rest/api/latest/issuetype",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10002\",\"id\":\"10002\",\"description\":\"A task that needs to be done.\",\"iconUrl\":\"http://localhost:8080/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype\",\"name\":\"Task\",\"subtask\":false,\"avatarId\":10318},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10003\",\"id\":\"10003\",\"description\":\"The sub-task of the issue\",\"iconUrl\":\"http://localhost:8080/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype\",\"name\":\"Sub-task\",\"subtask\":true,\"avatarId\":10316},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10001\",\"id\":\"10001\",\"description\":\"Created by Jira Software - do not edit or delete. Issue type for a user story.\",\"iconUrl\":\"http://localhost:8080/images/icons/issuetypes/story.svg\",\"name\":\"Story\",\"subtask\":false},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10004\",\"id\":\"10004\",\"description\":\"A problem which impairs or prevents the functions of the product.\",\"iconUrl\":\"http://localhost:8080/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype\",\"name\":\"Bug\",\"subtask\":false,\"avatarId\":10303},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10000\",\"id\":\"10000\",\"description\":\"Created by Jira Software - do not edit or delete. Issue type for a big user story that needs to be broken down.\",\"iconUrl\":\"http://localhost:8080/images/icons/issuetypes/epic.svg\",\"name\":\"Epic\",\"subtask\":false}]",
+    "headers" : {
+      "Keep-Alive" : "timeout=20",
+      "X-AREQUESTID" : "592x513x1",
+      "X-Content-Type-Options" : "nosniff",
+      "Server-Timing" : "threadId;desc=33",
+      "Date" : "Fri, 24 Oct 2025 09:52:21 GMT",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "X-AUSERNAME" : "test",
+      "Content-Security-Policy" : "sandbox",
+      "X-ASESSIONID" : "1sqft8g",
+      "Set-Cookie" : [ "JSESSIONID=8BB82F0AED762113AF5E9D4EF5C7147B; Path=/; HttpOnly", "atlassian.xsrf.token=B100-X062-BQWR-PVQJ_a0188398e9b8fae6fc20551ae5b5ef2c0041e73f_lin; Path=/" ],
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Seraph-LoginReason" : "OK",
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  },
+  "uuid" : "7d73ae38-8f4f-4b55-a66c-8f3975046a97",
+  "persistent" : true,
+  "scenarioName" : "scenario-3-rest-api-latest-issuetype",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-3-rest-api-latest-issuetype-2",
+  "insertionIndex" : 71
+}
