@@ -245,6 +245,7 @@
 *** xref:reference/extensions/oaipmh.adoc[OAI-PMH]
 *** xref:reference/extensions/ognl.adoc[OGNL]
 *** xref:reference/extensions/milo.adoc[OPC UA Browser]
+*** xref:reference/extensions/oauth.adoc[Oauth]
 *** xref:reference/extensions/observability-services.adoc[Observability Services]
 *** xref:reference/extensions/olingo4.adoc[Olingo4]
 *** xref:reference/extensions/openapi-java.adoc[OpenAPI Java]

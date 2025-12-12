@@ -2218,6 +2218,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-oauth</artifactId>
+        <version>4.16.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-ognl</artifactId>
         <version>4.16.0</version>
       </dependency>
@@ -5447,6 +5452,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-oaipmh-deployment</artifactId>
+        <version>3.31.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-oauth</artifactId>
+        <version>3.31.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-oauth-deployment</artifactId>
         <version>3.31.0-SNAPSHOT</version>
       </dependency>
       <dependency>
