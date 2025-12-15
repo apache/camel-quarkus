@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.aws.secrets.manager.it;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -24,34 +27,117 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.common.os.OS;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerConstants;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerOperations;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.localstack.LocalStackContainer;
+import software.amazon.awssdk.services.lambda.LambdaClient;
+import software.amazon.awssdk.services.lambda.model.AddPermissionRequest;
+import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.FunctionCode;
+import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
+import software.amazon.awssdk.services.lambda.model.GetFunctionRequest;
+import software.amazon.awssdk.services.sts.StsClient;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
 
+    public static final String name2ToCreate = "CQTestSecret2-operation-2-" + System.currentTimeMillis();
+    private static final Logger log = Logger.getLogger(AwsSecretsManagerTest.class);
+    private static String lambdaArn;
+    private static String lambdaName;
+
+    @Aws2Client(LocalStackContainer.Service.LAMBDA)
+    LambdaClient lambdaClient;
+    @Aws2Client(LocalStackContainer.Service.STS)
+    StsClient stsClient;
+
     public AwsSecretsManagerTest() {
         super("/aws-secrets-manager");
     }
 
+    public void setupLambdaFunction() throws IOException {
+        String lambdaHandler = "rotation_handler.lambda_handler";
+        String awsAccountId = "000000000000";
+        if (!MockBackendUtils.startMockBackend(false)) {
+            awsAccountId = stsClient.getCallerIdentity().account();
+        }
+        String lambdaRole = String.format("arn:aws:iam::%s:role/cq-lambda-role", awsAccountId);
+        log.info("AWS Lambda role: %s".formatted(lambdaRole));
+        lambdaName = "cq-secret-rotator-" + RandomStringUtils.secure().nextAlphanumeric(20).toLowerCase(Locale.ROOT);
+
+        try (InputStream lambdaZip = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("lambda/rotation_handler.zip")) {
+            // Create Lambda Function used for rotation
+            CreateFunctionRequest createRequest = CreateFunctionRequest.builder()
+                    .functionName(lambdaName)
+                    .runtime("python3.9")
+                    .role(lambdaRole)
+                    .handler(lambdaHandler)
+                    .code(FunctionCode.builder()
+                            .zipFile(software.amazon.awssdk.core.SdkBytes.fromByteArray(lambdaZip.readAllBytes()))
+                            .build())
+                    .build();
+
+            lambdaClient.createFunction(createRequest);
+
+            // Getting ARN of created Lambda Function
+            GetFunctionRequest getRequest = GetFunctionRequest.builder().functionName(lambdaName).build();
+            FunctionConfiguration functionConfig = lambdaClient.getFunction(getRequest).configuration();
+            lambdaArn = functionConfig.functionArn();
+            log.info("AWS Lambda Arn: %s".formatted(lambdaArn));
+
+            if (!MockBackendUtils.startMockBackend(false)) {
+                AddPermissionRequest permissionRequest = AddPermissionRequest.builder()
+                        .functionName(lambdaArn)
+                        .statementId("SecretsManagerInvokePermission")
+                        .action("lambda:InvokeFunction")
+                        .principal("secretsmanager.amazonaws.com")
+                        .sourceArn("arn:aws:secretsmanager:%s:%s:secret:%s*"
+                                .formatted(System.getenv("AWS_REGION"), awsAccountId, AwsSecretsManagerTest.name2ToCreate))
+                        .build();
+
+                lambdaClient.addPermission(permissionRequest);
+            }
+        }
+    }
+
+    public void cleanLambdaFunction() {
+        if (lambdaName != null) {
+            lambdaClient.deleteFunction(DeleteFunctionRequest.builder().functionName(lambdaName).build());
+        }
+    }
+
     @Test
-    public void testOperations() {
+    public void testOperations() throws IOException {
+        if (canUseLambdaFunction()) {
+            setupLambdaFunction();
+        }
+
         final String secretToCreate = "loadFirst";
         final String secret2ToCreate = "changeit2";
         final String secretToUpdate = "loadSecond";
         final String nameToCreate = "CQTestSecret-operation-1-" + System.currentTimeMillis();
-        final String name2ToCreate = "CQTestSecret2-operation-2-" + System.currentTimeMillis();
         final String description2ToCreate = "description-" + name2ToCreate;
         String createdArn = null;
         String createdArn2 = null;
@@ -59,9 +145,9 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
         try {
             // >> create secret 1
             createdArn = AwsSecretsManagerUtil.createSecret(nameToCreate, secretToCreate);
-            // >> create secret 2 (with description)
             assertNotNull(createdArn);
 
+            // >> create secret 2 (with description)
             createdArn2 = RestAssured.given()
                     .contentType(ContentType.JSON)
                     .body(Map.of(SecretsManagerConstants.OPERATION, SecretsManagerOperations.createSecret,
@@ -74,7 +160,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                     .statusCode(201)
                     .extract().asString();
 
-            assertNotNull(createdArn);
+            assertNotNull(createdArn2);
 
             // >> list both secrets
             final String finalCreatedArn = createdArn;
@@ -92,7 +178,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                             () -> {
                                 Map<String, Boolean> secrets = AwsSecretsManagerUtil.listSecrets(1);
                                 // contains both created secrets
-                                assertTrue(secrets.size() == 1);
+                                assertEquals(1, secrets.size());
                             });
 
             // >> get secret1 with version_id
@@ -121,6 +207,39 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             assertEquals(name2ToCreate, descriptionMap.get("name"));
             assertEquals(description2ToCreate, descriptionMap.get("description"));
 
+            if (canUseLambdaFunction()) {
+                String rotateOperation = SecretsManagerOperations.rotateSecret.toString();
+                if (MockBackendUtils.startMockBackend(false)) {
+                    // rotate secret2 with rotation rules set to fix issue with LocalStack
+                    // on real AWS use the default Camel rotateSecret operation without POJO involved
+                    // this workaround is only for older LocalStack - it is not needed in 4.12.0 (probably fixed via https://github.com/localstack/localstack/pull/12391/)
+                    rotateOperation = "rotateSecretWithRotationRulesSet";
+                }
+
+                // rotate secret2
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(CollectionHelper.mapOf(SecretsManagerConstants.SECRET_ID, createdArn2,
+                                SecretsManagerConstants.LAMBDA_ROTATION_FUNCTION_ARN, lambdaArn))
+                        .post("/aws-secrets-manager/operation/" + rotateOperation)
+                        .then()
+                        .statusCode(201)
+                        .body(is("true"));
+
+                Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(
+                        () -> {
+                            var secret2RotatedMap = RestAssured.given()
+                                    .contentType(ContentType.JSON)
+                                    .body(Collections.singletonMap(SecretsManagerConstants.SECRET_ID, finalCreatedArn2))
+                                    .post("/aws-secrets-manager/operation/" + SecretsManagerOperations.getSecret)
+                                    .then()
+                                    .statusCode(201)
+                                    .extract().as(Map.class);
+
+                            assertEquals(secret2ToCreate + "_Rotated", secret2RotatedMap.get("body"));
+                        });
+            }
+
             // >> delete secret 2
             RestAssured.given()
                     .contentType(ContentType.JSON)
@@ -143,10 +262,6 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                             assertTrue(secrets.get(finalCreatedArn2));
                         }
                     });
-
-            // operation rotateSecret fails on local stack with 500 when upgraded to 2.2.0
-            // it needs lambda function ARN to work
-            // TODO:See https://github.com/apache/camel-quarkus/issues/5300
 
             // >> update value of the first secret
             AwsSecretsManagerUtil.updateSecret(createdArn, secretToUpdate);
@@ -201,6 +316,10 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             // also on localstack, if not the second run of operations would fail
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn2);
+
+            if (canUseLambdaFunction()) {
+                cleanLambdaFunction();
+            }
         }
     }
 
@@ -213,7 +332,6 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
         try {
             createdArn = AwsSecretsManagerUtil.createSecret(nameToCreate, secretToCreate);
             assertNotNull(createdArn);
-
         } finally {
             // we must clean created secrets
             // also on localstack, if not the second run of operations would fail
@@ -259,5 +377,10 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                 AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             }
         }
+    }
+
+    private boolean canUseLambdaFunction() {
+        // https://github.com/testcontainers/testcontainers-java/issues/11342
+        return OS.current() != OS.MAC || !MockBackendUtils.startMockBackend(false);
     }
 }
