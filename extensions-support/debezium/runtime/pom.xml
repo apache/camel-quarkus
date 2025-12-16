@@ -52,6 +52,10 @@
             <artifactId>camel-debezium-common</artifactId>
         </dependency>
         <dependency>
+            <groupId>at.yawk.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.debezium</groupId>
             <artifactId>debezium-api</artifactId>
         </dependency>
