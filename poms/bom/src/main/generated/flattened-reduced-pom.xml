@@ -298,6 +298,10 @@
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>*</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -819,6 +823,10 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1097,6 +1105,10 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1544,6 +1556,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-ibm-secrets-manager</artifactId>
         <version>4.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -1838,6 +1856,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-kafka</artifactId>
         <version>4.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6820,6 +6844,11 @@
         <version>3.31.0-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>at.yawk.lz4</groupId>
+        <artifactId>lz4-java</artifactId>
+        <version>1.10.1</version>
+      </dependency>
+      <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-base</artifactId>
         <version>2.6.0</version>
@@ -7625,6 +7654,12 @@
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-json</artifactId>
         <version>4.0.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
@@ -7650,6 +7685,10 @@
           <exclusion>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -9141,6 +9180,10 @@
           <exclusion>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
           </exclusion>
         </exclusions>
       </dependency>

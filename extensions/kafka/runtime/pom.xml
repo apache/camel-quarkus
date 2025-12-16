@@ -38,6 +38,12 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kafka-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.lz4</groupId>
+                    <artifactId>lz4-java</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -46,6 +52,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>at.yawk.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
         </dependency>
         <!-- Required for the native build of the simple app with this extension only -->
         <dependency>
