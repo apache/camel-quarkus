@@ -170,13 +170,13 @@
         <module>jta</module>
         <module>kafka</module>
         <module>kamelet</module>
+        <module>keycloak</module>
         <module>knative</module>
         <module>knative-consumer</module>
         <module>knative-producer</module>
         <module>kubernetes</module>
         <module>kubernetes-cluster-service</module>
         <module>kudu</module>
-        <module>keycloak</module>
         <module>langchain4j-agent</module>
         <module>langchain4j-chat</module>
         <module>langchain4j-embeddings</module>
