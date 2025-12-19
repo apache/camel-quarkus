@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.docling.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -27,6 +28,7 @@ import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+@DisabledOnIntegrationTest // https://github.com/apache/camel-quarkus/issues/8085
 @QuarkusTest
 @QuarkusTestResource(DoclingTestResource.class)
 class DoclingTest {
