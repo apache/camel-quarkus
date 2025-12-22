@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-keycloak
 :cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Manage Keycloak instances via Admin API.
 :cq-deprecated: false
 :cq-jvm-since: 3.29.0
