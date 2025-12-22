@@ -155,7 +155,7 @@ class KeycloakConsumerTest {
                             .body()
                             .jsonPath()
                             .getList(".");
-                    return events != null && events.size() > 0;
+                    return events != null && !events.isEmpty();
                 });
 
         // Verify that admin events were collected
@@ -171,7 +171,7 @@ class KeycloakConsumerTest {
                 .getList(".", AdminEventRepresentation.class);
 
         assertThat(adminEvents, notNullValue());
-        assertThat(adminEvents.size() >= 1, is(true));
+        assertThat(!adminEvents.isEmpty(), is(true));
 
         // Verify the event contains expected data
         AdminEventRepresentation firstEvent = adminEvents.get(0);
@@ -214,7 +214,7 @@ class KeycloakConsumerTest {
                             .body()
                             .jsonPath()
                             .getList(".");
-                    return events != null && events.size() > 0;
+                    return events != null && !events.isEmpty();
                 });
 
         // Verify that admin events were collected
@@ -230,7 +230,7 @@ class KeycloakConsumerTest {
                 .getList(".", AdminEventRepresentation.class);
 
         assertThat(adminEvents, notNullValue());
-        assertThat(adminEvents.size() >= 1, is(true));
+        assertThat(!adminEvents.isEmpty(), is(true));
     }
 
     @Test
@@ -316,7 +316,7 @@ class KeycloakConsumerTest {
                 .jsonPath()
                 .getList(".", EventRepresentation.class);
 
-        // Just verify we can call the endpoint and get a list (may be empty)
+        // Just verify we can call the endpoint and get a list (can be empty)
         assertThat(regularEvents, notNullValue());
     }
 

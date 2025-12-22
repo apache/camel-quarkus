@@ -23,28 +23,59 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.keycloak.server.KeycloakContainer;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.Network;
+import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
 public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager {
 
+    private static final String GREENMAIL_IMAGE_NAME = ConfigProvider.getConfig()
+            .getValue("greenmail.container.image", String.class);
+    private static final int SMTP_PORT = 3025;
+    private static final int API_PORT = 8080;
+
     private KeycloakContainer keycloak;
+    private GenericContainer<?> greenMail;
+    private Network network;
 
     @Override
     public Map<String, String> start() {
+        // Create a shared network for containers to communicate
+        network = Network.newNetwork();
+
+        // Start GreenMail container
+        greenMail = new GenericContainer<>(GREENMAIL_IMAGE_NAME)
+                .withNetwork(network)
+                .withNetworkAliases("greenmail")
+                .withExposedPorts(SMTP_PORT, API_PORT)
+                .waitingFor(new HttpWaitStrategy()
+                        .forPort(API_PORT)
+                        .forPath("/api/service/readiness")
+                        .forStatusCode(200));
+        greenMail.start();
+
         // Set the Keycloak docker image property
         System.setProperty("keycloak.docker.image",
                 ConfigProvider.getConfig().getValue("keycloak.container.image", String.class));
 
-        // Start Keycloak container
+        // Start Keycloak container with network access to GreenMail
         keycloak = new KeycloakContainer();
+        keycloak.withNetwork(network);
         keycloak.withStartupTimeout(Duration.ofMinutes(5));
         keycloak.start();
 
-        // Get the configuration from the started container
+        // Get the configuration from the started containers
         Map<String, String> properties = new HashMap<>();
         properties.put("keycloak.url", keycloak.getServerUrl());
         properties.put("keycloak.username", "admin");
         properties.put("keycloak.password", "admin");
         properties.put("keycloak.realm", "master");
+
+        // GreenMail SMTP configuration (accessible from host)
+        properties.put("mail.smtp.host", greenMail.getHost());
+        properties.put("mail.smtp.port", greenMail.getMappedPort(SMTP_PORT).toString());
+        properties.put("mail.api.url",
+                String.format("http://%s:%d", greenMail.getHost(), greenMail.getMappedPort(API_PORT)));
 
         return properties;
     }
@@ -53,6 +84,12 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
     public void stop() {
         if (keycloak != null) {
             keycloak.stop();
+        }
+        if (greenMail != null) {
+            greenMail.stop();
+        }
+        if (network != null) {
+            network.close();
         }
     }
 }

@@ -16,26 +16,9 @@
  */
 package org.apache.camel.quarkus.component.keycloak.it;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@Path("/keycloak")
-@ApplicationScoped
-public class KeycloakResource extends KeycloakResourceSupport {
-
-    @Path("/load/component/keycloak")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response loadComponentKeycloak() {
-        if (context.getComponent(COMPONENT_KEYCLOAK) != null) {
-            return Response.ok().build();
-        }
-        LOG.warnf("Could not load [%s] from the Camel context", COMPONENT_KEYCLOAK);
-        return Response.status(500, COMPONENT_KEYCLOAK + " could not be loaded from the Camel context").build();
-    }
+@QuarkusIntegrationTest
+class KeycloakUserIT extends KeycloakUserTest {
 
 }

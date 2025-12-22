@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.keycloak.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class KeycloakIT extends KeycloakTest {
+class KeycloakRealmIT extends KeycloakRealmTest {
 
 }
