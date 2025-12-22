@@ -38,6 +38,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-keycloak</artifactId>
         </dependency>
+        <!-- Use Quarkus Keycloak Admin Client deployment extension -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-admin-resteasy-client-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

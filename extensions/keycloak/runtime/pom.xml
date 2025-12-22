@@ -33,6 +33,7 @@
     <properties>
         <camel.quarkus.jvmSince>3.29.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.31.0</camel.quarkus.nativeSince>
+        <quarkus.metadata.status>preview</quarkus.metadata.status>
     </properties>
 
     <dependencies>
@@ -43,6 +44,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-keycloak</artifactId>
+        </dependency>
+        <!-- Use Quarkus Keycloak Admin Client extension for native mode support -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-admin-resteasy-client</artifactId>
         </dependency>
     </dependencies>
 

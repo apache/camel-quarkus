@@ -27,4 +27,5 @@ class KeycloakProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
 }
