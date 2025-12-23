@@ -75,7 +75,6 @@
         <module>jooq</module>
         <module>json-patch</module>
         <module>jsonapi</module>
-        <module>keycloak</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>milvus</module>

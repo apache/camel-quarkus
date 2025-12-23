@@ -149,6 +149,7 @@
         <module>kafka-sasl-ssl</module>
         <module>kafka-ssl</module>
         <module>kamelet</module>
+        <module>keycloak</module>
         <module>knative</module>
         <module>kubernetes</module>
         <module>kudu</module>

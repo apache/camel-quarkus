@@ -170,6 +170,7 @@
         <module>jta</module>
         <module>kafka</module>
         <module>kamelet</module>
+        <module>keycloak</module>
         <module>knative</module>
         <module>knative-consumer</module>
         <module>knative-producer</module>
