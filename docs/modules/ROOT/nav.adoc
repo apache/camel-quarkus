@@ -101,6 +101,7 @@
 *** xref:reference/extensions/couchbase.adoc[Couchbase]
 *** xref:reference/extensions/cron.adoc[Cron]
 *** xref:reference/extensions/crypto.adoc[Crypto (JCE)]
+*** xref:reference/extensions/cyberark-vault.adoc[CyberArk Vault]
 *** xref:reference/extensions/dfdl.adoc[DFDL]
 *** xref:reference/extensions/dns.adoc[DNS]
 *** xref:reference/extensions/dsl-modeline.adoc[DSL Modeline]
