@@ -180,6 +180,10 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
                     </exclusion>
