@@ -185,6 +185,7 @@
         <module>netty</module>
         <module>nitrite</module>
         <module>oaipmh</module>
+        <module>oauth</module>
         <module>observability-services</module>
         <module>ognl</module>
         <module>olingo4</module>
