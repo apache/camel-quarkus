@@ -22,6 +22,8 @@ on:
     workflows: ["Camel Quarkus CI"]
     types:
       - completed
+    branches:
+      - 'dependabot/**'
 
 jobs:
   update:
@@ -30,7 +32,7 @@ jobs:
       branch-ref: ${{ steps.setup-dependabot-patches.outputs.branch-ref }}
       pr-number: ${{ steps.setup-dependabot-patches.outputs.pr-number }}
       pr-updated: ${{ steps.push-changes.outputs.updated }}
-    if: github.repository == 'apache/camel-quarkus' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.actor == 'dependabot[bot]'
+    if: github.repository == 'apache/camel-quarkus' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.triggering_actor.login == 'dependabot[bot]'
     steps:
       - name: Download dependabot pull request changes
         id: download-pr-changes
