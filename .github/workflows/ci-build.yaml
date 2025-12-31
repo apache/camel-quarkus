@@ -88,7 +88,7 @@ env:
   MAVEN_OPTS: -Xmx3000m
   CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
   TESTCONTAINERS_RYUK_DISABLED: true
-  CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' && github.head_ref || '' }}
+  CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]' && github.head_ref || '' }}
 
 jobs:
   pre-build-checks:
@@ -101,7 +101,7 @@ jobs:
       - name: Initialize
         id: init
         run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]] && [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+          if [[ "${{ github.event_name }}" == "pull_request" ]] && [[ "${{ github.event.pull_request.user.login }}" == "dependabot[bot]" ]]; then
             echo "run-checks=true" >> $GITHUB_OUTPUT
           else
             echo "run-checks=false" >> $GITHUB_OUTPUT
