@@ -22,9 +22,6 @@ import java.lang.reflect.Modifier;
 import java.rmi.NotBoundException;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.AbstractOwnableSynchronizer;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -78,12 +75,13 @@ class ManagementProcessor {
             ManagedResource.class
     };
     private static final String[] SERIALIZATION_CLASSES = {
-            AbstractOwnableSynchronizer.class.getName(),
-            AbstractQueuedSynchronizer.class.getName(),
-            "java.util.concurrent.ConcurrentHashMap$CollectionView",
-            ConcurrentHashMap.class.getName(),
-            "java.util.concurrent.ConcurrentHashMap$KeySetView",
-            "java.util.concurrent.ConcurrentHashMap$Segment",
+            // TODO: Reinstate these - https://github.com/apache/camel-quarkus/issues/8096
+            // AbstractOwnableSynchronizer.class.getName(),
+            // AbstractQueuedSynchronizer.class.getName(),
+            // "java.util.concurrent.ConcurrentHashMap$CollectionView",
+            // ConcurrentHashMap.class.getName(),
+            // "java.util.concurrent.ConcurrentHashMap$KeySetView",
+            // "java.util.concurrent.ConcurrentHashMap$Segment",
             DescriptorSupport.class.getName(),
             ModelMBeanAttributeInfo.class.getName(),
             ModelMBeanInfoSupport.class.getName(),
@@ -98,8 +96,9 @@ class ManagementProcessor {
             ObjectInstance.class.getName(),
             ObjectStreamException.class.getName(),
             ReentrantLock.class.getName(),
-            "java.util.concurrent.locks.ReentrantLock$NonfairSync",
-            "java.util.concurrent.locks.ReentrantLock$Sync",
+            // TODO: Reinstate these - https://github.com/apache/camel-quarkus/issues/8096
+            // "java.util.concurrent.locks.ReentrantLock$NonfairSync",
+            // "java.util.concurrent.locks.ReentrantLock$Sync",
             RuntimeCamelException.class.getName(),
             RuntimeExchangeException.class.getName(),
             "java.util.Collections$UnmodifiableSet",
