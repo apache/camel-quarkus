@@ -16,8 +16,18 @@
  */
 package org.apache.camel.quarkus.component.docling.deployment;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class DoclingProcessor {
 
@@ -26,5 +36,42 @@ class DoclingProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependency) {
+        indexedDependency.produce(new IndexDependencyBuildItem("ai.docling", "docling-core"));
+        indexedDependency.produce(new IndexDependencyBuildItem("ai.docling", "docling-serve-api"));
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void registerForReflection(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+        // Register Docling model and associated builder classes for reflection for Jackson serialization / deserialization
+        Set<String> doclingValidationBuilderClasses = combinedIndex.getIndex()
+                .getClassesInPackage("ai.docling.serve.api.validation")
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .filter(className -> className.endsWith("$Builder"))
+                .collect(Collectors.toUnmodifiableSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(doclingValidationBuilderClasses.toArray(new String[0]))
+                .methods(true)
+                .build());
+
+        Set<String> doclingCoreBuilderClasses = combinedIndex.getIndex()
+                .getClassesInPackage("ai.docling.core")
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .filter(className -> className.endsWith("$Builder"))
+                .collect(Collectors.toUnmodifiableSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(doclingCoreBuilderClasses.toArray(new String[0]))
+                .methods(true)
+                .build());
     }
 }
