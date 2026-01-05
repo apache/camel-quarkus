@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.pdf.it;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -121,5 +123,18 @@ public class PdfResource {
                 String.class);
 
         return Response.ok().entity(result).build();
+    }
+
+    @Path("/merge")
+    @POST
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response merge(@QueryParam("firstPdf") String firstPdf, @QueryParam("secondPdf") String secondPdf) throws Exception {
+        document = producerTemplate.requestBodyAndHeader(
+                "pdf:merge", null, PdfHeaderConstants.FILES_TO_MERGE_HEADER_NAME,
+                List.of(new File(firstPdf), new File(secondPdf)), byte[].class);
+
+        LOG.infof("The PDDocument has been merged and contains %d bytes", document.length);
+
+        return Response.created(new URI("pdf/merge")).entity(document).build();
     }
 }

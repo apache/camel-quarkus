@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.pdf.it;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -82,6 +84,34 @@ class PdfTest {
 
         assertTrue(pdfText.contains("content to be included in the created pdf document"));
         assertTrue(pdfText.contains("another line that should be appended"));
+    }
+
+    @Test
+    public void merge() throws IOException {
+        byte[] bytesFirstPDF = RestAssured.given().contentType(ContentType.TEXT)
+                .body("first content").post("/pdf/createFromText").then().statusCode(201)
+                .extract().asByteArray();
+        Path firstPdfPath = Files.createTempFile("firstPdf", ".pdf");
+        Files.write(firstPdfPath, bytesFirstPDF);
+        byte[] bytesSecondPDF = RestAssured.given().contentType(ContentType.TEXT)
+                .body("second content").post("/pdf/createFromText").then().statusCode(201)
+                .extract().asByteArray();
+        Path secondPdfPath = Files.createTempFile("secondPdf", ".pdf");
+        Files.write(secondPdfPath, bytesSecondPDF);
+
+        byte[] bytesMergedPDF = RestAssured.given()
+                .queryParam("firstPdf", firstPdfPath.toString())
+                .queryParam("secondPdf", secondPdfPath.toString())
+                .post("/pdf/merge").then().statusCode(201)
+                .extract().asByteArray();
+
+        PDDocument doc = Loader.loadPDF(bytesMergedPDF);
+        PDFTextStripper pdfTextStripper = new PDFTextStripper();
+        String text = pdfTextStripper.getText(doc);
+        assertEquals(2, doc.getNumberOfPages());
+        assertTrue(text.contains("first content\nsecond content"));
+
+        doc.close();
     }
 
     @Test
