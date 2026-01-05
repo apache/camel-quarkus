@@ -22,6 +22,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDParentTreeValue;
 import org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler;
 
 class PdfProcessor {
@@ -78,8 +79,9 @@ class PdfProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(StandardSecurityHandler.class)
-                .build();
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectionClass) {
+        reflectionClass
+                .produce(ReflectiveClassBuildItem.builder(StandardSecurityHandler.class).constructors().methods().build());
+        reflectionClass.produce(ReflectiveClassBuildItem.builder(PDParentTreeValue.class).constructors().methods().build());
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.pdf.it;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -24,6 +25,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.smallrye.common.os.OS;
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -110,6 +112,31 @@ class PdfTest {
         String text = pdfTextStripper.getText(doc);
         assertEquals(2, doc.getNumberOfPages());
         assertTrue(text.contains("first content\nsecond content"));
+
+        doc.close();
+    }
+
+    @Test
+    public void mergeWithComplexPdf() throws IOException {
+        InputStream pageLabelPdfStream = PdfTest.class.getResourceAsStream("/test_pagelabels.pdf");
+        Path firstPdfPath = Files.createTempFile("firstPdf", ".pdf");
+        FileUtils.copyInputStreamToFile(pageLabelPdfStream, firstPdfPath.toFile());
+
+        InputStream complexPdfStream = PdfTest.class.getResourceAsStream(
+                "/pdf-with-several-different-contents.pdf");
+        Path secondPdfPath = Files.createTempFile("secondPdf", ".pdf");
+        FileUtils.copyInputStreamToFile(complexPdfStream, secondPdfPath.toFile());
+        byte[] bytesMergedPDF = RestAssured.given()
+                .queryParam("firstPdf", firstPdfPath.toString())
+                .queryParam("secondPdf", secondPdfPath.toString())
+                .post("/pdf/merge").then().statusCode(201)
+                .extract().asByteArray();
+
+        PDDocument doc = Loader.loadPDF(bytesMergedPDF);
+        PDFTextStripper pdfTextStripper = new PDFTextStripper();
+        String text = pdfTextStripper.getText(doc);
+        assertEquals(15, doc.getNumberOfPages());
+        assertTrue(text.contains("A shape"));
 
         doc.close();
     }
