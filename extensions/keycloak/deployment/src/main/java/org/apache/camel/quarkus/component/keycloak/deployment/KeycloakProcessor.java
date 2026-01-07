@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.keycloak.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.keycloak.common.util.BouncyIntegration;
 
 class KeycloakProcessor {
 
@@ -26,6 +29,11 @@ class KeycloakProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(BouncyIntegration.class.getName()));
     }
 
 }
