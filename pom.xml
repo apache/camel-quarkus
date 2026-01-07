@@ -239,7 +239,7 @@
         <db2.container.image>icr.io/db2_community/db2:12.1.0.0</db2.container.image>
         <docling.container.image>quay.io/docling-project/docling-serve:v1.9.0</docling.container.image>
         <eclipse-mosquitto.container.image>mirror.gcr.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>
-        <elasticsearch.container.image>mirror.gcr.io/elastic/elasticsearch:9.0.2</elasticsearch.container.image>
+        <elasticsearch.container.image>mirror.gcr.io/elastic/elasticsearch:9.1.0</elasticsearch.container.image>
         <eventhubs-emulator.container.image>mcr.microsoft.com/azure-messaging/eventhubs-emulator:latest</eventhubs-emulator.container.image>
         <fhir.container.image.base>mirror.gcr.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v7.2.0</fhir.container.image>
