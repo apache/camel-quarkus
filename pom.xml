@@ -233,7 +233,7 @@
         <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.35.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
-        <consul.container.image>mirror.gcr.io/hashicorp/consul:1.19</consul.container.image>
+        <consul.container.image>mirror.gcr.io/hashicorp/consul:1.21</consul.container.image>
         <couchbase.container.image>mirror.gcr.io/couchbase/server:7.2.5</couchbase.container.image>
         <couchdb.container.image>mirror.gcr.io/couchdb:3.5.0</couchdb.container.image>
         <db2.container.image>icr.io/db2_community/db2:12.1.0.0</db2.container.image>
