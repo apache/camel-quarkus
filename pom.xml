@@ -242,7 +242,7 @@
         <elasticsearch.container.image>mirror.gcr.io/elastic/elasticsearch:9.1.0</elasticsearch.container.image>
         <eventhubs-emulator.container.image>mcr.microsoft.com/azure-messaging/eventhubs-emulator:latest</eventhubs-emulator.container.image>
         <fhir.container.image.base>mirror.gcr.io/hapiproject/hapi</fhir.container.image.base>
-        <fhir.container.image>${fhir.container.image.base}:v7.2.0</fhir.container.image>
+        <fhir.container.image>${fhir.container.image.base}:v8.2.0-2</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
         <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:492.0.0-emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
