@@ -79,6 +79,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("SPLUNK_PASSWORD", "changeit")
                     .withEnv("SPLUNK_HEC_TOKEN", HEC_TOKEN)
                     .withEnv("SPLUNK_LICENSE_URI", "Free")
+                    .withEnv("SPLUNK_GENERAL_TERMS", "--accept-sgt-current-at-splunk-com")
                     .withEnv("TZ", TimeZone.getDefault().getID())
                     .waitingFor(
                             Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
