@@ -263,7 +263,7 @@
         <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:2.9.0</opensearch.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
         <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.9-slim-faststart</oracle-debezium.container.image>
-        <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v0.7.0</pinecone.container.image>
+        <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v1.0.0.rc0</pinecone.container.image>
         <postgres.container.image>mirror.gcr.io/postgres:15.0</postgres.container.image>
         <postgres-debezium.container.image>mirror.gcr.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
         <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.15.5-unprivileged</qdrant.container.image>
