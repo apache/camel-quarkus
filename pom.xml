@@ -252,7 +252,7 @@
         <influxdb.container.image>mirror.gcr.io/influxdb:1.12.2-alpine</influxdb.container.image>
         <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-4.1.0</kafka.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:${keycloak.version}</keycloak.container.image>
-        <kudu.container.image>mirror.gcr.io/apache/kudu:1.17.0</kudu.container.image>
+        <kudu.container.image>mirror.gcr.io/apache/kudu:1.18.0-ubuntu</kudu.container.image>
         <localstack.container.image>mirror.gcr.io/localstack/localstack:3.7.2</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2024-09-13T20-26-02Z</minio.container.image>
