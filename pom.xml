@@ -260,7 +260,7 @@
         <mariadb.container.image>mirror.gcr.io/mariadb:12.1</mariadb.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.11.6</nats.container.image>
-        <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:2.9.0</opensearch.container.image>
+        <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:3.1.0</opensearch.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
         <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.9-slim-faststart</oracle-debezium.container.image>
         <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v1.0.0.rc0</pinecone.container.image>
