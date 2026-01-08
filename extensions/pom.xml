@@ -91,6 +91,7 @@
         <module>csimple</module>
         <module>csv</module>
         <module>cxf-soap</module>
+        <module>cyberark-vault</module>
         <module>dataformat</module>
         <module>dataset</module>
         <module>datasonnet</module>
