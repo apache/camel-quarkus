@@ -63,11 +63,7 @@ class OpenTelemetry2TraceProcessorsTest {
         assertEquals(SpanKind.INTERNAL.name(), spans.get(1).get("kind"));
         assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
         assertEquals(SpanKind.INTERNAL.name(), spans.get(2).get("kind"));
-
-        // TODO: Restore this assertion - https://github.com/apache/camel-quarkus/issues/7813
-        // assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
-
-        // TODO: See above - remove this assertion. For now we expect the the JAX-RS service span to be disconnected
+        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
         assertEquals(spans.get(3).get("parentId"), "0000000000000000");
         assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
     }
