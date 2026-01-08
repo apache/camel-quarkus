@@ -253,13 +253,12 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                     () -> {
                         Map<String, Boolean> secrets = AwsSecretsManagerUtil.listSecrets(null);
                         // by default secrets marked for deletion are not listed (can be enabled with https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/secretsmanager/model/ListSecretsRequest.Builder.html#includePlannedDeletion(java.lang.Boolean))
-                        // but on localstack they are present (with non-null deletedDate field) - see https://github.com/localstack/localstack/issues/11635
                         assertTrue(secrets.containsKey(finalCreatedArn));
                         if (!MockBackendUtils.startMockBackend(false)) {
                             assertFalse(secrets.containsKey(finalCreatedArn2));
                         } else {
                             assertFalse(secrets.get(finalCreatedArn));
-                            assertTrue(secrets.get(finalCreatedArn2));
+                            assertFalse(secrets.containsKey(finalCreatedArn2));
                         }
                     });
 
