@@ -30,6 +30,7 @@ import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.io.output.TeeOutputStream;
+import org.apache.commons.lang3.SystemUtils;
 import org.jboss.logging.Logger;
 
 public class MvnwCmdHelper {
@@ -43,7 +44,8 @@ public class MvnwCmdHelper {
         TeeOutputStream teeOutputStream = null;
 
         try {
-            File mvnwFile = cqVersionUnderTestFolder.resolve("mvnw").toFile();
+            String mvnWrapperExecutableName = SystemUtils.IS_OS_WINDOWS ? "mvnw.cmd" : "mvnw";
+            File mvnwFile = cqVersionUnderTestFolder.resolve(mvnWrapperExecutableName).toFile();
             CommandLine cmd = CommandLine.parse(mvnwFile.getAbsolutePath() + " " + args);
 
             stdoutAndStderrMemoryStream = new ByteArrayOutputStream();
