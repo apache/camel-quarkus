@@ -24,7 +24,6 @@ import io.opentelemetry.api.trace.SpanKind;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.opentelemetry.semconv.incubating.CodeIncubatingAttributes.CODE_FUNCTION_NAME;
@@ -44,7 +43,6 @@ class Opentelemetry2Test {
                 .statusCode(204);
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/7813")
     @Test
     public void testTraceRoute() {
         // Generate messages
@@ -63,20 +61,33 @@ class Opentelemetry2Test {
         }
 
         // Retrieve recorded spans
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 10);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(5, spans.size());
+        assertEquals(10, spans.size());
 
-        for (Map<String, String> span : spans) {
-            assertEquals("camel-platform-http", span.get("component"));
-            assertEquals("200", span.get("http.status_code"));
-            assertEquals("GET", span.get("http.method"));
-            assertEquals("platform-http:///opentelemetry2/test/trace?httpMethodRestrict=GET", span.get("camel.uri"));
-            assertTrue(span.get("http.url").endsWith("/opentelemetry2/test/trace/"));
+        //
+        for (int i = spans.size() - 1; i >= 0; i--) {
+            Map<String, String> span = spans.get(i);
+
+            // Verify the span hierarchy is Quarkus Vert.x HTTP server -> Platform HTTP Endpoint
+            if (i % 2 == 0) {
+                assertEquals("camel-platform-http", span.get("component"));
+                assertEquals("200", span.get("http.status_code"));
+                assertEquals("GET", span.get("http.method"));
+                assertEquals("platform-http:///opentelemetry2/test/trace?httpMethodRestrict=GET", span.get("camel.uri"));
+                assertTrue(span.get("http.url").endsWith("/opentelemetry2/test/trace/"));
+                assertEquals(SpanKind.INTERNAL.name(), span.get("kind"));
+                assertEquals(spans.get(i + 1).get("spanId"), span.get("parentId"));
+            } else {
+                assertEquals("200", span.get("http.response.status_code"));
+                assertEquals("GET", span.get("http.request.method"));
+                assertEquals("/opentelemetry2/test/trace/", span.get("url.path"));
+                assertEquals(SpanKind.SERVER.name(), span.get("kind"));
+                assertEquals("0000000000000000", span.get("parentId"));
+            }
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/7813")
     @Test
     public void testTracedCamelRouteInvokedFromJaxRsService() {
         RestAssured.get("/opentelemetry2/trace")
@@ -89,7 +100,7 @@ class Opentelemetry2Test {
         List<Map<String, String>> spans = getSpans();
         assertEquals(3, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
-        assertEquals(SpanKind.CLIENT.name(), spans.get(1).get("kind"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(1).get("kind"));
         assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
     }
 
@@ -139,9 +150,7 @@ class Opentelemetry2Test {
         assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
         assertEquals("direct://jdbcQuery", spans.get(3).get("camel.uri"));
         assertEquals("EVENT_RECEIVED", spans.get(3).get("op"));
-
         assertEquals(spans.get(4).get("parentId"), spans.get(5).get("spanId"));
-        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
         assertEquals("direct://jdbcQuery", spans.get(4).get("camel.uri"));
         assertEquals("EVENT_SENT", spans.get(4).get("op"));
 
