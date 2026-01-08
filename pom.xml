@@ -246,7 +246,7 @@
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
         <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:551.0.0-emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
-        <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.0.0</greenmail.container.image>
+        <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.1.8</greenmail.container.image>
         <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:1.20.4</hashicorp-vault.container.image>
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.3.0-r1</ibm-mq.container.image>
         <influxdb.container.image>mirror.gcr.io/influxdb:1.12.2-alpine</influxdb.container.image>
