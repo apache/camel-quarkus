@@ -21,13 +21,17 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 public class OpensearchTestResource implements QuarkusTestResourceLifecycleManager {
-
-    private static final Logger LOG = Logger.getLogger(OpensearchTestResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpensearchTestResource.class);
+    private static final String OPENSEARCH_USER = "admin";
+    private static final String OPENSEARCH_PASSWORD = "gtTcFWb$3@";
 
     private GenericContainer<?> container;
 
@@ -40,16 +44,21 @@ public class OpensearchTestResource implements QuarkusTestResourceLifecycleManag
     public Map<String, String> start() {
         try {
             container = new GenericContainer<>(DockerImageName.parse(OPENSEARCH_IMAGE))
+                    .withLogConsumer(new Slf4jLogConsumer(LOG))
                     .withEnv("discovery.type", "single-node")
                     .withExposedPorts(OPENSEARCH_PORT)
+                    .withEnv("OPENSEARCH_INITIAL_ADMIN_PASSWORD", OPENSEARCH_PASSWORD)
                     .withEnv("OPENSEARCH_JAVA_OPTS", "-Xms512m -Xmx512m")
-                    .withEnv("plugins.security.disabled", "true");
+                    .withEnv("plugins.security.disabled", "true")
+                    .waitingFor(Wait.forListeningPort());
             container.start();
 
             String address = container.getHost() + ":" + container.getMappedPort(OPENSEARCH_PORT);
             Map<String, String> config = new HashMap<>();
             config.put("camel.component.opensearch.host-addresses", address);
             config.put("camel.component.opensearch.enable-sniffer", "false");
+            config.put("camel.component.opensearch.user", OPENSEARCH_USER);
+            config.put("camel.component.opensearch.password", OPENSEARCH_PASSWORD);
 
             return config;
 
@@ -62,8 +71,6 @@ public class OpensearchTestResource implements QuarkusTestResourceLifecycleManag
     public void stop() {
         if (container != null) {
             container.stop();
-
         }
     }
-
 }
