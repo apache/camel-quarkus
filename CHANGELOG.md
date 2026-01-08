@@ -18,6 +18,17 @@
 -->
 # Changelog
 
+## 3.27.2
+
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7930
+* [3.27.x] Upgrade Quarkus to 3.27.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7956
+* [3.27.x] Keep smooks-core and smooks-bom versions separate because they can be released separately by @ppalaga in https://github.com/apache/camel-quarkus/pull/7984
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7992
+* [3.27.x] Override lz4-java for flink & aws2-kinesis with at.yawk.lz4 variant by @ppalaga in https://github.com/apache/camel-quarkus/pull/8078
+* [3.27.x] Camel 4.14.3 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8087
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.27.1...3.27.2
+
 ## 3.30.0
 
 * Replace deprecated ObjectMapper.setSerializationInclusion method by @apupier in https://github.com/apache/camel-quarkus/pull/7880
