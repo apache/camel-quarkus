@@ -47,7 +47,7 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -81,19 +81,18 @@ public class MailTest {
             + "Hello attachment!"
             + "${delimiter}--\r\n";
 
-    @BeforeEach
-    public void beforeEach() {
+    @BeforeAll
+    public static void beforeAll() {
         // Configure users
         Config config = ConfigProvider.getConfig();
         String userJson = String.format("{ \"email\": \"%s\", \"login\": \"%s\", \"password\": \"%s\"}", EMAIL_ADDRESS,
                 USERNAME, PASSWORD);
+
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(userJson)
                 .post("http://" + config.getValue("mail.host", String.class) + ":"
-                        + config.getValue("mail.api.port", Integer.class) + "/api/user")
-                .then()
-                .statusCode(200);
+                        + config.getValue("mail.api.port", Integer.class) + "/api/user");
     }
 
     @AfterEach
@@ -102,10 +101,10 @@ public class MailTest {
         Config config = ConfigProvider.getConfig();
         RestAssured.given()
                 .post("http://" + config.getValue("mail.host", String.class) + ":"
-                        + config.getValue("mail.api.port", Integer.class) + "/api/service/reset")
+                        + config.getValue("mail.api.port", Integer.class) + "/api/mail/purge")
                 .then()
                 .statusCode(200)
-                .body("message", is("Performed reset"));
+                .body("message", is("Purged mails"));
 
         RestAssured.get("/mail/stopConsumers")
                 .then()

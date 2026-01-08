@@ -25,13 +25,15 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import org.testcontainers.utility.MountableFile;
 
 public class MailTestResource implements QuarkusTestResourceLifecycleManager {
-    private static final Logger LOG = Logger.getLogger(MailTestResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MailTestResource.class);
     private static final String GREENMAIL_IMAGE_NAME = ConfigProvider.getConfig().getValue("greenmail.container.image",
             String.class);
     //default value used in testcontainer
@@ -42,6 +44,7 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         container = new GenericContainer<>(GREENMAIL_IMAGE_NAME)
+                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.keystoreFile("greenmail", "p12")),
                         "/home/greenmail/greenmail.p12")
                 .withExposedPorts(MailProtocol.allPorts())
