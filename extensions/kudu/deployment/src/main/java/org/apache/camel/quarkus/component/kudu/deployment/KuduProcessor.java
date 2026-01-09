@@ -28,6 +28,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
@@ -81,5 +82,10 @@ class KuduProcessor {
                 "org.apache.kudu.client.PartitionSchema$BoundsComparator")
                 .map(RuntimeReinitializedClassBuildItem::new)
                 .forEach(runtimeReinitializedClass::produce);
+    }
+
+    @BuildStep
+    NativeImageResourceBundleBuildItem nativeImageResoourceResourceBundles() {
+        return new NativeImageResourceBundleBuildItem("sun.security.util.resources.security");
     }
 }
