@@ -46,8 +46,8 @@ public class KubernetesClusterServiceRecorder {
 
         config.id().ifPresent(clusterService::setId);
         config.masterUrl().ifPresent(clusterService::setMasterUrl);
-        config.connectionTimeoutMillis().ifPresent(clusterService::setConnectionTimeoutMillis);
-        config.namespace().ifPresent(clusterService::setKubernetesNamespace);
+        config.connectionTimeoutMillis().ifPresent(clusterService::setConnectionTimeout);
+        config.namespace().ifPresent(clusterService::setNamespace);
         config.podName().ifPresent(clusterService::setPodName);
         config.jitterFactor().ifPresent(clusterService::setJitterFactor);
         config.leaseDurationMillis().ifPresent(clusterService::setLeaseDurationMillis);
