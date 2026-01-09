@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 3.29.0
 cqNativeSince: 3.29.0
 cqCamelPartName: mdc
-cqCamelPartTitle: Mdc
+cqCamelPartTitle: MDC Logging
 cqCamelPartDescription: Logging MDC (Mapped Diagnostic Context) Service
 cqExtensionPageTitle: Mdc
