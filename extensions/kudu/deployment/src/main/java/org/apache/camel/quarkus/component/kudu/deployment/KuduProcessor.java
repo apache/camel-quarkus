@@ -28,6 +28,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
@@ -86,5 +87,10 @@ class KuduProcessor {
     @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
         return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
+    }
+
+    @BuildStep
+    NativeImageResourceBundleBuildItem nativeImageResoourceResourceBundles() {
+        return new NativeImageResourceBundleBuildItem("sun.security.util.resources.security");
     }
 }
