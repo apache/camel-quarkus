@@ -46,6 +46,10 @@ class MasterFileTest {
 
     @Test
     public void testFailover() throws IOException {
+        // Verify that this process is the cluster leader
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
+            return readLeaderFile("leader").equals("leader");
+        });
 
         List<String> jvmArgs = new ArrayList<>();
         jvmArgs.add("-Dapplication.id=follower");
@@ -58,11 +62,6 @@ class MasterFileTest {
         awaitStartup(quarkusProcessExecutor);
 
         try {
-            // Verify that this process is the cluster leader
-            Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
-                return readLeaderFile("leader").equals("leader");
-            });
-
             // Verify the follower hasn't taken the leader role
             assertThat(readLeaderFile("follower"), emptyString());
 

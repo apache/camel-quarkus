@@ -33,12 +33,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
 class JtaTest {
+    private final Logger LOG = LoggerFactory.getLogger(JtaTest.class);
 
     @Test
     public void testNoTx() {
@@ -149,10 +152,12 @@ class JtaTest {
     @ParameterizedTest
     @ValueSource(strings = { "jdbc", "jdbcRollback", "sqltx", "sqltxRollback" })
     public void testTx(String endpoint) throws SQLException {
+        LOG.info("Starting test for: " + endpoint);
         final String msg = endpoint + ":" + UUID.randomUUID().toString().replace("-", "");
 
         assertDBRows(endpoint);
-        RestAssured.get("/jta/mock/" + endpoint + "/0/1000")
+        LOG.info("DB is empty.");
+        RestAssured.get("/jta/mock/" + endpoint + "/0/10000")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(""));
@@ -164,13 +169,16 @@ class JtaTest {
                 .then()
                 .statusCode(201)
                 .body(is(msg + " added"));
+        LOG.info("Inserted " + msg);
 
         // One row inserted
         assertDBRows(endpoint, msg);
-        RestAssured.get("/jta/mock/" + endpoint + "/1/15000")
+        LOG.info("DB contains 1 msg");
+        RestAssured.get("/jta/mock/" + endpoint + "/1/30000")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(msg));
+        LOG.info("Inserted 2nd message " + msg);
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -178,10 +186,12 @@ class JtaTest {
                 .post("/jta/route/" + endpoint)
                 .then()
                 .statusCode(500);
+        LOG.info("Rollback triggered");
 
         // Should still have the original row as the other insert attempt was rolled back
         assertDBRows(endpoint, msg);
-        RestAssured.get("/jta/mock/" + endpoint + "/1/15000")
+        LOG.info("DB contains only 1 msg");
+        RestAssured.get("/jta/mock/" + endpoint + "/1/30000")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(msg));

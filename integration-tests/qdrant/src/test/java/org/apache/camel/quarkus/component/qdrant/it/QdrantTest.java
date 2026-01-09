@@ -45,7 +45,7 @@ class QdrantTest {
         RestAssured.delete("/qdrant/delete")
                 .then()
                 .statusCode(200)
-                .body(is("1/Completed/2"));
+                .body(is("2/Completed/2"));
 
         RestAssured.get("/qdrant/retrieve")
                 .then()
