@@ -14,26 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.keycloak.deployment;
+package ai.docling.serve.client;
 
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.keycloak.common.util.BouncyIntegration;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
 
-class KeycloakProcessor {
-
-    private static final String FEATURE = "camel-keycloak";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+// Remove references to Jackson 3.x
+@TargetClass(DoclingServeClientBuilderFactory.class)
+final class DoclingServeClientBuilderFactorySubstitutions {
+    @Substitute
+    public static <C extends DoclingServeClient, B extends DoclingServeClient.DoclingServeClientBuilder<C, B>> B newBuilder(
+            ClassLoader classLoader) {
+        return (B) DoclingServeJackson2Client.builder();
     }
-
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(BouncyIntegration.class.getName()));
-    }
-
 }

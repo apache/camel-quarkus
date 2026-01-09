@@ -90,8 +90,8 @@ public class KubernetesClusterServiceConfigEnabledWithoutDefaultsTest {
 
         assertEquals("kcs-id", kcs.getId());
         assertEquals("kcs-master-url", kcs.getMasterUrl());
-        assertEquals(5033, kcs.getConnectionTimeoutMillis());
-        assertEquals("kcs-namespace", kcs.getKubernetesNamespace());
+        assertEquals(5033, kcs.getConnectionTimeout());
+        assertEquals("kcs-namespace", kcs.getNamespace());
         assertEquals("kcs-pod-name", kcs.getPodName());
         assertEquals(1.5034, kcs.getJitterFactor());
         assertEquals(5036, kcs.getLeaseDurationMillis());

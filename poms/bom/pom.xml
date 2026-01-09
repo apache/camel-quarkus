@@ -233,6 +233,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-aws-common</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-secrets-manager</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -1701,6 +1712,10 @@
                     <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>infinispan-core</artifactId>
+                        <groupId>org.infinispan</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
