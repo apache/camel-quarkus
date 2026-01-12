@@ -47,6 +47,21 @@ endif::[]
 [id="extensions-fop-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
+[id="extensions-fop-limitations-supported-jdk-versions"]
+=== Supported JDK versions
+
+Due to an https://issues.apache.org/jira/browse/FOP-3275[issue] with Apache FOP encountered with JDK 25, it's advised to build and run your application with JDK 21 or JDK 17 when using this extension.
+
+When running in native mode, you'll need to ensure you build with the appropriate GraalVM / Mandrel version. When using containerized native image builds, you can override the default Quarkus builder image with the following configuration.
+
+[source,properties]
+----
+quarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21
+----
+
+[id="extensions-fop-limitations-supported-output-types"]
+=== Supported Output Types
+
 While you can use any of the available output types in JVM mode, only PDF output type is supported
 in native mode.
 
