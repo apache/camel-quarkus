@@ -79,6 +79,8 @@
             </activation>
             <properties>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <!-- TODO: Remove this - https://github.com/apache/camel-quarkus/issues/7936 -->
+                <quarkus.native.builder-image>quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21</quarkus.native.builder-image>
             </properties>
             <build>
                 <plugins>
