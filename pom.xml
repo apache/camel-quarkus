@@ -617,6 +617,7 @@
                                     <exclude>**/conf.d/**</exclude>
                                     <exclude>**/generated/**</exclude>
                                     <exclude>.envrc</exclude>
+                                    <exclude>.sdkmanrc</exclude>
                                     <exclude>**/.idea/**</exclude>
                                     <exclude>**/k8s-sb/**</exclude>
                                     <exclude>.gitattributes</exclude>
