@@ -72,7 +72,7 @@ class MasterTest {
             });
         } finally {
             if (process != null && process.getProcess().isAlive()) {
-                process.getProcess().destroy();
+                quarkusProcessExecutor.destroy();
             }
         }
     }
