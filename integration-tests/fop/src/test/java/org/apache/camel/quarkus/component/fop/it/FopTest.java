@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -33,15 +34,20 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.smallrye.common.os.OS;
 import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDResources;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 class FopTest {
@@ -90,6 +96,32 @@ class FopTest {
                 tmpDir.resolve("mycfg.xml").toAbsolutePath().toUri().toString());
     }
 
+    @Test
+    void convertToPdfWithImage() throws Exception {
+        RequestSpecification requestSpecification = RestAssured.given()
+                .contentType(ContentType.XML);
+        ExtractableResponse<?> response = requestSpecification
+                .body(createFoContentWithBlock(
+                        """
+                                <fo:block>
+                                          <fo:external-graphic
+                                              content-width="150pt"
+                                              content-height="150pt"
+                                              src="url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==')"/>
+                                      </fo:block>
+                                      """))
+                .post("/fop/post")
+                .then()
+                .statusCode(201)
+                .extract();
+        PDDocument document = getDocumentFrom(response.asInputStream());
+        PDPage page = document.getPage(0);
+        PDResources resources = page.getResources();
+        Iterator<COSName> iterator = resources.getXObjectNames().iterator();
+        COSName imageName = iterator.next();
+        Assertions.assertInstanceOf(PDImageXObject.class, resources.getXObject(imageName));
+    }
+
     private void convertToPdf(Function<String, String> msgCreator, String userConfigFile) throws IOException {
         RequestSpecification requestSpecification = RestAssured.given()
                 .contentType(ContentType.XML);
@@ -111,20 +143,26 @@ class FopTest {
     public static String decorateTextWithXSLFO(String text, String font) {
         String foBlock = font == null ? "      <fo:block>" + text + "</fo:block>\n"
                 : "      <fo:block font-family=\"" + font + "\">" + text + "</fo:block>\n";
-        return "<fo:root xmlns:fo=\"http://www.w3.org/1999/XSL/Format\">\n"
-                + "  <fo:layout-master-set>\n"
-                + "    <fo:simple-page-master master-name=\"only\">\n"
-                + "      <fo:region-body region-name=\"xsl-region-body\" margin=\"0.7in\"  padding=\"0\" />\n"
-                + "      <fo:region-before region-name=\"xsl-region-before\" extent=\"0.7in\" />\n"
-                + "        <fo:region-after region-name=\"xsl-region-after\" extent=\"0.7in\" />\n"
-                + "      </fo:simple-page-master>\n"
-                + "    </fo:layout-master-set>\n"
-                + "    <fo:page-sequence master-reference=\"only\">\n"
-                + "      <fo:flow flow-name=\"xsl-region-body\">\n"
-                + foBlock
-                + "    </fo:flow>\n"
-                + "  </fo:page-sequence>\n"
-                + "</fo:root>";
+        return createFoContentWithBlock(foBlock);
+    }
+
+    private static String createFoContentWithBlock(String foBlock) {
+        return """
+                <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+                   <fo:layout-master-set>
+                     <fo:simple-page-master master-name="only">
+                       <fo:region-body region-name="xsl-region-body" margin="0.7in"  padding="0" />
+                       <fo:region-before region-name="xsl-region-before" extent="0.7in" />
+                         <fo:region-after region-name="xsl-region-after" extent="0.7in" />
+                       </fo:simple-page-master>
+                     </fo:layout-master-set>
+                     <fo:page-sequence master-reference="only">
+                       <fo:flow flow-name="xsl-region-body">
+                 %s
+                     </fo:flow>
+                   </fo:page-sequence>
+                 </fo:root>
+                 """.formatted(foBlock);
     }
 
     private PDDocument getDocumentFrom(InputStream inputStream) throws IOException {

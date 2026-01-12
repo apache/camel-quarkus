@@ -41,6 +41,14 @@
             <artifactId>quarkus-awt</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkiverse.batik</groupId>
+            <artifactId>quarkus-batik</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>

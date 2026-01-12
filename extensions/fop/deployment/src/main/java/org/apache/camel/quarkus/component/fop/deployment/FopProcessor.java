@@ -16,11 +16,13 @@
  */
 package org.apache.camel.quarkus.component.fop.deployment;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.xml.namespace.QName;
+import javax.xml.transform.URIResolver;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -28,19 +30,42 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.NativeImageFeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.apache.batik.extension.svg.GlyphIterator;
+import org.apache.batik.transcoder.wmf.tosvg.WMFPainter;
 import org.apache.camel.quarkus.component.fop.FopRuntimeProxyFeature;
+import org.apache.fop.ResourceEventProducer;
+import org.apache.fop.fo.ElementMapping;
+import org.apache.fop.fo.FOEventHandler;
 import org.apache.fop.fo.expr.PropertyException;
 import org.apache.fop.fonts.Base14Font;
 import org.apache.fop.pdf.PDFSignature;
+import org.apache.fop.render.ImageHandler;
+import org.apache.fop.render.Renderer;
 import org.apache.fop.render.RendererEventProducer;
+import org.apache.fop.render.XMLHandler;
+import org.apache.fop.render.bitmap.BitmapRendererOption;
+import org.apache.fop.render.intermediate.IFDocumentHandler;
+import org.apache.fop.render.pcl.PCLPageDefinition;
 import org.apache.fop.render.pdf.PDFDocumentHandlerMaker;
 import org.apache.fop.render.pdf.extensions.PDFExtensionHandlerFactory;
+import org.apache.fop.render.ps.PSImageHandlerSVG;
+import org.apache.fop.render.rtf.rtflib.rtfdoc.RtfList;
 import org.apache.fop.util.ColorUtil;
-import org.apache.xmlgraphics.image.loader.spi.ImageImplRegistry;
+import org.apache.fop.util.ContentHandlerFactory;
+import org.apache.fop.util.bitmap.JAIMonochromeBitmapConverter;
+import org.apache.xmlgraphics.image.loader.ImageException;
+import org.apache.xmlgraphics.image.loader.spi.ImageConverter;
+import org.apache.xmlgraphics.image.loader.spi.ImageLoaderFactory;
+import org.apache.xmlgraphics.image.loader.spi.ImagePreloader;
+import org.apache.xmlgraphics.image.writer.ImageWriter;
 import org.apache.xmlgraphics.java2d.color.ICCColorSpaceWithIntent;
+import org.apache.xmlgraphics.ps.ImageEncodingHelper;
+import org.apache.xmlgraphics.ps.PSState;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -58,6 +83,11 @@ class FopProcessor {
     }
 
     @BuildStep
+    NativeImageProxyDefinitionBuildItem registerDefinitionBuildTimeProxies() {
+        return new NativeImageProxyDefinitionBuildItem(ResourceEventProducer.class.getName());
+    }
+
+    @BuildStep
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
@@ -71,6 +101,8 @@ class FopProcessor {
         dtos.add(PDFDocumentHandlerMaker.class.getName());
         dtos.add(RendererEventProducer.class.getName());
         dtos.add(IOException.class.getName());
+        dtos.add(FileNotFoundException.class.getName());
+        dtos.add(ImageException.class.getName());
         dtos.add(Integer.class.getName());
         dtos.add(QName.class.getName());
         dtos.add(PropertyException.class.getName());
@@ -84,10 +116,38 @@ class FopProcessor {
     }
 
     @BuildStep
+    void initServiceProviders(
+            BuildProducer<ServiceProviderBuildItem> service) {
+        // fop-core
+        service.produce(ServiceProviderBuildItem
+                .allProvidersFromClassPath("org.apache.fop.events.EventExceptionManager$ExceptionFactory"));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ElementMapping.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(FOEventHandler.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImageHandler.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(IFDocumentHandler.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(Renderer.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(XMLHandler.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ContentHandlerFactory.class.getName()));
+        service.produce(
+                ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$Function"));
+        service.produce(ServiceProviderBuildItem
+                .allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$ObjectFormatter"));
+        service.produce(
+                ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$PartFactory"));
+
+        // both fop-core and xmlgraphics-commons
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImageConverter.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImageLoaderFactory.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImagePreloader.class.getName()));
+
+        // xmlgraphics-commons
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(URIResolver.class.getName()));
+        service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImageWriter.class.getName()));
+    }
+
+    @BuildStep
     NativeImageResourceBuildItem initResources() {
         return new NativeImageResourceBuildItem(
-                "META-INF/services/org.apache.fop.fo.ElementMapping",
-                "META-INF/services/org.apache.fop.render.intermediate.IFDocumentHandler",
                 "org/apache/fop/svg/event-model.xml",
                 "org/apache/fop/area/event-model.xml",
                 "org/apache/fop/afp/event-model.xml",
@@ -118,9 +178,29 @@ class FopProcessor {
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClass::produce);
 
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageImplRegistry.class.getName()));
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ColorUtil.class.getName()));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ICCColorSpaceWithIntent.class.getName()));
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PDFSignature.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(JAIMonochromeBitmapConverter.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.apache.fop.svg.font.ComplexGlyphVector"));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PCLPageDefinition.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PSImageHandlerSVG.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(BitmapRendererOption.class.getName()));
+        runtimeInitializedClass
+                .produce(new RuntimeInitializedClassBuildItem("org.apache.fop.render.bitmap.BitmapRendererConfig$1"));
+
+        // Using Random class
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(RtfList.class.getName()));
+
+        // batik
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(WMFPainter.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(GlyphIterator.class.getName()));
+
+        // xmlgraphics-commons
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageEncodingHelper.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PSState.class.getName()));
+        runtimeInitializedClass
+                .produce(new RuntimeInitializedClassBuildItem("org.apache.xmlgraphics.image.codec.png.PNGImage"));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ICCColorSpaceWithIntent.class.getName()));
+
     }
 }
