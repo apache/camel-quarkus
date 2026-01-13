@@ -140,11 +140,8 @@ class Opentelemetry2Test {
         assertEquals("direct://jdbcQuery", spans.get(3).get("camel.uri"));
         assertEquals("EVENT_RECEIVED", spans.get(3).get("op"));
 
-        // TODO: Restore this assertion - https://github.com/apache/camel-quarkus/issues/7813
-        // assertEquals(spans.get(4).get("parentId"), spans.get(5).get("spanId"));
-
-        // TODO: See above - remove this assertion. For now we expect the the JAX-RS service and the direct:jdbcQuery spans to be disconnected
-        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
+        assertEquals(spans.get(4).get("parentId"), spans.get(5).get("spanId"));
+        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
         assertEquals("direct://jdbcQuery", spans.get(4).get("camel.uri"));
         assertEquals("EVENT_SENT", spans.get(4).get("op"));
 
