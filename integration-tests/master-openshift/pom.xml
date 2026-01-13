@@ -176,6 +176,7 @@
                 </plugins>
             </build>
         </profile>
+        <!-- Disabled until Quarkus updates kubernetes client - https://github.com/quarkusio/quarkus/pull/51901
         <profile>
             <id>native</id>
             <activation>
@@ -213,6 +214,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
