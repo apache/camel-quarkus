@@ -1,0 +1,27 @@
+{
+  "id" : "3c82f8a7-b924-42cb-9126-70d5a4ff06eb",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:18.396026391Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a curious little girl named Lily was out exploring her neighborhood. She loved nothing more than to wander through the lush green trees and colorful flowers that surrounded her home. As she wandered deeper into the woods, she heard a faint meowing sound. Curiosity getting the better of her, she followed the sound until she came across a small black and white kitten stuck in a nearby bush.\\n\\nLily scooped up the tiny creature and cradled it gently in her arms. The kitten looked up at her with big, brown eyes, meowing softly. Lily knew that this little creature was lost and alone, so she decided to take it home with her.\\n\\nAs she made her way back home, she couldn't help but feel a sense of wonder and excitement about the new addition to her family. She named her kitten Luna, after the full moon that shone brightly in the sky.\\n\\nLily spent the next few days taking care of Luna, feeding her, and playing with her. She even taught Luna how to meow like a cat when she wanted attention. As the days went by, Lily realized just how much she had come to love Luna. She missed her when she had to leave her for a short time, but Luna never left her side.\\n\\nEventually, Lily's parents found out about Luna and decided to take her in themselves. They were delighted with their new addition and couldn't help but feel a sense of magic and wonder around the little kitten who had captured their hearts.\\n\\nAnd so, Luna became part of the family, and Lily knew that she would always have a special place in her heart for the lost cat who had brought her so much joy and happiness.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":16862715442,\"load_duration\":11116179,\"prompt_eval_count\":70,\"prompt_eval_duration\":534621746,\"eval_count\":365,\"eval_duration\":16251136999}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:18 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "3c82f8a7-b924-42cb-9126-70d5a4ff06eb",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-api-chat-2",
+  "insertionIndex" : 16
+}

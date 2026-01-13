@@ -1,0 +1,24 @@
+{
+  "id" : "64ccec1c-9992-4a1c-a437-c8103348e6d9",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"What is Apache Camel?\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:01.513231611Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Apache Camel is an open-source project that provides a framework for building and managing business processes that involve multiple services and systems. It allows businesses to easily create their own pipelines that integrate data between different applications and systems, and manage the flow of data in a modular and scalable way. Camel supports a wide range of protocols and technologies, including HTTP, JMS, SMTP, and more. It also provides a set of default configuration settings that can be customized to fit specific business needs.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4183312000,\"load_duration\":11707880,\"prompt_eval_count\":46,\"prompt_eval_duration\":157272028,\"eval_count\":102,\"eval_duration\":3996050225}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:01 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "64ccec1c-9992-4a1c-a437-c8103348e6d9",
+  "persistent" : true,
+  "insertionIndex" : 17
+}

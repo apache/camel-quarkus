@@ -1,0 +1,24 @@
+{
+  "id" : "d71f7bb9-5a9e-4317-aecd-49cd95dbadb1",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Make sure you return a valid JSON object following the specified format\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:42.350557334Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Understood. What is the format of the JSON object you would like me to generate?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":941950589,\"load_duration\":11792098,\"prompt_eval_count\":52,\"prompt_eval_duration\":197951402,\"eval_count\":19,\"eval_duration\":727631062}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:42 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "d71f7bb9-5a9e-4317-aecd-49cd95dbadb1",
+  "persistent" : true,
+  "insertionIndex" : 6
+}
