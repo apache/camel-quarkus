@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import ai.docling.core.DoclingDocument;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -141,7 +142,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertToJsonAsync(String documentContent) throws IOException {
-        return convert(documentContent, "direct:convertToJsonAsync", "Failed to convert to JSON async");
+        return convert(documentContent, "direct:convertToJsonAsync", "Failed to convert to JSON async", DoclingDocument.class);
     }
 
     @Path("/metadata/extract")
@@ -180,7 +181,8 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertToJsonWithCLI(String documentContent) throws IOException {
-        return convert(documentContent, "direct:convertToJsonWithCLI", "Failed to convert to JSON with CLI");
+        return convert(documentContent, "direct:convertToJsonWithCLI", "Failed to convert to JSON with CLI",
+                DoclingDocument.class);
     }
 
     @Path("/batch/convert/markdown")
@@ -195,10 +197,15 @@ public class DoclingResource {
     }
 
     private Response convert(String documentContent, String endpointUri, String logErrorMessage) throws IOException {
+        return convert(documentContent, endpointUri, logErrorMessage, String.class);
+    }
+
+    private Response convert(String documentContent, String endpointUri, String logErrorMessage, Class<?> resutType)
+            throws IOException {
         java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
         Files.writeString(tempFile, documentContent);
         try {
-            String result = producerTemplate.requestBody(endpointUri, tempFile.toString(), String.class);
+            Object result = producerTemplate.requestBody(endpointUri, tempFile.toString(), resutType);
             return Response.ok(result).build();
         } catch (Exception e) {
             LOG.error(logErrorMessage, e);

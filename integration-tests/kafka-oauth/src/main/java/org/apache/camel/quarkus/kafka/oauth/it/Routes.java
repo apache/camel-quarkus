@@ -29,12 +29,12 @@ public class Routes extends RouteBuilder {
                 .routeId("FromTimer2Kafka")
                 .setBody().simple("Message #${exchangeProperty.CamelTimerCounter}")
                 .to("kafka:{{kafka.topic.name}}")
-                .log("Message sent correctly to the topic! : \"${body}\" ");
+                .log("Message sent correctly to the topic!: \"${body}\" ");
 
         // kafka consumer
         from("kafka:{{kafka.topic.name}}")
                 .routeId("FromKafka2Seda")
-                .log("Received : \"${body}\"")
+                .log("Received: \"${body}\"")
                 .to("seda:kafka-messages");
     }
 }

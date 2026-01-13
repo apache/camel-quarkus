@@ -1,0 +1,27 @@
+{
+  "id" : "d4f1693c-88e0-456f-b650-77a6bf6e543f",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Hello - my name is Alice\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:37.577431121Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, Alice. How can I assist you today?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":596937019,\"load_duration\":11922904,\"prompt_eval_count\":46,\"prompt_eval_duration\":152871930,\"eval_count\":12,\"eval_duration\":428769988}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:37 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "d4f1693c-88e0-456f-b650-77a6bf6e543f",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-api-chat",
+  "requiredScenarioState" : "scenario-2-api-chat-2",
+  "newScenarioState" : "scenario-2-api-chat-3",
+  "insertionIndex" : 8
+}

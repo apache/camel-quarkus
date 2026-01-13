@@ -9,5 +9,5 @@ cqJvmSince: 3.31.0
 cqNativeSince: 3.31.0
 cqCamelPartName: once
 cqCamelPartTitle: Once
-cqCamelPartDescription: Camel Once component
+cqCamelPartDescription: Trigger a single message only once at startup (useful for development and testing purposes).
 cqExtensionPageTitle: Once
