@@ -46,7 +46,11 @@ A build with integration tests in both the JVM mode and the native mode:
 mvn clean install -Pnative
 ----
 
-TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - the Maven Daemon] for faster builds.
+TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - the Maven Daemon] for faster builds. When using `mvnd` on MacOS, make sure the mvnd version matches your installed Maven version (`mvn`) to avoid compilation failures due to missing dependencies.
+
+TIP: For building native images on MacOS, you usually **do not need** to use `-Dquarkus.native.container-build`. This option is primarily intended for Linux systems, where the native image build runs inside a Docker container. On MacOS, GraalVM can typically generate the native image directly, so omitting this option simplifies the build and avoids unnecessary errors.
+
+TIP: Extensions that depend on Java AWT are not yet supported for native image generation on MacOS. If an integration test fails when running `mvnd clean install -Dnative` due to missing AWT support, this is expected and not necessarily a problem with your environment. Running the same test in JVM mode (`mvn clean install`) should work correctly.
 
 == What's next?
 
