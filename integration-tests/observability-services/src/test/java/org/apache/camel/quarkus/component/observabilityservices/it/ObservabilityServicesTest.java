@@ -115,9 +115,16 @@ class ObservabilityServicesTest {
             assertEquals("direct://start", spans.get(2).get("camel.uri"));
             assertEquals("INTERNAL", spans.get(2).get("kind"));
 
-            assertEquals("0000000000000000", spans.get(3).get("parentId"));
+            assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
             assertEquals("direct://start", spans.get(3).get("camel.uri"));
             assertEquals("INTERNAL", spans.get(3).get("kind"));
+
+            assertEquals("0000000000000000", spans.get(4).get("parentId"));
+            assertEquals("/observability-services/trace", spans.get(4).get("url.path"));
+            assertEquals(
+                    "org.apache.camel.quarkus.component.observabilityservices.it.health.ObservabilityServicesResource.trace",
+                    spans.get(4).get("code.function.name"));
+            assertEquals("SERVER", spans.get(4).get("kind"));
         } finally {
             RestAssured.given()
                     .post("/spans/reset")
