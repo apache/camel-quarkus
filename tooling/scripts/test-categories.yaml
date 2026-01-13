@@ -37,6 +37,7 @@ group-01:
 group-02:
   - aws2
   - beanio
+  - cyberark-vault
   - google-pubsub
   - groovy-xml
   - grpc
