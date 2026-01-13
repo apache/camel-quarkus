@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.jpa.deployment;
 
 import java.util.List;
+import java.util.Set;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -25,11 +26,15 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
+import io.quarkus.gizmo.FieldDescriptor;
 import io.quarkus.gizmo.Gizmo;
 import io.quarkus.hibernate.orm.deployment.PersistenceUnitDescriptorBuildItem;
+import io.quarkus.maven.dependency.ArtifactKey;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.apache.camel.component.jpa.JpaEndpoint;
+import org.apache.camel.component.jpa.TransactionStrategy;
 import org.apache.camel.quarkus.component.jpa.CamelJpaProducer;
 import org.apache.camel.quarkus.component.jpa.CamelJpaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
@@ -82,10 +87,19 @@ class JpaProcessor {
         }
     }
 
+    @BuildStep
+    void removedResources(BuildProducer<RemovedResourceBuildItem> removedResources) {
+
+        removedResources.produce(new RemovedResourceBuildItem(
+                ArtifactKey.fromString("org.apache.camel:camel-jpa"),
+                Set.of(
+                        "org/apache/camel/component/jpa/DefaultTransactionStrategy.class")));
+    }
+
     // TODO: Remove this and make it possible to override methods in JpaEndpoint
     // https://github.com/apache/camel-quarkus/issues/7369
     @BuildStep
-    BytecodeTransformerBuildItem transformMethodJpaEndpointCreateEntityManagerFactory() {
+    BytecodeTransformerBuildItem transformJpaEndpoint() {
         // Since spring-orm is not on the classpath, transform JpaEndpoint.createEntityManagerFactory
         // to avoid trying to create a local LocalEntityManagerFactoryBean and
         // suppress ClassNotFoundException when the component could not find a EntityManagerFactory to use.
@@ -103,6 +117,11 @@ class JpaProcessor {
                         @Override
                         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
                                 String[] exceptions) {
+                            if (name.equals("createTransactionStrategy")) {
+                                /* remove JpaEndpoint.createTransactionStrategy() */
+                                return null;
+                            }
+
                             MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
 
                             if (name.equals("createEntityManagerFactory")
@@ -118,6 +137,57 @@ class JpaProcessor {
                                         visitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/IllegalStateException",
                                                 "<init>", "(Ljava/lang/String;)V", false);
                                         visitor.visitInsn(Opcodes.ATHROW);
+                                    }
+                                };
+                            } else if (name.equals("getTransactionStrategy")) {
+                                /* let getTransactionStrategy() just return this.transactionStrategy
+                                 * rather than call createTransactionStrategy() */
+                                return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                                    @Override
+                                    public void visitCode() {
+                                        super.visitCode();
+
+                                        visitor.visitVarInsn(Opcodes.ALOAD, 0);
+                                        FieldDescriptor fd = FieldDescriptor.of(JpaEndpoint.class, "transactionStrategy",
+                                                TransactionStrategy.class);
+                                        visitor.visitFieldInsn(
+                                                Opcodes.GETFIELD,
+                                                fd.getDeclaringClass(),
+                                                fd.getName(),
+                                                fd.getType());
+                                        mv.visitInsn(Opcodes.ARETURN);
+                                        mv.visitMaxs(1, 1);
+                                        mv.visitEnd();
+                                    }
+                                };
+                            }
+                            return visitor;
+                        }
+                    };
+                })
+                .build();
+    }
+
+    @BuildStep
+    BytecodeTransformerBuildItem transformJpaComponent() {
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform(JpaComponent.class.getName())
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> {
+                    return new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
+                        @Override
+                        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                                String[] exceptions) {
+                            MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+                            if (name.equals("createTransactionStrategy")) {
+                                /* Remove the body of JpaComponent.createTransactionStrategy() */
+                                return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                                    @Override
+                                    public void visitCode() {
+                                        super.visitCode();
+                                        mv.visitInsn(Opcodes.RETURN);
+                                        mv.visitMaxs(0, 0);
+                                        mv.visitEnd();
                                     }
                                 };
                             }
