@@ -1,0 +1,24 @@
+{
+  "id" : "b311fa1d-c821-4031-b94d-d37cf3344deb",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Hello - my name is Alice\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:43.442794252Z\",\"message\":{\"role\":\"assistant\",\"content\":\"Hello Alice! It's nice to meet you. How can I assist you today?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1057632764,\"load_duration\":47953414,\"prompt_eval_count\":36,\"prompt_eval_duration\":316851104,\"eval_count\":18,\"eval_duration\":684289773}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:43 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "b311fa1d-c821-4031-b94d-d37cf3344deb",
+  "persistent" : true,
+  "insertionIndex" : 5
+}

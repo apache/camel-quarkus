@@ -9,5 +9,5 @@ cqJvmSince: 3.32.0
 cqNativeSince: 3.32.0
 cqCamelPartName: openai
 cqCamelPartTitle: OpenAI
-cqCamelPartDescription: OpenAI endpoint for chat completion.
+cqCamelPartDescription: OpenAI endpoint for chat completion and embeddings.
 cqExtensionPageTitle: OpenAI

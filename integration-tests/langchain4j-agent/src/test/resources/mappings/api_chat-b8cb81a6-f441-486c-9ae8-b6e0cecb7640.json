@@ -1,0 +1,26 @@
+{
+  "id" : "b8cb81a6-f441-486c-9ae8-b6e0cecb7640",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:02:02.929223473Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a curious little girl named Lily wandered through the forest, searching for her beloved cat, Whiskers. She had been missing for days and couldn't bear to be without her furry friend. \\n\\nAs she walked, she heard whispers from the trees. \\\"Lost? Lost? Lost!\\\" came the chorus of a group of animals who lived in the forest. They were wise old owls who saw the sadness in Lily's face and offered to help. \\n\\nThe owls led Lily to a hidden cave where Whiskers had been hiding. The little girl was overjoyed to find her beloved cat, but as she approached, she realized that Whiskers was not alone. A sleek black cat with golden eyes was lounging in the shade of the cave, watching Lily approach. \\n\\nLily's heart raced as she approached the other cat. \\\"Who are you?\\\" she asked, her voice trembling with fear. \\n\\nThe black cat looked at Lily, his golden eyes piercing through her like a laser. \\\"My name is Luna,\\\" he said in a soft purr. \\\"And you have been lost for too long.\\\" \\n\\nLily was overjoyed to have found Whiskers, but she couldn't help but feel grateful to Luna as well. The two cats became fast friends, exploring the forest together and having adventures that neither Lily nor Luna could have ever imagined. \\n\\nAnd so, the little girl learned an important lesson about friendship, love, and the power of a good cat story.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":15803565682,\"load_duration\":11966595,\"prompt_eval_count\":70,\"prompt_eval_duration\":934014747,\"eval_count\":334,\"eval_duration\":14796500556}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:02:02 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "b8cb81a6-f441-486c-9ae8-b6e0cecb7640",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "scenario-1-api-chat-2",
+  "insertionIndex" : 1
+}

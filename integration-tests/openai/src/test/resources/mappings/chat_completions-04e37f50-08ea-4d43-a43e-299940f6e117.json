@@ -1,0 +1,43 @@
+{
+  "id" : "04e37f50-08ea-4d43-a43e-299940f6e117",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"Create an example product for a product named 'Bluetooth Headphones'.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"response_format\":{\"json_schema\":{\"name\":\"json-schema-from-Product\",\"schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"price\":{\"type\":\"number\"}},\"required\":[\"name\",\"price\"],\"additionalProperties\":false},\"strict\":true},\"type\":\"json_schema\"}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D6Fh0CqBFAJAHRl6M6kbhxZvY9kd9\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382662,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\\"name\\\":\\\"Bluetooth Headphones\\\",\\\"price\\\":79.99}\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 55,\n    \"completion_tokens\": 1885,\n    \"total_tokens\": 1940,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 1856,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_83e0c698f8b0468491d1799d1d971f4e",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-fc32zjefei81sjxkd0c7bqkx",
+      "CF-RAY" : "9c9ad0997d18269b-PRG",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499980",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Fri, 06 Feb 2026 12:58:11 GMT",
+      "x-ratelimit-reset-tokens" : "2ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=ZWDPYXapauY3m9CW57wmFR2D0zJTXmx41eBFD8jyciE-1770382691-1.0.1.1-w2i6HpbeEZVdXQXzUp58LBtDLdA6HREhQx.tIU1yRe0_0XvvgQCU0vWwyNd1ScVNRDBsbM6AXJypH4.v7Re5brWxXrjeBmyGfE2lBxESZo4; path=/; expires=Fri, 06-Feb-26 13:28:11 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=KcMorcDwGZSmOn.KYRHApFEavacsuIS8HXrgBfJXLcE-1770382691879-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "29059",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "04e37f50-08ea-4d43-a43e-299940f6e117",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

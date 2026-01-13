@@ -1,0 +1,24 @@
+{
+  "id" : "45682c8e-3456-4fc9-b941-6f702f1f087a",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Calculate the addition of 10 + 5\"\n  }, {\n    \"role\" : \"assistant\",\n    \"tool_calls\" : [ {\n      \"function\" : {\n        \"name\" : \"addNumbers\",\n        \"arguments\" : {\n          \"arg1\" : 5,\n          \"arg0\" : 10\n        }\n      }\n    } ]\n  }, {\n    \"role\" : \"tool\",\n    \"content\" : \"15\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"addNumbers\",\n      \"description\" : \"Adds two numbers\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"arg0\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"First number\"\n          },\n          \"arg1\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"Second number\"\n          }\n        },\n        \"required\" : [ \"arg0\", \"arg1\" ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:36.945337351Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The sum of 10 and 5 is **15**.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":977860704,\"load_duration\":45035949,\"prompt_eval_count\":233,\"prompt_eval_duration\":327764002,\"eval_count\":14,\"eval_duration\":595399685}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:36 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "45682c8e-3456-4fc9-b941-6f702f1f087a",
+  "persistent" : true,
+  "insertionIndex" : 9
+}
