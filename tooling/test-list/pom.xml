@@ -57,7 +57,6 @@
                             <excludes>
                                 <exclude>support/**/*</exclude>
                                 <exclude>support/**/*</exclude>
-                                <exclude>master/pom.xml</exclude>
                                 <exclude>master-openshift/pom.xml</exclude>
                                 <exclude>master-file/pom.xml</exclude>
                                 <exclude>main-command-mode/pom.xml</exclude>
