@@ -98,6 +98,7 @@
                 <quarkus.native.native-image-xmx>10g</quarkus.native.native-image-xmx>
             </properties>
         </profile>
+        <!-- Disabled until Quarkus updates kubernetes client - https://github.com/quarkusio/quarkus/pull/51901
         <profile>
             <id>native</id>
             <activation>
@@ -125,6 +126,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
