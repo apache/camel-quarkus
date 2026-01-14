@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.groovy.it;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
+@DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/8122")
 @QuarkusIntegrationTest
 class GroovyIT extends GroovyTest {
 
