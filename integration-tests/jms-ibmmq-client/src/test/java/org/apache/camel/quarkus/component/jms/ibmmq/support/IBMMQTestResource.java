@@ -28,6 +28,7 @@ import org.testcontainers.utility.DockerImageName;
 public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final String IMAGE_NAME = ConfigProvider.getConfig().getValue("ibm-mq.container.image", String.class);
     private static final int PORT = 1414;
+    private static final String LICENSE_APPROVAL = "accept";
     private static final String QUEUE_MANAGER_NAME = "QM1";
     private static final String USER = "app";
     private static final String PASSWORD = "passw0rd";
@@ -43,7 +44,7 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
         container = new GenericContainer<>(DockerImageName.parse(IMAGE_NAME))
                 .withExposedPorts(PORT)
                 .withEnv(Map.of(
-                        "LICENSE", System.getProperty("ibm.mq.container.license"),
+                        "LICENSE", LICENSE_APPROVAL,
                         "MQ_QMGR_NAME", QUEUE_MANAGER_NAME))
                 .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAdminPassword")
                 .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAppPassword")

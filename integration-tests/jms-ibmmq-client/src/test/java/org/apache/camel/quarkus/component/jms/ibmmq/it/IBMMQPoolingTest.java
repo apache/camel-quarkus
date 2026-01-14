@@ -30,13 +30,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
-@EnabledIfSystemProperty(named = "ibm.mq.container.license", matches = "accept")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestProfile(JmsPoolingEnabled.class)
 public class IBMMQPoolingTest extends AbstractJmsMessagingTest {
@@ -61,6 +59,8 @@ public class IBMMQPoolingTest extends AbstractJmsMessagingTest {
             destinations.createTopic(method.getName());
         }
 
+        // Create `exception.queue` in IBM MQ
+        destinations.createQueue("exception.queue");
         super.startRoutes(test);
     }
 
