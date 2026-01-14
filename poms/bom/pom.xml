@@ -6785,11 +6785,6 @@
 
             <!--$ Other third party dependencies $-->
             <dependency>
-                <groupId>at.yawk.lz4</groupId>
-                <artifactId>lz4-java</artifactId>
-                <version>${lz4-java.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>ca.uhn.hapi</groupId>
                 <artifactId>hapi-base</artifactId>
                 <version>${hapi-base.version}</version>
