@@ -178,9 +178,13 @@ public class NettyHttpResource extends AbstractHttpResource {
     @Path("/auth/{path}/{user}/{password}")
     public Response auth(@QueryParam("test-port") int port, @PathParam("path") String path, @PathParam("user") String user,
             @PathParam("password") String password) {
+
+        System.out.println("===== GOT PORT: " + port);
+
         final Exchange exchange = producerTemplate.toF("netty-http:http://localhost:%d/%s", port, path)
                 .withHeaders(getAuthHeaders(user, password))
                 .send();
+        System.out.println("===== GOT exchange: " + exchange);
 
         return Response.status(exchange.getIn().getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class)).build();
     }

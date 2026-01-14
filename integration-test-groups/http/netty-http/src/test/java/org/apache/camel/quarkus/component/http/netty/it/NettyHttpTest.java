@@ -29,6 +29,7 @@ import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -143,6 +144,7 @@ public class NettyHttpTest extends AbstractHttpTest {
                 .body(is("proxy"));
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/8147")
     @ParameterizedTest
     @CsvSource({
             "null,null,401",
@@ -160,6 +162,7 @@ public class NettyHttpTest extends AbstractHttpTest {
                 .statusCode(responseCode);
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/8147")
     @ParameterizedTest
     @CsvSource({
             "admin,admin,adminpass,200",
