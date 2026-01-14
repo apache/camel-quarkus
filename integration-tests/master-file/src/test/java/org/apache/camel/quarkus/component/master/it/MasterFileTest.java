@@ -29,7 +29,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.commons.io.FileUtils;
 import org.awaitility.Awaitility;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.StartedProcess;
 
@@ -39,8 +39,8 @@ import static org.hamcrest.Matchers.emptyString;
 @QuarkusTest
 class MasterFileTest {
 
-    @BeforeAll
-    public static void deleteClusterFiles() throws IOException {
+    @AfterEach
+    public void deleteClusterFiles() throws IOException {
         FileUtils.deleteDirectory(Paths.get("target/cluster/").toFile());
     }
 
