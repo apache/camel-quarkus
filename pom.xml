@@ -257,7 +257,7 @@
         <localstack.container.image>mirror.gcr.io/localstack/localstack:4.9.2</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2025-07-23T15-54-02Z-cpuv1</minio.container.image>
-        <mysql.container.image>mirror.gcr.io/mysql:8.4</mysql.container.image>
+        <mysql.container.image>mirror.gcr.io/mysql:9.5</mysql.container.image>
         <mariadb.container.image>mirror.gcr.io/mariadb:12.1</mariadb.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.11.6</nats.container.image>
