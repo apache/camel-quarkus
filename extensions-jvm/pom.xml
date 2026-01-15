@@ -45,6 +45,7 @@
         <module>chatscript</module>
         <module>chunk</module>
         <module>cli-connector</module>
+        <module>cli-debug</module>
         <module>cm-sms</module>
         <module>coap</module>
         <module>cometd</module>

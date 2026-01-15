@@ -25,12 +25,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.main.SimpleMainShutdownStrategy;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.spi.Resource;
+import org.apache.camel.spi.ResourceAware;
+import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.StringHelper;
 
@@ -97,6 +101,21 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
     public MainConfigurationProperties getMainConfigurationProperties() {
         return mainConfigurationProperties;
+    }
+
+    @Override
+    protected void configureRoutes(CamelContext camelContext) throws Exception {
+        if (camelContext.isSourceLocationEnabled()) {
+            for (RoutesBuilder route : getMainConfigurationProperties().getRoutesBuilders()) {
+                if (route instanceof ResourceAware ra && ra.getResource() == null) {
+                    Resource resource = ResourceHelper.resolveResource(camelContext, "source:" + route.getClass().getName());
+                    if (resource != null && resource.exists()) {
+                        ra.setResource(resource);
+                    }
+                }
+            }
+        }
+        super.configureRoutes(camelContext);
     }
 
     /**
