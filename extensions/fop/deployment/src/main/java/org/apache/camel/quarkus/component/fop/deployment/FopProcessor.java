@@ -35,8 +35,6 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
-import org.apache.batik.extension.svg.GlyphIterator;
-import org.apache.batik.transcoder.wmf.tosvg.WMFPainter;
 import org.apache.camel.quarkus.component.fop.FopRuntimeProxyFeature;
 import org.apache.fop.ResourceEventProducer;
 import org.apache.fop.fo.ElementMapping;
@@ -190,10 +188,6 @@ class FopProcessor {
 
         // Using Random class
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(RtfList.class.getName()));
-
-        // batik
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(WMFPainter.class.getName()));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(GlyphIterator.class.getName()));
 
         // xmlgraphics-commons
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageEncodingHelper.class.getName()));
