@@ -603,9 +603,6 @@ jobs:
               EXAMPLES_BRANCH=${GITHUB_REF_NAME}
           elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
               EXAMPLES_BRANCH=${GITHUB_BASE_REF}
-          elif [[ ${GITHUB_REF_NAME} == "quarkus-main" || ${GITHUB_BASE_REF} == "quarkus-main" ]]; then
-              # TODO: Remove this elif clause - https://github.com/apache/camel-quarkus/issues/8049
-              EXAMPLES_BRANCH=testcontainers-2.x
           fi
 
           git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
