@@ -533,9 +533,7 @@ jobs:
           EXAMPLE_MODULES: ${{matrix.examples}}
         shell: '/usr/bin/bash {0}'
         run: |
-          # TODO: Restore camel-quarkus-main branch - https://github.com/apache/camel-quarkus/issues/8049
-          EXAMPLES_BRANCH="testcontainers-2.x"
-          # EXAMPLES_BRANCH="camel-quarkus-main"
+          EXAMPLES_BRANCH="camel-quarkus-main"
 
           if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
               EXAMPLES_BRANCH=${GITHUB_REF_NAME}
