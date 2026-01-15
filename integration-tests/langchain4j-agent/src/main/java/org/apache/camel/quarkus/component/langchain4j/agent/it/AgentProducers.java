@@ -239,7 +239,7 @@ public class AgentProducers {
                             .initializationTimeout(Duration.ofSeconds(120))
                             .transport(new StdioMcpTransport.Builder()
                                     .command(List.of(ProcessUtils.getNpxExecutable(), "-y",
-                                            "@modelcontextprotocol/server-everything"))
+                                            "@modelcontextprotocol/server-everything@2025.12.18"))
                                     .logEvents(true)
                                     .build())
                             .build())
