@@ -1,5 +1,5 @@
 {
-  "id" : "22a4f651-2f57-4192-8da5-378365cac7c7",
+  "id" : "2ba387c4-ab19-45ae-b689-b55b3fd03964",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,15 +12,16 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2025-09-05T08:41:17.084840245Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, Alice. How can I assist you today?\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":718450885,\"load_duration\":5142315,\"prompt_eval_count\":46,\"prompt_eval_duration\":180030056,\"eval_count\":12,\"eval_duration\":532488717}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:54.290037563Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, Alice. How can I assist you today?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":596705000,\"load_duration\":11395870,\"prompt_eval_count\":46,\"prompt_eval_duration\":153686323,\"eval_count\":12,\"eval_duration\":428344997}",
     "headers" : {
-      "Date" : "Fri, 05 Sep 2025 08:41:17 GMT",
+      "Date" : "Fri, 16 Jan 2026 13:05:54 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "22a4f651-2f57-4192-8da5-378365cac7c7",
+  "uuid" : "2ba387c4-ab19-45ae-b689-b55b3fd03964",
   "persistent" : true,
   "scenarioName" : "scenario-2-api-chat",
-  "requiredScenarioState" : "scenario-2-api-chat-3",
-  "insertionIndex" : 2
+  "requiredScenarioState" : "scenario-2-api-chat-2",
+  "newScenarioState" : "scenario-2-api-chat-3",
+  "insertionIndex" : 8
 }

@@ -1,0 +1,27 @@
+{
+  "id" : "4a9ef230-5deb-4eec-b1df-f072a9528a4f",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:34.073640809Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a curious little girl named Lily wandered through the forest, searching for her missing cat. She had been searching for hours and was about to give up when she heard a faint meowing sound coming from a nearby bush. \\n\\nCuriosity getting the better of her, she cautiously approached the bush and found a tiny kitten, shivering and alone. Lily scooped the little creature up in her arms and took it back to her cozy cabin. She fed the kitten some milk and gave it a warm place to sleep. \\n\\nThe next morning, Lily set out to find the best possible home for the little kitten. She spent hours searching the forest before finally coming across a kind couple who loved cats and were willing to take care of her little friend. \\n\\nYears passed and Lily grew up, but the little kitten remained a beloved companion in her life. Whenever she missed her lost cat, she would think of the little kitten and remember the magic she had found. \\n\\nAnd so, Lily learned that sometimes the best things in life are hidden in the most unexpected places. The little kitten may have been lost and alone, but she had found a home and a family that would last a lifetime.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":12008078396,\"load_duration\":10864672,\"prompt_eval_count\":70,\"prompt_eval_duration\":628209346,\"eval_count\":262,\"eval_duration\":11309818900}",
+    "headers" : {
+      "Date" : "Fri, 16 Jan 2026 13:05:34 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "4a9ef230-5deb-4eec-b1df-f072a9528a4f",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-api-chat-2",
+  "insertionIndex" : 16
+}

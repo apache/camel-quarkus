@@ -1,0 +1,24 @@
+{
+  "id" : "91ede2cd-bcde-4896-90c9-f29a7482f1fe",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Describe the Miles of Camels Car Rental cancellations policy for cancelling 24 hours before pickup. What is the refund amount?\\n\\nAnswer using the following information:\\nCANCELLATION POLICY\\n- Cancellations made 24 hours before pickup: Full refund\\n- Cancellations made 12-24 hours before pickup: 50% refund\\n- Cancellations made less than 12 hours before pickup: No refund\\n\\nVEHICLE RETURN\\n- Vehicles must be returned with the same fuel level as at pickup.\\n- Late returns incur a fee of $25 per hour or fraction thereof.\\n\\nDAMAGE POLICY\\n- Minor damages under $200: Covered by insurance\\n- Major damages over $200: Customer responsibility\\n\\nMiles of Camels Car Rental - Company Information\\n\\nBUSINESS HOURS:\\nMonday-Friday: 8:00 AM - 6:00 PM\\nSaturday: 9:00 AM - 4:00 PM\\nSunday: Closed\\n\\nRENTAL AGREEMENT\\n- This agreement is between Miles of Camels Car Rental (\\\"Company\\\") and the customer (\\\"Renter\\\").\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:11.08661639Z\",\"message\":{\"role\":\"assistant\",\"content\":\" According to Miles of Camels Car Rental cancellations policy, a full refund will be given for cancellations made 24 hours before pickup. The cancellation policy states that cancellations made 12-24 hours before pickup receive a 50% refund. Cancellations made less than 12 hours before pickup do not receive a refund. Additionally, the company's damage policy states that major damages over $200 are the responsibility of the customer, while minor damages under $200 are covered by insurance. Lastly, Miles of Camels Car Rental business hours are Monday-Friday from 8:00 AM to 6:00 PM, Saturday from 9:00 AM to 4:00 PM, and Sunday closed.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":12185149643,\"load_duration\":13637865,\"prompt_eval_count\":314,\"prompt_eval_duration\":3935074586,\"eval_count\":160,\"eval_duration\":8200217960}",
+    "headers" : {
+      "Date" : "Fri, 16 Jan 2026 13:05:11 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "91ede2cd-bcde-4896-90c9-f29a7482f1fe",
+  "persistent" : true,
+  "insertionIndex" : 21
+}

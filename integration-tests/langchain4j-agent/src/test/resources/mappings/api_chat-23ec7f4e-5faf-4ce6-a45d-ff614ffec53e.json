@@ -1,0 +1,24 @@
+{
+  "id" : "23ec7f4e-5faf-4ce6-a45d-ff614ffec53e",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Please list your available tools. You MUST respond using ONLY valid JSON with tool names as an array. DO NOT add explanations. DO NOT add comments. DO NOT wrap in markdown.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"trigger-long-running-operation\",\n      \"description\" : \"Demonstrates a long running operation with progress updates.\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"duration\" : {\n            \"type\" : \"number\",\n            \"description\" : \"Duration of the operation in seconds\"\n          },\n          \"steps\" : {\n            \"type\" : \"number\",\n            \"description\" : \"Number of steps in the operation\"\n          }\n        },\n        \"required\" : [ ]\n      }\n    }\n  }, {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"echo\",\n      \"description\" : \"Echoes back the input string\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"message\" : {\n            \"type\" : \"string\",\n            \"description\" : \"Message to echo\"\n          }\n        },\n        \"required\" : [ \"message\" ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-16T13:05:40.616076128Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[\\n  \\\"trigger-long-running-operation\\\",\\n  \\\"echo\\\"\\n]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3603226656,\"load_duration\":46604599,\"prompt_eval_count\":273,\"prompt_eval_duration\":3016692754,\"eval_count\":14,\"eval_duration\":531047267}",
+    "headers" : {
+      "Date" : "Fri, 16 Jan 2026 13:05:40 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "23ec7f4e-5faf-4ce6-a45d-ff614ffec53e",
+  "persistent" : true,
+  "insertionIndex" : 14
+}

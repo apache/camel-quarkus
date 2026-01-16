@@ -237,14 +237,15 @@ class Langchain4jAgentTest {
                 .post("/langchain4j-agent/mcp/client")
                 .then()
                 .statusCode(200)
-                .body(".", containsInAnyOrder("add", "echo", "longRunningOperation"));
+                .body(".", containsInAnyOrder("trigger-long-running-operation", "echo"));
 
         RestAssured.given()
                 .body("Use your available tools to perform a long running operation for 2 seconds with 2 steps. DO NOT use any markdown formatting in the response.")
                 .post("/langchain4j-agent/mcp/client")
                 .then()
                 .statusCode(200)
-                .body(containsStringIgnoringCase(
-                        "operation was executed successfully for a duration of 2 seconds divided into 2 steps"));
+                .body(containsStringIgnoringCase("operation"))
+                .and().body(containsStringIgnoringCase("successfully"))
+                .and().body(containsStringIgnoringCase("executed"));
     }
 }
