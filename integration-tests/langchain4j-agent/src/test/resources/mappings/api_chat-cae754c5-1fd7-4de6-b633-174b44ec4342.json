@@ -1,5 +1,5 @@
 {
-  "id" : "97c022a9-b386-47f1-8531-3a1ce3bfa4e0",
+  "id" : "cae754c5-1fd7-4de6-b633-174b44ec4342",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2025-09-05T08:40:25.005956891Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The name associated with user ID 123 is John Doe.\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":2737024526,\"load_duration\":18514317,\"prompt_eval_count\":109,\"prompt_eval_duration\":1409228801,\"eval_count\":13,\"eval_duration\":1308313918}",
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-16T13:05:15.382305283Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The name of user ID 123 is John Doe.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":940169774,\"load_duration\":43455941,\"prompt_eval_count\":230,\"prompt_eval_duration\":437409264,\"eval_count\":12,\"eval_duration\":450044997}",
     "headers" : {
-      "Date" : "Fri, 05 Sep 2025 08:40:25 GMT",
+      "Date" : "Fri, 16 Jan 2026 13:05:15 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "97c022a9-b386-47f1-8531-3a1ce3bfa4e0",
+  "uuid" : "cae754c5-1fd7-4de6-b633-174b44ec4342",
   "persistent" : true,
-  "insertionIndex" : 15
+  "insertionIndex" : 19
 }
