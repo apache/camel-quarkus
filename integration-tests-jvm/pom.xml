@@ -75,6 +75,7 @@
         <module>jooq</module>
         <module>json-patch</module>
         <module>jsonapi</module>
+        <module>junit-test-framework</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>main-devmode</module>
