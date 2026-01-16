@@ -1,0 +1,13 @@
+= Camel Quarkus 3.31.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.31.0.
+
+== `camel-quarkus-junit5` renamed to `camel-quarkus-junit`
+
+To align with the Quarkus test framework upgrading from JUnit 5.x to 6.x, the `camel-quarkus-junit5` test framework module has renamed to `camel-quarkus-junit`.
+
+Any imports in your tests for `org.apache.camel.test.junit5` should be updated to `org.apache.camel.test.junit6`.
+
+The `camel-quarkus-junit5` artifact will continue to exist for backwards compatibility, until Camel Quarkus 3.34.0 is released. Where it will be removed. We recommend switching to `camel-quarkus-junit` as soon as possible.
+
+Similarly, any usage of `org.apache.camel:camel-test-junit5` should be updated to `org.apache.camel:camel-test-junit6`.

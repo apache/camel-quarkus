@@ -33,8 +33,9 @@
     <name>Camel Quarkus :: Test Framework :: Parent</name>
 
     <modules>
+        <module>camel-quarkus-junit</module>
+        <module>camel-quarkus-junit-tests</module>
         <module>junit5</module>
-        <module>junit5-extension-tests</module>
     </modules>
 
     <dependencyManagement>

@@ -230,13 +230,13 @@ The original `CamelTestSupport` class is not well suited to Quarkus, so there's 
 
 > IMPORTANT: `CamelQuarkusTestSupport` only works in JVM mode. If you need to test in native mode, then use one of the alternate test strategies described above.
 
-To use `CamelQuarkusTestSupport`, you must add `camel-quarkus-junit5` as a test scoped dependency to your application.
+To use `CamelQuarkusTestSupport`, you must add `camel-quarkus-junit` as a test scoped dependency to your application.
 
 [source,xml]
 ----
 <dependency>
     <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-junit5</artifactId>
+    <artifactId>camel-quarkus-junit</artifactId>
     <scope>test</scope>
 </dependency>
 ----

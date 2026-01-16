@@ -67,13 +67,13 @@
                             </excludes>
                         </fileSet>
                        <fileSet>
-                            <directory>${basedir}/../../test-framework/junit5</directory>
+                            <directory>${basedir}/../../test-framework/camel-quarkus-junit</directory>
                             <includes>
                                 <include>pom.xml</include>
                             </includes>
                         </fileSet>
                         <fileSet>
-                            <directory>${basedir}/../../test-framework/junit5-extension-tests</directory>
+                            <directory>${basedir}/../../test-framework/camel-quarkus-junit-tests</directory>
                             <includes>
                                 <include>pom.xml</include>
                             </includes>
