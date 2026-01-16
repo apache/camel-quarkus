@@ -2896,7 +2896,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-test-junit5</artifactId>
+        <artifactId>camel-test-junit6</artifactId>
         <version>4.17.0</version>
         <exclusions>
           <exclusion>
@@ -5010,6 +5010,11 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jta-deployment</artifactId>
+        <version>3.31.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-junit</artifactId>
         <version>3.31.0-SNAPSHOT</version>
       </dependency>
       <dependency>
