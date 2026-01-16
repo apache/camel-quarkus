@@ -7414,12 +7414,12 @@
       <dependency>
         <groupId>io.quarkiverse.batik</groupId>
         <artifactId>quarkus-batik</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.batik</groupId>
         <artifactId>quarkus-batik-deployment</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
