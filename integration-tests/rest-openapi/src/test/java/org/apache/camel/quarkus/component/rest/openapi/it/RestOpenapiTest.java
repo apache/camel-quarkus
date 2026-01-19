@@ -17,19 +17,23 @@
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.OffsetDateTime;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.rest.openapi.it.model.Camel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class RestOpenapiTest {
@@ -130,5 +134,12 @@ class RestOpenapiTest {
                 .then()
                 .statusCode(200)
                 .body(is("\"smart camel\""));
+    }
+
+    @Test
+    void typeMappingConfigurationGeneratesClassWithExpectedTypes() throws Exception {
+        Class<Camel> camelClass = Camel.class;
+        assertEquals(BigDecimal.class, camelClass.getDeclaredField("rating").getType());
+        assertEquals(OffsetDateTime.class, camelClass.getDeclaredField("birthDate").getType());
     }
 }

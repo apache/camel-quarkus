@@ -199,6 +199,20 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-locations
 A comma separated list of OpenAPI spec locations.
 | `string`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-type-mappings-type-mappings]]`link:#quarkus-camel-openapi-codegen-type-mappings-type-mappings[quarkus.camel.openapi.codegen.type-mappings."type-mappings"]`
+
+Mappings between swagger spec types and generated code types.
+
+Multiple type mappings can be specified like the following.
+
+[source,properties]
+----
+quarkus.camel.openapi.codegen.type-mappings.Double=java.math.BigDecimal
+quarkus.camel.openapi.codegen.type-mappings.Date=java.time.LocalDate
+----
+| `Map<String,String>`
+| 
 |===
 
 [.configuration-legend]

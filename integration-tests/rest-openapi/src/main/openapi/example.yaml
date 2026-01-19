@@ -92,6 +92,7 @@ components:
         rating:
           description: Rating.
           type: number
+          format: double
           multipleOf: 0.01
           example: 3.14
 
