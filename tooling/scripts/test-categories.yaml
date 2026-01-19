@@ -103,6 +103,7 @@ group-05:
   - hl7
   - jaxb
   - oauth
+  - once
   - mapstruct
   - ssh
   - soap
