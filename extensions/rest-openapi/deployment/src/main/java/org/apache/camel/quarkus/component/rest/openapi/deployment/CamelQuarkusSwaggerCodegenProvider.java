@@ -22,18 +22,20 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import io.quarkus.bootstrap.prebuild.CodeGenException;
 import io.quarkus.deployment.CodeGenContext;
 import io.quarkus.deployment.CodeGenProvider;
+import io.smallrye.config.SmallRyeConfig;
 import io.swagger.codegen.v3.ClientOptInput;
 import io.swagger.codegen.v3.CodegenArgument;
 import io.swagger.codegen.v3.CodegenConstants;
 import io.swagger.codegen.v3.DefaultGenerator;
 import io.swagger.codegen.v3.config.CodegenConfigurator;
+import org.apache.camel.quarkus.rest.openapi.runtime.RestOpenApiBuildTimeConfig;
+import org.apache.camel.quarkus.rest.openapi.runtime.RestOpenApiBuildTimeConfig.CodeGenConfig;
 import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
 
@@ -66,8 +68,12 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
 
     @Override
     public boolean trigger(CodeGenContext context) throws CodeGenException {
-        final Config config = context.config();
-        if (!config.getValue("quarkus.camel.openapi.codegen.enabled", Boolean.class)) {
+        final CodeGenConfig config = context.config()
+                .unwrap(SmallRyeConfig.class)
+                .getConfigMapping(RestOpenApiBuildTimeConfig.class)
+                .codegen();
+
+        if (!config.enabled()) {
             LOG.info("Skipping " + this.getClass() + " invocation on user's request");
             return false;
         }
@@ -86,9 +92,8 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                 }
             }
 
-            Optional<String> locations = config.getOptionalValue("quarkus.camel.openapi.codegen.locations", String.class);
-            if (locations.isPresent()) {
-                for (String location : locations.get().split(",")) {
+            config.locations().ifPresent(locations -> {
+                for (String location : locations.split(",")) {
                     try {
                         URI uri;
                         if (location.indexOf("://") == -1) {
@@ -102,51 +107,47 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                         LOG.warnf(e, "Can not find location %s", location);
                     }
                 }
-            }
-
-            String packageName = config.getValue("quarkus.camel.openapi.codegen.model-package", String.class);
-            String models = config.getOptionalValue("quarkus.camel.openapi.codegen.models", String.class).orElse("");
-            boolean useBeanValidation = config.getValue("quarkus.camel.openapi.codegen.use-bean-validation", Boolean.class);
-            boolean notNullJackson = config.getValue("quarkus.camel.openapi.codegen.not-null-jackson", Boolean.class);
-            boolean ignoreUnknownProperties = config.getValue("quarkus.camel.openapi.codegen.ignore-unknown-properties",
-                    Boolean.class);
+            });
 
             for (String specFile : specFiles) {
                 LOG.infof("Generating models for %s", specFile);
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
                 configurator.setLibrary("quarkus3");
-                configurator.setModelPackage(packageName);
+                configurator.setModelPackage(config.modelPackage());
                 configurator.setInputSpecURL(specFile);
                 configurator.setOutputDir(context.outDir().toAbsolutePath().toString());
-                System.setProperty(CodegenConstants.MODELS, models);
+                System.setProperty(CodegenConstants.MODELS, config.models().orElse(""));
                 configurator.getCodegenArguments()
                         .add(new CodegenArgument().option(CodegenConstants.API_DOCS_OPTION).type("boolean").value("false"));
                 configurator.getCodegenArguments()
                         .add(new CodegenArgument().option(CodegenConstants.MODEL_DOCS_OPTION).type("boolean").value("false"));
-                if (useBeanValidation) {
+
+                if (config.useBeanValidation()) {
                     configurator.getAdditionalProperties().put(USE_BEANVALIDATION, true);
                 }
-                if (notNullJackson) {
+
+                if (config.notNullJackson()) {
                     configurator.getAdditionalProperties().put(NOT_NULL_JACKSON_ANNOTATION, true);
                 }
-                if (ignoreUnknownProperties) {
+
+                if (config.ignoreUnknownProperties()) {
                     configurator.getAdditionalProperties().put("ignoreUnknownProperties", true);
                 }
-                config.getPropertyNames().forEach(name -> {
-                    if (name.startsWith("quarkus.camel.openapi.codegen.additional-properties")) {
-                        String key = name.substring("quarkus.camel.openapi.codegen.additional-properties.".length());
-                        String value = config.getValue(name, String.class);
-                        if (configurator.getAdditionalProperties().containsKey(key)) {
-                            LOG.warn("Overriding existing property: " + key + " with value: " + value);
-                        }
-                        if (value.equals("true") || value.equals("false")) {
-                            configurator.getAdditionalProperties().put(key, Boolean.parseBoolean(value));
-                        } else {
-                            configurator.getAdditionalProperties().put(key, value);
-                        }
+
+                config.additionalProperties().forEach((key, value) -> {
+                    if (configurator.getAdditionalProperties().containsKey(key)) {
+                        LOG.warn("Overriding existing property: " + key + " with value: " + value);
+                    }
+
+                    if (value.equals("true") || value.equals("false")) {
+                        configurator.getAdditionalProperties().put(key, Boolean.parseBoolean(value));
+                    } else {
+                        configurator.getAdditionalProperties().put(key, value);
                     }
                 });
+
+                configurator.setTypeMappings(config.typeMappings());
 
                 final ClientOptInput input = configurator.toClientOptInput();
                 new DefaultGenerator().opts(input).generate();

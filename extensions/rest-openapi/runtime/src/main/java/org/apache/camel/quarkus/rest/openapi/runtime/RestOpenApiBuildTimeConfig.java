@@ -99,5 +99,20 @@ public interface RestOpenApiBuildTimeConfig {
          * @asciidoclet
          */
         Optional<String> locations();
+
+        /**
+         * Mappings between swagger spec types and generated code types.
+         *
+         * Multiple type mappings can be specified like the following.
+         *
+         * [source,properties]
+         * ----
+         * quarkus.camel.openapi.codegen.type-mappings.Double=java.math.BigDecimal
+         * quarkus.camel.openapi.codegen.type-mappings.Date=java.time.LocalDate
+         * ----
+         *
+         * @asciidoclet
+         */
+        Map<String, String> typeMappings();
     }
 }
