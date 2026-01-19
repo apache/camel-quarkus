@@ -48,6 +48,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-swagger-ui</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
