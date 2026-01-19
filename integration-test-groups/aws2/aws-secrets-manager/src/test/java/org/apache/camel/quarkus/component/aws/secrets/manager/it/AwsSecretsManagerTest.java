@@ -27,7 +27,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.smallrye.common.os.OS;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerConstants;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerOperations;
 import org.apache.camel.quarkus.test.EnabledIf;
@@ -130,9 +129,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
 
     @Test
     public void testOperations() throws IOException {
-        if (canUseLambdaFunction()) {
-            setupLambdaFunction();
-        }
+        setupLambdaFunction();
 
         final String secretToCreate = "loadFirst";
         final String secret2ToCreate = "changeit2";
@@ -207,38 +204,36 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             assertEquals(name2ToCreate, descriptionMap.get("name"));
             assertEquals(description2ToCreate, descriptionMap.get("description"));
 
-            if (canUseLambdaFunction()) {
-                String rotateOperation = SecretsManagerOperations.rotateSecret.toString();
-                if (MockBackendUtils.startMockBackend(false)) {
-                    // rotate secret2 with rotation rules set to fix issue with LocalStack
-                    // on real AWS use the default Camel rotateSecret operation without POJO involved
-                    // this workaround is only for older LocalStack - it is not needed in 4.12.0 (probably fixed via https://github.com/localstack/localstack/pull/12391/)
-                    rotateOperation = "rotateSecretWithRotationRulesSet";
-                }
-
-                // rotate secret2
-                RestAssured.given()
-                        .contentType(ContentType.JSON)
-                        .body(CollectionHelper.mapOf(SecretsManagerConstants.SECRET_ID, createdArn2,
-                                SecretsManagerConstants.LAMBDA_ROTATION_FUNCTION_ARN, lambdaArn))
-                        .post("/aws-secrets-manager/operation/" + rotateOperation)
-                        .then()
-                        .statusCode(201)
-                        .body(is("true"));
-
-                Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(
-                        () -> {
-                            var secret2RotatedMap = RestAssured.given()
-                                    .contentType(ContentType.JSON)
-                                    .body(Collections.singletonMap(SecretsManagerConstants.SECRET_ID, finalCreatedArn2))
-                                    .post("/aws-secrets-manager/operation/" + SecretsManagerOperations.getSecret)
-                                    .then()
-                                    .statusCode(201)
-                                    .extract().as(Map.class);
-
-                            assertEquals(secret2ToCreate + "_Rotated", secret2RotatedMap.get("body"));
-                        });
+            String rotateOperation = SecretsManagerOperations.rotateSecret.toString();
+            if (MockBackendUtils.startMockBackend(false)) {
+                // rotate secret2 with rotation rules set to fix issue with LocalStack
+                // on real AWS use the default Camel rotateSecret operation without POJO involved
+                // this workaround is only for older LocalStack - it is not needed in 4.12.0 (probably fixed via https://github.com/localstack/localstack/pull/12391/)
+                rotateOperation = "rotateSecretWithRotationRulesSet";
             }
+
+            // rotate secret2
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(CollectionHelper.mapOf(SecretsManagerConstants.SECRET_ID, createdArn2,
+                            SecretsManagerConstants.LAMBDA_ROTATION_FUNCTION_ARN, lambdaArn))
+                    .post("/aws-secrets-manager/operation/" + rotateOperation)
+                    .then()
+                    .statusCode(201)
+                    .body(is("true"));
+
+            Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(
+                    () -> {
+                        var secret2RotatedMap = RestAssured.given()
+                                .contentType(ContentType.JSON)
+                                .body(Collections.singletonMap(SecretsManagerConstants.SECRET_ID, finalCreatedArn2))
+                                .post("/aws-secrets-manager/operation/" + SecretsManagerOperations.getSecret)
+                                .then()
+                                .statusCode(201)
+                                .extract().as(Map.class);
+
+                        assertEquals(secret2ToCreate + "_Rotated", secret2RotatedMap.get("body"));
+                    });
 
             // >> delete secret 2
             RestAssured.given()
@@ -316,9 +311,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn2);
 
-            if (canUseLambdaFunction()) {
-                cleanLambdaFunction();
-            }
+            cleanLambdaFunction();
         }
     }
 
@@ -376,10 +369,5 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                 AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             }
         }
-    }
-
-    private boolean canUseLambdaFunction() {
-        // https://github.com/testcontainers/testcontainers-java/issues/11342
-        return OS.current() != OS.MAC || !MockBackendUtils.startMockBackend(false);
     }
 }

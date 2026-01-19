@@ -25,4 +25,12 @@ where
 * `region` the same which you export with `AWS_REGION` env
 * `account-id` can be found in the upper right corner in AWS Web UI
 
+== Rotating secret on macOS Docker Colima environment
 
+The tests were executed on macOS with Colima Docker provider.
+If you have the same environment, then you should execute (before running the tests):
+```
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+```
+
+For more info see https://java.testcontainers.org/supported_docker_environment/.
