@@ -18,6 +18,16 @@
 -->
 # Changelog
 
+## 3.20.4
+
+* [3.20.x] Add Maven Wrapper to source zip by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7931
+* [3.20.x] Upgrade Quarkus to 3.20.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7959
+* [3.20.x] Upgrade Camel to 4.10.8 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8058
+* [3.20.x] Override lz4-java for flink & aws2-kinesis with at.yawk.lz4 variant by @ppalaga in https://github.com/apache/camel-quarkus/pull/8079
+* [3.20.x] Upgrade Quarkus to 3.20.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8143
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.20.3...3.20.4
+
 ## 3.27.2
 
 * [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7930
