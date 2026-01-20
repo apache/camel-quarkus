@@ -28,13 +28,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
-@EnabledIfSystemProperty(named = "ibm.mq.container.license", matches = "accept")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IBMMQTest extends AbstractJmsMessagingTest {
     private IBMMQDestinations destinations;
@@ -57,7 +55,8 @@ public class IBMMQTest extends AbstractJmsMessagingTest {
             destinations.createQueue(method.getName() + "2");
             destinations.createTopic(method.getName());
         }
-
+        destinations.createQueue("exception.queue");
+        destinations.createQueue("xa");
         super.startRoutes(test);
     }
 
