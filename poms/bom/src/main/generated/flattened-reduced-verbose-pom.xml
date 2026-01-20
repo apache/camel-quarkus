@@ -641,6 +641,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-cli-debug</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.18.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-cloud</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.18.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -2298,6 +2303,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-once</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.18.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-openapi-java</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.18.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -2896,7 +2906,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>camel-test-junit5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-test-junit6</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.18.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
@@ -3795,6 +3805,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-cli-connector-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-cli-debug</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-cli-debug-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -5014,6 +5034,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-junit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-junit5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -5550,6 +5575,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-olingo4-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-once</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-once-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -6893,11 +6928,6 @@
         <version>3.31.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>at.yawk.lz4</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>lz4-java</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.10.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>ca.uhn.hapi</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-base</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>2.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7085,7 +7115,7 @@
       <dependency>
         <groupId>com.github.luben</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>zstd-jni</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.5.6-6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.5.6-10</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.github.mwiede</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7417,6 +7447,16 @@
         <version>1.3.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.batik</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-batik</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.batik</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-batik-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.fory</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-fory</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.5.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7702,12 +7742,12 @@
       <dependency>
         <groupId>org.apache.jackrabbit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>oak-jackrabbit-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.82.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.88.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>connect-json</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.1.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.lz4</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7718,7 +7758,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>connect-runtime</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.1.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>io.swagger.core.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7830,7 +7870,7 @@
       <dependency>
         <groupId>org.jolokia</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>jolokia-agent-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.4.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.4.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.json</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7855,7 +7895,7 @@
       <dependency>
         <groupId>org.kiwiproject</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>consul-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.9.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.9.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7871,6 +7911,11 @@
         <groupId>org.mapstruct</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>mapstruct-processor</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>1.6.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.mozilla</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>rhino</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.7.15.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.mvel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8052,7 +8097,7 @@
       <dependency>
         <groupId>redis.clients</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>jedis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
