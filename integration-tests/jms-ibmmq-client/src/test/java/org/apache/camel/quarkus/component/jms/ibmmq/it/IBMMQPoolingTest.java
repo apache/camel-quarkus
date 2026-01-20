@@ -58,9 +58,8 @@ public class IBMMQPoolingTest extends AbstractJmsMessagingTest {
             destinations.createQueue(method.getName() + "2");
             destinations.createTopic(method.getName());
         }
-
-        // Create `exception.queue` in IBM MQ
         destinations.createQueue("exception.queue");
+        destinations.createQueue("xa");
         super.startRoutes(test);
     }
 

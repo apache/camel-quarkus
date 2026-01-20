@@ -49,6 +49,7 @@ public class IBMMQXATest {
      */
     @BeforeAll
     public void startRoutes(TestInfo test) {
+        destinations.createQueue("exception.queue");
         destinations.createQueue("xa");
 
         RestAssured.given()
