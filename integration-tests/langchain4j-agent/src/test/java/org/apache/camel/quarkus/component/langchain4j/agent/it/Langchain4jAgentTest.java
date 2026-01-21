@@ -237,7 +237,7 @@ class Langchain4jAgentTest {
                 .post("/langchain4j-agent/mcp/client")
                 .then()
                 .statusCode(200)
-                .body(".", containsInAnyOrder("trigger-long-running-operation", "echo"));
+                .body(".", containsInAnyOrder("add", "echo", "longRunningOperation"));
 
         RestAssured.given()
                 .body("Use your available tools to perform a long running operation for 2 seconds with 2 steps. DO NOT use any markdown formatting in the response.")
