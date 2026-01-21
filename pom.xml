@@ -238,6 +238,9 @@
         <consul.container.image>mirror.gcr.io/hashicorp/consul:1.21</consul.container.image>
         <couchbase.container.image>mirror.gcr.io/couchbase/server:7.6.2</couchbase.container.image>
         <couchdb.container.image>mirror.gcr.io/couchdb:3.5.0</couchdb.container.image>
+        <cyberark-conjur.container.image>mirror.gcr.io/cyberark/conjur:1.24.0</cyberark-conjur.container.image>
+        <cyberark-conjur-cli.container.image>mirror.gcr.io/cyberark/conjur-cli:9</cyberark-conjur-cli.container.image>
+        <cyberark-nginx.container.image>mirror.gcr.io/nginx:1.29.4-alpine3.23-perl</cyberark-nginx.container.image>
         <db2.container.image>icr.io/db2_community/db2:12.1.0.0</db2.container.image>
         <docling.container.image>quay.io/docling-project/docling-serve:v1.9.0</docling.container.image>
         <eclipse-mosquitto.container.image>mirror.gcr.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>

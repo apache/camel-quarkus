@@ -21,22 +21,22 @@ import java.util.UUID;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
+import io.smallrye.certs.junit5.Certificates;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
+@Certificates(baseDir = "target/certs", certificates = {
+        @Certificate(name = "nginx", formats = { Format.PEM }, cn = "proxy", subjectAlternativeNames = "proxy")
+})
 @QuarkusTest
 @QuarkusTestResource(CyberarkVaultTestResource.class)
 class CyberarkVaultTest {
-
-    private static final Logger LOG = LoggerFactory.getLogger(CyberarkVaultTest.class);
-
     @Test
-    public void testRetrieveSecret() throws Exception {
-
+    void testRetrieveSecret() {
         String secret = UUID.randomUUID().toString();
         //create secret
         RestAssured.given()
