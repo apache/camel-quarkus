@@ -1,5 +1,5 @@
 {
-  "id" : "9dfeffa3-0b61-43af-996b-575c153be649",
+  "id" : "d71f7bb9-5a9e-4317-aecd-49cd95dbadb1",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:59.052934081Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, I'd be happy to help! Can you please provide me with the specific format you want the JSON object to follow?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1297958111,\"load_duration\":11944711,\"prompt_eval_count\":52,\"prompt_eval_duration\":209097955,\"eval_count\":28,\"eval_duration\":1069685864}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:42.350557334Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Understood. What is the format of the JSON object you would like me to generate?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":941950589,\"load_duration\":11792098,\"prompt_eval_count\":52,\"prompt_eval_duration\":197951402,\"eval_count\":19,\"eval_duration\":727631062}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:05:59 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:01:42 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "9dfeffa3-0b61-43af-996b-575c153be649",
+  "uuid" : "d71f7bb9-5a9e-4317-aecd-49cd95dbadb1",
   "persistent" : true,
   "insertionIndex" : 6
 }

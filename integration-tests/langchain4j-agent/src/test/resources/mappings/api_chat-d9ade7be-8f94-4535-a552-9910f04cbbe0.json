@@ -1,5 +1,5 @@
 {
-  "id" : "f5a22e97-433c-4e26-af47-24d382c0fe31",
+  "id" : "d9ade7be-8f94-4535-a552-9910f04cbbe0",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-16T13:06:02.182782054Z\",\"message\":{\"role\":\"assistant\",\"content\":\"That's a lovely choice of color! Blue is often associated with feelings of calmness and tranquility. Is there anything specific about the color blue that interests you, or do you need assistance with something else?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1959366349,\"load_duration\":40385539,\"prompt_eval_count\":69,\"prompt_eval_duration\":225464658,\"eval_count\":43,\"eval_duration\":1667929097}",
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:45.122934296Z\",\"message\":{\"role\":\"assistant\",\"content\":\"That's a lovely choice of color! Blue is often associated with feelings of calmness and tranquility. If you need any assistance or have questions, feel free to ask.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1661809217,\"load_duration\":41340745,\"prompt_eval_count\":69,\"prompt_eval_duration\":182241182,\"eval_count\":36,\"eval_duration\":1420810870}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:06:02 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:01:45 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "f5a22e97-433c-4e26-af47-24d382c0fe31",
+  "uuid" : "d9ade7be-8f94-4535-a552-9910f04cbbe0",
   "persistent" : true,
   "insertionIndex" : 4
 }

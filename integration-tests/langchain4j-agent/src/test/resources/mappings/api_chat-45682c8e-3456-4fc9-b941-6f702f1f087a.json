@@ -1,5 +1,5 @@
 {
-  "id" : "e5af20e3-b94e-4d35-9a12-98a72243816a",
+  "id" : "45682c8e-3456-4fc9-b941-6f702f1f087a",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-16T13:05:53.660875686Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The result of adding 10 and 5 is **15**.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":973346714,\"load_duration\":41645698,\"prompt_eval_count\":233,\"prompt_eval_duration\":355748423,\"eval_count\":15,\"eval_duration\":566263193}",
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:36.945337351Z\",\"message\":{\"role\":\"assistant\",\"content\":\"The sum of 10 and 5 is **15**.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":977860704,\"load_duration\":45035949,\"prompt_eval_count\":233,\"prompt_eval_duration\":327764002,\"eval_count\":14,\"eval_duration\":595399685}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:05:53 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:01:36 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "e5af20e3-b94e-4d35-9a12-98a72243816a",
+  "uuid" : "45682c8e-3456-4fc9-b941-6f702f1f087a",
   "persistent" : true,
   "insertionIndex" : 9
 }

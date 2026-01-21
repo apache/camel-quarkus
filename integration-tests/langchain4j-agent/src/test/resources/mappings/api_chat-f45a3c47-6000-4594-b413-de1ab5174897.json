@@ -1,0 +1,24 @@
+{
+  "id" : "f45a3c47-6000-4594-b413-de1ab5174897",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Please list your available tools. You MUST respond using ONLY valid JSON with tool names as an array. DO NOT add explanations. DO NOT add comments. DO NOT wrap in markdown.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"echo\",\n      \"description\" : \"Echoes back the input\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"message\" : {\n            \"type\" : \"string\",\n            \"description\" : \"Message to echo\"\n          }\n        },\n        \"required\" : [ \"message\" ]\n      }\n    }\n  }, {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"longRunningOperation\",\n      \"description\" : \"Demonstrates a long running operation with progress updates\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"duration\" : {\n            \"type\" : \"number\",\n            \"description\" : \"Duration of the operation in seconds\"\n          },\n          \"steps\" : {\n            \"type\" : \"number\",\n            \"description\" : \"Number of steps in the operation\"\n          }\n        },\n        \"required\" : [ ]\n      }\n    }\n  }, {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"add\",\n      \"description\" : \"Adds two numbers\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"a\" : {\n            \"type\" : \"number\",\n            \"description\" : \"First number\"\n          },\n          \"b\" : {\n            \"type\" : \"number\",\n            \"description\" : \"Second number\"\n          }\n        },\n        \"required\" : [ \"a\", \"b\" ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:25.034732402Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[\\n  \\\"echo\\\",\\n  \\\"longRunningOperation\\\",\\n  \\\"add\\\"\\n]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3876757127,\"load_duration\":49592559,\"prompt_eval_count\":326,\"prompt_eval_duration\":3159868833,\"eval_count\":17,\"eval_duration\":657582616}",
+    "headers" : {
+      "Date" : "Wed, 21 Jan 2026 08:01:25 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "f45a3c47-6000-4594-b413-de1ab5174897",
+  "persistent" : true,
+  "insertionIndex" : 14
+}
