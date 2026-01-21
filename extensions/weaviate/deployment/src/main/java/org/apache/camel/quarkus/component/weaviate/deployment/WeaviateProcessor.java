@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.weaviate.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -34,7 +35,7 @@ class WeaviateProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         IndexView index = combinedIndex.getIndex();
 
         String[] dtos = index.getKnownClasses().stream()
@@ -44,7 +45,14 @@ class WeaviateProcessor {
                 .sorted()
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(dtos).methods().fields().build();
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtos).methods().fields().build());
+
+        //error handler
+        reflectiveClass.produce(
+                ReflectiveClassBuildItem
+                        .builder(new String[] { "io.weaviate.client.base.WeaviateErrorResponse",
+                                "io.weaviate.client.base.WeaviateErrorMessage", "io.weaviate.client.base.WeaviateError" })
+                        .methods().fields().build());
     }
 
     @BuildStep
