@@ -1,5 +1,5 @@
 {
-  "id" : "91ede2cd-bcde-4896-90c9-f29a7482f1fe",
+  "id" : "f265676e-9355-40b6-9593-926440edd441",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:11.08661639Z\",\"message\":{\"role\":\"assistant\",\"content\":\" According to Miles of Camels Car Rental cancellations policy, a full refund will be given for cancellations made 24 hours before pickup. The cancellation policy states that cancellations made 12-24 hours before pickup receive a 50% refund. Cancellations made less than 12 hours before pickup do not receive a refund. Additionally, the company's damage policy states that major damages over $200 are the responsibility of the customer, while minor damages under $200 are covered by insurance. Lastly, Miles of Camels Car Rental business hours are Monday-Friday from 8:00 AM to 6:00 PM, Saturday from 9:00 AM to 4:00 PM, and Sunday closed.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":12185149643,\"load_duration\":13637865,\"prompt_eval_count\":314,\"prompt_eval_duration\":3935074586,\"eval_count\":160,\"eval_duration\":8200217960}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:00:51.09034453Z\",\"message\":{\"role\":\"assistant\",\"content\":\" According to the Miles of Camels Car Rental cancellations policy, a full refund will be provided if the cancellation is made 24 hours or more before pickup. The refund amount will be the total cost of the rental including taxes and fees.\\n\\nAdditionally, according to the company's vehicle return policy, vehicles must be returned with the same fuel level as at pickup. Late returns incur a fee of $25 per hour or fraction thereof.\\n\\nIf a major damage occurs during the rental, the customer is responsible for the cost. If the damage is minor and covered by insurance, the cost will be reimbursed to the renter.\\n\\nIt's worth noting that Miles of Camels Car Rental business hours are Monday-Friday from 8:00 AM to 6:00 PM, Saturday from 9:00 AM to 4:00 PM, and Sunday is closed.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":13516197412,\"load_duration\":1071993252,\"prompt_eval_count\":314,\"prompt_eval_duration\":3516109695,\"eval_count\":191,\"eval_duration\":8893165055}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:05:11 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:00:51 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "91ede2cd-bcde-4896-90c9-f29a7482f1fe",
+  "uuid" : "f265676e-9355-40b6-9593-926440edd441",
   "persistent" : true,
   "insertionIndex" : 21
 }

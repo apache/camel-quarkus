@@ -1,5 +1,5 @@
 {
-  "id" : "2ec9a67a-419b-4220-8151-bd37a5439705",
+  "id" : "3cd813bc-486c-48ca-862d-5026f98fc91c",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-16T13:05:49.595969998Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, here's an example JSON object for John Doe:\\n\\n```json\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"description\\\": \\\"John Doe is a person with a unique set of skills and experiences. He has worked in various industries and has expertise in fields such as marketing, finance, and technology.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3646981599,\"load_duration\":11642764,\"prompt_eval_count\":90,\"prompt_eval_duration\":525249481,\"eval_count\":76,\"eval_duration\":3092544345}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-01-21T08:01:33.067585999Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, here's an example JSON object for John Doe:\\n\\n```json\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"description\\\": \\\"A person with a unique name and a brief description.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":2473107200,\"load_duration\":12235280,\"prompt_eval_count\":90,\"prompt_eval_duration\":438293488,\"eval_count\":52,\"eval_duration\":2012512628}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:05:49 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:01:33 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "2ec9a67a-419b-4220-8151-bd37a5439705",
+  "uuid" : "3cd813bc-486c-48ca-862d-5026f98fc91c",
   "persistent" : true,
   "insertionIndex" : 11
 }

@@ -1,5 +1,5 @@
 {
-  "id" : "0bd4373c-8152-4efa-91e6-b4d2084e5c95",
+  "id" : "b311fa1d-c821-4031-b94d-d37cf3344deb",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
@@ -12,13 +12,13 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-16T13:06:00.204894221Z\",\"message\":{\"role\":\"assistant\",\"content\":\"Hello Alice! It's nice to meet you. How can I assist you today?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1115837974,\"load_duration\":45414873,\"prompt_eval_count\":36,\"prompt_eval_duration\":389032404,\"eval_count\":18,\"eval_duration\":671384431}",
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-01-21T08:01:43.442794252Z\",\"message\":{\"role\":\"assistant\",\"content\":\"Hello Alice! It's nice to meet you. How can I assist you today?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1057632764,\"load_duration\":47953414,\"prompt_eval_count\":36,\"prompt_eval_duration\":316851104,\"eval_count\":18,\"eval_duration\":684289773}",
     "headers" : {
-      "Date" : "Fri, 16 Jan 2026 13:06:00 GMT",
+      "Date" : "Wed, 21 Jan 2026 08:01:43 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "0bd4373c-8152-4efa-91e6-b4d2084e5c95",
+  "uuid" : "b311fa1d-c821-4031-b94d-d37cf3344deb",
   "persistent" : true,
   "insertionIndex" : 5
 }
