@@ -9192,24 +9192,24 @@
         <version>1.2.0</version><!-- com.azure:azure-sdk-bom:1.3.3 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.cassandra</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <artifactId>java-driver-core</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <version>4.19.0</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
+        <groupId>org.apache.cassandra</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <artifactId>java-driver-core</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <version>4.19.0</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
         <exclusions>
           <exclusion>
-            <groupId>io.dropwizard.metrics</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-            <artifactId>metrics-core</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
+            <groupId>io.dropwizard.metrics</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+            <artifactId>metrics-core</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
           </exclusion>
           <exclusion>
-            <groupId>org.hdrhistogram</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-            <artifactId>HdrHistogram</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
+            <groupId>org.hdrhistogram</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+            <artifactId>HdrHistogram</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <artifactId>cassandra-quarkus-client</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <version>1.3.0</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
+        <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <artifactId>cassandra-quarkus-client</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <version>1.3.1</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
         <exclusions>
           <exclusion>
             <groupId>com.github.spotbugs</groupId>
@@ -9222,9 +9222,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <artifactId>cassandra-quarkus-client-deployment</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
-        <version>1.3.0</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.0 -->
+        <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <artifactId>cassandra-quarkus-client-deployment</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
+        <version>1.3.1</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.3.1 -->
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId><!-- org.apache.cassandra:java-driver-bom:4.19.0 -->
