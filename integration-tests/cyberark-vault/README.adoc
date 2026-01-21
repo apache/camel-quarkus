@@ -1,23 +1,19 @@
 = Cyber Ark Conjur integration tests
 
-=== Localstack
+== Local container testing
 
-The tests are able to run against the docker by default.
+The tests are run by default using containers.
 
-The docker environment is not started when complete configuration is provided via environmental properties.
+Refer to the section below to test against a real CyberArk instance.
 
-=== Real CyberArk Vault API
+== Real CyberArk Vault API
 
 To run the tests against the real CyberArk Conjur API, you need to
 
 * Export your CyberArk real configuration
-* Upload policy from the test resources
-* Export usernames and api keys
+* Upload the policy from `src/test/resources/conf/policy/BotApp.yml`
+* Configure environment variables as defined below
 
-or use docker-compose from https://github.com/cyberark/conjur-quickstart[conjur quickstart]
-
-* You can use scripts `startConjur.sh` and `stopConjur.sh`
-* Export all environmental properties provided by the start script
 [source,shell]
 ----
 export CQ_CONJUR_URL=http://localhost:8080/
