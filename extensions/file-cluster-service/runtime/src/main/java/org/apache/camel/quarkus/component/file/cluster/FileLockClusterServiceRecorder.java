@@ -38,7 +38,10 @@ public class FileLockClusterServiceRecorder {
             flcs.setAcquireLockInterval(TimePatternConverter.toMilliSeconds(interval), TimeUnit.MILLISECONDS);
         });
         config.heartbeatTimeoutMultiplier().ifPresent(flcs::setHeartbeatTimeoutMultiplier);
-
+        config.clusterDataTaskMaxAttempts().ifPresent(flcs::setClusterDataTaskMaxAttempts);
+        config.clusterDataTaskTimeout().ifPresent(clusterDataTaskTimeout -> {
+            flcs.setClusterDataTaskTimeout(TimePatternConverter.toMilliSeconds(clusterDataTaskTimeout), TimeUnit.MILLISECONDS);
+        });
         config.attributes().forEach(flcs::setAttribute);
 
         return new RuntimeValue<>(flcs);
