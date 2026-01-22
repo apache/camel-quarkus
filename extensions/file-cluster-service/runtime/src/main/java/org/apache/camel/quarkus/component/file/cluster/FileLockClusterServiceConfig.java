@@ -69,14 +69,18 @@ public interface FileLockClusterServiceConfig {
     Map<String, String> attributes();
 
     /**
-     * The time to wait before starting to try to acquire lock (defaults to 1000ms).
+     * The time to wait before starting to try to acquire the cluster lock. Note that if FileLockClusterService determines
+     * no cluster members are running or cannot reliably determine the cluster state, the initial delay is computed from the
+     * acquireLockInterval (defaults to 1000ms).
      *
      * @asciidoclet
      */
     Optional<String> acquireLockDelay();
 
     /**
-     * The time to wait between attempts to try to acquire lock (defaults to 10000ms).
+     * The time to wait between attempts to try to acquire the cluster lock evaluated using wall-clock time. All cluster
+     * members must use the same value so leadership checks and leader liveness detection remain consistent (defaults to
+     * 10000ms).
      *
      * @asciidoclet
      */
@@ -92,6 +96,27 @@ public interface FileLockClusterServiceConfig {
      * @asciidoclet
      */
     Optional<Integer> heartbeatTimeoutMultiplier();
+
+    /**
+     * Sets how many times a cluster data task will run, counting both the first execution and subsequent retries in
+     * case of failure or timeout. The default is 5 attempts.
+     *
+     * This can be useful when the cluster data root is on network based file storage, where I/O operations may
+     * occasionally block for long or unpredictable periods.
+     *
+     * @asciidoclet
+     */
+    Optional<Integer> clusterDataTaskMaxAttempts();
+
+    /**
+     * Sets the timeout for a cluster data task (reading or writing cluster data). The default is 10 seconds.
+     *
+     * Timeouts are useful when the cluster data root is on network storage, where I/O operations may occasionally block
+     * for long or unpredictable periods.
+     *
+     * @asciidoclet
+     */
+    Optional<String> clusterDataTaskTimeout();
 
     final class Enabled implements BooleanSupplier {
         FileLockClusterServiceConfig config;
