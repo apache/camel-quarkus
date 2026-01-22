@@ -20,12 +20,14 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(DoclingTestResource.class)
@@ -117,7 +119,7 @@ class DoclingTest {
     }
 
     @Test
-    public void extractText() {
+    void extractText() {
         String testContent = "Document with text to extract.";
 
         RestAssured.given()
@@ -127,12 +129,38 @@ class DoclingTest {
                 .post("/docling/extract/text")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body(containsString(testContent));
     }
 
     @Test
-    public void extractMetadata() {
-        String testContent = "# Test Document\nSome content for metadata extraction.";
+    void extractMetadataFromPdf() {
+        RestAssured.given()
+                .when()
+                .post("/docling/metadata/extract/pdf")
+                .then()
+                .statusCode(200)
+                .body("fileName", startsWith("docling-test"))
+                .body("filePath", containsString("docling-test"));
+        // TODO: improve test by checking other metadatas when https://issues.apache.org/jira/browse/CAMEL-22888 is fixed
+    }
+
+    @Test
+    @Disabled("test to implement")
+    void extractTextFromPassordProtectedPdf() {
+    }
+
+    @Test
+    @Disabled("test to implement")
+    void extractTextWithOCROnScannedDocument() {
+    }
+
+    @Test
+    void extractMetadataFromMarkdown() {
+        String testContent = """
+                # Test Document
+
+                Some content for metadata extraction.
+                """;
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -141,7 +169,9 @@ class DoclingTest {
                 .post("/docling/metadata/extract")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body("fileName", startsWith("docling-test"))
+                .body("filePath", containsString("docling-test"));
+        // TODO: improve test by checking other metadatas when https://issues.apache.org/jira/browse/CAMEL-22888 is fixed
     }
 
     @Test
@@ -156,6 +186,11 @@ class DoclingTest {
                 .then()
                 .statusCode(200)
                 .body(not(emptyString()));
+    }
+
+    @Test
+    @Disabled("test to implement")
+    void convertToMarkdownAsyncInBatch() {
     }
 
     @Test
