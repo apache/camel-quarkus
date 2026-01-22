@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -33,10 +35,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.docling.DocumentMetadata;
 import org.jboss.logging.Logger;
 
 @Path("/docling")
 @ApplicationScoped
+@RegisterForReflection(targets = DocumentMetadata.class, methods = true)
 public class DoclingResource {
 
     private static final Logger LOG = Logger.getLogger(DoclingResource.class);
@@ -202,17 +206,30 @@ public class DoclingResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response extractMetadata(String documentContent) throws IOException {
+    public DocumentMetadata extractMetadata(String documentContent) throws IOException {
         java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
         Files.writeString(tempFile, documentContent);
         try {
-            String result = producerTemplate.requestBody("direct:extractMetadata", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to extract metadata", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
+            return producerTemplate.requestBody("direct:extractMetadata", tempFile.toString(),
+                    DocumentMetadata.class);
         } finally {
             Files.deleteIfExists(tempFile);
+        }
+    }
+
+    @Path("/metadata/extract/pdf")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public DocumentMetadata extractMetadataFromPdf() throws IOException {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("multi_page.pdf")) {
+            java.nio.file.Path tempFile = Files.createTempFile("docling-test-multi_page", ".pdf");
+            Files.copy(is, tempFile.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+            try {
+                return producerTemplate.requestBody("direct:extractMetadata", tempFile.toString(),
+                        DocumentMetadata.class);
+            } finally {
+                Files.deleteIfExists(tempFile);
+            }
         }
     }
 }
