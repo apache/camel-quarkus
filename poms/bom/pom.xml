@@ -8567,7 +8567,6 @@
                                 <configuration>
                                     <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
                                     <ignoredOverlaps>
-                                        <ignoredOverlap>at.yawk.lz4:lz4-java</ignoredOverlap><!-- TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8188 -->
                                         <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
                                     </ignoredOverlaps>
                                 </configuration>
