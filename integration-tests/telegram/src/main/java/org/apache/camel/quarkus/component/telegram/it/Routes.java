@@ -31,7 +31,7 @@ public class Routes extends RouteBuilder {
         boolean isWebhookDisabled = Boolean.parseBoolean(webhookDisabled);
         if (!isWebhookDisabled) {
             from("webhook:telegram:bots?webhookPath=/my-test&webhook-external-url={{webhook-external-url}}&authorization-token={{webhook-authorization-token}}")
-                    .log("webhook message : ${body}")
+                    .log("webhook message: ${body}")
                     .to("mock:webhook");
         }
     }
