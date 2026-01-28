@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
@@ -216,6 +217,21 @@ class DoclingTest {
                 .body(testContent)
                 .when()
                 .post("/docling/async/convert/json")
+                .then()
+                .statusCode(200)
+                .body(not(emptyString()));
+    }
+
+    @Test
+    @EnabledIfSystemProperty(named = "docling.test.enabled", matches = "true")
+    void convertToJsonWithCLI() {
+        String testContent = "# Test Document\nThis is a test document for JSON conversion with CLI.";
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(testContent)
+                .when()
+                .post("/docling/convert/json/cli")
                 .then()
                 .statusCode(200)
                 .body(not(emptyString()));

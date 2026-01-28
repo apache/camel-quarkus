@@ -63,5 +63,8 @@ public class DoclingRoutes extends RouteBuilder {
         from("direct:convertToJsonAsync")
                 .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true&useAsyncMode=true")
                 .log("Converted to JSON (async): ${body}");
+
+        from("direct:convertToJsonWithCLI")
+                .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true&useDoclingServe=false");
     }
 }
