@@ -7402,7 +7402,7 @@
       <dependency>
         <groupId>dev.langchain4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>langchain4j-embeddings</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.5.0-beta11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.6.0-beta12</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -9242,39 +9242,39 @@
         <version>1.5.1</version><!-- org.apache.cassandra:java-driver-bom:4.19.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1-beta17</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-        <version>1.5.0-beta11</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <version>1.9.1-beta17</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:3.4.0.Final -->
