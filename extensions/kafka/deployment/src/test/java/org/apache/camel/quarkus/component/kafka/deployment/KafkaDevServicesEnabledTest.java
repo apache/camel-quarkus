@@ -76,6 +76,8 @@ public class KafkaDevServicesEnabledTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.kafka.devservices.provider", "strimzi");
+        props.setProperty("quarkus.kafka.devservices.image-name",
+                "quay.io/strimzi-test-container/test-container:0.114.0-kafka-4.1.0");
 
         try {
             props.store(writer, "");
