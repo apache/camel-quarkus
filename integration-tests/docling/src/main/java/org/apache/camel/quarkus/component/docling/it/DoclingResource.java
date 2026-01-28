@@ -173,6 +173,14 @@ public class DoclingResource {
         }
     }
 
+    @Path("/convert/json/cli")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response convertToJsonWithCLI(String documentContent) throws IOException {
+        return convert(documentContent, "direct:convertToJsonWithCLI", "Failed to convert to JSON with CLI");
+    }
+
     private Response convert(String documentContent, String endpointUri, String logErrorMessage) throws IOException {
         java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
         Files.writeString(tempFile, documentContent);
