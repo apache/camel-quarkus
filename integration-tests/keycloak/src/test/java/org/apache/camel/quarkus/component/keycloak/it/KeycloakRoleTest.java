@@ -21,8 +21,12 @@ import java.util.List;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -194,6 +198,87 @@ class KeycloakRoleTest extends KeycloakTestBase {
                 .then()
                 .statusCode(200)
                 .body(is("Role removed from user successfully"));
+    }
+
+    @Test
+    @Order(9)
+    public void testAssignRolesToUser() {
+        List<String> existingRoleNames = given()
+                .when()
+                .get("/keycloak/role/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", RoleRepresentation.class).stream().map(RoleRepresentation::getName).toList();
+
+        given()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(existingRoleNames)
+                .post("/keycloak/user-role/{realmName}/user/{username}",
+                        TEST_REALM_NAME, TEST_USER_NAME)
+                .then()
+                .statusCode(200)
+                .body("total", is(existingRoleNames.size()))
+                .body("success", is(existingRoleNames.size()))
+                .body("assigned", is(existingRoleNames.size()))
+                .body("results.size()", is(existingRoleNames.size()));
+    }
+
+    @Test
+    @Order(10)
+    public void testAssignRoleToUsers() {
+        // get an role
+        RoleRepresentation role = given()
+                .when()
+                .get("/keycloak/role/{realmName}/{roleName}", TEST_REALM_NAME, TEST_ROLE_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .as(RoleRepresentation.class);
+
+        // Create additional test user for user-role operations
+        String additionalTestUserName = TEST_USER_NAME + "-additionalTestUser";
+        given()
+                .queryParam("email", additionalTestUserName + "@test.com")
+                .queryParam("firstName", "AdditionalTest")
+                .queryParam("lastName", "AdditionalUser")
+                .when()
+                .post("/keycloak/user/{realmName}/{username}", TEST_REALM_NAME, additionalTestUserName)
+                .then()
+                .statusCode(201);
+
+        // get all existing users
+        List<String> allUserNames = given()
+                .when()
+                .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", UserRepresentation.class).stream().map(UserRepresentation::getUsername).toList();
+
+        assertThat(allUserNames.size(), is(2));
+
+        // assign one role to all users
+        given()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(allUserNames)
+                .post("/keycloak/user-role/{realmName}/role/{roleName}",
+                        TEST_REALM_NAME, role.getName())
+                .then()
+                .statusCode(200)
+                .body("total", is(allUserNames.size()))
+                .body("success", is(allUserNames.size()))
+                .body("roleName", is(role.getName()))
+                .body("results.size()", is(allUserNames.size()));
     }
 
     @Test
