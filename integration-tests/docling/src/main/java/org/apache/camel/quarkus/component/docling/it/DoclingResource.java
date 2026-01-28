@@ -57,17 +57,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response convertToMarkdown(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToMarkdown", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to markdown", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToMarkdown", "Failed to convert to markdown");
     }
 
     @Path("/convert/html")
@@ -75,17 +65,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_HTML)
     public Response convertToHtml(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToHtml", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to HTML", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToHtml", "Failed to convert to HTML");
     }
 
     @Path("/extract/text")
@@ -135,17 +115,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertToJson(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToJson", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to JSON", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToJson", "Failed to convert to JSON");
     }
 
     @Path("/async/convert/markdown")
@@ -153,17 +123,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response convertToMarkdownAsync(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToMarkdownAsync", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to markdown async", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToMarkdownAsync", "Failed to convert to markdown async");
     }
 
     @Path("/async/convert/html")
@@ -171,17 +131,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_HTML)
     public Response convertToHtmlAsync(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToHtmlAsync", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to HTML async", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToHtmlAsync", "Failed to convert to HTML async");
     }
 
     @Path("/async/convert/json")
@@ -189,17 +139,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertToJsonAsync(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
-        Files.writeString(tempFile, documentContent);
-        try {
-            String result = producerTemplate.requestBody("direct:convertToJsonAsync", tempFile.toString(), String.class);
-            return Response.ok(result).build();
-        } catch (Exception e) {
-            LOG.error("Failed to convert to JSON async", e);
-            return Response.status(500).entity("Error: " + e.getMessage()).build();
-        } finally {
-            Files.deleteIfExists(tempFile);
-        }
+        return convert(documentContent, "direct:convertToJsonAsync", "Failed to convert to JSON async");
     }
 
     @Path("/metadata/extract")
@@ -232,4 +172,19 @@ public class DoclingResource {
             }
         }
     }
+
+    private Response convert(String documentContent, String endpointUri, String logErrorMessage) throws IOException {
+        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
+        Files.writeString(tempFile, documentContent);
+        try {
+            String result = producerTemplate.requestBody(endpointUri, tempFile.toString(), String.class);
+            return Response.ok(result).build();
+        } catch (Exception e) {
+            LOG.error(logErrorMessage, e);
+            return Response.status(500).entity("Error: " + e.getMessage()).build();
+        } finally {
+            Files.deleteIfExists(tempFile);
+        }
+    }
+
 }
