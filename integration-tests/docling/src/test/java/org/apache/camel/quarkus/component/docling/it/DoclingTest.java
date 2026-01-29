@@ -88,7 +88,7 @@ class DoclingTest {
                 .post("/docling/convert/markdown")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body(containsString("This is a test document for conversion."));
     }
 
     @Test
@@ -102,7 +102,7 @@ class DoclingTest {
                 .post("/docling/convert/html")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body(containsString("<h1>Test Document</h1>"));
     }
 
     @Test
@@ -205,7 +205,7 @@ class DoclingTest {
                 .post("/docling/async/convert/html")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body(containsString("<h1>Async HTML Test</h1>"));
     }
 
     @Test
@@ -219,7 +219,7 @@ class DoclingTest {
                 .post("/docling/async/convert/json")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body("texts[1].text", containsString("This is a test for async JSON conversion."));
     }
 
     @Test
@@ -234,6 +234,6 @@ class DoclingTest {
                 .post("/docling/convert/json/cli")
                 .then()
                 .statusCode(200)
-                .body(not(emptyString()));
+                .body("texts[1].text", containsString("This is a test document for JSON conversion with CLI."));
     }
 }
