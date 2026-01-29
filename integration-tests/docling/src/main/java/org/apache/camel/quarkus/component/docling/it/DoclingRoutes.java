@@ -66,5 +66,9 @@ public class DoclingRoutes extends RouteBuilder {
 
         from("direct:convertToJsonWithCLI")
                 .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true&useDoclingServe=false");
+
+        from("direct:batch-markdown")
+                .to("docling:convert?operation=BATCH_CONVERT_TO_MARKDOWN&batchSize=10&batchParallelism=4&contentInBody=true")
+                .log("Converted in batch to Markdown: ${body}");
     }
 }

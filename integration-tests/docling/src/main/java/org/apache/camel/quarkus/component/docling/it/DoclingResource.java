@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -35,6 +36,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.docling.BatchProcessingResults;
 import org.apache.camel.component.docling.DocumentMetadata;
 import org.jboss.logging.Logger;
 
@@ -179,6 +181,17 @@ public class DoclingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertToJsonWithCLI(String documentContent) throws IOException {
         return convert(documentContent, "direct:convertToJsonWithCLI", "Failed to convert to JSON with CLI");
+    }
+
+    @Path("/batch/convert/markdown")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public BatchProcessingResults convertBatchToMarkdown(List<String> filePaths) {
+        return producerTemplate.requestBody(
+                "direct:batch-markdown",
+                filePaths,
+                BatchProcessingResults.class);
     }
 
     private Response convert(String documentContent, String endpointUri, String logErrorMessage) throws IOException {
