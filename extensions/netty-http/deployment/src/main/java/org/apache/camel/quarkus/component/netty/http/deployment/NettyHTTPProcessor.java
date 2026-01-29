@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.netty.http.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class NettyHTTPProcessor {
@@ -43,5 +44,10 @@ class NettyHTTPProcessor {
                         "com.sun.security.auth.module.NTLoginModule",
                         "com.sun.jmx.remote.security.FileLoginModule")
                 .build();
+    }
+
+    @BuildStep
+    NativeImageResourceBundleBuildItem nativeImageResoourceResourceBundles() {
+        return new NativeImageResourceBundleBuildItem("sun.security.util.resources.security");
     }
 }

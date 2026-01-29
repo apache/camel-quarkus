@@ -28,13 +28,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
-@EnabledIfSystemProperty(named = "ibm.mq.container.license", matches = "accept")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestProfile(JmsXAEnabled.class)
 public class IBMMQXATest {
@@ -51,6 +49,7 @@ public class IBMMQXATest {
      */
     @BeforeAll
     public void startRoutes(TestInfo test) {
+        destinations.createQueue("exception.queue");
         destinations.createQueue("xa");
 
         RestAssured.given()

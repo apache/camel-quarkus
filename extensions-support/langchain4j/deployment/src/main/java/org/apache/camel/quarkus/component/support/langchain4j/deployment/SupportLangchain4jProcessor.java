@@ -96,7 +96,8 @@ class SupportLangchain4jProcessor {
                 .collect(Collectors.toSet());
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(langChain4jModelClasses.toArray(new String[0]))
-                .methods(true)
+                .fields()
+                .methods()
                 .build());
 
         // Discover all LangChain4j Jackson serializer / deserializer types

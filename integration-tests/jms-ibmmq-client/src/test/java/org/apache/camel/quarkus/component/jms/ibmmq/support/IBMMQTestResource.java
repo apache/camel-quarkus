@@ -20,14 +20,19 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.DockerImageName;
 
 public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
+    private static final Logger LOG = LoggerFactory.getLogger(IBMMQTestResource.class);
     private static final String IMAGE_NAME = ConfigProvider.getConfig().getValue("ibm-mq.container.image", String.class);
     private static final int PORT = 1414;
+    private static final String LICENSE_APPROVAL = "accept";
     private static final String QUEUE_MANAGER_NAME = "QM1";
     private static final String USER = "app";
     private static final String PASSWORD = "passw0rd";
@@ -41,9 +46,10 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         container = new GenericContainer<>(DockerImageName.parse(IMAGE_NAME))
+                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .withExposedPorts(PORT)
                 .withEnv(Map.of(
-                        "LICENSE", System.getProperty("ibm.mq.container.license"),
+                        "LICENSE", LICENSE_APPROVAL,
                         "MQ_QMGR_NAME", QUEUE_MANAGER_NAME))
                 .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAdminPassword")
                 .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAppPassword")
@@ -76,7 +82,7 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
     }
 
     /**
-     * By default the user does have access just to predefined queues, this will add permissions to access
+     * By default, the user does have access just to predefined queues, this will add permissions to access
      * all standard queues + topics and a special system queue.
      *
      * @return mqsc config string
@@ -84,6 +90,9 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
     private String mqscConfig() {
         return "SET AUTHREC PROFILE('*') PRINCIPAL('" + USER + "') OBJTYPE(TOPIC) AUTHADD(ALL)\n"
                 + "SET AUTHREC PROFILE('*') PRINCIPAL('" + USER + "') OBJTYPE(QUEUE) AUTHADD(ALL)\n"
-                + "SET AUTHREC PROFILE('SYSTEM.DEFAULT.MODEL.QUEUE') OBJTYPE(QUEUE) PRINCIPAL('" + USER + "') AUTHADD(ALL)";
+                + "SET AUTHREC PROFILE('SYSTEM.DEFAULT.MODEL.QUEUE') OBJTYPE(QUEUE) PRINCIPAL('" + USER + "') AUTHADD(ALL)\n"
+                // Need to explicitly set AUTHREC for queues used with JMSReplyTo
+                + "SET AUTHREC PROFILE('exception.queue') PRINCIPAL('" + USER + "') OBJTYPE(QUEUE) AUTHADD(ALL)\n"
+                + "REFRESH SECURITY TYPE(AUTHSERV)";
     }
 }

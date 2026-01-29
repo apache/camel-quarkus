@@ -205,7 +205,7 @@
 This product includes a Maven wrapper.
 * mvnw
 * mvnw.cmd
-Copyright: Copyright 2001-2025 The Apache Software Foundation
+Copyright: Copyright 2001-2026 The Apache Software Foundation
 Home page: https://maven.apache.org
 License: https://www.apache.org/licenses/LICENSE-2.0
 --------------------------------------------------------------------------------

@@ -105,7 +105,7 @@
         <google-cloud-storage.version>2.44.1</google-cloud-storage.version><!-- @sync com.google.cloud:google-cloud-storage-bom:${google-cloud-storage-bom.version} dep:com.google.cloud:google-cloud-storage -->
         <google-gax-httpjson.version>2.57.0</google-gax-httpjson.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:gax-httpjson -->
         <google-oauth-client.version>1.36.0</google-oauth-client.version><!-- @sync com.google.cloud:google-cloud-bigquery:${google-cloud-bigquery.version} dep:com.google.oauth-client:google-oauth-client -->
-        <graalvm.version>23.1.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
+        <graalvm.version>23.1.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:nativeimage -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
         <groovy.version>4.0.28</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
         <hapi.version>${hapi-version}</hapi.version>
@@ -140,6 +140,7 @@
         <langchain4j.version>1.5.0</langchain4j.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j.version -->
         <langchain4j-beta.version>1.5.0-beta11</langchain4j-beta.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j-beta.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
+        <mbassador.version>1.3.0</mbassador.version><!-- @sync com.hierynomus:smbj:${smbj-version} dep:net.engio:mbassador -->
         <minio.version>8.6.0</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.21.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <murmur.version>1.0.0</murmur.version>

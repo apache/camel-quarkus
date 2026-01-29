@@ -43,10 +43,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-development-mode-spi</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.camel</groupId>
