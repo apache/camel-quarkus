@@ -16,6 +16,13 @@
  */
 package org.apache.camel.quarkus.component.docling.it;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -28,6 +35,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @QuarkusTest
@@ -190,8 +198,36 @@ class DoclingTest {
     }
 
     @Test
-    @Disabled("test to implement")
-    void convertToMarkdownAsyncInBatch() {
+    void convertToMarkdownAsyncInBatch() throws IOException {
+        List<String> filePaths = createTestFiles();
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(filePaths)
+                .when()
+                .post("/docling/batch/convert/markdown")
+                .then()
+                .statusCode(200)
+                .body("totalDocuments", equalTo(filePaths.size()))
+                .body("successCount", equalTo(filePaths.size()))
+                .body("results[0].result", containsString(
+                        """
+                                # Test doc 0
+
+                                content 0"""));
+    }
+
+    private List<String> createTestFiles() throws IOException {
+        List<String> filePaths = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Path filepath = Files.createTempFile("test-docling-batch-" + i + "-", ".md");
+            Files.writeString(filepath,
+                    """
+                            # Test doc %s
+
+                            content %s""".formatted(i, i), StandardOpenOption.CREATE);
+            filePaths.add(filepath.toAbsolutePath().toString());
+        }
+        return filePaths;
     }
 
     @Test
