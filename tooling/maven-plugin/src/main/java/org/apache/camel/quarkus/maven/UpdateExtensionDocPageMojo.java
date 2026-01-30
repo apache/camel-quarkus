@@ -198,7 +198,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 deploymentModuleDir,
                 multiModuleProjectDirectory.toPath(),
                 ext.getRuntimeArtifactIdBase());
-        model.put("configOptions", configOptions);
         model.put("hasDurationOption", configOptions.stream().anyMatch(ConfigItem::isTypeDuration));
         model.put("hasMemSizeOption", configOptions.stream().anyMatch(ConfigItem::isTypeMemSize));
         model.put("configOptions", configOptions);
