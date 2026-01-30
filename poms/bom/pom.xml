@@ -8460,7 +8460,6 @@
                             </resolutionEntryPointIncludes>
                             <resolutionExcludes>
                                 <!-- Exclude artifacts that we do not want in the flattened BOM -->
-                                <resolutionExclude>at.yawk.lz4:lz4-java:*:*:*:*</resolutionExclude><!-- TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8188  -->
                                 <resolutionExclude>*:*:*:*:*:test</resolutionExclude>
                                 <resolutionExclude>*:*:*:test-jar:*:*</resolutionExclude>
                                 <resolutionExclude>*:*:*:*:tests:*</resolutionExclude>
