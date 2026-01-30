@@ -2308,6 +2308,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-openai</artifactId>
+        <version>4.17.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-openapi-java</artifactId>
         <version>4.17.0</version>
         <exclusions>
@@ -5585,6 +5596,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-once-deployment</artifactId>
+        <version>3.32.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-openai</artifactId>
+        <version>3.32.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-openai-deployment</artifactId>
         <version>3.32.0-SNAPSHOT</version>
       </dependency>
       <dependency>

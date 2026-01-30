@@ -1,0 +1,43 @@
+{
+  "id" : "74689f85-f209-4129-b2c8-5e4d38c8eb54",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"I am a Camel and my species is Camelus Dromedarius.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"temperature\":1.0}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D2acuKCizPKhRtRg7za2XobaULzIZ\",\n  \"object\": \"chat.completion\",\n  \"created\": 1769509820,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Hello, noble dromedary (Camelus dromedarius)! The one‑humped desert specialist.\\n\\nQuick facts:\\n- Adapted to heat: can lose ~25% body water and rehydrate fast (up to ~100 liters).\\n- Hump stores fat for energy; not water.\\n- Three-chambered foregut fermenter; eats tough, thorny plants.\\n- Long lashes and closable nostrils keep out sand.\\n- Top speed ~65 km/h; good endurance around 40 km/h.\\n- Gestation ~13 months; usually one calf; lifespan often 40–50 years.\\n\\nWhat would you like—biology facts, behavior insights, differences from Bactrian camels, care/husbandry tips, or a desert-themed story?\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 21,\n    \"completion_tokens\": 1446,\n    \"total_tokens\": 1467,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 1280,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_235a97c40a5946a2b4f47c7cac94fb73",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-nvrq0gduw4i0ooapnshoh6gw",
+      "CF-RAY" : "9c4792f3f89ec16b-LHR",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499985",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Tue, 27 Jan 2026 10:30:40 GMT",
+      "x-ratelimit-reset-tokens" : "1ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=33byza1OYC15qC511TZS_ytkkbXGjCsihf2Va75m_C8-1769509840-1.0.1.1-sWlxikX3h1CzbG8teJ.NIMKqaY9olMkhsGOwWTdUQ11VE9fnrHXw1pyHz7.VvD_de8N3UMVBNPkCtPBQR9wbiMwCJ.9XvESHkoDQf3RQli0; path=/; expires=Tue, 27-Jan-26 11:00:40 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=kpNFQ_OqqCEUnWomGoWgeWYqAfsLVf9zPWIQ5NXN2S4-1769509840956-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "20843",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "74689f85-f209-4129-b2c8-5e4d38c8eb54",
+  "persistent" : true,
+  "insertionIndex" : 8
+}
