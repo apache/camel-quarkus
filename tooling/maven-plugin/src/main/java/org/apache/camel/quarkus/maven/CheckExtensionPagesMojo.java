@@ -90,6 +90,13 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     String localRepository;
 
     /**
+     * Configures the names of additional extensions that are not present in the Camel catalog.
+     * Useful for when a component was unintentionally missed out of a Camel catalog release.
+     */
+    @Parameter(property = "additionalExtensions")
+    private Set<String> additionalExtensions = new HashSet<>();
+
+    /**
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
@@ -117,6 +124,9 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
                         .map(CqCatalog::toCamelDocsModel)
                         .map(ArtifactModel::getName)
                         .collect(Collectors.toSet());
+
+                cqNames.addAll(additionalExtensions);
+
                 final Set<String> camelNames = camelCatalog.models(kind)
                         .filter(CqCatalog::isFirstScheme)
                         .map(CqCatalog::toCamelDocsModel)
