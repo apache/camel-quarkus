@@ -251,6 +251,7 @@
 *** xref:reference/extensions/observability-services.adoc[Observability Services]
 *** xref:reference/extensions/olingo4.adoc[Olingo4]
 *** xref:reference/extensions/once.adoc[Once]
+*** xref:reference/extensions/openai.adoc[OpenAI]
 *** xref:reference/extensions/openapi-java.adoc[OpenAPI Java]
 *** xref:reference/extensions/opensearch.adoc[OpenSearch]
 *** xref:reference/extensions/openstack.adoc[OpenStack]

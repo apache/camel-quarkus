@@ -3115,6 +3115,19 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-openai</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-openapi-java</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
@@ -4862,6 +4875,10 @@
                                 <skipArtifactIdBase>support-.*</skipArtifactIdBase>
                                 <skipArtifactIdBase>integration-tests?-support-.*</skipArtifactIdBase>
                             </skipArtifactIdBases>
+                            <!-- TODO: Remove this with Camel >= 4.18.0 -->
+                            <additionalExtensions>
+                                <additionalExtension>openai</additionalExtension>
+                            </additionalExtensions>
                         </configuration>
                     </execution>
                 </executions>

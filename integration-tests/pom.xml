@@ -190,6 +190,7 @@
         <module>ognl</module>
         <module>olingo4</module>
         <module>once</module>
+        <module>openai</module>
         <module>openapi-java</module>
         <module>openstack</module>
         <module>opentelemetry</module>
