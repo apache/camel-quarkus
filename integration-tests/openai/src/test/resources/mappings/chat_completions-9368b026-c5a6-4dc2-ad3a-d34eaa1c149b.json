@@ -1,0 +1,43 @@
+{
+  "id" : "9368b026-c5a6-4dc2-ad3a-d34eaa1c149b",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"Create an example product description.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"response_format\":{\"json_schema\":{\"name\":\"camel_schema\",\"schema\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"price\":{\"type\":\"number\"}}}},\"type\":\"json_schema\"},\"temperature\":1.0}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D2adkRbYAuoCLZFmOSbydHCztd0Jx\",\n  \"object\": \"chat.completion\",\n  \"created\": 1769509872,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\\"name\\\":\\\"Aurora Smart Mug (12 oz, Temperature-Controlled)\\\",\\\"price\\\":129.99}\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 45,\n    \"completion_tokens\": 1251,\n    \"total_tokens\": 1296,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 1216,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_c8cd80a34c514cf39a913625256dfb9c",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-nvrq0gduw4i0ooapnshoh6gw",
+      "CF-RAY" : "9c479440789735ca-LHR",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499988",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Tue, 27 Jan 2026 10:31:31 GMT",
+      "x-ratelimit-reset-tokens" : "1ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=d0AxkyftuYYziAnrqHz..8QdV9pLr63OWpq5cUnC.7k-1769509891-1.0.1.1-KGITVe8dMxwpFIZC5yByRG51C4L_Mvs81l7kheCwI5Q7oSbeGn8R5L3pHCwkISkMbWHsL4m115KnxUGo1h9kfgUvGUHrcbObZ3wpq0xza.M; path=/; expires=Tue, 27-Jan-26 11:01:31 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=nMBpOA30JgxvHJZTVFpzf1SoQBJnneKeAZaEPqHIrTg-1769509891388-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "18380",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "9368b026-c5a6-4dc2-ad3a-d34eaa1c149b",
+  "persistent" : true,
+  "insertionIndex" : 4
+}

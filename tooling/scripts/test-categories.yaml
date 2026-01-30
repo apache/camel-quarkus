@@ -136,6 +136,7 @@ group-07:
   - lumberjack
   - ognl
   - olingo4
+  - openai
   - optaplanner
   - pg-replication-slot
   - splunk-hec

@@ -1,0 +1,36 @@
+== Camel Quarkus OpenAI Integration Tests
+
+By default, the OpenAI integration tests use WireMock to stub the API interactions.
+
+=== Testing with OpenAI
+
+To run the `camel-quarkus-openai` integration tests against the real OpenAI APIs, you must first create a OpenAI developer account https://developers.openai.com/.
+Or if you are already registered for ChatGPT, then you can use your account credentials to log in to the developer area.
+
+With access to the developer area you can create a new project together with an API key for use in the required environment variables as shown below.
+
+[source,shell]
+----
+export OPENAI_API_KEY=your-openai-api-key
+----
+
+This will test with model `gpt-5` against the default API endpoint of https://api.openai.com/v1.
+
+=== Testing with alternate OpenAI compatible providers
+
+Alternatively, you can test against any OpenAI compatible API by configuring the endpoint URL.
+
+[source,shell]
+----
+export OPENAI_API_KEY=fake-key
+export OPENAI_BASE_URL=https://you-api-endpoint/v1
+export OPENAI_MODEL=your-model-name
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
