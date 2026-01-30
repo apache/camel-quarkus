@@ -7667,7 +7667,7 @@
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-query-builder</artifactId>
-        <version>4.19.0</version>
+        <version>4.19.2</version>
         <exclusions>
           <exclusion>
             <groupId>com.github.spotbugs</groupId>
@@ -9199,7 +9199,7 @@
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-core</artifactId>
-        <version>4.19.0</version>
+        <version>4.19.2</version>
         <exclusions>
           <exclusion>
             <groupId>io.dropwizard.metrics</groupId>
@@ -9214,7 +9214,7 @@
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.github.spotbugs</groupId>
@@ -9229,17 +9229,17 @@
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client-deployment</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-guava-shaded</artifactId>
-        <version>4.19.0</version>
+        <version>4.19.2</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId>
         <artifactId>native-protocol</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
