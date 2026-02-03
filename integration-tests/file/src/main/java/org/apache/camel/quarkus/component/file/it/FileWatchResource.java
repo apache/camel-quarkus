@@ -16,10 +16,14 @@
  */
 package org.apache.camel.quarkus.component.file.it;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.Map;
+
+import io.methvin.watcher.hashing.FileHash;
+import io.methvin.watcher.hashing.FileHasher;
+import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -31,32 +35,55 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.component.file.watch.FileWatchConstants;
 import org.apache.camel.component.file.watch.constants.FileEventEnum;
+import org.apache.camel.util.ObjectHelper;
 
 @Path("/file-watch")
 @ApplicationScoped
 public class FileWatchResource {
-
     @Inject
     ConsumerTemplate consumerTemplate;
 
     @Path("/get-events")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEvent(@QueryParam("path") String path) throws Exception {
-        final Exchange exchange = consumerTemplate.receiveNoWait("file-watch://" + path);
+    public Response getEvent(
+            @QueryParam("path") String path,
+            @QueryParam("include") String include,
+            @QueryParam("fileHasher") String fileHasher) {
+
+        String uri = "file-watch:" + path;
+        boolean firstParam = true;
+
+        if (ObjectHelper.isNotEmpty(include)) {
+            uri += "?" + "antInclude=" + include;
+            firstParam = false;
+        }
+
+        if (ObjectHelper.isNotEmpty(fileHasher)) {
+            uri += (firstParam ? "?" : "&") + "fileHasher=" + fileHasher;
+        }
+
+        final Exchange exchange = consumerTemplate.receiveNoWait(uri);
         if (exchange == null) {
             return Response.noContent().build();
         } else {
             final Message message = exchange.getMessage();
-            final ObjectMapper mapper = new ObjectMapper();
-            final ObjectNode node = mapper.createObjectNode();
-            node.put("type", message.getHeader(FileWatchConstants.EVENT_TYPE_HEADER, FileEventEnum.class).toString());
-            node.put("path", message.getHeader("CamelFileAbsolutePath", String.class));
-            return Response
-                    .ok()
-                    .entity(node)
+            return Response.ok()
+                    .entity(Map.of(
+                            "type", message.getHeader(FileWatchConstants.EVENT_TYPE_HEADER, FileEventEnum.class).toString(),
+                            "path", message.getHeader(FileWatchConstants.FILE_ABSOLUTE_PATH, String.class)))
                     .build();
         }
     }
 
+    @Identifier("customFileHasher")
+    @Singleton
+    FileHasher customFileHasher() {
+        return new FileHasher() {
+            @Override
+            public FileHash hash(java.nio.file.Path path) {
+                return FileHash.fromLong(1L);
+            }
+        };
+    }
 }

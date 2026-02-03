@@ -30,7 +30,7 @@ import io.methvin.watcher.visitor.FileTreeVisitor;
 public final class SubstituteDirectoryWatcherBuilder {
     @Substitute
     private Builder osDefaultWatchService(FileTreeVisitor fileTreeVisitor) throws IOException {
-        /* Never call MacOSXListeningWatchService */
+        // Cut out references to JNA dependent MacOSXListeningWatchService and force the default JDK file watch service
         return watchService(FileSystems.getDefault().newWatchService());
     }
 
