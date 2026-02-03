@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.file.it;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,9 +28,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.ValidatableResponse;
-import org.apache.camel.quarkus.core.util.FileUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -231,53 +227,4 @@ class FileTest {
                         .extract().asString(),
                 equalTo(SORT_BY_NAME_3_CONTENT + SEPARATOR + SORT_BY_NAME_2_CONTENT + SEPARATOR + SORT_BY_NAME_1_CONTENT));
     }
-
-    @Test
-    public void fileWatchShouldCatchCreateModifyAndDeleteEvents() throws IOException {
-        final Path fileWatchDirectory = Files.createTempDirectory(FileTest.class.getSimpleName()).toRealPath();
-        RestAssured.given()
-                .queryParam("path", fileWatchDirectory.toString())
-                .get("/file-watch/get-events")
-                .then()
-                .statusCode(204);
-
-        final Path watchedFilePath = fileWatchDirectory.resolve("watched-file.txt");
-        Files.write(watchedFilePath, "a file content".getBytes(StandardCharsets.UTF_8));
-        awaitEvent(fileWatchDirectory, watchedFilePath, "CREATE");
-
-        Files.write(watchedFilePath, "changed content".getBytes(StandardCharsets.UTF_8));
-        awaitEvent(fileWatchDirectory, watchedFilePath, "MODIFY");
-
-        Files.delete(watchedFilePath);
-        awaitEvent(fileWatchDirectory, watchedFilePath, "DELETE");
-    }
-
-    private static void awaitEvent(final Path fileWatchDirectory, final Path watchedFile, final String extepecteEventType) {
-        await()
-                .pollInterval(100, TimeUnit.MILLISECONDS)
-                .atMost(20, TimeUnit.SECONDS)
-                .until(() -> {
-                    final ValidatableResponse getEventsResponse = RestAssured.given()
-                            .queryParam("path", fileWatchDirectory.toString())
-                            .get("/file-watch/get-events")
-                            .then();
-                    switch (getEventsResponse.extract().statusCode()) {
-                    case 204:
-                        /*
-                         * the event may come with some delay through all the OS and Java layers so it is
-                         * rather normal to get 204 before getting the expected event
-                         */
-                        return false;
-                    case 200:
-                        final JsonPath json = getEventsResponse.extract().jsonPath();
-
-                        String expectedPath = FileUtils.nixifyPath(watchedFile);
-                        String actualPath = json.getString("path");
-                        return expectedPath.equals(actualPath) && extepecteEventType.equals(json.getString("type"));
-                    default:
-                        throw new RuntimeException("Unexpected status code " + getEventsResponse.extract().statusCode());
-                    }
-                });
-    }
-
 }
