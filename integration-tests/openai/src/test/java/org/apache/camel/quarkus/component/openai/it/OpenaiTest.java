@@ -169,7 +169,7 @@ class OpenaiTest {
 
                     if (response.getStatusCode() == 200) {
                         String result = response.getBody().asString();
-                        if (result != null && !result.isBlank()) {
+                        if (result != null) {
                             receivedNumbers.add(result.trim());
                         }
                     }

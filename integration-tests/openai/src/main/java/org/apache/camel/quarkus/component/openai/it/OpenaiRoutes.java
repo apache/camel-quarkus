@@ -26,6 +26,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.openai.it.model.Product;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 
 public class OpenaiRoutes extends RouteBuilder {
 
@@ -44,18 +45,16 @@ public class OpenaiRoutes extends RouteBuilder {
                     public void process(Exchange exchange) throws Exception {
                         Message message = exchange.getMessage();
                         ChatCompletionChunk chunk = message.getBody(ChatCompletionChunk.class);
+                        message.setBody(null);
+
                         List<Choice> choices = chunk.choices();
                         if (!choices.isEmpty()) {
                             Choice choice = choices.get(0);
                             choice.delta().content().ifPresent(content -> {
-                                if (ObjectHelper.isNotEmpty(content) && !content.equals("\n")) {
+                                if (ObjectHelper.isNotEmpty(content) && StringHelper.isDigit(content)) {
                                     message.setBody(content);
-                                } else {
-                                    message.setBody(null);
                                 }
                             });
-                        } else {
-                            message.setBody(null);
                         }
                     }
                 })
