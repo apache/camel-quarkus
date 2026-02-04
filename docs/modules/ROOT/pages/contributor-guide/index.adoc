@@ -9,9 +9,9 @@
 * GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set, see
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
   documentation.
-* If your are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
+* If you are on Linux, `docker` or `podman` is sufficient for the native mode too. Use `-Pnative,docker` or `-Pnative,podman` respectively instead of `-Pnative`
   if you choose this option.
-* Java 11 for Camel Quarkus < 3.0.0 and then Java 17 for Camel Quarkus >= 3.0.0
+* Java 17 or higher (Java 11 is only for Camel Quarkus < 3.0.0).
 * Maven {min-maven-version}+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
 
 [[how-to-build]]
@@ -51,6 +51,8 @@ TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - 
 TIP: For building native images on MacOS, you usually **do not need** to use `-Dquarkus.native.container-build`. This option is primarily intended for Linux systems, where the native image build runs inside a Docker container. On MacOS, GraalVM can typically generate the native image directly, so omitting this option simplifies the build and avoids unnecessary errors.
 
 TIP: Extensions that depend on Java AWT are not yet supported for native image generation on MacOS. If an integration test fails when running `mvnd clean install -Dnative` due to missing AWT support, this is expected and not necessarily a problem with your environment. Running the same test in JVM mode (`mvn clean install`) should work correctly.
+
+TIP: To run a specific integration test, you can use the `-Dtest` property. For example: `mvn clean test -Dtest=MyTest`. To run tests in a specific module, use the `-pl` (project list) flag: `mvn clean test -pl integration-tests/my-module`.
 
 == What's next?
 
