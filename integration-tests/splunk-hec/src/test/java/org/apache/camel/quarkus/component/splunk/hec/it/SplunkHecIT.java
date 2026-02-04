@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.splunk.hec.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 
 @QuarkusIntegrationTest
+@DisabledOnArm
 class SplunkHecIT extends SplunkHecTest {
 }

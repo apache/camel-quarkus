@@ -18,9 +18,11 @@ package org.apache.camel.quarkus.component.jdbc.db2;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.apache.camel.quarkus.test.DisabledIfFipsMode;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 
 @QuarkusIntegrationTest
 @DisabledIfFipsMode //https://github.com/apache/camel-quarkus/issues/5993
+@DisabledOnArm
 public class CamelDb2JdbcIT extends CamelDb2JdbcTest {
 
 }

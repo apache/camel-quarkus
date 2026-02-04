@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.jdbc.mssql;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 
 @QuarkusIntegrationTest
+@DisabledOnArm
 public class CamelMssqlJdbcIT extends CamelMssqlJdbcTest {
 
 }
