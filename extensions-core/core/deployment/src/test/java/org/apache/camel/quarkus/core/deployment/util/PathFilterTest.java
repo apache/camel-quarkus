@@ -71,21 +71,22 @@ public class PathFilterTest {
     @Test
     public void pathFilter() {
         PathFilter.Builder builder = new PathFilter.Builder();
-        Stream.of("/foo/bar/*", "moo/mar/*")
-                .forEach(path -> {
-                    if (FileUtil.isWindows()) {
-                        path = path.replace("/", File.pathSeparator);
-                    }
-                    builder.include(path);
-                });
+        List<String> includes = List.of("/foo/bar/*", "moo/mar/*");
+        List<String> excludes = List.of("/foo/baz/*", "moo/maz/*");
 
-        Stream.of("/foo/baz/*", "moo/maz/*")
-                .forEach(path -> {
-                    if (FileUtil.isWindows()) {
-                        path = path.replace("/", File.pathSeparator);
-                    }
-                    builder.exclude(path);
-                });
+        for (String path : includes) {
+            if (FileUtil.isWindows()) {
+                path = path.replace("/", File.pathSeparator);
+            }
+            builder.include(path);
+        }
+
+        for (String path : excludes) {
+            if (FileUtil.isWindows()) {
+                path = path.replace("/", File.pathSeparator);
+            }
+            builder.exclude(path);
+        }
 
         Predicate<Path> predicate = builder
                 .include("/foo/bar/*")
