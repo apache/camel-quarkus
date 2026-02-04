@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.core.deployment.util;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -40,33 +39,33 @@ public class PathFilterTest {
     public void stringFilter() {
         assertFalse(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList("org/**"),
-                Arrays.asList()));
+                List.of("org/**"),
+                List.of()));
         assertFalse(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList("org/**"),
-                Arrays.asList("org/**", "org/acme/MyClass")));
+                List.of("org/**"),
+                List.of("org/**", "org/acme/MyClass")));
         assertFalse(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList("org/acme/M*"),
-                Arrays.asList("org/acme/MyClass")));
+                List.of("org/acme/M*"),
+                List.of("org/acme/MyClass")));
         assertFalse(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList(),
-                Arrays.asList("org/acme/A*")));
+                List.of(),
+                List.of("org/acme/A*")));
 
         assertTrue(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList(),
-                Arrays.asList()));
+                List.of(),
+                List.of()));
         assertTrue(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList(),
-                Arrays.asList("org/**")));
+                List.of(),
+                List.of("org/**")));
         assertTrue(isPathIncluded(
                 "org/acme/MyClass",
-                Arrays.asList("org/acme/A*"),
-                Arrays.asList("org/acme/MyClass")));
+                List.of("org/acme/A*"),
+                List.of("org/acme/MyClass")));
     }
 
     @Test
@@ -142,7 +141,7 @@ public class PathFilterTest {
         final Set<String> classNames = new TreeSet<>();
         filter.scanClassNames(rootPath, pathStream, isRegularFile, classNames::add);
 
-        Assertions.assertEquals(new TreeSet<>(Arrays.asList(
+        Assertions.assertEquals(new TreeSet<>(List.of(
                 "org.p1.Class1",
                 "org.p1.Class1$Inner",
                 "org.p2.whatever.Class2")),
@@ -161,7 +160,6 @@ public class PathFilterTest {
                 .build();
         Set<String> selectedPaths = new TreeSet<>();
         pathFilter.addNonPatternPaths(selectedPaths);
-        Assertions.assertEquals(new TreeSet<>(Arrays.asList("org.p3.NonPatternClass")), selectedPaths);
+        Assertions.assertEquals(new TreeSet<>(List.of("org.p3.NonPatternClass")), selectedPaths);
     }
-
 }

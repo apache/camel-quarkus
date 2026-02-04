@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,7 +72,7 @@ import static org.apache.commons.lang3.ClassUtils.getPackageName;
 public class CamelNativeImageProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelNativeImageProcessor.class);
 
-    private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
+    private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = List.<Class<?>> of(
             Endpoint.class,
             Consumer.class,
             Producer.class,
@@ -201,7 +200,8 @@ public class CamelNativeImageProcessor {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
                     if (runtimeCatalog.transformers()
-                            && service.path.startsWith(DefaultTransformerResolver.DATA_TYPE_TRANSFORMER_RESOURCE_PATH)) {
+                            && service.path
+                                    .startsWith(DefaultTransformerResolver.DATA_TYPE_TRANSFORMER_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
                 });

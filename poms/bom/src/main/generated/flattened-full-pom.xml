@@ -22,9 +22,6 @@
       <url>http://camel.apache.org</url><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
       <organization>Apache Software Foundation</organization><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
       <organizationUrl>http://apache.org/</organizationUrl><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
-      <properties>
-        <picUrl>http://camel.apache.org/banner.data/apache-camel-7.png</picUrl><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
-      </properties>
     </developer>
   </developers>
   <scm>
