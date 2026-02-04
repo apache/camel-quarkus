@@ -108,23 +108,7 @@ public class CamelNativeImageProcessor {
         List<ClassInfo> converterClasses = view.getAnnotations(converter)
                 .stream()
                 .filter(ai -> ai.target().kind() == Kind.CLASS)
-                .filter(ai -> {
-                    AnnotationValue av = ai.value("loader");
-                    boolean isLoader = av != null && av.asBoolean();
-                    // filter out camel-base converters which are automatically inlined in the
-                    // CoreStaticTypeConverterLoader
-                    // need to revisit with Camel 3.0.0-M3 which should improve this area
-                    if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
-                        LOGGER.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
-                        return false;
-                    } else if (isLoader) {
-                        LOGGER.debug("Ignoring " + ai + " " + ai.target().asClass().name());
-                        return false;
-                    } else {
-                        LOGGER.debug("Accepting " + ai + " " + ai.target().asClass().name());
-                        return true;
-                    }
-                })
+                .filter(this::shouldRegisterConverter)
                 .map(ai -> ai.target().asClass())
                 .collect(Collectors.toList());
 
@@ -145,6 +129,24 @@ public class CamelNativeImageProcessor {
                         "org.apache.camel.support.AbstractExchange",
                         org.apache.camel.support.MessageSupport.class.getName())
                         .methods().build());
+    }
+
+    private boolean shouldRegisterConverter(org.jboss.jandex.AnnotationInstance ai) {
+        AnnotationValue av = ai.value("loader");
+        boolean isLoader = av != null && av.asBoolean();
+        // filter out camel-base converters which are automatically inlined in the
+        // CoreStaticTypeConverterLoader
+        // need to revisit with Camel 3.0.0-M3 which should improve this area
+        if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
+            LOGGER.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
+            return false;
+        } else if (isLoader) {
+            LOGGER.debug("Ignoring " + ai + " " + ai.target().asClass().name());
+            return false;
+        } else {
+            LOGGER.debug("Accepting " + ai + " " + ai.target().asClass().name());
+            return true;
+        }
     }
 
     @BuildStep
