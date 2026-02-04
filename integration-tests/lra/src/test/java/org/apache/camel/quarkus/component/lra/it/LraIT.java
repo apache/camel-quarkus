@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.lra.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 
 @QuarkusIntegrationTest
+@DisabledOnArm
 class LraIT extends LraTest {
 
 }

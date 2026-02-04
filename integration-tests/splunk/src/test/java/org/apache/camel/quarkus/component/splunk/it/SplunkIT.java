@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.splunk.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 
 @QuarkusIntegrationTest
+@DisabledOnArm
 class SplunkIT extends SplunkTest {
 }
