@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.nitrite.it;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
+@DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/8245")
 @QuarkusIntegrationTest
 class NitriteIT extends NitriteTest {
 
