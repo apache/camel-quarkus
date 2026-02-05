@@ -189,7 +189,8 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
             }
         }
         if (!valid) {
-            LOG.warn("Unknown option: {}", String.join(" ", unknownArgs));
+            System.out.println("Unknown option: " + String.join(" ", unknownArgs));
+            System.out.println();
             showOptions();
             if (failureRemedy.equals(FailureRemedy.fail)) {
                 completed();
