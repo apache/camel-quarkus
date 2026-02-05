@@ -288,12 +288,9 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     }
 
     private String loadJsonSchema(String path) throws IOException {
-        InputStream inputStream = getClassResolver().loadResourceAsStream(path);
-        if (inputStream != null) {
-            try {
+        try (InputStream inputStream = getClassResolver().loadResourceAsStream(path)) {
+            if (inputStream != null) {
                 return IOHelper.loadText(inputStream);
-            } finally {
-                IOHelper.close(inputStream);
             }
         }
         return null;
