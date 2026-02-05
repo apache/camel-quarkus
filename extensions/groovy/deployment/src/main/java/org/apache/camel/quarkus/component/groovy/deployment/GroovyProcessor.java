@@ -123,7 +123,18 @@ class GroovyProcessor {
         if (sources.isEmpty()) {
             return;
         }
-        CompilationUnit unit = new CompilationUnit();
+
+        CompilerConfiguration configuration = new CompilerConfiguration();
+        // Disable InvokeDynamic because it triggers code paths to GraalVM deleted MethodHandleNatives.setCallSiteTargetNormal
+        configuration.getOptimizationOptions().put(CompilerConfiguration.INVOKEDYNAMIC, Boolean.FALSE);
+        configuration.setClasspathList(
+                curateOutcomeBuildItem.getApplicationModel().getDependencies().stream()
+                        .map(ResolvedDependency::getResolvedPaths)
+                        .flatMap(PathCollection::stream)
+                        .map(Objects::toString)
+                        .toList());
+
+        CompilationUnit unit = new CompilationUnit(configuration);
         Set<String> classNames = new HashSet<>();
         for (GroovyExpressionSourceBuildItem source : sources) {
             String name = source.getClassName();
@@ -134,14 +145,7 @@ class GroovyProcessor {
             unit.addSource(name, content);
             classNames.add(name);
         }
-        CompilerConfiguration cc = new CompilerConfiguration();
-        cc.setClasspathList(
-                curateOutcomeBuildItem.getApplicationModel().getDependencies().stream()
-                        .map(ResolvedDependency::getResolvedPaths)
-                        .flatMap(PathCollection::stream)
-                        .map(Objects::toString)
-                        .toList());
-        unit.configure(cc);
+        unit.configure(configuration);
         unit.compile(Phases.CLASS_GENERATION);
         for (GroovyClass clazz : unit.getClasses()) {
             String className = clazz.getName();
