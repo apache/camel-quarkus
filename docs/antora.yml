@@ -34,7 +34,7 @@ asciidoc:
     quarkus-version: 3.31.1 # replace ${quarkus.version}
     graalvm-version: 23.1.2 # replace ${graalvm.version}
     graalvm-docs-version: jdk21 # replace ${graalvm-docs.version}
-    langchain4j-version: 1.9.1 # replace ${langchain4j.version}
+    langchain4j-version: 1.10.0 # replace ${langchain4j.version}
     mapstruct-version: 1.6.3 # replace ${mapstruct.version}
     min-maven-version: 3.8.2 # replace ${min-maven-version}
     target-maven-version: 3.9.12 # replace ${target-maven-version}
