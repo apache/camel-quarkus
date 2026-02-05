@@ -31,6 +31,8 @@ import static io.opentelemetry.semconv.incubating.CodeIncubatingAttributes.CODE_
 import static org.apache.camel.quarkus.component.opentelemetry2.it.OpenTelemetry2TestHelper.getSpans;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -151,5 +153,14 @@ class Opentelemetry2Test {
         assertEquals(spans.get(5).get("parentId"), "0000000000000000");
         assertEquals("org.apache.camel.quarkus.component.opentelemetry2.it.OpenTelemetry2Resource.jdbcQuery",
                 spans.get(5).get(CODE_FUNCTION_NAME.getKey()));
+    }
+
+    @Test
+    void traceHeaderInclusion() {
+        RestAssured.get("/opentelemetry2/trace/headers")
+                .then()
+                .statusCode(204)
+                .header("spanId", not(emptyOrNullString()))
+                .header("traceId", not(emptyOrNullString()));
     }
 }

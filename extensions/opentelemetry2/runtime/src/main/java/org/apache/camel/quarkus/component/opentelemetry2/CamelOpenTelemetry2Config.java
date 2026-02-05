@@ -48,4 +48,12 @@ public interface CamelOpenTelemetry2Config {
      */
     @WithDefault("false")
     boolean traceProcessors();
+
+    /**
+     * If set to `true`, adds the generated telemetry `CAMEL_TRACE_ID` and `CAMEL_SPAN_ID` Exchange headers.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("false")
+    boolean traceHeadersInclusion();
 }
