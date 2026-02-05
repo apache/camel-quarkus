@@ -24,3 +24,11 @@ from("direct:start")
 
 `greeting.message` will be evaluated once at build time and its value will be permanently stored in the native image.
 It is not possible to override the value of the property at runtime. Attempting to do so will result in an exception being thrown.
+
+==== InvokeDynamic support in native mode
+
+This extension disables Groovy https://docs.groovy-lang.org/next/html/documentation/invokedynamic-support.html[InvokeDynamic] support during script compilation.
+
+Please note that if scripts or their dependencies make any explicit reference to `InvokeDynamic`, they will not work since the underlying logic required to support the feature is not available in GraalVM / Mandrel >= 25
+
+`InvokeDynamic` support in JVM mode is not affected and remains enabled.
