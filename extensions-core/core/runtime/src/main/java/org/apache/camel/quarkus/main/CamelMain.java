@@ -144,7 +144,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
                     camelTemplate = null;
                 }
             } catch (Exception e) {
-                LOG.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
+                LOG.debug("Error stopping camelTemplate due {}. This exception is ignored.", e.getMessage(), e);
             }
 
             beforeStop();
