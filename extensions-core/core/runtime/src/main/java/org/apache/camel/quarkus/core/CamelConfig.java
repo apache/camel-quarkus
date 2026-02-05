@@ -278,7 +278,7 @@ public interface CamelConfig {
          *
          * @asciidoclet
          */
-        Optional<List<String>> includePatterns();
+        public Optional<List<String>> includePatterns();
 
         /**
          * If `true`, basic classes are registered for serialization; otherwise basic classes won't be registered automatically
