@@ -1,0 +1,449 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Semeru JDK Testing
+
+on:
+  schedule:
+    # Run every sunday at 0 AM
+    - cron:  '0 0 * * SUN'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+env:
+  LANG: en_US.UTF-8
+  MAVEN_OPTS: -Xmx3000m
+  CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
+  TESTCONTAINERS_RYUK_DISABLED: true
+  CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]' && github.head_ref || '' }}
+
+jobs:
+  pre-build-checks:
+    if: github.repository == 'camel/camel-quarkus'
+    runs-on: ubuntu-latest
+    outputs:
+      continue-build: ${{ steps.pre-build-checks.outputs.continue-build }}
+      run-checks: ${{ steps.init.outputs.run-checks }}
+    steps:
+      - name: Initialize
+        id: init
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]] && [[ "${{ github.event.pull_request.user.login }}" == "dependabot[bot]" ]]; then
+            echo "run-checks=true" >> $GITHUB_OUTPUT
+          else
+            echo "run-checks=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Set up Semeru JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        if: steps.init.outputs.run-checks == 'true'
+        with:
+          distribution: 'semeru'
+          java-version: '21'
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        if: steps.init.outputs.run-checks == 'true'
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+          fetch-depth: 0
+      - name: Pre build checks
+        id: pre-build-checks
+        run: |
+          if [[ "${{ steps.init.outputs.run-checks }}" == "true" ]]; then
+            ./mvnw cq:sync-versions -N ${CQ_MAVEN_ARGS}
+            ./mvnw clean install -pl poms/bom -am -Dcq.flatten-bom.format --fail-never ${CQ_MAVEN_ARGS}
+            ./mvnw clean install -f poms/bom ${CQ_MAVEN_ARGS}
+            ./mvnw clean validate -pl docs ${CQ_MAVEN_ARGS}
+
+            if [[ -z "$(git status --porcelain)" ]]; then
+              echo "continue-build=true" >> $GITHUB_OUTPUT
+            else
+              mkdir ./dependabot-pr
+              echo ${{ github.head_ref }} > ./dependabot-pr/BRANCH_REF
+              echo ${{ github.event.pull_request.head.sha }} > ./dependabot-pr/PR_HEAD_SHA
+              echo "$GITHUB_REF" | awk -F / '{print $3}' >  ./dependabot-pr/PR_NUMBER
+              git diff -p --binary > ./dependabot-pr/changes.patch
+
+              echo "continue-build=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "continue-build=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Upload dependabot changeset
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: steps.pre-build-checks.outputs.continue-build == 'false'
+        with:
+          name: dependabot-pr-changeset
+          path: dependabot-pr/
+          retention-days: 1
+
+  initial-mvn-install:
+    if: needs.pre-build-checks.outputs.continue-build == 'true'
+    runs-on: ubuntu-latest
+    needs: pre-build-checks
+    outputs:
+      matrix: ${{ steps.set-native-matrix.outputs.matrix }}
+      examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
+      alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
+    env:
+      MAVEN_OPTS: -Xmx4600m
+    steps:
+      - name: Check free space on disk
+        run: |
+          df -h /
+      - name: Set up Semeru 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'semeru'
+          java-version: '21'
+      - name: Build Camel
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
+        run: |
+          cd ../
+          git clone --depth 1 --branch main https://github.com/apache/camel.git \
+            && cd camel \
+            && echo "Current Camel commit:" $(git rev-parse HEAD) \
+            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -T1C
+      - name: Build Quarkus
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
+        run: |
+          git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
+            && cd quarkus \
+            && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
+            && sed -i '/<module>integration-tests<\/module>/d' pom.xml \
+            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -Prelocations -T1C
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+          fetch-depth: 0
+      - name: Update extension metadata
+        run: |
+          ./mvnw -N cq:update-quarkus-metadata ${CQ_MAVEN_ARGS}
+      - name: mvn clean install -DskipTests
+        run: |
+          eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip -Pformat
+      - name: Sync Maven properties
+        run: |
+          ./mvnw cq:sync-versions ${CQ_MAVEN_ARGS} -N
+      - name: Fail if there are uncommitted changes
+        shell: bash
+        run: |
+          [[ -z $(git status --porcelain | grep -v antora.yml) ]] || { echo 'There are uncommitted changes'; git status; git diff; exit 1; }
+      - name: Tar Maven Repo
+        shell: bash
+        run: |
+          tar -czf ${{ runner.temp }}/maven-repo.tgz -C ~ .m2/repository
+          ls -lh ${{ runner.temp }}/maven-repo.tgz
+          df -h /
+      - name: Persist Maven Repo
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: maven-repo
+          path: ${{ runner.temp }}/maven-repo.tgz
+          retention-days: 1
+      - name: Setup Native Test Matrix
+        id: set-native-matrix
+        run: |
+          CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
+          echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
+      - name: Setup Alternate JVM Matrix
+        id: set-alternate-jvm-matrix
+        shell: bash
+        run: |
+          cd integration-tests
+          mvn help:evaluate -Dexpression=project.modules -N -q -DforceStdout | sed -e 's/<[^>]*>//g' -e 's/^[[:space:]]*//' -e '/^$/d' > ${{ runner.temp }}/itest-modules.txt
+          MODULE_COUNT=$(wc -l < ${{ runner.temp }}/itest-modules.txt)
+          GROUP1_COUNT=$((MODULE_COUNT / 2))
+          GROUP2_COUNT=$((MODULE_COUNT - GROUP1_COUNT))
+          GROUP1_MODULES=$(head -n $GROUP1_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
+          GROUP2_MODULES=$(tail -n $GROUP2_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
+          echo "alternate-jvm-matrix={'include': [{'name': 'group-01', 'modules': '${GROUP1_MODULES}'},{'name': 'group-02', 'modules': '${GROUP2_MODULES}'}]}" >> $GITHUB_OUTPUT
+      - name: Setup Examples Matrix
+        id: set-examples-matrix
+        run: |
+          EXAMPLES_BRANCH="camel-quarkus-main"
+          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_BASE_REF}
+          fi
+
+          sudo apt install groovy -y --no-install-recommends
+          EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} tooling/scripts/generate-examples-matrix.groovy)
+          echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
+
+  functional-extension-tests:
+    runs-on: ubuntu-latest
+    needs: initial-mvn-install
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
+    env:
+      MAVEN_OPTS: -Xmx3000m
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+          fetch-depth: 0
+      - name: Set up Semeru JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'semeru'
+          java-version: '21'
+      - name: Download Maven Repo
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          df -h /
+          tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
+          df -h /
+      - name: cd extensions-core && mvn test
+        run: |
+          cd extensions-core
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
+            test
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: extensions-core
+      - name: cd extensions && mvn test
+        run: |
+          cd extensions
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
+            test
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: extensions
+      - name: cd test-framework && mvn test
+        run: |
+          cd test-framework
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
+            test
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: test-framework
+      - name: cd tooling && mvn verify
+        run: |
+          cd tooling
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
+            verify
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: tooling
+      - name: cd catalog && mvn test
+        run: |
+          cd catalog
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            test
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: catalog
+
+  extensions-jvm-tests:
+    runs-on: ubuntu-latest
+    needs: initial-mvn-install
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ '17', '21' ]
+    env:
+      MAVEN_OPTS: -Xmx3000m
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+          fetch-depth: 0
+      - name: Set up Semeru JDK ${{ matrix.java }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'semeru'
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          df -h /
+          tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
+          df -h /
+      - name: cd integration-tests-jvm && mvn clean test
+        run: |
+          cd integration-tests-jvm
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
+            clean test
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: integration-tests-jvm
+
+  integration-tests-alternative-platform:
+    runs-on: ${{ matrix.os }}
+    needs: initial-mvn-install
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 'windows-latest' ]
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
+    env:
+      MAVEN_OPTS: -Xmx3000m
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+          fetch-depth: 0
+      - name: Set up Semeru JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'semeru'
+          java-version: '21'
+      - name: Download Maven Repo
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
+      - name: cd integration-tests && mvn clean verify
+        shell: bash
+        run: |
+          cd integration-tests
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
+            clean verify
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: integration-tests
+
+  examples-tests:
+    name: Examples Tests - ${{matrix.name}}
+    needs: initial-mvn-install
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Semeru JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'semeru'
+          java-version: '21'
+      - name: Download Maven Repo
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          df -h /
+          tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
+          df -h /
+      - name: set CQ_VERSION
+        run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
+      - name: clone and verify examples
+        env:
+          EXAMPLE_MODULES: ${{matrix.examples}}
+        shell: '/usr/bin/bash {0}'
+        run: |
+          EXAMPLES_BRANCH="camel-quarkus-main"
+
+          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_BASE_REF}
+          fi
+
+          git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
+            && cd camel-quarkus-examples \
+            && echo "Current Examples commit:" $(git rev-parse HEAD) \
+            && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION}
+
+          BUILD_FAILURES=()
+
+          for MODULE in ${EXAMPLE_MODULES//,/ }; do
+            cd ${MODULE}
+
+            ../mvnw ${CQ_MAVEN_ARGS} clean verify \
+              -Dformatter.skip -Dimpsort.skip \
+              -Dquarkus.native.builder-image.pull=missing \
+              -Pnative,docker,ci
+
+            if [[ $? -ne 0 ]]; then
+              BUILD_FAILURES[${#BUILD_FAILURES[@]}]=${MODULE}
+            fi
+
+            cd -
+          done
+
+          if [[ ${#BUILD_FAILURES[@]} -gt 0 ]]; then
+            echo -e "\nBuild errors were encountered in the following projects:\n"
+            for FAILURE in ${BUILD_FAILURES[@]}; do
+                echo "* ${FAILURE}"
+            done
+            echo -e "\nCheck build logs for further information."
+            exit 1
+          fi
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
