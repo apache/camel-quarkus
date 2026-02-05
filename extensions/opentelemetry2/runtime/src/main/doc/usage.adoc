@@ -2,7 +2,7 @@ The extension automatically creates a Camel `OpenTelemetryTracer` and binds it t
 
 In order to send the captured traces to a tracing system, you need to configure some properties within `application.properties` like those below.
 
-NOTE: this extension may eventually replace the `opentelemetry` extension. You're invited to change the older extension usage with this one.
+NOTE: This extension addresses inconsistencies found in the original `camel-quarkus-opentelemetry` extensions and offers a more robust implementation.
 
 [source,properties]
 ----
@@ -17,7 +17,7 @@ Route endpoints can be excluded from tracing by configuring a property named `qu
 [source,properties]
 ----
 # Exclude all direct & netty-http endpoints from tracing
-quarkus.camel.opentelemetry.exclude-patterns=direct:*,netty-http:*
+quarkus.camel.opentelemetry2.exclude-patterns=direct:*,netty-http:*
 ----
 
 NOTE: The use of the https://opentelemetry.io/docs/zero-code/java/agent/[OpenTelemetry Agent] *is not needed nor recommended*.
