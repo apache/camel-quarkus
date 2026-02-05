@@ -41,5 +41,8 @@ public class OpenTelemetry2RouteBuilder extends RouteBuilder {
 
         from("direct:jdbcQuery")
                 .to("bean:jdbcQueryBean");
+
+        from("direct:traceHeaderInclusion")
+                .log("Trace info: CAMEL_SPAN_ID=${header.CAMEL_SPAN_ID}, CAMEL_TRACE_ID=${header.CAMEL_TRACE_ID}");
     }
 }

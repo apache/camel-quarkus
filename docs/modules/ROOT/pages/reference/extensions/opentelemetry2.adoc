@@ -142,6 +142,12 @@ Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the
 out Processors.
 | `boolean`
 | `false`
+
+a| [[quarkus-camel-opentelemetry2-trace-headers-inclusion]]`link:#quarkus-camel-opentelemetry2-trace-headers-inclusion[quarkus.camel.opentelemetry2.trace-headers-inclusion]`
+
+If set to `true`, adds the generated telemetry `CAMEL_TRACE_ID` and `CAMEL_SPAN_ID` Exchange headers.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]
