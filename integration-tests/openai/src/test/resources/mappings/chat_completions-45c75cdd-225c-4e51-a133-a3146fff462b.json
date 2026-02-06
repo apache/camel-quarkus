@@ -1,0 +1,43 @@
+{
+  "id" : "45c75cdd-225c-4e51-a133-a3146fff462b",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"role\":\"assistant\",\"content\":\"Hello, Camelus dromedarius! Nice to meet you. How can I help you today?\\n\\nOptions:\\n- Quick facts about dromedaries (diet, habitat, adaptations)\\n- A short story or monologue from your perspective\\n- Comparison with Bactrian camels\\n- Q&A about behavior, physiology, or history\\n\\nTell me what you’re in the mood for.\"},{\"content\":\"What is my Camel species?\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D6Fg8qzpwpUTx79NLTY7g5II4FnYz\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382608,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"You’re a dromedary camel: Camelus dromedarius.\\n\\nQuick ID:\\n- One hump (vs. two in Bactrian camels)\\n- Origin in Arabian/North African regions; now widespread\\n- Makes up ~90% of the world’s camels\\n\\nFor comparison: two humps = Bactrian (Camelus bactrianus) or the rare wild Bactrian (Camelus ferus). Want a short side-by-side?\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 97,\n    \"completion_tokens\": 552,\n    \"total_tokens\": 649,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 448,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_0e75d17071994b3f996151aafe448380",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-fc32zjefei81sjxkd0c7bqkx",
+      "CF-RAY" : "9c9acf455f46aa2f-PRG",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499912",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Fri, 06 Feb 2026 12:56:57 GMT",
+      "x-ratelimit-reset-tokens" : "10ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=qW97blIbb83rwuIR1xHkihHw59wJZRgOALV_K8IYmhk-1770382617-1.0.1.1-TtTzMzw6agG.d7L6eTqX1HeSBJuRE8AXFbQ8jhdkhPd8sowtlo8hCsEAM6XG2cJjXP7KmyPKlpn46pSATn_Efu52ZmEC71eluPPqFuScxfE; path=/; expires=Fri, 06-Feb-26 13:26:57 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=ox_..EPBHMNZ_OH5MnxAzYwFJ4r4zFDNq_gXIzwtzWc-1770382617946-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "9548",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "45c75cdd-225c-4e51-a133-a3146fff462b",
+  "persistent" : true,
+  "insertionIndex" : 7
+}

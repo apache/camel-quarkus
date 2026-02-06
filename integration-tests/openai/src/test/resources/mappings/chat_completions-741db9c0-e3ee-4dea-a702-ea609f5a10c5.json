@@ -1,0 +1,43 @@
+{
+  "id" : "741db9c0-e3ee-4dea-a702-ea609f5a10c5",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"I am a Camel and my species is Camelus Dromedarius.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D6Ffyz4I0pRVRTXvgSDNRsRChSmW7\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382598,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Hello, Camelus dromedarius! Nice to meet you. How can I help you today?\\n\\nOptions:\\n- Quick facts about dromedaries (diet, habitat, adaptations)\\n- A short story or monologue from your perspective\\n- Comparison with Bactrian camels\\n- Q&A about behavior, physiology, or history\\n\\nTell me what you’re in the mood for.\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 21,\n    \"completion_tokens\": 792,\n    \"total_tokens\": 813,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 704,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_5c9f0c40ce964b55942182be48c41290",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-fc32zjefei81sjxkd0c7bqkx",
+      "CF-RAY" : "9c9acf054ee2fc6d-PRG",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499985",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Fri, 06 Feb 2026 12:56:48 GMT",
+      "x-ratelimit-reset-tokens" : "1ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=vtW9uERXzdJf3BlggmoJn0cCfi.YT_TRnOXJjKX6Ek8-1770382608-1.0.1.1-XJ49x5qS7FoBecbW5Bu7I4YHUJjRNoInY6R5059k2Y.PfBS_kJ8gTUGlWnUCbmlF3iC1a5CVB8uG.INVMnAldOKCEqXkIJbLg5JFwxRfhOg; path=/; expires=Fri, 06-Feb-26 13:26:48 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=tHSbpy4f35FNLJRI0VSwHmibgOcyefRprw3e8GGlJME-1770382608088-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "9881",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "741db9c0-e3ee-4dea-a702-ea609f5a10c5",
+  "persistent" : true,
+  "insertionIndex" : 8
+}
