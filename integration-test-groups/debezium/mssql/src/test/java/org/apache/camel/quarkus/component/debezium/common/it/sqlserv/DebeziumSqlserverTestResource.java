@@ -35,8 +35,7 @@ import org.testcontainers.utility.DockerImageName;
 
 public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<MSSQLServerContainer<?>> {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTestResource.class);
-    private static final DockerImageName DOCKER_IMAGE_NAME = DockerImageName
-            .parse(ConfigProvider.getConfig().getValue("sql-server.container.image", String.class));
+    private DockerImageName dockerImageName;
     private static final int DB_PORT = 1433;
     private Path historyFile;
 
@@ -46,7 +45,9 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
 
     @Override
     protected MSSQLServerContainer<?> createContainer() {
-        return new MSSQLServerContainer<>(DOCKER_IMAGE_NAME)
+        dockerImageName = DockerImageName
+                .parse(ConfigProvider.getConfig().getValue("sql-server.container.image", String.class));
+        return new MSSQLServerContainer<>(dockerImageName)
                 .withEnv(Collections.singletonMap("MSSQL_AGENT_ENABLED", "True"))
                 .withInitScript("initSqlserver.sql")
                 .waitingFor(

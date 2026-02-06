@@ -38,7 +38,7 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
     public static final String DB_USERNAME = "user";
     public static final String DB_PASSWORD = "test";
     private static final int DB_PORT = 3306;
-    private static final String MYSQL_IMAGE = ConfigProvider.getConfig().getValue("mysql.container.image", String.class);
+    private String mysqlImage;
 
     private Path historyFile;
 
@@ -48,9 +48,10 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
 
     @Override
     protected MySQLContainer createContainer() {
+        mysqlImage = ConfigProvider.getConfig().getValue("mysql.container.image", String.class);
         // workaround for Failed to verify that image 'mirror.gcr.io/library/mysql:8.4' is a compatible substitute for 'mysql'.
         // This generally means that you are trying to use an image that Testcontainers has not been designed to use.
-        DockerImageName mySqlImage = DockerImageName.parse(MYSQL_IMAGE).asCompatibleSubstituteFor("mysql");
+        DockerImageName mySqlImage = DockerImageName.parse(mysqlImage).asCompatibleSubstituteFor("mysql");
 
         return new MySQLContainer<>(mySqlImage)
                 .withUsername(DB_USERNAME)
