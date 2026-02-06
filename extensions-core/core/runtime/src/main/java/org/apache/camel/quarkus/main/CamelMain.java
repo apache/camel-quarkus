@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -163,7 +162,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
     @Override
     public void parseArguments(String[] arguments) {
-        LinkedList<String> args = new LinkedList<>(Arrays.asList(arguments));
+        LinkedList<String> args = new LinkedList<>(List.of(arguments));
         List<String> unknownArgs = new ArrayList<>();
 
         boolean valid = true;
@@ -180,7 +179,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
             if (!handled && !failureRemedy.equals(FailureRemedy.ignore)) {
                 if (arg.length() >= 100) {
                     // For long arguments, clean up formatting for console output
-                    String truncatedArg = String.format("%s...", StringHelper.limitLength(arg, 97));
+                    String truncatedArg = "%s...".formatted(StringHelper.limitLength(arg, 97));
                     unknownArgs.add(truncatedArg);
                 } else {
                     unknownArgs.add(arg);
