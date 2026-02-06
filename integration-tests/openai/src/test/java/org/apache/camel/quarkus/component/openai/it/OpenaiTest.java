@@ -80,7 +80,7 @@ class OpenaiTest {
                     .body(
                             containsStringIgnoringCase("camel"),
                             containsStringIgnoringCase("silhouette"),
-                            containsStringIgnoringCase("logo"));
+                            containsStringIgnoringCase("icon"));
         } finally {
             if (FileUtil.isWindows()) {
                 // File may be locked by the Quarkus process, so clean up on VM exit

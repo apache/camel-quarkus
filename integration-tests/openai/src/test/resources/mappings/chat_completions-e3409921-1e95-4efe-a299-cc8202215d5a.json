@@ -1,0 +1,43 @@
+{
+  "id" : "e3409921-1e95-4efe-a299-cc8202215d5a",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"Create an example product description.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"response_format\":{\"json_schema\":{\"name\":\"camel_schema\",\"schema\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"price\":{\"type\":\"number\"}}}},\"type\":\"json_schema\"}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D6FgQFP84kkJHFYIGmNRSuumMKs60\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382626,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"{\\\"name\\\":\\\"Nimbus Noise‑Cancelling Wireless Headphones\\\",\\\"price\\\":149.99}\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 45,\n    \"completion_tokens\": 607,\n    \"total_tokens\": 652,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 576,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_3fb758d207124b90bd83b6000cba24b5",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-fc32zjefei81sjxkd0c7bqkx",
+      "CF-RAY" : "9c9acfb7df6d8a9b-PRG",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499988",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Fri, 06 Feb 2026 12:57:15 GMT",
+      "x-ratelimit-reset-tokens" : "1ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=yuzjAErLURfyv9i3on9hnWhG5Obbm8F8DkMk2qaiXp4-1770382635-1.0.1.1-czYHL1V66cc50MxqZaX.HGhXdKLxIdtpqYHjz4CrpuXxUE6ze7JAbb84qYnqoRCaf66w71D_OKqycxI81x4FKKH7sGK38dkC.83C8mTnaxo; path=/; expires=Fri, 06-Feb-26 13:27:15 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=rE.OOynH9e5aokJczm4.M6pdQm5.ysxClY810HiTlWo-1770382635697-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "8901",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "e3409921-1e95-4efe-a299-cc8202215d5a",
+  "persistent" : true,
+  "insertionIndex" : 4
+}
