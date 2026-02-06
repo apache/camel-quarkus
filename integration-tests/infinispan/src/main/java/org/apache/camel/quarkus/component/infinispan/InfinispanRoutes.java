@@ -30,7 +30,6 @@ import org.apache.camel.component.infinispan.remote.InfinispanRemoteConfiguratio
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonRoutes;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.Configuration;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
@@ -40,7 +39,6 @@ import org.infinispan.protostream.FileDescriptorSource;
 import org.infinispan.protostream.SerializationContext;
 import org.infinispan.protostream.schema.Schema;
 import org.infinispan.protostream.schema.Type;
-import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
 
 import static org.infinispan.client.hotrod.impl.ConfigurationProperties.CLIENT_INTELLIGENCE;
 import static org.infinispan.client.hotrod.impl.ConfigurationProperties.MARSHALLER;
@@ -64,13 +62,11 @@ public class InfinispanRoutes extends InfinispanCommonRoutes {
             .build();
 
     static FileDescriptorSource personProtoDefinition() {
-        return FileDescriptorSource.fromString(SCHEMA_PERSON.getName(), SCHEMA_PERSON.toString());
+        return FileDescriptorSource.fromString(SCHEMA_PERSON.getName(), SCHEMA_PERSON.getContent());
     }
 
     public static void registerSchema(RemoteCacheManager cacheContainer) {
-        RemoteCache<Object, Object> metadataCache = cacheContainer
-                .getCache(ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME);
-        metadataCache.put(SCHEMA_PERSON.getName(), SCHEMA_PERSON.toString());
+        cacheContainer.administration().schemas().create(SCHEMA_PERSON);
     }
 
     @Produces
@@ -129,9 +125,7 @@ public class InfinispanRoutes extends InfinispanCommonRoutes {
         serializationContext.registerMarshaller(new PersonMarshaller());
 
         Properties properties = new Properties();
-        additionalInfinispanConfig().forEach((k, v) -> {
-            properties.put(k, v);
-        });
+        properties.putAll(additionalInfinispanConfig());
         ConfigurationBuilder clientBuilder = commonConfigurationBuilder();
         // apply properties from #additionalInfinispanConfig (needed eg. for configuring the `camel-infinispan` cache)
         clientBuilder.withProperties(properties);
