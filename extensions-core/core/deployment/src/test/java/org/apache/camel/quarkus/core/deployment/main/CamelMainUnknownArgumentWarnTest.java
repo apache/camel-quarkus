@@ -63,7 +63,7 @@ public class CamelMainUnknownArgumentWarnTest {
 
             String consoleContent = sysout.toString();
             assertTrue(consoleContent
-                    .contains("Unknown option: -foo bar " + String.format("%s...", StringHelper.limitLength(longArg, 97))));
+                    .contains("Unknown option: -foo bar " + "%s...".formatted(StringHelper.limitLength(longArg, 97))));
             assertTrue(consoleContent.contains("Apache Camel Runner takes the following options"));
         } catch (IOException e) {
             throw new RuntimeException(e);

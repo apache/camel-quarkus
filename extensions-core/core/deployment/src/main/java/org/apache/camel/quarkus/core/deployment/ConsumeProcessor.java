@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -72,7 +70,7 @@ public class ConsumeProcessor {
      * Based on https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html#builtin_scopes
      * the list is not 100% complete, but hopefully it will suffice for our purposes
      */
-    public static final Set<DotName> BEAN_DEFINING_ANNOTATIONS = new HashSet<DotName>(Arrays.asList(
+    public static final Set<DotName> BEAN_DEFINING_ANNOTATIONS = Set.of(
             DotName.createSimple(ApplicationScoped.class.getName()),
             DotName.createSimple(SessionScoped.class.getName()),
             DotName.createSimple(ConversationScoped.class.getName()),
@@ -80,7 +78,7 @@ public class ConsumeProcessor {
             DotName.createSimple(Interceptor.class.getName()),
             DotName.createSimple(Decorator.class.getName()),
             DotName.createSimple(Dependent.class.getName()),
-            DotName.createSimple(Singleton.class.getName())));
+            DotName.createSimple(Singleton.class.getName()));
 
     @BuildStep
     void annotationsTransformers(
