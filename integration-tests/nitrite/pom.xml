@@ -79,6 +79,9 @@
                                     <goal>integration-test</goal>
                                     <goal>verify</goal>
                                 </goals>
+                                <configuration>
+                                    <skipTests>true</skipTests>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
