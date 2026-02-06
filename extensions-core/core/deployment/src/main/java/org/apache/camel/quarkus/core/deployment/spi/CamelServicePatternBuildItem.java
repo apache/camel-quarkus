@@ -16,10 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment.spi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import io.quarkus.builder.item.MultiBuildItem;
@@ -34,13 +31,13 @@ public final class CamelServicePatternBuildItem extends MultiBuildItem {
     private final List<String> patterns;
 
     public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include, String... patterns) {
-        this(destination, include, Arrays.asList(patterns));
+        this(destination, include, List.of(patterns));
     }
 
     public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include, Collection<String> patterns) {
         this.destination = destination;
         this.include = include;
-        this.patterns = Collections.unmodifiableList(new ArrayList<>(patterns));
+        this.patterns = List.copyOf(patterns);
     }
 
     /**

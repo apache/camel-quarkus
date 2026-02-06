@@ -183,7 +183,7 @@ public class CamelNativeImageProcessor {
                 .forEach(service -> {
 
                     String packageName = getPackageName(service.type);
-                    String jsonPath = String.format("META-INF/%s/%s.json", packageName.replace('.', '/'), service.name);
+                    String jsonPath = "META-INF/%s/%s.json".formatted(packageName.replace('.', '/'), service.name);
 
                     if (runtimeCatalog.components()
                             && service.path.startsWith(DefaultComponentResolver.RESOURCE_PATH)) {
