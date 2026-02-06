@@ -32,14 +32,11 @@ public class CamelBootstrapRecorder {
     }
 
     public void addShutdownTask(ShutdownContext shutdown, RuntimeValue<CamelRuntime> runtime) {
-        shutdown.addShutdownTask(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runtime.getValue().stop();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        shutdown.addShutdownTask(() -> {
+            try {
+                runtime.getValue().stop();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
     }

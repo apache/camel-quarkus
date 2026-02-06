@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.aws2.translate.deployment;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +34,7 @@ class Aws2TranslateProcessor {
 
     public static final String AWS_SDK_APPLICATION_ARCHIVE_MARKERS = "software/amazon/awssdk";
 
-    private static final List<String> INTERCEPTOR_PATHS = Arrays.asList(
+    private static final List<String> INTERCEPTOR_PATHS = List.of(
             "software/amazon/awssdk/global/handlers/execution.interceptors");
 
     private static final DotName EXECUTION_INTERCEPTOR_NAME = DotName.createSimple(ExecutionInterceptor.class.getName());
