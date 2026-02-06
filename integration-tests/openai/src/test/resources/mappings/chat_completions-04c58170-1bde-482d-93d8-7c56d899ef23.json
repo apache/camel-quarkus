@@ -1,0 +1,46 @@
+{
+  "id" : "04c58170-1bde-482d-93d8-7c56d899ef23",
+  "name" : "chat_completions",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"In one sentence, what is Apache Camel?\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-D6FgI8zKLT2zAW986IYYX0XWz5cF4\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382618,\n  \"model\": \"gpt-5-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Apache Camel is an open-source Java-based integration framework and routing/mediation engine that implements Enterprise Integration Patterns, enabling you to connect disparate systems via a rich set of components and define data flows with simple DSLs.\",\n        \"refusal\": null,\n        \"annotations\": []\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 15,\n    \"completion_tokens\": 180,\n    \"total_tokens\": 195,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0,\n      \"audio_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 128,\n      \"audio_tokens\": 0,\n      \"accepted_prediction_tokens\": 0,\n      \"rejected_prediction_tokens\": 0\n    }\n  },\n  \"service_tier\": \"default\",\n  \"system_fingerprint\": null\n}\n",
+    "headers" : {
+      "x-request-id" : "req_5fe68d8ad45745b6bf81023fc9f6c93f",
+      "x-ratelimit-limit-tokens" : "500000",
+      "openai-organization" : "user-fc32zjefei81sjxkd0c7bqkx",
+      "CF-RAY" : "9c9acf82ea94579f-PRG",
+      "Server" : "cloudflare",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "120ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "499988",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "499",
+      "Date" : "Fri, 06 Feb 2026 12:57:01 GMT",
+      "x-ratelimit-reset-tokens" : "1ms",
+      "access-control-expose-headers" : "X-Request-ID",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload",
+      "x-ratelimit-limit-requests" : "500",
+      "Set-Cookie" : [ "__cf_bm=Jfvlu9rv9RgSG6tf9.WCY10Fn3Vd8PEI2Bm0YReN0TY-1770382621-1.0.1.1-V6yHK1RpHEXQQUibSLB6P13f00CwJsim.ti3eOVxsKwoHmFMwh.oCY.gyCTWr1BXui0uWsWZX199TSW3qhVA1cX1rG6tB4iGNyoyc_dkcOk; path=/; expires=Fri, 06-Feb-26 13:27:01 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None", "_cfuvid=OuFRSys.VUNGbhELj4snpswP2uhMhIumPHfJW720NGY-1770382621319-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None" ],
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "3074",
+      "alt-svc" : "h3=\":443\"; ma=86400",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "04c58170-1bde-482d-93d8-7c56d899ef23",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-chat-completions",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-chat-completions-2",
+  "insertionIndex" : 6
+}
