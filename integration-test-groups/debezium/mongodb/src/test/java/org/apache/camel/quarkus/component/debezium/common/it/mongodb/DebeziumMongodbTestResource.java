@@ -41,8 +41,8 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
     private static final String DB_USERNAME = "debezium";
     private static final String DB_PASSWORD = "dbz";
     private static final String DB_INIT_SCRIPT = "/initMongodb.txt";
-    private static final int DB_PORT = AvailablePortFinder.getNextAvailable();
-    private static final String MONGO_IMAGE_NAME = ConfigProvider.getConfig().getValue("mongodb.container.image", String.class);
+    private int dbPort;
+    private String mongoImageName;
 
     public DebeziumMongodbTestResource() {
         super(Type.mongodb);
@@ -52,9 +52,12 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
 
     @Override
     protected GenericContainer<?> createContainer() {
-        return new FixedHostPortGenericContainer<>(MONGO_IMAGE_NAME)
-                .withFixedExposedPort(DB_PORT, DB_PORT)
-                .withCommand("--replSet", "my-mongo-set", "--port", String.valueOf(DB_PORT), "--bind_ip",
+        dbPort = AvailablePortFinder.getNextAvailable();
+        mongoImageName = ConfigProvider.getConfig().getValue("mongodb.container.image", String.class);
+
+        return new FixedHostPortGenericContainer<>(mongoImageName)
+                .withFixedExposedPort(dbPort, dbPort)
+                .withCommand("--replSet", "my-mongo-set", "--port", String.valueOf(dbPort), "--bind_ip",
                         "localhost," + PRIVATE_HOST)
                 .withNetwork(net)
                 .withNetworkAliases(PRIVATE_HOST)
@@ -81,8 +84,8 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         String script = IOUtils.toString(resource, StandardCharsets.UTF_8);
         script = script.replace("%container-host%", getHostPort());
         for (String cmd : script.split("\\n\\n")) {
-            Container.ExecResult er = container.execInContainer(getMongoScriptExecutable(MONGO_IMAGE_NAME), "--port",
-                    String.valueOf(DB_PORT), "--eval", cmd);
+            Container.ExecResult er = container.execInContainer(getMongoScriptExecutable(mongoImageName), "--port",
+                    String.valueOf(dbPort), "--eval", cmd);
             if (er.getExitCode() != 0) {
                 LOG.errorf("Error executing MongoDB command: %s", cmd);
                 LOG.error(er.getStdout());
@@ -109,10 +112,10 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
 
     @Override
     protected int getPort() {
-        return DB_PORT;
+        return dbPort;
     }
 
     private String getHostPort() {
-        return String.format("%s:%d", container.getHost(), container.getMappedPort(DB_PORT));
+        return String.format("%s:%d", container.getHost(), container.getMappedPort(dbPort));
     }
 }

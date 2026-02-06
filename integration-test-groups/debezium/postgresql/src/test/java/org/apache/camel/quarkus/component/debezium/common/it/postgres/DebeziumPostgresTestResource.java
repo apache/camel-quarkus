@@ -27,8 +27,7 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
 
     public static final String DB_USERNAME = "postgres";
     public static final String DB_PASSWORD = "changeit";
-    private static final String POSTGRES_IMAGE = ConfigProvider.getConfig().getValue("postgres-debezium.container.image",
-            String.class);
+    private String postgresImage;
     private static final int DB_PORT = 5432;
 
     public DebeziumPostgresTestResource() {
@@ -37,7 +36,8 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
 
     @Override
     protected PostgreSQLContainer<?> createContainer() {
-        DockerImageName imageName = DockerImageName.parse(POSTGRES_IMAGE)
+        postgresImage = ConfigProvider.getConfig().getValue("postgres-debezium.container.image", String.class);
+        DockerImageName imageName = DockerImageName.parse(postgresImage)
                 .asCompatibleSubstituteFor("postgres");
         return new PostgreSQLContainer<>(imageName)
                 .withUsername(DB_USERNAME)

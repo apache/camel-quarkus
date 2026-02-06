@@ -37,8 +37,7 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
     private static final Logger LOG = LoggerFactory.getLogger(DebeziumOracleTestResource.class);
     public static final String DB_USERNAME = "oracleUser";
     public static final String DB_PASSWORD = "changeit";
-    private static final String ORACLE_IMAGE = ConfigProvider.getConfig().getValue("oracle-debezium.container.image",
-            String.class);
+    private String oracleImage;
     private static final int DB_PORT = 1521;
     private Path historyFile;
 
@@ -48,7 +47,7 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
 
     @Override
     protected GenericContainer<?> createContainer() {
-        DockerImageName imageName = DockerImageName.parse(ORACLE_IMAGE)
+        DockerImageName imageName = DockerImageName.parse(oracleImage)
                 .asCompatibleSubstituteFor("gvenzl/oracle-xe");
         return new OracleContainer(imageName)
                 .withUsername(DB_USERNAME)
@@ -62,13 +61,14 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
 
     @Override
     public Map<String, String> start() {
+        oracleImage = ConfigProvider.getConfig().getValue("oracle-debezium.container.image", String.class);
         Map<String, String> properties;
 
         // TODO: Remove retry logic - https://github.com/apache/camel-quarkus/issues/7773
         int maxRetries = 5;
         for (int i = 1; i <= maxRetries; i++) {
             try {
-                LOG.info("Starting {} attempt {} of {}", ORACLE_IMAGE, i, maxRetries);
+                LOG.info("Starting {} attempt {} of {}", oracleImage, i, maxRetries);
                 properties = super.start();
                 historyFile = Files.createTempFile(getClass().getSimpleName() + "-history-file-", "");
                 properties.put(DebeziumOracleResource.PROPERTY_DB_HISTORY_FILE, historyFile.toString());
@@ -79,7 +79,7 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
                 LOG.warn("Container startup failed", e);
                 LOG.warn(e.getMessage());
                 if (i == maxRetries) {
-                    LOG.warn("Giving up starting {} - max container startup attempts reached", ORACLE_IMAGE);
+                    LOG.warn("Giving up starting {} - max container startup attempts reached", oracleImage);
                     throw e;
                 }
 
@@ -91,7 +91,7 @@ public class DebeziumOracleTestResource extends AbstractDebeziumTestResource<Gen
             }
         }
 
-        throw new IllegalStateException("Could not start container for " + ORACLE_IMAGE);
+        throw new IllegalStateException("Could not start container for " + oracleImage);
     }
 
     @Override
