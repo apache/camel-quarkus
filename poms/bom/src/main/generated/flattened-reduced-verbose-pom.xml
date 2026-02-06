@@ -22,9 +22,6 @@
       <url>http://camel.apache.org</url><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
       <organization>Apache Software Foundation</organization><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
       <organizationUrl>http://apache.org/</organizationUrl><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
-      <properties>
-        <picUrl>http://camel.apache.org/banner.data/apache-camel-7.png</picUrl><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
-      </properties>
     </developer>
   </developers>
   <scm>
@@ -6996,7 +6993,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-base</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7015,12 +7012,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>junit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7035,17 +7032,17 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.glassfish</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7060,7 +7057,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -9263,39 +9260,39 @@
         <version>1.5.2</version><!-- org.apache.cassandra:java-driver-bom:4.19.2 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-core</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-http-client</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-http-client-jdk</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1-beta17</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-hugging-face</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0-beta18</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
-        <version>1.9.1-beta17</version><!-- dev.langchain4j:langchain4j-bom:1.9.1 -->
+        <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <artifactId>langchain4j-mcp</artifactId><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
+        <version>1.10.0-beta18</version><!-- dev.langchain4j:langchain4j-bom:1.10.0 -->
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:3.4.0.Final -->
