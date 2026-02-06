@@ -34,7 +34,7 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
         config.put("camel.component.infinispan.password", "password");
         config.put("camel.component.infinispan.secure", "true");
         config.put("camel.component.infinispan.security-realm", "default");
-        config.put("camel.component.infinispan.sasl-mechanism", "DIGEST-MD5");
+        config.put("camel.component.infinispan.sasl-mechanism", "SCRAM-SHA-256");
         config.put("camel.component.infinispan.security-server-name", "infinispan");
         config.put("camel.component.infinispan.configuration-properties", "#additionalConfig");
 
