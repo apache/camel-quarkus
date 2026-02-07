@@ -22,7 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,8 +42,6 @@ import io.smallrye.common.cpu.CPU;
 import io.smallrye.common.os.OS;
 import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
-
-import static java.util.Arrays.asList;
 
 /**
  * Custom {@link CodeGenProvider} for Camel Quarkus gRPC. Based on the original Quarkus gRPC implementation:
@@ -153,7 +150,7 @@ public class CamelQuarkusGrpcCodegenProvider implements CodeGenProvider {
                     command.add(String.format("-I=%s", escapeWhitespace(protoDir)));
                 }
 
-                command.addAll(asList("--plugin=protoc-gen-grpc=" + executables.grpc,
+                command.addAll(List.of("--plugin=protoc-gen-grpc=" + executables.grpc,
                         "--grpc_out=" + outDir,
                         "--java_out=" + outDir));
                 command.addAll(protoFiles);
@@ -218,7 +215,7 @@ public class CamelQuarkusGrpcCodegenProvider implements CodeGenProvider {
         }
         boolean scanAll = "all".equalsIgnoreCase(scanDependencies);
 
-        List<String> dependenciesToScan = asList(scanDependencies.split(","));
+        List<String> dependenciesToScan = List.of(scanDependencies.split(","));
 
         ApplicationModel appModel = context.applicationModel();
         List<Path> protoFilesFromDependencies = new ArrayList<>();
@@ -263,7 +260,7 @@ public class CamelQuarkusGrpcCodegenProvider implements CodeGenProvider {
         }
 
         boolean scanAll = "all".equals(scanForImports.toLowerCase(Locale.getDefault()));
-        List<String> dependenciesToScan = Arrays.asList(scanForImports.split(","));
+        List<String> dependenciesToScan = List.of(scanForImports.split(","));
 
         Set<String> importDirectories = new HashSet<>();
         ApplicationModel appModel = context.applicationModel();
