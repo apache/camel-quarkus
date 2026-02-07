@@ -48,7 +48,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         super(Type.mongodb);
     }
 
-    private final Network net = Network.newNetwork();;
+    private final Network net = Network.newNetwork();
 
     @Override
     protected GenericContainer<?> createContainer() {
