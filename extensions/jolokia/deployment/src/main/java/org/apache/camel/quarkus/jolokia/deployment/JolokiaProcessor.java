@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.jolokia.deployment;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
@@ -224,7 +223,7 @@ public class JolokiaProcessor {
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> nativeImageResource) {
 
-        Set<String> jolokiaServiceIncludes = Collections.singleton("META-INF/jolokia/*");
+        Set<String> jolokiaServiceIncludes = Set.of("META-INF/jolokia/*");
         PathFilter pathFilter = PathFilter.forIncludes(jolokiaServiceIncludes);
 
         Set<ResolvedDependency> jolokiaDependencies = curateOutcome.getApplicationModel()

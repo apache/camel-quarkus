@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.jira.deployment;
 
 import java.nio.ByteBuffer;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -98,8 +97,8 @@ public class JakartaEnablement {
             //N.B. we enable only this single transformation of package renames, not the full set of capabilities of Eclipse Transformer;
             //this might need tailoring if the same idea gets applied to a different context.
             ctx = new ActionContextImpl(logger,
-                    new SelectionRuleImpl(logger, Collections.emptyMap(), Collections.emptyMap()),
-                    new SignatureRuleImpl(logger, renames, null, null, null, null, null, Collections.emptyMap()));
+                    new SelectionRuleImpl(logger, Map.of(), Map.of()),
+                    new SignatureRuleImpl(logger, renames, null, null, null, null, null, Map.of()));
         }
 
         byte[] transform(final String name, final byte[] bytes) {

@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -91,7 +90,7 @@ class XsltProcessor {
         final Set<String> translets = new LinkedHashSet<>();
         try {
             final BuildTimeUriResolver resolver = new BuildTimeUriResolver();
-            for (String uri : config.sources().orElse(Collections.emptyList())) {
+            for (String uri : config.sources().orElse(List.of())) {
                 ResolutionResult resolvedUri = resolver.resolve(uri);
                 uriResolverEntries.produce(resolvedUri.toBuildItem());
 

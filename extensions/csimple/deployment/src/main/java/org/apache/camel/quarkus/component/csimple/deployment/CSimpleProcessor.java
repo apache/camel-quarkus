@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -264,15 +263,16 @@ class CSimpleProcessor {
                 projectDir.resolve("src/main/java").toFile(),
                 csimpleClassesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
-                Collections.emptyMap(),
+                Map.of(),
                 CamelSupport.COMPILATION_JVM_TARGET,
                 null,
                 null,
-                Collections.emptyList(),
-                Collections.emptyList(),
+
+                List.of(),
+                List.of(),
                 null,
-                Collections.emptySet(),
-                Collections.emptyList(),
+                Set.of(),
+                List.of(),
                 null);
     }
 

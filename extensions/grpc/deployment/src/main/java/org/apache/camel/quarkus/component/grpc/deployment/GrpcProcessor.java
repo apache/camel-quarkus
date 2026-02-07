@@ -18,9 +18,9 @@ package org.apache.camel.quarkus.component.grpc.deployment;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.google.api.client.json.GenericJson;
@@ -73,7 +73,7 @@ class GrpcProcessor {
 
     @BuildStep
     CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes(GrpcBuildTimeConfig config) {
-        return new CamelGrpcServiceExcludesBuildItem(config.serviceExcludes().orElse(Collections.emptySet()));
+        return new CamelGrpcServiceExcludesBuildItem(config.serviceExcludes().orElse(Set.of()));
     }
 
     @BuildStep
