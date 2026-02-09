@@ -40,6 +40,7 @@ on:
       - '.github/workflows/assign-wontfix-issue-milestone.yaml'
       - '.github/workflows/camel-master-cron.yaml'
       - '.github/workflows/check-dependency-convergence.yml'
+      - '.github/workflows/ci-semeru-jdk.yaml'
       - '.github/workflows/generate-sbom-main.yml'
       - '.github/workflows/jdk25-build.yaml'
       - '.github/workflows/label-issue.yaml'
