@@ -50,6 +50,7 @@
         <module>httpclient</module>
         <module>httpclient5</module>
         <module>jackson-dataformat-xml</module>
+        <module>jaxb</module>
         <module>jdbc</module>
         <module>jetty</module>
         <module>langchain4j</module>
