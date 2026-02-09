@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.splunk.deployment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.splunk.HttpService;
@@ -71,7 +70,7 @@ class SplunkProcessor {
 
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
-        return Arrays.asList(ReflectiveClassBuildItem.builder(Index.class.getName()).constructors().build(),
+        return List.of(ReflectiveClassBuildItem.builder(Index.class.getName()).constructors().build(),
                 ReflectiveClassBuildItem.builder(SavedSearch.class.getName()).constructors().build(),
                 ReflectiveClassBuildItem.builder(Input.class.getName()).constructors().build(),
                 ReflectiveClassBuildItem.builder(Service.class.getName()).constructors().build());
