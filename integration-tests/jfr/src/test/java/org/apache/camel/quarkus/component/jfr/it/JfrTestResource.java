@@ -19,9 +19,11 @@ package org.apache.camel.quarkus.component.jfr.it;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import jdk.jfr.Configuration;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.io.FileUtils;
 
@@ -41,7 +43,7 @@ public class JfrTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         return CollectionHelper.mapOf(
                 "quarkus.camel.jfr.startup-recorder-dir", JFR_RECORDINGS_DIR.toString(),
-                "quarkus.camel.jfr.startup-recorder-recording", "true");
+                "quarkus.camel.jfr.startup-recorder-recording", String.valueOf(isFlightRecorderAvailable()));
     }
 
     @Override
@@ -50,6 +52,15 @@ public class JfrTestResource implements QuarkusTestResourceLifecycleManager {
             FileUtils.deleteDirectory(JFR_RECORDINGS_DIR.toFile());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    static boolean isFlightRecorderAvailable() {
+        try {
+            Configuration.getConfiguration("default");
+            return true;
+        } catch (IOException | ParseException e) {
+            return false;
         }
     }
 }
