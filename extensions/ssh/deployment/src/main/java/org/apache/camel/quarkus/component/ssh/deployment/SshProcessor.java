@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.ssh.deployment;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.Signature;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.Mac;
@@ -68,7 +68,7 @@ class SshProcessor {
 
     @BuildStep
     void sessionProxy(BuildProducer<NativeImageProxyDefinitionBuildItem> proxiesProducer) {
-        for (String s : Arrays.asList(
+        for (String s : List.of(
                 SessionListener.class.getName(),
                 ChannelListener.class.getName(),
                 PortForwardingEventListener.class.getName())) {

@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.mapstruct.deployment;
 
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -93,7 +92,7 @@ class MapStructProcessor {
 
         if (mapperPackageName.isPresent()) {
             String packages = StringUtils.deleteWhitespace(mapperPackageName.get());
-            mapperPackages.addAll(Arrays.asList(packages.split(",")));
+            mapperPackages.addAll(List.of(packages.split(",")));
         } else {
             // Fallback on auto discovery
             combinedIndex.getIndex()
