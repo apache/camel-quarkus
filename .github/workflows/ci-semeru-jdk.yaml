@@ -189,8 +189,8 @@ jobs:
           EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} tooling/scripts/generate-examples-matrix.groovy)
           echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
 
-  native-tests:
-    name: Native Tests - ${{matrix.category}}
+  integration-tests:
+    name: Integration Tests - ${{matrix.category}}
     needs: initial-mvn-install
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
@@ -205,11 +205,11 @@ jobs:
           fetch-depth: 0
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
-      - name: Set up JDK 25
+      - name: Set up Semeru JDK 21
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'temurin'
-          java-version: '25'
+          distribution: 'semeru'
+          java-version: '21'
       - name: Download Maven Repo
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
