@@ -43,8 +43,8 @@
             <artifactId>quarkus-jaxp-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxb-deployment</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-jaxb-deployment</artifactId>
         </dependency>
     </dependencies>
 

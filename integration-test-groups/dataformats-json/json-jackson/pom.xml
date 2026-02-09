@@ -67,10 +67,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
         <dependency>
@@ -243,5 +239,5 @@
             </dependencies>
         </profile>
     </profiles>
-    
+
 </project>

@@ -21,29 +21,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-aws-parent</artifactId>
+        <artifactId>camel-quarkus-support-jaxb-parent</artifactId>
         <version>3.32.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-support-aws-deployment</artifactId>
-    <name>Camel Quarkus :: Support :: AWS :: Deployment</name>
+    <artifactId>camel-quarkus-support-jaxb-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: JAXB :: Deployment</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jackson-deployment</artifactId>
+            <artifactId>quarkus-jaxb-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-jaxb-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-aws</artifactId>
+            <artifactId>camel-quarkus-support-jaxb</artifactId>
         </dependency>
     </dependencies>
 

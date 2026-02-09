@@ -39,8 +39,8 @@
             <artifactId>quarkus-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxb</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-jaxb</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
