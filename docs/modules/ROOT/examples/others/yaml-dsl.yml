@@ -9,5 +9,5 @@ cqJvmSince: 1.8.0
 cqNativeSince: 1.8.0
 cqCamelPartName: yaml-dsl
 cqCamelPartTitle: YAML DSL
-cqCamelPartDescription: Camel DSL with YAML
+cqCamelPartDescription: Camel YAML DSL
 cqExtensionPageTitle: YAML DSL
