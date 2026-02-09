@@ -17,13 +17,11 @@
 package org.apache.camel.quarkus.component.jfr.it;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import jdk.jfr.Configuration;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +36,9 @@ class JfrTest {
 
     @BeforeEach
     public void beforeEach() {
-        assumeTrue(isFlightRecorderAvailable(), "Flight recorder is not available");
+        assumeTrue(ConfigProvider.getConfig()
+                .getValue("quarkus.camel.jfr.startup-recorder-recording", boolean.class),
+                "Flight recorder is not available");
     }
 
     @Test
@@ -53,14 +53,5 @@ class JfrTest {
 
         String fileName = recordings[0];
         assertTrue(fileName.matches("camel-recording[0-9]+\\.jfr"));
-    }
-
-    static boolean isFlightRecorderAvailable() {
-        try {
-            Configuration.getConfiguration("default");
-            return true;
-        } catch (IOException | ParseException e) {
-            return false;
-        }
     }
 }
