@@ -38,7 +38,7 @@ class Langchain4jAgentProcessor {
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         Set<String> mcpProtocolClasses = combinedIndex.getIndex()
-                .getClassesInPackage("dev.langchain4j.mcp.client.protocol")
+                .getClassesInPackage("dev.langchain4j.mcp.protocol")
                 .stream()
                 .map(ClassInfo::asClass)
                 .map(ClassInfo::name)
