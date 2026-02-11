@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.jolokia.it;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.jolokia.server.core.service.api.LogHandler;
+import org.jolokia.core.api.LogHandler;
 
 public class CustomLogHandler implements LogHandler {
     public static AtomicBoolean MESSAGE_LOGGED = new AtomicBoolean(false);

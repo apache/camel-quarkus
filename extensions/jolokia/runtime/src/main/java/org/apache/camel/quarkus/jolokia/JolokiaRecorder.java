@@ -43,10 +43,10 @@ import org.apache.camel.util.HostUtils;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
+import org.jolokia.core.api.LogHandler;
 import org.jolokia.jvmagent.JolokiaServer;
 import org.jolokia.jvmagent.JolokiaServerConfig;
 import org.jolokia.server.core.config.ConfigKey;
-import org.jolokia.server.core.service.api.LogHandler;
 
 import static io.smallrye.common.os.Linux.isWSL;
 

@@ -58,6 +58,7 @@
                 <configuration>
                     <parentFirstArtifacts>
                         <parentFirstArtifact>org.jolokia:jolokia-agent-jvm</parentFirstArtifact>
+                        <parentFirstArtifact>org.jolokia:jolokia-core</parentFirstArtifact>
                         <parentFirstArtifact>org.jolokia:jolokia-json</parentFirstArtifact>
                         <parentFirstArtifact>org.jolokia:jolokia-server-core</parentFirstArtifact>
                         <parentFirstArtifact>org.jolokia:jolokia-server-detector</parentFirstArtifact>

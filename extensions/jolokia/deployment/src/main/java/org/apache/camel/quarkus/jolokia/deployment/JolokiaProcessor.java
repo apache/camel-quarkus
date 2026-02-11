@@ -66,7 +66,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
-import org.jolokia.server.core.service.api.LogHandler;
+import org.jolokia.core.api.LogHandler;
 import org.jolokia.server.core.service.api.Restrictor;
 import org.jolokia.server.core.service.impl.QuietLogHandler;
 import org.jolokia.server.core.service.serializer.Serializer;
