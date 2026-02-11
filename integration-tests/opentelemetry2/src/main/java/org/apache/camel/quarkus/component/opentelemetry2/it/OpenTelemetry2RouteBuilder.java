@@ -44,5 +44,14 @@ public class OpenTelemetry2RouteBuilder extends RouteBuilder {
 
         from("direct:traceHeaderInclusion")
                 .log("Trace info: CAMEL_SPAN_ID=${header.CAMEL_SPAN_ID}, CAMEL_TRACE_ID=${header.CAMEL_TRACE_ID}");
+
+        from("platform-http:/greeting")
+                .log("Received at greeting: ${body}")
+                .removeHeaders("*")
+                .to("http://localhost:{{quarkus.http.test-port}}/greeting-provider");
+
+        from("platform-http:/greeting-provider")
+                .log("Received at greeting-provider: ${body}")
+                .setBody(constant("Hello From Camel Quarkus!"));
     }
 }
