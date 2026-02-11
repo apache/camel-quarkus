@@ -144,4 +144,26 @@ class OpenTelemetryTest {
         assertEquals(spans.get(5).get(CODE_FUNCTION_NAME.getKey()),
                 "org.apache.camel.quarkus.component.opentelemetry.it.OpenTelemetryResource.jdbcQuery");
     }
+
+    @Test
+    public void testHttpInvocation() {
+        RestAssured.get("/greeting")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello From Camel Quarkus!"));
+
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 3);
+        List<Map<String, String>> spans = getSpans();
+        // Note we expect only 3 spans (as contrary to opentelemetry2 where there are 5 spans) because Quarkus Vert.x is filtered out by default
+        assertEquals(3, spans.size());
+        // Verify root doesn't have parent
+        assertEquals("0000000000000000", spans.get(2).get("parentId"));
+        // Verify the span hierarchy
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(1).get("spanId"), spans.get(0).get("parentId"));
+
+        assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.CLIENT.name(), spans.get(1).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(0).get("kind"));
+    }
 }
