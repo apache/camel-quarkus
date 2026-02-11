@@ -41,5 +41,14 @@ public class OpenTelemetryRouteBuilder extends RouteBuilder {
 
         from("direct:jdbcQuery")
                 .to("bean:jdbcQueryBean");
+
+        from("platform-http:/greeting")
+                .log("Received at greeting: ${body}")
+                .removeHeaders("*")
+                .to("http://localhost:{{quarkus.http.test-port}}/greeting-provider");
+
+        from("platform-http:/greeting-provider")
+                .log("Received at greeting-provider: ${body}")
+                .setBody(constant("Hello From Camel Quarkus!"));
     }
 }
