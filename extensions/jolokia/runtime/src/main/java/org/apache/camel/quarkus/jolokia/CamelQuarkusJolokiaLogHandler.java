@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.jolokia;
 
 import org.jboss.logging.Logger;
-import org.jolokia.server.core.service.api.LogHandler;
+import org.jolokia.core.api.LogHandler;
 
 final class CamelQuarkusJolokiaLogHandler implements LogHandler {
     private static final Logger LOG = Logger.getLogger(CamelQuarkusJolokiaLogHandler.class);
