@@ -169,4 +169,32 @@ class Opentelemetry2Test {
                 .header("spanId", not(emptyOrNullString()))
                 .header("traceId", not(emptyOrNullString()));
     }
+
+    @Test
+    public void testHttpInvocation() {
+        RestAssured.get("/greeting")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello From Camel Quarkus!"));
+
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(5, spans.size());
+        // Verify root doesn't have parent
+        assertEquals("0000000000000000", spans.get(4).get("parentId"));
+        // Verify the span hierarchy
+        assertEquals(spans.get(4).get("spanId"), spans.get(3).get("parentId"));
+        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
+        // Last two spans have the same parent
+        // For /greeting there is no existing tracing in progress. For /greeting-provider there is, so its related to the trace propagation
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(2).get("spanId"), spans.get(0).get("parentId"));
+
+        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(1).get("kind"));
+
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(0).get("kind"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(3).get("kind"));
+    }
 }
