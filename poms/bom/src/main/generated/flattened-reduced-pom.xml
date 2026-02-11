@@ -744,6 +744,14 @@
         <version>4.18.0-SNAPSHOT</version>
         <exclusions>
           <exclusion>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
           </exclusion>
@@ -7472,7 +7480,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.batik</groupId>
@@ -7958,7 +7966,7 @@
       <dependency>
         <groupId>org.opensearch.client</groupId>
         <artifactId>opensearch-rest-client</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.0</version>
       </dependency>
       <dependency>
         <groupId>org.snakeyaml</groupId>
