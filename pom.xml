@@ -267,7 +267,7 @@
         <nats.container.image>mirror.gcr.io/nats:2.11.6</nats.container.image>
         <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:3.1.0</opensearch.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
-        <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.9-slim-faststart</oracle-debezium.container.image>
+        <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.26.1-slim-faststart</oracle-debezium.container.image>
         <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v1.0.0.rc0</pinecone.container.image>
         <postgres.container.image>mirror.gcr.io/postgres:17.5</postgres.container.image>
         <postgres-debezium.container.image>quay.io/debezium/postgres:17-alpine</postgres-debezium.container.image>
