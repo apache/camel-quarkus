@@ -85,5 +85,8 @@ public class FileLockClusterServiceConfigDefaultEnabledTest {
         assertEquals(10L, service.getAcquireLockInterval());
         assertEquals(TimeUnit.SECONDS, service.getAcquireLockIntervalUnit());
         assertEquals(5, service.getHeartbeatTimeoutMultiplier());
+        assertEquals(5, service.getClusterDataTaskMaxAttempts());
+        assertEquals(10, service.getClusterDataTaskTimeout());
+        assertEquals(TimeUnit.SECONDS, service.getClusterDataTaskTimeoutUnit());
     }
 }
