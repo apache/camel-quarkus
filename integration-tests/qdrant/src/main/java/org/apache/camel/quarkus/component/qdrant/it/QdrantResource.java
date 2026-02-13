@@ -50,6 +50,37 @@ public class QdrantResource {
     @Inject
     FluentProducerTemplate producer;
 
+    // Enum to provide test data
+    public enum TestData {
+        VECTOR_1(9, "VECTOR_1", List.of(0.8f, 0.6f)),
+        VECTOR_2(10, "VECTOR_2", List.of(0.1f, 0.9f)),
+        VECTOR_3(11, "VECTOR_3", List.of(0.7f, 0.7f)),
+        VECTOR_4(12, "VECTOR_4", List.of(-0.3f, -0.9f)),
+        VECTOR_5(13, "VECTOR_5", List.of(1.2f, 0.8f));
+
+        private final int id;
+        private final String payload;
+        private final List<Float> vectors;
+
+        TestData(int id, String payload, List<Float> vectors) {
+            this.id = id;
+            this.payload = payload;
+            this.vectors = vectors;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public List<Float> getVectors() {
+            return vectors;
+        }
+
+        public String getPayload() {
+            return payload;
+        }
+    }
+
     @Path("/createCollection")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
@@ -94,6 +125,41 @@ public class QdrantResource {
         Exchange exchange = producer.to("qdrant:testCollection")
                 .withHeader(QdrantHeaders.ACTION, QdrantAction.RETRIEVE)
                 .withBody(PointIdFactory.id(8))
+                .request(Exchange.class);
+
+        Collection<?> retrieved = exchange.getIn().getBody(Collection.class);
+        String classes = retrieved.stream().map(e -> e.getClass().getName()).distinct().collect(Collectors.joining("/"));
+        return Response.ok(Integer.toString(retrieved.size()) + "/" + classes).build();
+    }
+
+    @Path("/upsert-other-vectors")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response upsertOtherVectors() {
+        for (TestData testData : TestData.values()) {
+            producer.to("qdrant:testCollection")
+                    .withHeader(QdrantHeaders.ACTION, QdrantAction.UPSERT)
+                    .withBody(
+                            Points.PointStruct.newBuilder()
+                                    .setId(PointIdFactory.id(testData.getId()))
+                                    .setVectors(VectorsFactory.vectors(testData.getVectors()))
+                                    .putPayload("text_segment", ValueFactory.value(testData.getPayload()))
+                                    .build())
+                    .request();
+        }
+        return Response.ok().build();
+    }
+
+    @Path("/similarity-search")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response similaritySearch() {
+
+        Exchange exchange = producer.to("qdrant:testCollection")
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.SIMILARITY_SEARCH)
+                .withHeader(QdrantHeaders.INCLUDE_VECTORS, true)
+                .withHeader(QdrantHeaders.INCLUDE_PAYLOAD, true)
+                .withBody(List.of(0.75f, 0.65f))
                 .request(Exchange.class);
 
         Collection<?> retrieved = exchange.getIn().getBody(Collection.class);

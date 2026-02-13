@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.is;
 class QdrantTest {
 
     @Test
-    public void createUpsertRetrieveAndDeleteShouldSucceed() {
+    void createUpsertRetrieveAndDeleteShouldSucceed() {
         RestAssured.put("/qdrant/createCollection")
                 .then()
                 .statusCode(200);
@@ -42,10 +42,20 @@ class QdrantTest {
                 .statusCode(200)
                 .body(is("1/io.qdrant.client.grpc.Points$RetrievedPoint"));
 
+        // Inserting other vectors to have a good check on similarity search
+        RestAssured.put("/qdrant/upsert-other-vectors")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/qdrant/similarity-search")
+                .then()
+                .statusCode(200)
+                .body(is("3/io.qdrant.client.grpc.Points$ScoredPoint"));
+
         RestAssured.delete("/qdrant/delete")
                 .then()
                 .statusCode(200)
-                .body(is("2/Completed/2"));
+                .body(is("7/Completed/2"));
 
         RestAssured.get("/qdrant/retrieve")
                 .then()
