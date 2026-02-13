@@ -22,12 +22,16 @@ df -h /
 echo "Reclaiming disk space..."
 
 # Unwanted development SDKs
-sudo rm -rf /opt/ghc \
+sudo rm -rf /etc/skel/.rustup \
+     rm -rf /home/packer/.rustup \
+     rm -rf /home/runner/.rustup \
+     rm -rf /opt/ghc \
      rm -rf /opt/hostedtoolcache/CodeQL \
      rm -rf /opt/pipx \
      rm -rf /usr/lib/google-cloud-sdk \
      rm -rf /usr/local/.ghcup \
      rm -rf /usr/local/go \
+     rm -rf /usr/local/julia* \
      rm -rf /usr/local/lib/android \
      rm -rf /usr/local/lib/node_modules/parcel \
      rm -rf /usr/local/share/boost \
