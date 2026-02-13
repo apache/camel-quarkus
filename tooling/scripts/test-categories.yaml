@@ -142,7 +142,6 @@ group-08:
   - crypto-pgp
   - jq
   - langchain4j-chat
-  - master
   - master-file
   - pdf
   - pinecone
