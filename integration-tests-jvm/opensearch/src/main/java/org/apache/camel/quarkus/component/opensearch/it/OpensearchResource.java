@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.opensearch.it;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -97,9 +96,9 @@ public class OpensearchResource {
                 .withBody(br)
                 .request(BulkResponseItem[].class);
 
-        List<String> insertedIds = Arrays.asList(bulkResponse)
-                .stream().map(BulkResponseItem::id)
-                .collect(Collectors.toList());
+        List<String> insertedIds = Arrays.stream(bulkResponse)
+                .map(BulkResponseItem::id)
+                .toList();
 
         return Response.ok(insertedIds).build();
 
@@ -134,8 +133,8 @@ public class OpensearchResource {
                 .withHeader(OpensearchConstants.PARAM_INDEX_NAME, index)
                 .request(MultiGetResponseItem[].class);
 
-        int totalFound = Arrays.asList(responseItem).stream().map(s -> s.result().found())
-                .collect(Collectors.toList()).size();
+        long totalFound = Arrays.stream(responseItem).map(s -> s.result().found())
+                .count();
         return Response.ok(totalFound).build();
 
     }
@@ -170,17 +169,10 @@ public class OpensearchResource {
                 .withBody(builder)
                 .request(MultiSearchResponseItem[].class);
 
-        if (response.length > 0) {
-            int totalFound = 0;
-            for (MultiSearchResponseItem<?> item : response) {
-                if (!item.isFailure() && item.isResult() && item.result() != null) {
-                    totalFound++;
-                }
-            }
-            return Response.ok(totalFound).build();
-        }
-        return Response.ok().build();
-
+        long totalFound = Arrays.stream(response)
+                .filter(item -> !item.isFailure() && item.isResult() && item.result() != null)
+                .count();
+        return Response.ok(totalFound).build();
     }
 
     @DELETE
