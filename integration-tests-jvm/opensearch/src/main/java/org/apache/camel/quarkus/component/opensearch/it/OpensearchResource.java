@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.opensearch.it;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -97,9 +96,9 @@ public class OpensearchResource {
                 .withBody(br)
                 .request(BulkResponseItem[].class);
 
-        List<String> insertedIds = Arrays.asList(bulkResponse)
-                .stream().map(BulkResponseItem::id)
-                .collect(Collectors.toList());
+        List<String> insertedIds = Arrays.stream(bulkResponse)
+                .map(BulkResponseItem::id)
+                .toList();
 
         return Response.ok(insertedIds).build();
 
