@@ -170,6 +170,7 @@
         <module>management</module>
         <module>mapstruct</module>
         <module>master-file</module>
+        <module>master-infinispan</module>
         <module>master-openshift</module>
         <module>mdc</module>
         <module>micrometer</module>

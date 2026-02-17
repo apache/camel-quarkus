@@ -4687,6 +4687,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-infinispan-cluster-service</artifactId>
+        <version>3.32.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-infinispan-cluster-service-deployment</artifactId>
+        <version>3.32.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-infinispan-deployment</artifactId>
         <version>3.32.0-SNAPSHOT</version>
       </dependency>

@@ -142,6 +142,7 @@
         <module>ibm-cos</module>
         <module>ical</module>
         <module>infinispan</module>
+        <module>infinispan-cluster-service</module>
         <module>influxdb</module>
         <module>iso8583</module>
         <module>jackson</module>

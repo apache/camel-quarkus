@@ -1,0 +1,32 @@
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+When the same route is deployed on multiple JVMs, it could be interesting to use this extension in conjunction with the xref:reference/extensions/master.adoc[Master one].
+In such a setup, a single consumer will be active at a time across the whole camel master namespace.
+
+For instance, having the route below deployed on multiple JVMs:
+
+[source,java]
+----
+from("master:ns:timer:test?period=100")
+    .log("Timer invoked on a single JVM at a time");
+----
+
+As a result, a single consumer will be active across the `ns` camel master namespace.
+It means that, at a given time, only a single timer will generate exchanges across all JVMs.
+In other words, messages will be logged every 100ms on a single JVM at a time.
+
+==== Infinispan Configuration
+
+You can configure the Infinispan client with the various `quarkus.camel.cluster.infinispan` configuration options in `application.properties.
+
+[source,properties]
+----
+
+quarkus.camel.cluster.infinispan.hosts=localhost:11222
+quarkus.camel.cluster.infinispan.username=admin
+quarkus.camel.cluster.infinispan.password=2s3cr3t
+
+# Optional additional configuration properties
+quarkus.camel.cluster.infinispan.configuration-properties."infinispan.client.hotrod.client_intelligence" = BASIC
+quarkus.camel.cluster.infinispan.configuration-properties."infinispan.client.hotrod.connect_timeout" = 5000
+----

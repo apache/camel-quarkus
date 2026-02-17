@@ -25,6 +25,7 @@ group-01:
   - http-grouped
   - infinispan
   - infinispan-quarkus-client
+  - master-infinispan
   - jcache
   - jms-artemis-client
   - jms-artemis-ra
