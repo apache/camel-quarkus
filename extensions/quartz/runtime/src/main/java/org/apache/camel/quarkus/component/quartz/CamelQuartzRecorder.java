@@ -27,8 +27,8 @@ import io.quarkus.quartz.runtime.QuartzSchedulerImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import jakarta.enterprise.inject.AmbiguousResolutionException;
+import jakarta.enterprise.inject.Any;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Component;
 import org.apache.camel.Ordered;
 import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.component.quartz.QuartzComponent;
@@ -90,8 +90,8 @@ public class CamelQuartzRecorder {
                         //Scheduler may be null in several cases, which would cause an exception in traditional autowiring
                         //see https://github.com/quarkusio/quarkus/issues/27929 for more details
                         if (handle.getBean().getBeanClass().equals(QuartzSchedulerImpl.class)) {
-                            Scheduler scheduler = Arc.container().select(QuartzScheduler.class).getHandle().get()
-                                    .getScheduler();
+                            Scheduler scheduler = Arc.container().select(QuartzScheduler.class, Any.Literal.INSTANCE)
+                                    .getHandle().get().getScheduler();
                             if (scheduler != null) {
                                 //scheduler is added only if is not null
                                 foundSchedulers.add(scheduler);
