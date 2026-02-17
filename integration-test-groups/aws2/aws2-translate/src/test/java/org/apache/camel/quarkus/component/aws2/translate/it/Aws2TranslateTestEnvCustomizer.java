@@ -14,40 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.support.aws2;
+package org.apache.camel.quarkus.component.aws2.translate.it;
 
-public enum Service {
-    API_GATEWAY("apigateway"),
-    EC2("ec2"),
-    KINESIS("kinesis"),
-    DYNAMODB("dynamodb"),
-    DYNAMODB_STREAMS("dynamodbstreams"),
-    S3("s3"),
-    FIREHOSE("firehose"),
-    LAMBDA("lambda"),
-    SNS("sns"),
-    SQS("sqs"),
-    REDSHIFT("redshift"),
-    SES("ses"),
-    ROUTE53("route53"),
-    CLOUDFORMATION("cloudformation"),
-    CLOUDWATCH("cloudwatch"),
-    SSM("ssm"),
-    SECRETSMANAGER("secretsmanager"),
-    STEPFUNCTIONS("stepfunctions"),
-    CLOUDWATCHLOGS("logs"),
-    STS("sts"),
-    IAM("iam"),
-    KMS("kms"),
-    TRANSLATE("translate");
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
+import org.apache.camel.quarkus.test.support.aws2.Service;
 
-    private final String serviceName;
+public class Aws2TranslateTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
-    Service(String serviceName) {
-        this.serviceName = serviceName;
+    @Override
+    public Service[] localstackServices() {
+        return new Service[] { Service.TRANSLATE };
     }
 
-    public String getName() {
-        return serviceName;
+    @Override
+    public void customize(Aws2TestEnvContext envContext) {
+        // No specific customization needed for Translate service beyond enabling it
     }
+
 }
