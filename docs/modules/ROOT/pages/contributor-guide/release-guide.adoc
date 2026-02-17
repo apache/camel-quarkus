@@ -426,6 +426,7 @@ git fetch upstream
 git checkout camel-quarkus-main
 git reset --hard upstream/camel-quarkus-main
 mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.quarkus.platform.version=$NEW_PLATFORM_VERSION
+./refresh-dockerfiles.sh
 git add -A
 git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
 ----
