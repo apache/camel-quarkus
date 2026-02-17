@@ -168,6 +168,7 @@
 *** xref:reference/extensions/iso8583.adoc[ISO-8583]
 *** xref:reference/extensions/ignite.adoc[Ignite Cache]
 *** xref:reference/extensions/infinispan.adoc[Infinispan]
+*** xref:reference/extensions/infinispan-cluster-service.adoc[Infinispan Cluster Service]
 *** xref:reference/extensions/influxdb.adoc[InfluxDB]
 *** xref:reference/extensions/jaxb.adoc[JAXB]
 *** xref:reference/extensions/jcr.adoc[JCR]
