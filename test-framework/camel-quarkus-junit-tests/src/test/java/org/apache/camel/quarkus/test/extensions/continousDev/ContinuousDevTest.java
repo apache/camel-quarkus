@@ -21,8 +21,8 @@ import java.nio.file.Paths;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
+import org.apache.camel.quarkus.test.extensions.CopyOfTestUtil;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -41,7 +41,7 @@ public class ContinuousDevTest {
                 public JavaArchive get() {
                     return ShrinkWrap.create(JavaArchive.class).addClasses(HelloResource.class)
                             .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                    CopyOfTestUtil.appProperties("quarkus.naming.enable-jndi=true",
                                             "camel-quarkus.junit.message=Sheldon")),
                                     "application.properties");
                 }
@@ -55,8 +55,8 @@ public class ContinuousDevTest {
 
     @Test
     public void checkTests() throws InterruptedException {
-        ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
-        ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
+        CopyOfTestUtil utils = new CopyOfTestUtil();
+        CopyOfTestUtil.TestStatus ts = utils.waitForNextCompletion();
 
         Assertions.assertEquals(2L, ts.getTestsFailed());
         Assertions.assertEquals(1L, ts.getTestsPassed());
@@ -65,7 +65,7 @@ public class ContinuousDevTest {
         TEST.modifyResourceFile("application.properties", new Function<String, String>() {
             @Override
             public String apply(String s) {
-                return ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                return CopyOfTestUtil.appProperties("quarkus.naming.enable-jndi=true",
                         "camel-quarkus.junit.message=Leonard");
             }
         });

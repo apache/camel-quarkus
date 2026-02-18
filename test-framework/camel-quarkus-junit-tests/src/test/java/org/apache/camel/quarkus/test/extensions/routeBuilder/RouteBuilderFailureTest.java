@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
 import java.util.logging.Level;
 
-import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
+import org.apache.camel.quarkus.test.extensions.CopyOfTestUtil;
 import org.apache.camel.quarkus.test.extensions.continousDev.HelloResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -39,7 +39,7 @@ public class RouteBuilderFailureTest {
                 JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
                         .addClasses(RouteBuilderFailureET.class, HelloResource.class)
                         .add(new StringAsset(
-                                ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                CopyOfTestUtil.appProperties("quarkus.naming.enable-jndi=true",
                                         "camel-quarkus.junit.message=Sheldon")),
                                 "application.properties");
                 return ja;
@@ -49,8 +49,8 @@ public class RouteBuilderFailureTest {
 
     @Test
     public void checkTests() {
-        ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
-        ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
+        CopyOfTestUtil utils = new CopyOfTestUtil();
+        CopyOfTestUtil.TestStatus ts = utils.waitForNextCompletion();
 
         Assertions.assertEquals(1L, ts.getTestsFailed());
         Assertions.assertEquals(0L, ts.getTestsPassed());
