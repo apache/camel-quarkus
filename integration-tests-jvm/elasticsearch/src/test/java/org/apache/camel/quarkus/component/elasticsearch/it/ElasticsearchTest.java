@@ -25,6 +25,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -141,6 +142,7 @@ class ElasticsearchTest {
 
     @ParameterizedTest
     @MethodSource("componentNames")
+    @Disabled //https://github.com/apache/camel-quarkus/issues/8319
     public void testElasticsearchBulk(String component) {
         String indexName = UUID.randomUUID().toString();
 
