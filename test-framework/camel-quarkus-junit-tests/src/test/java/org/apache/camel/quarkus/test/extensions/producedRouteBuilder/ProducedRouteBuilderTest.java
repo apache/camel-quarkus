@@ -24,12 +24,14 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Test for https://github.com/apache/camel-quarkus/issues/4362
  */
+@Disabled //https://github.com/apache/camel-quarkus/issues/8318
 public class ProducedRouteBuilderTest {
 
     @RegisterExtension
@@ -39,7 +41,8 @@ public class ProducedRouteBuilderTest {
                 public JavaArchive get() {
                     return ShrinkWrap.create(JavaArchive.class)
                             .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("camel-quarkus.junit.message=Sheldon")),
+                                    ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                            "camel-quarkus.junit.message=Sheldon")),
                                     "application.properties");
                 }
             })

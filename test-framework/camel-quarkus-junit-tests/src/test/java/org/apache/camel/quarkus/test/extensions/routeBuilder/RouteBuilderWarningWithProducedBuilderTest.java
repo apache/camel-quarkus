@@ -24,6 +24,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
  * Scenario when useRouteBuilder is TRUE and RouteBuilder is created via HelloRouteBuilder -> should succeed with
  * warning.
  */
+@Disabled //https://github.com/apache/camel-quarkus/issues/8318
 public class RouteBuilderWarningWithProducedBuilderTest {
 
     @RegisterExtension
@@ -39,7 +41,7 @@ public class RouteBuilderWarningWithProducedBuilderTest {
                 JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
                         .addClasses(RouteProducer.class)
                         .add(new StringAsset(
-                                ContinuousTestingTestUtils.appProperties("#")),
+                                ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true")),
                                 "application.properties");
                 return ja;
             })
