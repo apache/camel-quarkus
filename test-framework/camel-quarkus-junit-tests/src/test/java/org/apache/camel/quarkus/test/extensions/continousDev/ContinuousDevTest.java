@@ -41,7 +41,8 @@ public class ContinuousDevTest {
                 public JavaArchive get() {
                     return ShrinkWrap.create(JavaArchive.class).addClasses(HelloResource.class)
                             .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("camel-quarkus.junit.message=Sheldon")),
+                                    ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                            "camel-quarkus.junit.message=Sheldon")),
                                     "application.properties");
                 }
             })
@@ -64,7 +65,8 @@ public class ContinuousDevTest {
         TEST.modifyResourceFile("application.properties", new Function<String, String>() {
             @Override
             public String apply(String s) {
-                return ContinuousTestingTestUtils.appProperties("camel-quarkus.junit.message=Leonard");
+                return ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                        "camel-quarkus.junit.message=Leonard");
             }
         });
         ts = utils.waitForNextCompletion();

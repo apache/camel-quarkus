@@ -39,7 +39,7 @@ public class DoubleRoutesTest {
                 public JavaArchive get() {
                     return ShrinkWrap.create(JavaArchive.class).addClass(RouteBuilder.class)
                             .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("#")),
+                                    ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true")),
                                     "application.properties");
                 }
             })
