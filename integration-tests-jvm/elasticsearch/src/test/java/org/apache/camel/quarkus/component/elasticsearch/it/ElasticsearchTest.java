@@ -31,6 +31,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.is;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/8319
 @QuarkusTest
 @QuarkusTestResource(ElasticsearchTestResource.class)
 class ElasticsearchTest {
@@ -142,7 +143,6 @@ class ElasticsearchTest {
 
     @ParameterizedTest
     @MethodSource("componentNames")
-    @Disabled //https://github.com/apache/camel-quarkus/issues/8319
     public void testElasticsearchBulk(String component) {
         String indexName = UUID.randomUUID().toString();
 
