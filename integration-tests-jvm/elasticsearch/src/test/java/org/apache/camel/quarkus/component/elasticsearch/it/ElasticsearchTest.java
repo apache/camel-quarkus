@@ -16,6 +16,13 @@
  */
 package org.apache.camel.quarkus.component.elasticsearch.it;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -24,17 +31,26 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
+import org.awaitility.core.ConditionTimeoutException;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/8319
 @QuarkusTest
 @QuarkusTestResource(ElasticsearchTestResource.class)
 class ElasticsearchTest {
+    private static final Logger LOG = Logger.getLogger(ElasticsearchTest.class);
+
+    @BeforeEach
+    public void beforeEach() throws ConditionTimeoutException {
+        // Ensure the Elasticsearch cluster is ready before each test
+        waitClusterReady();
+    }
 
     @AfterEach
     public void afterEach() {
@@ -352,6 +368,69 @@ class ElasticsearchTest {
                     .asString();
             return hits.equals("2");
         });
+    }
+
+    /**
+     * Queries the Elasticsearch cluster health status and waits until it's green or yellow.
+     * Retries with Awaitility until the cluster is ready.
+     *
+     * @throws ConditionTimeoutException if the request fails after all retries
+     */
+    private void waitClusterReady() throws ConditionTimeoutException {
+        String hostAddresses = ConfigProvider.getConfig().getValue("camel.component.elasticsearch.host-addresses",
+                String.class);
+        String username = ConfigProvider.getConfig().getValue("camel.component.elasticsearch.user", String.class);
+        String password = ConfigProvider.getConfig().getValue("camel.component.elasticsearch.password", String.class);
+
+        Awaitility.await()
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(10, TimeUnit.SECONDS)
+                .until(() -> {
+                    try {
+                        URL url = new URL(String.format("http://%s/_cluster/health", hostAddresses));
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                        // Set up Basic Authentication
+                        String auth = String.format("%s:%s", username, password);
+                        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
+                        connection.setRequestProperty("Authorization", "Basic " + encodedAuth);
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(5000);
+                        connection.setReadTimeout(5000);
+
+                        int responseCode = connection.getResponseCode();
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            try (BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(connection.getInputStream()))) {
+                                StringBuilder response = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    response.append(line);
+                                }
+                                String healthJson = response.toString();
+
+                                // Check if cluster status is green or yellow
+                                if (healthJson.contains("\"status\":\"green\"")
+                                        || healthJson.contains("\"status\":\"yellow\"")) {
+                                    LOG.info("Cluster health is ready: " + healthJson);
+                                    return healthJson;
+                                } else {
+                                    LOG.info("Cluster not ready yet, current status: "
+                                            + healthJson);
+                                    return null;
+                                }
+                            }
+                        } else {
+                            LOG.info("Cluster health check returned code: " + responseCode
+                                    + ", retrying...");
+                            return null;
+                        }
+                    } catch (Exception e) {
+                        LOG.info("Failed to query cluster health: " + e.getMessage()
+                                + ", retrying...");
+                        return null;
+                    }
+                }, Objects::nonNull);
     }
 
     /**
