@@ -82,6 +82,35 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Workaround for https://github.com/apache/camel-quarkus/issues/7543
+                 See more information in th ticket.
+                 Shortly, when hashicorp test runs onb the system, which contains this module/target/classes, it fails.
+                 Reason is explained in the ticker https://github.com/apache/camel-quarkus/issues/7543
+                 Artifact created by this module does mot contain anything (except license) in the target/classes folder.
+                 Workaround loads and installs  the licences from the folder target/license
+                 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>legal-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/target/license/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classesDirectory>${project.basedir}/target/license</classesDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
