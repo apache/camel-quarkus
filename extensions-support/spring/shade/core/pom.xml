@@ -82,6 +82,33 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
+                 Workaround for https://github.com/apache/camel-quarkus/issues/7543.
+                 This module produces an artifact that does not include any compiled classes only license files, which causes tests to fail when the empty target/classes directory is detected.
+                 The workaround explicitly loads and installs the license files from the target/license directory.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>legal-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/target/license/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classesDirectory>${project.basedir}/target/license</classesDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

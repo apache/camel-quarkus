@@ -43,6 +43,7 @@
                 <exclude>org.springframework.hateoas:*</exclude>
                 <exclude>org.springframework.integration:*</exclude>
                 <exclude>org.springframework.javaconfig:*</exclude>
+                <exclude>org.springframework.jcl:*</exclude>
                 <exclude>org.springframework.kafka:*</exclude>
                 <exclude>org.springframework.ldap:*</exclude>
                 <exclude>org.springframework.maven:*</exclude>
