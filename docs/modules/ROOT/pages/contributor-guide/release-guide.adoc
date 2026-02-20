@@ -483,3 +483,47 @@ In addition to the above, the following is needed:
 
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
+
+
+== Troubleshooting
+
+=== Corner case with  ksshaskpass
+
+When you encounter an error related to `ksshaskpass`:
+
+----
+[ERROR] The git-push command failed.
+[ERROR] Command output:
+[ERROR] fatal: cannot exec '/usr/bin/ksshaskpass': No such file or directory
+[ERROR] fatal: could not read Username for 'https://gitbox.apache.org': terminal
+----
+
+Somehow the `ksshaskpass` is being used to store credentials.
+This utility might not work correctly on Fedora. (Probably because of wayland vs x11 vs qt)
+
+I used following commands to skip `ksshaskpass`:
+
+----
+unset SSH_ASKPASS
+export SSH_ASKPASS_REQUIRE=never
+----
+
+With them, the error was changed to
+
+----
+[ERROR] The git-push command failed.
+[ERROR] Command output:
+[ERROR] fatal: could not read Username for 'https://gitbox.apache.org': terminal prompts disabled
+[ERROR] -> [Help 1]
+----
+
+I executed several commands to force `git push` to prompt for credentials again.
+I’m not certain which specific command ultimately resolved the issue.
+Below is the list of commands I attempted; documenting them here in case they are useful for future troubleshooting.
+
+----
+ssh -T git@gitbox.apache.org
+git config --global credential.helper store
+ssh-add -l
+mvn help:evaluate -Dexpression=env.SSH_AUTH_SOCK -q -DforceStdout
+----
