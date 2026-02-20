@@ -21,7 +21,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.strimzi.test.container.StrimziKafkaContainer;
+import io.strimzi.test.container.StrimziKafkaCluster;
 import org.apache.camel.quarkus.test.support.kafka.InjectKafka;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class CamelKafkaHealthCheckTest {
 
     @InjectKafka
-    StrimziKafkaContainer container;
+    StrimziKafkaCluster container;
 
     @Test
     void testHealthCheck() {
