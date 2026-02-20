@@ -278,10 +278,6 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
         }
     }
 
-    protected String config(String name) {
-        return ConfigProvider.getConfig().getValue(name, String.class);
-    }
-
     protected void createRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(config("test.realm"));
     }

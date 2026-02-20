@@ -20,6 +20,8 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.keycloak.common.crypto.CryptoIntegration;
 import org.keycloak.common.util.BouncyIntegration;
 
 class KeycloakProcessor {
@@ -34,6 +36,19 @@ class KeycloakProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(BouncyIntegration.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(CryptoIntegration.class.getName()));
+    }
+
+    @BuildStep
+    void registerServiceProviders(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
+        String[] spis = {
+                "org.keycloak.common.crypto.CryptoProvider",
+                "org.keycloak.protocol.oidc.client.authentication.ClientCredentialsProvider"
+        };
+
+        for (String spi : spis) {
+            serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(spi));
+        }
     }
 
 }

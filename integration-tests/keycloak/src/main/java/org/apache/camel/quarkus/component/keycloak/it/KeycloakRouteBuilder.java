@@ -95,5 +95,29 @@ public class KeycloakRouteBuilder extends RouteBuilder {
                 .autoStartup(true)
                 .policy(adminPolicy)
                 .transform().constant("Admin access granted");
+
+        // -------------------EvaluatePermissionRoute-----------------------------
+
+        // Route 1: Evaluate permission with clientId and clientSecret
+        from("direct:evaluatePermission")
+                .routeId("evaluate-permission")
+                .toD("keycloak:authz"
+                        + "?serverUrl=" + serverUrl
+                        + "&realm=" + realm
+                        + "&clientId=${header.X-Authz-Client-Id}"
+                        + "&clientSecret=${header.X-Authz-Client-Secret}"
+                        + "&operation=evaluatePermission");
+
+        // Route 2: Evaluate permission with username/password
+        from("direct:evaluatePermissionUserPass")
+                .routeId("evaluate-permission-userpass")
+                .toD("keycloak:authz"
+                        + "?serverUrl=" + serverUrl
+                        + "&realm=" + realm
+                        + "&clientId=${header.X-Authz-Client-Id}"
+                        + "&clientSecret=${header.X-Authz-Client-Secret}"
+                        + "&username=${header.X-Authz-Username}"
+                        + "&password=${header.X-Authz-Password}"
+                        + "&operation=evaluatePermission");
     }
 }

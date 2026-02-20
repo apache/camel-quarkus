@@ -22,9 +22,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 
 @QuarkusTestResource(KeycloakTestResource.class)
 public class KeycloakSecurityPolicyTestBase extends KeycloakTestBase {
-    // Test data
-    public static String TEST_CLIENT_SECRET = "test-client-secret";
-
     // Test users
     protected static final String ADMIN_USER = "admin-" + UUID.randomUUID().toString().substring(0, 8);
     protected static final String ADMIN_PASSWORD = "admin123";

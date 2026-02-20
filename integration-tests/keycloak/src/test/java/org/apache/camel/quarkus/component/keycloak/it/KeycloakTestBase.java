@@ -24,6 +24,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
@@ -36,9 +37,11 @@ public abstract class KeycloakTestBase {
     // Test data - use unique names to avoid conflicts
     protected static final String TEST_REALM_NAME = "test-realm-" + UUID.randomUUID().toString().substring(0, 8);
     protected static final String TEST_USER_NAME = "test-user-" + UUID.randomUUID().toString().substring(0, 8);
+    protected static final String TEST_USER_PASSWORD = "Test@password123";
     protected static final String TEST_ROLE_NAME = "test-role-" + UUID.randomUUID().toString().substring(0, 8);
     protected static final String TEST_GROUP_NAME = "test-group-" + UUID.randomUUID().toString().substring(0, 8);
     protected static final String TEST_CLIENT_ID = "test-client-" + UUID.randomUUID().toString().substring(0, 8);
+    protected static final String TEST_CLIENT_SECRET = "test-client-secret";
     protected static final String TEST_CLIENT_ROLE_NAME = "test-client-role-"
             + UUID.randomUUID().toString().substring(0, 8);
     protected static final String TEST_CLIENT_SCOPE_NAME = "test-scope-" + UUID.randomUUID().toString().substring(0, 8);
@@ -61,5 +64,9 @@ public abstract class KeycloakTestBase {
                             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                             return mapper;
                         }));
+    }
+
+    protected String config(String name) {
+        return ConfigProvider.getConfig().getValue(name, String.class);
     }
 }

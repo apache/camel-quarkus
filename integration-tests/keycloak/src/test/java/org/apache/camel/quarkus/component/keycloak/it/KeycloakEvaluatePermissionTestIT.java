@@ -14,14 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.keycloak.it;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@RegisterForReflection(targets = {
-        org.keycloak.jose.jws.JWSHeader.class,
-        org.keycloak.jose.jws.JWSInput.class,
-        org.keycloak.authorization.client.representation.ServerConfiguration.class
-})
-public class NativeReflectionConfig {
+@QuarkusIntegrationTest
+public class KeycloakEvaluatePermissionTestIT extends KeycloakEvaluatePermissionTest {
 }
