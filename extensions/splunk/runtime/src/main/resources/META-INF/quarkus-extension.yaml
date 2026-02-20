@@ -29,4 +29,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/splunk.html"
   categories:
   - "integration"
-  status: "stable"
+  status: "deprecated"

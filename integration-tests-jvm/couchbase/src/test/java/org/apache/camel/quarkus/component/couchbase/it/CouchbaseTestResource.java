@@ -17,15 +17,11 @@
 package org.apache.camel.quarkus.component.couchbase.it;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Map;
 
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.manager.bucket.BucketSettings;
 import com.couchbase.client.java.manager.bucket.BucketType;
-import com.couchbase.client.java.manager.view.DesignDocument;
-import com.couchbase.client.java.manager.view.View;
-import com.couchbase.client.java.view.DesignDocumentNamespace;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -106,10 +102,6 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
                 BucketSettings.create(bucketName).bucketType(BucketType.COUCHBASE).flushEnabled(true));
 
         cluster.bucket(bucketName);
-        DesignDocument designDoc = new DesignDocument(
-                bucketName,
-                Collections.singletonMap(bucketName, new View("function (doc, meta) {  emit(meta.id, doc);}")));
-        cluster.bucket(bucketName).viewIndexes().upsertDesignDocument(designDoc, DesignDocumentNamespace.PRODUCTION);
         // wait for cluster
         cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(30));
 

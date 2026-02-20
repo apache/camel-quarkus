@@ -1,8 +1,0 @@
-If your persistence objects in native mode implement `java.io.Serializable` and are not automatically registered for serialization,
-you have to register them for serialization. Look into xref:extensions/core.adoc#quarkus-camel-native-reflection-serialization-enabled[documentation]
-to see which classes are registered and how to register other ones.
-
-
-If your persistence objects implement `org.dizitart.no2.mapper.Mappable`. All classes have to
-implement also `java.io.Serializable` and have to be registered for serialization (see previous option),
-even though the Java serialization won't be used.

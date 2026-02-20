@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.json.validator.graal;
 import java.lang.reflect.Constructor;
 import java.util.function.BooleanSupplier;
 
-import com.networknt.schema.ValidationContext;
+import com.networknt.schema.SchemaContext;
 import com.networknt.schema.regex.RegularExpression;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
@@ -37,7 +37,7 @@ interface RegularExpressionSubstitutions {
     boolean matches(String value);
 
     @Substitute
-    static RegularExpression compile(String regex, ValidationContext validationContext) {
+    static RegularExpression compile(String regex, SchemaContext validationContext) {
         if (null == regex)
             return s -> true;
         try {

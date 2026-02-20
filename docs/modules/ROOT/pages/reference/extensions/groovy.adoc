@@ -24,8 +24,10 @@ Evaluate a Groovy script
 == What's inside
 
 * xref:{cq-camel-components}:languages:groovy-language.adoc[Groovy language]
+* xref:{cq-camel-components}:dataformats:groovyJson-dataformat.adoc[Groovy JSon data format]
+* xref:{cq-camel-components}:dataformats:groovyXml-dataformat.adoc[Groovy XML data format]
 
-Please refer to the above link for usage and configuration details.
+Please refer to the above links for usage and configuration details.
 
 [id="extensions-groovy-maven-coordinates"]
 == Maven coordinates
@@ -50,6 +52,11 @@ endif::[]
 
 [id="extensions-groovy-limitations-native-mode-limitations"]
 === Native mode limitations
+
+[IMPORTANT]
+====
+Due to an issue in GraalVM / Mandrel 23.1.x, you *must* build your native application with the https://quarkus.io/guides/all-config#quarkus-core_quarkus-native-report-errors-at-runtime[`--report-unsupported-elements-at-runtime`] option. You can do this by adding the following configuration to `application.properties`.
+====
 
 Compilation of Groovy expressions is made with static compilation enabled. Which means that the types used in your expressions must
 be known at compile time. Please refer to the https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#static-type-checking[Groovy documentation for more details].

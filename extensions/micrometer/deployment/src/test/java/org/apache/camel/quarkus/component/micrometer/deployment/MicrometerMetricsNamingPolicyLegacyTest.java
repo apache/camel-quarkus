@@ -80,7 +80,8 @@ public class MicrometerMetricsNamingPolicyLegacyTest {
         List<EventNotifier> eventNotifiers = context.getManagementStrategy()
                 .getEventNotifiers()
                 .stream()
-                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
+                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport") &&
+                        !eventNotifier.getClass().getName().contains("DefaultErrorRegistry"))
                 .toList();
         assertEquals(3, eventNotifiers.size());
 

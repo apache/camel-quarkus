@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.networknt.schema.ValidationMessage;
+import com.networknt.schema.Error;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -55,7 +55,7 @@ public class JsonValidatorResource {
             if (e.getCause() instanceof JsonValidationException jve) {
                 return jve.getErrors()
                         .stream()
-                        .map(ValidationMessage::getError)
+                        .map(Error::getMessage)
                         .toList();
             } else {
                 throw e;
@@ -77,7 +77,7 @@ public class JsonValidatorResource {
             if (e.getCause() instanceof JsonValidationException jve) {
                 return jve.getErrors()
                         .stream()
-                        .map(ValidationMessage::getError)
+                        .map(Error::getMessage)
                         .toList();
             } else {
                 throw e;
@@ -99,7 +99,7 @@ public class JsonValidatorResource {
             if (e.getCause() instanceof JsonValidationException jve) {
                 return jve.getErrors()
                         .stream()
-                        .map(ValidationMessage::getError)
+                        .map(Error::getMessage)
                         .toList();
             } else {
                 throw e;

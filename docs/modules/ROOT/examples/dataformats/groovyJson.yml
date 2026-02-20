@@ -7,7 +7,7 @@ cqStatus: Stable
 cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 3.2.0
-cqCamelPartName: groovyXml
-cqCamelPartTitle: Groovy XML
-cqCamelPartDescription: Transform between XML and Groovy Node (Map structure) objects.
+cqCamelPartName: groovyJson
+cqCamelPartTitle: Groovy JSon
+cqCamelPartDescription: Transform between JSon and java.util.Map or java.util.List objects.
 cqExtensionPageTitle: Groovy

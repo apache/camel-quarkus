@@ -105,7 +105,6 @@
         <module>graphql</module>
         <module>grok</module>
         <module>groovy</module>
-        <module>groovy-xml</module>
         <module>grpc</module>
         <module>hashicorp-vault</module>
         <module>hazelcast</module>
@@ -186,7 +185,6 @@
         <module>mybatis</module>
         <module>nats</module>
         <module>netty</module>
-        <module>nitrite</module>
         <module>oaipmh</module>
         <module>oauth</module>
         <module>observability-services</module>

@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: rest-openapi
 cqCamelPartTitle: REST OpenApi
-cqCamelPartDescription: To call REST services using OpenAPI specification as contract.
+cqCamelPartDescription: To call and expose REST services using OpenAPI specification as contract.
 cqExtensionPageTitle: REST OpenApi

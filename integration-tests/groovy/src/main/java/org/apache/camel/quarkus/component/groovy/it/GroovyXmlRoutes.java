@@ -14,11 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.groovy.xml.it;
+package org.apache.camel.quarkus.component.groovy.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.builder.RouteBuilder;
 
-@QuarkusIntegrationTest
-class GroovyXmlIT extends GroovyXmlTest {
+public class GroovyXmlRoutes extends RouteBuilder {
+
+    @Override
+    public void configure() throws Exception {
+        from("direct:marshal").streamCache(false)
+                .marshal().groovyXml();
+
+        from("direct:unmarshal")
+                .unmarshal().groovyXml();
+    }
 
 }

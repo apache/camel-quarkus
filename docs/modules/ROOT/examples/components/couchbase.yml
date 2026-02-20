@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: n/a
 cqCamelPartName: couchbase
 cqCamelPartTitle: Couchbase
-cqCamelPartDescription: Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
+cqCamelPartDescription: Query Couchbase databases using SQL (N1QL) queries or MapReduce Views with a poll strategy and/or perform various operations against Couchbase databases.
 cqExtensionPageTitle: Couchbase

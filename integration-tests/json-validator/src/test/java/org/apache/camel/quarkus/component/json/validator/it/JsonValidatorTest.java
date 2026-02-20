@@ -20,6 +20,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
@@ -44,10 +45,10 @@ class JsonValidatorTest {
                 .get("/json-validator/validate")
                 .then()
                 .statusCode(200)
-                .body(
-                        "[0]", is("string found, integer expected"),
-                        "[1]", is("required property 'price' not found"),
-                        "[2]", containsString("property 'unknown' is not defined in the schema"));
+                .body("", containsInAnyOrder(
+                        is("required property 'price' not found"),
+                        is("string found, integer expected"),
+                        containsString("property 'unknown' is not defined in the schema")));
     }
 
     @Test

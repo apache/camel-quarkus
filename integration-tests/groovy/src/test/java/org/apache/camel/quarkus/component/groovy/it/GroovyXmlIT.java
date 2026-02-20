@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.nitrite.it;
+package org.apache.camel.quarkus.component.groovy.it;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/8245")
 @QuarkusIntegrationTest
-class NitriteIT extends NitriteTest {
+class GroovyXmlIT extends GroovyXmlTest {
 
 }

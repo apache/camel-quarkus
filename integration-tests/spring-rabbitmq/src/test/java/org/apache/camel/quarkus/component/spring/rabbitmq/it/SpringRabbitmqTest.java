@@ -29,6 +29,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.camel.component.springrabbit.SpringRabbitMQConstants;
 import org.awaitility.Awaitility;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
@@ -347,11 +348,13 @@ class SpringRabbitmqTest {
                 .then()
                 .statusCode(204);
 
-        //message ends in deadletter
-        getFromDirect("direct:deadletter-DL")
-                .then()
-                .statusCode(200)
-                .body(is("Hello from deadletter: Hello"));
+        //stop route (and wait for stop)
+        Awaitility.await().atMost(30, TimeUnit.SECONDS).until(
+                () -> getFromDirect("direct:deadletter-DL")
+                        .then()
+                        .statusCode(200)
+                        .extract().asString(),
+                Matchers.is("Hello from deadletter: Hello"));
 
         //no message ends in the "successful scenario" direct
         getFromDirect("direct:deadletter")
