@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.vertx.http;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
+import io.vertx.core.tracing.TracingPolicy;
 import org.apache.camel.component.vertx.http.VertxHttpComponent;
 
 @Recorder
@@ -27,6 +28,7 @@ public class CamelVertxHttpRecorder {
     public RuntimeValue<?> createVertxHttpComponent(RuntimeValue<Vertx> vertx) {
         VertxHttpComponent component = new VertxHttpComponent();
         component.setVertx(vertx.getValue());
+        component.setTracingPolicy(TracingPolicy.IGNORE);
         return new RuntimeValue<>(component);
     }
 }

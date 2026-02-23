@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class OpenTelemetryRouteBuilder extends RouteBuilder {
@@ -43,9 +44,21 @@ public class OpenTelemetryRouteBuilder extends RouteBuilder {
                 .to("bean:jdbcQueryBean");
 
         from("platform-http:/greeting")
-                .log("Received at greeting: ${body}")
+                .log("Received /greeting request for component ${header.httpComponent}")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        String baseUrl = "http://localhost";
+                        String httpComponent = exchange.getMessage().getHeader("httpComponent", String.class);
+                        if (httpComponent.equals("http")) {
+                            exchange.setVariable("httpUriPrefix", baseUrl);
+                        } else {
+                            exchange.setVariable("httpUriPrefix", httpComponent + ":" + baseUrl);
+                        }
+                    }
+                })
                 .removeHeaders("*")
-                .to("http://localhost:{{quarkus.http.test-port}}/greeting-provider");
+                .toD("${variable.httpUriPrefix}:{{quarkus.http.test-port}}/greeting-provider");
 
         from("platform-http:/greeting-provider")
                 .log("Received at greeting-provider: ${body}")
