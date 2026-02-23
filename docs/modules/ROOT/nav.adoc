@@ -223,6 +223,7 @@
 *** xref:reference/extensions/log.adoc[Log]
 *** xref:reference/extensions/lucene.adoc[Lucene]
 *** xref:reference/extensions/lumberjack.adoc[Lumberjack]
+*** xref:reference/extensions/mina-sftp.adoc[MINA SFTP]
 *** xref:reference/extensions/mllp.adoc[MLLP]
 *** xref:reference/extensions/mvel.adoc[MVEL]
 *** xref:reference/extensions/mail.adoc[Mail]

@@ -79,6 +79,7 @@
         <module>ldif</module>
         <module>lucene</module>
         <module>milvus</module>
+        <module>mina-sftp</module>
         <module>mvel</module>
         <module>opensearch</module>
         <module>pqc</module>

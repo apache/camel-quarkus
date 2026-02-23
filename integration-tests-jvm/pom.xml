@@ -80,6 +80,7 @@
         <module>lucene</module>
         <module>main-devmode</module>
         <module>milvus</module>
+        <module>mina-sftp</module>
         <module>mvel</module>
         <module>opensearch</module>
         <module>pqc</module>
