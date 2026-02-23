@@ -483,3 +483,40 @@ In addition to the above, the following is needed:
 
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
+
+== Troubleshooting
+=== Edge case involving SSH credential prompting
+If you encounter an error related to `ksshaskpass`, such as:
+----
+[ERROR] The git-push command failed.
+[ERROR] Command output:
+[ERROR] fatal: cannot exec '/usr/bin/ksshaskpass': No such file or directory
+[ERROR] fatal: could not read Username for 'https://gitbox.apache.org': terminal
+----
+In some environments, an SSH askpass helper may be invoked unexpectedly for
+credential handling. If the helper is missing or incompatible with the
+desktop/session configuration, Git operations can fail.
+One way to prevent the use of an askpass helper is to disable it explicitly:
+----
+unset SSH_ASKPASS
+export SSH_ASKPASS_REQUIRE=never
+----
+After applying these settings, the error may change to:
+----
+[ERROR] The git-push command failed.
+[ERROR] Command output:
+[ERROR] fatal: could not read Username for 'https://gitbox.apache.org': terminal prompts disabled
+[ERROR] -> [Help 1]
+----
+At this point, Git is no longer attempting to use an askpass helper, but is also
+unable to prompt for credentials interactively.
+To restore normal credential prompting or authentication behavior, several
+commands may be helpful, depending on the environment and Git configuration.
+The following commands were executed during troubleshooting; the exact one that
+resolved the issue is unclear, but they are documented here for reference:
+----
+ssh -T git@gitbox.apache.org
+git config --global credential.helper store
+ssh-add -l
+mvn help:evaluate -Dexpression=env.SSH_AUTH_SOCK -q -DforceStdout
+----
