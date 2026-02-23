@@ -1,0 +1,46 @@
+{
+  "id" : "0c403d8e-3be7-4d3b-96ea-88a87cf6feb0",
+  "name" : "embeddings",
+  "request" : {
+    "url" : "/embeddings",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"input\":[\"Text content 1\",\"Text content 2\",\"Text content 3\"],\"model\":\"text-embedding-3-small\",\"encoding_format\":\"base64\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "embeddings-0c403d8e-3be7-4d3b-96ea-88a87cf6feb0.json",
+    "headers" : {
+      "Server" : "cloudflare",
+      "x-ratelimit-reset-tokens" : "0s",
+      "via" : "envoy-router-canary-674bd7dc9d-pblzt",
+      "set-cookie" : "__cf_bm=wTJNeihZ_2wGpdHdywwTETM.s.6ICs3Ch2ocqkz6hJM-1771859792.8486474-1.0.1.1-gqPYyz4YUZxCVF5WSF1dWZEsyBIPRZgc02i.dBJSYGTeFn5g5UrlfVOGLIkBFoMvx9S4QWnQKILr_zfr6E1WdRea6e88Z_pi3bMie_q.9nqsyY6te5Z9B0kW7CVAj3HH; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 23 Feb 2026 15:46:32 GMT",
+      "Content-Type" : "application/json",
+      "x-request-id" : "req_5650bbd7d08d4e34a67621bace84b87e",
+      "x-ratelimit-limit-tokens" : "1000000",
+      "openai-organization" : "user-nvrq0gduw4i0ooapnshoh6gw",
+      "CF-RAY" : "9d27af594976cce2-LHR",
+      "X-Content-Type-Options" : "nosniff",
+      "x-ratelimit-reset-requests" : "20ms",
+      "x-openai-proxy-wasm" : "v0.1",
+      "x-ratelimit-remaining-tokens" : "999990",
+      "cf-cache-status" : "DYNAMIC",
+      "x-ratelimit-remaining-requests" : "2999",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "Date" : "Mon, 23 Feb 2026 15:16:32 GMT",
+      "access-control-expose-headers" : "X-Request-ID",
+      "access-control-allow-origin" : "*",
+      "x-ratelimit-limit-requests" : "3000",
+      "openai-version" : "2020-10-01",
+      "openai-processing-ms" : "71",
+      "openai-model" : "text-embedding-3-small",
+      "alt-svc" : "h3=\":443\"; ma=86400"
+    }
+  },
+  "uuid" : "0c403d8e-3be7-4d3b-96ea-88a87cf6feb0",
+  "persistent" : true,
+  "insertionIndex" : 12
+}

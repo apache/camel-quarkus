@@ -81,5 +81,14 @@ public class OpenaiRoutes extends RouteBuilder {
                 .setBody(constant("What is my Camel species?"))
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 2: ${body}");
+
+        from("direct:embed")
+                .to("openai:embeddings");
+
+        from("direct:batchEmbed")
+                .to("openai:embeddings");
+
+        from("direct:vectorSimilarity")
+                .to("openai:embeddings");
     }
 }
