@@ -1253,6 +1253,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-google-common</artifactId>
+        <version>4.19.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-google-drive</artifactId>
         <version>4.19.0-SNAPSHOT</version>
         <exclusions>
@@ -8028,7 +8033,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8043,7 +8048,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8054,7 +8059,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8069,7 +8074,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8084,7 +8089,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8099,7 +8104,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8114,7 +8119,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>6.2.15</version>
+        <version>7.0.5</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8133,7 +8138,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-redis</artifactId>
-        <version>3.5.5</version>
+        <version>4.0.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
