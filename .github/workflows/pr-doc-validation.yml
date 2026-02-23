@@ -24,6 +24,7 @@ on:
     paths:
       - '**.adoc'
       - '!**/README.adoc'
+      - 'docs/antora.yml'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
