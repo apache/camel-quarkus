@@ -25,6 +25,7 @@ Alternatively, you can test against any OpenAI compatible API by configuring the
 export OPENAI_API_KEY=fake-key
 export OPENAI_BASE_URL=https://you-api-endpoint/v1
 export OPENAI_MODEL=your-model-name
+export OPENAI_EMBEDDING_MODEL=your-embedding-model-name
 ----
 
 If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:

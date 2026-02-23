@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,10 +40,13 @@ import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTestResource(OpenaiTestResource.class)
 @QuarkusTest
@@ -207,5 +211,96 @@ class OpenaiTest {
                 .body(
                         "name", is("Bluetooth Headphones"),
                         "price", greaterThan(0.0F));
+    }
+
+    @Test
+    void simpleEmbedding() {
+        String simpleText = "Simple text";
+        List<?> result = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(simpleText)
+                .post("/openai/embeddings")
+                .then()
+                .statusCode(200)
+                .body(".", hasSize(greaterThan(0)))
+                .extract()
+                .body()
+                .as(List.class);
+
+        Double similarity = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .queryParam("embeddingContent", simpleText)
+                .body(result)
+                .post("/openai/vector/similarity")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(Double.class);
+
+        assertTrue(similarity >= 0.9);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    void batchEmbedding() {
+        String batchText = "Text content 1,Text content 2,Text content 3";
+        List<List<?>> result = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(batchText)
+                .post("/openai/embeddings")
+                .then()
+                .statusCode(200)
+                .body(
+                        ".", hasSize(equalTo(3)),
+                        "[0]", hasSize(greaterThan(0)),
+                        "[1]", hasSize(greaterThan(0)),
+                        "[2]", hasSize(greaterThan(0)))
+                .extract()
+                .body()
+                .as(List.class);
+
+        String[] batchTextParts = batchText.split(",");
+        for (int i = 0; i < batchTextParts.length; i++) {
+            Double similarity = RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .queryParam("embeddingContent", batchTextParts[i])
+                    .body(result.get(i))
+                    .post("/openai/vector/similarity")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .as(Double.class);
+            assertTrue(similarity >= 0.9);
+        }
+    }
+
+    @Test
+    void vectorSimilarity() {
+        String simpleText = "Simple text";
+        List<?> result = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(simpleText)
+                .post("/openai/embeddings")
+                .then()
+                .statusCode(200)
+                .body(".", hasSize(greaterThan(0)))
+                .extract()
+                .body()
+                .as(List.class);
+
+        Double similarity = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .queryParam("embeddingContent", simpleText + " extra content")
+                .body(result)
+                .post("/openai/vector/similarity")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(Double.class);
+
+        assertTrue(similarity >= 0.6);
     }
 }

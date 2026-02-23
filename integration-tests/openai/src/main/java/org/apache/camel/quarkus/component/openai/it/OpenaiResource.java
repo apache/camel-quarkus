@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.openai.it;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,6 +34,9 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.openai.OpenAIConstants;
 import org.apache.camel.util.ObjectHelper;
@@ -103,6 +108,38 @@ public class OpenaiResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String chatResults(@QueryParam("endpointUri") String endpointUri) {
         return consumerTemplate.receiveBody(endpointUri, 10000, String.class);
+    }
+
+    @Path("/embeddings")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<?> embeddings(String embeddingContent) {
+        Object body = embeddingContent;
+        String endpointUriSuffix = "embed";
+        String[] content = embeddingContent.split(",");
+        if (content.length > 1) {
+            endpointUriSuffix = "batchEmbed";
+            body = Arrays.asList(content);
+        }
+
+        return producerTemplate.requestBody("direct:" + endpointUriSuffix, body, List.class);
+    }
+
+    @Path("/vector/similarity")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Double vectorSimilarity(@QueryParam("embeddingContent") String embeddingContent, List<Float> vector) {
+        Exchange exchange = producerTemplate.request("direct:vectorSimilarity", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Message message = exchange.getMessage();
+                message.setHeader(OpenAIConstants.REFERENCE_EMBEDDING, vector);
+                message.setBody(embeddingContent);
+            }
+        });
+        return exchange.getMessage().getHeader(OpenAIConstants.SIMILARITY_SCORE, Double.class);
     }
 
     @Path("/routes/{routeId}/{operation}")
