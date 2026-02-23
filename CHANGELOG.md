@@ -18,6 +18,97 @@
 -->
 # Changelog
 
+## 3.32.0
+
+* Upgrade to Quarkus CXF 3.31.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/8161
+* Upgrade Quarkus Amazon Services to 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8194
+* Update file-cluster-service configuration for recent FileLockClusterService enhancements by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8195
+* Add IBM MQ client trace logs to .gitignore by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8196
+* Bump actions/checkout from 6.0.1 to 6.0.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8198
+* Bump actions/setup-java from 5.1.0 to 5.2.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8199
+* Restore usage of mirror.gcr.io to quartz-clustered testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8201
+* Remove cq-maven-plugin ignoredOverlap configuration for at.yawk.lz4:lz4-java by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8202
+* Support extract metadata for camel docling in native by @apupier in https://github.com/apache/camel-quarkus/pull/8197
+* Update copyright notices for 2026 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8204
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8206
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.13.0 to 3.14.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8205
+* Next is 3.32.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8207
+* Update GPG key with non expired info by @aldettinger in https://github.com/apache/camel-quarkus/pull/8208
+* Bump org.codehaus.mojo:keytool-maven-plugin from 1.7 to 2.0.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8210
+* Bump quarkiverse-groovy.version from 3.30.6 to 3.31.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8209
+* Upgrade Cassandra Quarkus to 1.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8211
+* Pin kafka test container to 0.114.0-kafka-4.1.0 by @apupier in https://github.com/apache/camel-quarkus/pull/8215
+* Replace usage of org.graalvm.sdk:graal-sdk with org.graalvm.sdk:nativeimage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8213
+* Align dev.langchain4j dependencies with Quarkus LangChain4j 1.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8214
+* Remove redundant quarkus-development-mode-spi from camel-quarkus-core by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8216
+* Add changelog for 3.31.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8217
+* Upgrade Quarkus to 3.31.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8218
+* Docling test using local docling cli by @apupier in https://github.com/apache/camel-quarkus/pull/8220
+* Improve assertions for Docling tests by @apupier in https://github.com/apache/camel-quarkus/pull/8222
+* Add one test for batch operation with Docling by @apupier in https://github.com/apache/camel-quarkus/pull/8223
+* Bump quarkiverse-groovy.version from 3.31.0 to 3.31.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8224
+* Remove redundant map insertion by @apupier in https://github.com/apache/camel-quarkus/pull/8228
+* Upgrade Cassandra Quarkus to 1.4.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8225
+* Upgrade LocalStack container image to 4.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8230
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8231
+* Add OpenAI extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8227
+* Bump org.apache.maven.plugins:maven-compiler-plugin from 3.14.1 to 3.15.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8232
+* Bump cq-plugin.version from 4.20.3 to 4.21.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8233
+* Bump quarkiverse-cxf.version from 3.31.1 to 3.31.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8234
+* Fix flaky test OpenaiTest.streaming by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8236
+* Improve file-watch extension docs and test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8237
+* Upgrade Quarkus Artemis to 3.12.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8238
+* Bump quarkiverse-pooled-jms.version from 2.9.0 to 2.10.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8241
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.14.0 to 3.14.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8240
+* docs: Update contributor guide with Java 17 requirements and Podman support by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8242
+* [Tests] Skip also native tests when jvm is skipped on arm by @avano in https://github.com/apache/camel-quarkus/pull/8247
+* chore: Minor code quality cleanups and modernizations in core runtime by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8243
+* chore: Modernize POM links and collection usage in core deployment by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8244
+* Add support for opentelemetry2 traceHeadersInclusion tracer option by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8251
+* Align dev.langchain4j dependencies with Quarkus LangChain4j 1.6.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8253
+* Minor documentation improvements for opentelemetry2 extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8254
+* Remove redundant camel-quarkus-mongodb dependency from camel-quarkus-debezium-mongodb by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8256
+* chore: Runtime cleanup and modernization by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8248
+* chore: Deployment cleanup and modernization by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8249
+* chore: core runtime modernization and cleanup by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8255
+* chore: formatting and list modernization by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8258
+* Remove usage of deprecated Infinispan APIs & crypto algorithms by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8260
+* Run JFR tests only if the JDK supports it by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8262
+* Modernize core and AWS2 extensions by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8261
+* Further modernization of core deployment and tests by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8263
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8270
+* Bump quarkiverse-groovy.version from 3.31.1 to 3.31.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8267
+* Introduce Semeru JDK CE testing as weekly job by @vkasala in https://github.com/apache/camel-quarkus/pull/8257
+* chore: replace string concatenation with parameterized logging by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8264
+* chore: modernize collection usage in multiple extensions by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8269
+* Disable JFR recording when not supported by the JDK by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8273
+* Remove dependency references to log4j-jboss-logmanager by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8275
+* Bump com.microsoft.graph:microsoft-graph from 6.60.0 to 6.61.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8276
+* Fix #8252: Remove incorrect maven-artifact exclusion causing Debezium… by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8265
+* chore: modernize List usage and minor style fixes by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8268
+* Align dev.langchain4j dependencies with Quarkus LangChain4j 1.7.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8278
+* Upgrade Jolokia to 2.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8283
+* Upgrade Quarkus to 3.32.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8285
+* Add platform-http invocation test to Opentelemetry by @llowinge in https://github.com/apache/camel-quarkus/pull/8286
+* Disable Groovy invokedynamic compilation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8289
+* chore: modernize Stream API usage across codebase by @sanjana2505006 in https://github.com/apache/camel-quarkus/pull/8271
+* Upgrade gvenzl/oracle-free container image to 23.26.1-slim-faststart by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8292
+* Add test for QDrant similarity search by @apupier in https://github.com/apache/camel-quarkus/pull/8293
+* Remove redundant steps from JDK 25 & Semeru CI workflows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8294
+* Attempt to reclaim more disk space from GitHub actions runners by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8296
+* Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.7.0 to 1.7.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8290
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8299
+* Bump quarkiverse-groovy.version from 3.31.2 to 3.31.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8298
+* Add infinispan-cluster-service extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8305
+* Change how CamelQuartzRecorder looks up scheduler beans to account for cases with composite scheduler by @manovotn in https://github.com/apache/camel-quarkus/pull/8307
+* Update release guide to include running of refresh-dockerfiles.sh on example projects by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8309
+* Upgrade camel to 4.18.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8303
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.59 to 1.0.60 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8311
+* Upgrade Quarkus to 3.32.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8312
+* Disabled integration-tests-jvm/elasticsearch and Bump quarkus-langchain4j to 1.7.2 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8320
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.31.0...3.32.0
+
 ## 3.31.0
 
 * Bump actions/checkout from 5.0.1 to 6.0.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7995
