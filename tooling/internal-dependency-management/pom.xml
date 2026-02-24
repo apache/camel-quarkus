@@ -35,6 +35,13 @@
     <!-- The following dependencies are defined only to enable Dependabot to auto-update version properties in the root pom.xml. Primarily for things that @sync properties depend on -->
     <dependencies>
         <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>libraries-bom</artifactId>
+            <version>${google-cloud-libraries-bom.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.amazonservices</groupId>
             <artifactId>quarkus-amazon-services-bom</artifactId>
             <version>${quarkiverse-amazonservices.version}</version>
