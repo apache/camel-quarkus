@@ -7335,6 +7335,11 @@
             </dependency>
             <dependency>
                 <groupId>com.google.api</groupId>
+                <artifactId>api-common</artifactId>
+                <version>${google-cloud-api-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.api</groupId>
                 <artifactId>gax-httpjson</artifactId>
                 <version>${google-gax-httpjson.version}</version>
             </dependency>
