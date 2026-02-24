@@ -7344,6 +7344,11 @@
                 <version>${google-gax-httpjson.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.google.api-client</groupId>
+                <artifactId>google-api-client</artifactId>
+                <version>${google-api-client.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.auth</groupId>
                 <artifactId>google-auth-library-credentials</artifactId>
                 <version>${google-auth-library.version}</version>

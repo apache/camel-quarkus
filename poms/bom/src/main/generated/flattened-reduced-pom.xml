@@ -7206,6 +7206,11 @@
         <version>2.74.1</version>
       </dependency>
       <dependency>
+        <groupId>com.google.api-client</groupId>
+        <artifactId>google-api-client</artifactId>
+        <version>2.7.2</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
         <version>1.42.1</version>
