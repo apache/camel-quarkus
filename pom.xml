@@ -51,7 +51,7 @@
         <quarkiverse-amazonservices.version>3.14.1</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.12.1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-batik.version>1.1.0</quarkiverse-batik.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/batik/quarkus-batik-parent/ -->
-        <quarkiverse-cxf.version>3.31.3</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf.version>3.32.0</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>1.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-fory.version>0.5.0</quarkiverse-fory.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/fury/quarkus-fury-parent/ -->
         <quarkiverse-groovy.version>3.32.0</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
@@ -89,7 +89,7 @@
         <commons-collections4.version>${commons-collections4-version}</commons-collections4.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
-        <cxf.version>4.1.4</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
+        <cxf.version>4.1.5</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
