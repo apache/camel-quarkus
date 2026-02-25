@@ -105,8 +105,6 @@ jobs:
             "com.nimbusds:oauth2-oidc-sdk"
             # Mismatch between camel-quarkus-cassandraql & camel-quarkus-dfdl
             "com.typesafe:config"
-            # Mismatch between camel-quarkus-xslt-saxon & camel-quarkus-dfdl
-            "net.sf.saxon:Saxon-HE"
             # Mismatch between camel-quarkus-aws-datasonnet, camel-quarkus-djl & camel-quarkus-aws2-kinesis
             "io.github.classgraph:classgraph"
             # Mismatch between camel-quarkus-csv, camel-quarkus-djl & camel-quarkus-tika
