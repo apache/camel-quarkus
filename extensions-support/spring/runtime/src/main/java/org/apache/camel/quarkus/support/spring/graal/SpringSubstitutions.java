@@ -23,8 +23,10 @@ import java.util.Set;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Delete;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.io.Resource;
 import org.springframework.util.PathMatcher;
 
@@ -33,6 +35,10 @@ final class SpringSubstitutions {
 
 @TargetClass(className = "org.springframework.core.DefaultParameterNameDiscoverer")
 final class SubstituteDefaultParameterNameDiscoverer {
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static volatile DefaultParameterNameDiscoverer sharedInstance = new DefaultParameterNameDiscoverer();
+
     @Alias
     public SubstituteDefaultParameterNameDiscoverer() {
         // Discoverers are not meant to be registered on graal
