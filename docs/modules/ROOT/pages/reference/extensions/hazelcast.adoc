@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-hazelcast
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.6.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.6.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
@@ -27,6 +27,7 @@ Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
 * xref:{cq-camel-components}::hazelcast-list-component.adoc[Hazelcast List component], URI syntax: `hazelcast-list:cacheName`
 * xref:{cq-camel-components}::hazelcast-map-component.adoc[Hazelcast Map component], URI syntax: `hazelcast-map:cacheName`
 * xref:{cq-camel-components}::hazelcast-multimap-component.adoc[Hazelcast Multimap component], URI syntax: `hazelcast-multimap:cacheName`
+* xref:{cq-camel-components}::hazelcast-pncounter-component.adoc[Hazelcast PN Counter component], URI syntax: `hazelcast-pncounter:cacheName`
 * xref:{cq-camel-components}::hazelcast-queue-component.adoc[Hazelcast Queue component], URI syntax: `hazelcast-queue:cacheName`
 * xref:{cq-camel-components}::hazelcast-replicatedmap-component.adoc[Hazelcast Replicated Map component], URI syntax: `hazelcast-replicatedmap:cacheName`
 * xref:{cq-camel-components}::hazelcast-ringbuffer-component.adoc[Hazelcast Ringbuffer component], URI syntax: `hazelcast-ringbuffer:cacheName`
