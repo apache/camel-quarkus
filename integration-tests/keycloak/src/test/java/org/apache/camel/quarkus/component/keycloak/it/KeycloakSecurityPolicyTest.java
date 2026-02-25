@@ -17,18 +17,10 @@
 package org.apache.camel.quarkus.component.keycloak.it;
 
 import java.util.List;
-import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.Form;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -39,11 +31,17 @@ import org.keycloak.representations.idm.UserRepresentation;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
+
+    private static String adminToken;
+    private static String normalUserToken;
+    private static String attackerToken;
 
     @Test
     @Order(1)
@@ -65,15 +63,18 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
         assignRole(ADMIN_USER, ADMIN_ROLE);
         assignRole(NORMAL_USER, USER_ROLE);
         assignRole(ATTACKER_USER, USER_ROLE);
+
+        adminToken = getAccessToken(ADMIN_USER, ADMIN_PASSWORD, config("test.client.id"), TEST_CLIENT_SECRET);
+        normalUserToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD, config("test.client.id"), TEST_CLIENT_SECRET);
+        attackerToken = getAccessToken(ATTACKER_USER, ATTACKER_PASSWORD, config("test.client.id"), TEST_CLIENT_SECRET);
     }
 
     @Test
     @Order(2)
     public void testPropertyTokenWorks() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
+                .queryParam("propertyToken", normalUserToken)
                 .get("/keycloak/secure-policy/user-with-token-in-property")
                 .then()
                 .statusCode(200)
@@ -83,10 +84,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(3)
     public void testHeaderTokenWorks() {
-        String headerToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
         given()
                 .when()
-                .queryParam("headerToken", headerToken)
+                .queryParam("headerToken", normalUserToken)
                 .get("/keycloak/secure-policy/user-with-token-in-header")
                 .then()
                 .statusCode(200)
@@ -96,13 +96,10 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(4)
     public void testPropertyPreferredOverHeaderTokenWorks() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-        String headerToken = getAccessToken(ATTACKER_USER, ATTACKER_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
-                .queryParam("headerToken", headerToken)
+                .queryParam("propertyToken", normalUserToken)
+                .queryParam("headerToken", attackerToken)
                 .get("/keycloak/secure-policy/user-with-token-in-property-and-header")
                 .then()
                 .statusCode(200)
@@ -112,13 +109,10 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(5)
     public void testInvalidHeaderIgnoredWhenPropertyValid() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-        String headerToken = "invalid.token";
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
-                .queryParam("headerToken", headerToken)
+                .queryParam("propertyToken", normalUserToken)
+                .queryParam("headerToken", "invalid.token")
                 .get("/keycloak/secure-policy/user-with-token-in-property-and-header")
                 .then()
                 .statusCode(200)
@@ -128,11 +122,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(6)
     public void testHeaderRejectedWhenHeadersDisabled() {
-        String headerToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-
         given()
                 .when()
-                .queryParam("headerToken", headerToken)
+                .queryParam("headerToken", normalUserToken)
                 .get("/keycloak/secure-policy/max-security")
                 .then()
                 .statusCode(500)
@@ -142,11 +134,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(7)
     public void testPropertyWorksWhenHeadersDisabled() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
+                .queryParam("propertyToken", normalUserToken)
                 .get("/keycloak/secure-policy/max-security")
                 .then()
                 .statusCode(200)
@@ -156,13 +146,10 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(8)
     public void testPropertyTokenUsedNotHeader() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-        String headerToken = getAccessToken(ADMIN_USER, ADMIN_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
-                .queryParam("headerToken", headerToken)
+                .queryParam("propertyToken", normalUserToken)
+                .queryParam("headerToken", adminToken)
                 .get("/keycloak/secure-policy/user-with-token-in-property-and-header")
                 .then()
                 .statusCode(200)
@@ -172,12 +159,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(9)
     public void testAttackScenario_SessionHijacking() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-        String attackerToken = getAccessToken(ATTACKER_USER, ATTACKER_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
+                .queryParam("propertyToken", normalUserToken)
                 .queryParam("headerToken", attackerToken)
                 .get("/keycloak/secure-policy/user-with-token-in-property-and-header")
                 .then()
@@ -188,12 +172,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(10)
     public void testAttackScenario_LegacyUnsafe() {
-        String propertyToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-        String attackerToken = getAccessToken(ATTACKER_USER, ATTACKER_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
+                .queryParam("propertyToken", normalUserToken)
                 .queryParam("headerToken", attackerToken)
                 .get("/keycloak/secure-policy/legacy-unsafe")
                 .then()
@@ -204,11 +185,9 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(11)
     public void testAuthorizationHeaderFormat() {
-        String headerToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-
         given()
                 .when()
-                .queryParam("headerToken", headerToken)
+                .queryParam("headerToken", normalUserToken)
                 .get("/keycloak/secure-policy/authorization-header-format")
                 .then()
                 .statusCode(200)
@@ -229,13 +208,10 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     @Test
     @Order(13)
     public void testAdminOnly() {
-        String propertyToken = getAccessToken(ADMIN_USER, ADMIN_PASSWORD);
-        String headerToken = getAccessToken(NORMAL_USER, NORMAL_PASSWORD);
-
         given()
                 .when()
-                .queryParam("propertyToken", propertyToken)
-                .queryParam("headerToken", headerToken)
+                .queryParam("propertyToken", adminToken)
+                .queryParam("headerToken", normalUserToken)
                 .get("/keycloak/secure-policy/admin-only")
                 .then()
                 .statusCode(200)
@@ -243,39 +219,149 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     }
 
     @Test
+    @Order(14)
+    public void testIntrospectionEnabledWithDefaultCacheConcurrentMap() {
+        given()
+                .when()
+                .queryParam("propertyToken", adminToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/secure-policy/introspection-cache-concurrent-map")
+                .then()
+                .statusCode(200)
+                .body(is("Access granted - concurrent map cache"));
+    }
+
+    @Test
+    @Order(15)
+    public void testIntrospectionEnabledWithNoCache() {
+        given()
+                .when()
+                .queryParam("propertyToken", adminToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/secure-policy/introspection-no-cache")
+                .then()
+                .statusCode(200)
+                .body(is("Access granted - no cache"));
+    }
+
+    @Test
+    @Order(16)
+    public void testIntrospector_concurrentMapCache_tokenIsActive() {
+        given()
+                .queryParam("accessToken", normalUserToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/concurrent-map")
+                .then()
+                .statusCode(200)
+                .body("active", is(true))
+                .body("subject", notNullValue())
+                .body("cacheSize", greaterThan(0));
+    }
+
+    @Test
+    @Order(17)
+    public void testIntrospector_concurrentMapCache_invalidToken_returnsInactive() {
+        given()
+                .queryParam("accessToken", "invalid.token")
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/concurrent-map")
+                .then()
+                .statusCode(200)
+                .body("active", is(false));
+    }
+
+    @Test
+    @Order(18)
+    public void testIntrospector_caffeineCache_tokenIsActive() {
+        given()
+                .queryParam("accessToken", normalUserToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/caffeine")
+                .then()
+                .statusCode(200)
+                .body("active", is(true))
+                .body("subject", notNullValue())
+                .body("cacheSize", greaterThan(0));
+    }
+
+    @Test
+    @Order(19)
+    public void testIntrospector_caffeineCache_invalidToken_returnsInactive() {
+        given()
+                .queryParam("accessToken", "invalid.token")
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/caffeine")
+                .then()
+                .statusCode(200)
+                .body("active", is(false));
+    }
+
+    @Test
+    @Order(20)
+    public void testIntrospector_noCache_tokenIsActive() {
+        given()
+                .queryParam("accessToken", normalUserToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/none")
+                .then()
+                .statusCode(200)
+                .body("active", is(true))
+                .body("subject", notNullValue())
+                .body("cacheSize", is(0));
+    }
+
+    @Test
+    @Order(21)
+    public void testIntrospector_noCache_invalidToken_returnsInactive() {
+        given()
+                .queryParam("accessToken", "invalid.token")
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/none")
+                .then()
+                .statusCode(200)
+                .body("active", is(false));
+    }
+
+    @Test
+    @Order(22)
+    public void testIntrospector_caffeineStats_secondCallHitsCache() {
+        given()
+                .queryParam("accessToken", normalUserToken)
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", TEST_CLIENT_SECRET)
+                .get("/keycloak/introspection-cache/introspector/caffeine-stats")
+                .then()
+                .statusCode(200)
+                .body("hitCount", is(1))
+                .body("missCount", is(1))
+                .body("hitRate", is(0.5f))
+                .body("cacheSize", greaterThan(0));
+    }
+
+    @Test
+    @Order(23)
+    public void testIntrospector_noCache_invalidToken_returns500() {
+        given()
+                .queryParam("accessToken", "invalid.token")
+                .queryParam("clientId", config("test.client.id"))
+                .queryParam("clientSecret", "wrong.secret")
+                .get("/keycloak/introspection-cache/introspector/none")
+                .then()
+                .statusCode(500);
+    }
+
+    @Test
     @Order(100)
     public void testCleanup_DeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(config("test.realm"));
-    }
-
-    protected String getAccessToken(String username, String password) {
-        try (Client client = ClientBuilder.newClient()) {
-            String tokenUrl = String.format("%s/realms/%s/protocol/openid-connect/token",
-                    ConfigProvider.getConfig().getValue("keycloak.url", String.class), config("test.realm"));
-
-            Form form = new Form()
-                    .param("grant_type", "password")
-                    .param("client_id", config("test.client.id"))
-                    .param("client_secret", TEST_CLIENT_SECRET)
-                    .param("username", username)
-                    .param("password", password);
-
-            try (Response response = client.target(tokenUrl)
-                    .request(MediaType.APPLICATION_JSON)
-                    .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED))) {
-
-                if (response.getStatus() == 200) {
-                    @SuppressWarnings("unchecked")
-                    Map<String, Object> tokenResponse = response.readEntity(Map.class);
-                    return (String) tokenResponse.get("access_token");
-                } else {
-                    String error = response.readEntity(String.class);
-                    throw new RuntimeException("Failed to get token: " + error);
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error obtaining access token for " + username, e);
-        }
     }
 
     protected void createRealm() {

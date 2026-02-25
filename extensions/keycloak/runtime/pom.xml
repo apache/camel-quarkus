@@ -49,15 +49,14 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-keycloak</artifactId>
         </dependency>
-        <!-- Required by CryptoIntegration.init() called from AuthzClient.create() for evaluatePermission -->
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-crypto-default</artifactId>
-        </dependency>
         <!-- Use Quarkus Keycloak Admin Client extension for native mode support -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-keycloak-admin-resteasy-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-caffeine</artifactId>
         </dependency>
     </dependencies>
 

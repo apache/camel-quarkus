@@ -30,17 +30,6 @@
     <name>Camel Quarkus :: Keycloak</name>
     <packaging>pom</packaging>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Required by CryptoIntegration.init() called from AuthzClient.create() for evaluatePermission -->
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-crypto-default</artifactId>
-                <version>26.0.7</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <modules>
         <module>deployment</module>
         <module>runtime</module>

@@ -47,7 +47,6 @@ public class KeycloakRouteBuilder extends RouteBuilder {
 
         from("direct:secure-default")
                 .routeId("secure-default")
-                .autoStartup(true)
                 .policy(secureDefaultPolicy)
                 .transform().constant("Access granted - secure default");
 
@@ -61,7 +60,6 @@ public class KeycloakRouteBuilder extends RouteBuilder {
 
         from("direct:max-security")
                 .routeId("max-security")
-                .autoStartup(true)
                 .policy(maxSecurityPolicy)
                 .transform().constant("Access granted - max security");
 
@@ -77,7 +75,6 @@ public class KeycloakRouteBuilder extends RouteBuilder {
 
         from("direct:legacy-unsafe")
                 .routeId("legacy-unsafe")
-                .autoStartup(true)
                 .policy(legacyPolicy)
                 .transform().constant("SHOULD NOT REACH HERE");
 
@@ -92,7 +89,6 @@ public class KeycloakRouteBuilder extends RouteBuilder {
 
         from("direct:admin-only")
                 .routeId("admin-only")
-                .autoStartup(true)
                 .policy(adminPolicy)
                 .transform().constant("Admin access granted");
 
@@ -119,5 +115,36 @@ public class KeycloakRouteBuilder extends RouteBuilder {
                         + "&username=${header.X-Authz-Username}"
                         + "&password=${header.X-Authz-Password}"
                         + "&operation=evaluatePermission");
+
+        // -------------------IntrospectionCacheRoute-----------------------------
+
+        // Route 1: introspection with ConcurrentHashMap cache (default)
+        KeycloakSecurityPolicy concurrentMapPolicy = new KeycloakSecurityPolicy();
+        concurrentMapPolicy.setServerUrl(serverUrl);
+        concurrentMapPolicy.setRealm(realm);
+        concurrentMapPolicy.setClientId(clientId);
+        concurrentMapPolicy.setClientSecret(clientSecret);
+        concurrentMapPolicy.setUseTokenIntrospection(true);
+        concurrentMapPolicy.setIntrospectionCacheTtl(60);
+        concurrentMapPolicy.setIntrospectionCacheEnabled(true);
+
+        from("direct:introspection-concurrent-map")
+                .routeId("introspection-concurrent-map")
+                .policy(concurrentMapPolicy)
+                .transform().constant("Access granted - concurrent map cache");
+
+        // Route 2: introspection with no cache
+        KeycloakSecurityPolicy noCachePolicy = new KeycloakSecurityPolicy();
+        noCachePolicy.setServerUrl(serverUrl);
+        noCachePolicy.setRealm(realm);
+        noCachePolicy.setClientId(clientId);
+        noCachePolicy.setClientSecret(clientSecret);
+        noCachePolicy.setUseTokenIntrospection(true);
+        noCachePolicy.setIntrospectionCacheEnabled(false);
+
+        from("direct:introspection-no-cache")
+                .routeId("introspection-no-cache")
+                .policy(noCachePolicy)
+                .transform().constant("Access granted - no cache");
     }
 }

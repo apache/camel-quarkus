@@ -25,12 +25,6 @@ import java.util.UUID;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.Form;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -322,34 +316,6 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
     @Order(100)
     public void testCleanup_DeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(config("test.realm"));
-    }
-
-    private String getAccessToken(String username, String password,
-            String clientId, String clientSecret) {
-        try (Client client = ClientBuilder.newClient()) {
-            String tokenUrl = String.format("%s/realms/%s/protocol/openid-connect/token",
-                    config("keycloak.url"), config("test.realm"));
-
-            Form form = new Form()
-                    .param("grant_type", "password")
-                    .param("client_id", clientId)
-                    .param("client_secret", clientSecret)
-                    .param("username", username)
-                    .param("password", password);
-
-            try (Response response = client.target(tokenUrl)
-                    .request(MediaType.APPLICATION_JSON)
-                    .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED))) {
-
-                if (response.getStatus() == 200) {
-                    @SuppressWarnings("unchecked")
-                    Map<String, Object> body = response.readEntity(Map.class);
-                    return (String) body.get("access_token");
-                }
-                throw new RuntimeException("Failed to get token for " + username
-                        + " [" + response.getStatus() + "]: " + response.readEntity(String.class));
-            }
-        }
     }
 
     private String fetchPolicyId(String clientId, String policyName) {
