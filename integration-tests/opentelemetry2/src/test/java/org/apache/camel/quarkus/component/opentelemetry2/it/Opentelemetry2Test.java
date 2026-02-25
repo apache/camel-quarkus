@@ -25,6 +25,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static io.opentelemetry.semconv.incubating.CodeIncubatingAttributes.CODE_FUNCTION_NAME;
 import static org.apache.camel.quarkus.component.opentelemetry2.it.OpenTelemetry2TestHelper.getSpans;
@@ -170,9 +172,12 @@ class Opentelemetry2Test {
                 .header("traceId", not(emptyOrNullString()));
     }
 
-    @Test
-    public void testHttpInvocation() {
-        RestAssured.get("/greeting")
+    @ParameterizedTest
+    @ValueSource(strings = { "http", "vertx-http" })
+    void testHttpInvocation(String httpComponent) {
+        RestAssured.given()
+                .queryParam("httpComponent", httpComponent)
+                .get("/greeting")
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello From Camel Quarkus!"));
