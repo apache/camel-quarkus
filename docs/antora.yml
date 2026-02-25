@@ -31,7 +31,7 @@ asciidoc:
     camel-version: 4.18.0 # replace ${camel.version}
     camel-docs-version: 4.18.x
     camel-quarkus-version: 3.33.0 # replace ${camel-quarkus.version}
-    quarkus-version: 3.32.0 # replace ${quarkus.version}
+    quarkus-version: 3.32.1 # replace ${quarkus.version}
     graalvm-version: 23.1.2 # replace ${graalvm.version}
     graalvm-docs-version: jdk21 # replace ${graalvm-docs.version}
     langchain4j-version: 1.11.0 # replace ${langchain4j.version}
