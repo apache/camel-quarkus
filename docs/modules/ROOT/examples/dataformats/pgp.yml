@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 3.13.0
 cqNativeSince: 3.13.0
 cqCamelPartName: pgp
-cqCamelPartTitle: PGP
+cqCamelPartTitle: PGP (Pretty Good Privacy Cryptographic)
 cqCamelPartDescription: Encrypt and decrypt messages using Java Cryptographic Extension (JCE) and PGP.
 cqExtensionPageTitle: PGP
