@@ -7,7 +7,7 @@ cqStatus: Stable
 cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
-cqCamelPartName: hazelcast-queue
-cqCamelPartTitle: Hazelcast Queue
-cqCamelPartDescription: Perform operations on Hazelcast distributed queue.
+cqCamelPartName: hazelcast-pncounter
+cqCamelPartTitle: Hazelcast PN Counter
+cqCamelPartDescription: Increment, decrement, get, etc. operations on a Hazelcast PN Counter (CRDT counter).
 cqExtensionPageTitle: Hazelcast Atomic Number
