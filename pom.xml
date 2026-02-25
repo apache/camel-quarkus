@@ -164,6 +164,7 @@
         <retrofit.version>3.0.0</retrofit.version><!-- @sync org.kiwiproject:consul-client:${consul-client-version} prop:retrofit.version -->
         <rhino.version>1.7.15.1</rhino.version><!-- Used by Apache FOP, to sync with transitive dependencies -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
+        <saxon.version>${saxon-version}</saxon.version>
         <smooks-bom.version>${smooks-version}</smooks-bom.version>
         <smooks.version>2.2.1</smooks.version><!-- @sync org.smooks:smooks-bom:${smooks-bom.version} prop:smooks.version -->
         <snakeyaml.version>2.5</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->

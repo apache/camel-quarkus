@@ -7738,6 +7738,11 @@
         <version>2.6.0</version>
       </dependency>
       <dependency>
+        <groupId>net.sf.saxon</groupId>
+        <artifactId>Saxon-HE</artifactId>
+        <version>12.9</version>
+      </dependency>
+      <dependency>
         <groupId>org.antlr</groupId>
         <artifactId>antlr-runtime</artifactId>
         <version>3.5.2</version>

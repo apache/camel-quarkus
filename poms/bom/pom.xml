@@ -7911,6 +7911,11 @@
                 <version>${json-smart.version}</version>
             </dependency>
             <dependency>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>Saxon-HE</artifactId>
+                <version>${saxon.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr-runtime</artifactId>
                 <version>${antlr3.version}</version>

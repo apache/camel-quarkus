@@ -47,16 +47,19 @@ endif::[]
 [id="extensions-fop-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
-[id="extensions-fop-limitations-supported-jdk-versions"]
-=== Supported JDK versions
+[id="extensions-fop-limitations-jdk-25"]
+=== JDK 25+
 
-Due to an https://issues.apache.org/jira/browse/FOP-3275[issue] with Apache FOP encountered with JDK 25, it's advised to build and run your application with JDK 21 or JDK 17 when using this extension.
+Due to an https://issues.apache.org/jira/browse/FOP-3275[issue] with Apache FOP encountered with JDK 25+, https://www.saxonica.com/documentation12/documentation.xml[`Saxon-HE`] is required to avoid reentrant XML parsing problems.
 
-When running in native mode, you'll need to ensure you build with the appropriate GraalVM / Mandrel version. When using containerized native image builds, you can override the default Quarkus builder image with the following configuration.
+`Saxon-HE` can be added to your application as follows.
 
-[source,properties]
+[source,xml]
 ----
-quarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21
+<dependency>
+    <groupId>net.sf.saxon</groupId>
+    <artifactId>Saxon-HE</artifactId>
+</dependency>
 ----
 
 [id="extensions-fop-limitations-supported-output-types"]
