@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.aws2.translate.deployment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -53,7 +54,7 @@ class Aws2TranslateProcessor {
         List<String> knownInterceptorImpls = combinedIndexBuildItem.getIndex()
                 .getAllKnownImplementations(EXECUTION_INTERCEPTOR_NAME)
                 .stream()
-                .map(c -> c.name().toString()).toList();
+                .map(c -> c.name().toString()).collect(Collectors.toList());
 
         reflectiveClasses.produce(
                 ReflectiveClassBuildItem.builder(knownInterceptorImpls.toArray(new String[knownInterceptorImpls.size()]))
