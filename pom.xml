@@ -59,7 +59,7 @@
         <quarkiverse-jgit.version>3.6.1</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit/ -->
         <quarkiverse-jsch.version>3.1.2</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch/ -->
         <quarkiverse-langchain4j.version>1.7.4</quarkiverse-langchain4j.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/langchain4j/quarkus-langchain4j-parent -->
-        <quarkiverse-micrometer.version>3.4.1</quarkiverse-micrometer.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/micrometer/registry/quarkus-micrometer-registry-jmx/ -->
+        <quarkiverse-micrometer.version>3.5.0</quarkiverse-micrometer.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/micrometer/registry/quarkus-micrometer-registry-jmx/ -->
         <quarkiverse-minio.version>3.8.6</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>2.4.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.10.0</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
