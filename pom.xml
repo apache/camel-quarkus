@@ -118,7 +118,7 @@
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>6.6.7</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <ibm.java-sdk-core.version>9.23.1</ibm.java-sdk-core.version><!-- Required because of https://github.com/apache/camel-quarkus/issues/7269 -->
-        <ibm.mq.client.version>9.4.3.0</ibm.mq.client.version>
+        <ibm.mq.client.version>9.4.5.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
@@ -256,7 +256,7 @@
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
         <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.1.8</greenmail.container.image>
         <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:1.20.4</hashicorp-vault.container.image>
-        <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.3.0-r1</ibm-mq.container.image>
+        <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.5.0-r1</ibm-mq.container.image>
         <infinispan.container.image>quay.io/infinispan/server:latest</infinispan.container.image><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:infinispan.image -->
         <influxdb.container.image>mirror.gcr.io/influxdb:1.12.2-alpine</influxdb.container.image>
         <kafka.container.image>quay.io/strimzi-test-container/test-container:0.114.0-kafka-4.1.0</kafka.container.image>
