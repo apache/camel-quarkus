@@ -36,7 +36,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.quarkus.component.fop.FopRuntimeProxyFeature;
-import org.apache.fop.ResourceEventProducer;
+import org.apache.fop.events.EventProducer;
 import org.apache.fop.fo.ElementMapping;
 import org.apache.fop.fo.FOEventHandler;
 import org.apache.fop.fo.expr.PropertyException;
@@ -81,8 +81,10 @@ class FopProcessor {
     }
 
     @BuildStep
-    NativeImageProxyDefinitionBuildItem registerDefinitionBuildTimeProxies() {
-        return new NativeImageProxyDefinitionBuildItem(ResourceEventProducer.class.getName());
+    void setupEventProducers(CombinedIndexBuildItem combinedIndex,
+            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinition) {
+        combinedIndex.getIndex().getAllKnownSubinterfaces(EventProducer.class).forEach(
+                classInfo -> proxyDefinition.produce(new NativeImageProxyDefinitionBuildItem(classInfo.name().toString())));
     }
 
     @BuildStep

@@ -31,6 +31,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.smallrye.common.os.OS;
 import org.apache.pdfbox.Loader;
@@ -91,9 +92,14 @@ class FopTest {
     }
 
     @Test
-    public void convertToPdfWithCustomFont() throws IOException {
+    void convertToPdfWithCustomFont() throws IOException {
         convertToPdf(msg -> decorateTextWithXSLFO(msg, "Freedom"),
                 tmpDir.resolve("mycfg.xml").toAbsolutePath().toUri().toString());
+    }
+
+    @Test
+    void convertToPdfWithArialFont() throws IOException {
+        convertToPdf(msg -> decorateTextWithXSLFO(msg, "Arial"), null);
     }
 
     @Test
@@ -128,7 +134,7 @@ class FopTest {
         if (userConfigFile != null) {
             requestSpecification.queryParam("userConfigURL", userConfigFile);
         }
-        ExtractableResponse response = requestSpecification
+        ExtractableResponse<Response> response = requestSpecification
                 .body(msgCreator.apply(MSG))
                 .post("/fop/post") //
                 .then()
@@ -142,7 +148,7 @@ class FopTest {
 
     public static String decorateTextWithXSLFO(String text, String font) {
         String foBlock = font == null ? "      <fo:block>" + text + "</fo:block>\n"
-                : "      <fo:block font-family=\"" + font + "\">" + text + "</fo:block>\n";
+                : "      <fo:block font-size=\"14pt\" font-family=\"" + font + "\">" + text + "</fo:block>\n";
         return createFoContentWithBlock(foBlock);
     }
 
@@ -150,13 +156,13 @@ class FopTest {
         return """
                 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
                    <fo:layout-master-set>
-                     <fo:simple-page-master master-name="only">
+                     <fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21cm">
                        <fo:region-body region-name="xsl-region-body" margin="0.7in"  padding="0" />
                        <fo:region-before region-name="xsl-region-before" extent="0.7in" />
                          <fo:region-after region-name="xsl-region-after" extent="0.7in" />
                        </fo:simple-page-master>
                      </fo:layout-master-set>
-                     <fo:page-sequence master-reference="only">
+                     <fo:page-sequence master-reference="A4">
                        <fo:flow flow-name="xsl-region-body">
                  %s
                      </fo:flow>
