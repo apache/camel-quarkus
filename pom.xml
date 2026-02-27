@@ -276,7 +276,7 @@
         <postgres.container.image>mirror.gcr.io/postgres:17.5</postgres.container.image>
         <postgres-debezium.container.image>quay.io/debezium/postgres:17-alpine</postgres-debezium.container.image>
         <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.16.0-unprivileged</qdrant.container.image>
-        <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.1.2-management-alpine</rabbitmq.container.image>
+        <rabbitmq.container.image>mirror.gcr.io/rabbitmq:management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:7.4.0-alpine</redis.container.image>
         <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>
