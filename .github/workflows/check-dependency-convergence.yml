@@ -119,7 +119,7 @@ jobs:
             "org.apache.mina:mina-core"
             # Mismatch between camel-quarkus-jcr & camel-quarkus-tika
             "org.apache.tika:tika-core"
-            # Mismatch between camel-quarkus-flink, camel-quarkus-junit5, camel-quarkus-nitrite & camel-quarkus-redis
+            # Mismatch between camel-quarkus-flink, camel-quarkus-junit5 & camel-quarkus-redis
             "org.objenesis:objenesis"
             # Mismatch between camel-quarkus-rest-openapi-deployment & camel-quarkus-smallrye-reactive-messaging-deployment
             "org.commonmark:commonmark"

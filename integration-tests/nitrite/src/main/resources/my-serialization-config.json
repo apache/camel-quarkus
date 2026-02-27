@@ -1,7 +1,0 @@
-[
-  {
-    "name" : "org.apache.camel.quarkus.component.nitrite.it.EmployeeSerializable"
-  },{
-    "name" : "org.apache.camel.quarkus.component.nitrite.it.EmployeeMappable"
-  }
-]
