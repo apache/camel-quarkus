@@ -247,6 +247,5 @@ group-13:
   - sap-netweaver
   - servicenow
   - slack
-  - nitrite
   - twilio
   - pgevent

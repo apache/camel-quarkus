@@ -245,7 +245,6 @@
 *** xref:reference/extensions/nats.adoc[Nats]
 *** xref:reference/extensions/netty.adoc[Netty]
 *** xref:reference/extensions/netty-http.adoc[Netty HTTP]
-*** xref:reference/extensions/nitrite.adoc[Nitrite]
 *** xref:reference/extensions/oaipmh.adoc[OAI-PMH]
 *** xref:reference/extensions/ognl.adoc[OGNL]
 *** xref:reference/extensions/milo.adoc[OPC UA Browser]
