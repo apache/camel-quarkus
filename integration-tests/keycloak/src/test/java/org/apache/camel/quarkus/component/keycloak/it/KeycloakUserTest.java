@@ -16,22 +16,29 @@
  */
 package org.apache.camel.quarkus.component.keycloak.it;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
 
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
@@ -389,6 +396,161 @@ class KeycloakUserTest extends KeycloakTestBase {
                 .then()
                 .statusCode(200)
                 .body(is("Actions email sent successfully"));
+    }
+
+    @Test
+    @Order(21)
+    public void testBulkCreateUsers() {
+        String bulkUserNameOne = TEST_USER_NAME + "-bulkOne";
+
+        UserRepresentation userOne = new UserRepresentation();
+        userOne.setUsername(bulkUserNameOne);
+        userOne.setEmail(bulkUserNameOne + "@test.com");
+        userOne.setFirstName("Test One");
+        userOne.setLastName("User Bulk One");
+        userOne.setEnabled(true);
+
+        String bulkUserNameTwo = TEST_USER_NAME + "-bulkTwo";
+
+        UserRepresentation userTwo = new UserRepresentation();
+        userTwo.setUsername(bulkUserNameTwo);
+        userTwo.setEmail(bulkUserNameTwo + "@test.com");
+        userTwo.setFirstName("Test Two");
+        userTwo.setLastName("User Bulk Two");
+        userTwo.setEnabled(true);
+
+        List<UserRepresentation> users = new ArrayList<>();
+        users.add(userOne);
+        users.add(userTwo);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(users)
+                .when()
+                .post("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .body("total", is(2))
+                .body("success", is(2))
+                .body("results.username", hasItems(bulkUserNameOne, bulkUserNameTwo))
+                .body("results.status", hasItem("success"));
+    }
+
+    @Test
+    @Order(22)
+    public void testBulkUpdateUsers() {
+        //First get list of users
+        List<UserRepresentation> batchCreatedUsers = given()
+                .when()
+                .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", UserRepresentation.class).stream().filter(user -> user.getUsername().contains("bulk")).toList();
+
+        //update firstname and lastname of each user
+        batchCreatedUsers.forEach(user -> {
+            user.setFirstName("updatedFirstNameForBulkCreatedUsers");
+            user.setLastName("updatedLastNameForBulkCreatedUsers");
+        });
+
+        //bulk update users
+        given()
+                .contentType(ContentType.JSON)
+                .body(batchCreatedUsers)
+                .when()
+                .put("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .body("total", is(batchCreatedUsers.size()))
+                .body("success", is(batchCreatedUsers.size()));
+
+        //verify updated result
+        List<UserRepresentation> updatedUsers = given()
+                .when()
+                .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", UserRepresentation.class).stream().filter(user -> user.getUsername().contains("bulk")).toList();
+
+        Map<String, UserRepresentation> updatedUserMap = updatedUsers.stream()
+                .collect(Collectors.toMap(UserRepresentation::getUsername, u -> u));
+
+        for (UserRepresentation user : batchCreatedUsers) {
+            UserRepresentation updatedUser = updatedUserMap.get(user.getUsername());
+            assertThat(updatedUser, notNullValue());
+            assertThat(updatedUser.getFirstName(), is("updatedFirstNameForBulkCreatedUsers"));
+            assertThat(updatedUser.getLastName(), is("updatedLastNameForBulkCreatedUsers"));
+        }
+    }
+
+    @Test
+    @Order(23)
+    public void testBulkUpdateUsersWithContinueOnError() {
+        //First get list of users
+        List<UserRepresentation> batchCreatedUsers = new ArrayList<>(given()
+                .when()
+                .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", UserRepresentation.class).stream().filter(user -> user.getUsername().contains("bulk")).toList());
+
+        //add a wrong user at the beginning, even failed to handle but still keep processing
+        batchCreatedUsers.add(0, new UserRepresentation());
+
+        //bulk update users
+        given()
+                .contentType(ContentType.JSON)
+                .body(batchCreatedUsers)
+                .header("continueOnError", true)
+                .when()
+                .put("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .body("total", is(batchCreatedUsers.size()))
+                .body("success", is(2))
+                .body("failed", is(1));
+    }
+
+    @Test
+    @Order(24)
+    public void testBulkDeleteUsers() {
+        // First get list of users
+        List<String> batchCreatedUsers = given()
+                .when()
+                .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList(".", UserRepresentation.class).stream().map(UserRepresentation::getUsername)
+                .filter(username -> username.contains("bulk")).toList();
+
+        // Bulk delete users
+        given()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(batchCreatedUsers)
+                .delete("/keycloak/user/{realmName}", TEST_REALM_NAME)
+                .then()
+                .statusCode(200)
+                .body("total", is(batchCreatedUsers.size()))
+                .body("success", is(batchCreatedUsers.size()))
+                .body("results.size()", is(batchCreatedUsers.size()));
+
     }
 
     @Test

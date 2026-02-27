@@ -24,6 +24,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -102,6 +103,28 @@ public class KeycloakUserResource extends KeycloakResourceSupport {
         return Response.ok("User created successfully").build();
     }
 
+    @Path("/user/{realmName}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response bulkCreateUsers(
+            @PathParam("realmName") String realmName,
+            List<UserRepresentation> users) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KeycloakConstants.REALM_NAME, realmName);
+
+        headers.put(KeycloakConstants.USERS, users);
+
+        Object result = producerTemplate.requestBodyAndHeaders(
+                getKeycloakEndpoint() + "&operation=bulkCreateUsers",
+                null,
+                headers,
+                Map.class);
+
+        return Response.ok(result).build();
+    }
+
     @Path("/user/{realmName}/{username}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -162,6 +185,26 @@ public class KeycloakUserResource extends KeycloakResourceSupport {
         return Response.ok("User deleted successfully").build();
     }
 
+    @Path("/user/{realmName}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response bulkDeleteUsers(
+            @PathParam("realmName") String realmName,
+            List<String> userNameList) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KeycloakConstants.REALM_NAME, realmName);
+        headers.put(KeycloakConstants.USERNAMES, userNameList);
+
+        Object result = producerTemplate.requestBodyAndHeaders(
+                getKeycloakEndpoint() + "&operation=bulkDeleteUsers",
+                null,
+                headers);
+
+        return Response.ok(result).build();
+    }
+
     @Path("/user/{realmName}/{username}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -185,6 +228,31 @@ public class KeycloakUserResource extends KeycloakResourceSupport {
                 headers);
 
         return Response.ok("User updated successfully").build();
+    }
+
+    @Path("/user/{realmName}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response bulkUpdateUsers(
+            @PathParam("realmName") String realmName,
+            @HeaderParam("continueOnError") Boolean continueOnError,
+            List<UserRepresentation> users) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KeycloakConstants.REALM_NAME, realmName);
+        headers.put(KeycloakConstants.USERS, users);
+        if (continueOnError != null) {
+            headers.put(KeycloakConstants.CONTINUE_ON_ERROR, continueOnError);
+        }
+
+        Object result = producerTemplate.requestBodyAndHeaders(
+                getKeycloakEndpoint() + "&operation=bulkUpdateUsers",
+                null,
+                headers,
+                Map.class);
+
+        return Response.ok(result).build();
     }
 
     @Path("/user/{realmName}/search")
@@ -230,6 +298,54 @@ public class KeycloakUserResource extends KeycloakResourceSupport {
                 null,
                 headers,
                 String.class);
+
+        return Response.ok(result).build();
+    }
+
+    @Path("/user-role/{realmName}/user/{username}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response assignRolesToUser(
+            @PathParam("realmName") String realmName,
+            @PathParam("username") String username,
+            List<String> roleNameList) {
+
+        String userId = getUserIdByUsername(realmName, username);
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KeycloakConstants.REALM_NAME, realmName);
+        headers.put(KeycloakConstants.USER_ID, userId);
+        headers.put(KeycloakConstants.ROLE_NAMES, roleNameList);
+
+        Object result = producerTemplate.requestBodyAndHeaders(
+                getKeycloakEndpoint() + "&operation=bulkAssignRolesToUser",
+                null,
+                headers,
+                Map.class);
+
+        return Response.ok(result).build();
+    }
+
+    @Path("/user-role/{realmName}/role/{roleName}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response assignRoleToUsers(
+            @PathParam("realmName") String realmName,
+            @PathParam("roleName") String roleName,
+            List<String> userNameList) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KeycloakConstants.REALM_NAME, realmName);
+        headers.put(KeycloakConstants.ROLE_NAME, roleName);
+        headers.put(KeycloakConstants.USERNAMES, userNameList);
+
+        Object result = producerTemplate.requestBodyAndHeaders(
+                getKeycloakEndpoint() + "&operation=bulkAssignRoleToUsers",
+                null,
+                headers,
+                Map.class);
 
         return Response.ok(result).build();
     }

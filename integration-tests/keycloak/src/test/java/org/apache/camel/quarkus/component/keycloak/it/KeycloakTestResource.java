@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.keycloak.it;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.keycloak.server.KeycloakContainer;
@@ -70,6 +71,9 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
         properties.put("keycloak.username", "admin");
         properties.put("keycloak.password", "admin");
         properties.put("keycloak.realm", "master");
+        properties.put("test.client.secret", "test-client-secret");
+        properties.put("test.client.id", "token-binding-client-" + UUID.randomUUID().toString().substring(0, 8));
+        properties.put("test.realm", "token-binding-realm-" + UUID.randomUUID().toString().substring(0, 8));
 
         // GreenMail SMTP configuration (accessible from host)
         properties.put("mail.smtp.host", greenMail.getHost());
