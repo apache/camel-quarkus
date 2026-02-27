@@ -29,6 +29,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.langchain4j.agent.api.AiAgentBody;
@@ -44,6 +45,9 @@ import static org.apache.camel.component.langchain4j.agent.api.Headers.SYSTEM_ME
 public class Langchain4jAgentResource {
     @Inject
     FluentProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/simple")
     @POST
@@ -193,6 +197,12 @@ public class Langchain4jAgentResource {
         String result = producerTemplate.to("direct:agent-with-tools")
                 .withBody(userMessage)
                 .request(String.class);
+
+        // Ensure tools were called
+        Object toolWasInvoked = consumerTemplate.receiveBody("seda:userDbTool", 10000L);
+        if (toolWasInvoked == null) {
+            return Response.serverError().entity("userDb tool was not invoked").build();
+        }
 
         return Response.ok(result.trim()).build();
     }

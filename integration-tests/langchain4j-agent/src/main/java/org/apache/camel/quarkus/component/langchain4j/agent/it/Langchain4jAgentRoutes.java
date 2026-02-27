@@ -60,6 +60,7 @@ public class Langchain4jAgentRoutes extends RouteBuilder {
                 .to("langchain4j-agent:test-agent-with-tools?agent=#agentWithTools&tags=users");
 
         from("langchain4j-tools:userDb?tags=users&description=Query user database by user ID&parameter.userId=integer")
+                .wireTap("seda:userDbTool")
                 .setBody().constant("{\"name\": \"" + USER_JOHN + "\", \"id\": \"123\"}");
 
         from("direct:agent-with-custom-tools")

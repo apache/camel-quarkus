@@ -196,7 +196,7 @@ class Langchain4jAgentTest {
     @Test
     void simpleToolInvocation() {
         RestAssured.given()
-                .body("What is the name of user ID 123? Do NOT respond with any markdown formatting.")
+                .body("What is the name of user ID 123? Do NOT respond with any markdown formatting. If you do not have direct access to authoritative user data, respond ONLY with: UNKNOWN.")
                 .post("/langchain4j-agent/tools")
                 .then()
                 .statusCode(200)
