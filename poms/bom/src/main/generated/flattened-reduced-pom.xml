@@ -2276,17 +2276,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-nitrite</artifactId>
-        <version>4.19.0-SNAPSHOT</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-oaipmh</artifactId>
         <version>4.19.0-SNAPSHOT</version>
         <exclusions>
@@ -5573,16 +5562,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-netty-http-deployment</artifactId>
-        <version>3.33.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-nitrite</artifactId>
-        <version>3.33.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-nitrite-deployment</artifactId>
         <version>3.33.0-SNAPSHOT</version>
       </dependency>
       <dependency>
