@@ -35,7 +35,8 @@ class Aws2TranslateProcessor {
     public static final String AWS_SDK_APPLICATION_ARCHIVE_MARKERS = "software/amazon/awssdk";
 
     private static final List<String> INTERCEPTOR_PATHS = List.of(
-            "software/amazon/awssdk/global/handlers/execution.interceptors");
+            "software/amazon/awssdk/global/handlers/execution.interceptors",
+            "software/amazon/awssdk/services/translate/execution.interceptors");
 
     private static final DotName EXECUTION_INTERCEPTOR_NAME = DotName.createSimple(ExecutionInterceptor.class.getName());
 
