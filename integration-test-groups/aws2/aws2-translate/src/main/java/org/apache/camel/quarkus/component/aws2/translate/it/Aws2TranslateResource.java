@@ -48,7 +48,7 @@ public class Aws2TranslateResource extends BaseAws2Resource {
             @QueryParam("sourceLanguage") String sourceLanguage,
             @QueryParam("targetLanguage") String targetLanguage) throws Exception {
         return producerTemplate.requestBodyAndHeaders(
-                "aws2-translate:test?operation=translateText",
+                "aws2-translate://test?operation=translateText",
                 text,
                 java.util.Map.of(
                         Translate2Constants.SOURCE_LANGUAGE, sourceLanguage,
