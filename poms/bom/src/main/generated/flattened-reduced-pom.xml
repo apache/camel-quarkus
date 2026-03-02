@@ -643,11 +643,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-cloud</artifactId>
-        <version>4.19.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-cloudevents</artifactId>
         <version>4.19.0-SNAPSHOT</version>
       </dependency>
@@ -3917,16 +3912,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core</artifactId>
-        <version>3.33.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-core-cloud</artifactId>
-        <version>3.33.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-core-cloud-deployment</artifactId>
         <version>3.33.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -7360,7 +7345,7 @@
       <dependency>
         <groupId>com.jayway.jsonpath</groupId>
         <artifactId>json-path</artifactId>
-        <version>2.10.0</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>com.lihaoyi</groupId>
