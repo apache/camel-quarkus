@@ -26,6 +26,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.minio.BucketExistsArgs;
+import io.minio.GetObjectArgs;
+import io.minio.GetObjectResponse;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -44,6 +46,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 @QuarkusTestResource(MinioTestResource.class)
@@ -374,6 +377,26 @@ class MinioTest {
                 .then()
                 .statusCode(200)
                 .body(containsString("true"));
+    }
+
+    @Test
+    void contentAsInputStream() throws Exception {
+        String bucketName = "input-stream-test";
+        String objectName = "Some Content As InputStream";
+
+        RestAssured.given()
+                .queryParam("bucketName", bucketName)
+                .queryParam("objectName", objectName)
+                .body(objectName)
+                .put("/api/minio")
+                .then()
+                .statusCode(200);
+
+        minioClient = initClient(bucketName);
+        GetObjectResponse response = minioClient.getObject(GetObjectArgs.builder().bucket(bucketName)
+                .object(objectName)
+                .build());
+        assertEquals(objectName, response.object());
     }
 
     private static String params(Object... os) {

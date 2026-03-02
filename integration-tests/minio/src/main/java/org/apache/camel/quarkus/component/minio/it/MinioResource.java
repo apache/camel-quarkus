@@ -38,7 +38,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -59,9 +58,6 @@ public class MinioResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
-
-    @Inject
-    CamelContext camelContext;
 
     @Path("/consumerWithClientCreation/{endpoint}")
     @GET
@@ -84,10 +80,9 @@ public class MinioResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String consumer() {
 
-        final String message = consumerTemplate.receiveBody(
+        return consumerTemplate.receiveBody(
                 "minio://mycamel?moveAfterRead=true&destinationBucketName=movedafterread",
                 5000, String.class);
-        return message;
     }
 
     @Path("/consumeAndMove/{removeHeader}")
@@ -183,7 +178,7 @@ public class MinioResource {
                     .build();
         }
         formatResult(length, offset, objectList, sb, errorSB);
-        var respBuilder = errorSB.length() > 0 ? Response.status(500).entity(errorSB.toString())
+        var respBuilder = !errorSB.isEmpty() ? Response.status(500).entity(errorSB.toString())
                 : Response.ok().entity(sb.toString());
         return respBuilder.build();
     }
@@ -192,7 +187,7 @@ public class MinioResource {
         objectList.forEach(r -> {
             try {
                 if (r instanceof Result) {
-                    Object o = ((Result) r).get();
+                    Object o = ((Result<?>) r).get();
                     if (o instanceof Item) {
                         sb.append("item: ").append(((Item) o).objectName());
                     } else {
@@ -221,7 +216,7 @@ public class MinioResource {
 
     private Map<String, Object> deserializeMap(String parametersString) {
         return Arrays.stream(parametersString.split(","))
-                .map(s -> new Pair<String>(s.split(":")[0], s.split(":")[1]))
+                .map(s -> new Pair<>(s.split(":")[0], s.split(":")[1]))
                 .map(p -> {
                     switch (p.getLeft()) {
                     case MinioConstants.OFFSET:
