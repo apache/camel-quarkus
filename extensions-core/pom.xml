@@ -34,7 +34,6 @@
 
     <modules>
         <module>core</module>
-        <module>core-cloud</module>
         <module>http-common</module>
         <module>reactive-executor</module>
         <module>threadpoolfactory-vertx</module>
