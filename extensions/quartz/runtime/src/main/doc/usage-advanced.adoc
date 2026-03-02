@@ -70,4 +70,4 @@ public QuartzComponent quartzComponent(Scheduler scheduler) {
 }
 ----
 
-Further customization of the Quartz scheduler can be done via various configuration properties. Refer to to the https://quarkus.io/guides/quartz#quartz-configuration-reference[Quarkus Quartz Configuration] guide for more information.
+Further customization of the Quartz scheduler can be done via various configuration properties. Refer to the https://quarkus.io/guides/quartz#quartz-configuration-reference[Quarkus Quartz Configuration] guide for more information.
