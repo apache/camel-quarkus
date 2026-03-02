@@ -16,11 +16,14 @@
  */
 package org.apache.camel.quarkus.component.qdrant.it;
 
-public class QdrantTestResource extends AbstractQdrantTestResource {
+import java.util.List;
+
+import io.quarkus.test.junit.QuarkusTestProfile;
+
+public class QdrantAuthTestProfile implements QuarkusTestProfile {
 
     @Override
-    protected boolean isAuthEnabled() {
-        return false;
+    public List<TestResourceEntry> testResources() {
+        return List.of(new TestResourceEntry(QdrantAuthTestResource.class));
     }
-
 }
