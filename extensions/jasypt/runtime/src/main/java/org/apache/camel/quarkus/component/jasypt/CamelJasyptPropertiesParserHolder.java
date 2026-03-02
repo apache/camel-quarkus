@@ -21,7 +21,6 @@ import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 class CamelJasyptPropertiesParserHolder {
     private static volatile JasyptPropertiesParser INSTANCE;
-    private static volatile StandardPBEStringEncryptor ENCRYPTOR;
 
     private CamelJasyptPropertiesParserHolder() {
         // Utility class
@@ -41,7 +40,6 @@ class CamelJasyptPropertiesParserHolder {
     static void setEncryptor(StandardPBEStringEncryptor encryptor) {
         synchronized (CamelJasyptPropertiesParserHolder.class) {
             getJasyptPropertiesParser().setEncryptor(encryptor);
-            ENCRYPTOR = encryptor;
         }
     }
 }

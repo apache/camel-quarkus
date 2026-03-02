@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.jasypt;
 
 import java.util.OptionalInt;
 
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.smallrye.config.ConfigSourceInterceptor;
 import io.smallrye.config.ConfigSourceInterceptorContext;
 import io.smallrye.config.ConfigSourceInterceptorFactory;
@@ -37,6 +38,10 @@ public class CamelJasyptConfigSourceInterceptorFactory implements ConfigSourceIn
         return new ConfigSourceInterceptor() {
             @Override
             public ConfigValue getValue(ConfigSourceInterceptorContext context, String name) {
+                if (!isConfigPropertyResolvable(name)) {
+                    return null;
+                }
+
                 ConfigValue configValue = context.proceed(name);
                 if (configValue != null) {
                     String value = configValue.getValue();
@@ -52,5 +57,20 @@ public class CamelJasyptConfigSourceInterceptorFactory implements ConfigSourceIn
     @Override
     public OptionalInt getPriority() {
         return OptionalInt.of(Priorities.LIBRARY);
+    }
+
+    protected boolean isConfigPropertyResolvable(String name) {
+        // Check if the config property name is prefixed with a profile
+        if (name.startsWith("%")) {
+            int firstDotPos = name.indexOf('.');
+            if (firstDotPos > 1) {
+                // Determine whether the config profile prefix matches an active profile
+                return ConfigUtils.getProfiles().contains(name.substring(1, firstDotPos));
+            }
+            // The config is invalid and cannot be resolved
+            return false;
+        }
+        // No profile prefix so assume resolvable
+        return true;
     }
 }
