@@ -33,8 +33,8 @@ import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2EmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
-import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
 import dev.langchain4j.rag.DefaultRetrievalAugmentor;
 import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
@@ -108,11 +108,7 @@ public class AgentProducers {
 
             List<TextSegment> segments = DocumentSplitters.recursive(300, 100).split(document);
 
-            EmbeddingModel embeddingModel = OllamaEmbeddingModel.builder()
-                    .baseUrl(baseUrl)
-                    .modelName("nomic-embed-text")
-                    .timeout(Duration.ofSeconds(30))
-                    .build();
+            EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
 
             List<Embedding> embeddings = embeddingModel.embedAll(segments).content();
 
