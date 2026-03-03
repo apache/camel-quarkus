@@ -45,7 +45,9 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 endif::[]
 
 [id="extensions-langchain4j-tools-quarkus-langchain4j-bom"]
-== LangChain4j dependency management
+== LangChain4j usage
+
+=== Dependency management
 
 In order to ensure alignment across all Quarkus and LangChain4j related dependencies, it is recommended to import the LangChain4j BOM as below:
 [source,xml,subs=attributes+]
@@ -66,3 +68,8 @@ In order to ensure alignment across all Quarkus and LangChain4j related dependen
 
 Note that the import order is paramount when using maven `dependencyManagement`.
 As such, one might need to import the `langchain4j-bom` before other related Camel and Quarkus BOMs.
+
+=== Quarkus LangChain4j support
+
+WARNING: At present, this extension is neither tested with nor intended to be used in conjunction with any Quarkus LangChain4j extensions.
+Consequently, both JVM and native modes may exhibit unexpected behaviour or fail to function correctly in such configurations.
