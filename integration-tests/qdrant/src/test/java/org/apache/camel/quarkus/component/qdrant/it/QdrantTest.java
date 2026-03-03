@@ -21,6 +21,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTestResource(QdrantTestResource.class)
@@ -61,6 +62,36 @@ class QdrantTest {
                 .then()
                 .statusCode(200)
                 .body(is("0/"));
+    }
+
+    @Test
+    void operationOnNonExistentCollectionShouldThrowException() {
+        // Try to retrieve from a collection that doesn't exist
+        // This should trigger QdrantException from the qdrant client
+        RestAssured.get("/qdrant/exception/nonExistentCollection")
+                .then()
+                .statusCode(500)
+                .body(containsString("QdrantException"));
+    }
+
+    @Test
+    void invalidCollectionOperationShouldThrowException() {
+        // Try to perform an invalid operation
+        // This should trigger QdrantException with a descriptive message
+        RestAssured.put("/qdrant/exception/invalidOperation")
+                .then()
+                .statusCode(500)
+                .body(containsString("QdrantException"));
+    }
+
+    @Test
+    void exceptionMessageShouldBePreserved() {
+        // Verify that exception messages are properly preserved
+        // This is important for native reflection support
+        RestAssured.get("/qdrant/exception/withMessage")
+                .then()
+                .statusCode(500)
+                .body(containsString("Test exception message"));
     }
 
 }

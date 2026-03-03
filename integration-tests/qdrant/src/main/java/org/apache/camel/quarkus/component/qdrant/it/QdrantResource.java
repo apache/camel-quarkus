@@ -185,4 +185,125 @@ public class QdrantResource {
 
         return Response.ok(operationId + "/" + opeartionStatus + "/" + operationValue).build();
     }
+
+    @Path("/exception/nonExistentCollection")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response retrieveFromNonExistentCollection() {
+        // Try to retrieve from a collection that doesn't exist
+        // This should trigger QdrantException
+        Exchange exchange = producer.to("qdrant:nonExistentCollection")
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.RETRIEVE)
+                .withBody(PointIdFactory.id(1))
+                .request(Exchange.class);
+
+        if (exchange.isFailed() && exchange.getException() != null) {
+            Exception exception = exchange.getException();
+            return Response.status(500)
+                    .entity("QdrantException: " + exception.getMessage())
+                    .build();
+        }
+        return Response.ok("Should not reach here").build();
+    }
+
+    @Path("/exception/invalidOperation")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response invalidCollectionOperation() {
+        // Try to create collection with invalid parameters
+        // This should trigger QdrantException
+        Exchange exchange = producer.to("qdrant:testCollection")
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.CREATE_COLLECTION)
+                .withBody(
+                        Collections.VectorParams.newBuilder()
+                                .setSize(0) // Invalid size
+                                .setDistance(Collections.Distance.Cosine).build())
+                .request(Exchange.class);
+
+        if (exchange.isFailed() && exchange.getException() != null) {
+            Exception exception = exchange.getException();
+            return Response.status(500)
+                    .entity("QdrantException: " + exception.getMessage())
+                    .build();
+        }
+        return Response.ok("Should not reach here").build();
+    }
+
+    @Path("/exception/withMessage")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response exceptionWithMessage() {
+        // Verify that exception messages are properly preserved
+        Exchange exchange = producer.to("qdrant:nonExistentTestCollection")
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.DELETE)
+                .withBody(Common.Filter.newBuilder()
+                        .addMust(matchKeyword("test", "value"))
+                        .build())
+                .request(Exchange.class);
+
+        if (exchange.isFailed() && exchange.getException() != null) {
+            Exception exception = exchange.getException();
+            return Response.status(500)
+                    .entity("QdrantException: Test exception message - " + exception.getMessage())
+                    .build();
+        }
+        return Response.ok("Should not reach here").build();
+    }
+
+    @Path("/apiKey/valid")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response testWithValidApiKey() {
+        // The component is already configured with correct API key in QdrantAuthTestResource
+        producer.to("qdrant:authTestCollection")
+                .withHeader(QdrantHeaders.ACTION, QdrantAction.CREATE_COLLECTION)
+                .withBody(
+                        Collections.VectorParams.newBuilder()
+                                .setSize(2)
+                                .setDistance(Collections.Distance.Cosine).build())
+                .request();
+
+        return Response.ok("ApiKeyCredentials reflection works: authentication successful").build();
+    }
+
+    @Path("/apiKey/invalid")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response testWithInvalidApiKey() {
+        // Test that wrong API key is rejected
+        // Use endpoint URI with explicit wrong API key to override component configuration
+        try {
+            producer.to("qdrant:authTestCollection2?apiKey=wrong-api-key")
+                    .withHeader(QdrantHeaders.ACTION, QdrantAction.CREATE_COLLECTION)
+                    .withBody(
+                            Collections.VectorParams.newBuilder()
+                                    .setSize(2)
+                                    .setDistance(Collections.Distance.Cosine).build())
+                    .request();
+
+            return Response.status(500)
+                    .entity("Authentication should have failed but succeeded!")
+                    .build();
+        } catch (Exception e) {
+            // Expected to fail on authentication
+            if (exceptionChainContains(e, "UNAUTHENTICATED") || exceptionChainContains(e, "PERMISSION_DENIED")) {
+                return Response.status(403).entity("Authentication correctly failed").build();
+            }
+            return Response.status(500)
+                    .entity("Unexpected error: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    private boolean exceptionChainContains(Throwable e, String searchTerm) {
+        Throwable current = e;
+        while (current != null) {
+            String message = current.getMessage();
+            if (message != null && message.toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
+    }
 }

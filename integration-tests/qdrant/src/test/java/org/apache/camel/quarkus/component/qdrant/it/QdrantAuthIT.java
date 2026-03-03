@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.component.qdrant.it;
 
-public class QdrantTestResource extends AbstractQdrantTestResource {
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-    @Override
-    protected boolean isAuthEnabled() {
-        return false;
-    }
+@QuarkusIntegrationTest
+class QdrantAuthIT extends QdrantAuthTest {
 
 }
