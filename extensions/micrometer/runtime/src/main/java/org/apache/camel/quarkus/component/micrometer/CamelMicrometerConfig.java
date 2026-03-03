@@ -105,6 +105,22 @@ public interface CamelMicrometerConfig {
      */
     Optional<String> routePolicyExcludePattern();
 
+    /**
+     * Log metrics when application is shutting down. (default, `false`).
+     *
+     * @asciidoclet
+     */
+    @WithDefault("false")
+    boolean logMetricsOnShutdown();
+
+    /**
+     * List of metrics (comma separated) to log when application is shutting down. You can use `*` character to log any
+     * metrics containing the wildcard, for example `camel.exchanges.*` (default to all metrics available).
+     *
+     * @asciidoclet
+     */
+    Optional<String[]> logMetricsOnShutdownFilters();
+
     enum MetricsNamingStrategy {
         DEFAULT, LEGACY
     }
