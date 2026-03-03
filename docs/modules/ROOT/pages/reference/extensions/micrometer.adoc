@@ -152,6 +152,19 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-route-policy-excl
 Comma separated list of route IDs to exclude from metrics collection.
 | `string`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-log-metrics-on-shutdown]]`link:#quarkus-camel-metrics-log-metrics-on-shutdown[quarkus.camel.metrics.log-metrics-on-shutdown]`
+
+Log metrics when application is shutting down. (default, `false`).
+| `boolean`
+| `false`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-log-metrics-on-shutdown-filters]]`link:#quarkus-camel-metrics-log-metrics-on-shutdown-filters[quarkus.camel.metrics.log-metrics-on-shutdown-filters]`
+
+List of metrics (comma separated) to log when application is shutting down. You can use `*` character to log any
+metrics containing the wildcard, for example `camel.exchanges.*` (default to all metrics available).
+| List of `string`
+| 
 |===
 
 [.configuration-legend]
