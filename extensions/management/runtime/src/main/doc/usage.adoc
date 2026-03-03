@@ -2,7 +2,7 @@ For information on using Managed Beans in Camel, consult the xref:manual::jmx.ad
 
 === Enabling and Disabling JMX
 
-JMX can be enabled or disabled in Camel-Quarkus by any of the following methods:
+JMX can be enabled or disabled in Camel Quarkus by any of the following methods:
 
 . Adding or removing the `camel-quarkus-management` extension.
 . Setting the `camel.main.jmxEnabled` configuration property to a boolean value.

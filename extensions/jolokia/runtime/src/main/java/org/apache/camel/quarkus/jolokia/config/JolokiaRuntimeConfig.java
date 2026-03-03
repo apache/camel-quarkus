@@ -68,14 +68,14 @@ public interface JolokiaRuntimeConfig {
         boolean autoStart();
 
         /**
-         * The host address to which the Jolokia agent HTTP server should bind to.
+         * The host address to which the Jolokia agent HTTP server should bind.
          * When unspecified, the default is localhost for dev and test mode.
          * In prod mode the default is to bind to all interfaces at 0.0.0.0.
          */
         Optional<String> host();
 
         /**
-         * The port on which the Jolokia agent HTTP server should listen on.
+         * The port on which the Jolokia agent HTTP server should listen.
          */
         @WithDefault("8778")
         int port();

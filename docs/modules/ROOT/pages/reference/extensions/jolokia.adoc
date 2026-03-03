@@ -211,7 +211,7 @@ This can be done via `@Inject CamelQuarkusJolokiaServer` and then invoking the `
 
 a| [[quarkus-camel-jolokia-server-host]]`link:#quarkus-camel-jolokia-server-host[quarkus.camel.jolokia.server.host]`
 
-The host address to which the Jolokia agent HTTP server should bind to.
+The host address to which the Jolokia agent HTTP server should bind.
 When unspecified, the default is localhost for dev and test mode.
 In prod mode the default is to bind to all interfaces at 0.0.0.0.
 | `string`
@@ -219,7 +219,7 @@ In prod mode the default is to bind to all interfaces at 0.0.0.0.
 
 a| [[quarkus-camel-jolokia-server-port]]`link:#quarkus-camel-jolokia-server-port[quarkus.camel.jolokia.server.port]`
 
-The port on which the Jolokia agent HTTP server should listen on.
+The port on which the Jolokia agent HTTP server should listen.
 | `int`
 | `8778`
 
