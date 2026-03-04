@@ -59,7 +59,7 @@ For instance, the route below would load an XPath expression from a classpath re
 from("direct:start").transform().xpath("resource:classpath:myxpath.txt");
 ----
 
-To include this (an possibly other expressions stored in `.txt` files) in the native image, you would have to add something like the following to your `application.properties` file:
+To include this (and possibly other expressions stored in `.txt` files) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

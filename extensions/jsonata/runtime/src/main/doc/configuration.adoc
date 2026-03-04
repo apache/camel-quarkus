@@ -7,7 +7,7 @@ by using the `quarkus.native.resources.includes` property.
 from("direct:start").to("jsonata:spec/expressions.spec");
 ----
 
-To include this (an possibly other specifications stored in `.spec` files) in the native image, you would have to add something like the following to your `application.properties` file:
+To include this (and possibly other specifications stored in `.spec` files) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

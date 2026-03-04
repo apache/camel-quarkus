@@ -29,7 +29,8 @@ public interface CamelOpenTelemetryConfig {
 
     /**
      * Sets whether header names need to be encoded. Can be useful in situations where OpenTelemetry propagators potentially
-     * set header name values in formats that are not compatible with the target system. E.g for JMS where the specification
+     * set header name values in formats that are not compatible with the target system. E.g. for JMS where the
+     * specification
      * mandates header names are valid Java identifiers.
      *
      * @asciidoclet
@@ -41,11 +42,11 @@ public interface CamelOpenTelemetryConfig {
      * Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The
      * pattern can take the following forms:
      *
-     * 1. An exact match on the endpoint URI. E.g platform-http:/some/path
+     * 1. An exact match on the endpoint URI. E.g. platform-http:/some/path
      *
-     * 2. A wildcard match. E.g platform-http:++*++
+     * 2. A wildcard match. E.g. platform-http:++*++
      *
-     * 3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.++*++
+     * 3. A regular expression matching the endpoint URI. E.g. platform-http:/prefix/.++*++
      *
      * @asciidoclet
      */

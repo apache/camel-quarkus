@@ -1,7 +1,7 @@
 === Configuring a DataSource
 
 This extension leverages https://quarkus.io/guides/datasource[Quarkus Agroal] for `DataSource` support. Setting up a `DataSource` can be achieved via configuration properties.
-It is recommended that you explicitly name the datasource so that it can be referenced in the JDBC endpoint URI. E.g like `to("jdbc:camel")`.
+It is recommended that you explicitly name the datasource so that it can be referenced in the JDBC endpoint URI. E.g. like `to("jdbc:camel")`.
 
 [source,properties]
 ----

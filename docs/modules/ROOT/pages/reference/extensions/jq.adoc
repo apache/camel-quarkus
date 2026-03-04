@@ -52,7 +52,7 @@ endif::[]
 If you choose to perform JQ transformations that specify the result class as some custom type in native mode,
 then you must register that type for reflection.
 
-E.g via the `@RegisterForReflection`
+E.g. via the `@RegisterForReflection`
 annotation or configuration property `quarkus.camel.native.reflection.include-patterns`. For example:
 
 [source,java]

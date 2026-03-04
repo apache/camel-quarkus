@@ -61,7 +61,7 @@ More details about these two configuration methods is described below.
 [id="extensions-infinispan-usage-camel-infinispan-component-and-endpoint-configuration"]
 === Camel Infinispan component and endpoint configuration
 
-When using 'pure' Camel Infinispan component and endpoint configuration (I.e where's there's no `quarkus.infinispan-client` configuration set), you *must* disable generation of the default Quarkus Infinispan `RemoteCacheManager` bean by adding the following configuration to `application.properties`.
+When using 'pure' Camel Infinispan component and endpoint configuration (I.e. where's there's no `quarkus.infinispan-client` configuration set), you *must* disable generation of the default Quarkus Infinispan `RemoteCacheManager` bean by adding the following configuration to `application.properties`.
 
 [source,properties]
 ----

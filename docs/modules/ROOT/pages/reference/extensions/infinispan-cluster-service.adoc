@@ -61,7 +61,7 @@ In other words, messages will be logged every 100ms on a single JVM at a time.
 [id="extensions-infinispan-cluster-service-configuration-infinispan-configuration"]
 ==== Infinispan Configuration
 
-You can configure the Infinispan client with the various `quarkus.camel.cluster.infinispan` configuration options in `application.properties.
+You can configure the Infinispan client with the various `quarkus.camel.cluster.infinispan` configuration options in `application.properties`.
 
 [source,properties]
 ----

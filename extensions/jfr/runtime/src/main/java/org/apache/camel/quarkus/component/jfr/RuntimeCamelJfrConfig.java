@@ -27,7 +27,7 @@ import io.smallrye.config.ConfigMapping;
 public interface RuntimeCamelJfrConfig {
 
     /**
-     * Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
+     * Directory to store the recording. By default, the current directory will be used. Use false to turn off saving the
      * recording to disk.
      *
      * @asciidoclet

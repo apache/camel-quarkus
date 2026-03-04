@@ -197,7 +197,7 @@ them. This property sets the scope of the dependencies to scan. Applicable value
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-scan-for-imports]]`link:#quarkus-camel-grpc-codegen-scan-for-imports[quarkus.camel.grpc.codegen.scan-for-imports]`
 
 Camel Quarkus gRPC code generation can scan dependencies for .proto files that can be imported by protos in this
-applications. Applicable values:
+application. Applicable values:
 
 - _none_ - default - don't scan dependencies
 - a comma separated list of _groupId:artifactId_ coordinates to scan

@@ -9,7 +9,7 @@ For instance, the route below loads the Flatpack mappings from a classpath resou
 from("direct:start").to("flatpack:delim:mappings/simple.pzmap.xml");
 ----
 
-To include this (an possibly other mappings stored in `.pzmap.xml` files under the `mappings` directory) in the native image, you would have to add something like the following to your `application.properties` file:
+To include this (and possibly other mappings stored in `.pzmap.xml` files under the `mappings` directory) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

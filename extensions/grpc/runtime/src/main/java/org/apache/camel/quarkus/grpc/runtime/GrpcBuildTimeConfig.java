@@ -78,7 +78,7 @@ public interface GrpcBuildTimeConfig {
 
         /**
          * Camel Quarkus gRPC code generation can scan dependencies for .proto files that can be imported by protos in this
-         * applications. Applicable values:
+         * application. Applicable values:
          *
          * - _none_ - default - don't scan dependencies
          * - a comma separated list of _groupId:artifactId_ coordinates to scan

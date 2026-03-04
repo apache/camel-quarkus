@@ -65,7 +65,7 @@ For instance, the route below would load the Mustache template from a classpath 
 from("direct:start").to("mustache://template/simple.mustache");
 ----
 
-To include this (an possibly other templates stored in `.mustache` files) in the native image, you would have to add something like the following to your `application.properties` file:
+To include this (and possibly other templates stored in `.mustache` files) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

@@ -52,7 +52,7 @@ endif::[]
 [id="extensions-vertx-websocket-usage-vert-x-websocket-consumers"]
 === Vert.x WebSocket consumers
 
-When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
+When you create a Vert.x WebSocket consumer (E.g. with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on
 the Quarkus HTTP server.
 
 The configuration of the consumer can be simplified to only include the resource path of the WebSocket. For example.
@@ -65,7 +65,7 @@ from("vertx-websocket:/my-websocket-path")
 
 NOTE: While you do not need to explicitly configure the host/port on the vertx-websocket consumer. If you choose to,
 the host & port must exactly match the value of the Quarkus HTTP server configuration values for `quarkus.http.host` and `quarkus.http.port`.
-Otherwise an exception will be thrown at runtime.
+Otherwise, an exception will be thrown at runtime.
 
 [id="extensions-vertx-websocket-usage-vert-x-websocket-producers"]
 === Vert.x WebSocket producers
