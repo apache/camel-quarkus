@@ -20,9 +20,7 @@
 <routes>
     <route>
         <from uri="direct:xmlSaga"/>
-        <saga>
-            <compensation uri="direct:xmlCompensation" />
-            <completion uri="direct:xmlCompletion" />
+        <saga compensation="direct:xmlCompensation" completion="direct:xmlCompletion" >
             <option key="shouldComplete">
                 <header>complete</header>
             </option>
