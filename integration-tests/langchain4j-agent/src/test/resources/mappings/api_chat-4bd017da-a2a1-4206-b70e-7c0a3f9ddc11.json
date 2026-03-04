@@ -1,0 +1,26 @@
+{
+  "id" : "4bd017da-a2a1-4206-b70e-7c0a3f9ddc11",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-03-03T15:26:53.383242474Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a curious little girl named Lily wandered through the forest, searching for her missing pet cat. She had been caring for the feline for weeks, but he had disappeared without a trace. As she walked deeper into the woods, the trees grew thicker and the path became less clear. Suddenly, she heard a faint meowing sound coming from somewhere ahead.\\n\\nLily followed the sound, and after a while, she came upon a small, shivering kitten lying on the ground. It had fallen and was unable to get up. Lily scooped the kitten up in her arms and took it back to her home. She fed it some milk and gave it a warm bed to sleep in.\\n\\nOver the next few days, Lily tried everything she could think of to help the kitten recover. She bathed its wounds, gave it fresh food and water, and even tried to find the cat's owner. But nothing seemed to work. The kitten grew weaker and weaker, and eventually, it stopped eating and drinking altogether.\\n\\nAs Lily sat by the kitten's bed, she couldn't help but feel a sense of sadness. She knew that her little friend was going to die soon. She decided to make one last attempt to find the cat's owner. She went out into the forest again, this time looking for someone who might have lost a pet cat.\\n\\nAfter hours of searching, Lily finally found the owner. The man was devastated when he realized that his beloved cat had gone missing. He had searched everywhere for her and was overjoyed to find her. Lily thanked him for his kindness and returned the kitten to its owner.\\n\\nFrom that day on, Lily made sure to keep a close eye on her pets, especially her cats. She knew that they would always be there for her, even when she couldn't be there for them. And so, the little girl with the lost cat went back home, feeling grateful for the experience and knowing that her furry friends had given her a sense of purpose in life.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":26074998933,\"load_duration\":12213453,\"prompt_eval_count\":70,\"prompt_eval_duration\":1413110889,\"eval_count\":434,\"eval_duration\":24531542929}",
+    "headers" : {
+      "Date" : "Tue, 03 Mar 2026 15:26:53 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "4bd017da-a2a1-4206-b70e-7c0a3f9ddc11",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "scenario-1-api-chat-2",
+  "insertionIndex" : 1
+}
