@@ -83,7 +83,7 @@ In native mode, the native executable can be executed as follows.
 
 a| [[quarkus-camel-jfr-startup-recorder-dir]]`link:#quarkus-camel-jfr-startup-recorder-dir[quarkus.camel.jfr.startup-recorder-dir]`
 
-Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
+Directory to store the recording. By default, the current directory will be used. Use false to turn off saving the
 recording to disk.
 | `string`
 | 

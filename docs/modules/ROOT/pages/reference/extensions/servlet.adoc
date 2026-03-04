@@ -87,7 +87,7 @@ quarkus.camel.servlet.servlet-name = My Custom Name
 
 *Servlet class*
 
-You may use a custom Servlet class (E.g one that extends `CamelHttpTransportServlet`) in your Camel routes.
+You may use a custom Servlet class (E.g. one that extends `CamelHttpTransportServlet`) in your Camel routes.
 
 [source,properties]
 ----

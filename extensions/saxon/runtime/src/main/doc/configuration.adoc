@@ -10,7 +10,7 @@ from("direct:start").transform().xquery("resource:classpath:myxquery.txt", Strin
 from("direct:start").to("xquery:another-xquery.txt");
 ----
 
-To include these (an possibly other queries stored in `.txt` files) in the native image, you would have to add something like the following to your `application.properties` file:
+To include these (and possibly other queries stored in `.txt` files) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

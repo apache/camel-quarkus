@@ -104,7 +104,7 @@ for `DataSource` support.
 ----
 +
 Also add a Quartz database creation script for your chosen database kind.
-The Quartz project provides ready made scripts that can be copied from https://github.com/quartz-scheduler/quartz/tree/master/quartz-core/src/main/resources/org/quartz/impl/jdbcjobstore[here]. Add the SQL
+The Quartz project provides ready-made scripts that can be copied from https://github.com/quartz-scheduler/quartz/tree/master/quartz-core/src/main/resources/org/quartz/impl/jdbcjobstore[here]. Add the SQL
 script to `src/main/resources/db/migration/V1.0.0__QuarkusQuartz.sql`. Quarkus Flyway will detect it on startup and will proceed to create the Quartz database tables.
 
 4. Configure the Camel Quartz component to use the Quarkus Quartz scheduler.
@@ -121,6 +121,6 @@ public QuartzComponent quartzComponent(Scheduler scheduler) {
 }
 ----
 
-Further customization of the Quartz scheduler can be done via various configuration properties. Refer to to the https://quarkus.io/guides/quartz#quartz-configuration-reference[Quarkus Quartz Configuration] guide for more information.
+Further customization of the Quartz scheduler can be done via various configuration properties. Refer to the https://quarkus.io/guides/quartz#quartz-configuration-reference[Quarkus Quartz Configuration] guide for more information.
 
 endif::[]

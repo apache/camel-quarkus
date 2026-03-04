@@ -30,11 +30,11 @@ public interface CamelOpenTelemetry2Config {
      * Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The
      * pattern can take the following forms:
      *
-     * 1. An exact match on the endpoint URI. E.g platform-http:/some/path
+     * 1. An exact match on the endpoint URI. E.g. platform-http:/some/path
      *
-     * 2. A wildcard match. E.g platform-http:++*++
+     * 2. A wildcard match. E.g. platform-http:++*++
      *
-     * 3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.++*++
+     * 3. A regular expression matching the endpoint URI. E.g. platform-http:/prefix/.++*++
      *
      * @asciidoclet
      */

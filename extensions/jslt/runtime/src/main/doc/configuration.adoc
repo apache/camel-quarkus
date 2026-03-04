@@ -11,7 +11,7 @@ For instance, the route below would load the JSLT schema from a classpath resour
 from("direct:start").to("jslt:transformation.json");
 ----
 
-To include this (an possibly other templates stored in `.json` files) in the native image, you would have to add something like the following to your `application.properties` file:
+To include this (and possibly other templates stored in `.json` files) in the native image, you would have to add something like the following to your `application.properties` file:
 
 [source,properties]
 ----

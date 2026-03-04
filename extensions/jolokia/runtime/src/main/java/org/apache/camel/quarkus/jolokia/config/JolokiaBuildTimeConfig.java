@@ -65,7 +65,7 @@ public interface JolokiaBuildTimeConfig {
 
     interface Kubernetes {
         /**
-         * When {@code true} and the quarkus-kubernetes extension is present, a container port named jolokia will
+         * When `true` and the quarkus-kubernetes extension is present, a container port named jolokia will
          * be added to the generated Kubernetes manifests within the container spec ports definition.
          */
         @WithDefault("true")
