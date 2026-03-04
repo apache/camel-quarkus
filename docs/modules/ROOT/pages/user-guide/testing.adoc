@@ -64,7 +64,7 @@ An important consequence of this, is that all communication between the tests an
 must take one or more of the following forms:
 
 * Network calls. Typically, HTTP or any other network protocol your application supports.
-* Watching the filesystem for changes (E.g via Camel `file` endpoints).
+* Watching the filesystem for changes (E.g. via Camel `file` endpoints).
 * Any other kind of interprocess communication.
 
 `QuarkusIntegrationTest` also provides some additional features that are not available through `@QuarkusTest`.

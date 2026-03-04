@@ -80,7 +80,7 @@ registered for reflection at compile time.
 In many cases, application developers do not need to care because Quarkus extensions are able to detect the classes that
 require reflection and register them automatically.
 
-However, in some situations, Quarkus extensions may miss some classes and it is up to the application developer to
+However, in some situations, Quarkus extensions may miss some classes, and it is up to the application developer to
 register them. There are two ways to do that:
 
 1. The `https://quarkus.io/guides/writing-native-applications-tips#alternative-with-registerforreflection[@io.quarkus.runtime.annotations.RegisterForReflection]`

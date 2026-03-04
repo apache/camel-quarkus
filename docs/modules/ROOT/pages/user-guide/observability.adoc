@@ -39,4 +39,4 @@ https://github.com/apache/camel-quarkus-examples/tree/main/observability
 
 == All-in-One observability
 
-For a simplified observability experience, use the xref:reference/extensions/observability-services.adoc[Observability Services] extension. It provides all of the above mentioned features, together with some opinionated configuration defaults.
+For a simplified observability experience, use the xref:reference/extensions/observability-services.adoc[Observability Services] extension. It provides all the above-mentioned features, together with some opinionated configuration defaults.

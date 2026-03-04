@@ -96,7 +96,7 @@ and depending on whether those versions with higher precedence work with the res
 
 Assuming you are importing `quarkus-bom` and `quarkus-camel-bom` in your project, upgrading to new releases should be a simple case of incrementing the `quarkus.platform.version` property.
 
-Sometimes it happens that the latest Camel Quarkus release is not yet availble via the `quarkus-camel-bom`.
+Sometimes it happens that the latest Camel Quarkus release is not yet available via the `quarkus-camel-bom`.
 To work around this, you can replace the `io.quarkus.platform:quarkus-camel-bom` import with `org.apache.camel.quarkus:camel-quarkus-bom`.
 
 Note that if you do this, some dependencies in `camel-quarkus-bom` may not be perfectly aligned with other Quarkus universe members as they would be in `quarkus-camel-bom`.
@@ -134,7 +134,7 @@ Note that if you do this, some dependencies in `camel-quarkus-bom` may not be pe
 
 IMPORTANT: Ensure that the major.minor version parts of `quarkus.platform.version` & `camel-quarkus.version` match. Mixing different release streams will likely result in build or runtime errors.
 
-When upgrading from one major release to another (E.g from 2.x to 3.x).
+When upgrading from one major release to another (E.g. from 2.x to 3.x).
 Quarkus provides an https://quarkus.io/guides/update-quarkus[updater tool] that can apply the necessary modifications to your project and make it compatible with the new major release.
 
 In addition, Camel & Camel Quarkus publish migration guides that document potential breaking changes.

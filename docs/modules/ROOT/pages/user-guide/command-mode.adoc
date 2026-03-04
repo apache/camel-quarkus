@@ -20,7 +20,7 @@ There is just one thing where it would differ from a stock Camel Quarkus applica
 setting an exit condition in `application.properties`.
 
 The rest of the application - most notably the xref:manual::routes.adoc[Route]
-that performs the actual data transformation and transfer - will look the same like with a traditional Camel service.
+that performs the actual data transformation and transfer - will look the same as with a traditional Camel service.
 
 == A minimal Hello World!
 
@@ -89,7 +89,7 @@ something like the following:
 2020-07-15 11:32:13,623 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
 2020-07-15 11:32:13,623 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
 2020-07-15 11:32:13,700 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
-2020-07-15 11:32:13,701 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 11:32:13,701 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at https://camel.apache.org/stream-caching.html
 2020-07-15 11:32:13,709 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
 2020-07-15 11:32:13,714 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
 2020-07-15 11:32:13,715 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.014 seconds
@@ -143,7 +143,7 @@ $ java -Dgreeted.subject=Joe -jar target/quarkus-app/quarkus-run.jar
 2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
 2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
 2020-07-15 11:42:18,892 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
-2020-07-15 11:42:18,893 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 11:42:18,893 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at https://camel.apache.org/stream-caching.html
 2020-07-15 11:42:18,902 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
 2020-07-15 11:42:18,907 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
 2020-07-15 11:42:18,908 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.015 seconds
@@ -183,7 +183,7 @@ $ target/*runner -Dgreeted.subject=Joe
 2020-07-15 12:19:22,811 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
 2020-07-15 12:19:22,811 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
 2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
-2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at https://camel.apache.org/stream-caching.html
 2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
 2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
 2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.000 seconds

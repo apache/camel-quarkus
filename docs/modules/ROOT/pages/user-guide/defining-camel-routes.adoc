@@ -79,11 +79,11 @@ Path globbing like `camel.main.routes-include-pattern = *./routes.xml` currently
 .Route
 [source,xml]
 ----
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://camel.apache.org/schema/spring"
+<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://camel.apache.org/schema/spring"
         xsi:schemaLocation="
-            http://camel.apache.org/schema/spring
-            http://camel.apache.org/schema/spring/camel-spring.xsd">
+            https://camel.apache.org/schema/spring
+            https://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <route id="xml-route">
         <from uri="timer:from-xml?period=1000"/>
@@ -110,7 +110,7 @@ The route XML should be in the simplified version like:
 .Rest DSL
 [source,xml]
 ----
-<rests xmlns="http://camel.apache.org/schema/spring">
+<rests xmlns="https://camel.apache.org/schema/spring">
     <rest id="greeting" path="/greeting">
         <get path="/hello">
             <to uri="direct:greet"/>
@@ -122,7 +122,7 @@ The route XML should be in the simplified version like:
 .Route Templates
 [source,xml]
 ----
-<routeTemplates xmlns="http://camel.apache.org/schema/spring">
+<routeTemplates xmlns="https://camel.apache.org/schema/spring">
     <routeTemplate id="myTemplate">
         <templateParameter name="name"/>
         <templateParameter name="greeting"/>

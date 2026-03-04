@@ -1,4 +1,4 @@
-# Camel Quarkus Migration And Upgrade Guides
+= Camel Quarkus Migration And Upgrade Guides
 
 We do frequent releases, a release almost every month, and even though we strive to maintain backward compatibility, we may on occasion include a breaking change in the interest of the long-term evolution of the project.
 

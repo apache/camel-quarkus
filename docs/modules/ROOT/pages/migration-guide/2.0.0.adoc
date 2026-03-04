@@ -16,7 +16,7 @@ now accessible at the following URLs.
 
 == `camel-quarkus-main` artifact removed
 
-Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a full blown separate artifact.
+Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a full-blown separate artifact.
 In 1.8.0, all functionality of `camel-quarkus-main` was moved to `camel-quarkus-core`,
 while it was still kept for backwards compatibility.
 The empty `camel-quarkus-main` artifact was removed completely in Camel Quarkus 2.0.0.
@@ -28,7 +28,7 @@ This is because all Camel Quarkus extensions transitively depend on `camel-quark
 
 The functionality available in `camel-quarkus-xml-io` was moved to `camel-quarkus-xml-io-dsl` in Camel Quarkus 1.8.0.
 Since that version `camel-quarkus-xml-io` was deprecated and was kept only for backwards compatibility reasons as an empty wrapper around `camel-quarkus-xml-io-dsl`.
-`camel-quarkus-xml-io` was removed fully in Camel Quarkus 2.0.0 and you'll have to use `camel-quarkus-xml-io-dsl` as a replacement.
+`camel-quarkus-xml-io` was removed fully in Camel Quarkus 2.0.0, and you'll have to use `camel-quarkus-xml-io-dsl` as a replacement.
 
 == `quarkus.camel.native.resources.*` replaced by `quarkus.native.resources.includes`
 
