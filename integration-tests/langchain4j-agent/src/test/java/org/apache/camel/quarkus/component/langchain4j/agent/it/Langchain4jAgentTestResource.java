@@ -22,10 +22,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
@@ -55,18 +61,44 @@ public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleM
 
     @Override
     protected void processRecordedStubMappings(List<StubMapping> stubMappings) {
-        stubMappings.forEach(mapping -> {
+        // Process stubs in recording order so we keep the first occurrence of each unique request body
+        List<StubMapping> sorted = new ArrayList<>(stubMappings);
+        sorted.sort(Comparator.comparingLong(StubMapping::getInsertionIndex));
+
+        Set<String> seenRequestBodies = new HashSet<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (StubMapping mapping : sorted) {
             String fileName = mapping.getName() + "-" + mapping.getId() + ".json";
             Path mappingFilePath = Paths.get("./src/test/resources/mappings/", fileName);
 
-            // ignoreExtraElements directive can lead to WireMock getting confused about which stub to use on request matching.
-            // Force disabling it manually since there's no specific WireMock config option to tune it
+            // When multiple tests send identical requests, WireMock records duplicate stubs and links them via
+            // a scenario state machine to enforce recording-time ordering. During replay this breaks when tests
+            // run in a different order. Deduplicate by keeping only the first stub per unique request body.
+            String requestBodyKey = normalizeRequestBody(mapper, mapping);
+            if (requestBodyKey != null && !seenRequestBodies.add(requestBodyKey)) {
+                try {
+                    Files.deleteIfExists(mappingFilePath);
+                } catch (IOException e) {
+                    LOG.warnf("Failed to delete duplicate stub %s: %s", fileName, e.getMessage());
+                }
+                continue;
+            }
+
             try {
-                String mappingContent = Files.readString(mappingFilePath);
-                mappingContent = mappingContent.replace("\"ignoreExtraElements\" : true", "\"ignoreExtraElements\" : false");
-                Files.writeString(mappingFilePath, mappingContent);
+                ObjectNode rootNode = (ObjectNode) mapper.readTree(Files.readString(mappingFilePath));
+
+                // Remove scenario state so stubs are not tied to recording-time test execution order
+                rootNode.remove("scenarioName");
+                rootNode.remove("requiredScenarioState");
+                rootNode.remove("newScenarioState");
+
+                // ignoreExtraElements can lead to WireMock matching the wrong stub; force it off
+                String content = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+                content = content.replace("\"ignoreExtraElements\" : true", "\"ignoreExtraElements\" : false");
+                Files.writeString(mappingFilePath, content);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Failed to process stub mapping " + fileName, e);
             }
 
             // RetrievalAugmentor bean setup causes /api/embed stubs to be recorded on every test run.
@@ -80,7 +112,21 @@ public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleM
                     // Ignored
                 }
             }
-        });
+        }
+    }
+
+    private String normalizeRequestBody(ObjectMapper mapper, StubMapping mapping) {
+        var bodyPatterns = mapping.getRequest().getBodyPatterns();
+        if (bodyPatterns == null || bodyPatterns.isEmpty()) {
+            return null;
+        }
+        try {
+            // Normalize to canonical JSON so whitespace differences don't prevent deduplication
+            String body = String.valueOf(bodyPatterns.get(0).getValue());
+            return mapper.writeValueAsString(mapper.readTree(body));
+        } catch (Exception e) {
+            return String.valueOf(bodyPatterns.get(0).getValue());
+        }
     }
 
     @Override
