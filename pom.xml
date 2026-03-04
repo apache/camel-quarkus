@@ -103,7 +103,7 @@
         <google-cloud-api-common.version>2.57.1</google-cloud-api-common.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:api-common -->
         <google-cloud-bigquery.version>2.59.0</google-cloud-bigquery.version><!--  @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-bigquery -->
         <google-cloud-bom.version>0.257.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-libraries-bom.version} dep:com.google.cloud:google-cloud-bom -->
-        <google-cloud-libraries-bom.version>26.76.0</google-cloud-libraries-bom.version><!-- Keep aligned with quarkus-google-cloud-services -->
+        <google-cloud-libraries-bom.version>26.77.0</google-cloud-libraries-bom.version><!-- Keep aligned with quarkus-google-cloud-services -->
         <google-cloud-pubsub-bom.version>1.148.0</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
         <google-cloud-pubsub.version>1.148.0</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
         <google-cloud-storage-bom.version>2.63.0</google-cloud-storage-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-storage-bom -->
