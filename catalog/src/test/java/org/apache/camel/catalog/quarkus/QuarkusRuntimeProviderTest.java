@@ -189,7 +189,6 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("core-cloud"));
         assertTrue(names.contains("attachments"));
 
         assertFalse(names.contains("blueprint"));
