@@ -1,0 +1,26 @@
+{
+  "id" : "00f7de61-f459-4686-9f45-652d42cbe3f0",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named 'John Doe' with the fields age and description\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \" Sure, here's an example JSON object for John Doe with his age and description:\\n\\n```json\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"age\\\": 30,\\n \\\"description\\\": \\\"John Doe is a professional software developer who enjoys hiking and reading books.\\\"\\n}\\n```\",\n    \"tool_calls\" : [ ]\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Make sure you return a valid JSON object following the specified format\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-03-04T15:15:44.039104839Z\",\"message\":{\"role\":\"assistant\",\"content\":\" I'm sorry, but as an AI language model, I don't have the capability to generate invalid JSON objects. However, here's an example of a valid JSON object for John Doe:\\n\\n```json\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"age\\\": 30,\\n \\\"description\\\": \\\"John Doe is a professional software developer who enjoys hiking and reading books.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3843644670,\"load_duration\":12339194,\"prompt_eval_count\":154,\"prompt_eval_duration\":42734839,\"eval_count\":92,\"eval_duration\":3770481441}",
+    "headers" : {
+      "Date" : "Wed, 04 Mar 2026 15:15:44 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "00f7de61-f459-4686-9f45-652d42cbe3f0",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "scenario-1-api-chat-2",
+  "insertionIndex" : 3
+}
