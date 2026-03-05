@@ -18,7 +18,7 @@ This guide outlines various ways to create a new Camel Quarkus application.
 == {link-quarkus-code-generator}
 
 Projects can be generated at https://{link-quarkus-code-generator}[{link-quarkus-code-generator}].
-All of the Camel Quarkus extensions can be found under the 'Integration' category.
+All the Camel Quarkus extensions can be found under the 'Integration' category.
 Use the 'search' field to help with finding extensions that you are interested in.
 
 Simply select the component extensions that you want to work with
@@ -202,7 +202,7 @@ ls -lh target
 ...
 ----
 
-Note that the `runner` in the listing above has no `.jar` extension and has the `x` (executable) permission set. Thus
+Note that the `runner` in the listing above has no `.jar` extension and has the `x` (executable) permission set. Thus,
 it can be run directly:
 
 [source,shell]

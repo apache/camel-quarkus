@@ -61,7 +61,7 @@ Keeping the set of test module dependencies as small as possible has several adv
   For instance, an extension A may configure the native compiler in such a way that it causes also extension B to work properly in native mode.
   However, if B was tested in isolation, it would not work.
 * This rule also applies to `junit`, `testcontainers`, `rest-assured`, `assertj` and similar testing dependencies:
-  Unless there is some really good reason to do the opposite, they should be kept in Maven `test` scope.
+  Unless there is a good reason to do the opposite, they should be kept in Maven `test` scope.
   Having them in the `compile` or `runtime` scope makes them analyzed and possibly compiled by GraalVM
   when the tests are run in native mode.
   On one hand, it makes the native compilation slower and on the other hand, those testing artifacts may cause native compilation issues.
@@ -85,7 +85,7 @@ The grouped module may then be preferred in a CI job that validates pull request
 
 == Coverage
 
-When porting a Camel component to Quarkus, we generally do not want to duplicate all the fine grained tests that are often available in Camel already.
+When porting a Camel component to Quarkus, we generally do not want to duplicate all the fine-grained tests that are often available in Camel already.
 Our main goal is to make sure that the main use cases work well in native mode.
 But how can you figure out which are those?
 

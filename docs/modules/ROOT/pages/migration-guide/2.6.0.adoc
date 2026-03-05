@@ -13,7 +13,9 @@ If timeout for graceful shutdown is not set and application runs in a developmen
 
 `DefaultShutdownStrategy` could be configured via `application.properties`.
 For example:
-```
+
+[source,properties]
+----
 #set graceful timeout to 15 seconds
 camel.main.shutdownTimeout = 15
-```
+----

@@ -9,9 +9,9 @@ This part should be relatively minimal for Camel applications. Most of it is aut
 The command to apply it is
 
 [source,shell]
----
+----
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-spring-to-quarkus:RELEASE -Drewrite.activeRecipes=org.openrewrite.quarkus.spring.SpringBootToQuarkus -Drewrite.exportDatatables=true 
----
+----
 
 == Maven dependencies
 
@@ -39,14 +39,14 @@ Also ensure that the `quarkus-bom` is imported before the `camel-quarkus-bom`.
 
 == Remove "Main" annotated class
 
-If OpenRewirte recipe used, it will have the @QuarkusMain annotation, otherwise the @SpringBootApplication. This class can be completely removed. if not removed, the application will start but won't discover and start the Camel routes.
+If OpenRewrite recipe used, it will have the @QuarkusMain annotation, otherwise the @SpringBootApplication. This class can be completely removed. if not removed, the application will start but won't discover and start the Camel routes.
 
 == Configure Quarkus Maven Plugin
 
-The OpenRewrite recipe should have added the quarkus-maven-plugin but we need to add some configuration like this:
+The OpenRewrite recipe should have added the quarkus-maven-plugin, but we need to add some configuration like this:
 
 [source,xml]
----
+----
 <plugin> 
   <groupId>${quarkus.platform.group-id}</groupId>
   <artifactId>quarkus-maven-plugin</artifactId>
@@ -62,17 +62,17 @@ The OpenRewrite recipe should have added the quarkus-maven-plugin but we need to
    </execution>
   </executions>
 </plugin>
----
+----
 
 == Camel route DSLs
 
-There are no change for Java, Yaml and XML IO DSL.
+There are no change for Java, YAML and XML IO DSL.
 
 In case, the Camel Spring XML DSL was used, it needs to be migrated. Please see xref:{cq-camel-components}:others:java-xml-io-dsl.adoc[Camel XML IO DSL documentation]
 
 == Automated tests
 
-Tests annotated with `@CamelSpringBootTest`, `@CamelSpringTest` and `@SpringBootTest` must used `@QuarkusTest` instead.
+Tests annotated with `@CamelSpringBootTest`, `@CamelSpringTest` and `@SpringBootTest` must use `@QuarkusTest` instead.
 
 In case of tests which extends `CamelSpringBootTestSupport`, it must be replaced by `CamelQuarkusTestsSupport` from `camel-quarkus-junit` dependency (to add to the pom). Note that this solution is working only for JVM mode.
 
@@ -86,7 +86,7 @@ The system of profiles are relatively similar. You can check the https://quarkus
 
 The property `camel.main.run-controller=true` can be removed.
 
-Some properties for dev profile can be removed when a Quarkus dev service is available and you can use it out of the box. For instance with Kafka, `%dev.camel.component.kafka.brokers` property can be removed.
+Some properties for dev profile can be removed when a Quarkus dev service is available, and you can use it out of the box. For instance with Kafka, `%dev.camel.component.kafka.brokers` property can be removed.
 
 == Transaction manager
 

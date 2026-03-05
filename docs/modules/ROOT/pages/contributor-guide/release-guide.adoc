@@ -4,7 +4,7 @@
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see the
 xref:manual::release-guide.adoc[Release guide] page of the Camel documentation.
 
-The process is oriented toward releasing the main branch, some adjustments might be needed when it come to releasing maintenance branches.
+The process is oriented toward releasing the main branch, some adjustments might be needed when it comes to releasing maintenance branches.
 
 Here, just a sketch of the repeating part, after you have performed the initial setup following the
 xref:manual::release-guide.adoc[Camel Release guide].
@@ -120,11 +120,11 @@ After the changes have been committed. You can check them by browsing to https:/
 Once the staging repository has been closed, run the `perf-regression` tool in order to compare the current staging against the previous released version.
 
 It's important that the machine running the `perf-regression` tool be equally loaded during the run.
-The simplest way would be to take a 1 hour slot at the end of the day, launch the tool on your main station and then lock the screen.
+The simplest way would be to take a 1-hour slot at the end of the day, launch the tool on your main station and then lock the screen.
 
 At this stage, one is probably working from the release branch.
 The performance regression tool might be present in the `target/checkout` folder.
-Otherwise a full `mvn clean install -Dquickly` rebuild is needed prior to running the performance regression tool.
+Otherwise, a full `mvn clean install -Dquickly` rebuild is needed prior to running the performance regression tool.
 Another option is to switch to the main branch, where no rebuild should be needed.
 
 For instance, running the tool to compare the `2.10.0` staging release against the `2.9.0` previous release would look as below:
@@ -375,7 +375,7 @@ mvn clean test
 
 == Create a GitHub release
 
-This will trigger sending a notification to folks watching the Camel Quarkus github repository,
+This will trigger sending a notification to folks watching the Camel Quarkus GitHub repository,
 so it should ideally happen once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
 
 The following needs to be done:
@@ -400,9 +400,9 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 == Update the project changelog
 
 In the Camel Quarkus main branch, create a new release heading in the `CHANGELOG.md` file. E.g `## 3.2.0`.
-Under there, you can copy & paste the generated release notes markdown (see previous step) from the GitHub release page into `CHANGELOG.md`.
+Under there, you can copy & paste the generated release notes Markdown (see previous step) from the GitHub release page into `CHANGELOG.md`.
 
-You may also want to clean up the markdown, for instance:
+You may also want to clean up the Markdown, for instance:
 
 * Remove any excess sections like the `What's Changed` heading
 * Fix up any abbreviated lines that end in `...`
@@ -481,7 +481,7 @@ git push upstream camel-quarkus-main --force-with-lease
 
 In addition to the above, the following is needed:
 
-* https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
+* https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follows.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
 
 == Troubleshooting
