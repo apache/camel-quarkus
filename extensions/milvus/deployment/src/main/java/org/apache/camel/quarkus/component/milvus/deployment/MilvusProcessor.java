@@ -16,17 +16,11 @@
  */
 package org.apache.camel.quarkus.component.milvus.deployment;
 
-import java.util.List;
-import java.util.Set;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.ClassRemapper;
@@ -57,72 +51,11 @@ class MilvusProcessor {
                 });
     }
 
-    @BuildStep
-    List<IndexDependencyBuildItem> indexDependencies() {
-        return List.of(
-                new IndexDependencyBuildItem("io.milvus", "milvus-sdk-java"),
-                new IndexDependencyBuildItem("com.google.protobuf", "protobuf-java"));
-    }
-
-    /**
-     * Registers gRPC Service Providers (SPI) for the Native executable.
-     * In Native mode, GraalVM does not automatically discover services in
-     * META-INF/services.
-     */
+    //This build step ensures that the Milvus Java SDK is indexed by Jandex.
 
     @BuildStep
-    void registerGrpcServiceProvider(BuildProducer<ServiceProviderBuildItem> services) {
-
-        services.produce(new ServiceProviderBuildItem(
-                "io.grpc.ManagedChannelProvider",
-                "io.grpc.netty.NettyChannelProvider"));
-        services.produce(new ServiceProviderBuildItem(
-                "io.grpc.NameResolverProvider",
-                "io.grpc.internal.DnsNameResolverProvider"));
-
-        services.produce(new ServiceProviderBuildItem("io.grpc.LoadBalancerProvider",
-                "io.grpc.internal.PickFirstLoadBalancerProvider",
-                "io.grpc.util.OutlierDetectionLoadBalancerProvider",
-                "io.grpc.util.RandomSubsettingLoadBalancerProvider",
-                "io.grpc.util.SecretRoundRobinLoadBalancerProvider"));
-    }
-
-    @BuildStep
-    void registerReflection(CombinedIndexBuildItem index, BuildProducer<ReflectiveClassBuildItem> reflection) {
-
-        // Infrastructure & Clients: gRPC, Netty, and Milvus
-        reflection.produce(ReflectiveClassBuildItem.builder(
-                "io.grpc.internal.DnsNameResolverProvider",
-                "io.grpc.internal.PickFirstLoadBalancerProvider",
-                "io.grpc.netty.NettyChannelProvider",
-                "io.grpc.util.SecretRoundRobinLoadBalancerProvider$Provider",
-                "io.grpc.netty.GrpcSslContexts",
-                "io.grpc.netty.UdsNettyChannelProvider",
-                "io.grpc.netty.UdsNameResolverProvider",
-                "io.milvus.client.MilvusServiceClient")
-                .methods().fields().build());
-
-        // Data Models: Recursive scan for Milvus/Protobuf
-        Set<String> targetPackages = Set.of(
-                "io.milvus.grpc",
-                "com.google.protobuf.DescriptorProtos");
-
-        index.getIndex().getKnownClasses().stream()
-                .map(ci -> ci.name().toString())
-                .filter(name -> targetPackages.stream().anyMatch(name::startsWith))
-                .forEach(name -> reflection.produce(
-                        ReflectiveClassBuildItem.builder(name).methods().fields().build()));
-    }
-
-    @BuildStep
-    List<RuntimeInitializedClassBuildItem> runtimeInit() {
-        return List.of(
-                // Forces the gRPC Utils and its inner holders to initialize at runtime
-                new RuntimeInitializedClassBuildItem("io.grpc.netty.Utils"),
-                new RuntimeInitializedClassBuildItem("io.grpc.netty.Utils$ByteBufAllocatorPreferDirectHolder"),
-                new RuntimeInitializedClassBuildItem("io.grpc.netty.Utils$ByteBufAllocatorPreferHeapHolder"),
-                new RuntimeInitializedClassBuildItem("io.grpc.internal.RetriableStream"));
-
+    IndexDependencyBuildItem indexDependencie() {
+        return new IndexDependencyBuildItem("io.milvus", "milvus-sdk-java");
     }
 
     /**
