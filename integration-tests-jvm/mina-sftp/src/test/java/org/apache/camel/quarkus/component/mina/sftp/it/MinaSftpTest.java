@@ -16,11 +16,25 @@
  */
 package org.apache.camel.quarkus.component.mina.sftp.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
+import org.apache.camel.quarkus.test.support.sftp.SftpTestResource;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+
+@TestCertificates(certificates = {
+        @Certificate(name = "ftp", formats = {
+                Format.PEM }, password = "password"),
+        @Certificate(name = "ftp", formats = {
+                Format.PKCS12 }, password = "password") })
 @QuarkusTest
+@QuarkusTestResource(SftpTestResource.class)
 class MinaSftpTest {
 
     @Test
@@ -29,6 +43,43 @@ class MinaSftpTest {
         RestAssured.get("/mina-sftp/load/component/mina-sftp")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void testMinaSftpComponent() {
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Hello Camel Quarkus MINA SFTP")
+                .post("/mina-sftp/create/hello.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/get/hello.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus MINA SFTP"));
+
+        RestAssured.put("/mina-sftp/moveToDoneFile/hello.txt")
+                .then()
+                .statusCode(204);
+
+        RestAssured.get("/mina-sftp/get/hello.txt")
+                .then()
+                .statusCode(204);
+
+        RestAssured.get("/mina-sftp/get/hello.txt.done")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus MINA SFTP"));
+
+        RestAssured.delete("/mina-sftp/delete/hello.txt.done")
+                .then()
+                .statusCode(204);
+
+        RestAssured.get("/mina-sftp/get/hello.txt.done")
+                .then()
+                .statusCode(204);
     }
 
 }
