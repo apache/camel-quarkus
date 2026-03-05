@@ -39,6 +39,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildItem;
+import io.quarkus.smallrye.openapi.deployment.spi.OpenAPISPIConstants;
 import io.quarkus.swaggerui.deployment.SwaggerUiUrlBuildItem;
 import io.smallrye.openapi.api.util.MergeUtil;
 import io.smallrye.openapi.runtime.io.IOContext;
@@ -133,7 +134,8 @@ class OpenApiJavaProcessor {
             } catch (Exception e) {
                 LOGGER.warn("Failed to configure routes due to: {}.", e.getMessage(), e);
             }
-            openAPI.produce(new AddToOpenAPIDefinitionBuildItem(new CamelRestOASFilter(ctx)));
+            openAPI.produce(new AddToOpenAPIDefinitionBuildItem(new CamelRestOASFilter(ctx),
+                    OpenAPISPIConstants.DEFAULT_DOCUMENT_NAME));
         }
     }
 

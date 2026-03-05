@@ -38,18 +38,17 @@ import org.apache.camel.quarkus.test.support.google.GoogleCloudContext;
 import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
 import org.apache.camel.quarkus.test.support.google.GoogleTestEnvCustomizer;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.PubSubEmulatorContainer;
+import org.testcontainers.gcloud.PubSubEmulatorContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer {
+public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer<PubSubEmulatorContainer> {
 
     private static final String TEST_PROJECT_ID = "test-project";
 
     private PubSubEmulatorContainer container;
 
     @Override
-    public GenericContainer createContainer() {
+    public PubSubEmulatorContainer createContainer() {
         DockerImageName imageName = DockerImageName.parse(GoogleCloudTestResource.GOOGLE_EMULATOR_IMAGE);
         container = new PubSubEmulatorContainer(imageName);
         return container;

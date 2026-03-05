@@ -20,10 +20,10 @@ package org.apache.camel.quarkus.component.debezium.common.it.postgres;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<PostgreSQLContainer<?>> {
+public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<PostgreSQLContainer> {
 
     public static final String DB_USERNAME = "postgres";
     public static final String DB_PASSWORD = "changeit";
@@ -36,10 +36,10 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
     }
 
     @Override
-    protected PostgreSQLContainer<?> createContainer() {
+    protected PostgreSQLContainer createContainer() {
         DockerImageName imageName = DockerImageName.parse(POSTGRES_IMAGE)
                 .asCompatibleSubstituteFor("postgres");
-        return new PostgreSQLContainer<>(imageName)
+        return new PostgreSQLContainer(imageName)
                 .withUsername(DB_USERNAME)
                 .withPassword(DB_PASSWORD)
                 .withDatabaseName(DebeziumPostgresResource.DB_NAME)
