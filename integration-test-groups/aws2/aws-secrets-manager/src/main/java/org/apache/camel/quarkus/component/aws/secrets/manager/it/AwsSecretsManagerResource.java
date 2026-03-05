@@ -44,6 +44,7 @@ import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.apache.camel.spi.PeriodTaskResolver;
 import org.apache.camel.support.PluginHelper;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import software.amazon.awssdk.services.secretsmanager.model.CreateSecretResponse;
 import software.amazon.awssdk.services.secretsmanager.model.DeleteSecretRequest;
 import software.amazon.awssdk.services.secretsmanager.model.DeleteSecretResponse;
@@ -190,5 +191,13 @@ public class AwsSecretsManagerResource extends BaseAws2Resource {
         Exchange ex = producerTemplate.request(String.format("direct:{{aws:%s}}", secretName), null);
 
         return Response.ok(new URI("https://camel.apache.org/")).entity(ex.getIn().getBody()).build();
+    }
+
+    @Path("/configProperty/{propertyName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response configProperty(@PathParam("propertyName") String propertyName) throws Exception {
+        String propertyValue = ConfigProvider.getConfig().getValue(propertyName, String.class);
+        return Response.ok(new URI("https://camel.apache.org/")).entity(propertyValue).build();
     }
 }

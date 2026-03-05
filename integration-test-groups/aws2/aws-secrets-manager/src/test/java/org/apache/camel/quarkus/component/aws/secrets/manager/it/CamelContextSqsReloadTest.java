@@ -67,9 +67,12 @@ public class CamelContextSqsReloadTest {
         String secretArn = null;
         try {
             final String myUniqueSecretValue = "value" + UUID.randomUUID();
+            final String secretName = RestAssured.get("/aws-secrets-manager/configProperty/camel.vault.aws.secrets")
+                    .then()
+                    .statusCode(200).extract().body().asString();
             //create secret
             secretArn = AwsSecretsManagerUtil.createSecret(
-                    ConfigProvider.getConfig().getValue("camel.vault.aws.secrets", String.class),
+                    secretName,
                     myUniqueSecretValue);
             //update secret
             RestAssured.given()
