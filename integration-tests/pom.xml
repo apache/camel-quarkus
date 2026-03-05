@@ -177,6 +177,7 @@
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>milo</module>
+        <module>milvus</module>
         <module>minio</module>
         <module>mllp</module>
         <module>mongodb-grouped</module>

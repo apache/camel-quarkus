@@ -243,6 +243,7 @@ group-13:
   - jdbc-grouped
   - kubernetes
   - langchain4j-embeddingstore
+  - milvus
   - salesforce
   - sap-netweaver
   - servicenow
@@ -250,3 +251,4 @@ group-13:
   - nitrite
   - twilio
   - pgevent
+  
