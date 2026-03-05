@@ -30,7 +30,6 @@ import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.awaitility.Awaitility;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -46,8 +45,11 @@ public class CamelContextRefreshOnSecretRefreshTest {
         String secretArn = null;
         try {
             final String myUniqueSecretValue = "Uniqueee1234";
+            final String secretName = RestAssured.get("/aws-secrets-manager/configProperty/camel.vault.aws.secrets")
+                    .then()
+                    .statusCode(200).extract().body().asString();
             secretArn = AwsSecretsManagerUtil.createSecret(
-                    ConfigProvider.getConfig().getValue("camel.vault.aws.secrets", String.class),
+                    secretName,
                     myUniqueSecretValue);
             RestAssured.given()
                     .contentType(ContentType.JSON)
