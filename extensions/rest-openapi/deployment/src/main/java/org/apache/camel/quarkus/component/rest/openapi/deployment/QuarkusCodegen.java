@@ -69,6 +69,10 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
         CodegenModel model = super.fromModel(name, schema, allSchemas);
         if (schema != null && "array".equals(schema.getType())) {
             additionalProperties.put("useQuarkusRegisterForReflection", false);
+        } else {
+            // Add import and enable RegisterForReflection for non-array models
+            model.imports.add("QuarkusRegisterForReflection");
+            additionalProperties.put("useQuarkusRegisterForReflection", true);
         }
         if (additionalProperties.containsKey("ignoreUnknownProperties")) {
             model.imports.add("JsonIgnoreProperties");
@@ -114,11 +118,6 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
                 model.imports.add("JsonValue");
                 model.imports.add("JsonCreator");
             }
-        }
-        model.imports.add("QuarkusRegisterForReflection");
-        additionalProperties.put("useQuarkusRegisterForReflection", true);
-        if (additionalProperties.containsKey("ignoreUnknownProperties")) {
-            model.imports.add("JsonIgnoreProperties");
         }
     }
 
