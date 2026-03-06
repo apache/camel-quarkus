@@ -18,6 +18,16 @@
 -->
 # Changelog
 
+## 3.27.3
+
+* [3.27.x] Upgrade Camel to 4.14.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8129
+* [3.27.x] Upgrade Quarkus to 3.27.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8144
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8221
+* [3.27.x] Upgrade Camel to 4.14.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8295
+* [3.27.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8361
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.27.2...3.27.3
+
 ## 3.32.0
 
 * Upgrade to Quarkus CXF 3.31.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/8161
