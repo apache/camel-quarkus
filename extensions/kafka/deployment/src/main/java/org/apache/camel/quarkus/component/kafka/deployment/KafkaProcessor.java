@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
-import io.quarkus.deployment.IsNormal;
+import io.quarkus.deployment.IsProduction;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -57,7 +57,7 @@ class KafkaProcessor {
         }
     }
 
-    @BuildStep(onlyIfNot = IsNormal.class, onlyIf = DevServicesConfig.Enabled.class)
+    @BuildStep(onlyIfNot = IsProduction.class, onlyIf = DevServicesConfig.Enabled.class)
     public void configureKafkaComponentForDevServices(
             KafkaBuildTimeConfig kafkaBuildTimeConfig,
             BuildProducer<AdditionalBeanBuildItem> additionalBean) {
