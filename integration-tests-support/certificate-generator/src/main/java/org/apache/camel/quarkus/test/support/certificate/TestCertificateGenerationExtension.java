@@ -55,9 +55,6 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-
-        extensionContext.getStore(ExtensionContext.Namespace.GLOBAL)
-                .getOrComputeIfAbsent(TestCertificateGenerationExtension.class, c -> this);
         var maybe = AnnotationUtils.findAnnotation(extensionContext.getRequiredTestClass(), TestCertificates.class);
         if (maybe.isEmpty()) {
             return;

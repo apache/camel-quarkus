@@ -28,10 +28,11 @@ import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.mysql.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQLContainer<?>> {
+public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQLContainer> {
     private static final Logger log = LoggerFactory.getLogger(DebeziumMysqlTestResource.class);
 
     public static final String DB_NAME = "test";
@@ -52,11 +53,11 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
         // This generally means that you are trying to use an image that Testcontainers has not been designed to use.
         DockerImageName mySqlImage = DockerImageName.parse(MYSQL_IMAGE).asCompatibleSubstituteFor("mysql");
 
-        return new MySQLContainer<>(mySqlImage)
+        return new MySQLContainer(mySqlImage)
                 .withUsername(DB_USERNAME)
                 .withPassword(DB_PASSWORD)
                 .withDatabaseName(DB_NAME)
-                //                .withLogConsumer(new Slf4jLogConsumer(log))
+                .withLogConsumer(new Slf4jLogConsumer(log))
                 .withInitScript("initMysql.sql");
     }
 

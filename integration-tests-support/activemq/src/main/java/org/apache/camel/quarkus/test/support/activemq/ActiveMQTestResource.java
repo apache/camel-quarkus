@@ -23,8 +23,8 @@ import java.util.Map;
 import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.artemis.core.runtime.ArtemisBuildTimeConfig;
 import io.quarkus.artemis.core.runtime.ArtemisBuildTimeConfigs;
+import io.quarkus.artemis.core.runtime.ArtemisConstants;
 import io.quarkus.artemis.core.runtime.ArtemisDevServicesBuildTimeConfig;
-import io.quarkus.artemis.core.runtime.ArtemisUtil;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.smallrye.config.SmallRyeConfigBuilder;
 import org.testcontainers.containers.GenericContainer;
@@ -124,7 +124,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 .withMapping(ArtemisBuildTimeConfigs.class)
                 .withMapping(ArtemisDevServicesBuildTimeConfig.class)
                 .build()
-                .getConfigMapping(ArtemisBuildTimeConfigs.class).configs().get(ArtemisUtil.DEFAULT_CONFIG_NAME)
+                .getConfigMapping(ArtemisBuildTimeConfigs.class).configs().get(ArtemisConstants.DEFAULT_CONFIG_NAME)
                 .devservices().getImageName();
     }
 }

@@ -27,7 +27,7 @@ import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.IsDevelopment;
-import io.quarkus.deployment.IsNormal;
+import io.quarkus.deployment.IsProduction;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -121,7 +121,7 @@ public class JolokiaProcessor {
         syntheticBean.produce(beanConfigurator.done());
     }
 
-    @BuildStep(onlyIfNot = { IsNormal.class, IsDevelopment.class })
+    @BuildStep(onlyIfNot = { IsProduction.class, IsDevelopment.class })
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerJolokiaServerShutdownHook(
             JolokiaServerBuildItem jolokiaServer,
@@ -158,7 +158,7 @@ public class JolokiaProcessor {
         }
     }
 
-    @BuildStep(onlyIf = { IsNormal.class, ExposeContainerPortEnabled.class })
+    @BuildStep(onlyIf = { IsProduction.class, ExposeContainerPortEnabled.class })
     KubernetesPortBuildItem configureJolokiaKubernetesPort() {
         return KubernetesPortBuildItem.fromRuntimeConfiguration("jolokia", "quarkus.camel.jolokia.server.port", 8778, true);
     }

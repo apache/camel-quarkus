@@ -29,11 +29,11 @@ import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTestResour
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
-import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.mssqlserver.MSSQLServerContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<MSSQLServerContainer<?>> {
+public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<MSSQLServerContainer> {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTestResource.class);
     private static final DockerImageName DOCKER_IMAGE_NAME = DockerImageName
             .parse(ConfigProvider.getConfig().getValue("sql-server.container.image", String.class));
@@ -45,8 +45,8 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
     }
 
     @Override
-    protected MSSQLServerContainer<?> createContainer() {
-        return new MSSQLServerContainer<>(DOCKER_IMAGE_NAME)
+    protected MSSQLServerContainer createContainer() {
+        return new MSSQLServerContainer(DOCKER_IMAGE_NAME)
                 .withEnv(Collections.singletonMap("MSSQL_AGENT_ENABLED", "True"))
                 .withInitScript("initSqlserver.sql")
                 .waitingFor(

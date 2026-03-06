@@ -22,8 +22,8 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.rabbitmq.RabbitMQContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class SpringRabbitmqTestResource implements QuarkusTestResourceLifecycleManager {
