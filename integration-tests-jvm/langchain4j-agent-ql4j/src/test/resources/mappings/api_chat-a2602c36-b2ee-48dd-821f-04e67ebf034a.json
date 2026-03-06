@@ -1,0 +1,24 @@
+{
+  "id" : "a2602c36-b2ee-48dd-821f-04e67ebf034a",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Calculate the addition of 10 + 5\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"addNumbers\",\n      \"description\" : \"Adds two numbers\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"a\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"First number\"\n          },\n          \"b\" : {\n            \"type\" : \"integer\",\n            \"description\" : \"Second number\"\n          }\n        },\n        \"required\" : [ ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-03-04T15:06:51.842180159Z\",\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"id\":\"call_iki64k61\",\"function\":{\"index\":0,\"name\":\"addNumbers\",\"arguments\":{\"a\":10,\"b\":5}}}]},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4176826956,\"load_duration\":1181698832,\"prompt_eval_count\":183,\"prompt_eval_duration\":1986848433,\"eval_count\":26,\"eval_duration\":995180707}",
+    "headers" : {
+      "Date" : "Wed, 04 Mar 2026 15:06:51 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a2602c36-b2ee-48dd-821f-04e67ebf034a",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
