@@ -24,7 +24,9 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.milvus.MilvusContainer;
+import org.testcontainers.utility.DockerImageName;
 
 public class MilvusTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -36,7 +38,9 @@ public class MilvusTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         Map<String, String> properties = new HashMap<>();
-        milvus = new MilvusContainer(MILVUS_IMAGE);
+        DockerImageName dockerImageName = DockerImageName.parse(MILVUS_IMAGE).asCompatibleSubstituteFor("milvusdb/milvus");
+        milvus = new MilvusContainer(dockerImageName);
+        milvus.withLogConsumer(new Slf4jLogConsumer(LOGGER));
         milvus.start();
         properties.put("camel.component.milvus.host", milvus.getHost());
         properties.put("camel.component.milvus.port", String.valueOf(milvus.getMappedPort(19530)));
