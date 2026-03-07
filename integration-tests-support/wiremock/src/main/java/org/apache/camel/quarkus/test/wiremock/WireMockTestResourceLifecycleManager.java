@@ -236,7 +236,12 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
             // Read mapping resources from the classpath in playback mode
             configuration.fileSource(new CamelQuarkusFileSource());
         }
-        return new WireMockServer(configuration);
+        WireMockServer server = new WireMockServer(configuration);
+        onServerStart(server);
+        return server;
+    }
+
+    protected void onServerStart(WireMockServer server) {
     }
 
     /**
