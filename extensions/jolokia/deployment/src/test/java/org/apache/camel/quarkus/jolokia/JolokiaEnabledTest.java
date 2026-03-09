@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.jolokia;
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.ConsumerTemplate;
@@ -32,12 +31,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class JolokiaEnabledTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.register-management-endpoint", "true")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(Routes.class));
 
@@ -58,24 +55,14 @@ class JolokiaEnabledTest {
     @Test
     void sendMessageToRoute() {
         String jolokiaPayload = "{\"type\":\"exec\",\"mbean\":\"org.apache.camel:context=camel-1,type=context,name=\\\"camel-1\\\"\",\"operation\":\"sendStringBody(java.lang.String, java.lang.String)\",\"arguments\":[\"direct://start\",\"Hello World\"]}";
-        Response response = RestAssured.given()
+        RestAssured.port = 8778;
+        RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(jolokiaPayload)
-                // Test the Quarkus management endpoint returns a redirect to the Jolokia server
-                .post("/q/jolokia/");
-
-        if (response.statusCode() == 301) {
-            String newUrl = response.getHeader("Location");
-
-            RestAssured.given()
-                    .body(jolokiaPayload)
-                    .post(newUrl)
-                    .then()
-                    .statusCode(200)
-                    .body("status", equalTo(200));
-        } else {
-            fail("Unexpected status code: " + response.statusCode());
-        }
+                .post("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(200));
 
         String message = consumerTemplate.receiveBody("seda:end", 10000, String.class);
         assertEquals("Hello World", message);
