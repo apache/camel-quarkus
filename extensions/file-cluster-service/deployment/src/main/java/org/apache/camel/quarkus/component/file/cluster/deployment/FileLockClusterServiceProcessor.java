@@ -22,20 +22,19 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.file.cluster.FileLockClusterService;
-import org.apache.camel.quarkus.component.file.cluster.FileLockClusterServiceConfig;
+import org.apache.camel.quarkus.component.file.cluster.FileLockClusterServiceBuildTimeConfig;
 import org.apache.camel.quarkus.component.file.cluster.FileLockClusterServiceRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class FileLockClusterServiceProcessor {
 
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = FileLockClusterServiceConfig.Enabled.class)
+    @BuildStep(onlyIf = FileLockClusterServiceBuildTimeConfig.Enabled.class)
+    @Record(ExecutionTime.RUNTIME_INIT)
     @Consume(CamelContextBuildItem.class)
-    CamelBeanBuildItem setupFileLockClusterService(FileLockClusterServiceConfig config,
-            FileLockClusterServiceRecorder recorder) {
+    CamelRuntimeBeanBuildItem setupFileLockClusterService(FileLockClusterServiceRecorder recorder) {
 
-        final RuntimeValue<FileLockClusterService> flcs = recorder.createFileLockClusterService(config);
-        return new CamelBeanBuildItem("fileLockClusterService", FileLockClusterService.class.getName(), flcs);
+        final RuntimeValue<FileLockClusterService> flcs = recorder.createFileLockClusterService();
+        return new CamelRuntimeBeanBuildItem("fileLockClusterService", FileLockClusterService.class.getName(), flcs);
     }
 }

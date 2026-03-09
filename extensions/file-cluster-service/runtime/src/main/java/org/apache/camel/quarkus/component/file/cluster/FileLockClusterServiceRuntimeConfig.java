@@ -18,28 +18,17 @@ package org.apache.camel.quarkus.component.file.cluster;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BooleanSupplier;
 
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
-import io.smallrye.config.WithDefault;
 
-@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+/**
+ * Runtime configuration options for File Lock Cluster Service.
+ */
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
 @ConfigMapping(prefix = "quarkus.camel.cluster.file")
-public interface FileLockClusterServiceConfig {
-    /**
-     * Whether a File Lock Cluster Service should be automatically configured according to
-     * 'quarkus.camel.cluster.file.++*++' configurations.
-     *
-     * @deprecated  this property is no longer needed as the FileLock implementation of the Camel CLuster Service API has
-     *              been moved to a dedicated extension.
-     * @asciidoclet
-     */
-    @Deprecated(since = "3.10.0", forRemoval = true)
-    @WithDefault("true")
-    boolean enabled();
-
+public interface FileLockClusterServiceRuntimeConfig {
     /**
      * The cluster service ID (defaults to null).
      *
@@ -117,13 +106,4 @@ public interface FileLockClusterServiceConfig {
      * @asciidoclet
      */
     Optional<String> clusterDataTaskTimeout();
-
-    final class Enabled implements BooleanSupplier {
-        FileLockClusterServiceConfig config;
-
-        @Override
-        public boolean getAsBoolean() {
-            return config.enabled();
-        }
-    }
 }

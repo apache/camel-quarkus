@@ -25,8 +25,15 @@ import org.apache.camel.component.file.cluster.FileLockClusterService;
 
 @Recorder
 public class FileLockClusterServiceRecorder {
-    public RuntimeValue<FileLockClusterService> createFileLockClusterService(FileLockClusterServiceConfig config) {
+    private final RuntimeValue<FileLockClusterServiceRuntimeConfig> config;
+
+    public FileLockClusterServiceRecorder(RuntimeValue<FileLockClusterServiceRuntimeConfig> config) {
+        this.config = config;
+    }
+
+    public RuntimeValue<FileLockClusterService> createFileLockClusterService() {
         FileLockClusterService flcs = new FileLockClusterService();
+        FileLockClusterServiceRuntimeConfig config = this.config.getValue();
 
         config.id().ifPresent(flcs::setId);
         config.root().ifPresent(flcs::setRoot);

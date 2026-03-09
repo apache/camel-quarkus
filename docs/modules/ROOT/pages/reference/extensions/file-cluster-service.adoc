@@ -73,31 +73,31 @@ The file cluster service could further be tuned by tweaking `quarkus.camel.clust
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-id]]`link:#quarkus-camel-cluster-file-id[quarkus.camel.cluster.file.id]`
+a| [[quarkus-camel-cluster-file-id]]`link:#quarkus-camel-cluster-file-id[quarkus.camel.cluster.file.id]`
 
 The cluster service ID (defaults to null).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-root]]`link:#quarkus-camel-cluster-file-root[quarkus.camel.cluster.file.root]`
+a| [[quarkus-camel-cluster-file-root]]`link:#quarkus-camel-cluster-file-root[quarkus.camel.cluster.file.root]`
 
 The root path (defaults to null).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-order]]`link:#quarkus-camel-cluster-file-order[quarkus.camel.cluster.file.order]`
+a| [[quarkus-camel-cluster-file-order]]`link:#quarkus-camel-cluster-file-order[quarkus.camel.cluster.file.order]`
 
 The service lookup order/priority (defaults to 2147482647).
 | `int`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-attributes-attributes]]`link:#quarkus-camel-cluster-file-attributes-attributes[quarkus.camel.cluster.file.attributes."attributes"]`
+a| [[quarkus-camel-cluster-file-attributes-attributes]]`link:#quarkus-camel-cluster-file-attributes-attributes[quarkus.camel.cluster.file.attributes."attributes"]`
 
 The custom attributes associated to the service (defaults to empty map).
 | `Map<String,String>`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-acquire-lock-delay]]`link:#quarkus-camel-cluster-file-acquire-lock-delay[quarkus.camel.cluster.file.acquire-lock-delay]`
+a| [[quarkus-camel-cluster-file-acquire-lock-delay]]`link:#quarkus-camel-cluster-file-acquire-lock-delay[quarkus.camel.cluster.file.acquire-lock-delay]`
 
 The time to wait before starting to try to acquire the cluster lock. Note that if FileLockClusterService determines
 no cluster members are running or cannot reliably determine the cluster state, the initial delay is computed from the
@@ -105,7 +105,7 @@ acquireLockInterval (defaults to 1000ms).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-acquire-lock-interval]]`link:#quarkus-camel-cluster-file-acquire-lock-interval[quarkus.camel.cluster.file.acquire-lock-interval]`
+a| [[quarkus-camel-cluster-file-acquire-lock-interval]]`link:#quarkus-camel-cluster-file-acquire-lock-interval[quarkus.camel.cluster.file.acquire-lock-interval]`
 
 The time to wait between attempts to try to acquire the cluster lock evaluated using wall-clock time. All cluster
 members must use the same value so leadership checks and leader liveness detection remain consistent (defaults to
@@ -113,7 +113,7 @@ members must use the same value so leadership checks and leader liveness detecti
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-heartbeat-timeout-multiplier]]`link:#quarkus-camel-cluster-file-heartbeat-timeout-multiplier[quarkus.camel.cluster.file.heartbeat-timeout-multiplier]`
+a| [[quarkus-camel-cluster-file-heartbeat-timeout-multiplier]]`link:#quarkus-camel-cluster-file-heartbeat-timeout-multiplier[quarkus.camel.cluster.file.heartbeat-timeout-multiplier]`
 
 Multiplier applied to the cluster leader `acquireLockInterval` to determine how long followers should wait
 before considering the leader "stale".
@@ -123,7 +123,7 @@ followers will tolerate up to `2s * 3 = 6s` of silence before declaring the lead
 | `int`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-cluster-data-task-max-attempts]]`link:#quarkus-camel-cluster-file-cluster-data-task-max-attempts[quarkus.camel.cluster.file.cluster-data-task-max-attempts]`
+a| [[quarkus-camel-cluster-file-cluster-data-task-max-attempts]]`link:#quarkus-camel-cluster-file-cluster-data-task-max-attempts[quarkus.camel.cluster.file.cluster-data-task-max-attempts]`
 
 Sets how many times a cluster data task will run, counting both the first execution and subsequent retries in
 case of failure or timeout. The default is 5 attempts.
@@ -133,7 +133,7 @@ occasionally block for long or unpredictable periods.
 | `int`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-cluster-data-task-timeout]]`link:#quarkus-camel-cluster-file-cluster-data-task-timeout[quarkus.camel.cluster.file.cluster-data-task-timeout]`
+a| [[quarkus-camel-cluster-file-cluster-data-task-timeout]]`link:#quarkus-camel-cluster-file-cluster-data-task-timeout[quarkus.camel.cluster.file.cluster-data-task-timeout]`
 
 Sets the timeout for a cluster data task (reading or writing cluster data). The default is 10 seconds.
 
