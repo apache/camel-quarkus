@@ -19,13 +19,6 @@ endif::[]
 
 Transform between XML and Groovy Node (Map structure) objects.
 
-[id="extensions-groovy-xml-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}:dataformats:groovyXml-dataformat.adoc[Groovy XML data format]
-
-Please refer to the above link for usage and configuration details.
-
 [id="extensions-groovy-xml-maven-coordinates"]
 == Maven coordinates
 
