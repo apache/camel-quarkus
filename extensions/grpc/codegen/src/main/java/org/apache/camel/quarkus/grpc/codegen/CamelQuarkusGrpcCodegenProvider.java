@@ -34,7 +34,6 @@ import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.bootstrap.prebuild.CodeGenException;
 import io.quarkus.deployment.CodeGenContext;
 import io.quarkus.deployment.CodeGenProvider;
-import io.quarkus.deployment.util.ProcessUtil;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathFilter;
 import io.quarkus.runtime.util.HashUtil;
@@ -156,8 +155,11 @@ public class CamelQuarkusGrpcCodegenProvider implements CodeGenProvider {
                 command.addAll(protoFiles);
 
                 ProcessBuilder processBuilder = new ProcessBuilder(command);
+                if (context.shouldRedirectIO()) {
+                    processBuilder.inheritIO();
+                }
 
-                final Process process = ProcessUtil.launchProcess(processBuilder, context.shouldRedirectIO());
+                final Process process = processBuilder.start();
                 int resultCode = process.waitFor();
                 if (resultCode != 0) {
                     throw new CodeGenException("Failed to generate Java classes from proto files: " + protoFiles +
