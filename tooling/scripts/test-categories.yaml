@@ -40,7 +40,6 @@ group-02:
   - beanio
   - cyberark-vault
   - google-pubsub
-  - groovy-xml
   - grpc
   - iso8583
   - jackson-avro

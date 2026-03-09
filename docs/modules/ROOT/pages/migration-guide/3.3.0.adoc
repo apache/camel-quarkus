@@ -1,0 +1,9 @@
+= Camel Quarkus 3.33.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.33.0.
+
+
+=== camel-qoarkus-groovy-xml
+
+The `camel-quarkus-groovy-xml` has been moved into `camel-quarkus-groovy` and this JAR is no longer shipped.
+So if you use `camel-quarkus-groovy-xml` then change the dependency to `camel-quarkus-groovy`. Change is triggered by https://issues.apache.org/jira/browse/CAMEL-23001[CAMEL-2300].
