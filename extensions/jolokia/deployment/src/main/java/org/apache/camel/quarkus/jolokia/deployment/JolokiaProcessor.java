@@ -24,8 +24,6 @@ import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
-import io.quarkus.deployment.Capabilities;
-import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.IsDevelopment;
 import io.quarkus.deployment.IsProduction;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -53,9 +51,6 @@ import io.quarkus.paths.PathFilter;
 import io.quarkus.paths.PathVisit;
 import io.quarkus.paths.PathVisitor;
 import io.quarkus.runtime.LaunchMode;
-import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
-import io.quarkus.vertx.http.deployment.NonApplicationRootPathBuildItem;
-import io.quarkus.vertx.http.deployment.RouteBuildItem;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.quarkus.jolokia.CamelQuarkusJolokiaServer;
 import org.apache.camel.quarkus.jolokia.JolokiaRecorder;
@@ -133,29 +128,6 @@ public class JolokiaProcessor {
     @BuildStep(onlyIf = IsDevelopment.class)
     ShutdownListenerBuildItem devModeJolokiaServerShutdownListener() {
         return new ShutdownListenerBuildItem(new DevModeJolokiaServerShutdownListener());
-    }
-
-    @BuildStep(onlyIf = JolokiaManagementEndpointEnabled.class)
-    @Record(ExecutionTime.RUNTIME_INIT)
-    void createManagementRoute(
-            JolokiaServerConfigBuildItem jolokiaServerConfig,
-            NonApplicationRootPathBuildItem nonApplicationRootPathBuildItem,
-            BodyHandlerBuildItem bodyHandler,
-            Capabilities capabilities,
-            BuildProducer<RouteBuildItem> routes,
-            JolokiaBuildTimeConfig buildTimeConfig,
-            JolokiaRecorder recorder) {
-
-        if (capabilities.isPresent(Capability.VERTX_HTTP)) {
-            recorder.warnOnDeprecatedRegisterManagementEndpoint();
-
-            String jolokiaEndpointPath = nonApplicationRootPathBuildItem.resolvePath(buildTimeConfig.path());
-            routes.produce(nonApplicationRootPathBuildItem.routeBuilder()
-                    .management()
-                    .routeFunction(buildTimeConfig.path() + "/*", recorder.route(bodyHandler.getHandler()))
-                    .handler(recorder.getHandler(jolokiaServerConfig.getRuntimeValue(), jolokiaEndpointPath))
-                    .build());
-        }
     }
 
     @BuildStep(onlyIf = { IsProduction.class, ExposeContainerPortEnabled.class })
@@ -278,15 +250,6 @@ public class JolokiaProcessor {
         @Override
         public boolean getAsBoolean() {
             return config.enabled();
-        }
-    }
-
-    static final class JolokiaManagementEndpointEnabled implements BooleanSupplier {
-        JolokiaBuildTimeConfig config;
-
-        @Override
-        public boolean getAsBoolean() {
-            return config.registerManagementEndpoint();
         }
     }
 

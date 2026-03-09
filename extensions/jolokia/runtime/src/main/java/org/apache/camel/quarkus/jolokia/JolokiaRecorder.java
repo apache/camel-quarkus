@@ -17,21 +17,14 @@
 package org.apache.camel.quarkus.jolokia;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
-import io.vertx.core.Handler;
-import io.vertx.ext.web.Route;
-import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.quarkus.jolokia.config.JolokiaBuildTimeConfig;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.DiscoveryEnabledMode;
@@ -39,7 +32,6 @@ import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.Kubernetes;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.Server;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.apache.camel.util.CollectionHelper;
-import org.apache.camel.util.HostUtils;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
@@ -62,15 +54,6 @@ public class JolokiaRecorder {
     public JolokiaRecorder(JolokiaBuildTimeConfig buildTimeConfig, RuntimeValue<JolokiaRuntimeConfig> runtimeConfig) {
         this.buildTimeConfig = buildTimeConfig;
         this.runtimeConfig = runtimeConfig;
-    }
-
-    public Consumer<Route> route(Handler<RoutingContext> bodyHandler) {
-        return new Consumer<Route>() {
-            @Override
-            public void accept(Route route) {
-                route.handler(bodyHandler).produces("application/json");
-            }
-        };
     }
 
     public RuntimeValue<JolokiaServerConfig> createJolokiaServerConfig(String applicationName) {
@@ -177,37 +160,5 @@ public class JolokiaRecorder {
         CamelQuarkusJolokiaAgent(JolokiaServerConfig config, LogHandler logHandler) throws IOException {
             super(config, logHandler);
         }
-    }
-
-    public Handler<RoutingContext> getHandler(RuntimeValue<JolokiaServerConfig> config, String jolokiaEndpointPath) {
-        JolokiaServerConfig serverConfig = config.getValue();
-        String host = resolveHost(serverConfig.getAddress());
-        URI uri = URI.create("%s://%s:%d%s".formatted(serverConfig.getProtocol(), host, serverConfig.getPort(),
-                serverConfig.getContextPath()));
-        return new JolokiaRequestRedirectHandler(uri.normalize(), jolokiaEndpointPath);
-    }
-
-    public void warnOnDeprecatedRegisterManagementEndpoint() {
-        LOG.warn("quarkus.camel.jolokia.register-management-endpoint is deprecated and will be removed in a future release");
-    }
-
-    static String resolveHost(InetAddress address) {
-        String host;
-        if (address == null) {
-            try {
-                host = HostUtils.getLocalHostName();
-            } catch (UnknownHostException e) {
-                throw new IllegalStateException("Unable to determine the Jolokia host", e);
-            }
-        } else {
-            host = address.getHostName();
-        }
-
-        // ipv6 address
-        if (host.contains(":")) {
-            host = "[%s]".formatted(host);
-        }
-
-        return host;
     }
 }

@@ -1,0 +1,11 @@
+= Camel Quarkus 3.33.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.33.0.
+
+== `camel-quarkus-jolokia` `register-management-endpoint` removed
+
+The deprecated `quarkus.camel.jolokia.register-management-endpoint` configuration option has been removed.
+
+If you were using this option to enable the `/q/jolokia` Quarkus management endpoint, you should now access Jolokia directly via its default endpoint at `http://localhost:8778/jolokia` or configure the endpoint using the available runtime configuration options.
+
+For more information, see the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation].
