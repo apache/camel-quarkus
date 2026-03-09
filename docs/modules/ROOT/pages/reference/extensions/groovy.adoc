@@ -24,8 +24,10 @@ Evaluate a Groovy script
 == What's inside
 
 * xref:{cq-camel-components}:languages:groovy-language.adoc[Groovy language]
+* xref:{cq-camel-components}:dataformats:groovyJson-dataformat.adoc[Groovy JSon data format]
+* xref:{cq-camel-components}:dataformats:groovyXml-dataformat.adoc[Groovy XML data format]
 
-Please refer to the above link for usage and configuration details.
+Please refer to the above links for usage and configuration details.
 
 [id="extensions-groovy-maven-coordinates"]
 == Maven coordinates
