@@ -90,6 +90,33 @@
             </activation>
             <build>
                 <plugins>
+                    <!--
+                         The Spring shaded modules produce an artifact that does not include any compiled classes.
+                         Only license files, which causes tests to fail when the empty target/classes directory is detected.
+                         Hence, the license files are moved into a target/license directory to avoid this.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>legal-resources</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/license/</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <classesDirectory>${project.basedir}/target/license</classesDirectory>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
