@@ -25,7 +25,6 @@ import com.azure.messaging.eventhubs.EventHubClientBuilder;
 import com.azure.messaging.eventhubs.EventHubProducerClient;
 import io.restassured.RestAssured;
 import org.awaitility.Awaitility;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.CoreMatchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,9 @@ abstract class AbstractAzureKeyVaultContextReloadTest {
 
     @Test
     void contextReload() {
-        String secretName = ConfigProvider.getConfig().getValue("camel.vault.azure.secrets", String.class).replace(".*", "");
+        String secretName = RestAssured.get("/azure-key-vault/configProperty/camel.vault.azure.secrets")
+                .then()
+                .statusCode(200).extract().body().asString().replace(".*", "");
         String secretValue = "Hello Camel Quarkus Azure Key Vault From Refresh";
         try {
             // Create secret
