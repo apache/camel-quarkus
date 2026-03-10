@@ -32,6 +32,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import net.i2p.crypto.eddsa.EdDSAEngine;
 import org.apache.sshd.common.channel.ChannelListener;
 import org.apache.sshd.common.forward.PortForwardingEventListener;
@@ -92,6 +93,12 @@ class SshProcessor {
     @BuildStep
     IndexDependencyBuildItem registerDependencyForIndex2() {
         return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass
+                .produce(new RuntimeInitializedClassBuildItem("org.apache.sshd.common.random.JceRandom$Cache"));
     }
 
 }
