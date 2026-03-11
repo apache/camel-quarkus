@@ -35,6 +35,7 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Deprecated(since = "3.34.0")
 @QuarkusTest
 @TestProfile(MdcLoggingTestProfile.class)
 public class MdcLogTest {
