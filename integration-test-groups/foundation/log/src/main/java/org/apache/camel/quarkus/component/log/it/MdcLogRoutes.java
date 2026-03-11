@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.log.it;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.logging.Logger;
 
+@Deprecated(since = "3.35.0")
 public class MdcLogRoutes extends RouteBuilder {
     @Override
     public void configure() {

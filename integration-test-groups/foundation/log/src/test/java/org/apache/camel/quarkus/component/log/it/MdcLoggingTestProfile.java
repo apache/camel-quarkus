@@ -20,6 +20,7 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
+@Deprecated(since = "3.35.0")
 public class MdcLoggingTestProfile implements QuarkusTestProfile {
     public static final String CONTEXT_NAME = "mdc-logging";
 

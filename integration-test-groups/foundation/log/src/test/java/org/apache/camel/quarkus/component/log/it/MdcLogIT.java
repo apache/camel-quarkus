@@ -19,5 +19,6 @@ package org.apache.camel.quarkus.component.log.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
+@Deprecated(since = "3.35.0")
 public class MdcLogIT extends MdcLogTest {
 }
