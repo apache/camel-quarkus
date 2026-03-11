@@ -547,7 +547,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ApiResponse"
+									"$ref": "#/components/schemas/PetStoreApiResponse"
 								}
 							}
 						}
@@ -1243,7 +1243,7 @@
 					}
 				}
 			},
-			"ApiResponse": {
+			"PetStoreApiResponse": {
 				"type": "object",
 				"properties": {
 					"code": {
