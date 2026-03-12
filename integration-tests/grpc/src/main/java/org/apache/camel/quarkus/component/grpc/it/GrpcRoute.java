@@ -40,6 +40,7 @@ public class GrpcRoute extends RouteBuilder {
     public void configure() throws Exception {
         // Synchronous / asynchronous (dynamic) producers
         from("direct:sendGrpcMessage")
+                .log("Received message: ${body}")
                 .toD("grpc://localhost:${header.port}/" + PING_PONG_SERVICE
                         + "?method=${header.CamelGrpcMethodName}&synchronous=${header.isSync}");
 
