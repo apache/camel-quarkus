@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.mina.sftp.it;
 
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -34,6 +36,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.file.remote.mina.MinaSftpConfiguration;
+import org.apache.camel.component.file.remote.mina.MinaSftpEndpoint;
 import org.jboss.logging.Logger;
 
 @Path("/mina-sftp")
@@ -66,7 +70,7 @@ public class MinaSftpResource {
         return Response.status(500, COMPONENT_MINA_SFTP + " could not be loaded from the Camel context").build();
     }
 
-    @Path("/get/{fileName}")
+    @Path("/get/{fileName: .+}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getFile(@PathParam("fileName") String fileName) {
@@ -90,7 +94,54 @@ public class MinaSftpResource {
                 .build();
     }
 
-    @Path("/delete/{fileName}")
+    @Path("/append/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response appendToFile(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&fileExist=Append",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .ok()
+                .build();
+    }
+
+    @Path("/consumeWithNoop/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String consumeFileWithNoop(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&localWorkDirectory=target&fileName="
+                        + fileName + "&noop=true",
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/consumeWithMove/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String consumeFileWithMove(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&localWorkDirectory=target&fileName="
+                        + fileName + "&move=${file:name}.done",
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/consumeWithDelete/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String consumeFileWithDelete(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&localWorkDirectory=target&fileName="
+                        + fileName + "&delete=true",
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/delete/{fileName: .+}")
     @DELETE
     public void deleteFile(@PathParam("fileName") String fileName) {
         consumerTemplate.receiveBody(
@@ -109,4 +160,253 @@ public class MinaSftpResource {
                 TIMEOUT_MS,
                 String.class);
     }
+
+    @Path("/privateKey/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithPrivateKey(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/ftp.key",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/privateKey/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithPrivateKey(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/ftp.key&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/privateKeyEncrypted/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithEncryptedPrivateKey(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/ftp-encrypted.key&privateKeyPassphrase=password",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/privateKeyEncrypted/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithEncryptedPrivateKey(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/ftp-encrypted.key&privateKeyPassphrase=password&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/certificate/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithCertificate(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=src/test/resources/test-key-rsa.key&certFile=src/test/resources/test-key-rsa-cert.pub",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/certificate/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithCertificate(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=src/test/resources/test-key-rsa.key&certFile=src/test/resources/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/certificateUri/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithCertificateUri(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:src/test/resources/test-key-rsa.key&certUri=file:src/test/resources/test-key-rsa-cert.pub",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/certificateUri/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithCertificateUri(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:src/test/resources/test-key-rsa.key&certUri=file:src/test/resources/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/certificateBytes/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithCertificateBytes(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        byte[] certBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa-cert.pub"));
+        byte[] keyBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa.key"));
+
+        String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp";
+        MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
+        MinaSftpConfiguration config = (MinaSftpConfiguration) endpoint.getConfiguration();
+        config.setCertBytes(certBytes);
+        config.setPrivateKey(keyBytes);
+
+        producerTemplate.sendBodyAndHeader(endpoint, fileContent, Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/certificateBytes/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithCertificateBytes(@PathParam("fileName") String fileName) throws Exception {
+        byte[] certBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa-cert.pub"));
+        byte[] keyBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa.key"));
+
+        String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?localWorkDirectory=target&fileName="
+                + fileName;
+        MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
+        MinaSftpConfiguration config = (MinaSftpConfiguration) endpoint.getConfiguration();
+        config.setCertBytes(certBytes);
+        config.setPrivateKey(keyBytes);
+
+        return consumerTemplate.receiveBody(endpoint, TIMEOUT_MS, String.class);
+    }
+
+    @Path("/compression/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithCompression(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&compression=6",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/compression/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithCompression(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&compression=6&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/streamDownload/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithStreamDownload(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&streamDownload=true&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/customCipher/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithCustomCipher(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=aes256-ctr,aes128-ctr",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/customCipher/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithCustomCipher(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=aes256-ctr,aes128-ctr&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/cipherGcm/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithGcmCipher(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=aes256-gcm@openssh.com,aes128-gcm@openssh.com",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/cipherGcm/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithGcmCipher(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=aes256-gcm@openssh.com,aes128-gcm@openssh.com&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/cipherChaCha20/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithChaCha20Cipher(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=chacha20-poly1305@openssh.com",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/cipherChaCha20/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithChaCha20Cipher(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&preferredAuthentications=password&ciphers=chacha20-poly1305@openssh.com&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
 }

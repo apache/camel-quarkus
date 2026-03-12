@@ -43,3 +43,13 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-mina-sftp-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+                                   
+[id="extensions-mina-sftp-limitations-incompatibility-with-camel-quarkus-ftp-extension"]
+=== Incompatibility with camel-quarkus-ftp extension
+
+The `camel-quarkus-mina-sftp` and `camel-quarkus-ftp` extensions cannot be used together in the same application. If you have both extension dependencies on the classpath, you are likely to encounter problems at build time when compiling your application.
+
