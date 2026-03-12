@@ -415,7 +415,7 @@ jobs:
         with:
           test-report-xml-base-dir: catalog
 
-  extensions-jvm-tests:
+  integration-tests-jvm:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     strategy:
