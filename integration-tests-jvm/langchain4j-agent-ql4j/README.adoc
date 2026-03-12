@@ -1,47 +1,20 @@
-== Limitations of Quarkus-langchain4j being on the classpath
+== Limitations of Quarkus LangChain4j being on the classpath
 
- * Does not work in the native.
- * Ql4j requires a different httpClient - `io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory`. See processor and recorder for more information.
- * Even if test are using AgentWithoutMemory, ql4j creates agentWithMemory automatically
- * Different mapping is required for 2 tests:
- . Test `agentWithCustomTools`. Somehow the test with ql4j asks with a different parameter names (a vs arg0 and b vs arg1):
-```
-...
-"properties" : {
-          "a" : {
-            "type" : "integer",
-            "description" : "First number"
-          },
-          "b" : {
-...
-...
-"properties" : {
-          "arg0" : {
-            "type" : "integer",
-            "description" : "First number"
-          },
-          "arg1" : {
-...
-```
- . Test `jsonExtractorOutputGuardrailFailure` is even stranger. The request with ql4j contains a token which is not present in the rquest witout ql4j:
-```
-...
-{
-    "role" : "assistant",
-    "content" : " Sure, here's an example JSON object for John Doe with his age and description: ...
-```
+ * Does not work in the native
+ * QL4J requires a different httpClient - `io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory`. See processor and recorder for more information.
+ * Even if tests are using `AgentWithoutMemory`, QL4J creates agentWithMemory automatically
 
 [IMPORTANT]
-If a RetrievalAugmentor with the <default> scope exists, ql4j detects it and applies for the AiAgent (which should not have the retrievalAugmentor at all).
-The issue can be simulated on the test `simpleUserMessage` (see ql4j https://github.com/quarkiverse/quarkus-langchain4j/blob/8cae9528c12bd0dce143fe2f63daa1660bfcd018/core/runtime/src/main/java/io/quarkiverse/langchain4j/RegisterAiService.java#L136[code]).
-Fot that reason, the RetrievalAugmentor in AgentProducer is annotated via @LookupUnlessProperty(name = "cq-test.retrieval.augmentor.disabled", stringValue = "true"), to disable lookup for the ql4j tests.
+If a `RetrievalAugmentor` with the default scope exists, QL4J detects it and applies it to the `AiAgent` (which should not have the `RetrievalAugmentor` at all).
+The issue can be simulated on the test `simpleUserMessage` (see QL4J https://github.com/quarkiverse/quarkus-langchain4j/blob/8cae9528c12bd0dce143fe2f63daa1660bfcd018/core/runtime/src/main/java/io/quarkiverse/langchain4j/RegisterAiService.java#L136[code]).
+Fot that reason, the  `RetrievalAugmentor` in `AgentProducer` is annotated via `@LookupUnlessProperty`, to disable lookup for the QL4J tests.
 Camel-langchain4j works event if lookup is disabled!
 
-== Camel Quarkus Langchain4j Agent Integration Tests
+== Camel Quarkus Langchain4j Agent with Quarkus LangChain4j Integration Tests
 
-By default, the Langchain4j-agent integration tests use WireMock to stub Ollama API interactions.
+By default, the langchain4j-agent-ql4j integration tests use WireMock to stub Ollama API interactions.
 
-To run the `camel-quarkus-langchain4j-agent` integration tests against the real API, you need a Ollama instance running with the `orca-mini` & `granite4:3b` models downloaded.
+To run the `camel-quarkus-langchain4j-agent-ql4j` integration tests against the real API, you need a Ollama instance running with the `orca-mini` & `granite4:3b` models downloaded.
 
 The MCP client tests require https://nodejs.org/[Node.js] to be installed on the test host.
 

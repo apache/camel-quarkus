@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.component.langchain4j.agent.ql4j.it.Langchain4jAgentQl4jProfile;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,19 +30,17 @@ import static org.hamcrest.Matchers.*;
 @QuarkusTestResource(Langchain4jAgentTestResource.class)
 @TestProfile(Langchain4jAgentQl4jProfile.class)
 @QuarkusTest
-@Disabled //because of Native Library /home/jondruse/.djl.ai/tokenizers/0.20.3-0.31.1-cpu-linux-x86_64/libtokenizers.so already loaded in another classloader
-//but class is present because on the future investigation, it could help to have it
-//works if executed separately (only this test class) and with wire mock
+@Disabled("https://github.com/apache/camel-quarkus/issues/8412")
 class Langchain4jAgentQl4jTest {
-
     @Test
     void simpleUserMessage() {
-        //when the rag with <default> scope is present, the request contains rag information and therefore wired mock does not exist
         RestAssured.given()
                 .body(Langchain4jAgentTest.TEST_USER_MESSAGE_SIMPLE)
                 .post("/langchain4j-agent/simple")
                 .then()
-                .statusCode(500);
+                .statusCode(200)
+                .body(
+                        not(Langchain4jAgentTest.TEST_USER_MESSAGE_SIMPLE),
+                        containsString("Apache Camel"));
     }
-
 }

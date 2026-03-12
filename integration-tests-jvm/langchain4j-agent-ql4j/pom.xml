@@ -27,8 +27,8 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-langchain4j-agent-ql4j</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: LangChain4j Agent</name>
-    <description>Integration tests for Camel Quarkus LangChain4j Agent extension</description>
+    <name>Camel Quarkus :: Integration Tests :: LangChain4j Agent QL4J</name>
+    <description>Integration tests for Camel Quarkus LangChain4j Agent extension with Quarkus LangChain4j</description>
 
     <dependencyManagement>
         <dependencies>
@@ -61,12 +61,6 @@
         </dependency>
 
         <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
-        </dependency>
-
-        <!-- resteasy-classic can not be used, because ql4j depends on resteasy reactive-->
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest</artifactId>
         </dependency>
@@ -83,6 +77,10 @@
         <dependency>
             <groupId>io.quarkiverse.langchain4j</groupId>
             <artifactId>quarkus-langchain4j-ollama</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -103,7 +101,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -121,6 +118,7 @@
                                 <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</script>
                             </scripts>
                             <properties>
+                                <copy-tests.excludes>**/*api_chat*</copy-tests.excludes>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-tests/langchain4j-agent</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                             </properties>
