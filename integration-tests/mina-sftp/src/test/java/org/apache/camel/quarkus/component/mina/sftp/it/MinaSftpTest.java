@@ -30,6 +30,8 @@ import static org.hamcrest.CoreMatchers.is;
 
 @TestCertificates(certificates = {
         @Certificate(name = "ftp", formats = {
+                Format.PEM }, password = ""),
+        @Certificate(name = "ftp-encrypted", formats = {
                 Format.PEM }, password = "password"),
         @Certificate(name = "ftp", formats = {
                 Format.PKCS12 }, password = "password") })
@@ -78,6 +80,139 @@ class MinaSftpTest {
                 .statusCode(204);
 
         RestAssured.get("/mina-sftp/get/hello.txt.done")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testPrivateKeyAuthentication() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Private Key Test")
+                .post("/mina-sftp/privateKey/create/privatekey.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/privateKey/get/privatekey.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Private Key Test"));
+
+        RestAssured.delete("/mina-sftp/delete/privatekey.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testEncryptedPrivateKeyAuthentication() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Encrypted Private Key Test")
+                .post("/mina-sftp/privateKeyEncrypted/create/encrypted.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/privateKeyEncrypted/get/encrypted.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Encrypted Private Key Test"));
+
+        RestAssured.delete("/mina-sftp/delete/encrypted.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testCompression() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Compressed content test - this is a longer text to demonstrate compression")
+                .post("/mina-sftp/compression/create/compressed.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/compression/get/compressed.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Compressed content test - this is a longer text to demonstrate compression"));
+
+        RestAssured.delete("/mina-sftp/delete/compressed.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testStreamDownload() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Stream download test content")
+                .post("/mina-sftp/create/stream.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/streamDownload/get/stream.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Stream download test content"));
+
+        RestAssured.delete("/mina-sftp/delete/stream.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testCustomCipherConfiguration() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Custom cipher test - AES256-CTR")
+                .post("/mina-sftp/customCipher/create/cipher.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/customCipher/get/cipher.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Custom cipher test - AES256-CTR"));
+
+        RestAssured.delete("/mina-sftp/delete/cipher.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testGcmCipher() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("GCM cipher test - Authenticated Encryption")
+                .post("/mina-sftp/cipherGcm/create/gcm.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/cipherGcm/get/gcm.txt")
+                .then()
+                .statusCode(200)
+                .body(is("GCM cipher test - Authenticated Encryption"));
+
+        RestAssured.delete("/mina-sftp/delete/gcm.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testChaCha20Cipher() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("ChaCha20 cipher test - Modern high-performance cipher")
+                .post("/mina-sftp/cipherChaCha20/create/chacha20.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/mina-sftp/cipherChaCha20/get/chacha20.txt")
+                .then()
+                .statusCode(200)
+                .body(is("ChaCha20 cipher test - Modern high-performance cipher"));
+
+        RestAssured.delete("/mina-sftp/delete/chacha20.txt")
                 .then()
                 .statusCode(204);
     }
