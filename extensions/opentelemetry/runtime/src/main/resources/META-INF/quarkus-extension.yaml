@@ -33,3 +33,4 @@ metadata:
   - "quarkus.camel.opentelemetry"
   status:
   - "stable"
+  - "deprecated"
