@@ -36,7 +36,7 @@ public class JpaMultipleNamedResourcesWithNoDefaultAndExplicitEntityManagerFacto
                 .then()
                 .statusCode(200)
                 .body(
-                        "name", is("testB"),
+                        "name", is("multiB"),
                         "default", is(false));
     }
 
@@ -47,6 +47,6 @@ public class JpaMultipleNamedResourcesWithNoDefaultAndExplicitEntityManagerFacto
 
     @Override
     public Map<String, String> getConfigOverrides() {
-        return Map.of("camel.component.jpa.entity-managerFactory", "#testB");
+        return Map.of("camel.component.jpa.entity-managerFactory", "#multiB");
     }
 }

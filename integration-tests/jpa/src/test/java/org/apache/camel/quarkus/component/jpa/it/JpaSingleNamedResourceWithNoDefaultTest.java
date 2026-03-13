@@ -34,7 +34,7 @@ public class JpaSingleNamedResourceWithNoDefaultTest implements QuarkusTestProfi
                 .then()
                 .statusCode(200)
                 .body(
-                        "name", is("testA"),
+                        "name", is("singleA"),
                         "default", is(false));
     }
 
