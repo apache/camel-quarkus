@@ -5,7 +5,7 @@
     "url" : "/chat/completions",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"messages\":[{\"content\":\"I am a Camel and my species is Camelus Dromedarius.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "equalToJson" : "{\"messages\":[{\"content\":\"My name is John.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]

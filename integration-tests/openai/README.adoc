@@ -11,7 +11,8 @@ With access to the developer area you can create a new project together with an 
 
 [source,shell]
 ----
-export OPENAI_API_KEY=your-openai-api-key
+export OPENAI_CHAT_API_KEY=<your-chat-api-key>
+export OPENAI_EMBEDDING_API_KEY=$OPENAI_CHAT_API_KEY
 ----
 
 This will test with model `gpt-5` against the default API endpoint of https://api.openai.com/v1.
@@ -22,9 +23,11 @@ Alternatively, you can test against any OpenAI compatible API by configuring the
 
 [source,shell]
 ----
-export OPENAI_API_KEY=fake-key
-export OPENAI_BASE_URL=https://you-api-endpoint/v1
-export OPENAI_MODEL=your-model-name
+export OPENAI_CHAT_API_KEY=<your-chat-api-key>
+export OPENAI_EMBEDDING_API_KEY=<your-embedding-api-key>
+export OPENAI_CHAT_BASE_URL=https://you-chat-api-endpoint/v1
+export OPENAI_EMBEDDING_BASE_URL=https://you-embedding-api-endpoint/v1
+export OPENAI_CHAT_MODEL=your-chat-model-name
 export OPENAI_EMBEDDING_MODEL=your-embedding-model-name
 ----
 
