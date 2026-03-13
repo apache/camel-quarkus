@@ -33,4 +33,6 @@ metadata:
   - "camel.dataformat"
   - "quarkus.camel"
   - "quarkus.camel.main"
-  status: "stable"
+  status:
+  - "stable"
+  - "deprecated"

@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-csimple
 cqArtifactIdBase: csimple
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.5.0
 cqNativeSince: 1.5.0
 cqCamelPartName: csimple
