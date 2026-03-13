@@ -8,7 +8,7 @@
 If a `RetrievalAugmentor` with the default scope exists, QL4J detects it and applies it to the `AiAgent` (which should not have the `RetrievalAugmentor` at all).
 The issue can be simulated on the test `simpleUserMessage` (see QL4J https://github.com/quarkiverse/quarkus-langchain4j/blob/8cae9528c12bd0dce143fe2f63daa1660bfcd018/core/runtime/src/main/java/io/quarkiverse/langchain4j/RegisterAiService.java#L136[code]).
 For that reason, the  `RetrievalAugmentor` in `AgentProducer` is annotated via `@LookupUnlessProperty`, to disable lookup for the QL4J tests.
-Camel-langchain4j works event if lookup is disabled!
+Camel-langchain4j works even if lookup is disabled!
 
 == Camel Quarkus Langchain4j Agent with Quarkus LangChain4j Integration Tests
 
