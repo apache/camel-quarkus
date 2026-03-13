@@ -88,6 +88,7 @@
         <commons-collections.version>${commons-collections-version}</commons-collections.version>
         <commons-collections4.version>${commons-collections4-version}</commons-collections4.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
+        <commons-net.version>3.12.0</commons-net.version><!-- @sync org.apache.camel:camel-ftp:${camel.version} dep:commons-net:commons-net -->
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
         <cxf.version>4.1.5</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <dfdl-scala.version>2.12.20</dfdl-scala.version>

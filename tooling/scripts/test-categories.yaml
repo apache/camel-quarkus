@@ -171,6 +171,7 @@ group-09:
   - jt400-mocked
   - kafka-sasl-ssl
   - kafka-ssl
+  - mina-sftp
   - paho
   - management
   - nats

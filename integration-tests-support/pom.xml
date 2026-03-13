@@ -63,6 +63,7 @@
         <module>messaging</module>
         <module>mongodb</module>
         <module>process-executor-support</module>
+        <module>sftp</module>
         <module>splunk</module>
         <module>test-support</module>
         <module>wiremock</module>
