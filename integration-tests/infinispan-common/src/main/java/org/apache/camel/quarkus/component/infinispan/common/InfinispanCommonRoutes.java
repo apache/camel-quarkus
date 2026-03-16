@@ -31,7 +31,7 @@ public abstract class InfinispanCommonRoutes extends RouteBuilder {
     public static final int COMPLETION_SIZE = 4;
     public static final String CORRELATOR_HEADER = "CORRELATOR_HEADER";
     public static final String CACHE_NAME = "camel-infinispan";
-    public static final String LOCAL_CACHE_CONFIG = "<local-cache>\n"
+    public static final String LOCAL_CACHE_CONFIG = "<local-cache statistics=\"true\">\n"
             + "    <encoding media-type=\"application/x-protostream\" />\n" +
             "</local-cache>";
 

@@ -367,9 +367,7 @@ public abstract class InfinispanCommonTest {
                 .get("/infinispan/stats")
                 .then()
                 .statusCode(200)
-                // TODO: Fix enablement of Infinispan statistics - https://github.com/apache/camel-quarkus/issues/8136
-                .body(is("-1"));
-        //.body(is("0"));
+                .body(is("0"));
 
         RestAssured.with()
                 .body("Hello Camel Infinispan")
@@ -381,9 +379,7 @@ public abstract class InfinispanCommonTest {
                 .get("/infinispan/stats")
                 .then()
                 .statusCode(200)
-                // TODO: Fix enablement of Infinispan statistics - https://github.com/apache/camel-quarkus/issues/8136
-                .body(is("-1"));
-        // .body(is("1"));
+                .body(is("1"));
     }
 
     private String computePath(String path, boolean isAsync) {
