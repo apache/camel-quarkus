@@ -25,6 +25,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
+import io.restassured.http.ContentType;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -33,6 +34,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
+import org.keycloak.representations.idm.ClientRepresentation;
+
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Base class for Keycloak integration tests.
@@ -77,7 +82,34 @@ public abstract class KeycloakTestBase {
         return ConfigProvider.getConfig().getValue(name, String.class);
     }
 
+    /**
+     * Helper method to create a Keycloak client via REST API.
+     * Reduces duplication when creating multiple clients in tests.
+     */
+    protected void createClient(ClientRepresentation client) {
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(client)
+                .post("/keycloak/client/{realmName}/pojo", config("test.realm"))
+                .then()
+                .statusCode(anyOf(is(200), is(201)));
+    }
+
+    /**
+     * Obtain access token using Resource Owner Password Credentials grant (username/password).
+     * Returns only the access_token string.
+     */
     protected String getAccessToken(String username, String password,
+            String clientId, String clientSecret) {
+        Map<String, Object> tokenResponse = getTokenResponse(username, password, clientId, clientSecret);
+        return (String) tokenResponse.get("access_token");
+    }
+
+    /**
+     * Obtain full token response using Resource Owner Password Credentials grant.
+     * Returns map containing access_token, refresh_token, expires_in, etc.
+     */
+    protected Map<String, Object> getTokenResponse(String username, String password,
             String clientId, String clientSecret) {
         try (Client client = ClientBuilder.newClient()) {
             String tokenUrl = String.format("%s/realms/%s/protocol/openid-connect/token",
@@ -97,9 +129,90 @@ public abstract class KeycloakTestBase {
                 if (response.getStatus() == 200) {
                     @SuppressWarnings("unchecked")
                     Map<String, Object> body = response.readEntity(Map.class);
-                    return (String) body.get("access_token");
+                    return body;
                 }
                 throw new RuntimeException("Failed to get token for " + username
+                        + " [" + response.getStatus() + "]: " + response.readEntity(String.class));
+            }
+        }
+    }
+
+    /**
+     * Obtain service account access token (service-to-service authentication).
+     * Uses the OAuth 2.0 Client Credentials grant type.
+     * This grant type does not require user credentials.
+     */
+    protected String getServiceAccountToken(String clientId, String clientSecret) {
+        Map<String, Object> tokenResponse = getServiceAccountTokenResponse(clientId, clientSecret);
+        return (String) tokenResponse.get("access_token");
+    }
+
+    /**
+     * Obtain full service account token response.
+     * Uses the OAuth 2.0 Client Credentials grant type.
+     * Returns map containing access_token, expires_in, etc.
+     */
+    protected Map<String, Object> getServiceAccountTokenResponse(String clientId, String clientSecret) {
+        try (Client client = ClientBuilder.newClient()) {
+            String tokenUrl = String.format("%s/realms/%s/protocol/openid-connect/token",
+                    config("keycloak.url"), config("test.realm"));
+
+            Form form = new Form()
+                    .param("grant_type", "client_credentials")
+                    .param("client_id", clientId)
+                    .param("client_secret", clientSecret);
+
+            try (Response response = client.target(tokenUrl)
+                    .request(MediaType.APPLICATION_JSON)
+                    .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED))) {
+
+                if (response.getStatus() == 200) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> body = response.readEntity(Map.class);
+                    return body;
+                }
+                throw new RuntimeException("Failed to get token via client credentials for " + clientId
+                        + " [" + response.getStatus() + "]: " + response.readEntity(String.class));
+            }
+        }
+    }
+
+    /**
+     * Get a refreshed access token using a refresh token.
+     * Uses the OAuth 2.0 Refresh Token grant type.
+     * This allows obtaining a new access token without re-authenticating.
+     */
+    protected String getRefreshedAccessToken(String refreshToken, String clientId, String clientSecret) {
+        Map<String, Object> tokenResponse = getRefreshedTokenResponse(refreshToken, clientId, clientSecret);
+        return (String) tokenResponse.get("access_token");
+    }
+
+    /**
+     * Get full refreshed token response using a refresh token.
+     * Uses the OAuth 2.0 Refresh Token grant type.
+     * Returns map containing new access_token, refresh_token, expires_in, etc.
+     */
+    protected Map<String, Object> getRefreshedTokenResponse(String refreshToken, String clientId, String clientSecret) {
+        try (Client client = ClientBuilder.newClient()) {
+            String tokenUrl = String.format("%s/realms/%s/protocol/openid-connect/token",
+                    config("keycloak.url"), config("test.realm"));
+
+            Form form = new Form()
+                    .param("grant_type", "refresh_token")
+                    .param("client_id", clientId)
+                    .param("client_secret", clientSecret)
+                    .param("refresh_token", refreshToken);
+
+            try (Response response = client.target(tokenUrl)
+                    .request(MediaType.APPLICATION_JSON)
+                    .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED))) {
+
+                if (response.getStatus() == 200) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> body = response.readEntity(Map.class);
+                    return body;
+                }
+                throw new RuntimeException("Failed to refresh token"
                         + " [" + response.getStatus() + "]: " + response.readEntity(String.class));
             }
         }
