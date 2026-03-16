@@ -328,7 +328,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(20)
-    public void testClientCredentialsGrant_FullResponse() {
+    public void testServiceAccount_FullResponse() {
         // Verify we can obtain a full token response using client credentials grant
         Map<String, Object> tokenResponse = getServiceAccountTokenResponse(
                 SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
@@ -341,7 +341,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(21)
-    public void testClientCredentialsGrant_ConvenienceMethod() {
+    public void testServiceAccount_ConvenienceMethod() {
         // Verify the convenience method that returns just the access token
         String accessToken = getServiceAccountToken(
                 SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
