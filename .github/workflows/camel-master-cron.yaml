@@ -43,11 +43,11 @@ jobs:
       - name: Check free space on disk
         run: |
           df -h /
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: Set Workflow Build ID
         run: |
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
@@ -169,11 +169,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
@@ -254,11 +254,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -412,11 +412,11 @@ jobs:
           git rebase $(cat ~/build-data/main-sha.txt)          
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
-      - name: Set up JDK 25
+      - name: Set up JDK 21
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '25'
+          java-version: '21'
       - name: cd integration-tests && mvn clean verify
         shell: bash
         env:
@@ -465,11 +465,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
@@ -497,11 +497,11 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
     steps:
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: Download Maven Repo
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -540,11 +540,9 @@ jobs:
               EXAMPLES_BRANCH=${GITHUB_BASE_REF}
           fi
 
-          # TODO: Remove the sed update of maven.compiler.release after example projects are updated for JDK 21
           git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
-            && find . -name pom.xml -exec sed -i 's/<maven\.compiler\.release>17<\/maven\.compiler\.release>/<maven.compiler.release>21<\/maven.compiler.release>/g' {} + \
             && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION}
 
           BUILD_FAILURES=()
@@ -584,11 +582,11 @@ jobs:
     needs: native-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
       - name: Download Maven Repo
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
