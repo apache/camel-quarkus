@@ -63,7 +63,8 @@ public class CamelEventBridgeDisabledConfigTest {
         assertTrue(context.getManagementStrategy()
                 .getEventNotifiers()
                 .stream()
-                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
+                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport")
+                        && !eventNotifier.getClass().getName().contains("DefaultErrorRegistry"))
                 .findAny()
                 .isEmpty());
         assertTrue(handler.getServices().isEmpty());
