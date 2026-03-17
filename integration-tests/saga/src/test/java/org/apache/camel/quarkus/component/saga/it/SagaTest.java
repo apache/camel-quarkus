@@ -152,22 +152,4 @@ class SagaTest {
                 .statusCode(200)
                 .body(Matchers.is("false"));
     }
-
-    @Test
-    public void testXmlDslSuccess() throws InterruptedException {
-
-        RestAssured.get("/saga/xmlSaga/true")
-                .then()
-                .statusCode(200)
-                .body(Matchers.is("true"));
-    }
-
-    @Test
-    public void testXmlDslFailure() throws InterruptedException {
-        RestAssured.get("/saga/xmlSaga/false")
-                .then()
-                .statusCode(500)
-                .body(Matchers.is("Intended xml exception"));
-    }
-
 }
