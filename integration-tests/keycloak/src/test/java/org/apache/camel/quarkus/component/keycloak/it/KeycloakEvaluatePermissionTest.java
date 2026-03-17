@@ -44,6 +44,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
@@ -51,8 +52,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     private static String userToken;
+    private static String userRefreshToken;
     private static final String RESOURCE_DOCUMENTS = "documents";
     private static final String SCOPE_READ = "read";
+    private static final String SERVICE_ACCOUNT_CLIENT_ID = "test-service-account-"
+            + UUID.randomUUID().toString().substring(0, 8);
 
     @Test
     @Order(1)
@@ -68,13 +72,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
         authzClient.setServiceAccountsEnabled(true);
         authzClient.setAuthorizationServicesEnabled(true);
         authzClient.setStandardFlowEnabled(false);
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(authzClient)
-                .post("/keycloak/client/{realmName}/pojo", config("test.realm"))
-                .then()
-                .statusCode(anyOf(is(200), is(201)));
+        createClient(authzClient);
 
         // 2. Protected resource with a read scope
         ScopeRepresentation readScope = new ScopeRepresentation();
@@ -310,6 +308,128 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
                 .then()
                 .statusCode(500)
                 .body(containsString("401"));
+    }
+
+    // ==================== Authentication Method Tests ====================
+
+    @Test
+    @Order(15)
+    public void testSetupAuthenticationTests() {
+        // Create service account client for client credentials grant testing
+        ClientRepresentation serviceAccountClient = new ClientRepresentation();
+        serviceAccountClient.setClientId(SERVICE_ACCOUNT_CLIENT_ID);
+        serviceAccountClient.setSecret(TEST_CLIENT_SECRET);
+        serviceAccountClient.setPublicClient(false);
+        serviceAccountClient.setServiceAccountsEnabled(true);
+        serviceAccountClient.setDirectAccessGrantsEnabled(false);
+        serviceAccountClient.setStandardFlowEnabled(false);
+        createClient(serviceAccountClient);
+    }
+
+    @Test
+    @Order(20)
+    public void testServiceAccount_FullResponse() {
+        // Verify we can obtain a full token response using client credentials grant
+        Map<String, Object> tokenResponse = getServiceAccountTokenResponse(
+                SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
+
+        assertNotNull(tokenResponse, "Token response should not be null");
+        assertNotNull(tokenResponse.get("access_token"), "Access token should be present in response");
+        assertNotNull(tokenResponse.get("expires_in"), "Token expiration should be present in response");
+        assertNotNull(tokenResponse.get("token_type"), "Token type should be present in response");
+    }
+
+    @Test
+    @Order(21)
+    public void testServiceAccount_ConvenienceMethod() {
+        // Verify the convenience method that returns just the access token
+        String accessToken = getServiceAccountToken(
+                SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
+
+        assertNotNull(accessToken, "Access token should not be null");
+    }
+
+    @Test
+    @Order(30)
+    public void testPasswordGrant_ObtainTokenWithRefreshToken() {
+        // Obtain a token using password grant to get both access and refresh tokens
+        Map<String, Object> tokenResponse = getTokenResponse(
+                TEST_USER_NAME,
+                TEST_USER_PASSWORD,
+                TEST_CLIENT_ID,
+                TEST_CLIENT_SECRET);
+
+        assertNotNull(tokenResponse, "Token response should not be null");
+        assertNotNull(tokenResponse.get("access_token"), "Access token should be present in response");
+        assertNotNull(tokenResponse.get("refresh_token"), "Refresh token should be present in response");
+        assertNotNull(tokenResponse.get("expires_in"), "Token expiration should be present in response");
+
+        // Store refresh token for subsequent refresh token tests
+        userRefreshToken = (String) tokenResponse.get("refresh_token");
+        assertNotNull(userRefreshToken, "Stored user refresh token should not be null");
+    }
+
+    @Test
+    @Order(40)
+    public void testRefreshTokenGrant_FullResponse() {
+        // Verify refresh token can be used to obtain a full token response
+        Map<String, Object> refreshedTokenResponse = getRefreshedTokenResponse(
+                userRefreshToken,
+                TEST_CLIENT_ID,
+                TEST_CLIENT_SECRET);
+
+        assertNotNull(refreshedTokenResponse, "Refreshed token response should not be null");
+        assertNotNull(refreshedTokenResponse.get("access_token"), "New access token should be present in response");
+        assertNotNull(refreshedTokenResponse.get("refresh_token"), "New refresh token should be present in response");
+        assertNotNull(refreshedTokenResponse.get("expires_in"), "Token expiration should be present in response");
+    }
+
+    @Test
+    @Order(41)
+    public void testRefreshTokenGrant_ConvenienceMethod() {
+        // Verify the convenience method that returns just the new access token
+        String newAccessToken = getRefreshedAccessToken(
+                userRefreshToken,
+                TEST_CLIENT_ID,
+                TEST_CLIENT_SECRET);
+
+        assertNotNull(newAccessToken, "Refreshed access token should not be null");
+    }
+
+    @Test
+    @Order(43)
+    public void testRefreshTokenGrant_InvalidRefreshToken() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            getRefreshedTokenResponse("invalid.refresh.token", TEST_CLIENT_ID, TEST_CLIENT_SECRET);
+        }, "Should have thrown an exception for invalid refresh token");
+
+        assertNotNull(exception.getMessage(), "Exception message should not be null");
+    }
+
+    @Test
+    @Order(44)
+    public void testRefreshTokenGrant_MultipleRefreshes() {
+        // Test that we can refresh multiple times (token rotation)
+        // First refresh using the user's refresh token
+        Map<String, Object> firstRefresh = getRefreshedTokenResponse(
+                userRefreshToken,
+                TEST_CLIENT_ID,
+                TEST_CLIENT_SECRET);
+
+        assertNotNull(firstRefresh.get("access_token"), "First refresh should return new access token");
+        assertNotNull(firstRefresh.get("refresh_token"), "First refresh should return new refresh token");
+
+        String secondRefreshToken = (String) firstRefresh.get("refresh_token");
+        assertNotNull(secondRefreshToken, "Second refresh token should not be null");
+
+        // Second refresh using the new refresh token
+        Map<String, Object> secondRefresh = getRefreshedTokenResponse(
+                secondRefreshToken,
+                TEST_CLIENT_ID,
+                TEST_CLIENT_SECRET);
+
+        assertNotNull(secondRefresh.get("access_token"), "Second refresh should return new access token");
+        assertNotNull(secondRefresh.get("refresh_token"), "Second refresh should return new refresh token");
     }
 
     @Test
