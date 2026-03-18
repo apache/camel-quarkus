@@ -21,6 +21,6 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     public void configure() throws Exception {
         from("direct:start").setBody(constant("Some Value")).log("The body is: ${body}");
 
-        from("timer:timeToAct?period=5000").routeId("TimerRoute").log("Calling direct:start").to("direct:start");
+        from("timer:timeToAct?delay=0&repeatCount=1").routeId("TimerRoute").log("Calling direct:start").to("direct:start");
     }
 }
