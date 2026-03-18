@@ -76,9 +76,12 @@ public class OpenaiRoutes extends RouteBuilder {
                 .to("seda:filePromptResults");
 
         from("direct:chatWithMemory")
+                // limit generation of useless tokens for this scenario on slower models
+                .setHeader("CamelOpenAIMaxTokens", constant(10))
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 1: ${body}")
-                .setBody(constant("What is my Camel species?"))
+                // here we will limit it via instruction, so the model can "reorganize" the word "John" to fit in the shorter answer
+                .setBody(constant("What is my name? Respond maximum 5 words."))
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 2: ${body}");
 

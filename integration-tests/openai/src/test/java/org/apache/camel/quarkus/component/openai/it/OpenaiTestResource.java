@@ -34,11 +34,13 @@ import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManag
 import org.apache.camel.util.ObjectHelper;
 
 public class OpenaiTestResource extends WireMockTestResourceLifecycleManager {
-    private static final String OPENAI_API_URL = ClientOptions.PRODUCTION_URL;
-    private static final String OPENAI_ENV_API_KEY = "OPENAI_API_KEY";
-    private static final String OPENAI_ENV_BASE_URL = "OPENAI_BASE_URL";
-    private static final String OPENAI_ENV_MODEL = "OPENAI_MODEL";
-    private static final String OPENAI_ENV_EMBEDDING_MODEL = "OPENAI_EMBEDDING_MODEL";
+    public static final String OPENAI_API_URL = ClientOptions.PRODUCTION_URL;
+    public static final String OPENAI_ENV_CHAT_API_KEY = "OPENAI_CHAT_API_KEY";
+    public static final String OPENAI_ENV_EMBEDDING_API_KEY = "OPENAI_EMBEDDING_API_KEY";
+    public static final String OPENAI_ENV_CHAT_BASE_URL = "OPENAI_CHAT_BASE_URL";
+    public static final String OPENAI_ENV_EMBEDDING_BASE_URL = "OPENAI_EMBEDDING_BASE_URL";
+    public static final String OPENAI_ENV_CHAT_MODEL = "OPENAI_CHAT_MODEL";
+    public static final String OPENAI_ENV_EMBEDDING_MODEL = "OPENAI_EMBEDDING_MODEL";
 
     @Override
     public Map<String, String> start() {
@@ -46,25 +48,18 @@ public class OpenaiTestResource extends WireMockTestResourceLifecycleManager {
         String wiremockUrl = configuration.get("wiremock.url");
         if (ObjectHelper.isNotEmpty(wiremockUrl)) {
             configuration.put("camel.component.openai.baseUrl", wiremockUrl);
-        } else {
-            configuration.put("camel.component.openai.baseUrl", OPENAI_API_URL);
         }
-
-        configuration.put("camel.component.openai.model", envOrDefault(OPENAI_ENV_MODEL, "gpt-5"));
-        configuration.put("camel.component.openai.embedding-model",
-                envOrDefault(OPENAI_ENV_EMBEDDING_MODEL, "text-embedding-3-small"));
-        configuration.put("camel.component.openai.apiKey", envOrDefault(OPENAI_ENV_API_KEY, "test-key"));
         return configuration;
     }
 
     @Override
     protected String getRecordTargetBaseUrl() {
-        return envOrDefault(OPENAI_ENV_BASE_URL, OPENAI_API_URL);
+        return envOrDefault(OPENAI_ENV_CHAT_BASE_URL, OPENAI_API_URL);
     }
 
     @Override
     protected boolean isMockingEnabled() {
-        return !envVarsPresent(OPENAI_ENV_API_KEY);
+        return !envVarsPresent(OPENAI_ENV_CHAT_API_KEY);
     }
 
     @Override

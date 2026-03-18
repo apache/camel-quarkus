@@ -5,7 +5,7 @@
     "url" : "/chat/completions",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"messages\":[{\"content\":\"Stream the numbers 1 to 10 on a new line each time and nothing else.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"stream\":true}",
+      "equalToJson" : "{\"messages\":[{\"content\":\"Stream the numbers 1 to 9 on a new line each time and nothing else.\",\"role\":\"user\"}],\"model\":\"gpt-5\",\"stream\":true}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]

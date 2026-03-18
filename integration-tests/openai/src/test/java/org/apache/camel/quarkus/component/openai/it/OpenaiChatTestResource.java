@@ -16,9 +16,19 @@
  */
 package org.apache.camel.quarkus.component.openai.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import java.util.Map;
 
-@QuarkusIntegrationTest
-class OpenaiIT extends OpenaiTest {
+public class OpenaiChatTestResource extends OpenaiTestResource {
 
+    @Override
+    public Map<String, String> start() {
+        Map<String, String> conf = super.start();
+        conf.put("camel.component.openai.model", envOrDefault(OPENAI_ENV_CHAT_MODEL, "gpt-5"));
+        conf.put("camel.component.openai.apiKey", envOrDefault(OPENAI_ENV_CHAT_API_KEY, "test-key"));
+
+        if (conf.get("camel.component.openai.baseUrl") == null) {
+            conf.put("camel.component.openai.baseUrl", envOrDefault(OPENAI_ENV_CHAT_BASE_URL, OPENAI_API_URL));
+        }
+        return conf;
+    }
 }

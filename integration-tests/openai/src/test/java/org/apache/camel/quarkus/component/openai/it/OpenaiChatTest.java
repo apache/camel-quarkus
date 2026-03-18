@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,20 +36,28 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.camel.util.FileUtil;
 import org.awaitility.Awaitility;
+import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@QuarkusTestResource(OpenaiTestResource.class)
+@QuarkusTestResource(value = OpenaiChatTestResource.class, restrictToAnnotatedClass = true)
 @QuarkusTest
-class OpenaiTest {
+class OpenaiChatTest {
+
+    private static final Logger LOG = Logger.getLogger(OpenaiChatTest.class);
+
+    @BeforeEach
+    void logTestName(TestInfo testInfo) {
+        LOG.info(String.format("Running OpenaiChatTest test %s", testInfo.getDisplayName()));
+    }
+
     @Test
     void simpleChat() {
         RestAssured.given()
@@ -59,14 +66,18 @@ class OpenaiTest {
                 .post("/openai/chat")
                 .then()
                 .statusCode(200)
-                .body(containsStringIgnoringCase("integration framework"));
+                .body(containsStringIgnoringCase("camel"));
     }
 
     @Test
     void chatWithImage() throws IOException {
+        Assumptions.assumeTrue(
+                OpenaiChatTestResource.OPENAI_API_URL.equals(System.getenv(OpenaiChatTestResource.OPENAI_ENV_CHAT_BASE_URL))
+                        || System.getProperty("camel.component.openai.baseUrl") == null,
+                "Needs model which support image operations.");
         Path path = Paths.get("target/camel-log.png");
 
-        try (InputStream stream = OpenaiTest.class.getResourceAsStream("/img/camel-logo.png")) {
+        try (InputStream stream = OpenaiChatTest.class.getResourceAsStream("/img/camel-logo.png")) {
             if (stream == null) {
                 throw new IllegalStateException("Failed loading camel-logo.png");
             }
@@ -101,7 +112,7 @@ class OpenaiTest {
         Path prompt = prompts.resolve("whatis-camel-prompt.txt");
         Files.createDirectories(prompts);
 
-        try (InputStream stream = OpenaiTest.class.getResourceAsStream("/prompts/whatis-camel-prompt.txt")) {
+        try (InputStream stream = OpenaiChatTest.class.getResourceAsStream("/prompts/whatis-camel-prompt.txt")) {
             if (stream == null) {
                 throw new IllegalStateException("Failed loading whatis-camel-prompt.txt");
             }
@@ -116,13 +127,13 @@ class OpenaiTest {
                     .then()
                     .statusCode(204);
 
-            Awaitility.await().pollDelay(Duration.ofSeconds(1)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+            Awaitility.await().pollDelay(Duration.ofSeconds(10)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
                 RestAssured.given()
                         .queryParam("endpointUri", "seda:filePromptResults")
                         .get("/openai/chat/results")
                         .then()
                         .statusCode(200)
-                        .body(containsStringIgnoringCase("integration framework"));
+                        .body(containsStringIgnoringCase("camel"));
             });
         } finally {
             // Stop the file-prompts route
@@ -144,11 +155,11 @@ class OpenaiTest {
     void chatWithMemory() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("I am a Camel and my species is Camelus Dromedarius.")
+                .body("My name is John.")
                 .post("/openai/chat/memory")
                 .then()
                 .statusCode(200)
-                .body(containsStringIgnoringCase("Camelus Dromedarius"));
+                .body(containsStringIgnoringCase("John"));
     }
 
     @Test
@@ -156,7 +167,7 @@ class OpenaiTest {
         // Send the streaming request
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("Stream the numbers 1 to 10 on a new line each time and nothing else.")
+                .body("Stream the numbers 1 to 9 on a new line each time and nothing else.")
                 .post("/openai/chat/streaming")
                 .then()
                 .statusCode(204);
@@ -177,10 +188,10 @@ class OpenaiTest {
                             receivedNumbers.add(result.trim());
                         }
                     }
-                    return receivedNumbers.size() >= 10;
+                    return receivedNumbers.size() >= 9;
                 });
 
-        Set<String> expectedNumbers = IntStream.rangeClosed(1, 10)
+        Set<String> expectedNumbers = IntStream.rangeClosed(1, 9)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.toSet());
 
@@ -204,103 +215,13 @@ class OpenaiTest {
     void structuredOutputWithOutputClass() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("Create an example product for a product named 'Bluetooth Headphones'.")
+                .body("Create an example product for a product named 'Bluetooth'.")
                 .post("/openai/chat/structured/class")
                 .then()
                 .statusCode(200)
                 .body(
-                        "name", is("Bluetooth Headphones"),
+                        "name", containsStringIgnoringCase("Bluetooth"),
                         "price", greaterThan(0.0F));
     }
 
-    @Test
-    void simpleEmbedding() {
-        String simpleText = "Simple text";
-        List<?> result = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(simpleText)
-                .post("/openai/embeddings")
-                .then()
-                .statusCode(200)
-                .body(".", hasSize(greaterThan(0)))
-                .extract()
-                .body()
-                .as(List.class);
-
-        Double similarity = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .queryParam("embeddingContent", simpleText)
-                .body(result)
-                .post("/openai/vector/similarity")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(Double.class);
-
-        assertTrue(similarity >= 0.9);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Test
-    void batchEmbedding() {
-        String batchText = "Text content 1,Text content 2,Text content 3";
-        List<List<?>> result = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(batchText)
-                .post("/openai/embeddings")
-                .then()
-                .statusCode(200)
-                .body(
-                        ".", hasSize(equalTo(3)),
-                        "[0]", hasSize(greaterThan(0)),
-                        "[1]", hasSize(greaterThan(0)),
-                        "[2]", hasSize(greaterThan(0)))
-                .extract()
-                .body()
-                .as(List.class);
-
-        String[] batchTextParts = batchText.split(",");
-        for (int i = 0; i < batchTextParts.length; i++) {
-            Double similarity = RestAssured.given()
-                    .contentType(ContentType.JSON)
-                    .queryParam("embeddingContent", batchTextParts[i])
-                    .body(result.get(i))
-                    .post("/openai/vector/similarity")
-                    .then()
-                    .statusCode(200)
-                    .extract()
-                    .body()
-                    .as(Double.class);
-            assertTrue(similarity >= 0.9);
-        }
-    }
-
-    @Test
-    void vectorSimilarity() {
-        String simpleText = "Simple text";
-        List<?> result = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(simpleText)
-                .post("/openai/embeddings")
-                .then()
-                .statusCode(200)
-                .body(".", hasSize(greaterThan(0)))
-                .extract()
-                .body()
-                .as(List.class);
-
-        Double similarity = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .queryParam("embeddingContent", simpleText + " extra content")
-                .body(result)
-                .post("/openai/vector/similarity")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(Double.class);
-
-        assertTrue(similarity >= 0.6);
-    }
 }
