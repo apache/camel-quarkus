@@ -47,4 +47,7 @@ metadata:
 [/#if]
 [#if deprecated ]  status: "deprecated"
 [#else]  status: "[=status]"
-[/#if]
+[/#if]  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"
