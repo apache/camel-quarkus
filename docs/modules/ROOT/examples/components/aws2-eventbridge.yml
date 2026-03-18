@@ -9,5 +9,5 @@ cqJvmSince: 1.4.0
 cqNativeSince: 1.7.0
 cqCamelPartName: aws2-eventbridge
 cqCamelPartTitle: AWS Eventbridge
-cqCamelPartDescription: Send events to AWS Eventbridge cluster instances.
+cqCamelPartDescription: Manage AWS EventBridge cluster instances and consume events via SQS-backed polling.
 cqExtensionPageTitle: AWS 2 Eventbridge
