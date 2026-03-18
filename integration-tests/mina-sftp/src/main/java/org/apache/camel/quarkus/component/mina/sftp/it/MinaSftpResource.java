@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.mina.sftp.it;
 
+import java.io.InputStream;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -217,7 +216,7 @@ public class MinaSftpResource {
     public Response createFileWithCertificate(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=src/test/resources/test-key-rsa.key&certFile=src/test/resources/test-key-rsa-cert.pub",
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub",
                 fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
@@ -230,7 +229,7 @@ public class MinaSftpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificate(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=src/test/resources/test-key-rsa.key&certFile=src/test/resources/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
@@ -242,7 +241,7 @@ public class MinaSftpResource {
     public Response createFileWithCertificateUri(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:src/test/resources/test-key-rsa.key&certUri=file:src/test/resources/test-key-rsa-cert.pub",
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub",
                 fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
@@ -255,7 +254,7 @@ public class MinaSftpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificateUri(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:src/test/resources/test-key-rsa.key&certUri=file:src/test/resources/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
@@ -266,36 +265,55 @@ public class MinaSftpResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createFileWithCertificateBytes(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
-        byte[] certBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa-cert.pub"));
-        byte[] keyBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa.key"));
 
-        String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp";
-        MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
-        MinaSftpConfiguration config = (MinaSftpConfiguration) endpoint.getConfiguration();
-        config.setCertBytes(certBytes);
-        config.setPrivateKey(keyBytes);
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        try (InputStream certStream = classLoader.getResourceAsStream("certs/test-key-rsa-cert.pub");
+                InputStream keyStream = classLoader.getResourceAsStream("certs/test-key-rsa.key")) {
+            if (certStream == null) {
+                throw new RuntimeException("Failed reading cert file");
+            }
 
-        producerTemplate.sendBodyAndHeader(endpoint, fileContent, Exchange.FILE_NAME, fileName);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .build();
+            if (keyStream == null) {
+                throw new RuntimeException("Failed reading key file");
+            }
+
+            String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp";
+            MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
+            MinaSftpConfiguration config = endpoint.getConfiguration();
+            config.setCertBytes(certStream.readAllBytes());
+            config.setPrivateKey(keyStream.readAllBytes());
+
+            producerTemplate.sendBodyAndHeader(endpoint, fileContent, Exchange.FILE_NAME, fileName);
+            return Response
+                    .created(new URI("https://camel.apache.org/"))
+                    .build();
+        }
     }
 
     @Path("/certificateBytes/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificateBytes(@PathParam("fileName") String fileName) throws Exception {
-        byte[] certBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa-cert.pub"));
-        byte[] keyBytes = Files.readAllBytes(Paths.get("src/test/resources/test-key-rsa.key"));
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        try (InputStream certStream = classLoader.getResourceAsStream("certs/test-key-rsa-cert.pub");
+                InputStream keyStream = classLoader.getResourceAsStream("certs/test-key-rsa.key")) {
+            if (certStream == null) {
+                throw new RuntimeException("Failed reading cert file");
+            }
 
-        String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?localWorkDirectory=target&fileName="
-                + fileName;
-        MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
-        MinaSftpConfiguration config = (MinaSftpConfiguration) endpoint.getConfiguration();
-        config.setCertBytes(certBytes);
-        config.setPrivateKey(keyBytes);
+            if (keyStream == null) {
+                throw new RuntimeException("Failed reading key file");
+            }
 
-        return consumerTemplate.receiveBody(endpoint, TIMEOUT_MS, String.class);
+            String uri = "mina-sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?localWorkDirectory=target&fileName="
+                    + fileName;
+            MinaSftpEndpoint endpoint = context.getEndpoint(uri, MinaSftpEndpoint.class);
+            MinaSftpConfiguration config = endpoint.getConfiguration();
+            config.setCertBytes(certStream.readAllBytes());
+            config.setPrivateKey(keyStream.readAllBytes());
+
+            return consumerTemplate.receiveBody(endpoint, TIMEOUT_MS, String.class);
+        }
     }
 
     @Path("/compression/create/{fileName}")
