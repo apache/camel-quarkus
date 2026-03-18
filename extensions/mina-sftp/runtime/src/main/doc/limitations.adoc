@@ -1,0 +1,4 @@
+                                   
+=== Incompatibility with camel-quarkus-ftp extension
+
+The `camel-quarkus-mina-sftp` and `camel-quarkus-ftp` extensions cannot be used together in the same application. If you have both extension dependencies on the classpath, you are likely to encounter problems at build time when compiling your application.
