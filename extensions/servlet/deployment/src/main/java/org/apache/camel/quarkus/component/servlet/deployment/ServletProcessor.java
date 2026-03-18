@@ -112,7 +112,7 @@ class ServletProcessor {
         MultipartConfig multipartConfig = servletConfig.multipart();
         if (multipartConfig != null) {
             builder.setMultipartConfig(new MultipartConfigElement(
-                    multipartConfig.location(),
+                    multipartConfig.location().orElse(null),
                     multipartConfig.maxFileSize(),
                     multipartConfig.maxRequestSize(),
                     multipartConfig.fileSizeThreshold()));

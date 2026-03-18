@@ -227,7 +227,7 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-servlet-multipart-locatio
 An absolute path to a directory on the file system to store files temporarily while the parts are processed or
 when the size of the file exceeds the specified file-size-threshold configuration value.
 | `string`
-| `${java.io.tmpdir}`
+| 
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-servlet-multipart-max-file-size]]`link:#quarkus-camel-servlet-multipart-max-file-size[quarkus.camel.servlet.multipart.max-file-size]`
 
@@ -300,7 +300,7 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-servlet-named-servlets-mu
 An absolute path to a directory on the file system to store files temporarily while the parts are processed or
 when the size of the file exceeds the specified file-size-threshold configuration value.
 | `string`
-| `${java.io.tmpdir}`
+| 
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-servlet-named-servlets-multipart-max-file-size]]`link:#quarkus-camel-servlet-named-servlets-multipart-max-file-size[quarkus.camel.servlet."named-servlets".multipart.max-file-size]`
 
