@@ -22,23 +22,34 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.dev.spi.HotReplacementContext;
 import io.quarkus.dev.spi.HotReplacementSetup;
+import org.jboss.logging.Logger;
 
 public class CamelHotReplacementSetup implements HotReplacementSetup {
-    private static final long TWO_SECS = TimeUnit.SECONDS.toMillis(2);
+    private static final long INITIAL_DELAY = TimeUnit.SECONDS.toMillis(5);
+    private static final long TASK_DELAY = TimeUnit.SECONDS.toMillis(2);
+    private static final Logger LOG = Logger.getLogger(CamelHotReplacementSetup.class);
+    private Timer timer;
 
     @Override
     public void setupHotDeployment(HotReplacementContext context) {
-        Timer timer = new Timer(true);
+        timer = new Timer("camel-live-reload", true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
                     context.doScan(false);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOG.warn("Camel live reload task failed", e);
                 }
             }
-        }, TWO_SECS, TWO_SECS);
+        }, INITIAL_DELAY, TASK_DELAY);
     }
 
+    @Override
+    public void close() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
 }

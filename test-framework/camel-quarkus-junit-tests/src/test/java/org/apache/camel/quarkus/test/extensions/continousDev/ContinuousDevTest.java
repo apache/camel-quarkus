@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.test.extensions.continousDev;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import io.quarkus.test.ContinuousTestingTestUtils;
@@ -27,15 +24,10 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/8318
 public class ContinuousDevTest {
-
-    private static final Path LOG_FILE = Paths.get("target/" + ContinuousDevTest.class.getSimpleName() + ".log");
-
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
             .setArchiveProducer(new Supplier<>() {
@@ -56,7 +48,7 @@ public class ContinuousDevTest {
             });
 
     @Test
-    public void checkTests() throws InterruptedException {
+    public void checkTests() {
         ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
         ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
 
@@ -64,13 +56,7 @@ public class ContinuousDevTest {
         Assertions.assertEquals(1L, ts.getTestsPassed());
         Assertions.assertEquals(0L, ts.getTestsSkipped());
 
-        TEST.modifyResourceFile("application.properties", new Function<String, String>() {
-            @Override
-            public String apply(String s) {
-                return ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
-                        "camel-quarkus.junit.message=Leonard");
-            }
-        });
+        TEST.modifyResourceFile("application.properties", s -> s.replace("Sheldon", "Leonard"));
         ts = utils.waitForNextCompletion();
 
         Assertions.assertEquals(1L, ts.getTestsFailed());
