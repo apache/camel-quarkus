@@ -157,8 +157,7 @@ public interface CamelServletConfig {
              *
              * @asciidoclet
              */
-            @WithDefault("${java.io.tmpdir}")
-            String location();
+            Optional<String> location();
 
             /**
              * The maximum size allowed in bytes for uploaded files. The default size (-1) allows an unlimited size.
