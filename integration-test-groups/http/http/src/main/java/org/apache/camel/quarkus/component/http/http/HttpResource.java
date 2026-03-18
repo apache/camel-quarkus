@@ -120,6 +120,25 @@ public class HttpResource extends AbstractHttpResource {
                 .request(String.class);
     }
 
+    @Path("/nonProxy")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public String nonProxy(@QueryParam("non-proxy-hosts") String nonProxyHosts, @QueryParam("proxy-host") String proxyHost,
+            @QueryParam("proxy-port") int proxyPort) {
+        return producerTemplate
+                .toF("%s?"
+                        + "proxyAuthMethod=Basic"
+                        + "&proxyAuthScheme=http"
+                        + "&proxyAuthHost=%s"
+                        + "&proxyAuthPort=%d"
+                        + "&proxyAuthUsername=%s"
+                        + "&proxyAuthPassword=%s"
+                        + "&nonProxyHosts=%s", String.format(PROXIED_URL, "http"),
+                        proxyHost, proxyPort, USER_ADMIN,
+                        USER_ADMIN_PASSWORD, nonProxyHosts)
+                .request(String.class);
+    }
+
     @Path("/send-dynamic")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
