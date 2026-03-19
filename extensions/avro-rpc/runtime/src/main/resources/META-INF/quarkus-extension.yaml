@@ -27,5 +27,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/avro-rpc.html"
   categories:
   - "integration"
-  status:
-  - "stable"
+  status: "stable"
