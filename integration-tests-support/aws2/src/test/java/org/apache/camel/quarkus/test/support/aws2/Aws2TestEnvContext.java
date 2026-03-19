@@ -67,22 +67,22 @@ public class Aws2TestEnvContext {
         this.credentialsProvider = useDefaultCredentialsProvider ? CredentialsProvider.defaultProvider
                 : CredentialsProvider.staticProvider;
 
-        localstack.ifPresent(ls -> {
-            for (Service service : exportCredentialsServices) {
-                String s = camelServiceComponentName(service);
-                if (s != null) {
-                    if (credentialsProvider == CredentialsProvider.staticProvider) {
-                        properties.put(s + ".access-key", accessKey);
-                        properties.put(s + ".secret-key", secretKey);
-                    }
-                    properties.put(s + ".region", region);
+        for (Service service : exportCredentialsServices) {
+            String s = camelServiceComponentName(service);
+            if (s != null) {
+                if (credentialsProvider == CredentialsProvider.staticProvider) {
+                    properties.put(s + ".access-key", accessKey);
+                    properties.put(s + ".secret-key", secretKey);
+                }
+                properties.put(s + ".region", region);
 
+                localstack.ifPresent(ls -> {
                     properties.put(s + ".override-endpoint", "true");
                     properties.put(s + ".uri-endpoint-override",
                             ls.getEndpoint().toString());
-                }
+                });
             }
-        });
+        }
     }
 
     /**
