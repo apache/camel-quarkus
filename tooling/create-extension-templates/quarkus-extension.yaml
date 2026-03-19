@@ -45,6 +45,6 @@ metadata:
   - "[=configPrefix]"
 [/#list]
 [/#if]
-  status:
-  - "[=status]"
-[#if deprecated ]  - "deprecated"[/#if]
+[#if deprecated ]  status: "deprecated"
+[#else]  status: "[=status]"
+[/#if]
