@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
 import com.helloworld.service.HelloPortType;
 import com.helloworld.service.HelloService;
-import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
+import io.quarkiverse.cxf.test.QuarkusCxfTestUtil;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
+import static io.quarkiverse.cxf.test.internal.QuarkusCxfInternalTestUtil.anyNs;
 
 @QuarkusTest
 class CxfSoapServiceTest {
@@ -79,7 +79,7 @@ class CxfSoapServiceTest {
 
     @Test
     public void codeFirstSoapService() {
-        final CodeFirstService client = QuarkusCxfClientTestUtil.getClient(CodeFirstService.TARGET_NS, CodeFirstService.class,
+        final CodeFirstService client = QuarkusCxfTestUtil.getClient(CodeFirstService.TARGET_NS, CodeFirstService.class,
                 "/soapservice/codefirst");
         Assertions.assertEquals("Hello Joe code first", client.hello("Joe"));
         Assertions.assertEquals("Good bye Laszlo code first", client.goodBye("Laszlo"));
@@ -88,21 +88,21 @@ class CxfSoapServiceTest {
     @ParameterizedTest
     @ValueSource(strings = { "raw", "cxf-message" })
     public void testCodeFirstSoapServiceDataFormats(String dataFormat) {
-        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class,
+        final TextService textService = QuarkusCxfTestUtil.getClient(TextService.class,
                 String.format("/soapservice/text-route-%s-data-format", dataFormat));
         assertTextService(textService, "Hello there from text service and " + dataFormat);
     }
 
     @Test
     public void echoServiceResponseFromRoute() {
-        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class,
+        final TextService textService = QuarkusCxfTestUtil.getClient(TextService.class,
                 "/soapservice/text-service-route");
         assertTextService(textService, "Hello there from text service route!");
     }
 
     @Test
     public void echoServiceResponseFromImpl() {
-        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class, "/soapservice/text-service-impl");
+        final TextService textService = QuarkusCxfTestUtil.getClient(TextService.class, "/soapservice/text-service-impl");
         assertTextService(textService, "Hello there from text service impl!");
     }
 

@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.cxf.wa
 import java.io.IOException;
 import java.util.Map;
 
-import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
+import io.quarkiverse.cxf.test.QuarkusCxfTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
@@ -31,7 +31,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
+import static io.quarkiverse.cxf.test.internal.QuarkusCxfInternalTestUtil.anyNs;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
@@ -76,7 +76,7 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
 
         given()
                 .body(SOAP_REQUEST)
-                .when().post(QuarkusCxfClientTestUtil.getEndpointUrl(getPlainClient()))
+                .when().post(QuarkusCxfTestUtil.getEndpointUrl(getPlainClient()))
                 .then()
                 .statusCode(500)
                 .body(
@@ -178,7 +178,7 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
 
         given()
                 .body(SOAP_REQUEST)
-                .when().post(QuarkusCxfClientTestUtil.getEndpointUrl(getPlainClient()))
+                .when().post(QuarkusCxfTestUtil.getEndpointUrl(getPlainClient()))
                 .then()
                 .statusCode(500)
                 .body(
@@ -195,7 +195,7 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
         config.getXmlConfig().namespaceAware(false);
         given()
                 .config(config)
-                .when().get(QuarkusCxfClientTestUtil.getEndpointUrl(getPlainClient()) + "?wsdl")
+                .when().get(QuarkusCxfTestUtil.getEndpointUrl(getPlainClient()) + "?wsdl")
                 .then()
                 .statusCode(200)
                 .body(
@@ -206,7 +206,7 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
     }
 
     WssSecurityPolicyHelloServiceCxfWay getPlainClient() {
-        return QuarkusCxfClientTestUtil.getClient(
+        return QuarkusCxfTestUtil.getClient(
                 "https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/ws-securitypolicy",
                 WssSecurityPolicyHelloServiceCxfWay.class,
                 "/soapservice/security-policy-hello-cxf-way");

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
+import io.quarkiverse.cxf.test.QuarkusCxfTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
@@ -38,7 +38,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
+import static io.quarkiverse.cxf.test.internal.QuarkusCxfInternalTestUtil.anyNs;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
@@ -100,7 +100,7 @@ public class CxfWsTrustTest {
             final QName stsServiceName = new QName("http://docs.oasis-open.org/ws-sx/ws-trust/200512/", "SecurityTokenService");
             final QName stsPortName = new QName("http://docs.oasis-open.org/ws-sx/ws-trust/200512/", "UT_Port");
 
-            String stsURL = QuarkusCxfClientTestUtil.getServerUrl()
+            String stsURL = QuarkusCxfTestUtil.getServerUrl()
                     + "/soapservice/jaxws-samples-wsse-policy-trust-sts/SecurityTokenService?wsdl";
             setupWsseAndSTSClient(proxy, bus, stsURL, stsServiceName, stsPortName);
 
@@ -120,7 +120,7 @@ public class CxfWsTrustTest {
     TrustHelloService trustHelloService() throws Exception {
         final QName serviceName = new QName("https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/test/ws-trust",
                 "TrustHelloService");
-        final URL wsdlURL = new URL(io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.getServerUrl()
+        final URL wsdlURL = new URL(io.quarkiverse.cxf.test.QuarkusCxfTestUtil.getServerUrl()
                 + "/soapservice/jaxws-samples-wsse-policy-trust/TrustHelloService?wsdl");
         Service service = Service.create(wsdlURL, serviceName);
         return (TrustHelloService) service.getPort(TrustHelloService.class);

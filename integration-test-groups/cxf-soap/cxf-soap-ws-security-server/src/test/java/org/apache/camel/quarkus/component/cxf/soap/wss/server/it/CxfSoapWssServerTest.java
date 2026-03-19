@@ -24,7 +24,7 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
-import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
+import io.quarkiverse.cxf.test.QuarkusCxfTestUtil;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -39,7 +39,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
+import static io.quarkiverse.cxf.test.internal.QuarkusCxfInternalTestUtil.anyNs;
 
 @QuarkusTest
 @QuarkusTestResource(value = CxfWssServerTestResource.class)
@@ -90,7 +90,7 @@ class CxfSoapWssServerTest {
     }
 
     static WssRounderService rounderClient(String username, String password) {
-        final WssRounderService client = QuarkusCxfClientTestUtil.getClient(WssRounderService.class, "/soapservice/rounder");
+        final WssRounderService client = QuarkusCxfTestUtil.getClient(WssRounderService.class, "/soapservice/rounder");
 
         final CallbackHandler passwordCallback = new CallbackHandler() {
             @Override
@@ -117,7 +117,7 @@ class CxfSoapWssServerTest {
 
     @Test
     void anonymous() throws IOException {
-        final WssRounderService client = QuarkusCxfClientTestUtil.getClient(WssRounderService.class, "/soapservice/rounder");
+        final WssRounderService client = QuarkusCxfTestUtil.getClient(WssRounderService.class, "/soapservice/rounder");
         /* Make sure that it fails properly when called without a password */
         Assertions.assertThatExceptionOfType(jakarta.xml.ws.soap.SOAPFaultException.class)
                 .isThrownBy(() -> client.round(2.8))
