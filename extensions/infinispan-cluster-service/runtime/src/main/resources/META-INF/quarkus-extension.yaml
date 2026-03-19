@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.cluster.infinispan"
-  status:
-  - "stable"
+  status: "stable"
