@@ -29,5 +29,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/olingo4.html"
   categories:
   - "integration"
-  status:
-  - "stable"
+  status: "stable"

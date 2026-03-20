@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.cxf"
-  status:
-  - "stable"
+  status: "stable"

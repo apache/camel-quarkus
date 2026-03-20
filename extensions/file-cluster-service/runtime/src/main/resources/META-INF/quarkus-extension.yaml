@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.cluster.file"
-  status:
-  - "stable"
+  status: "stable"
