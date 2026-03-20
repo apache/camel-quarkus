@@ -90,7 +90,9 @@ public class CouchbaseResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String poll() {
         LOG.infof("polling one document");
-        String endpoint = String.format("%s&designDocumentName=%s&viewName=%s&limit=1", connectionUri, bucketName, bucketName);
+        String statement = String.format("SELECT META().id AS __id, * FROM %s._default._default ORDER BY META().id LIMIT 1",
+                bucketName);
+        String endpoint = String.format("%s&statement=%s", connectionUri, statement);
         GetResult result = consumerTemplate.receiveBody(endpoint, timeout, GetResult.class);
         return result != null ? result.contentAs(String.class) : null;
     }

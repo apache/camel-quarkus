@@ -240,7 +240,7 @@
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
         <consul.container.image>mirror.gcr.io/hashicorp/consul:1.21</consul.container.image>
-        <couchbase.container.image>mirror.gcr.io/couchbase/server:7.6.2</couchbase.container.image>
+        <couchbase.container.image>mirror.gcr.io/couchbase/server:8.0.0</couchbase.container.image>
         <couchdb.container.image>mirror.gcr.io/couchdb:3.5.0</couchdb.container.image>
         <cyberark-conjur.container.image>mirror.gcr.io/cyberark/conjur:1.24.0</cyberark-conjur.container.image>
         <cyberark-conjur-cli.container.image>mirror.gcr.io/cyberark/conjur-cli:9</cyberark-conjur-cli.container.image>
