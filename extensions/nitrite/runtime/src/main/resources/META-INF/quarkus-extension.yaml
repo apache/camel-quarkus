@@ -29,6 +29,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/nitrite.html"
   categories:
   - "integration"
-  status:
-  - "stable"
-  - "deprecated"
+  status: "deprecated"

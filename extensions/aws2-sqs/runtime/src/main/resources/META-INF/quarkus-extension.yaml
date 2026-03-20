@@ -31,5 +31,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-sqs.html"
   categories:
   - "integration"
-  status:
-  - "stable"
+  status: "stable"

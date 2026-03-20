@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.health"
-  status:
-  - "stable"
+  status: "stable"
