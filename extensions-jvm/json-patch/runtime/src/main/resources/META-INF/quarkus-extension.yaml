@@ -30,6 +30,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/json-patch.html"
   categories:
   - "integration"
-  status:
-  - "stable"
-  - "deprecated"
+  status: "deprecated"
