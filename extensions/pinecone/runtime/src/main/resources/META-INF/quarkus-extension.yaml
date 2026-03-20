@@ -29,5 +29,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/pinecone.html"
   categories:
   - "integration"
-  status:
-  - "preview"
+  status: "preview"

@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.jasypt"
-  status:
-  - "stable"
+  status: "stable"
