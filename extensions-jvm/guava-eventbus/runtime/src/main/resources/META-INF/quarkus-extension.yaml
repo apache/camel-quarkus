@@ -30,6 +30,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/guava-eventbus.html"
   categories:
   - "integration"
-  status:
-  - "stable"
-  - "deprecated"
+  status: "deprecated"

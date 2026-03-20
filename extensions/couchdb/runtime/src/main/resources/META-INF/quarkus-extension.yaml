@@ -29,5 +29,4 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/couchdb.html"
   categories:
   - "integration"
-  status:
-  - "stable"
+  status: "stable"

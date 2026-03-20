@@ -31,5 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.fhir"
-  status:
-  - "stable"
+  status: "stable"

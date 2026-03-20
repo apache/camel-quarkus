@@ -31,6 +31,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.joor"
-  status:
-  - "stable"
-  - "deprecated"
+  status: "deprecated"
