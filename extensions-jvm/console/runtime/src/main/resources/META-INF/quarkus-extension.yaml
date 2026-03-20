@@ -32,5 +32,4 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.console"
-  status:
-  - "stable"
+  status: "stable"
