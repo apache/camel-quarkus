@@ -86,12 +86,12 @@ public class OpenaiRoutes extends RouteBuilder {
                 .log("Chat response 2: ${body}");
 
         from("direct:embed")
-                .to("openai:embeddings");
+                .to("openai-embeddings:embeddings");
 
         from("direct:batchEmbed")
-                .to("openai:embeddings");
+                .to("openai-embeddings:embeddings");
 
         from("direct:vectorSimilarity")
-                .to("openai:embeddings");
+                .to("openai-embeddings:embeddings");
     }
 }
