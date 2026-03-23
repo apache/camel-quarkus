@@ -61,11 +61,9 @@ class AzureStorageBlobTest {
     private static final String BLOB_CONTENT = "Hello Camel Quarkus Azure Blob";
 
     @BeforeAll
-    static void beforeAll() {
-        final Config config = ConfigProvider.getConfig();
+    static void beforeAll(Config config) {
         String containerName = config.getValue("azure.blob.container.name", String.class);
-        int port = config.getValue("quarkus.http.test-port", int.class);
-        RestAssured.port = port;
+        RestAssured.port = config.getValue("quarkus.http.test-port", int.class);
         RestAssured.given()
                 .queryParam("containerName", containerName)
                 .post("/azure-storage-blob/blob/container")
@@ -74,8 +72,7 @@ class AzureStorageBlobTest {
     }
 
     @AfterAll
-    static void afterAll() {
-        final Config config = ConfigProvider.getConfig();
+    static void afterAll(Config config) {
         String containerName = config.getValue("azure.blob.container.name", String.class);
         RestAssured.given()
                 .queryParam("containerName", containerName)

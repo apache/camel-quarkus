@@ -28,7 +28,6 @@ import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Record;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,8 +53,7 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
     }
 
     @BeforeAll
-    public static void setUp() throws SQLException {
-        Config config = ConfigProvider.getConfig();
+    public static void setUp(Config config) throws SQLException {
         final Optional<String> jdbcUrl = config.getOptionalValue(Type.sqlserver.getPropertyJdbc(), String.class);
 
         assumeTrue(jdbcUrl.isPresent(),
@@ -92,8 +90,7 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
 
     @Test
     @Order(0)
-    public void testReceiveInitCompany() {
-        Config config = ConfigProvider.getConfig();
+    public void testReceiveInitCompany(Config config) {
         assumeTrue(config.getOptionalValue(Type.sqlserver.getPropertyJdbc(), String.class).isPresent());
 
         int i = 0;

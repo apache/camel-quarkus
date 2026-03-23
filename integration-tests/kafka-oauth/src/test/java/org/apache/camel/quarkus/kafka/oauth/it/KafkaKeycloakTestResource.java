@@ -27,6 +27,7 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.keycloak.client.KeycloakTestClient;
 import io.quarkus.test.keycloak.server.KeycloakContainer;
+import io.strimzi.test.container.StrimziKafkaCluster;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -43,6 +44,7 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
 
     private static final Logger LOG = Logger.getLogger(KafkaKeycloakTestResource.class);
     private static final String REALM_JSON = "keycloak/realms/kafka-authz-realm.json";
+    private StrimziKafkaCluster kafkaCluster;
     private StrimziKafkaContainer kafka;
     private KeycloakContainer keycloak;
 
@@ -85,10 +87,13 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
 
         //Start kafka container
         String imageName = ConfigProvider.getConfig().getValue("kafka.container.image", String.class);
-        this.kafka = new StrimziKafkaContainer(imageName)
-                .withBrokerId(1)
-                .withKafkaConfigurationMap(Map.ofEntries(
-                        entry("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT"),
+        this.kafkaCluster = new StrimziKafkaCluster.StrimziKafkaClusterBuilder()
+                .withImage(imageName)
+                .withSharedNetwork()
+                .withBootstrapServers(c -> String.format("JWT://%s:%s", c.getHost(), c.getMappedPort(KAFKA_PORT)))
+                .withAdditionalKafkaConfiguration(Map.ofEntries(
+                        entry("listener.security.protocol.map",
+                                "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT"),
                         entry("listener.name.jwt.oauthbearer.sasl.jaas.config",
                                 getOauthSaslJaasConfig(keycloak.getInternalUrl(), keycloak.getServerUrl())),
                         entry("listener.name.jwt.plain.sasl.jaas.config",
@@ -104,10 +109,12 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
                                 "io.strimzi.kafka.oauth.client.JaasClientOauthLoginCallbackHandler"),
                         entry("listener.name.jwt.plain.sasl.server.callback.handler.class",
                                 "io.strimzi.kafka.oauth.server.plain.JaasServerOauthOverPlainValidatorCallbackHandler")))
-                .withNetworkAliases("kafka")
-                .withBootstrapServers(
-                        c -> String.format("JWT://%s:%s", c.getHost(), c.getMappedPort(KAFKA_PORT)));
-        this.kafka.start();
+                .withContainerCustomizer(container -> {
+                    container.withNetworkAliases("kafka");
+                })
+                .build();
+        this.kafkaCluster.start();
+        this.kafka = this.kafkaCluster.getBrokers().stream().findFirst().orElseThrow();
         LOG.info(this.kafka.getLogs());
 
         properties.put("kafka.bootstrap.servers", this.kafka.getBootstrapServers());
@@ -122,8 +129,8 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
 
     @Override
     public void stop() {
-        if (kafka != null) {
-            kafka.stop();
+        if (kafkaCluster != null) {
+            kafkaCluster.stop();
         }
         if (keycloak != null) {
             keycloak.stop();

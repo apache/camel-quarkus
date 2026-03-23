@@ -22,12 +22,13 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.InspectContainerResponse;
-import io.strimzi.test.container.StrimziKafkaContainer;
+import io.strimzi.test.container.StrimziKafkaCluster;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.testcontainers.utility.MountableFile;
+
+import static io.strimzi.test.container.StrimziKafkaContainer.KAFKA_PORT;
 
 public class KafkaSslTestResource extends KafkaTestResource {
 
@@ -43,7 +44,41 @@ public class KafkaSslTestResource extends KafkaTestResource {
     @Override
     public Map<String, String> start() {
 
-        String bootstrapServers = start(name -> new SSLKafkaContainer(name));
+        String bootstrapServers = start(name -> {
+            String protocolMap = "SSL:SSL,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT";
+            Map<String, String> config = Map.ofEntries(
+                    Map.entry("inter.broker.listener.name", "BROKER1"),
+                    Map.entry("listener.security.protocol.map", protocolMap),
+                    Map.entry("ssl.keystore.location", "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE),
+                    Map.entry("ssl.keystore.password", KAFKA_KEYSTORE_PASSWORD),
+                    Map.entry("ssl.keystore.type", KAFKA_KEYSTORE_TYPE),
+                    Map.entry("ssl.truststore.location", "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE),
+                    Map.entry("ssl.truststore.password", KAFKA_KEYSTORE_PASSWORD),
+                    Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
+                    Map.entry("ssl.endpoint.identification.algorithm", ""));
+
+            return new StrimziKafkaCluster.StrimziKafkaClusterBuilder()
+                    .withImage(name)
+                    .withAdditionalKafkaConfiguration(config)
+                    .withBootstrapServers(c -> String.format("SSL://%s:%s", c.getHost(), c.getMappedPort(KAFKA_PORT)))
+                    .withContainerCustomizer(container -> {
+                        container.withCreateContainerCmdModifier(new Consumer<CreateContainerCmd>() {
+                            @Override
+                            public void accept(CreateContainerCmd createContainerCmd) {
+                                createContainerCmd.withName(KAFKA_BROKER_HOSTNAME);
+                                createContainerCmd.withHostName(KAFKA_BROKER_HOSTNAME);
+                            }
+                        });
+                        container.withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
+                        Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
+                                .forEach(keyStoreFile -> {
+                                    container.withCopyFileToContainer(
+                                            MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
+                                            "/etc/kafka/secrets/" + keyStoreFile);
+                                });
+                    })
+                    .build();
+        });
 
         return CollectionHelper.mapOf(
                 "kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
@@ -57,58 +92,5 @@ public class KafkaSslTestResource extends KafkaTestResource {
                 Path.of(CERTS_BASEDIR).resolve(KAFKA_TRUSTSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-truststore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-truststore-type", KAFKA_KEYSTORE_TYPE);
-    }
-
-    // KafkaContainer does not support SSL OOTB so we need some customizations
-    static final class SSLKafkaContainer extends StrimziKafkaContainer {
-        SSLKafkaContainer(final String dockerImageName) {
-            super(dockerImageName);
-        }
-
-        @Override
-        public String getBootstrapServers() {
-            return String.format("SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
-        }
-
-        @Override
-        protected void configure() {
-            super.configure();
-
-            String protocolMap = "SSL:SSL,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT";
-            Map<String, String> config = Map.ofEntries(
-                    Map.entry("inter.broker.listener.name", "BROKER1"),
-                    Map.entry("listener.security.protocol.map", protocolMap),
-                    Map.entry("ssl.keystore.location", "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE),
-                    Map.entry("ssl.keystore.password", KAFKA_KEYSTORE_PASSWORD),
-                    Map.entry("ssl.keystore.type", KAFKA_KEYSTORE_TYPE),
-                    Map.entry("ssl.truststore.location", "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE),
-                    Map.entry("ssl.truststore.password", KAFKA_KEYSTORE_PASSWORD),
-                    Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
-                    Map.entry("ssl.endpoint.identification.algorithm", ""));
-
-            withCreateContainerCmdModifier(new Consumer<CreateContainerCmd>() {
-                @Override
-                public void accept(CreateContainerCmd createContainerCmd) {
-                    createContainerCmd.withName(KAFKA_BROKER_HOSTNAME);
-                    createContainerCmd.withHostName(KAFKA_BROKER_HOSTNAME);
-                }
-            });
-            withBrokerId(1);
-            withNodeId(1);
-            withKafkaConfigurationMap(config);
-            withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
-        }
-
-        @Override
-        protected void containerIsStarting(InspectContainerResponse containerInfo, boolean reused) {
-            super.containerIsStarting(containerInfo, reused);
-
-            Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
-                    .forEach(keyStoreFile -> {
-                        copyFileToContainer(
-                                MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
-                                "/etc/kafka/secrets/" + keyStoreFile);
-                    });
-        }
     }
 }

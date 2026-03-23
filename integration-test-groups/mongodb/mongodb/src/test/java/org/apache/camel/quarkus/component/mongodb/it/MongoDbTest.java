@@ -35,7 +35,7 @@ import org.apache.camel.quarkus.test.support.mongodb.MongoDbConstants;
 import org.apache.camel.quarkus.test.support.mongodb.MongoDbTestResource;
 import org.apache.camel.util.CollectionHelper;
 import org.bson.Document;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -65,8 +65,8 @@ class MongoDbTest {
     private static MongoDatabase db;
 
     @BeforeAll
-    public static void setUp() throws SQLException {
-        final String mongoUrl = "mongodb://" + ConfigProvider.getConfig().getValue("quarkus.mongodb.hosts", String.class);
+    public static void setUp(Config config) throws SQLException {
+        final String mongoUrl = "mongodb://" + config.getValue("quarkus.mongodb.hosts", String.class);
 
         mongoClient = MongoClients.create(mongoUrl);
         db = mongoClient.getDatabase("test");

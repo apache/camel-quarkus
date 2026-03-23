@@ -29,7 +29,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -38,15 +38,13 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTest
 @QuarkusTestResource(OdataTestResource.class)
 class Olingo4Test {
-
-    public static final String TEST_SERVICE_BASE_URL = ConfigProvider.getConfig().getValue("olingo4.test.url", String.class);
-
     private static String sessionId;
 
     @BeforeAll
-    public static void beforeAll() throws IOException {
+    public static void beforeAll(Config config) throws IOException {
         // Use the same session id for each request to the demo Olingo4 Service
-        sessionId = getSession();
+        String testServiceBaseUrl = config.getValue("olingo4.test.url", String.class);
+        sessionId = getSession(testServiceBaseUrl);
     }
 
     @Test
@@ -113,12 +111,13 @@ class Olingo4Test {
                 .statusCode(404);
     }
 
-    private static String getSession() throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(TEST_SERVICE_BASE_URL);
-        HttpContext httpContext = new BasicHttpContext();
-        httpClient.execute(httpGet, httpContext);
-        HttpUriRequest currentReq = (HttpUriRequest) httpContext.getAttribute(HttpCoreContext.HTTP_REQUEST);
-        return currentReq.getURI().getPath().split("/")[2];
+    private static String getSession(String testServiceBaseUrl) throws IOException {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet(testServiceBaseUrl);
+            HttpContext httpContext = new BasicHttpContext();
+            httpClient.execute(httpGet, httpContext);
+            HttpUriRequest currentReq = (HttpUriRequest) httpContext.getAttribute(HttpCoreContext.HTTP_REQUEST);
+            return currentReq.getURI().getPath().split("/")[2];
+        }
     }
 }

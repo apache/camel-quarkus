@@ -24,7 +24,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -118,9 +118,9 @@ class ArangodbTest {
     }
 
     @BeforeAll
-    public static void setup() {
-        String host = ConfigProvider.getConfig().getValue("camel.arangodb.host", String.class);
-        Integer port = ConfigProvider.getConfig().getValue("camel.arangodb.port", Integer.class);
+    public static void setup(Config config) {
+        String host = config.getValue("camel.arangodb.host", String.class);
+        Integer port = config.getValue("camel.arangodb.port", Integer.class);
         arangoDb = new ArangoDB.Builder().host(host, port).build();
         arangoDb.createDatabase(DATABASE_NAME);
         ArangoDatabase arangoDatabase = arangoDb.db(DATABASE_NAME);

@@ -24,6 +24,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openapitools.db_control.client.model.IndexModel;
@@ -42,8 +43,8 @@ class PineconeTest {
     private static Pinecone pinecone;
 
     @BeforeAll
-    public static void beforeAll() {
-        pinecone = createPineconeClient();
+    public static void beforeAll(Config config) {
+        pinecone = createPineconeClient(config);
     }
 
     @Test

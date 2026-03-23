@@ -27,7 +27,7 @@ import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -125,8 +125,7 @@ public class HttpTest extends AbstractHttpTest {
         }
     }
 
-    static Stream<Arguments> proxyProviders() {
-        var config = ConfigProvider.getConfig();
+    static Stream<Arguments> proxyProviders(Config config) {
         String host = config.getValue("proxy.host", String.class);
         int actualPort = config.getValue("proxy.port", Integer.class);
         int fakePort = RestAssured.port;

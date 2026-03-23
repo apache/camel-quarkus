@@ -36,7 +36,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pinecone.PineconeVectorDbComponent;
 import org.apache.camel.component.pinecone.PineconeVectorDbConfiguration;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.openapitools.db_control.client.model.IndexModel;
 
 @Path("/pinecone")
@@ -83,8 +83,8 @@ public class PineconeResource {
     }
 
     @Named("pinecone")
-    PineconeVectorDbComponent pineconeVectorDbComponent() {
-        Pinecone client = createPineconeClient();
+    PineconeVectorDbComponent pineconeVectorDbComponent(Config config) {
+        Pinecone client = createPineconeClient(config);
         PineconeVectorDbComponent component = new PineconeVectorDbComponent();
         PineconeVectorDbConfiguration configuration = new PineconeVectorDbConfiguration();
         configuration.setClient(client);
@@ -92,8 +92,8 @@ public class PineconeResource {
         return component;
     }
 
-    static Pinecone createPineconeClient() {
-        String endpoint = ConfigProvider.getConfig().getValue("pinecone.emulator.endpoint", String.class);
+    static Pinecone createPineconeClient(Config config) {
+        String endpoint = config.getValue("pinecone.emulator.endpoint", String.class);
         Pinecone.Builder builder = new Pinecone.Builder("pclocal")
                 .withHost(endpoint)
                 .withTlsEnabled(false);

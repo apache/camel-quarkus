@@ -26,7 +26,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,8 +45,7 @@ class DebeziumMysqlTest extends AbstractDebeziumTest {
     }
 
     @BeforeAll
-    public static void setUp() throws SQLException {
-        Config config = ConfigProvider.getConfig();
+    public static void setUp(Config config) throws SQLException {
         Optional<String> jdbcUrl = config.getOptionalValue(Type.mysql.getPropertyJdbc(), String.class);
 
         try {

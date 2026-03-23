@@ -25,7 +25,7 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.kudu.client.KuduClient;
 import org.apache.kudu.client.KuduException;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -47,8 +47,8 @@ class KuduTest {
     static KuduClient client;
 
     @BeforeAll
-    static void setup() {
-        String authority = ConfigProvider.getConfig().getValue(KUDU_AUTHORITY_CONFIG_KEY, String.class);
+    static void setup(Config config) {
+        String authority = config.getValue(KUDU_AUTHORITY_CONFIG_KEY, String.class);
         client = new KuduClient.KuduClientBuilder(authority).build();
     }
 

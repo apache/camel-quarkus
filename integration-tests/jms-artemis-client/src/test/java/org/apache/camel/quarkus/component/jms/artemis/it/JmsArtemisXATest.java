@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jms.artemis.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +29,10 @@ import static org.hamcrest.core.Is.is;
 @TestProfile(JmsArtemisXAEnabled.class)
 public class JmsArtemisXATest {
     @BeforeAll
-    public static void startRoutes() {
+    public static void startRoutes(Config config) {
         RestAssured.given()
                 // see AbstractMessagingTest#beforeAll
-                .port(ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class))
+                .port(config.getValue("quarkus.http.test-port", Integer.class))
                 .get("/messaging/jms/artemis/routes/start");
     }
 

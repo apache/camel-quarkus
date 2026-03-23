@@ -38,7 +38,6 @@ import io.restassured.path.json.JsonPath;
 import org.apache.camel.component.jira.oauth.JiraOAuthAuthenticationHandler;
 import org.apache.camel.component.jira.oauth.OAuthAsynchronousJiraRestClientFactory;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +51,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 @QuarkusTestResource(JiraTestResource.class)
 public class JiraTest {
-
     private static final String ISSUE_ATTACHMENT = "Camel Quarkus Test Issue Attachment";
     private static final String ISSUE_COMMENT = "Camel Quarkus Test Issue Comment";
     private static final String ISSUE_DESCRIPTION = "Camel Quarkus Test Issue Description";
@@ -60,10 +58,10 @@ public class JiraTest {
     private static final String ISSUE_TYPE = "Task";
     private static final String UPDATED_ISSUE_SUMMARY = "Updated summary";
     private static JiraRestClient REST_CLIENT;
+    Config config;
 
     @BeforeAll
-    public static void beforeAll() {
-        Config config = ConfigProvider.getConfig();
+    public static void beforeAll(Config config) {
         String jiraUrl = config.getValue("camel.component.jira.jira-url", String.class);
         Optional<String> username = config.getOptionalValue("camel.component.jira.username", String.class);
         Optional<String> password = config.getOptionalValue("camel.component.jira.password", String.class);
@@ -459,9 +457,8 @@ public class JiraTest {
         }
     }
 
-    private static JiraRestClient getClient() {
+    private JiraRestClient getClient() {
         if (REST_CLIENT == null) {
-            Config config = ConfigProvider.getConfig();
             String jiraUrl = config.getValue("camel.component.jira.jira-url", String.class);
             Optional<String> username = config.getOptionalValue("camel.component.jira.username", String.class);
             Optional<String> password = config.getOptionalValue("camel.component.jira.password", String.class);

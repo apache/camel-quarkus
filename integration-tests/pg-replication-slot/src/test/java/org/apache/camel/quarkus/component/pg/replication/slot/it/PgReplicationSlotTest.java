@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -46,11 +46,11 @@ class PgReplicationSlotTest {
     private static Connection connection;
 
     @BeforeAll
-    public static void setUp() throws SQLException {
-        String authority = ConfigProvider.getConfig().getValue(PG_AUTHORITY_CFG_KEY, String.class);
-        String dbName = ConfigProvider.getConfig().getValue(PG_DBNAME_CFG_KEY, String.class);
-        String user = ConfigProvider.getConfig().getValue(PG_USER_CFG_KEY, String.class);
-        String password = ConfigProvider.getConfig().getValue(PG_PASSRD_CFG_KEY, String.class);
+    public static void setUp(Config config) throws SQLException {
+        String authority = config.getValue(PG_AUTHORITY_CFG_KEY, String.class);
+        String dbName = config.getValue(PG_DBNAME_CFG_KEY, String.class);
+        String user = config.getValue(PG_USER_CFG_KEY, String.class);
+        String password = config.getValue(PG_PASSRD_CFG_KEY, String.class);
 
         String url = String.format("jdbc:postgresql://%s/%s", authority, dbName);
         Properties props = new Properties();

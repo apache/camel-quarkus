@@ -44,7 +44,6 @@ import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.awaitility.Awaitility;
 import org.eclipse.angus.mail.util.MailConnectException;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -82,9 +81,8 @@ public class MailTest {
             + "${delimiter}--\r\n";
 
     @BeforeAll
-    public static void beforeAll() {
+    public static void beforeAll(Config config) {
         // Configure users
-        Config config = ConfigProvider.getConfig();
         String userJson = String.format("{ \"email\": \"%s\", \"login\": \"%s\", \"password\": \"%s\"}", EMAIL_ADDRESS,
                 USERNAME, PASSWORD);
 
@@ -96,9 +94,8 @@ public class MailTest {
     }
 
     @AfterEach
-    public void afterEach() {
+    public void afterEach(Config config) {
         // Clear mailboxes
-        Config config = ConfigProvider.getConfig();
         RestAssured.given()
                 .post("http://" + config.getValue("mail.host", String.class) + ":"
                         + config.getValue("mail.api.port", Integer.class) + "/api/mail/purge")

@@ -122,27 +122,30 @@ class OpenTelemetryTest {
 
         assertTrue(Long.parseLong(timestamp) > 0);
 
-        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Endpoint -> Bean method -> JDBC query
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 6);
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Endpoint -> JDBC query
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(6, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
-        assertEquals(spans.get(0).get("code.function"), "getConnection");
+        assertEquals(5, spans.size());
 
+        // JDBC SELECT operation span
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(spans.get(0).get("db.operation"), "SELECT");
+
+        // Bean endpoint span
         assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals(spans.get(1).get("db.operation"), "SELECT");
+        assertEquals(spans.get(1).get("camel.uri"), "bean://jdbcQueryBean");
 
+        // Direct endpoint INTERNAL span
         assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
-        assertEquals(spans.get(2).get("camel.uri"), "bean://jdbcQueryBean");
+        assertEquals(spans.get(2).get("camel.uri"), "direct://jdbcQuery");
 
+        // Direct endpoint CLIENT span
         assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
         assertEquals(spans.get(3).get("camel.uri"), "direct://jdbcQuery");
 
-        assertEquals(spans.get(4).get("parentId"), spans.get(5).get("spanId"));
-        assertEquals(spans.get(4).get("camel.uri"), "direct://jdbcQuery");
-
-        assertEquals(spans.get(5).get("parentId"), "0000000000000000");
-        assertEquals(spans.get(5).get(CODE_FUNCTION_NAME.getKey()),
+        // JAX-RS Server span (root)
+        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
+        assertEquals(spans.get(4).get(CODE_FUNCTION_NAME.getKey()),
                 "org.apache.camel.quarkus.component.opentelemetry.it.OpenTelemetryResource.jdbcQuery");
     }
 

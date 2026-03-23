@@ -21,36 +21,40 @@ import java.util.Map;
 import java.util.function.Function;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.strimzi.test.container.StrimziKafkaCluster;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
     protected static final String KAFKA_IMAGE_NAME = ConfigProvider.getConfig().getValue("kafka.container.image", String.class);
+    private StrimziKafkaCluster cluster;
     private StrimziKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
         try {
-            start(name -> new StrimziKafkaContainer(name));
+            start(name -> new StrimziKafkaCluster.StrimziKafkaClusterBuilder()
+                    .withImage(name)
+                    .withContainerCustomizer(c -> c.withLogConsumer(frame -> System.out.print(frame.getUtf8String())))
+                    .build());
             return Collections.singletonMap("camel.component.kafka.brokers", container.getBootstrapServers());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public String start(Function<String, StrimziKafkaContainer> containerSupplier) {
-        container = containerSupplier.apply(KAFKA_IMAGE_NAME);
-        container.withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
-                .waitForRunning()
-                .start();
+    public String start(Function<String, StrimziKafkaCluster> clusterSupplier) {
+        cluster = clusterSupplier.apply(KAFKA_IMAGE_NAME);
+        cluster.start();
+        container = cluster.getBrokers().stream().findFirst().orElseThrow();
         return container.getBootstrapServers();
     }
 
     @Override
     public void stop() {
-        if (container != null) {
+        if (cluster != null) {
             try {
-                container.stop();
+                cluster.stop();
             } catch (Exception e) {
                 // ignored
             }

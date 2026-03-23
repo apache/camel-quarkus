@@ -23,13 +23,16 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.InspectContainerResponse;
+import io.strimzi.test.container.StrimziKafkaCluster;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.util.CollectionHelper;
 import org.jboss.logging.Logger;
+import org.testcontainers.containers.Container;
 import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.MountableFile;
+
+import static io.strimzi.test.container.StrimziKafkaContainer.KAFKA_PORT;
 
 public class KafkaSaslSslTestResource extends KafkaTestResource {
     static final Logger LOG = Logger.getLogger(KafkaSaslSslTestResource.class);
@@ -44,9 +47,76 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
     static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
     static final String KAFKA_TRUSTSTORE_FILE = KAFKA_HOSTNAME + "-truststore.p12";
 
+    private StrimziKafkaCluster cluster;
+    private StrimziKafkaContainer container;
+
     @Override
     public Map<String, String> start() {
-        String bootstrapServers = start(name -> new SaslSslKafkaContainer(name));
+        String protocolMap = "SASL_SSL:SASL_SSL,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT";
+        Map<String, String> config = Map.ofEntries(
+                Map.entry("inter.broker.listener.name", "BROKER1"),
+                Map.entry("listener.security.protocol.map", protocolMap),
+                Map.entry("sasl.enabled.mechanisms", "SCRAM-SHA-512"),
+                Map.entry("sasl.mechanism.inter.broker.protocol", "SCRAM-SHA-512"),
+                Map.entry("ssl.keystore.location", "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE),
+                Map.entry("ssl.keystore.password", KAFKA_KEYSTORE_PASSWORD),
+                Map.entry("ssl.keystore.type", KAFKA_KEYSTORE_TYPE),
+                Map.entry("ssl.truststore.location", "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE),
+                Map.entry("ssl.truststore.password", KAFKA_KEYSTORE_PASSWORD),
+                Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
+                Map.entry("ssl.endpoint.identification.algorithm", ""));
+
+        String setupUsersScript = "#!/bin/bash\n"
+                + "/opt/kafka/bin/kafka-configs.sh"
+                + " --bootstrap-server :9091"
+                + " --alter --add-config 'SCRAM-SHA-512=[iterations=8192,password=" + ALICE_PASSWORD
+                + "]' --entity-type users --entity-name alice";
+
+        cluster = new StrimziKafkaCluster.StrimziKafkaClusterBuilder()
+                .withImage(KAFKA_IMAGE_NAME)
+                .withAdditionalKafkaConfiguration(config)
+                .withBootstrapServers(c -> String.format("SASL_SSL://%s:%s", c.getHost(), c.getMappedPort(KAFKA_PORT)))
+                .withContainerCustomizer(container -> {
+                    container.withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
+                    container.withCreateContainerCmdModifier(new Consumer<CreateContainerCmd>() {
+                        @Override
+                        public void accept(CreateContainerCmd createContainerCmd) {
+                            createContainerCmd.withName(KAFKA_BROKER_HOSTNAME);
+                            createContainerCmd.withHostName(KAFKA_BROKER_HOSTNAME);
+                        }
+                    });
+                    container.withEnv("KAFKA_HEAP_OPTS", "-Xmx512m -Xms256m");
+                    container.withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
+                    container.withCopyFileToContainer(
+                            MountableFile.forClasspathResource("config/kafka_server_jaas.conf"),
+                            "/etc/kafka/kafka_server_jaas.conf");
+                    Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
+                            .forEach(keyStoreFile -> {
+                                container.withCopyFileToContainer(
+                                        MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
+                                        "/etc/kafka/secrets/" + keyStoreFile);
+                            });
+                    container.withCopyToContainer(
+                            Transferable.of(setupUsersScript.getBytes(StandardCharsets.UTF_8), 0775),
+                            "/setup-users.sh");
+                })
+                .build();
+        cluster.start();
+        container = cluster.getBrokers().stream().findFirst().orElseThrow();
+
+        // Execute setup script after container starts
+        try {
+            Container.ExecResult execResult = container.execInContainer("/setup-users.sh");
+            if (execResult.getExitCode() != 0) {
+                LOG.warnf("Execution of setup-users.sh failed with exit code %d", execResult.getExitCode());
+                LOG.warnf("STDOUT: %s", execResult.getStdout());
+                LOG.warnf("STDERR: %s", execResult.getStderr());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        String bootstrapServers = container.getBootstrapServers();
 
         String jaasConfig = "org.apache.kafka.common.security.scram.ScramLoginModule required "
                 + "username=\"alice\" "
@@ -67,87 +137,13 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
                 "camel.component.kafka.ssl-truststore-type", KAFKA_KEYSTORE_TYPE);
     }
 
-    // KafkaContainer does not support SASL SSL OOTB so we need some customizations
-    static final class SaslSslKafkaContainer extends StrimziKafkaContainer {
-        SaslSslKafkaContainer(final String dockerImageName) {
-            super(dockerImageName);
-        }
-
-        @Override
-        public String getBootstrapServers() {
-            return String.format("SASL_SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
-        }
-
-        @Override
-        protected void configure() {
-            super.configure();
-
-            String protocolMap = "SASL_SSL:SASL_SSL,BROKER1:PLAINTEXT,CONTROLLER:PLAINTEXT";
-            Map<String, String> config = Map.ofEntries(
-                    Map.entry("inter.broker.listener.name", "BROKER1"),
-                    Map.entry("listener.security.protocol.map", protocolMap),
-                    Map.entry("sasl.enabled.mechanisms", "SCRAM-SHA-512"),
-                    Map.entry("sasl.mechanism.inter.broker.protocol", "SCRAM-SHA-512"),
-                    Map.entry("ssl.keystore.location", "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE),
-                    Map.entry("ssl.keystore.password", KAFKA_KEYSTORE_PASSWORD),
-                    Map.entry("ssl.keystore.type", KAFKA_KEYSTORE_TYPE),
-                    Map.entry("ssl.truststore.location", "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE),
-                    Map.entry("ssl.truststore.password", KAFKA_KEYSTORE_PASSWORD),
-                    Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
-                    Map.entry("ssl.endpoint.identification.algorithm", ""));
-
-            withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
-            withCreateContainerCmdModifier(new Consumer<CreateContainerCmd>() {
-                @Override
-                public void accept(CreateContainerCmd createContainerCmd) {
-                    createContainerCmd.withName(KAFKA_BROKER_HOSTNAME);
-                    createContainerCmd.withHostName(KAFKA_BROKER_HOSTNAME);
-                }
-            });
-            withBrokerId(1);
-            withNodeId(1);
-            withKafkaConfigurationMap(config);
-            withEnv("KAFKA_HEAP_OPTS", "-Xmx512m -Xms256m");
-            withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
-        }
-
-        @Override
-        protected void containerIsStarting(InspectContainerResponse containerInfo, boolean reused) {
-            super.containerIsStarting(containerInfo, reused);
-            copyFileToContainer(
-                    MountableFile.forClasspathResource("config/kafka_server_jaas.conf"),
-                    "/etc/kafka/kafka_server_jaas.conf");
-
-            Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
-                    .forEach(keyStoreFile -> {
-                        copyFileToContainer(
-                                MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
-                                "/etc/kafka/secrets/" + keyStoreFile);
-                    });
-
-            String setupUsersScript = "#!/bin/bash\n"
-                    + "/opt/kafka/bin/kafka-configs.sh"
-                    + " --bootstrap-server :" + INTER_BROKER_LISTENER_PORT
-                    + " --alter --add-config 'SCRAM-SHA-512=[iterations=8192,password=" + ALICE_PASSWORD
-                    + "]' --entity-type users --entity-name alice";
-
-            copyFileToContainer(
-                    Transferable.of(setupUsersScript.getBytes(StandardCharsets.UTF_8), 0775),
-                    "/setup-users.sh");
-        }
-
-        @Override
-        protected void containerIsStarted(InspectContainerResponse containerInfo) {
-            super.containerIsStarted(containerInfo);
+    @Override
+    public void stop() {
+        if (cluster != null) {
             try {
-                ExecResult execResult = execInContainer("/setup-users.sh");
-                if (execResult.getExitCode() != 0) {
-                    LOG.warnf("Execution of setup-users.sh failed with exit code %d", execResult.getExitCode());
-                    LOG.warnf("STDOUT: %s", execResult.getStdout());
-                    LOG.warnf("STDERR: %s", execResult.getStderr());
-                }
+                cluster.stop();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                // Ignored
             }
         }
     }

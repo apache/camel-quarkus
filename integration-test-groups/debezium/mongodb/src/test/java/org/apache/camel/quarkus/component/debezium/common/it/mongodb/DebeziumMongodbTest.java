@@ -31,7 +31,6 @@ import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.bson.Document;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,9 +59,7 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
     }
 
     @BeforeAll
-    public static void setUp() throws SQLException {
-        Config config = ConfigProvider.getConfig();
-
+    public static void setUp(Config config) {
         final Optional<String> mongoUrl = config.getOptionalValue(Type.mongodb.getPropertyJdbc(), String.class);
 
         if (mongoUrl.isPresent()) {

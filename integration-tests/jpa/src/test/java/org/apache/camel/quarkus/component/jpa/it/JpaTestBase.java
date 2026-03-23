@@ -25,7 +25,6 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -42,10 +41,8 @@ public class JpaTestBase {
     static final String[] FRUITS = new String[] { "Orange", "Lemon", "Plum" };
 
     @BeforeAll
-    public static void storeFruits() {
-        final Config config = ConfigProvider.getConfig();
-        int port = config.getValue("quarkus.http.test-port", int.class);
-        RestAssured.port = port;
+    public static void storeFruits(Config config) {
+        RestAssured.port = config.getValue("quarkus.http.test-port", int.class);
         for (String fruit : FRUITS) {
             RestAssured.given()
                     .contentType(ContentType.JSON)
