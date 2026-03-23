@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -30,6 +31,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
@@ -47,11 +49,23 @@ public class Aws2SqsResource extends BaseAws2Resource {
     @ConfigProperty(name = "aws-sqs.queue-name")
     String queueName;
 
+    @ConfigProperty(name = "aws-sqs.batch-consumer-name")
+    String batchConsumerQueueName;
+
+    @ConfigProperty(name = "aws-sqs.kms-key-id")
+    Optional<String> kmsKeyId;
+
     @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    BatchConsumerMessageCollector batchConsumerMessageCollector;
+
+    @Inject
+    SelectorMessageCollector selectorMessageCollector;
 
     public Aws2SqsResource() {
         super("sqs");
@@ -167,6 +181,74 @@ public class Aws2SqsResource extends BaseAws2Resource {
                         uri,
                         msg,
                         String.class);
+    }
+
+    @Path("batch-consumer/send")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response sendToBatchConsumerQueue(String message) {
+        producerTemplate.sendBody(componentUri(batchConsumerQueueName), message);
+        return Response.ok().build();
+    }
+
+    @Path("batch-consumer/messages")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getBatchConsumerMessages() {
+        return batchConsumerMessageCollector.getMessages();
+    }
+
+    @Path("batch-consumer/messages")
+    @DELETE
+    public Response clearBatchConsumerMessages() {
+        batchConsumerMessageCollector.clear();
+        return Response.ok().build();
+    }
+
+    @Path("kms/send/{queueName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response sendToKmsQueue(@PathParam("queueName") String kmsQueueName, String message) {
+        String kmsId = kmsKeyId.orElseThrow(() -> new IllegalStateException("aws-sqs.kms-key-id not configured"));
+        String uri = String.format("aws2-sqs://%s?autoCreateQueue=true&serverSideEncryptionEnabled=true&kmsMasterKeyId=%s",
+                kmsQueueName, kmsId);
+        producerTemplate.sendBody(uri, message);
+        return Response.ok().build();
+    }
+
+    @Path("kms/receive/{queueName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String receiveFromKmsQueue(@PathParam("queueName") String kmsQueueName) {
+        String kmsId = kmsKeyId.orElseThrow(() -> new IllegalStateException("aws-sqs.kms-key-id not configured"));
+        String uri = String.format(
+                "aws2-sqs://%s?autoCreateQueue=true&serverSideEncryptionEnabled=true&kmsMasterKeyId=%s&deleteAfterRead=true",
+                kmsQueueName, kmsId);
+        return consumerTemplate.receiveBody(uri, 10000, String.class);
+    }
+
+    @Path("selector/send/{queueName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response sendWithSelectorAttribute(@PathParam("queueName") String targetQueueName,
+            @QueryParam("filterType") String filterType, String message) {
+        producerTemplate.sendBodyAndHeader(componentUri(targetQueueName), message,
+                SelectorRouteBuilder.FILTER_ATTRIBUTE_NAME, filterType);
+        return Response.ok().build();
+    }
+
+    @Path("selector/messages")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getSelectorMessages() {
+        return selectorMessageCollector.getMessages();
+    }
+
+    @Path("selector/messages")
+    @DELETE
+    public Response clearSelectorMessages() {
+        selectorMessageCollector.clear();
+        return Response.ok().build();
     }
 
     private String componentUri() {

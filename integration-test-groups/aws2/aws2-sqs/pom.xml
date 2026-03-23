@@ -70,6 +70,11 @@
             <artifactId>awaitility</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>kms</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>

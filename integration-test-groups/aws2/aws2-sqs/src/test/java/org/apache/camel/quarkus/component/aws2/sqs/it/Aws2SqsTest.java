@@ -23,6 +23,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -36,11 +37,13 @@ import io.restassured.response.Response;
 import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -258,6 +261,107 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
                 .extract()
                 .body()
                 .asString());
+    }
+
+    @Test
+    void sqsBatchConsumer() {
+        // clean previously collected messages
+        RestAssured.delete("/aws2-sqs/batch-consumer/messages").then().statusCode(200);
+
+        final List<String> messages = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            String msg = "batch-consumer-" + UUID.randomUUID().toString().replace("-", "");
+            messages.add(msg);
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(msg)
+                    .post("/aws2-sqs/batch-consumer/send")
+                    .then()
+                    .statusCode(200);
+        }
+
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(() -> {
+            List<?> received = RestAssured.get("/aws2-sqs/batch-consumer/messages")
+                    .then().statusCode(200).extract().body().as(List.class);
+            return received.size() >= messages.size();
+        });
+
+        List<?> received = RestAssured.get("/aws2-sqs/batch-consumer/messages")
+                .then().statusCode(200).extract().body().as(List.class);
+        Assertions.assertEquals(messages.size(), received.size());
+        Assertions.assertTrue(received.containsAll(messages));
+    }
+
+    @Test
+    void sqsKmsEncryption() {
+        Assumptions.assumeTrue(localStack, "KMS test only runs on LocalStack");
+
+        final String kmsQueueName = "camel-quarkus-kms-"
+                + RandomStringUtils.secure().nextAlphanumeric(10).toLowerCase(Locale.ROOT);
+        final String msg = "kms-msg-" + UUID.randomUUID().toString().replace("-", "");
+
+        try {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(msg)
+                    .post("/aws2-sqs/kms/send/" + kmsQueueName)
+                    .then()
+                    .statusCode(200);
+
+            Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(60, TimeUnit.SECONDS).until(() -> {
+                ExtractableResponse<Response> resp = RestAssured.get("/aws2-sqs/kms/receive/" + kmsQueueName)
+                        .then().extract();
+                return resp.statusCode() == 200 && msg.equals(resp.body().asString());
+            });
+        } finally {
+            deleteQueue(kmsQueueName);
+        }
+    }
+
+    @Test
+    void sqsJmsLikeSelector() {
+        final String selectorQueueName = ConfigProvider.getConfig().getValue("aws-sqs.selector-name", String.class);
+
+        // clean previously collected messages
+        RestAssured.delete("/aws2-sqs/selector/messages").then().statusCode(200);
+        purgeQueue(selectorQueueName);
+
+        final String selectedMsg = "selected-" + UUID.randomUUID().toString().replace("-", "");
+        final String rejectedMsg = "rejected-" + UUID.randomUUID().toString().replace("-", "");
+
+        // send message that matches the filter (filter-type=selected)
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(selectedMsg)
+                .queryParam("filterType", SelectorRouteBuilder.FILTER_ATTRIBUTE_SELECTED_VALUE)
+                .post("/aws2-sqs/selector/send/" + selectorQueueName)
+                .then()
+                .statusCode(200);
+
+        // send message that does not match the filter (filter-type=rejected)
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(rejectedMsg)
+                .queryParam("filterType", "rejected")
+                .post("/aws2-sqs/selector/send/" + selectorQueueName)
+                .then()
+                .statusCode(200);
+
+        // wait for the selected message to be consumed
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(60, TimeUnit.SECONDS).until(() -> {
+            List<?> collected = RestAssured.get("/aws2-sqs/selector/messages")
+                    .then().statusCode(200).extract().body().as(List.class);
+            return collected.contains(selectedMsg);
+        });
+
+        // verify only the selected message was collected
+        List<?> collected = RestAssured.get("/aws2-sqs/selector/messages")
+                .then().statusCode(200).extract().body().as(List.class);
+        Assertions.assertTrue(collected.contains(selectedMsg), "Selected message should have been collected");
+        Assertions.assertFalse(collected.contains(rejectedMsg), "Rejected message should not have been collected");
+
+        // purge rejected messages remaining in queue
+        purgeQueue(selectorQueueName);
     }
 
     @Override

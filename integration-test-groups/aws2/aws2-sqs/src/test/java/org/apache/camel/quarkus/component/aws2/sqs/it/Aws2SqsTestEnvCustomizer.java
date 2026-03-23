@@ -22,6 +22,8 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
 import org.apache.camel.quarkus.test.support.aws2.Service;
 import org.apache.commons.lang3.RandomStringUtils;
+import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
@@ -32,6 +34,11 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
+        return new Service[] { Service.SQS, Service.KMS };
+    }
+
+    @Override
+    public Service[] exportCredentialsForLocalstackServices() {
         return new Service[] { Service.SQS };
     }
 
@@ -49,6 +56,14 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
         final String delayedQueueName = "camel-quarkus-delayed-"
                 + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.delayed-name", delayedQueueName);
+
+        final String batchConsumerQueueName = "camel-quarkus-batch-"
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
+        envContext.property("aws-sqs.batch-consumer-name", batchConsumerQueueName);
+
+        final String selectorQueueName = "camel-quarkus-selector-"
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
+        envContext.property("aws-sqs.selector-name", selectorQueueName);
 
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
         {
@@ -70,10 +85,32 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
                             .build())
                     .queueUrl();
 
+            final String batchConsumerUrl = sqsClient.createQueue(
+                    CreateQueueRequest.builder()
+                            .queueName(batchConsumerQueueName)
+                            .build())
+                    .queueUrl();
+
+            final String selectorUrl = sqsClient.createQueue(
+                    CreateQueueRequest.builder()
+                            .queueName(selectorQueueName)
+                            .build())
+                    .queueUrl();
+
+            if (envContext.isLocalStack()) {
+                final KmsClient kmsClient = envContext.client(Service.KMS, KmsClient::builder);
+                final String kmsKeyId = kmsClient
+                        .createKey(CreateKeyRequest.builder().description("camel-quarkus-sqs-test").build())
+                        .keyMetadata().keyId();
+                envContext.property("aws-sqs.kms-key-id", kmsKeyId);
+            }
+
             envContext.closeable(() -> {
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build());
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(failingUrl).build());
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(deadletterUrl).build());
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(batchConsumerUrl).build());
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(selectorUrl).build());
 
                 try {
                     String url = sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(delayedQueueName).build())
