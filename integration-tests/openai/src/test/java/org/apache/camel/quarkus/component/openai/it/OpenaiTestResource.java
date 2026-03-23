@@ -48,7 +48,18 @@ public class OpenaiTestResource extends WireMockTestResourceLifecycleManager {
         String wiremockUrl = configuration.get("wiremock.url");
         if (ObjectHelper.isNotEmpty(wiremockUrl)) {
             configuration.put("camel.component.openai.baseUrl", wiremockUrl);
+            configuration.put("camel.component.openai-embeddings.baseUrl", wiremockUrl);
+        } else {
+            configuration.put("camel.component.openai.baseUrl", envOrDefault(OPENAI_ENV_CHAT_BASE_URL, OPENAI_API_URL));
+            configuration.put("camel.component.openai-embeddings.baseUrl",
+                    envOrDefault(OPENAI_ENV_EMBEDDING_BASE_URL, OPENAI_API_URL));
         }
+        configuration.put("camel.component.openai.model", envOrDefault(OPENAI_ENV_CHAT_MODEL, "gpt-5"));
+        configuration.put("camel.component.openai.apiKey", envOrDefault(OPENAI_ENV_CHAT_API_KEY, "test-key"));
+        configuration.put("camel.component.openai-embeddings.embedding-model",
+                envOrDefault(OPENAI_ENV_EMBEDDING_MODEL, "text-embedding-3-small"));
+        configuration.put("camel.component.openai-embeddings.apiKey", envOrDefault(OPENAI_ENV_EMBEDDING_API_KEY, "test-key"));
+
         return configuration;
     }
 
