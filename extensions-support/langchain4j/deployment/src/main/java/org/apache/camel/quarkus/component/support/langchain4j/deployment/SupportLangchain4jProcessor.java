@@ -242,7 +242,7 @@ class SupportLangchain4jProcessor {
                 .filter(classInfo -> classInfo.name().toString().startsWith("dev.langchain4j"));
     }
 
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep
     void indexDjlDependencies(
             CurateOutcomeBuildItem curateOutcome,
             BuildProducer<IndexDependencyBuildItem> indexDependency) {
@@ -259,7 +259,7 @@ class SupportLangchain4jProcessor {
         }
     }
 
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep
     void nativeImageResources(
             CurateOutcomeBuildItem curateOutcome,
             BuildProducer<NativeImageResourcePatternsBuildItem> nativeImageResourcePattern,
@@ -313,7 +313,7 @@ class SupportLangchain4jProcessor {
         }
     }
 
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep
     void jniRuntimeSupport(
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<JniRuntimeAccessBuildItem> jniRuntimeAccess) {
@@ -348,7 +348,7 @@ class SupportLangchain4jProcessor {
         reflectiveClass.produce(ReflectiveClassBuildItem.builder("opennlp.tools.sentdetect.SentenceDetectorFactory").build());
     }
 
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep
     void runtimeInitializedClasses(
             CombinedIndexBuildItem combinedIndex,
             BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
