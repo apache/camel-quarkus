@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@QuarkusTestResource(value = OpenaiEmbeddingTestResource.class, restrictToAnnotatedClass = true)
+@QuarkusTestResource(OpenaiTestResource.class)
 @QuarkusTest
 class OpenaiEmbeddingTest {
 

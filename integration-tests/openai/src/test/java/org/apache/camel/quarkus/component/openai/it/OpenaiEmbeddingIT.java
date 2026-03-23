@@ -16,20 +16,8 @@
  */
 package org.apache.camel.quarkus.component.openai.it;
 
-import java.util.Map;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-public class OpenaiEmbeddingTestResource extends OpenaiTestResource {
-
-    @Override
-    public Map<String, String> start() {
-        Map<String, String> conf = super.start();
-        conf.put("camel.component.openai.embedding-model",
-                envOrDefault(OPENAI_ENV_EMBEDDING_MODEL, "text-embedding-3-small"));
-        conf.put("camel.component.openai.apiKey", envOrDefault(OPENAI_ENV_EMBEDDING_API_KEY, "test-key"));
-
-        if (conf.get("camel.component.openai.baseUrl") == null) {
-            conf.put("camel.component.openai.baseUrl", envOrDefault(OPENAI_ENV_EMBEDDING_BASE_URL, OPENAI_API_URL));
-        }
-        return conf;
-    }
+@QuarkusIntegrationTest
+public class OpenaiEmbeddingIT extends OpenaiEmbeddingTest {
 }
