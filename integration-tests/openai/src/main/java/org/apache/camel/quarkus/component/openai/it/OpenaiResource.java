@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.openai.it;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -32,14 +34,17 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.openai.OpenAIComponent;
 import org.apache.camel.component.openai.OpenAIConstants;
 import org.apache.camel.util.ObjectHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/openai")
 @ApplicationScoped
@@ -165,5 +170,19 @@ public class OpenaiResource {
         }
 
         return producerTemplate.requestBodyAndHeaders("direct:chat", chatMessageContent, headers, String.class);
+    }
+
+    @Path("/configProperty/{propertyName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response configProperty(@PathParam("propertyName") String propertyName) throws Exception {
+        String propertyValue = ConfigProvider.getConfig().getOptionalValue(propertyName, String.class).orElse(null);
+        return Response.ok(propertyValue).location(new URI("https://camel.apache.org/")).build();
+    }
+
+    @Produces
+    @Named("openai-embeddings")
+    public OpenAIComponent openAIComponentEmbeddings() {
+        return new OpenAIComponent();
     }
 }

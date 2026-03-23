@@ -35,6 +35,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.camel.util.FileUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assumptions;
@@ -47,7 +48,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@QuarkusTestResource(value = OpenaiChatTestResource.class, restrictToAnnotatedClass = true)
+@QuarkusTestResource(OpenaiTestResource.class)
 @QuarkusTest
 class OpenaiChatTest {
 
@@ -71,9 +72,15 @@ class OpenaiChatTest {
 
     @Test
     void chatWithImage() throws IOException {
+        String wireMockUrl = RestAssured.get("/openai/configProperty/wiremock.url")
+                .then()
+                .statusCode(200).extract().body().asString();
+        String openaiUrl = RestAssured.get("/openai/configProperty/camel.component.openai.baseUrl")
+                .then()
+                .statusCode(200).extract().body().asString();
+        // run image test only on openai model or on wiremock
         Assumptions.assumeTrue(
-                OpenaiChatTestResource.OPENAI_API_URL.equals(System.getenv(OpenaiChatTestResource.OPENAI_ENV_CHAT_BASE_URL))
-                        || System.getProperty("camel.component.openai.baseUrl") == null,
+                OpenaiTestResource.OPENAI_API_URL.equals(openaiUrl) || StringUtils.isNotEmpty(wireMockUrl),
                 "Needs model which support image operations.");
         Path path = Paths.get("target/camel-log.png");
 
