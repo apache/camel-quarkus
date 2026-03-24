@@ -36,6 +36,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @TestCertificates(certificates = {
@@ -100,7 +102,9 @@ public class HttpTest extends AbstractHttpTest {
 
     @ParameterizedTest
     @MethodSource("proxyProviders")
-    void testNonProxyRouting(String nonProxyHosts, int proxyPort, String proxyHost, int status, String expectedBody) {
+    void testNonProxyRouting(String nonProxyHosts, int proxyPort, String proxyHost, int status, String expectedBody,
+            boolean proxyShouldBeInvoked) {
+        int before = getProxyInvocations();
         var response = RestAssured.given()
                 .queryParam("non-proxy-hosts", nonProxyHosts)
                 .queryParam("proxy-port", proxyPort)
@@ -110,9 +114,14 @@ public class HttpTest extends AbstractHttpTest {
                 .then()
                 .statusCode(status);
 
-        // Only check the body if an expected value was provided and not null
-        if (expectedBody != null) {
-            response.body("metadata.groupId", is(expectedBody));
+        response.body("metadata.groupId", is(expectedBody));
+
+        int after = getProxyInvocations();
+
+        if (proxyShouldBeInvoked) {
+            assertTrue(after > before, "Proxy count should have increased. Before: " + before + ", after: " + after);
+        } else {
+            assertEquals(after, before, "Proxy invocation count should be the same.");
         }
     }
 
@@ -124,9 +133,9 @@ public class HttpTest extends AbstractHttpTest {
         String expectedGroupId = "org.apache.camel.quarkus";
 
         return Stream.of(
-                arguments("repo.maven.apache.org", actualPort, host, 200, expectedGroupId),
-                arguments("*.apache.org", fakePort, host, 200, expectedGroupId),
-                arguments("*localhost*", fakePort, host, 500, null));
+                arguments("repo.maven.apache.org", actualPort, host, 200, expectedGroupId, false),
+                arguments("*.apache.org", fakePort, host, 200, expectedGroupId, false),
+                arguments("*localhost*", actualPort, host, 200, expectedGroupId, true));
     }
 
 }
