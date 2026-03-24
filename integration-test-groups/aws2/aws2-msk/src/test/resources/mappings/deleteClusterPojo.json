@@ -1,0 +1,16 @@
+{
+  "scenarioName": "clusterDeletion",
+  "requiredScenarioState": "FirstDeleted",
+  "newScenarioState": "BothDeleted",
+  "request": {
+    "method": "DELETE",
+    "urlPathPattern": "/v1/clusters/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-pojo-test-cluster/def-456\",\"state\":\"DELETING\"}"
+  }
+}

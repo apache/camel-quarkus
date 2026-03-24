@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/v1/clusters/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterInfo\":{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-test-cluster/abc-123\",\"clusterName\":\"cq-test-cluster\",\"state\":\"ACTIVE\",\"numberOfBrokerNodes\":1}}"
+  }
+}

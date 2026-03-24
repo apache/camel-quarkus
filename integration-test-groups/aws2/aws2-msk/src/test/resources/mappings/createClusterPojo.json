@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/clusters",
+    "bodyPatterns": [
+      {
+        "contains": "cq-pojo-test-cluster"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-pojo-test-cluster/def-456\",\"clusterName\":\"cq-pojo-test-cluster\",\"state\":\"CREATING\"}"
+  }
+}

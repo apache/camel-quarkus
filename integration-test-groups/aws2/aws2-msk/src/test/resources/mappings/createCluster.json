@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/clusters",
+    "bodyPatterns": [
+      {
+        "contains": "cq-test-cluster"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-test-cluster/abc-123\",\"clusterName\":\"cq-test-cluster\",\"state\":\"CREATING\"}"
+  }
+}

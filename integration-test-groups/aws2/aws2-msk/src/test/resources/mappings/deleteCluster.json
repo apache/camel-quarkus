@@ -1,0 +1,16 @@
+{
+  "scenarioName": "clusterDeletion",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "FirstDeleted",
+  "request": {
+    "method": "DELETE",
+    "urlPathPattern": "/v1/clusters/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-test-cluster/abc-123\",\"state\":\"DELETING\"}"
+  }
+}

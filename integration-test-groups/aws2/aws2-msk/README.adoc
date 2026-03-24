@@ -1,0 +1,40 @@
+= AWS MSK tests
+
+By default the tests run in WireMock playback mode using pre-recorded mappings from `src/test/resources/mappings/`.
+
+NOTE: Amazon MSK is not supported by LocalStack community version, so the `Aws2TestEnvCustomizer` SPI (used by other AWS modules to start a LocalStack container) cannot be used here. WireMock is used instead to simulate the MSK API in the default (non-real AWS) test mode.
+
+== Running against real AWS
+
+Refer to the xref:../README.adoc[AWS 2 integration tests README] for general instructions on how to set up AWS credentials.
+
+The AWS credentials must have the following IAM permissions:
+
+* `kafka:ListClusters`
+* `kafka:CreateCluster`
+* `kafka:DescribeCluster`
+* `kafka:DeleteCluster`
+
+=== Prerequisites for real AWS environment
+
+The following environment variables are required when running against a real AWS account:
+
+[source,shell]
+----
+# Provide at least 2 subnet IDs from different Availability Zones in your VPC
+export AWS_MSK_CLIENT_SUBNETS=<subnet-id-1>,<subnet-id-2>
+# Provide a currently supported MSK Kafka version
+export AWS_MSK_KAFKA_VERSION=3.6.0
+----
+
+NOTE: The number of broker nodes is automatically set to match the number of subnets provided.
+
+=== Running tests directly against real AWS
+
+[source,shell]
+----
+export AWS_ACCESS_KEY=<your-access-key-id>
+export AWS_SECRET_KEY=<your-secret-access-key>
+export AWS_REGION=us-east-1
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+----

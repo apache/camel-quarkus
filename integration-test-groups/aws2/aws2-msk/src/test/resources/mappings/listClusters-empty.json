@@ -1,0 +1,15 @@
+{
+  "scenarioName": "clusterDeletion",
+  "requiredScenarioState": "BothDeleted",
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/clusters"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterInfoList\":[]}"
+  }
+}

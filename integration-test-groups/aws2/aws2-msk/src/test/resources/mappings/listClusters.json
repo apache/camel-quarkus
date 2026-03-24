@@ -1,0 +1,15 @@
+{
+  "scenarioName": "clusterDeletion",
+  "requiredScenarioState": "Started",
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/clusters"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"clusterInfoList\":[{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-test-cluster/abc-123\",\"clusterName\":\"cq-test-cluster\",\"state\":\"ACTIVE\"},{\"clusterArn\":\"arn:aws:kafka:us-east-1:123456789:cluster/cq-pojo-test-cluster/def-456\",\"clusterName\":\"cq-pojo-test-cluster\",\"state\":\"ACTIVE\"}]}"
+  }
+}
