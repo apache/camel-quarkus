@@ -25,6 +25,7 @@ import static org.apache.camel.quarkus.component.http.common.AbstractHttpResourc
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_NO_ADMIN;
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_NO_ADMIN_PASSWORD;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractHttpTest {
     public abstract String component();
@@ -108,6 +109,7 @@ public abstract class AbstractHttpTest {
 
     @Test
     public void proxyServer() {
+        int before = getProxyInvocations();
         RestAssured
                 .given()
                 .when()
@@ -117,9 +119,23 @@ public abstract class AbstractHttpTest {
                 .body(
                         "metadata.groupId", is("org.apache.camel.quarkus"),
                         "metadata.artifactId", is("camel-quarkus-" + component()));
+        int after = getProxyInvocations();
+        assertTrue(after > before, "Proxy count should have increased. Before: " + before + ", after: " + after);
     }
 
     protected Integer getPort(String configKey) {
         return ConfigProvider.getConfig().getValue(configKey, Integer.class);
+    }
+
+    protected int getProxyInvocations() {
+        String proxyHost = ConfigProvider.getConfig().getValue("proxy.host", String.class);
+        int proxyPort = getPort("proxy.port");
+        String count = RestAssured.given()
+                .baseUri("http://" + proxyHost)
+                .port(proxyPort)
+                .get("/proxy-status")
+                .then()
+                .extract().asString();
+        return Integer.parseInt(count);
     }
 }

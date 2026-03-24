@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.vertx.core.Handler;
@@ -43,6 +44,8 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final String KEYSTORE_NAME = "localhost";
     public static final String KEYSTORE_PASSWORD = "localhost-keystore-password";
+
+    public static final AtomicInteger proxyInvocationCount = new AtomicInteger(0);
 
     private ProxyServer server;
 
@@ -115,6 +118,14 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
 
         @Override
         public void handle(HttpServerRequest httpServerRequest) {
+            // If the test asks for status, return the count
+            if (httpServerRequest.path().equals("/proxy-status")) {
+                httpServerRequest.response().end(String.valueOf(proxyInvocationCount.get()));
+                return;
+            }
+            // This only increments if the request is NOT for /proxy-status
+            proxyInvocationCount.incrementAndGet();
+
             String authorization = httpServerRequest.getHeader("Proxy-Authorization");
             HttpServerResponse response = httpServerRequest.response();
             if (httpServerRequest.method().equals(HttpMethod.CONNECT) && authorization == null) {
