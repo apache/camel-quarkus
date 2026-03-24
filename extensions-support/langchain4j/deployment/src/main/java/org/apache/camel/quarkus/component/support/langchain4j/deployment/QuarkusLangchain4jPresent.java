@@ -18,11 +18,13 @@ package org.apache.camel.quarkus.component.support.langchain4j.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import static org.apache.camel.quarkus.component.support.langchain4j.deployment.SupportQuarkusLangchain4jProcessor.REGISTER_AI_SERVICES_DOTNAME;
+
 public class QuarkusLangchain4jPresent implements BooleanSupplier {
     @Override
     public boolean getAsBoolean() {
         try {
-            Thread.currentThread().getContextClassLoader().loadClass("io.quarkiverse.langchain4j.RegisterAiService");
+            Thread.currentThread().getContextClassLoader().loadClass(REGISTER_AI_SERVICES_DOTNAME.toString());
             return true;
         } catch (ClassNotFoundException e) {
             return false;
