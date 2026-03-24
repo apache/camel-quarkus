@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-json-patch
 cqArtifactIdBase: json-patch
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 2.7.0
 cqNativeSince: n/a
 cqCamelPartName: json-patch
