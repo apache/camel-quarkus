@@ -23,6 +23,7 @@ import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -32,15 +33,26 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
+import org.jboss.logging.Logger;
+
+import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
 
 /**
  * Build steps required only when Quarkus LangChain4j is detected.
  */
 @BuildSteps(onlyIf = QuarkusLangchain4jPresent.class)
 class SupportQuarkusLangchain4jProcessor {
+
+    public static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName
+            .createSimple("io.quarkiverse.langchain4j.RegisterAiService");
+
+    private static final Logger LOG = Logger.getLogger(SupportQuarkusLangchain4jProcessor.class);
+
     @BuildStep
     SystemPropertyBuildItem enforceJaxRsHttpClient() {
         return new SystemPropertyBuildItem("langchain4j.http.clientBuilderFactory",
@@ -84,5 +96,21 @@ class SupportQuarkusLangchain4jProcessor {
                         throw new RuntimeException(e);
                     }
                 });
+    }
+
+    @BuildStep
+    void markAiServicesAsUnremovable(
+            CombinedIndexBuildItem indexBuildItem,
+            BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
+        LOG.debug("Discovering classes annotated with @RegisterAiService to mark implementation beans as unremovable");
+
+        for (AnnotationInstance instance : indexBuildItem.getIndex().getAnnotations(REGISTER_AI_SERVICES_DOTNAME)) {
+            if (instance.target().kind() == AnnotationTarget.Kind.CLASS) {
+                String declarativeAiServiceClassName = instance.target().asClass().name().toString();
+                LOG.debugf("Marking Quarkus Ai service implementation class for %s as unremovable",
+                        declarativeAiServiceClassName);
+                unremovableBeans.produce(beanClassNames(declarativeAiServiceClassName + "$$QuarkusImpl"));
+            }
+        }
     }
 }

@@ -14,20 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.langchain4j.agent;
 
-import java.util.function.BooleanSupplier;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.builder.RouteBuilder;
 
-import static org.apache.camel.quarkus.component.support.langchain4j.deployment.SupportQuarkusLangchain4jProcessor.REGISTER_AI_SERVICES_DOTNAME;
+@ApplicationScoped
+public class Langchain4jAgentBeanBindingQl4jRoutes extends RouteBuilder {
 
-public class QuarkusLangchain4jPresent implements BooleanSupplier {
     @Override
-    public boolean getAsBoolean() {
-        try {
-            Thread.currentThread().getContextClassLoader().loadClass(REGISTER_AI_SERVICES_DOTNAME.toString());
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+    public void configure() {
+
+        from("direct:ai-service-should-be-resolvable-by-interface")
+                .bean(AiServiceResolvedByInterface.class);
+
+        from("direct:ai-service-should-be-resolvable-by-name")
+                .bean("aiServiceResolvedByName");
     }
 }
