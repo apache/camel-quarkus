@@ -8784,24 +8784,24 @@
         <version>4.1.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.42.22 -->

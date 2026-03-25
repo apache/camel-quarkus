@@ -8916,154 +8916,154 @@
         <version>4.1.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-astbuilder</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-astbuilder</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-cli-commons</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-cli-commons</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-cli-picocli</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-cli-picocli</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-console</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-console</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-contracts</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-contracts</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-datetime</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-datetime</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-docgenerator</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-docgenerator</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-ginq</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-ginq</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-groovydoc</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-groovydoc</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-groovysh</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-groovysh</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-jmx</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-jmx</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-macro</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-macro</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-macro-library</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-macro-library</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-nio</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-nio</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-servlet</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-servlet</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-sql</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-sql</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-swing</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-swing</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-templates</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-templates</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-test</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-test</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-testng</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-testng</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-toml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-toml</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <artifactId>groovy-yaml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.29 -->
-        <version>4.0.29</version><!-- org.apache.groovy:groovy-bom:4.0.29 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <artifactId>groovy-yaml</artifactId><!-- org.apache.groovy:groovy-bom:5.0.5 -->
+        <version>5.0.5</version><!-- org.apache.groovy:groovy-bom:5.0.5 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.42.22 -->

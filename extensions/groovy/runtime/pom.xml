@@ -52,6 +52,12 @@
             <groupId>io.quarkiverse.groovy</groupId>
             <artifactId>quarkus-groovy</artifactId>
         </dependency>
+        <!-- TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8468 -->
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>nativeimage</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
