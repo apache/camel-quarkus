@@ -195,7 +195,7 @@ class OpenaiChatTest {
                             receivedNumbers.add(result.trim());
                         }
                     }
-                    return receivedNumbers.size() >= 9;
+                    return receivedNumbers.size() == 9;
                 });
 
         Set<String> expectedNumbers = IntStream.rangeClosed(1, 9)
