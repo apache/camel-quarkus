@@ -233,6 +233,7 @@
         <module>pgevent</module>
         <module>pinecone</module>
         <module>platform-http</module>
+        <module>pqc</module>
         <module>protobuf</module>
         <module>pubnub</module>
         <module>qdrant</module>

@@ -80,7 +80,6 @@
         <module>lucene</module>
         <module>mvel</module>
         <module>opensearch</module>
-        <module>pqc</module>
         <module>printer</module>
         <module>pulsar</module>
         <module>python</module>
