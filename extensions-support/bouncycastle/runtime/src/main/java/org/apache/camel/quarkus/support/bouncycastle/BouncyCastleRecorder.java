@@ -18,25 +18,33 @@ package org.apache.camel.quarkus.support.bouncycastle;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
-import java.security.Security;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.Cipher;
 
-import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import io.quarkus.security.runtime.SecurityProviderUtils;
+import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.jboss.logging.Logger;
+
+import static java.security.Security.addProvider;
+import static java.security.Security.getProvider;
 
 @Recorder
 public class BouncyCastleRecorder {
 
     private static final Logger LOG = Logger.getLogger(BouncyCastleRecorder.class);
 
-    public void registerBouncyCastleProvider(List<String> cipherTransformations, ShutdownContext shutdownContext) {
-        Provider provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_NAME);
+    public static final String BOUNCYCASTLE_PCQ_PROVIDER_NAME = "BCPCQ";
+
+    public void registerBouncyCastleProvider(
+            List<String> additionalProviders,
+            List<String> cipherTransformations) {
+        List<Provider> registeredProviders = new ArrayList<>();
+        Provider provider = getProvider(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_NAME);
         if (provider == null) {
-            provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_NAME);
+            provider = getProvider(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_NAME);
         }
         if (provider == null) {
             // TODO: Fix BuildStep execution order so that this is not required
@@ -44,7 +52,7 @@ public class BouncyCastleRecorder {
             try {
                 provider = (Provider) Thread.currentThread().getContextClassLoader()
                         .loadClass(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_CLASS_NAME).getConstructor().newInstance();
-                Security.addProvider(provider);
+                addProvider(provider);
             } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException
                     | NoSuchMethodException e) {
                 try {
@@ -52,7 +60,7 @@ public class BouncyCastleRecorder {
                     provider = (Provider) Thread.currentThread().getContextClassLoader()
                             .loadClass(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_CLASS_NAME).getConstructor()
                             .newInstance();
-                    Security.addProvider(provider);
+                    addProvider(provider);
                 } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException
                         | NoSuchMethodException e2) {
                     throw new RuntimeException("Neither BC nor BCFIPS provider can be registered. \nBC: " + e.getMessage()
@@ -60,6 +68,7 @@ public class BouncyCastleRecorder {
                 }
             }
         }
+        registeredProviders.add(provider);
 
         // Make it explicit to the static analysis that below security services should be registered as they are reachable at runtime
         for (String cipherTransformation : cipherTransformations) {
@@ -73,12 +82,20 @@ public class BouncyCastleRecorder {
             }
         }
 
-        shutdownContext.addShutdownTask(new Runnable() {
-            @Override
-            public void run() {
-                Security.removeProvider(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_NAME);
-                LOG.debug("Removed Bouncy Castle security provider");
+        if (additionalProviders.contains(BOUNCYCASTLE_PCQ_PROVIDER_NAME)) {
+            Provider pqcProvider = getProvider("BCPQC");
+            if (pqcProvider == null) {
+                pqcProvider = new BouncyCastlePQCProvider();
+                try {
+                    addProvider(pqcProvider);
+                } catch (SecurityException e) {
+                    throw new RuntimeException(e);
+                }
+                LOG.debugf("Registered BouncyCastlePQCProvider");
             }
-        });
+            registeredProviders.add(pqcProvider);
+
+        }
+
     }
 }

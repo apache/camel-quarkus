@@ -26,7 +26,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
@@ -46,12 +45,17 @@ public class BouncyCastleSupportProcessor {
 
     @BuildStep()
     @Record(ExecutionTime.STATIC_INIT)
-    public void registerBouncyCastleProvider(List<CipherTransformationBuildItem> cipherTransformations,
-            BouncyCastleRecorder recorder,
-            ShutdownContextBuildItem shutdownContextBuildItem) {
+    public void registerBouncyCastleProvider(
+            List<BouncyCastleAdditionalProviderBuildItem> additionalProviderBuildItems,
+            List<CipherTransformationBuildItem> cipherTransformations,
+            BouncyCastleRecorder recorder) {
+
         List<String> allCipherTransformations = cipherTransformations.stream()
                 .flatMap(c -> c.getCipherTransformations().stream()).collect(Collectors.toList());
-        recorder.registerBouncyCastleProvider(allCipherTransformations, shutdownContextBuildItem);
+
+        recorder.registerBouncyCastleProvider(
+                additionalProviderBuildItems.stream().map(BouncyCastleAdditionalProviderBuildItem::getProviderName).toList(),
+                allCipherTransformations);
     }
 
     @BuildStep()
