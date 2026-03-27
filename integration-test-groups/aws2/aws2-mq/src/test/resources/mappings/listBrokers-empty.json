@@ -1,0 +1,15 @@
+{
+  "scenarioName": "brokerDeletion",
+  "requiredScenarioState": "BothDeleted",
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/brokers"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerSummaries\":[]}"
+  }
+}

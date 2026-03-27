@@ -1,0 +1,45 @@
+= AWS MQ tests
+
+By default the tests run in WireMock playback mode using pre-recorded mappings from `src/test/resources/mappings/`.
+
+NOTE: Amazon MQ is not supported by LocalStack community version, so the `Aws2TestEnvCustomizer` SPI (used by other AWS modules to start a LocalStack container) cannot be used here. WireMock is used instead to simulate the MQ API in the default (non-real AWS) test mode.
+
+== Running against real AWS
+
+Refer to the xref:../README.adoc[AWS 2 integration tests README] for general instructions on how to set up AWS credentials.
+
+The AWS credentials must have the following IAM permissions:
+
+* `mq:ListBrokers`
+* `mq:CreateBroker`
+* `mq:DescribeBroker`
+* `mq:UpdateBroker`
+* `mq:RebootBroker`
+* `mq:DeleteBroker`
+* `ec2:CreateNetworkInterface`
+* `ec2:CreateNetworkInterfacePermission`
+* `ec2:DeleteNetworkInterface`
+* `ec2:DescribeNetworkInterfaces`
+* `ec2:DescribeSubnets`
+* `ec2:DescribeSecurityGroups`
+* `ec2:DescribeVpcs`
+* `ec2:DescribeInternetGateways`
+* `ec2:DescribeRouteTables`
+* `ec2:DetachNetworkInterface`
+* `ec2:DeleteNetworkInterfacePermission`
+
+=== Running tests directly against real AWS
+
+[source,shell]
+----
+export AWS_ACCESS_KEY=<your-access-key-id>
+export AWS_SECRET_KEY=<your-secret-access-key>
+export AWS_REGION=us-east-1
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+# Optional: override the ActiveMQ engine version (default: 5.18)
+export AWS_MQ_BROKER_ENGINE_VERSION=5.18
+# Optional: override the broker admin password (must be at least 12 characters, no commas/colons/equals/spaces)
+export AWS_MQ_BROKER_ADMIN_PASSWORD=<your-password>
+----
+
+NOTE: Amazon MQ broker creation takes several minutes. The tests use Awaitility to poll broker state every minute (up to 30 minutes) until brokers reach the `RUNNING` state.

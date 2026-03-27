@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/v1/brokers/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerId\":\"b-abc12345-1111-2222-3333-444444444444\",\"brokerName\":\"cq-test-broker\",\"brokerState\":\"RUNNING\",\"engineType\":\"ACTIVEMQ\",\"deploymentMode\":\"SINGLE_INSTANCE\",\"hostInstanceType\":\"mq.t3.micro\",\"publiclyAccessible\":false,\"configurations\":{\"current\":{\"id\":\"c-fake-config-1111-2222-3333\",\"revision\":1}}}"
+  }
+}

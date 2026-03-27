@@ -1,0 +1,16 @@
+{
+  "scenarioName": "brokerDeletion",
+  "requiredScenarioState": "FirstDeleted",
+  "newScenarioState": "BothDeleted",
+  "request": {
+    "method": "DELETE",
+    "urlPathPattern": "/v1/brokers/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerId\":\"b-def67890-5555-6666-7777-888888888888\"}"
+  }
+}

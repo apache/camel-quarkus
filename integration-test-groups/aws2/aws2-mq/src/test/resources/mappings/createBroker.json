@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/brokers",
+    "bodyPatterns": [
+      {
+        "contains": "cq-test-broker"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerId\":\"b-abc12345-1111-2222-3333-444444444444\",\"brokerArn\":\"arn:aws:mq:us-east-1:123456789:broker:cq-test-broker:b-abc12345-1111-2222-3333-444444444444\"}"
+  }
+}

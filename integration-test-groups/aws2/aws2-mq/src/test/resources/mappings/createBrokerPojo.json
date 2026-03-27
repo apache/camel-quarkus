@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/brokers",
+    "bodyPatterns": [
+      {
+        "contains": "cq-pojo-test-broker"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerId\":\"b-def67890-5555-6666-7777-888888888888\",\"brokerArn\":\"arn:aws:mq:us-east-1:123456789:broker:cq-pojo-test-broker:b-def67890-5555-6666-7777-888888888888\"}"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "PUT",
+    "urlPathPattern": "/v1/brokers/.+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"brokerId\":\"b-abc12345-1111-2222-3333-444444444444\",\"configuration\":{\"id\":\"c-fake-config-1111-2222-3333\",\"revision\":2}}"
+  }
+}
