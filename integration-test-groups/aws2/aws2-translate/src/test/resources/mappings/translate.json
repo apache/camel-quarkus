@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/",
+    "headers": {
+      "X-Amz-Target": {
+        "equalTo": "AWSShineFrontendService_20170701.TranslateText"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-amzn-json-1.1"
+    },
+    "jsonBody": {
+      "TranslatedText": "Bonjour",
+      "SourceLanguageCode": "en",
+      "TargetLanguageCode": "fr"
+    }
+  }
+}

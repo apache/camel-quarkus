@@ -81,19 +81,26 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .distinct()
                     .toArray(Service[]::new);
 
-            DockerImageName imageName = DockerImageName
-                    .parse(ConfigProvider.getConfig().getValue("localstack.container.image", String.class))
-                    .asCompatibleSubstituteFor("localstack/localstack");
-            LocalStackContainer localstack = new LocalStackContainer(imageName)
-                    .withServices(services);
-            localstack.withEnv("LS_LOG", localstackLogLevel);
-            localstack.withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId"); //has to be longer then `test`, to work on FIPS systems
-            localstack.withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId");
-            localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
-            localstack.start();
+            if (services.length > 0) {
+                DockerImageName imageName = DockerImageName
+                        .parse(ConfigProvider.getConfig().getValue("localstack.container.image", String.class))
+                        .asCompatibleSubstituteFor("localstack/localstack");
+                LocalStackContainer localstack = new LocalStackContainer(imageName)
+                        .withServices(services);
+                localstack.withEnv("LS_LOG", localstackLogLevel);
+                localstack.withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId"); //has to be longer then `test`, to work on FIPS systems
+                localstack.withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId");
+                localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
+                localstack.start();
 
-            envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
-                    useDefaultCredentialsProvider, Optional.of(localstack), exportCredentialsServices);
+                envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(),
+                        localstack.getRegion(),
+                        useDefaultCredentialsProvider, Optional.of(localstack), exportCredentialsServices);
+            } else {
+                LOG.info("No LocalStack services requested, skipping container startup");
+                envContext = new Aws2TestEnvContext("testAccessKeyId", "testSecretKeyId", "us-east-1",
+                        useDefaultCredentialsProvider, Optional.empty(), exportCredentialsServices);
+            }
 
         } else {
             if (!startMockBackend && !realCredentialsProvided && !useDefaultCredentialsProvider) {
