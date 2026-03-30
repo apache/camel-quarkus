@@ -19,6 +19,11 @@ package org.apache.camel.quarkus.component.mina.sftp.graal;
 import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.TargetClass;
 
+/**
+ * SftpFileSystemProvider is not needed by mina-sftp component.
+ * However, it's referenced via ServiceLoader at build time, causing conflicts.
+ * We mark it as @Delete to remove it from the native image.
+ */
 @TargetClass(className = "org.apache.sshd.sftp.client.fs.SftpFileSystemProvider")
 @Delete
 final class SftpFileSystemProviderSubstitution {

@@ -16,10 +16,14 @@
  */
 package org.apache.camel.quarkus.component.mina.sftp.deployment;
 
+import java.util.Set;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.maven.dependency.ArtifactKey;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
@@ -38,6 +42,15 @@ class MinaSftpProcessor {
         serviceFilter.produce(new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("ftp")));
         serviceFilter.produce(new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("ftps")));
         serviceFilter.produce(new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("sftp")));
+    }
+
+    @BuildStep
+    RemovedResourceBuildItem removeFileSystemProviderService() {
+        // Remove the FileSystemProvider service file from sshd-sftp to prevent ServiceLoader
+        // from finding SftpFileSystemProvider which is marked with @Delete
+        return new RemovedResourceBuildItem(
+                ArtifactKey.fromString("org.apache.sshd:sshd-sftp"),
+                Set.of("META-INF/services/java.nio.file.spi.FileSystemProvider"));
     }
 
     @BuildStep
