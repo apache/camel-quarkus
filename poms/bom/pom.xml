@@ -7532,6 +7532,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- Force compile scope since debezium-bom declares json-schema-validator with test scope -->
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>${json-schema-validator.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.orbitz.consul</groupId>
                 <artifactId>consul-client</artifactId>

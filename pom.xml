@@ -46,7 +46,7 @@
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
         <camel-kamelets.version>4.18.0</camel-kamelets.version>
         <cassandra-quarkus.version>1.4.1</cassandra-quarkus.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
-        <debezium.version>3.4.3.Final</debezium.version> <!-- This should be in sync with quarkus-platform https://github.com/quarkusio/quarkus-platform-->
+        <debezium.version>3.5.0.Final</debezium.version> <!-- This should be in sync with quarkus-platform https://github.com/quarkusio/quarkus-platform-->
         <optaplanner.version>10.0.0</optaplanner.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>3.15.1</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.14.1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
@@ -134,6 +134,7 @@
         <jsch.version>2.27.6</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch:${quarkiverse-jsch.version} dep:com.github.mwiede:jsch -->
         <json-path.version>${json-path-version}</json-path.version>
         <jedis-client.version>${jedis-client-version}</jedis-client.version>
+        <json-schema-validator.version>${networknt-json-schema-validator-version}</json-schema-validator.version>
         <json-smart.version>${json-smart-version}</json-smart.version>
         <jxmpp.version>1.1.0</jxmpp.version><!-- @sync org.apache.camel:camel-xmpp:${camel.version} dep:org.jxmpp:jxmpp-jid -->
         <kafka.version>4.1.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
