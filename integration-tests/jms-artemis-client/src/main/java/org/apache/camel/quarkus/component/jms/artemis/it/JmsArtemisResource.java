@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
+import io.quarkiverse.messaginghub.pooled.jms.DelegatingJmsPoolConnectionFactory;
 import io.quarkus.arc.ClientProxy;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -53,7 +54,15 @@ public class JmsArtemisResource {
     @Path("/connection/factory")
     @Produces(MediaType.TEXT_PLAIN)
     public String connectionFactoryImplementation() {
-        return ClientProxy.unwrap(connectionFactory).getClass().getName();
+        ConnectionFactory cf = ClientProxy.unwrap(connectionFactory);
+        if (cf instanceof DelegatingJmsPoolConnectionFactory) {
+            DelegatingJmsPoolConnectionFactory delegating = (DelegatingJmsPoolConnectionFactory) cf;
+            if (delegating.isPassthrough()) {
+                return delegating.getWrappedConnectionFactory().getClass().getName();
+            }
+            return delegating.getDelegate().getClass().getName();
+        }
+        return cf.getClass().getName();
     }
 
     @GET

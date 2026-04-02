@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.amqp.it;
 
+import io.quarkiverse.messaginghub.pooled.jms.DelegatingJmsPoolConnectionFactory;
+import io.quarkus.arc.ClientProxy;
 import jakarta.inject.Inject;
 import jakarta.jms.ConnectionFactory;
 import jakarta.ws.rs.GET;
@@ -33,6 +35,14 @@ public class AmqpResource {
     @Path("/connection/factory")
     @Produces(MediaType.TEXT_PLAIN)
     public String connectionFactoryImplementation() {
-        return connectionFactory.getClass().getName().toLowerCase();
+        ConnectionFactory cf = ClientProxy.unwrap(connectionFactory);
+        if (cf instanceof DelegatingJmsPoolConnectionFactory) {
+            DelegatingJmsPoolConnectionFactory delegating = (DelegatingJmsPoolConnectionFactory) cf;
+            if (delegating.isPassthrough()) {
+                return delegating.getWrappedConnectionFactory().getClass().getName();
+            }
+            return delegating.getDelegate().getClass().getName();
+        }
+        return cf.getClass().getName();
     }
 }

@@ -22,6 +22,7 @@ import com.ibm.msg.client.jakarta.wmq.WMQConstants;
 import io.quarkiverse.messaginghub.pooled.jms.PooledJmsWrapper;
 import io.quarkus.arc.properties.IfBuildProperty;
 import io.quarkus.arc.properties.UnlessBuildProperty;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.jms.ConnectionFactory;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -29,6 +30,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 public class IBMMQConnectionFactory {
 
     @Produces
+    @ApplicationScoped
     @UnlessBuildProperty(name = "quarkus.pooled-jms.transaction", stringValue = "xa")
     public ConnectionFactory createConnectionFactory(PooledJmsWrapper wrapper) {
         MQConnectionFactory mq = new MQConnectionFactory();
@@ -37,6 +39,7 @@ public class IBMMQConnectionFactory {
     }
 
     @Produces
+    @ApplicationScoped
     @IfBuildProperty(name = "quarkus.pooled-jms.transaction", stringValue = "xa")
     public ConnectionFactory createXAConnectionFactory(PooledJmsWrapper wrapper) {
         MQXAConnectionFactory mq = new MQXAConnectionFactory();

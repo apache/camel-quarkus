@@ -25,7 +25,7 @@ import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
@@ -39,7 +39,7 @@ class AmqpPoolingTest extends AbstractJmsMessagingTest {
         RestAssured.get("/amqp/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(containsString("qpid"));
+                .body(is("org.messaginghub.pooled.jms.JmsPoolConnectionFactory"));
     }
 
     @Override
