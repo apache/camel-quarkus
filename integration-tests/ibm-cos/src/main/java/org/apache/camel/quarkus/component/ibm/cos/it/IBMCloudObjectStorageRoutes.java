@@ -30,11 +30,16 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class IBMCloudObjectStorageRoutes extends EndpointRouteBuilder {
 
-    public static final String KEY_OF_OBJECT_CREATED = "key-of-object-created";
+    protected static final String KEY_OF_OBJECT_CREATED = "key-of-object-created";
 
-    public static final String CONSUME_ROUTE_ID = "consumeRoute";
+    protected static final String CONSUME_ROUTE_BASIC = "consumeRouteBasic";
+    protected static final String CONSUME_ROUTE_MULTIPLE = "consumeRouteMultiple";
 
     protected static final String BUCKET_NAME = "camel-test-" + UUID.randomUUID().toString().substring(0, 12).toLowerCase();
+
+    protected static final String AUTO_CREATE_BUCKET_NAME = "camel-auto-"
+            + UUID.randomUUID().toString().substring(0, 12).toLowerCase();
+    protected static final String OBJECT_KEY_FOR_AUTOCREATE = "autocreate-test-object";
 
     @ConfigProperty(name = "camel.ibm.cos.apiKey")
     String ibmCosApiKey;
@@ -69,9 +74,37 @@ public class IBMCloudObjectStorageRoutes extends EndpointRouteBuilder {
         from("direct:list")
                 .to(componentUri(IBMCOSOperations.listObjects));
 
+        from("direct:delete-objects")
+                .to(componentUri(IBMCOSOperations.deleteObjects));
+
+        from("direct:copy-object")
+                .to(componentUri(IBMCOSOperations.copyObject));
+
+        from("direct:get-object-range")
+                .to(componentUri(IBMCOSOperations.getObjectRange));
+
+        from("direct:list-buckets")
+                .to(componentUri(IBMCOSOperations.listBuckets));
+
+        from("direct:put-object-autocreate")
+                .to(componentUriWithAutoCreate(IBMCOSOperations.putObject).keyName(OBJECT_KEY_FOR_AUTOCREATE));
+
+        from("direct:read-object-autocreate")
+                .to(componentUriWithAutoCreate(IBMCOSOperations.getObject).keyName(OBJECT_KEY_FOR_AUTOCREATE));
+
+        from("direct:delete-object-autocreate")
+                .to(componentUriWithAutoCreate(IBMCOSOperations.deleteObject).keyName(OBJECT_KEY_FOR_AUTOCREATE));
+
+        from("direct:delete-bucket-autocreate")
+                .to(componentUriWithAutoCreate(IBMCOSOperations.deleteBucket));
+
         from(componentUri())
-                .routeId(CONSUME_ROUTE_ID).autoStartup(false)
-                .to("mock:result");
+                .routeId(CONSUME_ROUTE_BASIC).autoStartup(false)
+                .to("mock:result-consumerBasic");
+
+        from(componentUri())
+                .routeId(CONSUME_ROUTE_MULTIPLE).autoStartup(false)
+                .to("mock:result-consumerMultipleObjects");
     }
 
     public IBMCOSEndpointConsumerBuilder componentUri() {
@@ -92,6 +125,16 @@ public class IBMCloudObjectStorageRoutes extends EndpointRouteBuilder {
     public IBMCOSEndpointProducerBuilder componentUri(IBMCOSOperations operation) {
         return baseComponentUri()
                 .operation(operation);
+    }
+
+    public IBMCOSEndpointProducerBuilder componentUriWithAutoCreate(IBMCOSOperations operation) {
+        return ibmCos(AUTO_CREATE_BUCKET_NAME)
+                .apiKey(ibmCosApiKey)
+                .serviceInstanceId(ibmCosServiceInstanceId)
+                .endpointUrl(ibmCosEndpointUrl)
+                .location(ibmCosLocation.orElse("us-south"))
+                .operation(operation)
+                .autoCreateBucket(true);
     }
 
 }
