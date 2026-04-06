@@ -2302,6 +2302,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ocsf</artifactId>
+        <version>4.20.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-ognl</artifactId>
         <version>4.20.0</version>
       </dependency>
@@ -5587,6 +5592,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-observability-services-deployment</artifactId>
+        <version>3.37.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-ocsf</artifactId>
+        <version>3.37.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-ocsf-deployment</artifactId>
         <version>3.37.0-SNAPSHOT</version>
       </dependency>
       <dependency>

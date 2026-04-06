@@ -50,6 +50,7 @@ group-02:
   - keycloak
   - langchain4j-agent
   - oaipmh
+  - ocsf
   - pubnub
   - protobuf
   - smallrye-reactive-messaging
