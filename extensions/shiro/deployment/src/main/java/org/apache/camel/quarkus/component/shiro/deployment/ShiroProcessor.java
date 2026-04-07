@@ -31,7 +31,6 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.CamelAuthorizationException;
 import org.apache.shiro.lang.ShiroException;
 import org.jboss.jandex.DotName;
 
@@ -54,8 +53,6 @@ class ShiroProcessor {
                 .map(c -> c.name().toString())
                 .filter(n -> n.startsWith("org.apache.shiro.auth"))
                 .collect(Collectors.toList());
-
-        reflectiveClasses.add(CamelAuthorizationException.class.getName());
 
         // commons-beanutils converter types and their array counterparts need to be registered for reflection
         reflectiveClasses.add(BigDecimal.class.getName());

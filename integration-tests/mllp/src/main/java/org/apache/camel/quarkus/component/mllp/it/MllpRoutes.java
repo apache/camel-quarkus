@@ -16,13 +16,11 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mllp.MllpConstants;
 import org.apache.camel.component.mllp.MllpInvalidMessageException;
 import org.eclipse.microprofile.config.ConfigProvider;
 
-@RegisterForReflection(targets = MllpInvalidMessageException.class, fields = false)
 public class MllpRoutes extends RouteBuilder {
 
     public static final String MLLP_HOST = "localhost";

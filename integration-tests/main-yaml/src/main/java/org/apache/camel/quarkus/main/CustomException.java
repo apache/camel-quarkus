@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.main;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
-@RegisterForReflection
 public class CustomException extends Exception {
     public CustomException() {
     }
