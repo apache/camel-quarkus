@@ -58,8 +58,7 @@ updates:
       - dependency-name: "com.microsoft.graph:microsoft-graph"
       - dependency-name: "com.microsoft.graph:microsoft-graph-auth"
       # Maven plugins
-      - dependency-name: "*:*-maven-plugin"
-      - dependency-name: "org.apache.maven.plugins:*"
+      - dependency-name: "*:*-plugin"
     ignore:
       # Maven plugins
       # Quarkus is upgraded manually
