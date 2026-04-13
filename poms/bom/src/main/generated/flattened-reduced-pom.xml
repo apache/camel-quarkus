@@ -7338,6 +7338,11 @@
         <version>1.7</version>
       </dependency>
       <dependency>
+        <groupId>com.ibm.cloud</groupId>
+        <artifactId>sdk-core</artifactId>
+        <version>9.25.0</version>
+      </dependency>
+      <dependency>
         <groupId>com.ibm.icu</groupId>
         <artifactId>icu4j</artifactId>
         <version>78.3</version>

@@ -139,6 +139,7 @@
         <module>hl7</module>
         <module>http</module>
         <module>ibm-cos</module>
+        <module>ibm-watson-language</module>
         <module>ical</module>
         <module>infinispan</module>
         <module>infinispan-cluster-service</module>
