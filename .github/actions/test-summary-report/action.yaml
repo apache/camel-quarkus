@@ -47,6 +47,14 @@ runs:
           const testReportGlobPattern = "${{ inputs.test-report-xml-base-dir }}/${{ inputs.test-report-xml-includes }}".replace(/\.+\/+/g, "")
           const summaryData = [];
 
+          // Configuration to avoid hitting GitHub's ~20MB GITHUB_STEP_SUMMARY limit
+          const MAX_FAILURES = 100;           // Limit number of failures shown
+          const MAX_STACK_TRACE_LINES = 50;   // Limit stack trace lines
+          const MAX_MESSAGE_LENGTH = 500;     // Limit error message length
+
+          let totalFailures = 0;
+          let displayedFailures = 0;
+
           // Configure test summary table headers
           summaryData.push([
             {data: 'Test Class', header: true},
@@ -64,9 +72,24 @@ runs:
                 report.testcase.forEach((testCase) => {
                   const failure = testCase.failure !== undefined ? testCase.failure : testCase.error;
                   if (failure !== undefined) {
+                    totalFailures++;
+
+                    // Stop adding failures if we've reached the limit
+                    if (displayedFailures >= MAX_FAILURES) {
+                      return;
+                    }
+
                     const shortClassName = `<code>${testCase.classname.substring(testCase.classname.lastIndexOf('.') + 1)}</code>`;
                     const className = `<details><summary>${shortClassName}</summary>\n<code>${testCase.classname}</code></details>`;
-                    const details = `<details><summary>View</summary>\n<pre>${failure[0].inner}</pre></details>`;
+
+                    // Truncate stack trace to avoid excessive content
+                    let stackTrace = failure[0].inner || '';
+                    const stackTraceLines = stackTrace.split('\n');
+                    if (stackTraceLines.length > MAX_STACK_TRACE_LINES) {
+                      stackTrace = stackTraceLines.slice(0, MAX_STACK_TRACE_LINES).join('\n') +
+                        `\n... (${stackTraceLines.length - MAX_STACK_TRACE_LINES} more lines truncated)`;
+                    }
+                    const details = `<details><summary>View</summary>\n<pre>${stackTrace}</pre></details>`;
 
                     let testName = "";
                     if ((typeof testCase.name === 'string' || testCase.name instanceof String) && (testCase.name.trim().length > 0)) {
@@ -79,11 +102,18 @@ runs:
                       testName = `<code>Unknown</code>`;
                     }
 
-                    let message = `<pre>${failure[0].message}</pre>`;
+                    // Truncate error message to avoid excessive content
+                    let errorMessage = failure[0].message || '';
+                    if (errorMessage.length > MAX_MESSAGE_LENGTH) {
+                      errorMessage = errorMessage.substring(0, MAX_MESSAGE_LENGTH) + '... (truncated)';
+                    }
+                    let message = `<pre>${errorMessage}</pre>`;
                     if (message.length > 50) {
                       message = `<details><summary>View</summary>\n${message}</details>`;
                     }
+
                     summaryData.push([className, testName, message, details]);
+                    displayedFailures++;
                   }
                 });
               }
@@ -92,8 +122,13 @@ runs:
 
           // Write the summary data if there were test failures
           if (summaryData.length > 1) {
+            let heading = "Test Failures";
+            if (totalFailures > displayedFailures) {
+              heading = `Test Failures (showing ${displayedFailures} of ${totalFailures})`;
+            }
+
             await core.summary
-              .addHeading("Test Failures", "3")
+              .addHeading(heading, "3")
               .addTable(summaryData)
               .write();
           }
