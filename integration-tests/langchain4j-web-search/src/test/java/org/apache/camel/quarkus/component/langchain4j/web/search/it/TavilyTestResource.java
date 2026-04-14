@@ -47,4 +47,9 @@ public class TavilyTestResource extends WireMockTestResourceLifecycleManager {
     protected boolean isMockingEnabled() {
         return !envVarsPresent(TAVILY_API_KEY);
     }
+
+    @Override
+    protected String getStubsSubdirectory() {
+        return "web-search";
+    }
 }

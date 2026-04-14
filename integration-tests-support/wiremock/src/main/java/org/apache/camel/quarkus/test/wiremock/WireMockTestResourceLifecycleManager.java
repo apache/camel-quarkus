@@ -101,13 +101,21 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
                 List<StubMapping> stubMappings = recordResult.getStubMappings();
                 processRecordedStubMappings(stubMappings);
 
+                // Move stubs to subdirectory if configured (after custom processing)
+                moveStubsToSubdirectory();
+
                 if (isDeleteRecordedMappingsOnError()) {
+                    String subdir = getStubsSubdirectory();
+                    String mappingsDir = !subdir.isEmpty()
+                            ? "./src/test/resources/mappings/" + subdir + "/"
+                            : "./src/test/resources/mappings/";
+
                     for (StubMapping mapping : stubMappings) {
                         int status = mapping.getResponse().getStatus();
                         if (status >= 300 && mapping.shouldBePersisted()) {
                             try {
                                 String fileName = mapping.getName() + "-" + mapping.getId() + ".json";
-                                Path mappingFilePath = Paths.get("./src/test/resources/mappings/", fileName);
+                                Path mappingFilePath = Paths.get(mappingsDir, fileName);
                                 Files.deleteIfExists(mappingFilePath);
                                 LOG.infof("Deleted mapping file %s as status code was %d", fileName, status);
                             } catch (IOException e) {
@@ -216,7 +224,25 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     }
 
     /**
+     * Returns the subdirectory name for organizing stubs by test module.
+     * If empty (default), stubs are stored in the root mappings/ directory.
+     * If non-empty, stubs are stored in mappings/{subdirectory}/ and __files/{subdirectory}/.
+     *
+     * This allows multiple test modules to share a consolidated integration test while keeping
+     * their stubs organized and avoiding naming conflicts.
+     *
+     * @return subdirectory name (e.g., "chat", "agent", "embeddings") or empty string for root
+     */
+    protected String getStubsSubdirectory() {
+        return "";
+    }
+
+    /**
      * Hook to get a handle on any record stub mappings. Useful for performing stub post-processing or cleanup tasks.
+     * Subclasses can override this to process stubs after recording, including:
+     * - Deduplication of stubs with identical request patterns
+     * - Updating bodyFileName references to include subdirectory prefix
+     * - Removing unwanted stub recordings
      */
     protected void processRecordedStubMappings(List<StubMapping> stubMappings) {
     }
@@ -234,9 +260,65 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
 
         if (!isRecordingEnabled()) {
             // Read mapping resources from the classpath in playback mode
-            configuration.fileSource(new CamelQuarkusFileSource());
+            String subdir = getStubsSubdirectory();
+            configuration.fileSource(new CamelQuarkusFileSource(subdir));
         }
         return new WireMockServer(configuration);
+    }
+
+    /**
+     * Moves recorded stub files from the root mappings/ directory to a subdirectory if configured.
+     */
+    private void moveStubsToSubdirectory() {
+        String subdir = getStubsSubdirectory();
+        if (subdir.isEmpty()) {
+            return; // No subdirectory configured, keep files in root
+        }
+
+        try {
+            Path mappingsRoot = Paths.get("./src/test/resources/mappings");
+            Path filesRoot = Paths.get("./src/test/resources/__files");
+            Path mappingsSubdir = mappingsRoot.resolve(subdir);
+            Path filesSubdir = filesRoot.resolve(subdir);
+
+            // Create subdirectories
+            Files.createDirectories(mappingsSubdir);
+            Files.createDirectories(filesSubdir);
+
+            // Move mapping files from root to subdirectory
+            try (var stream = Files.list(mappingsRoot)) {
+                stream.filter(Files::isRegularFile)
+                        .filter(p -> p.toString().endsWith(".json"))
+                        .forEach(mappingFile -> {
+                            try {
+                                Path targetMapping = mappingsSubdir.resolve(mappingFile.getFileName());
+                                Files.move(mappingFile, targetMapping);
+                                LOG.debugf("Moved stub %s to subdirectory %s", mappingFile.getFileName(), subdir);
+                            } catch (IOException e) {
+                                LOG.errorf("Failed to move stub %s to subdirectory %s", e, mappingFile, subdir);
+                            }
+                        });
+            }
+
+            // Move body files from root to subdirectory
+            if (Files.exists(filesRoot)) {
+                try (var stream = Files.list(filesRoot)) {
+                    stream.filter(Files::isRegularFile)
+                            .forEach(bodyFile -> {
+                                try {
+                                    Path targetBodyFile = filesSubdir.resolve(bodyFile.getFileName());
+                                    Files.move(bodyFile, targetBodyFile);
+                                } catch (IOException e) {
+                                    LOG.debugf("Failed to move body file %s", bodyFile.getFileName());
+                                }
+                            });
+                }
+            }
+
+            LOG.infof("Moved recorded stubs to subdirectory: %s", subdir);
+        } catch (IOException e) {
+            LOG.errorf("Failed to organize stubs into subdirectory %s", e, subdir);
+        }
     }
 
     /**
@@ -250,15 +332,28 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     }
 
     /**
-     * A custom ClasspathFileSource so that WireMock mapping files can be resolved in the quarkus-platform build
+     * A custom ClasspathFileSource so that WireMock mapping files can be resolved in the quarkus-platform build.
+     * If a subdirectory is configured (e.g., "chat"), WireMock loads stubs from mappings/{subdir}/ and __files/{subdir}/.
      */
     private static class CamelQuarkusFileSource extends ClasspathFileSource {
-        private CamelQuarkusFileSource() {
+        private final String stubsSubdirectory;
+
+        private CamelQuarkusFileSource(String stubsSubdirectory) {
             super("");
+            this.stubsSubdirectory = stubsSubdirectory;
         }
 
         @Override
         public FileSource child(String subDirectoryName) {
+            // If a subdirectory is configured, redirect "mappings" and "__files" to the subdirectory
+            if (!stubsSubdirectory.isEmpty()) {
+                if ("mappings".equals(subDirectoryName)) {
+                    return new ClasspathFileSource("mappings/" + stubsSubdirectory);
+                } else if ("__files".equals(subDirectoryName)) {
+                    return new ClasspathFileSource("__files/" + stubsSubdirectory);
+                }
+            }
+            // Default behavior: return child with the same name
             return new ClasspathFileSource(subDirectoryName);
         }
     }

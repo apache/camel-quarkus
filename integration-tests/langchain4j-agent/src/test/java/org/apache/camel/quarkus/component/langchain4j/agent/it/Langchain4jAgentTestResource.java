@@ -60,6 +60,11 @@ public class Langchain4jAgentTestResource extends WireMockTestResourceLifecycleM
     }
 
     @Override
+    protected String getStubsSubdirectory() {
+        return "agent";
+    }
+
+    @Override
     protected void processRecordedStubMappings(List<StubMapping> stubMappings) {
         // Process stubs in recording order so we keep the first occurrence of each unique request body
         List<StubMapping> sorted = new ArrayList<>(stubMappings);

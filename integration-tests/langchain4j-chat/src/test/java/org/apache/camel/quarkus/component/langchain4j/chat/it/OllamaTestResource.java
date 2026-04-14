@@ -41,4 +41,9 @@ public class OllamaTestResource extends WireMockTestResourceLifecycleManager {
     protected boolean isMockingEnabled() {
         return !envVarsPresent(OLLAMA_ENV_URL);
     }
+
+    @Override
+    protected String getStubsSubdirectory() {
+        return "chat";
+    }
 }
