@@ -86,6 +86,7 @@
                             <artifactId>protostream-processor</artifactId>
                         </path>
                     </annotationProcessorPaths>
+                    <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
                 </configuration>
             </plugin>
             <plugin>
