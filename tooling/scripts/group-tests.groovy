@@ -36,7 +36,6 @@ final String[] concatRelPaths = binding.properties.variables.'group-tests.concat
 final Path destinationModuleDir = Paths.get(binding.properties.variables.'group-tests.dest.module.dir')
 final String excludes = binding.properties.variables.'group-tests.files.excludes' ?: ""
 final String classNamePrefix = binding.properties.variables.'group-tests.class.name.prefix' ?: ""
-final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
 final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes"] as Set
 
@@ -53,14 +52,13 @@ def srcDestMap = [
 srcDestMap.forEach { src, dest -> new AntBuilder().delete(dir: dest)}
 
 Files.list(sourceDir)
-    .filter(p -> !fileExcludes.contains(p.getFileName().toString()))
     .filter { p -> Files.exists(p.resolve('pom.xml')) }
     .sorted()
     .forEach { p ->
         mergedFiles.each { relPath, cat ->
             cat.append(p.resolve(relPath))
         }
-        srcDestMap.forEach { src, dest -> copyResources(p.resolve(src), dest) }
+        srcDestMap.forEach { src, dest -> copyResources(p.resolve(src), dest, excludes) }
     }
 
 String scriptDir = new File(System.getProperty('maven.multiModuleProjectDirectory') + '/tooling/scripts')
@@ -83,10 +81,14 @@ mergedFiles.each { relPath, cat ->
     cat.store(destPath)
 }
 
-static void copyResources(Path source, Path dest) {
+static void copyResources(Path source, Path dest, String excludes) {
     if (Files.exists(source)) {
         new AntBuilder().copy(todir: dest) {
-            fileset(dir: source, includes: "**")
+            fileset(dir: source, includes: "**") {
+                excludes.split(/\s*,\s*/).each { exclusion ->
+                    exclude(name: exclusion)
+                }
+            }
         }
     }
 }

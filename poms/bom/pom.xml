@@ -884,6 +884,10 @@
                         <artifactId>jsr305</artifactId>
                         <groupId>com.google.code.findbugs</groupId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-ws-security</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -7707,6 +7711,39 @@
                 <groupId>io.quarkiverse.batik</groupId>
                 <artifactId>quarkus-batik-deployment</artifactId>
                 <version>${quarkiverse-batik.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.cxf</groupId>
+                <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
+                <version>${quarkiverse-cxf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.opensaml</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.cxf</groupId>
+                <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+                <version>${quarkiverse-cxf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.opensaml</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.cxf</groupId>
+                <artifactId>quarkus-cxf-services-sts</artifactId>
+                <version>${quarkiverse-cxf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.opensaml</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.fory</groupId>

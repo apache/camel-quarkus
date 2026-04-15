@@ -797,6 +797,10 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -7545,6 +7549,39 @@
         <version>1.1.0</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
+        <version>3.33.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+        <version>3.33.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-services-sts</artifactId>
+        <version>3.33.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.fory</groupId>
         <artifactId>quarkus-fory</artifactId>
         <version>0.5.0</version>
@@ -8461,22 +8498,12 @@
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>3.33.1</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
         <version>3.33.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-bc-stub</artifactId>
-        <version>3.33.1</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
         <version>3.33.1</version>
       </dependency>
       <dependency>
@@ -8502,11 +8529,6 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId>
-        <version>3.33.1</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-services-sts</artifactId>
         <version>3.33.1</version>
       </dependency>
       <dependency>

@@ -797,6 +797,10 @@
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>org.apache.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>cxf-rt-ws-security</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -7591,6 +7595,39 @@
         <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.33.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.33.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-cxf-services-sts</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.33.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.opensaml</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.fory</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-fory</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.5.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8593,22 +8630,12 @@
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <artifactId>quarkus-cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <artifactId>quarkus-cxf-bc-stub</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <artifactId>quarkus-cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
       </dependency>
       <dependency>
@@ -8634,11 +8661,6 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
-        <artifactId>quarkus-cxf-services-sts</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
         <version>3.33.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.33.1 -->
       </dependency>
       <dependency>
