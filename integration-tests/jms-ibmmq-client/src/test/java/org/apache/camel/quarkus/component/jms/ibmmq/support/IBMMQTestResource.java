@@ -26,6 +26,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
@@ -50,26 +51,37 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        Path passwordFile = Paths.get("target").resolve("password");
-        try {
-            Files.writeString(passwordFile, PASSWORD);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to create password file", e);
-        }
-
         container = new GenericContainer<>(DockerImageName.parse(IMAGE_NAME))
                 .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .withExposedPorts(PORT)
                 .withEnv(Map.of(
                         "LICENSE", LICENSE_APPROVAL,
                         "MQ_QMGR_NAME", QUEUE_MANAGER_NAME))
-                // prefer filesystembind over copytocontainer as copying to /run/secrets does not work for rootless podman
-                .withFileSystemBind(passwordFile.toAbsolutePath().toString(), "/run/secrets/mqAdminPassword",
-                        BindMode.READ_ONLY)
-                .withFileSystemBind(passwordFile.toAbsolutePath().toString(), "/run/secrets/mqAppPassword", BindMode.READ_ONLY)
                 .withCopyToContainer(Transferable.of(mqscConfig()), MQSC_FILE_CONTAINER_PATH)
                 // AMQ5806I is a message code for queue manager start
                 .waitingFor(Wait.forLogMessage(".*AMQ5806I.*", 1));
+
+        // if a remote docker host is configured, use copy the string to the container directly
+        if (DockerClientFactory.instance().getTransportConfig().getDockerHost().toString().startsWith("tcp:")) {
+            container = container
+                    .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAdminPassword")
+                    .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAppPassword");
+        } else {
+            // otherwise prefer filesystembind as copying to /run/secrets does not work for rootless podman
+            Path passwordFile = Paths.get("target").resolve("password");
+            try {
+                Files.writeString(passwordFile, PASSWORD);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to create password file", e);
+            }
+
+            container = container
+                    .withFileSystemBind(passwordFile.toAbsolutePath().toString(), "/run/secrets/mqAdminPassword",
+                            BindMode.READ_ONLY)
+                    .withFileSystemBind(passwordFile.toAbsolutePath().toString(), "/run/secrets/mqAppPassword",
+                            BindMode.READ_ONLY);
+        }
+
         container.start();
 
         destinations = new IBMMQDestinations(container.getHost(), container.getMappedPort(PORT), QUEUE_MANAGER_NAME);
