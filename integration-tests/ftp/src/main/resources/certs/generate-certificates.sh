@@ -20,11 +20,17 @@
 # Script to generate OpenSSH certificate files for SFTP integration tests
 #
 # This script creates:
+# USER CERTIFICATES:
 # - test-key-rsa.key: RSA private key (2048 bits)
-# - test-key-rsa-cert.pub: OpenSSH certificate signed by a temporary CA
+# - test-key-rsa-cert.pub: OpenSSH user certificate signed by user CA
 #
-# The certificate is valid for 52 weeks and can be used for testing
-# certificate-based authentication with the mina-sftp component.
+# HOST CERTIFICATES:
+# - host-ca.pub: Host CA public key (for @cert-authority in known_hosts)
+# - host-key-rsa.key: RSA host private key (2048 bits)
+# - host-key-rsa-cert.pub: OpenSSH host certificate signed by host CA
+#
+# The certificates are valid for 52 weeks and can be used for testing
+# certificate-based authentication with the FTP component.
 #
 
 set -e
@@ -33,34 +39,66 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 echo "==================================================================="
-echo "Generating OpenSSH Certificates for MINA SFTP Integration Tests"
+echo "Generating OpenSSH Certificates for FTP Integration Tests"
 echo "==================================================================="
 echo ""
 
 echo "Cleaning up existing files..."
-rm -f ca-key ca-key.pub test-key-rsa.key test-key-rsa.key.pub test-key-rsa-cert.pub
+rm -f user-ca user-ca.pub test-key-rsa.key test-key-rsa.key.pub test-key-rsa-cert.pub
+rm -f host-ca host-ca.pub host-key-rsa.key host-key-rsa.key.pub host-key-rsa-cert.pub
 echo "Cleaned up existing files"
 
-echo "Generating temporary CA key pair..."
-ssh-keygen -t rsa -b 2048 -f ca-key -N "" -C "test-ca" > /dev/null 2>&1
-echo "Created ca-key and ca-key.pub"
+echo ""
+echo "--- USER CERTIFICATE GENERATION ---"
+echo ""
+
+echo "Generating user CA key pair..."
+ssh-keygen -t rsa -b 2048 -f user-ca -N "" -C "user-ca" > /dev/null 2>&1
+echo "Created user-ca and user-ca.pub"
 
 echo "Generating user RSA key pair..."
 ssh-keygen -t rsa -b 2048 -f test-key-rsa.key -N "" -C "test-rsa@test" > /dev/null 2>&1
 echo "Created test-key-rsa.key and test-key-rsa.key.pub"
 
-echo "Signing public key with CA to create certificate..."
-ssh-keygen -s ca-key \
+echo "Signing user public key with user CA to create certificate..."
+ssh-keygen -s user-ca \
   -I "test-user" \
-  -n testuser \
+  -n admin \
   -V +520w \
   test-key-rsa.key.pub > /dev/null 2>&1
 echo "Created test-key-rsa.key-cert.pub"
 
-echo "Renaming certificate to test-key-rsa-cert.pub..."
+echo "Renaming user certificate to test-key-rsa-cert.pub..."
 mv test-key-rsa.key-cert.pub test-key-rsa-cert.pub
 echo "Renamed to test-key-rsa-cert.pub"
 
+echo ""
+echo "--- HOST CERTIFICATE GENERATION ---"
+echo ""
+
+echo "Generating host CA key pair..."
+ssh-keygen -t ed25519 -f host-ca -N "" -C "host-ca" > /dev/null 2>&1
+echo "Created host-ca and host-ca.pub"
+
+echo "Generating host RSA key pair..."
+ssh-keygen -t rsa -b 2048 -f host-key-rsa.key -N "" -C "sftp-server@localhost" > /dev/null 2>&1
+echo "Created host-key-rsa.key and host-key-rsa.key.pub"
+
+echo "Signing host public key with host CA to create host certificate..."
+ssh-keygen -s host-ca \
+  -I "sftp-server" \
+  -h \
+  -n localhost \
+  -V +520w \
+  host-key-rsa.key.pub > /dev/null 2>&1
+echo "Created host-key-rsa.key-cert.pub"
+
+echo "Renaming host certificate to host-key-rsa-cert.pub..."
+mv host-key-rsa.key-cert.pub host-key-rsa-cert.pub
+echo "Renamed to host-key-rsa-cert.pub"
+
+echo ""
 echo "Cleaning up temporary files..."
-rm -f ca-key ca-key.pub test-key-rsa.key.pub
-echo "Removed CA keys and public key"
+rm -f user-ca user-ca.pub test-key-rsa.key.pub
+rm -f host-ca host-key-rsa.key.pub
+echo "Removed CA private keys and public keys"
