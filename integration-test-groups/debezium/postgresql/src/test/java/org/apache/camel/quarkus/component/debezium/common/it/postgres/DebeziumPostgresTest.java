@@ -58,7 +58,8 @@ class DebeziumPostgresTest extends AbstractDebeziumTest {
         RestAssured.get(Type.postgres.getComponent() + "/getAdditionalProperties")
                 .then()
                 .statusCode(200)
-                .body("'database.connectionTimeZone'", is("CET"));
+                .body("'database.connectionTimeZone'", is("CET"))
+                .body("'bootstrap.servers'", is(notNullValue()));
     }
 
     @AfterAll
