@@ -23,13 +23,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.sshd.common.NamedFactory;
+import org.apache.sshd.common.config.keys.OpenSshCertificate;
 import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
 import org.apache.sshd.common.keyprovider.FileKeyPairProvider;
+import org.apache.sshd.common.signature.BuiltinSignatures;
+import org.apache.sshd.common.signature.Signature;
 import org.apache.sshd.scp.server.ScpCommandFactory;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.sftp.server.SftpSubsystemFactory;
@@ -68,7 +73,25 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
             sshServer.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
             sshServer.setCommandFactory(new ScpCommandFactory());
             sshServer.setPasswordAuthenticator((username, password, session) -> true);
-            sshServer.setPublickeyAuthenticator((username, key, session) -> true);
+
+            // Accept both regular public keys and OpenSSH certificates
+            sshServer.setPublickeyAuthenticator((username, key, session) -> {
+                if (key instanceof OpenSshCertificate) {
+                    LOGGER.debug("Accepting OpenSSH certificate authentication for user '" + username + "'");
+                } else {
+                    LOGGER.debug("Accepting public key authentication for user '" + username + "'");
+                }
+                return true;
+            });
+
+            // Add certificate signature factories to support OpenSSH certificates
+            List<NamedFactory<Signature>> signatureFactories = sshServer.getSignatureFactories();
+            signatureFactories.add(BuiltinSignatures.rsa_cert);
+            signatureFactories.add(BuiltinSignatures.rsaSHA256_cert);
+            signatureFactories.add(BuiltinSignatures.rsaSHA512_cert);
+            signatureFactories.add(BuiltinSignatures.ed25519_cert);
+            sshServer.setSignatureFactories(signatureFactories);
+
             sshServer.setFileSystemFactory(factory);
             sshServer.start();
 
