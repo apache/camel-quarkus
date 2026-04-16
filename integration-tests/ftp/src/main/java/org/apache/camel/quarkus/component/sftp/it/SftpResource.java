@@ -225,4 +225,118 @@ public class SftpResource {
                 TIMEOUT_MS,
                 String.class);
     }
+
+    @Path("/hostcert/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithHostCertVerification(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        String port = context.resolvePropertyPlaceholders("{{camel.sftp.hostcert.test-port}}");
+        String uri = "sftp://admin@localhost:" + port
+                + "/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa&knownHostsFile="
+                + knownHostsFile;
+        producerTemplate.sendBodyAndHeader(uri, fileContent, Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/hostcert/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithHostCertVerification(@PathParam("fileName") String fileName) throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        return consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.hostcert.test-port}}/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa&knownHostsFile="
+                        + knownHostsFile + "&localWorkDirectory=target&fileName=" + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/hostcert/delete/{fileName}")
+    @DELETE
+    public Response deleteFileWithHostCert(@PathParam("fileName") String fileName) throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.hostcert.test-port}}/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa&knownHostsFile="
+                        + knownHostsFile + "&delete=true&fileName=" + fileName,
+                TIMEOUT_MS,
+                String.class);
+        return Response.noContent().build();
+    }
+
+    @Path("/hostcertWithAlgorithms/create/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response createFileWithHostCertAndAlgorithms(@PathParam("fileName") String fileName, String fileContent)
+            throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        producerTemplate.sendBodyAndHeader(
+                "sftp://admin@localhost:{{camel.sftp.hostcert.test-port}}/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&knownHostsFile="
+                        + knownHostsFile + "&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256",
+                fileContent,
+                Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
+    }
+
+    @Path("/hostcertWithAlgorithms/get/{fileName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileWithHostCertAndAlgorithms(@PathParam("fileName") String fileName) throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        return consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.hostcert.test-port}}/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&knownHostsFile="
+                        + knownHostsFile
+                        + "&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256&localWorkDirectory=target&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/hostcertWithAlgorithms/delete/{fileName}")
+    @DELETE
+    public Response deleteFileWithHostCertAndAlgorithms(@PathParam("fileName") String fileName) throws Exception {
+        String knownHostsFile = createHostCaKnownHostsFile();
+        consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.hostcert.test-port}}/sftp?password=admin&strictHostKeyChecking=yes&useUserKnownHostsFile=false&knownHostsFile="
+                        + knownHostsFile
+                        + "&caSignatureAlgorithms=ssh-ed25519,rsa-sha2-512,rsa-sha2-256&delete=true&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
+        return Response.noContent().build();
+    }
+
+    /**
+     * Creates a known_hosts file with @cert-authority entry for the host CA.
+     * This allows the client to verify the server's host certificate.
+     */
+    private String createHostCaKnownHostsFile() throws Exception {
+        String resourcePath = "certs/host-ca.pub";
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        try (InputStream stream = classLoader.getResourceAsStream(resourcePath)) {
+            if (stream == null) {
+                throw new RuntimeException("Failed to load host CA public key from: " + resourcePath);
+            }
+            return processHostCaStream(stream);
+        }
+    }
+
+    private String processHostCaStream(InputStream hostCaStream) throws Exception {
+        String hostCaPubKey = new String(hostCaStream.readAllBytes()).trim();
+        String port = context.resolvePropertyPlaceholders("{{camel.sftp.hostcert.test-port}}");
+
+        // Create known_hosts with @cert-authority entry
+        String knownHostsContent = String.format("@cert-authority [localhost]:%s %s%n", port, hostCaPubKey);
+
+        // Use temp directory instead of "target" which may not exist in native mode runtime
+        java.nio.file.Path knownHostsPath = java.nio.file.Files.createTempFile("known_hosts_hostcert", ".txt");
+        java.nio.file.Files.writeString(knownHostsPath, knownHostsContent);
+
+        return knownHostsPath.toAbsolutePath().toString();
+    }
 }

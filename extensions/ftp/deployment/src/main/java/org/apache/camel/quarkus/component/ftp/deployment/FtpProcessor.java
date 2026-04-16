@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.ftp.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class FtpProcessor {
 
@@ -26,5 +27,21 @@ class FtpProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerJSchCertificateClasses() {
+        // JSch OpenSSH certificate support classes for @cert-authority parsing in known_hosts
+        // The quarkus-jsch reflection config is missing several classes that JSch loads dynamically.
+        return ReflectiveClassBuildItem.builder(
+                "com.jcraft.jsch.KeyPairRSA",
+                "com.jcraft.jsch.KeyPairECDSA",
+                "com.jcraft.jsch.KeyPairEd25519",
+                "com.jcraft.jsch.KeyPairEd448",
+                "com.jcraft.jsch.KeyPairDSA",
+                "com.jcraft.jsch.SignatureRSA",
+                "com.jcraft.jsch.SignatureECDSA",
+                "com.jcraft.jsch.jce.SignatureEd25519")
+                .build();
     }
 }
