@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.sftp.SftpTestResource;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,7 @@ import static org.hamcrest.CoreMatchers.is;
 class SftpTest {
 
     @Test
+    @DisabledIfFipsMode
     public void testSftpComponent() {
         // Create a new file on the SFTP server
         RestAssured.given()
@@ -76,6 +78,86 @@ class SftpTest {
 
         // Check that {file}.done file has been deleted from the SFTP server
         RestAssured.get("/sftp/get/hello.txt.done")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    @DisabledIfFipsMode
+    void testCertificateAuthentication() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Certificate authentication test")
+                .post("/sftp/certificate/create/certificate-test.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/sftp/certificate/get/certificate-test.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Certificate authentication test"));
+
+        RestAssured.delete("/sftp/delete/certificate-test.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    @DisabledIfFipsMode
+    void testCertificateAuthenticationWithFile() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Certificate file authentication test")
+                .post("/sftp/certificateFile/create/certificate-file-test.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/sftp/certificateFile/get/certificate-file-test.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Certificate file authentication test"));
+
+        RestAssured.delete("/sftp/delete/certificate-file-test.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    @DisabledIfFipsMode
+    void testCertificateAuthenticationWithBytes() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Certificate bytes authentication test")
+                .post("/sftp/certificateBytes/create/certificate-bytes-test.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/sftp/certificateBytes/get/certificate-bytes-test.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Certificate bytes authentication test"));
+
+        RestAssured.delete("/sftp/delete/certificate-bytes-test.txt")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    @DisabledIfFipsMode
+    void testCertificateAuthenticationWithCaSignatureAlgorithms() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Certificate with CA signature algorithms test")
+                .post("/sftp/certificateWithCaAlgorithms/create/certificate-ca-algo-test.txt")
+                .then()
+                .statusCode(201);
+
+        RestAssured.get("/sftp/certificateWithCaAlgorithms/get/certificate-ca-algo-test.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Certificate with CA signature algorithms test"));
+
+        RestAssured.delete("/sftp/delete/certificate-ca-algo-test.txt")
                 .then()
                 .statusCode(204);
     }
