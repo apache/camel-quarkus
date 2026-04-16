@@ -7352,6 +7352,10 @@
                         <artifactId>annotations</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>com.google.auto.value</groupId>
+                        <artifactId>auto-value-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>com.google.code.findbugs</groupId>
                         <artifactId>jsr305</artifactId>
                     </exclusion>
