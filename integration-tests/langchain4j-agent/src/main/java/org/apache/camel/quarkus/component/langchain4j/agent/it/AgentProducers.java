@@ -41,7 +41,6 @@ import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
-import io.quarkus.arc.lookup.LookupUnlessProperty;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
@@ -98,8 +97,7 @@ public class AgentProducers {
     }
 
     @Produces
-    //in special cases (used by test modules inheriting this module), lookup of this bean has to be disabled
-    @LookupUnlessProperty(name = "cq-test.retrieval.augmentor.disabled", stringValue = "true")
+    @Identifier("ragAugmentor")
     RetrievalAugmentor retrievalAugmentor() throws IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try (InputStream stream = classLoader.getResourceAsStream("rag/company-knowledge-base.txt")) {
@@ -198,7 +196,7 @@ public class AgentProducers {
     @Identifier("agentWithRag")
     public Agent agentWithRag(
             @Identifier("ollamaOrcaMiniModel") ChatModel chatModel,
-            RetrievalAugmentor retrievalAugmentor) throws IOException {
+            @Identifier("ragAugmentor") RetrievalAugmentor retrievalAugmentor) throws IOException {
         return new AgentWithoutMemory(new AgentConfiguration()
                 .withChatModel(chatModel)
                 .withRetrievalAugmentor(retrievalAugmentor));

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j.deployment;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,8 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
 import org.jboss.jandex.AnnotationInstance;
@@ -55,12 +58,13 @@ class SupportQuarkusLangchain4jProcessor {
 
     @BuildStep
     SystemPropertyBuildItem enforceJaxRsHttpClient() {
+        LOG.infof("Quarkus LangChain4j detected - enforcing JAX-RS HTTP client factory");
         return new SystemPropertyBuildItem("langchain4j.http.clientBuilderFactory",
                 "io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory");
     }
 
-    @SuppressWarnings("unchecked")
     @BuildStep
+    @SuppressWarnings("unchecked")
     @Record(ExecutionTime.STATIC_INIT)
     void registerLangChain4jAiServiceTypesForReflection(
             CombinedIndexBuildItem combinedIndex,
@@ -96,6 +100,31 @@ class SupportQuarkusLangchain4jProcessor {
                         throw new RuntimeException(e);
                     }
                 });
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void registerQuarkusLangchain4jNativeSupport(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        IndexView index = combinedIndex.getIndex();
+
+        // Discover all inner classes of QuarkusJsonCodecFactory
+        List<String> codecFactoryClasses = index.getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(n -> n.startsWith("io.quarkiverse.langchain4j.QuarkusJsonCodecFactory"))
+                .toList();
+
+        LOG.infof("Registered %d QuarkusJsonCodecFactory-related classes for native reflection",
+                codecFactoryClasses.size());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                codecFactoryClasses.toArray(new String[0]))
+                .methods()
+                .fields()
+                .constructors()
+                .build());
     }
 
     @BuildStep

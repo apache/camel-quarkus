@@ -74,7 +74,6 @@
         <module>jsonapi</module>
         <module>junit-test-framework</module>
         <module>langchain4j-agent-bean-binding-ql4j</module>
-        <module>langchain4j-agent-ql4j</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>main-devmode</module>
