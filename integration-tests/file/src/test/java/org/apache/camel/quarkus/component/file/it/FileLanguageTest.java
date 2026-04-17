@@ -19,12 +19,15 @@ package org.apache.camel.quarkus.component.file.it;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.core.util.FileUtils;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileLanguageRoutes.FILE_LANGUAGE;
@@ -73,11 +76,13 @@ class FileLanguageTest {
         String fileName = "out-" + format.format(new Date()) + "-customValue.xml";
 
         // Read the file with current date
-        RestAssured
-                .get("/file/get/" + FileLanguageRoutes.FILE_LANG_DATE_OUT + "/" + Paths.get(fileName).getFileName())
-                .then()
-                .statusCode(200)
-                .body(equalTo(FILE_BODY));
+        Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            RestAssured
+                    .get("/file/get/" + FileLanguageRoutes.FILE_LANG_DATE_OUT + "/" + Paths.get(fileName).getFileName())
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo(FILE_BODY));
+        });
     }
 
     private static void startRouteAndWait(String routeId) throws InterruptedException {
