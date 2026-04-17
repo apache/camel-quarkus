@@ -50,6 +50,7 @@ import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultTransformerResolver;
+import org.apache.camel.language.simple.SimpleNoFileLanguage;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfig.ReflectionConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
@@ -298,6 +299,12 @@ public class CamelNativeImageProcessor {
                     ReflectiveClassBuildItem.builder(camelRoutesBuilderClassBuildItem.getDotName().toString()).methods()
                             .fields().build());
         });
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerSimpleNoFileLanguageForReflection() {
+        // Required as SimpleNoFileLanguage loading & discovery is not done via the FactoryFinder
+        return ReflectiveClassBuildItem.builder(SimpleNoFileLanguage.class).build();
     }
 
     /**

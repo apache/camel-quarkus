@@ -38,6 +38,9 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_SIMPLE_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_SIMPLE_PATH;
+
 @Path("/file")
 @ApplicationScoped
 public class FileResource {
@@ -149,8 +152,15 @@ public class FileResource {
     @Path("/route/{route}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public String pollEnrich(String body, @PathParam("route") String route) throws Exception {
-        return producerTemplate.requestBody("direct:" + route, body, String.class);
+    public String pollEnrich(String body, @PathParam("route") String route) {
+        Map<String, Object> headers = new HashMap<>();
+
+        if (route.equals("pollEnrichSimpleExpression")) {
+            headers.put("path", POLL_ENRICH_SIMPLE_PATH);
+            headers.put("fileName", POLL_ENRICH_SIMPLE_FILE_NAME);
+        }
+
+        return producerTemplate.requestBodyAndHeaders("direct:" + route, body, headers, String.class);
     }
 
 }
