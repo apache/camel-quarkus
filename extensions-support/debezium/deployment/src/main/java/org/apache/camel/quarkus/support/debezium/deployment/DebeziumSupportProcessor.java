@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.support.debezium.deployment;
 
+import java.util.function.BooleanSupplier;
+
 import io.debezium.connector.common.BaseSourceTask;
 import io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory;
 import io.debezium.engine.DebeziumEngine;
@@ -44,19 +46,27 @@ import io.debezium.storage.file.history.FileSchemaHistory;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.gizmo.Gizmo;
 import org.apache.camel.quarkus.support.debezium.DebeziumComponentObserver;
 import org.apache.kafka.common.security.authenticator.SaslClientAuthenticator;
 import org.apache.kafka.connect.json.JsonConverter;
 import org.apache.kafka.connect.source.SourceTask;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
+import org.jboss.logging.Logger;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public class DebeziumSupportProcessor {
+
+    private static final Logger LOG = Logger.getLogger(DebeziumSupportProcessor.class);
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
@@ -155,4 +165,95 @@ public class DebeziumSupportProcessor {
                 .produce(new NativeImageResourceBuildItem("META-INF/services/org.apache.kafka.connect.source.SourceConnector"));
     }
 
+    // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8530
+    @BuildStep(onlyIf = KafkaClients42IsPresent.class)
+    BytecodeTransformerBuildItem patchConfigInfos() {
+        // Patch ConfigInfos to add values() method as duplicate of configs()
+        // This provides backward compatibility for Debezium with kafka-clients 4.2.0
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform("org.apache.kafka.connect.runtime.rest.entities.ConfigInfos")
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> new ConfigInfosClassVisitor(classVisitor))
+                .build();
+    }
+
+    // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8530
+    static final class KafkaClients42IsPresent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                // Check if ConfigInfos.values() is present. If it's not, then kafka-clients >= 4.2.0 is on the classpath
+                Class<?> configInfos = Thread.currentThread().getContextClassLoader()
+                        .loadClass("org.apache.kafka.connect.runtime.rest.entities.ConfigInfos");
+                configInfos.getDeclaredMethod("values");
+                return false;
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchMethodException e) {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * Adds a values() method to ConfigInfos that duplicates the configs() method.
+     * This provides backward compatibility with older Debezium versions.
+     */
+    static class ConfigInfosClassVisitor extends ClassVisitor {
+
+        private String configsFieldDescriptor = null;
+        private String configsMethodSignature = null;
+
+        protected ConfigInfosClassVisitor(ClassVisitor classVisitor) {
+            super(Gizmo.ASM_API_VERSION, classVisitor);
+        }
+
+        @Override
+        public org.objectweb.asm.FieldVisitor visitField(int access, String name, String descriptor, String signature,
+                Object value) {
+            // Track the configs field descriptor
+            if ("configs".equals(name)) {
+                configsFieldDescriptor = descriptor;
+            }
+            return super.visitField(access, name, descriptor, signature, value);
+        }
+
+        @Override
+        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                String[] exceptions) {
+            // Track the signature of configs() method
+            if ("configs".equals(name) && "()Ljava/util/List;".equals(descriptor)) {
+                configsMethodSignature = signature;
+            }
+            return super.visitMethod(access, name, descriptor, signature, exceptions);
+        }
+
+        @Override
+        public void visitEnd() {
+            // Add values() method that duplicates configs()
+            LOG.debug("Adding values() method to ConfigInfos as duplicate of configs()");
+
+            MethodVisitor mv = cv.visitMethod(
+                    Opcodes.ACC_PUBLIC,
+                    "values",
+                    "()Ljava/util/List;",
+                    configsMethodSignature, // Same generic signature as configs()
+                    null);
+
+            if (mv != null) {
+                mv.visitCode();
+                // Method body: return this.configs;
+                mv.visitVarInsn(Opcodes.ALOAD, 0); // Load 'this'
+                mv.visitFieldInsn(Opcodes.GETFIELD,
+                        "org/apache/kafka/connect/runtime/rest/entities/ConfigInfos",
+                        "configs",
+                        configsFieldDescriptor != null ? configsFieldDescriptor : "Ljava/util/List;");
+                mv.visitInsn(Opcodes.ARETURN); // Return the field value
+                mv.visitMaxs(1, 1); // Max stack=1, max locals=1
+                mv.visitEnd();
+            }
+
+            super.visitEnd();
+        }
+    }
 }
