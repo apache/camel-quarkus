@@ -33,6 +33,12 @@ public class FileRoutes extends RouteBuilder {
 
     public static final String READ_LOCK_IN = "read-lock-in";
     public static final String READ_LOCK_OUT = "read-lock-out";
+    public static final String POLL_ENRICH_FILE_NAME = "poll-enrich-file";
+    public static final String POLL_ENRICH_SIMPLE_FILE_NAME = POLL_ENRICH_FILE_NAME + "-simple";
+    public static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
+    public static final String POLL_ENRICH_SIMPLE_FILE_CONTENT = POLL_ENRICH_SIMPLE_FILE_NAME + "-CONTENT";
+    public static final String POLL_ENRICH_PATH = "target/test-files/poll-enrich";
+    public static final String POLL_ENRICH_SIMPLE_PATH = POLL_ENRICH_PATH + "-simple";
 
     private static final Set<String> IDEMPOTENT_FILES_CONSUMED = ConcurrentHashMap.newKeySet();
 
@@ -82,8 +88,10 @@ public class FileRoutes extends RouteBuilder {
                 .convertBodyTo(String.class).to("mock:" + SORT_BY);
 
         from("direct:pollEnrich")
-                .pollEnrich("file://target/test-files/poll-enrich?fileName=poll-enrich-file");
+                .pollEnrich("file:" + POLL_ENRICH_PATH + "?fileName=" + POLL_ENRICH_FILE_NAME);
 
+        from("direct:pollEnrichSimpleExpression")
+                .pollEnrich().simple("file:${header.path}?fileName=${header.fileName}");
     }
 
     public class MyFileFilter<T> implements GenericFileFilter<T> {

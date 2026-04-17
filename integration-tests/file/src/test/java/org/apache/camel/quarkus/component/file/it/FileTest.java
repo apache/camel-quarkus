@@ -30,9 +30,13 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_SIMPLE_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.BATCH_FILE_NAME_1_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.BATCH_FILE_NAME_2_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.CHARSET_READ_FILE_CONTENT;
@@ -45,7 +49,6 @@ import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILE_C
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILTER_NON_SKIPPED_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.IDEMPOTENT_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.IDEMPOTENT_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.FileTestResource.POLL_ENRICH_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.READ_LOCK_FILE_NAME;
 import static org.apache.camel.quarkus.component.file.it.FileTestResource.READ_LOCK_FOLDER_IN;
@@ -108,14 +111,16 @@ class FileTest {
                 equalTo(FILTER_NON_SKIPPED_FILE_CONTENT));
     }
 
-    @Test
-    public void pollEnrichShouldSetExchangeBodyWithFileContent() {
+    @ParameterizedTest
+    @ValueSource(strings = { "pollEnrich", "pollEnrichSimpleExpression" })
+    public void pollEnrichShouldSetExchangeBodyWithFileContent(String route) {
+        String expectedBody = route.equals("pollEnrich") ? POLL_ENRICH_FILE_CONTENT : POLL_ENRICH_SIMPLE_FILE_CONTENT;
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .post("/file/route/pollEnrich")
+                .post("/file/route/" + route)
                 .then()
                 .statusCode(200)
-                .body(Matchers.is(POLL_ENRICH_FILE_CONTENT));
+                .body(Matchers.is(expectedBody));
     }
 
     @Test

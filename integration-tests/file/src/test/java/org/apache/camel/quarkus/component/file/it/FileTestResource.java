@@ -29,6 +29,9 @@ import java.util.Map.Entry;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.commons.io.FileUtils;
 
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileRoutes.POLL_ENRICH_SIMPLE_FILE_NAME;
+
 /**
  * Ensures that all test files are created with expected content before camel routes starts to consume them.
  */
@@ -40,8 +43,6 @@ public class FileTestResource implements QuarkusTestResourceLifecycleManager {
     static final String FILTER_NON_SKIPPED_FILE_CONTENT = FILTER_NON_SKIPPED_FILE_NAME + "-CONTENT";
     static final String IDEMPOTENT_FILE_NAME = "moved-back-read-once";
     static final String IDEMPOTENT_FILE_CONTENT = IDEMPOTENT_FILE_NAME + "-CONTENT";
-    static final String POLL_ENRICH_FILE_NAME = "poll-enrich-file";
-    static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
     static final String QUARTZ_SCHEDULED_FILE_NAME = "quartz-schedule-file";
     static final String QUARTZ_SCHEDULED_FILE_CONTENT = QUARTZ_SCHEDULED_FILE_NAME + "-CONTENT";
     static final String CHARSET_READ_FILE_NAME = "charset-read-file";
@@ -81,6 +82,7 @@ public class FileTestResource implements QuarkusTestResourceLifecycleManager {
             createTestFile("idempotent", IDEMPOTENT_FILE_NAME);
 
             createTestFile("poll-enrich", POLL_ENRICH_FILE_NAME);
+            createTestFile("poll-enrich-simple", POLL_ENRICH_SIMPLE_FILE_NAME);
 
             createTestFile("quartz-scheduled", QUARTZ_SCHEDULED_FILE_NAME);
 
