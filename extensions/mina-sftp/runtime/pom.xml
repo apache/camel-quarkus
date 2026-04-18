@@ -52,19 +52,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-bouncycastle</artifactId>
         </dependency>
-        <!-- Use quarkus-jsch for proper GraalVM configuration -->
-        <dependency>
-            <groupId>io.quarkiverse.jsch</groupId>
-            <artifactId>quarkus-jsch</artifactId>
-        </dependency>
-        
-        <!-- commons-net is excluded by camel-mina-sftp from camel-ftp, but needed for native image build
-             to allow GraalVM to analyze FTP/FTPS endpoint classes. Clean after https://issues.apache.org/jira/browse/CAMEL-23164 -->
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>nativeimage</artifactId>
