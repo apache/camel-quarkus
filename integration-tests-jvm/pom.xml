@@ -63,7 +63,6 @@
         <module>guava-eventbus</module>
         <module>huaweicloud-smn</module>
         <module>ibm-secrets-manager</module>
-        <module>ibm-watson-discovery</module>
         <module>iec60870</module>
         <module>ignite</module>
         <module>irc</module>

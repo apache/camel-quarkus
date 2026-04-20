@@ -112,6 +112,7 @@
         <module>hl7</module>
         <module>http-grouped</module>
         <module>ibm-cos</module>
+        <module>ibm-watson-discovery</module>
         <module>ibm-watson-language</module>
         <module>infinispan</module>
         <module>infinispan-common</module>

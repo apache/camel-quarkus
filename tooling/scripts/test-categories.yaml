@@ -188,6 +188,7 @@ group-10:
   - google-secret-manager
   - groovy
   - ibm-cos
+  - ibm-watson-discovery
   - ibm-watson-language
   - jolokia
   - joor
