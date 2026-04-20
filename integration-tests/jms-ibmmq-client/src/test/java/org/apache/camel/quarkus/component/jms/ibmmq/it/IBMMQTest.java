@@ -24,6 +24,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQDestinations;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQTestResource;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -34,6 +35,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisabledOnArm
 public class IBMMQTest extends AbstractJmsMessagingTest {
     private IBMMQDestinations destinations;
 
