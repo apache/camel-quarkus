@@ -20,7 +20,6 @@ import java.util.Map;
 
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
-import io.opentelemetry.sdk.trace.data.SpanData;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -44,23 +43,21 @@ public class SpanExporterResource {
     public JsonArray getSpans() {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
-        for (SpanData span : exporter.getFinishedSpanItems()) {
-            if (span.getName().contains("exporter")) {
-                // Ignore any trace events on this resource
-                continue;
-            }
+        exporter.getFinishedSpanItems().stream()
+                .filter(span -> !span.getName().contains("exporter"))
+                .sorted((s1, s2) -> Long.compare(s2.getStartEpochNanos(), s1.getStartEpochNanos()))
+                .forEach(span -> {
+                    Map<AttributeKey<?>, Object> attributes = span.getAttributes().asMap();
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    objectBuilder.add("spanId", span.getSpanId());
+                    objectBuilder.add("traceId", span.getTraceId());
+                    objectBuilder.add("parentId", span.getParentSpanId());
+                    objectBuilder.add("kind", span.getKind().name());
 
-            Map<AttributeKey<?>, Object> attributes = span.getAttributes().asMap();
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("spanId", span.getSpanId());
-            objectBuilder.add("traceId", span.getTraceId());
-            objectBuilder.add("parentId", span.getParentSpanId());
-            objectBuilder.add("kind", span.getKind().name());
+                    attributes.forEach((k, v) -> objectBuilder.add(String.valueOf(k), v.toString()));
 
-            attributes.forEach((k, v) -> objectBuilder.add(String.valueOf(k), v.toString()));
-
-            arrayBuilder.add(objectBuilder.build());
-        }
+                    arrayBuilder.add(objectBuilder.build());
+                });
 
         return arrayBuilder.build();
     }
