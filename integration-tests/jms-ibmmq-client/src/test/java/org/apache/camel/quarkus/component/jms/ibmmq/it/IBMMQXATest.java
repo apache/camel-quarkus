@@ -23,6 +23,7 @@ import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQDestinations;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQTestResource;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(IBMMQTestResource.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestProfile(JmsXAEnabled.class)
+@DisabledOnArm
 public class IBMMQXATest {
     private IBMMQDestinations destinations;
 
