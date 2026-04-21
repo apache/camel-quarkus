@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.sftp.SftpTestResource;
 import org.junit.jupiter.api.Test;
@@ -161,6 +162,7 @@ class MinaSftpTest {
     }
 
     @Test
+    @DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/8555
     void testCustomCipherConfiguration() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -180,6 +182,7 @@ class MinaSftpTest {
     }
 
     @Test
+    @DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/8555
     void testGcmCipher() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
