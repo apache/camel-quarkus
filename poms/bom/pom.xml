@@ -981,6 +981,10 @@
                         <artifactId>infinispan-core</artifactId>
                         <groupId>org.infinispan</groupId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.ehcache</groupId>
+                        <artifactId>ehcache</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
