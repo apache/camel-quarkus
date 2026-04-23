@@ -1,0 +1,24 @@
+{
+  "id" : "268e30aa-a1a4-4ab7-bc7f-4acc98f3782c",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Describe the Miles of Camels Car Rental cancellations policy for cancelling 24 hours before pickup. What is the refund amount?\\n\\nAnswer using the following information:\\nMiles of Camels Car Rental - Company Information\\n\\nBUSINESS HOURS:\\nMonday-Friday: 8:00 AM - 6:00 PM\\nSaturday: 9:00 AM - 4:00 PM\\nSunday: Closed\\n\\nRENTAL AGREEMENT\\n- This agreement is between Miles of Camels Car Rental (\\\"Company\\\") and the customer (\\\"Renter\\\").\\n\\nCANCELLATION POLICY\\n- Cancellations made 24 hours before pickup: Full refund\\n- Cancellations made 12-24 hours before pickup: 50% refund\\n- Cancellations made less than 12 hours before pickup: No refund\\n\\nVEHICLE RETURN\\n- Vehicles must be returned with the same fuel level as at pickup.\\n- Late returns incur a fee of $25 per hour or fraction thereof.\\n\\nDAMAGE POLICY\\n- Minor damages under $200: Covered by insurance\\n- Major damages over $200: Customer responsibility\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:06:07.525194682Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Miles of Camels Car Rental cancellations policy for cancelling 24 hours before pickup states that full refund will be given if cancellations are made 24 hours or more before pickup. For cancellations made between 12-24 hours before pickup, the refund amount will be 50% of the rental cost. If cancellations are made less than 12 hours before pickup, no refund will be given.\\n\\nAdditionally, the company's vehicle return policy states that vehicles must be returned with the same fuel level as at pickup. Late returns incur a fee of $25 per hour or fraction thereof.\\n\\nFinally, the damage policy states that minor damages under $200 are covered by insurance, while major damages over $200 are the responsibility of the customer.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":11995025125,\"load_duration\":17723918,\"prompt_eval_count\":314,\"prompt_eval_duration\":3512936604,\"eval_count\":170,\"eval_duration\":8451823429}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:06:07 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "268e30aa-a1a4-4ab7-bc7f-4acc98f3782c",
+  "persistent" : true,
+  "insertionIndex" : 22
+}

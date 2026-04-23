@@ -1,0 +1,24 @@
+{
+  "id" : "e45a0476-1655-4602-b20d-30332bd754bf",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"What is the name of user ID 123? Do NOT respond with any markdown formatting. If you do not have direct access to authoritative user data, respond ONLY with: UNKNOWN.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"QueryUserDatabaseByUserID\",\n      \"description\" : \"Query user database by user ID\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"userId\" : {\n            \"type\" : \"integer\"\n          }\n        },\n        \"required\" : [ ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-04-23T07:06:12.628589242Z\",\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"id\":\"call_8es60ip7\",\"function\":{\"index\":0,\"name\":\"QueryUserDatabaseByUserID\",\"arguments\":{\"userId\":123}}}]},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4963190121,\"load_duration\":1455484935,\"prompt_eval_count\":200,\"prompt_eval_duration\":2349253791,\"eval_count\":23,\"eval_duration\":1151365523}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:06:12 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "e45a0476-1655-4602-b20d-30332bd754bf",
+  "persistent" : true,
+  "insertionIndex" : 21
+}

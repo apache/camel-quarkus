@@ -1,0 +1,24 @@
+{
+  "id" : "056cba7c-8cf9-4868-8e13-74b6bdb97069",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Describe the Miles of Camels Car Rental cancellations policy for cancelling 24 hours before pickup. What is the refund amount?\\n\\nAnswer using the following information:\\nMiles of Camels Car Rental - Company Information\\n\\nBUSINESS HOURS:\\nMonday-Friday: 8:00 AM - 6:00 PM\\nSaturday: 9:00 AM - 4:00 PM\\nSunday: Closed\\n\\nRENTAL AGREEMENT\\n- This agreement is between Miles of Camels Car Rental (\\\"Company\\\") and the customer (\\\"Renter\\\").\\n\\nCANCELLATION POLICY\\n- Cancellations made 24 hours before pickup: Full refund\\n- Cancellations made 12-24 hours before pickup: 50% refund\\n- Cancellations made less than 12 hours before pickup: No refund\\n\\nVEHICLE RETURN\\n- Vehicles must be returned with the same fuel level as at pickup.\\n- Late returns incur a fee of $25 per hour or fraction thereof.\\n\\nDAMAGE POLICY\\n- Minor damages under $200: Covered by insurance\\n- Major damages over $200: Customer responsibility\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T06:59:26.335758228Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Miles of Camels Car Rental cancellations policy for cancelling 24 hours before pickup is as follows:\\n\\n- If you cancel 24 hours or more before pickup, you will receive a full refund.\\n- If you cancel 12-24 hours before pickup, you will receive 50% refund.\\n- If you cancel less than 12 hours before pickup, you will not receive a refund.\\n\\nThe refund amount will be the total amount paid by the Renter for the rental vehicle.\\n\\nAdditionally, Miles of Camels Car Rental has a damage policy where minor damages under $200 are covered by insurance, while major damages over $200 are the responsibility of the customer. Late returns incur a fee of $25 per hour or fraction thereof.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":13426245093,\"load_duration\":1335757667,\"prompt_eval_count\":314,\"prompt_eval_duration\":3626895911,\"eval_count\":170,\"eval_duration\":8449762583}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 06:59:26 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "056cba7c-8cf9-4868-8e13-74b6bdb97069",
+  "persistent" : true,
+  "insertionIndex" : 21
+}

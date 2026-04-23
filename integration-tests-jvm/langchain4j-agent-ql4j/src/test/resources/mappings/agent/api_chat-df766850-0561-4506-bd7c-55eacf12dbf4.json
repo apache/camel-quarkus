@@ -1,0 +1,24 @@
+{
+  "id" : "df766850-0561-4506-bd7c-55eacf12dbf4",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named John Doe with the fields name and description\\nYou must answer strictly in the following JSON format: {\\n\\\"name\\\": (type: string),\\n\\\"description\\\": (type: string)\\n}\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:06:56.370242182Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, here's an example JSON object about John Doe:\\n\\n```\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"description\\\": \\\"John Doe is a person who is known for their contributions to various fields such as technology, business, and entertainment.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3687566529,\"load_duration\":17437778,\"prompt_eval_count\":90,\"prompt_eval_duration\":596429374,\"eval_count\":64,\"eval_duration\":3068071704}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:06:56 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "df766850-0561-4506-bd7c-55eacf12dbf4",
+  "persistent" : true,
+  "insertionIndex" : 12
+}

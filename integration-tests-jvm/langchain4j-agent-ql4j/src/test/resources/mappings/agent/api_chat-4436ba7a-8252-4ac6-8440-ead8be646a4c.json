@@ -1,0 +1,24 @@
+{
+  "id" : "4436ba7a-8252-4ac6-8440-ead8be646a4c",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Hello - my name is Alice\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \"Hello Alice! It's nice to meet you. How can I assist you today?\",\n    \"tool_calls\" : [ ]\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"And my favorite color is blue\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \"That's a lovely color! Blue is often associated with calmness, tranquility, and stability. Is there anything specific you would like to know or discuss about the color blue?\",\n    \"tool_calls\" : [ ]\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Now tell me about myself - what's my name and favorite color?\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-04-23T07:07:26.887515378Z\",\"message\":{\"role\":\"assistant\",\"content\":\"Your name is Alice and your favorite color is blue. Is there anything else you would like to know or discuss?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1512929510,\"load_duration\":51414701,\"prompt_eval_count\":129,\"prompt_eval_duration\":304483820,\"eval_count\":24,\"eval_duration\":1151143625}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:07:26 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "4436ba7a-8252-4ac6-8440-ead8be646a4c",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

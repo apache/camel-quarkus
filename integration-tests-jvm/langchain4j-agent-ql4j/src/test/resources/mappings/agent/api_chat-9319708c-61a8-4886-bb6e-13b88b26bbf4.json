@@ -1,0 +1,24 @@
+{
+  "id" : "9319708c-61a8-4886-bb6e-13b88b26bbf4",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named 'John Doe' with the fields age and description\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \" Sure, here's an example JSON object for John Doe with the fields age and description:\\n\\n```\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"age\\\": 32,\\n \\\"description\\\": \\\"John Doe is a professional software developer with 10 years of experience in the field. He enjoys hiking and playing guitar in his free time.\\\"\\n}\\n```\",\n    \"tool_calls\" : [ ]\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Make sure you return a valid JSON object following the specified format\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:07:21.852615121Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, here's a valid JSON object for John Doe:\\n\\n```\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"age\\\": 32,\\n \\\"description\\\": \\\"John Doe is a professional software developer with 10 years of experience in the field. He enjoys hiking and playing guitar in his free time.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3762344084,\"load_duration\":17823345,\"prompt_eval_count\":169,\"prompt_eval_duration\":48072964,\"eval_count\":78,\"eval_duration\":3689832431}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:07:21 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "9319708c-61a8-4886-bb6e-13b88b26bbf4",
+  "persistent" : true,
+  "insertionIndex" : 6
+}

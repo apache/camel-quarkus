@@ -1,0 +1,24 @@
+{
+  "id" : "9300fa7e-4a2a-453b-9dc8-58004959d71e",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"What is the name of user ID 123? Do NOT respond with any markdown formatting. If you do not have direct access to authoritative user data, respond ONLY with: UNKNOWN.\"\n  }, {\n    \"role\" : \"assistant\",\n    \"tool_calls\" : [ {\n      \"id\" : \"call_cp34x5kj\",\n      \"function\" : {\n        \"name\" : \"QueryUserDatabaseByUserID\",\n        \"arguments\" : {\n          \"userId\" : 123\n        }\n      }\n    } ]\n  }, {\n    \"role\" : \"tool\",\n    \"content\" : \"{\\\"name\\\": \\\"John Doe\\\", \\\"id\\\": \\\"123\\\"}\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ {\n    \"type\" : \"function\",\n    \"function\" : {\n      \"name\" : \"QueryUserDatabaseByUserID\",\n      \"description\" : \"Query user database by user ID\",\n      \"parameters\" : {\n        \"type\" : \"object\",\n        \"properties\" : {\n          \"userId\" : {\n            \"type\" : \"integer\"\n          }\n        },\n        \"required\" : [ ]\n      }\n    }\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-04-23T06:59:32.075560066Z\",\"message\":{\"role\":\"assistant\",\"content\":\"John Doe\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":537482591,\"load_duration\":52379291,\"prompt_eval_count\":248,\"prompt_eval_duration\":379341229,\"eval_count\":3,\"eval_duration\":102504725}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 06:59:32 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "9300fa7e-4a2a-453b-9dc8-58004959d71e",
+  "persistent" : true,
+  "insertionIndex" : 19
+}

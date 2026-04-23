@@ -1,0 +1,24 @@
+{
+  "id" : "d03502e5-a348-4989-8619-003e1f0583e0",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:01:01.436480414Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a little black and white cat named Whiskers went out for her usual evening stroll. She meowed softly as she scurried through the tall grass, feeling the warm breeze blowing through her fur. Whiskers was a beloved pet of the neighborhood, and everyone knew her.\\n\\nBut as the night wore on, Whiskers became lost. She meowed louder and louder, but no one answered her cries. She wandered around the neighborhood, searching for her home, but all the houses looked the same.\\n\\nAs the night grew darker, Whiskers grew tired and scared. She meowed even louder, hoping someone would hear her. Suddenly, a kind voice called out to her. \\\"Whiskers, don't you worry, little girl. I'll help you find your way home.\\\"\\n\\nIt was an old woman who lived nearby. She had seen Whiskers wandering around and was worried about her. The woman took Whiskers inside her house and gave her a warm cup of tea.\\n\\nWhiskers was grateful and felt safe in the woman's home. She meowed softly as she nibbled on the delicious food the woman had prepared. The woman smiled and said, \\\"You're a lucky little cat, Whiskers. I'm sure you'll find your way home soon.\\\"\\n\\nWhiskers nodded her head and felt content. The woman left, and she meowed softly as she continued her walk home. When she finally arrived, she rubbed her eyes and meowed softly. It was a relief to be back home, where she was loved and safe.\\n\\nFrom that night on, Whiskers was never lost again. She knew that she could always count on the kindness of strangers, and she was grateful for that. She lived a happy and peaceful life, surrounded by love and affection, until the day she passed away at the ripe old age of 20.\\n\\nAnd so, Whiskers lived on as a memory in the hearts and minds of those who had loved her. She was a lost cat, but she had found her way home, all thanks to the kindness of strangers.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":23460477095,\"load_duration\":17379509,\"prompt_eval_count\":70,\"prompt_eval_duration\":680016278,\"eval_count\":464,\"eval_duration\":22733312067}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:01:01 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "d03502e5-a348-4989-8619-003e1f0583e0",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

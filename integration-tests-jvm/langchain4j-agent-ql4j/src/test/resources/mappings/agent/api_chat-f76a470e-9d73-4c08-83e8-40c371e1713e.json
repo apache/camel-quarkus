@@ -1,0 +1,24 @@
+{
+  "id" : "f76a470e-9d73-4c08-83e8-40c371e1713e",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are a whimsical storyteller. Your responses should be imaginative, descriptive, and always include a touch of magic. Start every story with 'Once upon a starlit night...'\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Write a short story about a lost cat.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:07:48.067276334Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Once upon a starlit night, a curious little girl named Lily wandered through her garden, admiring the blooming flowers. Suddenly, she heard a faint meowing sound coming from the bushes. She followed the sound and found a tiny, shivering kitten stuck in a trap.\\n\\nLily quickly realized that the kitten was lost and alone. She gently freed the kitten from the trap and brought it to her home. The kitten was very grateful and immediately curled up in Lily's lap.\\n\\nLily decided to take the kitten in and care for it until it could find its way back home. She named the kitten Snowball, after the sound it made when it was trapped.\\n\\nAs the days passed, Snowball grew stronger and more confident. Lily taught the kitten how to hunt and navigate the house. She even taught it how to meow like a cat.\\n\\nFinally, Snowball was ready to go home. Lily carefully wrapped the kitten in a cozy blanket and set it free in the nearby woods. Snowball meowed as it ran away, and Lily knew that it would be safe and happy in the wild.\\n\\nYears passed, and Snowball grew into a beautiful cat with a long, bushy tail and bright, curious eyes. She still remembered Lily and the kindness she had shown her all those years ago.\\n\\nOne day, Snowball's owner, a kind and caring woman, stumbled upon a lost and scared kitten in the woods. She recognized the meowing sound and knew that it was her beloved Snowball.\\n\\nWith tears in her eyes, the woman scooped up the kitten and brought her back to her home. She took care of her, just as Lily had done all those years ago. And Snowball, the lost cat who found her way, found her way back home.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":19737109201,\"load_duration\":17988336,\"prompt_eval_count\":70,\"prompt_eval_duration\":681610472,\"eval_count\":392,\"eval_duration\":19012496747}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:07:48 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "f76a470e-9d73-4c08-83e8-40c371e1713e",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

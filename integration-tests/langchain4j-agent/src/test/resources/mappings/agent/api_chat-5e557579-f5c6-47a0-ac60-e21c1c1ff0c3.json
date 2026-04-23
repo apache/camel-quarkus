@@ -1,0 +1,24 @@
+{
+  "id" : "5e557579-f5c6-47a0-ac60-e21c1c1ff0c3",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Make sure you return a valid JSON object following the specified format\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:00:31.657596202Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, I can help you with that. However, I need to know what format you want to specify. Do you want me to generate a random JSON object or a JSON object with specific format?\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":2113452438,\"load_duration\":18838047,\"prompt_eval_count\":52,\"prompt_eval_duration\":234855663,\"eval_count\":41,\"eval_duration\":1856178303}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:00:31 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "5e557579-f5c6-47a0-ac60-e21c1c1ff0c3",
+  "persistent" : true,
+  "insertionIndex" : 6
+}

@@ -1,0 +1,24 @@
+{
+  "id" : "61945e16-28a5-4ba2-b298-ac6e7e68c5f0",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named 'John Doe' with the fields age and description\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2026-04-23T07:07:06.528999417Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure, here's an example JSON object for John Doe with the fields age and description:\\n\\n```\\n{\\n \\\"name\\\": \\\"John Doe\\\",\\n \\\"age\\\": 32,\\n \\\"description\\\": \\\"John Doe is a professional software developer with 10 years of experience in the field. He enjoys hiking and playing guitar in his free time.\\\"\\n}\\n```\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4308069547,\"load_duration\":13005957,\"prompt_eval_count\":60,\"prompt_eval_duration\":372130728,\"eval_count\":84,\"eval_duration\":3916686087}",
+    "headers" : {
+      "Date" : "Thu, 23 Apr 2026 07:07:06 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "61945e16-28a5-4ba2-b298-ac6e7e68c5f0",
+  "persistent" : true,
+  "insertionIndex" : 8
+}
