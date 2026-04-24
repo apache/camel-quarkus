@@ -62,13 +62,16 @@ group-03:
   - freemarker
   - github
   - google
+  - jolokia
   - json-validator
   - mail-microsoft-oauth
   - main
   - main-command-mode
+  - main-unknown-args-fail
   - main-xml-io
   - main-xml-jaxb
   - main-yaml
+  - microprofile-health
   - shiro
   - twitter
   - validator
@@ -148,8 +151,10 @@ group-08:
   - azure-grouped
   - crypto
   - crypto-pgp
+  - joor
   - jq
   - langchain4j-chat
+  - main-unknown-args-ignore
   - master-file
   - pdf
   - pinecone
@@ -185,18 +190,11 @@ group-10:
   - digitalocean
   - docling
   - fop
-  - google-secret-manager
   - groovy
   - ibm-cos
   - ibm-watson-discovery
   - ibm-watson-language
-  - jolokia
-  - joor
-  - langchain4j-tokenizer
   - mail
-  - main-unknown-args-fail
-  - main-unknown-args-ignore
-  - microprofile-health
   - platform-http-proxy
   - platform-http-proxy-ssl
   - solr
@@ -206,9 +204,11 @@ group-11:
   - compression-grouped
   - disruptor
   - flatpack
+  - google-secret-manager
   - grok
   - jolt
   - jsonata
+  - langchain4j-tokenizer
   - milo
   - mustache
   - netty
