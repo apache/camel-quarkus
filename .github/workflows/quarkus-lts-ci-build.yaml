@@ -24,6 +24,7 @@ on:
         type: choice
         description: "The Quarkus maintenance branch to test"
         options:
+          - "3.33"
           - "3.27"
           - "3.20"
         required: true
