@@ -138,7 +138,7 @@
         <json-schema-validator.version>${networknt-json-schema-validator-version}</json-schema-validator.version>
         <json-smart.version>${json-smart-version}</json-smart.version>
         <jxmpp.version>1.1.0</jxmpp.version><!-- @sync org.apache.camel:camel-xmpp:${camel.version} dep:org.jxmpp:jxmpp-jid -->
-        <kafka.version>4.2.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kafka.version>4.1.1</kafka.version><!-- Pinned to 4.1.1 for Debezium compatibility. Debezium 3.5.x is built against Kafka Connect 4.1.1. kafka-clients 4.2.0 changed bootstrap.servers validation, causing "Missing required configuration 'bootstrap.servers'" errors in camel-quarkus-debezium-* extensions. See https://github.com/apache/camel-quarkus/issues/8530 -->
         <keycloak.version>26.5.7</keycloak.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:keycloak.server.version -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>2.3.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
