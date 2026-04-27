@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.velocity.deployment;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -27,6 +26,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.velocity.CamelVelocityClasspathResourceLoader;
+import org.apache.camel.util.CaseInsensitiveMap;
 import org.apache.velocity.runtime.directive.ForeachScope;
 import org.jboss.jandex.IndexView;
 
@@ -64,7 +64,8 @@ class VelocityProcessor {
 
         reflectiveClass.produce(
                 ReflectiveClassBuildItem.builder(
-                        TreeMap.class.getName(),
+                        CaseInsensitiveMap.class.getName(),
+                        "org.apache.camel.support.CopyOnWriteHeadersMap",
                         ForeachScope.class.getName())
                         .methods()
                         .build());

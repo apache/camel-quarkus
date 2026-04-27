@@ -35,7 +35,6 @@
     <modules>
         <module>asn1</module>
         <module>asterisk</module>
-        <module>aws-xray</module>
         <module>azure-cosmosdb</module>
         <module>azure-files</module>
         <module>barcode</module>
@@ -59,7 +58,6 @@
         <module>fastjson</module>
         <module>flink</module>
         <module>google-functions</module>
-        <module>guava-eventbus</module>
         <module>huaweicloud-smn</module>
         <module>ibm-secrets-manager</module>
         <module>iec60870</module>
@@ -92,7 +90,6 @@
         <module>snmp</module>
         <module>spring-redis</module>
         <module>stitch</module>
-        <module>stomp</module>
         <module>stub</module>
         <module>thrift</module>
         <module>web3j</module>

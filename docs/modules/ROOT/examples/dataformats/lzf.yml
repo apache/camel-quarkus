@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: lzf
 cqCamelPartTitle: LZF Deflate Compression
-cqCamelPartDescription: Compress and decompress streams using LZF deflate algorithm.
+cqCamelPartDescription: Compress and decompress streams using LZF deflate algorithm
 cqExtensionPageTitle: LZF Deflate Compression

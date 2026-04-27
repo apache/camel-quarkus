@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: barcode
 cqCamelPartTitle: Barcode
-cqCamelPartDescription: Transform strings to various 1D/2D barcode bitmap formats and back.
+cqCamelPartDescription: Transform strings to various 1D/2D barcode bitmap formats and back
 cqExtensionPageTitle: Barcode

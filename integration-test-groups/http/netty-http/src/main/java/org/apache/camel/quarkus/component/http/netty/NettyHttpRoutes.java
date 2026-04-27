@@ -111,7 +111,7 @@ public class NettyHttpRoutes extends RouteBuilder {
                 .to("netty-http:https://localhost:{{quarkus.http.test-ssl-port}}/service/common/https?ssl=true&sslContextParameters=#sslContextParameters");
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
                 .transform().constant("Netty Hello World");
-        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/serialized/exception?transferException=true")
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/serialized/exception?muteException=false&transferException=true")
                 .throwException(new IllegalStateException("Forced exception"));
         from("netty-http:http://0.0.0.0:{{camel.netty-http.compression-test-port}}/compressed?compression=true")
                 .transform().constant("Netty Hello World Compressed");

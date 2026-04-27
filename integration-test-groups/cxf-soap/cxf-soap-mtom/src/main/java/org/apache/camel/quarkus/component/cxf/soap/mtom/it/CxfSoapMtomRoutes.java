@@ -235,7 +235,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
     static class PojoModeProcessor implements Processor {
         @Override
         public void process(Exchange exchange) throws Exception {
-            String operationName = (String) exchange.getIn().getHeaders().get("operationName");
+            String operationName = (String) exchange.getIn().getHeaders().get(OPERATION_NAME);
             MessageContentsList list = (MessageContentsList) exchange.getIn().getBody();
             if ("uploadImage".equals(operationName)) {
                 exchange.getIn().getHeaders().put("image", list.get(0));
@@ -244,6 +244,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                         .put("operationName", "uploadImage(${header.image},${header.imageName})");
             } else if ("downloadImage".equals(operationName)) {
                 exchange.getIn().setBody(list.get(0));
+                exchange.getIn().getHeaders().put("operationName", "downloadImage(${body})");
             }
         }
 

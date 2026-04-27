@@ -30,7 +30,7 @@ import io.quarkus.vertx.http.runtime.CertificateConfig;
 import io.quarkus.vertx.http.runtime.ServerSslConfig;
 import io.quarkus.vertx.http.runtime.VertxHttpConfig;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.http.WebSocketClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
 import io.vertx.ext.web.Router;
 import org.apache.camel.CamelContext;
@@ -138,7 +138,7 @@ public class VertxWebsocketRecorder {
         }
 
         @Override
-        public WebSocketConnectOptions getWebSocketConnectOptions(HttpClientOptions options) {
+        public WebSocketConnectOptions getWebSocketConnectOptions(WebSocketClientOptions options) {
             WebSocketConnectOptions connectOptions = super.getWebSocketConnectOptions(options);
             URI uri = URI.create(getEndpointUri().replaceFirst("wss?:/*", ""));
             if (ObjectHelper.isNotEmpty(uri.getHost()) && uri.getPort() == -1) {
