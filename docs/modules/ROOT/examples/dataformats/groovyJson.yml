@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 3.2.0
 cqCamelPartName: groovyJson
 cqCamelPartTitle: Groovy JSon
-cqCamelPartDescription: Transform between JSon and java.util.Map or java.util.List objects.
+cqCamelPartDescription: Transform between JSon and java.util.Map or java.util.List objects
 cqExtensionPageTitle: Groovy

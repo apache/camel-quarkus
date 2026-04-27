@@ -20,6 +20,11 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.support.DefaultHeaderFilterStrategy;
 
+/**
+ * Custom header filter strategy for testing purposes only.
+ * Tests that only TestHeader survives in MessageProperties.headers
+ * while Camel headers are correctly filtered and/or converted to AMQP message properties.
+ */
 public class CustomHeaderFilterStrategy extends DefaultHeaderFilterStrategy {
 
     public CustomHeaderFilterStrategy() {
@@ -27,10 +32,13 @@ public class CustomHeaderFilterStrategy extends DefaultHeaderFilterStrategy {
     }
 
     /**
-     * Keep the CamelSpringRabbitmqMessageId header
+     * Filter all headers except TestHeader from MessageProperties.headers.
+     *
+     * Pattern ^(?!TestHeader).* = "anything NOT starting with TestHeader"
      */
     protected void initialize() {
-        this.setOutFilterPattern(Pattern.compile("^(?!CamelSpringRabbitmqMessageId).*"));
+        // Custom pattern: filter all headers except TestHeader
+        this.setOutFilterPattern(Pattern.compile("^(?!TestHeader).*"));
     }
 
 }

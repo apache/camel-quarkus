@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: univocityTsv
 cqCamelPartTitle: uniVocity TSV
-cqCamelPartDescription: Marshal and unmarshal Java objects from and to TSV (Tab-Separated Values) records using UniVocity Parsers.
+cqCamelPartDescription: Marshal and unmarshal Java objects from and to TSV (Tab-Separated Values) records using UniVocity Parsers
 cqExtensionPageTitle: uniVocity CSV

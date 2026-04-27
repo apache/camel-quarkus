@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.20.0</version>
+        <version>4.21.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,7 +39,7 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>4.20</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.major.minor>4.21</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
@@ -94,7 +94,7 @@
         <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
-        <eddsa.version>${eddsa-version}</eddsa.version>
+        <eddsa.version>0.3.0</eddsa.version>
         <eclipse-transformer.version>0.5.0</eclipse-transformer.version>
         <freemarker.version>2.3.34</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
@@ -118,7 +118,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>6.7.9</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>6.9.4.1</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <ibm.java-sdk-core.version>9.25.0</ibm.java-sdk-core.version><!-- Required because of https://github.com/apache/camel-quarkus/issues/7269 -->
         <ibm.mq.client.version>9.4.5.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
@@ -376,6 +376,29 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2049/</url>
+            <name>Apache Camel 4.21.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -389,6 +412,29 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2049/</url>
+            <name>Apache Camel 4.21.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>

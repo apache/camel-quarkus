@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Handle CSV (Comma Separated Values) payloads.
+:cq-description: Handle CSV (Comma Separated Values) payloads
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0
 :cq-native-since: 0.2.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##0.2.0## [.badge-key]##Native since##[.badge-supported]##0.2.0##
 endif::[]
 
-Handle CSV (Comma Separated Values) payloads.
+Handle CSV (Comma Separated Values) payloads
 
 [id="extensions-csv-whats-inside"]
 == What's inside

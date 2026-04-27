@@ -222,7 +222,6 @@ public class CoreMainResource {
                 .add("enabled", errorRegistry.isEnabled())
                 .add("maximumEntries", errorRegistry.getMaximumEntries())
                 .add("timeToLiveSeconds", errorRegistry.getTimeToLive().toSeconds())
-                .add("stackTraceEnabled", errorRegistry.isStackTraceEnabled())
                 .add("size", errorRegistry.size())
                 .build();
     }

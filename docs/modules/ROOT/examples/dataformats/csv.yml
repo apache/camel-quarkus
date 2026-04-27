@@ -9,5 +9,5 @@ cqJvmSince: 0.2.0
 cqNativeSince: 0.2.0
 cqCamelPartName: csv
 cqCamelPartTitle: CSV
-cqCamelPartDescription: Handle CSV (Comma Separated Values) payloads.
+cqCamelPartDescription: Handle CSV (Comma Separated Values) payloads
 cqExtensionPageTitle: CSV

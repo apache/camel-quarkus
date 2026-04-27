@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: jaxb
 cqCamelPartTitle: JAXB
-cqCamelPartDescription: Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
+cqCamelPartDescription: Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard
 cqExtensionPageTitle: JAXB

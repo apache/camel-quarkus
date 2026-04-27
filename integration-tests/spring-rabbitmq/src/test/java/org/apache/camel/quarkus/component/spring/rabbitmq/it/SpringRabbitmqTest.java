@@ -82,7 +82,8 @@ class SpringRabbitmqTest {
                         SpringRabbitMQConstants.TYPE, "price",
                         SpringRabbitMQConstants.CONTENT_TYPE, "application/xml",
                         SpringRabbitMQConstants.MESSAGE_ID, "0fe9c142-f9c1-426f-9237-f5a4c988a8ae",
-                        SpringRabbitMQConstants.PRIORITY, 1));
+                        SpringRabbitMQConstants.PRIORITY, 1,
+                        "TestHeader", "testValue"));
 
         RestAssured.given()
                 .queryParam("exchange", "exchange-for-headersToProperties")
@@ -107,9 +108,10 @@ class SpringRabbitmqTest {
             assertThat(messageProperties.getContentType()).isEqualTo("application/xml");
             assertThat(messageProperties.getMessageId()).isEqualTo("0fe9c142-f9c1-426f-9237-f5a4c988a8ae");
             assertThat(messageProperties.getPriority()).isEqualTo(1);
-            //the only headers preserved by customHeadersFilterStrategy is "CamelSpringRabbitmqMessageId
+            //the only header preserved by customHeadersFilterStrategy is "TestHeader"
             assertThat(messageProperties.getHeaders().size()).isEqualTo(1);
-            assertThat(messageProperties.getHeaders()).containsKey("CamelSpringRabbitmqMessageId");
+            assertThat(messageProperties.getHeaders()).containsKey("TestHeader");
+            assertThat(messageProperties.getHeaders().get("TestHeader")).isEqualTo("testValue");
         });
     }
 

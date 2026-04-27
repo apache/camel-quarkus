@@ -9,5 +9,5 @@ cqJvmSince: 3.8.0
 cqNativeSince: 3.16.0
 cqCamelPartName: beanio
 cqCamelPartTitle: BeanIO
-cqCamelPartDescription: Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).
+cqCamelPartDescription: Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats)
 cqExtensionPageTitle: BeanIO

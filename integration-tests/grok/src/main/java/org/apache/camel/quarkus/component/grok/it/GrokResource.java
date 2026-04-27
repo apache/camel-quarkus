@@ -22,7 +22,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
@@ -107,14 +106,11 @@ public class GrokResource {
 
     @Path("/flatten")
     @GET
+    @SuppressWarnings("unchecked")
     public String flatten(String input) {
         LOG.infof("Calling flatten with %s", input);
-        try {
-            template.requestBody("direct:flatten", input, String.class);
-        } catch (CamelExecutionException cex) {
-            return cex.getCause().getClass().getName();
-        }
-        return null;
+        Map<String, Object> result = template.requestBody("direct:flatten", input, Map.class);
+        return result.toString();
     }
 
     @Path("/namedOnly")

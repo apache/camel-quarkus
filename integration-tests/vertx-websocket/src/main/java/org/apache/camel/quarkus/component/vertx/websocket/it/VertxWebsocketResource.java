@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.http.WebSocketClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -120,7 +120,7 @@ public class VertxWebsocketResource {
         String uri = "vertx-websocket:" + scheme + "localhost/test";
         VertxWebsocketRecorder.QuarkusVertxWebsocketEndpoint endpoint = context.getEndpoint(uri,
                 VertxWebsocketRecorder.QuarkusVertxWebsocketEndpoint.class);
-        WebSocketConnectOptions connectOptions = endpoint.getWebSocketConnectOptions(new HttpClientOptions());
+        WebSocketConnectOptions connectOptions = endpoint.getWebSocketConnectOptions(new WebSocketClientOptions());
         return connectOptions.getPort();
     }
 

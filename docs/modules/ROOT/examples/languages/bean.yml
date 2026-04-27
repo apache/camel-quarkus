@@ -9,5 +9,5 @@ cqJvmSince: 0.1.0
 cqNativeSince: 0.1.0
 cqCamelPartName: bean
 cqCamelPartTitle: Bean Method
-cqCamelPartDescription: Calls a Java bean method.
+cqCamelPartDescription: Calls a Java bean method
 cqExtensionPageTitle: Bean

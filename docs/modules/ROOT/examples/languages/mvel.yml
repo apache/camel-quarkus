@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: mvel
 cqCamelPartTitle: MVEL
-cqCamelPartDescription: Evaluates a MVEL template.
+cqCamelPartDescription: Evaluates a MVEL template
 cqExtensionPageTitle: MVEL

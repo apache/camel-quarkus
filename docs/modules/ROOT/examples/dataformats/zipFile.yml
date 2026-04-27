@@ -9,5 +9,5 @@ cqJvmSince: 0.2.0
 cqNativeSince: 0.2.0
 cqCamelPartName: zipFile
 cqCamelPartTitle: Zip File
-cqCamelPartDescription: Compression and decompress streams using java.util.zip.ZipStream.
+cqCamelPartDescription: Compression and decompress streams using java.util.zip.Zip*Stream
 cqExtensionPageTitle: Zip File

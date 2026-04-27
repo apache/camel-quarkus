@@ -9,5 +9,5 @@ cqJvmSince: 0.0.1
 cqNativeSince: 0.0.1
 cqCamelPartName: simple
 cqCamelPartTitle: Simple
-cqCamelPartDescription: Evaluates a Camel simple expression.
+cqCamelPartDescription: Evaluates a Camel simple expression
 cqExtensionPageTitle: Core

@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: univocityCsv
 cqCamelPartTitle: uniVocity CSV
-cqCamelPartDescription: Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers.
+cqCamelPartDescription: Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers
 cqExtensionPageTitle: uniVocity CSV

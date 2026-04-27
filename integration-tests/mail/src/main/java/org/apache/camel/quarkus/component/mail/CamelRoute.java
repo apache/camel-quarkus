@@ -94,10 +94,11 @@ public class CamelRoute extends RouteBuilder {
                 .handled(false);
 
         from("direct:sendMail")
-                .toF("smtp://%s:%d?username=%s&password=%s", mailHost, smtpPort, USERNAME, PASSWORD);
+                .toF("smtp://%s:%d?username=%s&password=%s&useHeaderSubject=true&useHeaderFrom=true&useHeaderRecipients=true",
+                        mailHost, smtpPort, USERNAME, PASSWORD);
 
         from("direct:sendMailSecured").toF(
-                "smtps://%s:%d?username=%s&password=%s&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
+                "smtps://%s:%d?username=%s&password=%s&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties&useHeaderSubject=true&useHeaderFrom=true&useHeaderRecipients=true",
                 mailHost, smtpsPort, USERNAME, PASSWORD);
 
         from("direct:mimeMultipartMarshal")

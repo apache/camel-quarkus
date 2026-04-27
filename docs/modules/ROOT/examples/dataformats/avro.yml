@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: avro
 cqCamelPartTitle: Avro
-cqCamelPartDescription: Serialize and deserialize messages using Apache Avro binary data format.
+cqCamelPartDescription: Serialize and deserialize messages using Apache Avro binary data format
 cqExtensionPageTitle: Avro

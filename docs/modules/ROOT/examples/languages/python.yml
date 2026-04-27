@@ -9,5 +9,5 @@ cqJvmSince: 3.24.0
 cqNativeSince: n/a
 cqCamelPartName: python
 cqCamelPartTitle: Python
-cqCamelPartDescription: Evaluates a Python expression.
+cqCamelPartDescription: Evaluates a Python expression
 cqExtensionPageTitle: Python
