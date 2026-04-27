@@ -50,6 +50,7 @@
         <module>ref</module>
         <module>route-configurations</module>
         <module>scheduler</module>
+        <module>security-policy</module>
         <module>seda</module>
         <module>stream</module>
         <module>timer</module>
