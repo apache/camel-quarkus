@@ -2307,6 +2307,10 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>animal-sniffer-annotations</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-stdlib-common</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
