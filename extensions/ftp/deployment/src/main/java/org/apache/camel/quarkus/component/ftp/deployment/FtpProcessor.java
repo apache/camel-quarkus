@@ -27,4 +27,5 @@ class FtpProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
 }
