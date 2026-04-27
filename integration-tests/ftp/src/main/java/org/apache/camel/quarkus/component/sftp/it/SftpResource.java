@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.sftp.it;
 
-import java.io.InputStream;
 import java.net.URI;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -38,6 +37,9 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.file.remote.SftpConfiguration;
 import org.apache.camel.component.file.remote.SftpEndpoint;
 
+import static java.nio.file.Files.*;
+import static java.util.logging.Logger.*;
+
 @Path("/sftp")
 @ApplicationScoped
 public class SftpResource {
@@ -52,6 +54,9 @@ public class SftpResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    SftpCertificateManager certificateManager;
 
     @Path("/get/{fileName}")
     @GET
@@ -101,7 +106,7 @@ public class SftpResource {
     public Response createFileWithCertificate(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub",
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:target/classes/certs/test-key-rsa.key&certUri=file:target/classes/certs/test-key-rsa-cert.pub",
                 fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
@@ -114,7 +119,7 @@ public class SftpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificate(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:target/classes/certs/test-key-rsa.key&certUri=file:target/classes/certs/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
@@ -151,54 +156,34 @@ public class SftpResource {
     public Response createFileWithCertificateBytes(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        try (InputStream certStream = classLoader.getResourceAsStream("certs/test-key-rsa-cert.pub");
-                InputStream keyStream = classLoader.getResourceAsStream("certs/test-key-rsa.key")) {
-            if (certStream == null) {
-                throw new RuntimeException("Failed reading cert file");
-            }
+        String uri = "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp";
+        SftpEndpoint endpoint = context.getEndpoint(uri, SftpEndpoint.class);
+        SftpConfiguration config = endpoint.getConfiguration();
 
-            if (keyStream == null) {
-                throw new RuntimeException("Failed reading key file");
-            }
+        // Use dynamically generated certificates instead of loading from files
+        config.setCertBytes(certificateManager.getUserCertificateBytes());
+        config.setPrivateKey(certificateManager.getUserPrivateKeyBytes());
 
-            String uri = "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp";
-            SftpEndpoint endpoint = context.getEndpoint(uri, SftpEndpoint.class);
-            SftpConfiguration config = endpoint.getConfiguration();
-            config.setCertBytes(certStream.readAllBytes());
-            config.setPrivateKey(keyStream.readAllBytes());
-
-            producerTemplate.sendBodyAndHeader(endpoint, fileContent, Exchange.FILE_NAME, fileName);
-            return Response
-                    .created(new URI("https://camel.apache.org/"))
-                    .build();
-        }
+        producerTemplate.sendBodyAndHeader(endpoint, fileContent, Exchange.FILE_NAME, fileName);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .build();
     }
 
     @Path("/certificateBytes/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificateBytes(@PathParam("fileName") String fileName) throws Exception {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        try (InputStream certStream = classLoader.getResourceAsStream("certs/test-key-rsa-cert.pub");
-                InputStream keyStream = classLoader.getResourceAsStream("certs/test-key-rsa.key")) {
-            if (certStream == null) {
-                throw new RuntimeException("Failed reading cert file");
-            }
+        String uri = "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?localWorkDirectory=target&fileName="
+                + fileName;
+        SftpEndpoint endpoint = context.getEndpoint(uri, SftpEndpoint.class);
+        SftpConfiguration config = endpoint.getConfiguration();
 
-            if (keyStream == null) {
-                throw new RuntimeException("Failed reading key file");
-            }
+        // Use dynamically generated certificates instead of loading from files
+        config.setCertBytes(certificateManager.getUserCertificateBytes());
+        config.setPrivateKey(certificateManager.getUserPrivateKeyBytes());
 
-            String uri = "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?localWorkDirectory=target&fileName="
-                    + fileName;
-            SftpEndpoint endpoint = context.getEndpoint(uri, SftpEndpoint.class);
-            SftpConfiguration config = endpoint.getConfiguration();
-            config.setCertBytes(certStream.readAllBytes());
-            config.setPrivateKey(keyStream.readAllBytes());
-
-            return consumerTemplate.receiveBody(endpoint, TIMEOUT_MS, String.class);
-        }
+        return consumerTemplate.receiveBody(endpoint, TIMEOUT_MS, String.class);
     }
 
     @Path("/certificateWithCaAlgorithms/create/{fileName}")
@@ -207,7 +192,7 @@ public class SftpResource {
     public Response createFileWithCertificateAndCaAlgorithms(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub&caSignatureAlgorithms=rsa-sha2-512,rsa-sha2-256,ssh-rsa",
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:target/classes/certs/test-key-rsa.key&certUri=file:target/classes/certs/test-key-rsa-cert.pub&caSignatureAlgorithms=rsa-sha2-512,rsa-sha2-256,ssh-rsa",
                 fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
@@ -220,7 +205,7 @@ public class SftpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getFileWithCertificateAndCaAlgorithms(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=certs/test-key-rsa.key&certUri=certs/test-key-rsa-cert.pub&caSignatureAlgorithms=rsa-sha2-512,rsa-sha2-256,ssh-rsa&localWorkDirectory=target&fileName="
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyUri=file:target/classes/certs/test-key-rsa.key&certUri=file:target/classes/certs/test-key-rsa-cert.pub&caSignatureAlgorithms=rsa-sha2-512,rsa-sha2-256,ssh-rsa&localWorkDirectory=target&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
@@ -315,27 +300,17 @@ public class SftpResource {
      * This allows the client to verify the server's host certificate.
      */
     private String createHostCaKnownHostsFile() throws Exception {
-        String resourcePath = "certs/host-ca.pub";
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-        try (InputStream stream = classLoader.getResourceAsStream(resourcePath)) {
-            if (stream == null) {
-                throw new RuntimeException("Failed to load host CA public key from: " + resourcePath);
-            }
-            return processHostCaStream(stream);
-        }
-    }
-
-    private String processHostCaStream(InputStream hostCaStream) throws Exception {
-        String hostCaPubKey = new String(hostCaStream.readAllBytes()).trim();
+        String hostCaPubKey = org.apache.camel.quarkus.test.support.sftp.SftpHostCertTestResource.getHostCaPublicKey();
         String port = context.resolvePropertyPlaceholders("{{camel.sftp.hostcert.test-port}}");
 
-        // Create known_hosts with @cert-authority entry
         String knownHostsContent = String.format("@cert-authority [localhost]:%s %s%n", port, hostCaPubKey);
 
-        // Use temp directory instead of "target" which may not exist in native mode runtime
-        java.nio.file.Path knownHostsPath = java.nio.file.Files.createTempFile("known_hosts_hostcert", ".txt");
-        java.nio.file.Files.writeString(knownHostsPath, knownHostsContent);
+        java.nio.file.Path knownHostsPath = createTempFile(
+                "known_hosts_" + System.currentTimeMillis() + "_", ".txt");
+        writeString(knownHostsPath, knownHostsContent);
+
+        getLogger(SftpResource.class.getName()).info(
+                "Created known_hosts file: " + knownHostsPath + " with content:\n" + knownHostsContent);
 
         return knownHostsPath.toAbsolutePath().toString();
     }

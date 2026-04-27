@@ -17,28 +17,39 @@
 package org.apache.camel.quarkus.component.ssh.runtime;
 
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.function.BooleanSupplier;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import net.i2p.crypto.eddsa.EdDSAEngine;
-import net.i2p.crypto.eddsa.EdDSAKey;
-import net.i2p.crypto.eddsa.EdDSAPublicKey;
 
 /**
  * We're substituting those offending methods that would require the presence of
- * net.i2p.crypto:eddsa library which is not supported by Camel SSH component
+ * net.i2p.crypto:eddsa library which is not supported by Camel SSH component.
+ * This substitution only applies when EdDSA classes are present on the classpath.
  */
-@TargetClass(EdDSAEngine.class)
+@TargetClass(className = "net.i2p.crypto.eddsa.EdDSAEngine", onlyWith = SubstituteEdDSAEngine.EdDSAPresent.class)
 final class SubstituteEdDSAEngine {
+
+    static class EdDSAPresent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Class.forName("net.i2p.crypto.eddsa.EdDSAEngine", false,
+                        Thread.currentThread().getContextClassLoader());
+                return true;
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+        }
+    }
 
     @Alias
     private MessageDigest digest;
 
     @Alias
-    private EdDSAKey key;
+    private Object key; // net.i2p.crypto.eddsa.EdDSAKey
 
     @Alias
     private void reset() {
@@ -46,31 +57,51 @@ final class SubstituteEdDSAEngine {
 
     @Substitute
     protected void engineInitVerify(PublicKey publicKey) throws InvalidKeyException {
+        // This method body references EdDSA classes that only exist when net.i2p.crypto:eddsa is present.
+        // GraalVM will only compile this substitution when EdDSAPresent condition is true.
         reset();
-        if (publicKey instanceof EdDSAPublicKey) {
-            key = (EdDSAPublicKey) publicKey;
+        Class<?> eddsaPublicKeyClass;
+        try {
+            eddsaPublicKeyClass = Class.forName("net.i2p.crypto.eddsa.EdDSAPublicKey");
+        } catch (ClassNotFoundException e) {
+            throw new InvalidKeyException("EdDSAPublicKey class not found", e);
+        }
+
+        if (eddsaPublicKeyClass.isInstance(publicKey)) {
+            key = publicKey;
 
             if (digest == null) {
-                // Instantiate the digest from the key parameters
+                // Instantiate the digest from the key parameters - using reflection
                 try {
-                    digest = MessageDigest.getInstance(key.getParams().getHashAlgorithm());
-                } catch (NoSuchAlgorithmException e) {
-                    throw new InvalidKeyException(
-                            "cannot get required digest " + key.getParams().getHashAlgorithm() + " for private key.");
+                    Object params = publicKey.getClass().getMethod("getParams").invoke(publicKey);
+                    String hashAlg = (String) params.getClass().getMethod("getHashAlgorithm").invoke(params);
+                    digest = MessageDigest.getInstance(hashAlg);
+                } catch (Exception e) {
+                    throw new InvalidKeyException("cannot get required digest for private key", e);
                 }
-            } else if (!key.getParams().getHashAlgorithm().equals(digest.getAlgorithm()))
-                throw new InvalidKeyException("Key hash algorithm does not match chosen digest");
+            } else {
+                try {
+                    Object params = publicKey.getClass().getMethod("getParams").invoke(publicKey);
+                    String hashAlg = (String) params.getClass().getMethod("getHashAlgorithm").invoke(params);
+                    if (!hashAlg.equals(digest.getAlgorithm())) {
+                        throw new InvalidKeyException("Key hash algorithm does not match chosen digest");
+                    }
+                } catch (Exception e) {
+                    throw new InvalidKeyException("cannot verify hash algorithm", e);
+                }
+            }
         } //following line differs from the original method
         else if (publicKey.getFormat().equals("X.509")) {
             // X509Certificate will sometimes contain an X509Key rather than the EdDSAPublicKey itself; the contained
             // key is valid but needs to be instanced as an EdDSAPublicKey before it can be used.
-            EdDSAPublicKey parsedPublicKey;
             try {
-                parsedPublicKey = new EdDSAPublicKey(new X509EncodedKeySpec(publicKey.getEncoded()));
-            } catch (InvalidKeySpecException ex) {
-                throw new InvalidKeyException("cannot handle X.509 EdDSA public key: " + publicKey.getAlgorithm());
+                Object parsedPublicKey = eddsaPublicKeyClass
+                        .getConstructor(X509EncodedKeySpec.class)
+                        .newInstance(new X509EncodedKeySpec(publicKey.getEncoded()));
+                engineInitVerify((PublicKey) parsedPublicKey);
+            } catch (Exception ex) {
+                throw new InvalidKeyException("cannot handle X.509 EdDSA public key: " + publicKey.getAlgorithm(), ex);
             }
-            engineInitVerify(parsedPublicKey);
         } else {
             throw new InvalidKeyException("cannot identify EdDSA public key: " + publicKey.getClass());
         }
