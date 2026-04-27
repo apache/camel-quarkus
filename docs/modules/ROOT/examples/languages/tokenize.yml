@@ -9,5 +9,5 @@ cqJvmSince: 0.0.1
 cqNativeSince: 0.0.1
 cqCamelPartName: tokenize
 cqCamelPartTitle: Tokenize
-cqCamelPartDescription: Tokenize text payloads using delimiter patterns.
+cqCamelPartDescription: Tokenize text payloads using delimiter patterns
 cqExtensionPageTitle: Core

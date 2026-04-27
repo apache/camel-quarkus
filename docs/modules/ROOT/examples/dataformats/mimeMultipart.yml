@@ -9,5 +9,5 @@ cqJvmSince: 0.2.0
 cqNativeSince: 0.2.0
 cqCamelPartName: mimeMultipart
 cqCamelPartTitle: MIME Multipart
-cqCamelPartDescription: Marshal Camel messages with attachments into MIME-Multipart messages and back.
+cqCamelPartDescription: Marshal Camel messages with attachments into MIME-Multipart messages and back
 cqExtensionPageTitle: Mail

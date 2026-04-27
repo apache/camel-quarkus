@@ -9,5 +9,5 @@ cqJvmSince: 0.0.1
 cqNativeSince: 0.0.1
 cqCamelPartName: header
 cqCamelPartTitle: Header
-cqCamelPartDescription: Gets a header from the Exchange.
+cqCamelPartDescription: Gets a header from the Exchange
 cqExtensionPageTitle: Core

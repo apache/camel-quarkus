@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.8.0
 cqCamelPartName: hl7terser
 cqCamelPartTitle: HL7 Terser
-cqCamelPartDescription: Get the value of a HL7 message field specified by terse location specification syntax.
+cqCamelPartDescription: Get the value of a HL7 message field specified by terse location specification syntax
 cqExtensionPageTitle: HL7

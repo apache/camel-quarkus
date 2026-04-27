@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: gzipDeflater
 cqCamelPartTitle: GZip Deflater
-cqCamelPartDescription: Compress and decompress messages using java.util.zip.GZIPStream.
+cqCamelPartDescription: Compress and decompress messages using java.util.zip.GZIP*Stream
 cqExtensionPageTitle: Zip Deflate Compression

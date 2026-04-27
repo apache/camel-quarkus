@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.7.0
 cqCamelPartName: xtokenize
 cqCamelPartTitle: XML Tokenize
-cqCamelPartDescription: Tokenize XML payloads.
+cqCamelPartDescription: Tokenize XML payloads
 cqExtensionPageTitle: StAX

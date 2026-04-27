@@ -9,5 +9,5 @@ cqJvmSince: 0.3.0
 cqNativeSince: 0.3.0
 cqCamelPartName: fhirXml
 cqCamelPartTitle: FHIR XML
-cqCamelPartDescription: Marshall and unmarshall FHIR objects to/from XML.
+cqCamelPartDescription: Marshall and unmarshall FHIR objects to/from XML
 cqExtensionPageTitle: FHIR

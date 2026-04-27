@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: crypto
 cqCamelPartTitle: Crypto (Java Cryptographic Extension)
-cqCamelPartDescription: Encrypt and decrypt messages using Java Cryptography Extension (JCE).
+cqCamelPartDescription: Encrypt and decrypt messages using Java Cryptography Extension (JCE)
 cqExtensionPageTitle: Crypto (JCE)

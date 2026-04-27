@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: rss
 cqCamelPartTitle: RSS
-cqCamelPartDescription: Transform from ROME SyndFeed Java Objects to XML and vice-versa.
+cqCamelPartDescription: Transform from ROME SyndFeed Java Objects to XML and vice-versa
 cqExtensionPageTitle: RSS

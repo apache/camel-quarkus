@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 3.2.0
 cqCamelPartName: ognl
 cqCamelPartTitle: OGNL
-cqCamelPartDescription: Evaluates an OGNL expression (Apache Commons OGNL).
+cqCamelPartDescription: Evaluates an OGNL expression (Apache Commons OGNL)
 cqExtensionPageTitle: OGNL

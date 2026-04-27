@@ -43,7 +43,7 @@ class CoreMainErrorRegistryDisabledTest {
     public static final class CoreMainErrorRegistryDisabledTestProfile implements QuarkusTestProfile {
         @Override
         public Map<String, String> getConfigOverrides() {
-            return Map.of("camel.main.error-registry-enabled", "false");
+            return Map.of("camel.errorRegistry.enabled", "false");
         }
     }
 }

@@ -9,5 +9,5 @@ cqJvmSince: 2.10.0
 cqNativeSince: 2.10.0
 cqCamelPartName: datasonnet
 cqCamelPartTitle: DataSonnet
-cqCamelPartDescription: To use DataSonnet scripts for message transformations.
+cqCamelPartDescription: To use DataSonnet scripts for message transformations
 cqExtensionPageTitle: DataSonnet

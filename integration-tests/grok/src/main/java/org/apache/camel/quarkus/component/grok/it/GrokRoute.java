@@ -48,15 +48,16 @@ public class GrokRoute extends RouteBuilder {
         from("direct:path").unmarshal().grok("%{PATH:path}").setBody(simple("${body[path]}"));
         from("direct:uri").unmarshal().grok("%{URI:uri}").setBody(simple("${body[uri]}"));
         from("direct:num").unmarshal().grok("%{NUMBER:num}").setBody(simple("${body[num]}"));
-        from("direct:timestamp").unmarshal().grok("%{TIMESTAMP_ISO8601:timestamp}").setBody(simple("${body[timestamp]}"));
+        from("direct:timestamp").unmarshal().grok("%{TIMESTAMP_ISO8601:log_timestamp}")
+                .setBody(simple("${body[log_timestamp]}"));
 
-        DataFormat flattenDf = new GrokDataFormat("%{INT:i} %{INT:i}").setFlattened(true);
+        DataFormat flattenDf = new GrokDataFormat("%{INT:i:integer} %{INT:j:integer}").setFlattened(true);
         from("direct:flatten").unmarshal(flattenDf);
 
         DataFormat namedOnlyDf = new GrokDataFormat("%{URI:website}").setNamedOnly(true);
         from("direct:namedOnly").unmarshal(namedOnlyDf);
 
-        DataFormat singleMatchPerLineDf = new GrokDataFormat("%{INT:i}").setAllowMultipleMatchesPerLine(false);
+        DataFormat singleMatchPerLineDf = new GrokDataFormat("%{INT:i:integer}").setAllowMultipleMatchesPerLine(false);
         from("direct:singleMatchPerLine").unmarshal(singleMatchPerLineDf).setBody(simple("${body[0][i]}-${body[1][i]}"));
     }
 

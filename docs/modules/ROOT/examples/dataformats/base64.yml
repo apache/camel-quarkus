@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: base64
 cqCamelPartTitle: Base64
-cqCamelPartDescription: Encode and decode data using Base64.
+cqCamelPartDescription: Encode and decode data using Base64
 cqExtensionPageTitle: Base64

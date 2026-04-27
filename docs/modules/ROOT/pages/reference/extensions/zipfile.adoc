@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Compression and decompress streams using java.util.zip.ZipStream.
+:cq-description: Compression and decompress streams using java.util.zip.Zip*Stream
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0
 :cq-native-since: 0.2.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##0.2.0## [.badge-key]##Native since##[.badge-supported]##0.2.0##
 endif::[]
 
-Compression and decompress streams using java.util.zip.ZipStream.
+Compression and decompress streams using java.util.zip.Zip*Stream
 
 [id="extensions-zipfile-whats-inside"]
 == What's inside

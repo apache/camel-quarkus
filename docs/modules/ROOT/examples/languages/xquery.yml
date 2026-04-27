@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 2.0.0
 cqCamelPartName: xquery
 cqCamelPartTitle: XQuery
-cqCamelPartDescription: Evaluates an XQuery expressions against an XML payload.
+cqCamelPartDescription: Evaluates an XQuery expressions against an XML payload
 cqExtensionPageTitle: XQuery

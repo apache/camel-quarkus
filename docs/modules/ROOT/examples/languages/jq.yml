@@ -9,5 +9,5 @@ cqJvmSince: 2.11.0
 cqNativeSince: 2.11.0
 cqCamelPartName: jq
 cqCamelPartTitle: JQ
-cqCamelPartDescription: Evaluates a JQ expression against a JSON message body.
+cqCamelPartDescription: Evaluates a JQ expression against a JSON message body
 cqExtensionPageTitle: JQ

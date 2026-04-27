@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.7.0
 cqCamelPartName: cbor
 cqCamelPartTitle: CBOR
-cqCamelPartDescription: Unmarshal a CBOR payload to POJO and back.
+cqCamelPartDescription: Unmarshal a CBOR payload to POJO and back
 cqExtensionPageTitle: CBOR
