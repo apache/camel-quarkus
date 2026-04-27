@@ -27,11 +27,9 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
-import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
@@ -177,21 +175,6 @@ class GroovyProcessor {
             return new CamelBeanBuildItem("groovy", GroovyLanguage.class.getName(), language);
         }
         return null;
-    }
-
-    // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/8468
-    @BuildStep
-    RemovedResourceBuildItem removedResources() {
-        return new RemovedResourceBuildItem(
-                ArtifactKey.fromString("io.quarkiverse.groovy:quarkus-groovy"),
-                Set.of("io/quarkiverse/groovy/runtime/graal/SubstituteCacheableCallSite.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteIndyInterface$FromCacheBiFunction.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteIndyInterface$ToCacheBiFunction.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteMethodHandleWrapper.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteIndyInterface.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteSourceUnit.class",
-                        "io/quarkiverse/groovy/runtime/graal/SubstituteIndyFallbackSupplier.class",
-                        "io/quarkiverse/groovy/runtime/graal/GroovySubstitutions.class"));
     }
 
     /**
