@@ -196,6 +196,12 @@ class KafkaIT extends KafkaTest {
 }
 ```
 
+### Important Constraints
+
+- **No `@Inject` in `@QuarkusIntegrationTest`**: Integration tests run the application as a separate process, so CDI injection does not work. Expose application state via JAX-RS endpoints (using `quarkus-resteasy`) and assert via RestAssured in tests. See `integration-test-groups/foundation/core/` for the pattern.
+- **Every `@QuarkusTest` needs an IT class**: Each `@QuarkusTest` class must have a corresponding `@QuarkusIntegrationTest` class that extends it, to ensure tests also run in native mode.
+- **Grouped test modules share one native application**: Modules under `integration-test-groups/` are compiled into a single grouped native binary per group. Properties in one module's `application.properties` affect ALL modules in the group. Avoid setting properties that alter global Camel behavior (e.g. `camel.main.duration-max-messages`).
+
 ## Troubleshooting Native Build Failures
 Native compilation with GraalVM requires explicit registration of classes, resources, and proxies. Register these in the deployment module's `*Processor.java` using `@BuildStep` methods. Common patterns:
 
