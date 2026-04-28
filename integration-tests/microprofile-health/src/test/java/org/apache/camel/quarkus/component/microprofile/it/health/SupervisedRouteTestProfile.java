@@ -26,7 +26,7 @@ public class SupervisedRouteTestProfile implements QuarkusTestProfile {
         return Map.of(
                 "camel.routecontroller.enabled", "true",
                 "camel.routecontroller.initial-delay", "0",
-                "camel.routecontroller.backoff-delay", "250",
+                "camel.routecontroller.backoff-delay", "1000",
                 "camel.routecontroller.backoff-max-attempts", "10",
                 "camel.routecontroller.unhealthy-on-restarting", "true",
                 "camel.routecontroller.unhealthy-on-exhausted", "false");
