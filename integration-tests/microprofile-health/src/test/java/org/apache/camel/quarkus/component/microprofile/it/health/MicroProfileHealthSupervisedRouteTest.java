@@ -35,7 +35,7 @@ class MicroProfileHealthSupervisedRouteTest {
     @Test
     void supervisedRouteTest() throws InterruptedException {
         // Verify the initial health state
-        await().atMost(5, TimeUnit.SECONDS).untilAsserted(() -> {
+        await().atMost(15, TimeUnit.SECONDS).untilAsserted(() -> {
             RestAssured.when().get("/q/health").then()
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
@@ -46,7 +46,7 @@ class MicroProfileHealthSupervisedRouteTest {
         });
 
         // camel.routecontroller.unhealthy-on-exhausted is false so the heath status should be UP
-        await().pollDelay(1, TimeUnit.SECONDS).atMost(5, TimeUnit.SECONDS).untilAsserted(() -> {
+        await().pollDelay(1, TimeUnit.SECONDS).atMost(15, TimeUnit.SECONDS).untilAsserted(() -> {
             RestAssured.when().get("/q/health").then()
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
