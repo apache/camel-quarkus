@@ -57,6 +57,7 @@ group-02:
 group-03:
   - bean-validator
   - box
+  - elasticsearch
   - elasticsearch-rest-client
   - foundation-grouped
   - freemarker

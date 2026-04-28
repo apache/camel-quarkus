@@ -85,6 +85,7 @@
         <module>disruptor</module>
         <module>docling</module>
         <module>dropbox</module>
+        <module>elasticsearch</module>
         <module>elasticsearch-rest-client</module>
         <module>exec</module>
         <module>fhir</module>
