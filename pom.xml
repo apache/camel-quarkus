@@ -97,7 +97,7 @@
         <eclipse-transformer.version>0.5.0</eclipse-transformer.version>
         <freemarker.version>2.3.34</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
-        <github-api.version>1.313</github-api.version><!-- Used in a Groovy script bellow -->
+        <github-api.version>${github-api-version}</github-api.version><!-- Used in the build-notification profile -->
         <google-api-client.version>2.7.2</google-api-client.version><!-- @sync com.google.cloud:google-cloud-bigquery:${google-cloud-bigquery.version} dep:com.google.api-client:google-api-client -->
         <google-auth-library.version>1.46.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
         <google-cloud-api-common.version>2.62.0</google-cloud-api-common.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:api-common -->
