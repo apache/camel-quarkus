@@ -33,3 +33,7 @@ metadata:
   config:
   - "quarkus.camel.console"
   status: "stable"
+  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"
