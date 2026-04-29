@@ -7701,7 +7701,7 @@
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
         <artifactId>swagger-parser</artifactId>
-        <version>2.1.40</version>
+        <version>2.1.41</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -7733,7 +7733,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.14.1</version>
+        <version>2.14.2</version>
       </dependency>
       <dependency>
         <groupId>net.engio</groupId>
