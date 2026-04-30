@@ -14,7 +14,7 @@
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##[#if deprecated ] [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##[/#if]
+[.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##[#if status == 'Experimental' ] [.badge-key]##🧪##[.badge-unsupported]##Experimental##[/#if][#if deprecated ] [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##[/#if]
 endif::[]
 
 [=intro]

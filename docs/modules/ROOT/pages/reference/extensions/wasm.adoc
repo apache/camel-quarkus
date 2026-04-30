@@ -14,7 +14,7 @@
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.10.0## [.badge-key]##Native since##[.badge-supported]##3.10.0##
+[.badge-key]##JVM since##[.badge-supported]##3.10.0## [.badge-key]##Native since##[.badge-supported]##3.10.0## [.badge-key]##🧪##[.badge-unsupported]##Experimental##
 endif::[]
 
 Invoke Wasm functions.
