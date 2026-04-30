@@ -279,6 +279,7 @@
         <module>telemetry-dev</module>
         <module>tika</module>
         <module>timer</module>
+        <module>tls-registry</module>
         <module>twilio</module>
         <module>twitter</module>
         <module>univocity-parsers</module>

@@ -320,6 +320,7 @@
 *** xref:reference/extensions/stringtemplate.adoc[String Template]
 *** xref:reference/extensions/stub.adoc[Stub]
 *** xref:reference/extensions/syslog.adoc[Syslog]
+*** xref:reference/extensions/tls-registry.adoc[TLS Registry]
 *** xref:reference/extensions/tarfile.adoc[Tar File]
 *** xref:reference/extensions/telegram.adoc[Telegram]
 *** xref:reference/extensions/telemetry-dev.adoc[Telemetry Dev]
