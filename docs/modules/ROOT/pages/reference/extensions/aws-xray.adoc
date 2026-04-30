@@ -22,9 +22,9 @@ Distributed tracing using AWS XRay
 [id="extensions-aws-xray-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:others:aws-xray.adoc[AWS XRay]
+* AWS XRay
 
-Please refer to the above link for usage and configuration details.
+
 
 [id="extensions-aws-xray-maven-coordinates"]
 == Maven coordinates

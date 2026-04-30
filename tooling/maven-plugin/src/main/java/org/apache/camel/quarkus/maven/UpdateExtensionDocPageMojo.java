@@ -241,7 +241,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                         }
 
                         if (override.getXrefPrefix() != null) {
-                            xrefPrefix = override.getXrefPrefix();
+                            if (override.getXrefPrefix().equals("remove")) {
+                                xrefPrefix = "";
+                            } else {
+                                xrefPrefix = override.getXrefPrefix();
+                            }
                         }
 
                         if (override.getKind() != null) {

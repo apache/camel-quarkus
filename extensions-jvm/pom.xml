@@ -142,10 +142,20 @@
                                 <phase>process-classes</phase>
                                 <configuration>
                                     <componentLinkOverrides>
+                                        <!-- TODO: Remove for Camel > 4.20.0 -->
+                                        <aws-xray>
+                                            <name>camel-aws-xray</name>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </aws-xray>
                                         <console>
                                             <name>camel-console</name>
                                             <xrefPrefix>xref:manual::</xrefPrefix>
                                         </console>
+                                        <!-- TODO: Remove for Camel > 4.20.0 -->
+                                        <stomp>
+                                            <name>camel-stomp</name>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </stomp>
                                     </componentLinkOverrides>
                                 </configuration>
                             </execution>

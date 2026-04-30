@@ -65,4 +65,4 @@ To override parts of the xref link, the following `update-extension-doc-page` co
 <3> The overridden component kind in the generated xref link (`component`, `dataformat`, `language`, `other`).
 <4> The overridden component generated xref link prefix. Useful for rare circumstances where the component requires you to link to an unconventional part of the Camel documentation (E.g. link `manual`).
 +
-The component link can be removed entirely by setting `xrefPrefix` to an empty value. This is useful when a component is removed from the Camel core and the Camel Quarkus main branch references the `latest` Camel website docs version.
+The component link can be removed entirely by setting `xrefPrefix` to a value of `remove`. This is useful when a component is removed from the Camel core and the Camel Quarkus main branch references the `latest` Camel website docs version.

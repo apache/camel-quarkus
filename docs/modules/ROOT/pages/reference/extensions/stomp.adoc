@@ -22,9 +22,9 @@ Send and rececive messages to/from STOMP (Simple Text Oriented Messaging Protoco
 [id="extensions-stomp-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::stomp-component.adoc[Stomp component], URI syntax: `stomp:destination`
+* Stomp
 
-Please refer to the above link for usage and configuration details.
+
 
 [id="extensions-stomp-maven-coordinates"]
 == Maven coordinates
