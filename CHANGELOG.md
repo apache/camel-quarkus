@@ -18,6 +18,88 @@
 -->
 # Changelog
 
+## 3.35.0
+
+* Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.7.4 to 1.8.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8447
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.12.2 to 3.14.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8446
+* fix: extension metadata status is a string value by @gansheer in https://github.com/apache/camel-quarkus/pull/8444
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8456
+* Refactor OpenAI tests to work correctly with two separated models by @llowinge in https://github.com/apache/camel-quarkus/pull/8455
+* Next is 3.35.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8457
+* Upgrade Quarkus to 3.34.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8458
+* increase SQS test code coverage - Add SQS batch consumer, JMS-like selector, KMS encryption and Quarkus client tests by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8450
+* Bump quarkiverse-groovy.version from 3.32.3 to 3.34.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8461
+* Adds JVM tests for cq-langchain-agent with quarkus-langchain4j by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8378
+* Improve HTTP proxy tests by @llowinge in https://github.com/apache/camel-quarkus/pull/8462
+* Fix WireMock stub recording for OpenaiChatTest.streamingChat by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8469
+* Add changelog for 3.33.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8471
+* Upgrade Quarkus to 3.34.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8472
+* Upgrade Camel to 4.18.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8463
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8480
+* Fix #8481. Fix mina-sftp native compilation for GraalVM 21 by @jomin7 in https://github.com/apache/camel-quarkus/pull/8482
+* Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.8.2 to 1.8.4 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8478
+* Bump quarkiverse-groovy.version from 3.34.0 to 3.34.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8477
+* Bump quarkiverse-pooled-jms.version from 2.10.0 to 2.11.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8484
+* Bump io.debezium:debezium-bom from 3.4.2.Final to 3.4.3.Final by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8485
+* langchain4j-agent: Reinstate some of the camel-quarkus-langchain4j tests by @aldettinger in https://github.com/apache/camel-quarkus/pull/8476
+* add test for AWS 2 MQ by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8479
+* Apply license workaround to shaded Spring modules regardless of the build profile by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8487
+* Move commons-net dependency declaration from camel-quarkus-build-parent to camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8488
+* Test AWS 2 MSK by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8466
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.14.0 to 3.14.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8493
+* Upgrade to Quarkus CXF 3.33.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/8495
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.15.1 to 3.16.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8491
+* Upgrade Debezium to 3.5.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8496
+* Bump quarkiverse-jsch.version from 3.1.2 to 3.1.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8498
+* Bump quarkiverse-pooled-jms.version from 2.11.0 to 2.12.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8499
+* Increase test coverage for IBM Cloud Object Storage by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8500
+* Bump quarkiverse-groovy.version from 3.34.1 to 3.34.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8501
+* Bump org.apache.camel.kamelets:camel-kamelets from 4.18.0 to 4.18.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8502
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8503
+* Auto-detect onException/doCatch/throwException exception classes for native reflection by @zhfeng in https://github.com/apache/camel-quarkus/pull/8508
+* Adjust Maven plugin inclusion pattern in Dependabot config by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8510
+* Bump org.codehaus.gmavenplus:gmavenplus-plugin from 3.0.0 to 4.3.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8511
+* Bump quarkiverse-groovy.version from 3.34.2 to 3.34.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8513
+* registering common Camel types used in onException for refle… by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8505
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8517
+* Bump actions/upload-artifact from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8515
+* Bump peter-evans/create-pull-request from 8.1.0 to 8.1.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8516
+* Bump actions/github-script from 8.0.0 to 9.0.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8514
+* [closes #8522] IBMMQ: Use filesystembind instead of copytocontainer for secrets by @avano in https://github.com/apache/camel-quarkus/pull/8521
+* Replace deprecated quarkus-junit5-internal dependency in infinispan-cluster-service deployment module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8529
+* Use managed versions of annotation processors and their transitives by @ppalaga in https://github.com/apache/camel-quarkus/pull/8527
+* Prevent test-summary-report from exceeding GitHub step summary limit by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8532
+* [IBMMQ] For remote docker revert back to copyToContainer by @avano in https://github.com/apache/camel-quarkus/pull/8536
+* Organize WireMock stubs in subdirectories for LangChain4j tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8533
+* Upgrade camel to 4.19.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8518
+* Upgrade Quarkus to 3.35.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8543
+* Register SimpleNoFileLanguage for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8545
+* Wrap FileLanguageTest.fileLanguageDate assertions with Awaitility by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8547
+* Work around Debezium kafka-clients 4.2.0 incompatibility due to #8530 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8548
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/8553
+* skip IBM MQ tests on aarch64 due to missing arm64 container image by @bhavani111 in https://github.com/apache/camel-quarkus/pull/8546
+* Bump com.microsoft.graph:microsoft-graph from 6.62.0 to 6.63.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8551
+* Bump cq-plugin.version from 4.21.0 to 4.22.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8552
+* Manage org.apache.kafka:kafka-connect-api in camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8556
+* update MariaDB container image to 12.2-ubi for FIPS compatibility by @bhavani111 in https://github.com/apache/camel-quarkus/pull/8557
+* fix: disable mina-sftp failing FIPS tests by @gansheer in https://github.com/apache/camel-quarkus/pull/8561
+* Force predicatable order for spans returned from InMemorySpanExporter by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8558
+* Bump quarkiverse-cxf.version from 3.33.1 to 3.35.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8562
+* Upgrade Quarkus Amazon Services to 3.17.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8564
+* Bump quarkiverse-jackson-jq.version from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8566
+* Add ibm-watson-language native support and integration tests by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8523
+* support native mode and intergration test for ibm-watson-discovery by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8560
+* Bump cq-plugin.version from 4.22.1 to 4.23.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8568
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.60 to 1.0.61 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8569
+* Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.8.4 to 1.9.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8567
+* Upgrade Quarkus to 3.35.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8570
+* Bump com.google.cloud:libraries-bom from 26.76.0 to 26.80.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8538
+* Upgrade Quarkus CXF to 3.35.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8572
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.17.0.CR1 to 3.17.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8573
+* Pin RabbitMQ container image to rabbitmq:4.2.4-management-alpine by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8574
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.33.0...3.35.0
+
 ## 3.33.0
 
 * Next is 3.33.0-SNAPSHOT by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8323
