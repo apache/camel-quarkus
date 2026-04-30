@@ -52,7 +52,6 @@
 *** xref:reference/extensions/aws2-translate.adoc[AWS 2 Translate]
 *** xref:reference/extensions/aws-bedrock.adoc[AWS Bedrock]
 *** xref:reference/extensions/aws-secrets-manager.adoc[AWS Secrets Manager]
-*** xref:reference/extensions/aws-xray.adoc[AWS XRay]
 *** xref:reference/extensions/activemq.adoc[ActiveMQ]
 *** xref:reference/extensions/activemq6.adoc[ActiveMQ 6.x]
 *** xref:reference/extensions/arangodb.adoc[ArangoDb]
