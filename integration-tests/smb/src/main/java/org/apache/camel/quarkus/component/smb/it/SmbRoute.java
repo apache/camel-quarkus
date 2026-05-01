@@ -25,6 +25,7 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.smb.SmbConstants;
 import org.apache.camel.component.smb.SmbFile;
@@ -56,18 +57,20 @@ public class SmbRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&repeatCount=1&searchPattern=*.txt&idempotent=true&idempotentRepository=#myRepo")
+        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}/?username={{smb.username}}&password={{smb.password}}&repeatCount=1&searchPattern=*.txt&idempotent=true&idempotentRepository=#myRepo")
                 .to("mock:result");
 
         from("direct:send")
-                .toF("smb:%s:%s/%s?username=%s&password=%s&path=/", host, port, share, username, password);
+                .toF("smb:%s:%s/%s?username=%s&password=%s", host, port, share, username, password);
 
-        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&searchPattern=*.tx1&idempotent=true&idempotentRepository=#myRepo")
+        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}/?username={{smb.username}}&password={{smb.password}}&searchPattern=*.tx1&idempotent=true&idempotentRepository=#myRepo")
                 .process(e -> {
+                    Message message = e.getMessage();
+                    SmbFile smbFile = message.getBody(SmbFile.class);
                     receivedContents.add(Map.of(
-                            "path", e.getIn().getBody(SmbFile.class).getAbsoluteFilePath(),
-                            "content", new String((byte[]) e.getIn().getBody(SmbFile.class).getBody(), "UTF-8"),
-                            SmbConstants.FILE_PATH, e.getIn().getHeader(SmbConstants.FILE_PATH, String.class)));
+                            "path", smbFile.getAbsoluteFilePath(),
+                            "content", getContext().getTypeConverter().convertTo(String.class, smbFile.getBody()),
+                            SmbConstants.FILE_PATH, message.getHeader(SmbConstants.FILE_PATH, String.class)));
                 });
     }
 

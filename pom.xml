@@ -282,7 +282,7 @@
         <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.2.4-management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:7.4.0-alpine</redis.container.image>
         <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>
-        <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>
+        <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:2.0.0</smb.container.image>
         <solr.container.image>mirror.gcr.io/solr:9.9.0-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.4.7</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image>
