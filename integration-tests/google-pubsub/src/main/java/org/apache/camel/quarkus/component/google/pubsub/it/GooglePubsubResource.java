@@ -67,18 +67,22 @@ public class GooglePubsubResource {
     public Response consumeStringFromTopic() {
         Exchange exchange = consumerTemplate
                 .receive("google-pubsub:{{project.id}}:{{google-pubsub.subscription-name}}?synchronousPull=true", 5000L);
-        //convert timestamp to long to avoid serializiong problems
-        Map<String, Object> retVal = new HashMap<>();
-        retVal.put("body", exchange.getIn().getBody(String.class));
-        retVal.putAll(exchange.getIn().getHeaders().entrySet().stream().collect(Collectors.toMap(
-                e -> e.getKey().replaceFirst("\\.", "_"),
-                e -> {
-                    if (GooglePubsubConstants.PUBLISH_TIME.equals(e.getKey()) && e.getValue() instanceof Timestamp) {
-                        return ((Timestamp) e.getValue()).getSeconds() * 1000;
-                    }
-                    return e.getValue();
-                })));
-        return Response.ok(retVal).build();
+
+        if (exchange != null) {
+            //convert timestamp to long to avoid serialization problems
+            Map<String, Object> retVal = new HashMap<>();
+            retVal.put("body", exchange.getMessage().getBody(String.class));
+            retVal.putAll(exchange.getMessage().getHeaders().entrySet().stream().collect(Collectors.toMap(
+                    e -> e.getKey().replaceFirst("\\.", "_"),
+                    e -> {
+                        if (GooglePubsubConstants.PUBLISH_TIME.equals(e.getKey()) && e.getValue() instanceof Timestamp) {
+                            return ((Timestamp) e.getValue()).getSeconds() * 1000;
+                        }
+                        return e.getValue();
+                    })));
+            return Response.ok(retVal).build();
+        }
+        return Response.noContent().build();
     }
 
     @Path("/pojo")
