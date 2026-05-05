@@ -7460,6 +7460,21 @@
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-api</artifactId>
+        <version>4.0.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId>
         <artifactId>connect-json</artifactId>
         <version>4.0.0</version>
         <exclusions>
@@ -8936,21 +8951,6 @@
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-open-ai</artifactId>
         <version>1.5.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>connect-api</artifactId>
-        <version>3.9.1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.lz4</groupId>
-            <artifactId>lz4-java</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
