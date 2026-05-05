@@ -16,12 +16,7 @@
  */
 package org.apache.camel.quarkus.component.elasticsearch.it;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +25,12 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.config.SSLConfig;
 import io.restassured.http.ContentType;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionTimeoutException;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -42,6 +42,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = ElasticsearchTestResource.CERTIFICATE_NAME, formats = {
+                Format.PKCS12 }, password = ElasticsearchTestResource.KEYSTORE_PASSWORD)
+}, docker = true)
 @QuarkusTest
 @QuarkusTestResource(ElasticsearchTestResource.class)
 class ElasticsearchTest {
@@ -433,47 +437,30 @@ class ElasticsearchTest {
                 .atMost(10, TimeUnit.SECONDS)
                 .until(() -> {
                     try {
-                        URL url = new URL(String.format("http://%s/_cluster/health", hostAddresses));
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        RestAssuredConfig config = RestAssured.config().sslConfig(
+                                new SSLConfig().trustStore(Paths.get("target/certs/elasticsearch-keystore.p12").toFile(),
+                                        ElasticsearchTestResource.KEYSTORE_PASSWORD));
 
-                        // Set up Basic Authentication
-                        String auth = String.format("%s:%s", username, password);
-                        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
-                        connection.setRequestProperty("Authorization", "Basic " + encodedAuth);
-                        connection.setRequestMethod("GET");
-                        connection.setConnectTimeout(5000);
-                        connection.setReadTimeout(5000);
+                        String response = RestAssured.given()
+                                .config(config)
+                                .auth().preemptive().basic(username, password)
+                                .when()
+                                .get(String.format("https://%s/_cluster/health", hostAddresses))
+                                .then()
+                                .extract()
+                                .body()
+                                .asString();
 
-                        int responseCode = connection.getResponseCode();
-                        if (responseCode == HttpURLConnection.HTTP_OK) {
-                            try (BufferedReader reader = new BufferedReader(
-                                    new InputStreamReader(connection.getInputStream()))) {
-                                StringBuilder response = new StringBuilder();
-                                String line;
-                                while ((line = reader.readLine()) != null) {
-                                    response.append(line);
-                                }
-                                String healthJson = response.toString();
-
-                                // Check if cluster status is green or yellow
-                                if (healthJson.contains("\"status\":\"green\"")
-                                        || healthJson.contains("\"status\":\"yellow\"")) {
-                                    LOG.info("Cluster health is ready: " + healthJson);
-                                    return healthJson;
-                                } else {
-                                    LOG.info("Cluster not ready yet, current status: "
-                                            + healthJson);
-                                    return null;
-                                }
-                            }
+                        // Check if cluster status is green or yellow
+                        if (response.contains("\"status\":\"green\"") || response.contains("\"status\":\"yellow\"")) {
+                            LOG.info("Cluster health is ready: " + response);
+                            return response;
                         } else {
-                            LOG.info("Cluster health check returned code: " + responseCode
-                                    + ", retrying...");
+                            LOG.info("Cluster not ready yet, current status: " + response);
                             return null;
                         }
                     } catch (Exception e) {
-                        LOG.info("Failed to query cluster health: " + e.getMessage()
-                                + ", retrying...");
+                        LOG.info("Failed to query cluster health: " + e.getMessage() + ", retrying...");
                         return null;
                     }
                 }, Objects::nonNull);

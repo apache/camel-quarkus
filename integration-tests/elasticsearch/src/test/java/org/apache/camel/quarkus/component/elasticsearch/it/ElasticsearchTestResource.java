@@ -16,6 +16,17 @@
  */
 package org.apache.camel.quarkus.component.elasticsearch.it;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.util.Base64;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -26,9 +37,12 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.images.builder.Transferable;
 
 public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleManager {
 
+    public static final String CERTIFICATE_NAME = "elasticsearch";
+    public static final String KEYSTORE_PASSWORD = "s3cr3t";
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchTestResource.class);
     private static final String ELASTICSEARCH_IMAGE = ConfigProvider.getConfig().getValue("elasticsearch.container.image",
             String.class);
@@ -40,6 +54,8 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
 
     @Override
     public Map<String, String> start() {
+        exportCertificateCAForClient();
+
         try {
             container = new GenericContainer<>(ELASTICSEARCH_IMAGE)
                     .withExposedPorts(ELASTICSEARCH_PORT)
@@ -47,10 +63,17 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
                     .withEnv("cluster.routing.allocation.disk.threshold_enabled", "false")
                     .withEnv("discovery.type", "single-node")
                     .withEnv("xpack.security.enabled", "true")
+                    .withEnv("xpack.security.http.ssl.enabled", "true")
+                    .withEnv("xpack.security.http.ssl.keystore.path", "certs/elasticsearch-keystore.p12")
+                    .withEnv("xpack.security.http.ssl.keystore.password", KEYSTORE_PASSWORD)
+                    .withEnv("xpack.security.http.ssl.verification_mode", "certificate")
                     .withEnv("action.destructive_requires_name", "false") // needed for deleting all indexes after each test (allowing _all wildcard)
                     .withEnv("ELASTIC_USERNAME", ELASTICSEARCH_USERNAME)
                     .withEnv("ELASTIC_PASSWORD", ELASTICSEARCH_PASSWORD)
                     .withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
+                    .withCopyToContainer(
+                            Transferable.of(Files.readAllBytes(Paths.get("target/certs/elasticsearch-keystore.p12"))),
+                            "/usr/share/elasticsearch/config/certs/elasticsearch-keystore.p12")
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
@@ -62,6 +85,8 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
                     "camel.component.elasticsearch.host-addresses", hostAddresses,
                     "camel.component.elasticsearch.user", ELASTICSEARCH_USERNAME,
                     "camel.component.elasticsearch.password", ELASTICSEARCH_PASSWORD,
+                    "camel.component.elasticsearch.enable-ssl", "true",
+                    "camel.component.elasticsearch.certificate-path", "file:target/certs/ca.crt",
                     // Disable autowiring to use camel component functionality
                     "camel.component.elasticsearch.autowired-enabled", "false");
 
@@ -78,6 +103,33 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
             }
         } catch (Exception e) {
             // Ignored
+        }
+    }
+
+    private void exportCertificateCAForClient() {
+        Path path = Paths.get("target/certs/elasticsearch-keystore.p12");
+        File outputFile = path.getParent().resolve("ca.crt").toFile();
+        try {
+            KeyStore keyStore = KeyStore.getInstance("pkcs12");
+            try (FileInputStream fis = new FileInputStream(path.toAbsolutePath().toString())) {
+                keyStore.load(fis, KEYSTORE_PASSWORD.toCharArray());
+            }
+
+            Certificate cert = keyStore.getCertificate(CERTIFICATE_NAME);
+            if (cert == null) {
+                throw new IllegalStateException("Unable to find a certificate in keystore named " + CERTIFICATE_NAME);
+            }
+
+            Base64.Encoder encoder = Base64.getEncoder();
+            try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8)) {
+                writer.write("-----BEGIN CERTIFICATE-----");
+                writer.write("\n");
+                writer.write(encoder.encodeToString(cert.getEncoded()));
+                writer.write("\n");
+                writer.write("-----END CERTIFICATE-----");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
