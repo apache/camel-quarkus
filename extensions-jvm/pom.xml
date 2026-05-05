@@ -155,6 +155,11 @@
                                             <name>camel-stomp</name>
                                             <xrefPrefix>remove</xrefPrefix>
                                         </stomp>
+                                        <!-- TODO: Remove for Camel > 4.21.0 -->
+                                        <guava-eventbus>
+                                            <name>camel-guava-eventbus</name>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </guava-eventbus>
                                     </componentLinkOverrides>
                                 </configuration>
                             </execution>

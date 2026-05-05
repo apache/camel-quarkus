@@ -22,9 +22,9 @@ Send and receive messages to/from Guava EventBus.
 [id="extensions-guava-eventbus-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::guava-eventbus-component.adoc[Guava EventBus component], URI syntax: `guava-eventbus:eventBusRef`
+* Guava EventBus
 
-Please refer to the above link for usage and configuration details.
+
 
 [id="extensions-guava-eventbus-maven-coordinates"]
 == Maven coordinates
