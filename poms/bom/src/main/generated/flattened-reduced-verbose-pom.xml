@@ -7460,6 +7460,21 @@
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>connect-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>javax.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.lz4</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>lz4-java</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>connect-json</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -8936,21 +8951,6 @@
         <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
         <artifactId>langchain4j-open-ai</artifactId><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
         <version>1.5.0</version><!-- dev.langchain4j:langchain4j-bom:1.5.0 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:3.2.1.Final -->
-        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:3.2.1.Final -->
-        <version>3.9.1</version><!-- io.debezium:debezium-bom:3.2.1.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.lz4</groupId>
-            <artifactId>lz4-java</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:3.2.1.Final -->
