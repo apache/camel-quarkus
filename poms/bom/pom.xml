@@ -1585,17 +1585,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-guava-eventbus</artifactId>
-                <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-hashicorp-vault</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -2995,11 +2984,6 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-stitch</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-stomp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -4677,16 +4661,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-gson-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-guava-eventbus</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-guava-eventbus-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -6387,16 +6361,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-stitch-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-stomp</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-stomp-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

@@ -59,7 +59,6 @@
         <module>fastjson</module>
         <module>flink</module>
         <module>google-functions</module>
-        <module>guava-eventbus</module>
         <module>huaweicloud-smn</module>
         <module>ibm-secrets-manager</module>
         <module>iec60870</module>
@@ -88,7 +87,6 @@
         <module>snmp</module>
         <module>spring-redis</module>
         <module>stitch</module>
-        <module>stomp</module>
         <module>stub</module>
         <module>thrift</module>
         <module>web3j</module>
@@ -149,16 +147,6 @@
                                             <name>camel-console</name>
                                             <xrefPrefix>xref:manual::</xrefPrefix>
                                         </console>
-                                        <!-- TODO: Remove for Camel > 4.20.0 -->
-                                        <stomp>
-                                            <name>camel-stomp</name>
-                                            <xrefPrefix>remove</xrefPrefix>
-                                        </stomp>
-                                        <!-- TODO: Remove for Camel > 4.21.0 -->
-                                        <guava-eventbus>
-                                            <name>camel-guava-eventbus</name>
-                                            <xrefPrefix>remove</xrefPrefix>
-                                        </guava-eventbus>
                                     </componentLinkOverrides>
                                 </configuration>
                             </execution>
