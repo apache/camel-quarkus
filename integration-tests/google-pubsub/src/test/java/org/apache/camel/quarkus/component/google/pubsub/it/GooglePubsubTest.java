@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.google.pubsub.it;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.google.pubsub.GooglePubsubConstants;
 import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
+import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -48,13 +50,15 @@ class GooglePubsubTest {
                 .then()
                 .statusCode(201);
 
-        RestAssured.get("/google-pubsub")
-                .then()
-                .statusCode(200)
-                .body("body", Matchers.is(message))
-                .body(GooglePubsubConstants.MESSAGE_ID.replaceFirst("\\.", "_"), Matchers.notNullValue())
-                .body(GooglePubsubConstants.PUBLISH_TIME.replaceFirst("\\.", "_"), Matchers.notNullValue())
-                .body(GooglePubsubConstants.ACK_ID.replaceFirst("\\.", "_"), Matchers.notNullValue());
+        Awaitility.await().pollDelay(Duration.ofMillis(250)).atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
+            RestAssured.get("/google-pubsub")
+                    .then()
+                    .statusCode(200)
+                    .body("body", Matchers.is(message))
+                    .body(GooglePubsubConstants.MESSAGE_ID.replaceFirst("\\.", "_"), Matchers.notNullValue())
+                    .body(GooglePubsubConstants.PUBLISH_TIME.replaceFirst("\\.", "_"), Matchers.notNullValue())
+                    .body(GooglePubsubConstants.ACK_ID.replaceFirst("\\.", "_"), Matchers.notNullValue());
+        });
     }
 
     @Test
