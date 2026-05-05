@@ -16,6 +16,7 @@
 #
 
 name: Camel Quarkus LTS CI
+run-name: Camel Quarkus LTS CI - ${{ github.event.inputs.branch }}.x
 
 on:
   workflow_dispatch:
