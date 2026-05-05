@@ -1488,17 +1488,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-guava-eventbus</artifactId>
-        <version>4.21.0-SNAPSHOT</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-hashicorp-vault</artifactId>
         <version>4.21.0-SNAPSHOT</version>
         <exclusions>
@@ -2872,11 +2861,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-stitch</artifactId>
-        <version>4.21.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-stomp</artifactId>
         <version>4.21.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -4521,16 +4505,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-gson-deployment</artifactId>
-        <version>3.36.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-guava-eventbus</artifactId>
-        <version>3.36.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-guava-eventbus-deployment</artifactId>
         <version>3.36.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -6221,16 +6195,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stitch-deployment</artifactId>
-        <version>3.36.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-stomp</artifactId>
-        <version>3.36.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-stomp-deployment</artifactId>
         <version>3.36.0-SNAPSHOT</version>
       </dependency>
       <dependency>
