@@ -35,6 +35,8 @@ public class SftpCertificates {
     private final Path sshDir;
     private final Path userCaKeyPath;
     private final Path userCaPubKeyPath;
+    private final Path userCaRsaKeyPath;
+    private final Path userCaRsaPubKeyPath;
     private final Path userKeyPath;
     private final Path userPubKeyPath;
     private final Path userCertPath;
@@ -47,11 +49,16 @@ public class SftpCertificates {
     private final Path ftpPubKeyPath;
     private final Path ftpEncryptedKeyPath;
     private final Path ftpEncryptedPubKeyPath;
+    private final Path userKeyRsaPath;
+    private final Path userPubKeyRsaPath;
+    private final Path userCertRsaPath;
 
     private SftpCertificates(Path sshDir) {
         this.sshDir = sshDir;
         this.userCaKeyPath = sshDir.resolve("user_ca");
         this.userCaPubKeyPath = sshDir.resolve("user_ca.pub");
+        this.userCaRsaKeyPath = sshDir.resolve("user_ca_rsa");
+        this.userCaRsaPubKeyPath = sshDir.resolve("user_ca_rsa.pub");
         this.userKeyPath = sshDir.resolve("user_key");
         this.userPubKeyPath = sshDir.resolve("user_key.pub");
         this.userCertPath = sshDir.resolve("user_key-cert.pub");
@@ -64,6 +71,9 @@ public class SftpCertificates {
         this.ftpPubKeyPath = sshDir.resolve("ftp.key.pub");
         this.ftpEncryptedKeyPath = sshDir.resolve("ftp-encrypted.key");
         this.ftpEncryptedPubKeyPath = sshDir.resolve("ftp-encrypted.key.pub");
+        this.userKeyRsaPath = sshDir.resolve("user_key_rsa");
+        this.userPubKeyRsaPath = sshDir.resolve("user_key_rsa.pub");
+        this.userCertRsaPath = sshDir.resolve("user_key_rsa-cert.pub");
     }
 
     /**
@@ -76,21 +86,37 @@ public class SftpCertificates {
     }
 
     private void generateAll() throws IOException, InterruptedException {
-        // Generate user CA key pair
-        runSshKeygen("-t", "ed25519", "-f", userCaKeyPath.toString(), "-N", "", "-C", "user-ca");
-        LOGGER.debug("Generated user CA key pair");
+        // Generate Ed25519 user CA key pair
+        runSshKeygen("-t", "ed25519", "-f", userCaKeyPath.toString(), "-N", "", "-C", "user-ca-ed25519");
+        LOGGER.debug("Generated Ed25519 user CA key pair");
 
-        // Generate user key pair
-        runSshKeygen("-t", "ed25519", "-f", userKeyPath.toString(), "-N", "", "-C", "test-user");
-        LOGGER.debug("Generated user key pair");
+        // Generate RSA user CA key pair
+        runSshKeygen("-t", "rsa", "-b", "2048", "-f", userCaRsaKeyPath.toString(), "-N", "", "-C", "user-ca-rsa");
+        LOGGER.debug("Generated RSA user CA key pair");
 
-        // Sign user certificate
+        // Generate Ed25519 user key pair
+        runSshKeygen("-t", "ed25519", "-f", userKeyPath.toString(), "-N", "", "-C", "test-user-ed25519");
+        LOGGER.debug("Generated Ed25519 user key pair");
+
+        // Sign Ed25519 user certificate with Ed25519 CA
         runSshKeygen("-s", userCaKeyPath.toString(),
-                "-I", "test-user",
+                "-I", "test-user-ed25519",
                 "-n", "admin",
                 "-V", "-1m:+365d",
                 userPubKeyPath.toString());
-        LOGGER.debug("Signed user certificate");
+        LOGGER.debug("Signed Ed25519 user certificate with Ed25519 CA");
+
+        // Generate RSA user key pair for certificate-based authentication
+        runSshKeygen("-t", "rsa", "-b", "2048", "-f", userKeyRsaPath.toString(), "-N", "", "-C", "test-user-rsa");
+        LOGGER.debug("Generated RSA user key pair");
+
+        // Sign RSA user certificate with RSA CA
+        runSshKeygen("-s", userCaRsaKeyPath.toString(),
+                "-I", "test-user-rsa",
+                "-n", "admin",
+                "-V", "-1m:+365d",
+                userPubKeyRsaPath.toString());
+        LOGGER.debug("Signed RSA user certificate with RSA CA");
 
         // Generate host CA key pair
         runSshKeygen("-t", "ed25519", "-f", hostCaKeyPath.toString(), "-N", "", "-C", "host-ca");
@@ -155,6 +181,10 @@ public class SftpCertificates {
         return userCaPubKeyPath;
     }
 
+    public Path getUserCaRsaPubKeyPath() {
+        return userCaRsaPubKeyPath;
+    }
+
     public Path getUserPublicKeyPath() {
         return userPubKeyPath;
     }
@@ -209,5 +239,25 @@ public class SftpCertificates {
 
     public Path getFtpEncryptedPublicKeyPath() {
         return ftpEncryptedPubKeyPath;
+    }
+
+    public Path getUserRsaPrivateKeyPath() {
+        return userKeyRsaPath;
+    }
+
+    public Path getUserRsaPublicKeyPath() {
+        return userPubKeyRsaPath;
+    }
+
+    public Path getUserRsaCertificatePath() {
+        return userCertRsaPath;
+    }
+
+    public byte[] getUserRsaCertificateBytes() throws IOException {
+        return Files.readAllBytes(userCertRsaPath);
+    }
+
+    public byte[] getUserRsaPrivateKeyBytes() throws IOException {
+        return Files.readAllBytes(userKeyRsaPath);
     }
 }

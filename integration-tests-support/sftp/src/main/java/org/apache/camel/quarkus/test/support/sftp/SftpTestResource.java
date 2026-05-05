@@ -64,6 +64,9 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
             // Create authorized_keys file with all public keys
             Path authorizedKeysPath = createAuthorizedKeys(sshDir);
 
+            // Create combined trusted CA file (Ed25519 + RSA CAs)
+            Path trustedCaPath = createTrustedCaKeys(sshDir);
+
             // Start OpenSSH container
             container = new GenericContainer<>(opensshImage)
                     .withExposedPorts(SFTP_PORT)
@@ -71,10 +74,10 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("USER_NAME", USERNAME)
                     .withEnv("USER_PASSWORD", PASSWORD)
                     .withEnv("SUDO_ACCESS", "false")
-                    // Copy user CA for certificate verification
+                    // Copy trusted user CAs (Ed25519 + RSA) for certificate verification
                     .withCopyFileToContainer(
-                            MountableFile.forHostPath(certificates.getUserCaPubKeyPath()),
-                            "/config/.ssh/user_ca.pub")
+                            MountableFile.forHostPath(trustedCaPath),
+                            "/config/.ssh/trusted_user_cas.pub")
                     // Copy authorized_keys with all public keys
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(authorizedKeysPath),
@@ -93,16 +96,22 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
             // Set system properties for JVM mode AND return in map for native mode command-line args
             String userKeyPath = certificates.getUserPrivateKeyPath().toString();
             String userCertPath = certificates.getUserCertificatePath().toString();
+            String userKeyRsaPath = certificates.getUserRsaPrivateKeyPath().toString();
+            String userCertRsaPath = certificates.getUserRsaCertificatePath().toString();
             String ftpKeyPath = certificates.getFtpPrivateKeyPath().toString();
             String ftpEncryptedKeyPath = certificates.getFtpEncryptedPrivateKeyPath().toString();
 
             System.setProperty("sftp.test.user.key", userKeyPath);
             System.setProperty("sftp.test.user.cert", userCertPath);
+            System.setProperty("sftp.test.user.key.rsa", userKeyRsaPath);
+            System.setProperty("sftp.test.user.cert.rsa", userCertRsaPath);
             System.setProperty("sftp.test.ftp.key", ftpKeyPath);
             System.setProperty("sftp.test.ftp.encrypted.key", ftpEncryptedKeyPath);
 
             result.put("sftp.test.user.key", userKeyPath);
             result.put("sftp.test.user.cert", userCertPath);
+            result.put("sftp.test.user.key.rsa", userKeyRsaPath);
+            result.put("sftp.test.user.cert.rsa", userCertRsaPath);
             result.put("sftp.test.ftp.key", ftpKeyPath);
             result.put("sftp.test.ftp.encrypted.key", ftpEncryptedKeyPath);
 
@@ -133,8 +142,8 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
                 "PasswordAuthentication yes",
                 "PermitRootLogin no",
                 "",
-                "# User certificate authentication - trust certificates signed by user CA",
-                "TrustedUserCAKeys /config/.ssh/user_ca.pub",
+                "# User certificate authentication - trust certificates signed by Ed25519 and RSA CAs",
+                "TrustedUserCAKeys /config/.ssh/trusted_user_cas.pub",
                 "",
                 "# Standard public key authentication uses authorized_keys",
                 "AuthorizedKeysFile /config/.ssh/authorized_keys",
@@ -150,6 +159,22 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
         Files.writeString(sshdConfig, config);
         LOGGER.debug("Created sshd_config: " + sshdConfig);
         return sshdConfig;
+    }
+
+    /**
+     * Create trusted CA keys file with both Ed25519 and RSA CAs.
+     */
+    private Path createTrustedCaKeys(Path sshDir) throws IOException {
+        Path trustedCaKeys = sshDir.resolve("trusted_user_cas.pub");
+
+        // Combine Ed25519 and RSA CA public keys
+        StringBuilder cas = new StringBuilder();
+        cas.append(Files.readString(certificates.getUserCaPubKeyPath()));
+        cas.append(Files.readString(certificates.getUserCaRsaPubKeyPath()));
+
+        Files.writeString(trustedCaKeys, cas.toString());
+        LOGGER.debug("Created trusted_user_cas.pub with Ed25519 and RSA CAs");
+        return trustedCaKeys;
     }
 
     /**

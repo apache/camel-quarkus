@@ -56,24 +56,39 @@ public class MinaSftpCertificateManager {
 
         String userKeyPath = System.getProperty("sftp.test.user.key");
         String userCertPath = System.getProperty("sftp.test.user.cert");
+        String userKeyRsaPath = System.getProperty("sftp.test.user.key.rsa");
+        String userCertRsaPath = System.getProperty("sftp.test.user.cert.rsa");
         String ftpKeyPath = System.getProperty("sftp.test.ftp.key");
         String ftpEncryptedKeyPath = System.getProperty("sftp.test.ftp.encrypted.key");
 
-        if (userKeyPath == null || userCertPath == null || ftpKeyPath == null || ftpEncryptedKeyPath == null) {
+        if (userKeyPath == null || userCertPath == null || userKeyRsaPath == null || userCertRsaPath == null
+                || ftpKeyPath == null || ftpEncryptedKeyPath == null) {
             throw new IllegalStateException(
                     "Certificate paths not set. Test resource not started? sftp.test.user.key=" + userKeyPath
                             + ", sftp.test.user.cert=" + userCertPath
+                            + ", sftp.test.user.key.rsa=" + userKeyRsaPath
+                            + ", sftp.test.user.cert.rsa=" + userCertRsaPath
                             + ", sftp.test.ftp.key=" + ftpKeyPath
                             + ", sftp.test.ftp.encrypted.key=" + ftpEncryptedKeyPath);
         }
 
-        byte[] privateKeyBytes = Files.readAllBytes(Path.of(userKeyPath));
-        byte[] certificateBytes = Files.readAllBytes(Path.of(userCertPath));
+        // Ed25519 certificate files
+        byte[] ed25519PrivateKeyBytes = Files.readAllBytes(Path.of(userKeyPath));
+        byte[] ed25519CertificateBytes = Files.readAllBytes(Path.of(userCertPath));
 
-        Files.write(targetCerts.resolve("test-key-rsa.key"), privateKeyBytes);
-        Files.write(targetCerts.resolve("test-key-rsa-cert.pub"), certificateBytes);
-        Files.write(classpathCerts.resolve("test-key-rsa.key"), privateKeyBytes);
-        Files.write(classpathCerts.resolve("test-key-rsa-cert.pub"), certificateBytes);
+        Files.write(targetCerts.resolve("test-key-ed25519.key"), ed25519PrivateKeyBytes);
+        Files.write(targetCerts.resolve("test-key-ed25519-cert.pub"), ed25519CertificateBytes);
+        Files.write(classpathCerts.resolve("test-key-ed25519.key"), ed25519PrivateKeyBytes);
+        Files.write(classpathCerts.resolve("test-key-ed25519-cert.pub"), ed25519CertificateBytes);
+
+        // RSA certificate files
+        byte[] rsaPrivateKeyBytes = Files.readAllBytes(Path.of(userKeyRsaPath));
+        byte[] rsaCertificateBytes = Files.readAllBytes(Path.of(userCertRsaPath));
+
+        Files.write(targetCerts.resolve("test-key-rsa.key"), rsaPrivateKeyBytes);
+        Files.write(targetCerts.resolve("test-key-rsa-cert.pub"), rsaCertificateBytes);
+        Files.write(classpathCerts.resolve("test-key-rsa.key"), rsaPrivateKeyBytes);
+        Files.write(classpathCerts.resolve("test-key-rsa-cert.pub"), rsaCertificateBytes);
 
         Path ftpKeySource = Path.of(ftpKeyPath);
         Files.copy(ftpKeySource, targetCerts.resolve("ftp.key"), REPLACE_EXISTING);
