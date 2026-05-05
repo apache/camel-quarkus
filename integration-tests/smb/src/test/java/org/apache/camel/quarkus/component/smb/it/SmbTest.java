@@ -160,7 +160,7 @@ public class SmbTest {
             Set<String> set = Set.of(body.split(","));
 
             assertThat(set)
-                    .contains("path=/msg1.tx1")
+                    .contains("path=msg1.tx1")
                     .contains("content=Hello1")
                     .contains(SmbConstants.FILE_PATH + "=/msg1.tx1");
         });

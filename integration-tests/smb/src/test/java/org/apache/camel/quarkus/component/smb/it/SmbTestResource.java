@@ -25,16 +25,18 @@ import org.testcontainers.containers.wait.strategy.Wait;
 
 public class SmbTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final int SMB_PORT = 445;
-
-    private GenericContainer<?> container;
-
     private static final String SMB_IMAGE = ConfigProvider.getConfig().getValue("smb.container.image", String.class);
+    private static final String SMB_USER = "camel";
+    private static final String SMB_PASSWORD = "camelTester123";
+    private static final int SMB_PORT = 445;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
         try {
             container = new GenericContainer<>(SMB_IMAGE)
+                    .withEnv("SMB_USER", SMB_USER)
+                    .withEnv("SMB_PASSWORD", SMB_PASSWORD)
                     .withExposedPorts(SMB_PORT)
                     .waitingFor(Wait.forListeningPort());
             container.start();
@@ -46,8 +48,8 @@ public class SmbTestResource implements QuarkusTestResourceLifecycleManager {
                     "smb.host", smbHost,
                     "smb.port", Integer.toString(smbPort),
                     "smb.share", "data-rw",
-                    "smb.username", "camel",
-                    "smb.password", "camelTester123");
+                    "smb.username", SMB_USER,
+                    "smb.password", SMB_PASSWORD);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
