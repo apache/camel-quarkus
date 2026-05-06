@@ -17,12 +17,9 @@
 package org.apache.camel.quarkus.component.ssh.it;
 
 import java.nio.file.Paths;
-import java.security.Security;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import net.i2p.crypto.eddsa.EdDSASecurityProvider;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.ssh.SshComponent;
 import org.apache.sshd.common.keyprovider.FileKeyPairProvider;
@@ -40,11 +37,6 @@ public class SshRoutes extends RouteBuilder {
     String username;
     @ConfigProperty(name = "ssh.password")
     String password;
-
-    @PostConstruct
-    public void init() {
-        Security.addProvider(new EdDSASecurityProvider());
-    }
 
     @Override
     public void configure() throws Exception {
