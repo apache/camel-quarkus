@@ -71,7 +71,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         // Create test realm
         given()
                 .when()
@@ -83,7 +83,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(2)
-    public void testSetup_EnableAdminEvents() {
+    void testSetupEnableAdminEvents() {
         // Enable admin events and regular events for the realm
         given()
                 .when()
@@ -95,7 +95,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(3)
-    public void testSetup_CreateConsumerRoutes() {
+    void testSetupCreateConsumerRoutes() {
         // Create consumer routes for this realm
         given()
                 .when()
@@ -107,7 +107,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(4)
-    public void testConsumeAdminEvents_CreateUser() {
+    void testConsumeAdminEventsCreateUser() {
         // Reset mock before test
         given()
                 .when()
@@ -182,7 +182,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(5)
-    public void testConsumeAdminEvents_CreateRole() {
+    void testConsumeAdminEventsCreateRole() {
         // Reset mock before test
         given()
                 .when()
@@ -235,7 +235,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(6)
-    public void testConsumer_NoNewEvents() {
+    void testConsumerNoNewEvents() {
         // Reset mock
         given()
                 .when()
@@ -287,7 +287,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(7)
-    public void testConsumeRegularEvents() {
+    void testConsumeRegularEvents() {
         // Start the regular events consumer
         given()
                 .when()
@@ -322,7 +322,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(98)
-    public void testCleanup_DeleteRole() {
+    void testCleanupDeleteRole() {
         // Delete test role
         given()
                 .when()
@@ -334,7 +334,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(99)
-    public void testCleanup_DeleteUser() {
+    void testCleanupDeleteUser() {
         // Delete test user
         given()
                 .when()
@@ -346,7 +346,7 @@ class KeycloakConsumerTest {
 
     @Test
     @Order(100)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         // Delete the test realm
         given()
                 .when()

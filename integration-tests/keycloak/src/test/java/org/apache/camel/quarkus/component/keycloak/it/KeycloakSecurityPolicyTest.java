@@ -45,7 +45,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(1)
-    public void testSetup() {
+    void testSetup() {
         createRealm();
         createClient();
 
@@ -71,7 +71,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(2)
-    public void testPropertyTokenWorks() {
+    void testPropertyTokenWorks() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -83,7 +83,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(3)
-    public void testHeaderTokenWorks() {
+    void testHeaderTokenWorks() {
         given()
                 .when()
                 .queryParam("headerToken", normalUserToken)
@@ -95,7 +95,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(4)
-    public void testPropertyPreferredOverHeaderTokenWorks() {
+    void testPropertyPreferredOverHeaderTokenWorks() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -108,7 +108,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(5)
-    public void testInvalidHeaderIgnoredWhenPropertyValid() {
+    void testInvalidHeaderIgnoredWhenPropertyValid() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -121,7 +121,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(6)
-    public void testHeaderRejectedWhenHeadersDisabled() {
+    void testHeaderRejectedWhenHeadersDisabled() {
         given()
                 .when()
                 .queryParam("headerToken", normalUserToken)
@@ -133,7 +133,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(7)
-    public void testPropertyWorksWhenHeadersDisabled() {
+    void testPropertyWorksWhenHeadersDisabled() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -145,7 +145,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(8)
-    public void testPropertyTokenUsedNotHeader() {
+    void testPropertyTokenUsedNotHeader() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -158,7 +158,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(9)
-    public void testAttackScenario_SessionHijacking() {
+    void testAttackScenarioSessionHijacking() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -171,7 +171,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(10)
-    public void testAttackScenario_LegacyUnsafe() {
+    void testAttackScenarioLegacyUnsafe() {
         given()
                 .when()
                 .queryParam("propertyToken", normalUserToken)
@@ -184,7 +184,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(11)
-    public void testAuthorizationHeaderFormat() {
+    void testAuthorizationHeaderFormat() {
         given()
                 .when()
                 .queryParam("headerToken", normalUserToken)
@@ -196,7 +196,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(12)
-    public void testNoTokenRejected() {
+    void testNoTokenRejected() {
         given()
                 .when()
                 .get("/keycloak/secure-policy/max-security")
@@ -207,7 +207,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(13)
-    public void testAdminOnly() {
+    void testAdminOnly() {
         given()
                 .when()
                 .queryParam("propertyToken", adminToken)
@@ -220,7 +220,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(14)
-    public void testIntrospectionEnabledWithDefaultCacheConcurrentMap() {
+    void testIntrospectionEnabledWithDefaultCacheConcurrentMap() {
         given()
                 .when()
                 .queryParam("propertyToken", adminToken)
@@ -234,7 +234,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(15)
-    public void testIntrospectionEnabledWithNoCache() {
+    void testIntrospectionEnabledWithNoCache() {
         given()
                 .when()
                 .queryParam("propertyToken", adminToken)
@@ -248,7 +248,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(16)
-    public void testIntrospector_concurrentMapCache_tokenIsActive() {
+    void testIntrospectorConcurrentMapCacheTokenIsActive() {
         given()
                 .queryParam("accessToken", normalUserToken)
                 .queryParam("clientId", config("test.client.id"))
@@ -263,7 +263,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(17)
-    public void testIntrospector_concurrentMapCache_invalidToken_returnsInactive() {
+    void testIntrospectorConcurrentMapCacheInvalidTokenReturnsInactive() {
         given()
                 .queryParam("accessToken", "invalid.token")
                 .queryParam("clientId", config("test.client.id"))
@@ -276,7 +276,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(18)
-    public void testIntrospector_caffeineCache_tokenIsActive() {
+    void testIntrospectorCaffeineCacheTokenIsActive() {
         given()
                 .queryParam("accessToken", normalUserToken)
                 .queryParam("clientId", config("test.client.id"))
@@ -291,7 +291,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(19)
-    public void testIntrospector_caffeineCache_invalidToken_returnsInactive() {
+    void testIntrospectorCaffeineCacheInvalidTokenReturnsInactive() {
         given()
                 .queryParam("accessToken", "invalid.token")
                 .queryParam("clientId", config("test.client.id"))
@@ -304,7 +304,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(20)
-    public void testIntrospector_noCache_tokenIsActive() {
+    void testIntrospectorNoCacheTokenIsActive() {
         given()
                 .queryParam("accessToken", normalUserToken)
                 .queryParam("clientId", config("test.client.id"))
@@ -319,7 +319,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(21)
-    public void testIntrospector_noCache_invalidToken_returnsInactive() {
+    void testIntrospectorNoCacheInvalidTokenReturnsInactive() {
         given()
                 .queryParam("accessToken", "invalid.token")
                 .queryParam("clientId", config("test.client.id"))
@@ -332,7 +332,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(22)
-    public void testIntrospector_caffeineStats_secondCallHitsCache() {
+    void testIntrospectorCaffeineStatsSecondCallHitsCache() {
         given()
                 .queryParam("accessToken", normalUserToken)
                 .queryParam("clientId", config("test.client.id"))
@@ -348,7 +348,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(23)
-    public void testIntrospector_noCache_invalidToken_returns500() {
+    void testIntrospectorNoCacheInvalidTokenReturns500() {
         given()
                 .queryParam("accessToken", "invalid.token")
                 .queryParam("clientId", config("test.client.id"))
@@ -360,7 +360,7 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
 
     @Test
     @Order(100)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(config("test.realm"));
     }
 

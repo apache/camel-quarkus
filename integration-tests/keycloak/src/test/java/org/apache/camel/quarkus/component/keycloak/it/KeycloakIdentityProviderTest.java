@@ -37,13 +37,13 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
     }
 
     @Test
     @Order(2)
-    public void testCreateIdentityProvider() {
+    void testCreateIdentityProvider() {
         IdentityProviderRepresentation idp = new IdentityProviderRepresentation();
         idp.setAlias(TEST_IDP_ALIAS);
         idp.setProviderId("oidc");
@@ -62,7 +62,7 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testListIdentityProviders() {
+    void testListIdentityProviders() {
         List<IdentityProviderRepresentation> idps = given()
                 .when()
                 .get("/keycloak/identity-provider/{realmName}", TEST_REALM_NAME)
@@ -84,7 +84,7 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetIdentityProvider() {
+    void testGetIdentityProvider() {
         IdentityProviderRepresentation idp = given()
                 .when()
                 .get("/keycloak/identity-provider/{realmName}/{idpAlias}", TEST_REALM_NAME, TEST_IDP_ALIAS)
@@ -102,7 +102,7 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateIdentityProvider() {
+    void testUpdateIdentityProvider() {
         IdentityProviderRepresentation idp = given()
                 .when()
                 .get("/keycloak/identity-provider/{realmName}/{idpAlias}", TEST_REALM_NAME, TEST_IDP_ALIAS)
@@ -135,7 +135,7 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testCleanupIdentityProvider() {
+    void testCleanupIdentityProvider() {
         given()
                 .when()
                 .delete("/keycloak/identity-provider/{realmName}/{idpAlias}", TEST_REALM_NAME, TEST_IDP_ALIAS)
@@ -146,7 +146,7 @@ class KeycloakIdentityProviderTest extends KeycloakTestBase {
 
     @Test
     @Order(102)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

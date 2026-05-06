@@ -32,13 +32,13 @@ class KeycloakErrorHandlingTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
     }
 
     @Test
     @Order(2)
-    public void testErrorHandling_NonExistentRealm() {
+    void testErrorHandlingNonExistentRealm() {
         given()
                 .queryParam("email", "test@test.com")
                 .queryParam("firstName", "Test")
@@ -51,7 +51,7 @@ class KeycloakErrorHandlingTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testErrorHandling_NonExistentUser() {
+    void testErrorHandlingNonExistentUser() {
         given()
                 .when()
                 .get("/keycloak/user/{realmName}/{username}", TEST_REALM_NAME, "non-existent-user")
@@ -61,7 +61,7 @@ class KeycloakErrorHandlingTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testErrorHandling_NonExistentRole() {
+    void testErrorHandlingNonExistentRole() {
         given()
                 .when()
                 .get("/keycloak/role/{realmName}/{roleName}", TEST_REALM_NAME, "non-existent-role")
@@ -71,7 +71,7 @@ class KeycloakErrorHandlingTest extends KeycloakTestBase {
 
     @Test
     @Order(99)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

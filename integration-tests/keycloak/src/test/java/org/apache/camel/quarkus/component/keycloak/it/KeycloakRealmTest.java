@@ -35,7 +35,7 @@ class KeycloakRealmTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void loadComponentKeycloak() {
+    void loadComponentKeycloak() {
         RestAssured.get("/keycloak/load/component/keycloak")
                 .then()
                 .statusCode(200);
@@ -43,13 +43,13 @@ class KeycloakRealmTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
     }
 
     @Test
     @Order(3)
-    public void testCreateRealmWithPojo() {
+    void testCreateRealmWithPojo() {
         String pojoRealmName = TEST_REALM_NAME + "-pojo";
 
         RealmRepresentation realm = new RealmRepresentation();
@@ -76,7 +76,7 @@ class KeycloakRealmTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetRealm() {
+    void testGetRealm() {
         RealmRepresentation realm = given()
                 .when()
                 .get("/keycloak/realm/{realmName}", TEST_REALM_NAME)
@@ -93,7 +93,7 @@ class KeycloakRealmTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateRealm() {
+    void testUpdateRealm() {
         // First get the realm
         RealmRepresentation realm = given()
                 .when()
@@ -131,7 +131,7 @@ class KeycloakRealmTest extends KeycloakTestBase {
 
     @Test
     @Order(99)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
         KeycloakRealmLifecycle.verifyRealmDeleted(TEST_REALM_NAME);
     }

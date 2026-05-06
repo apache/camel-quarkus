@@ -48,7 +48,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
 
         // Create a client with authorization enabled
@@ -72,7 +72,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateResource() {
+    void testCreateResource() {
         ResourceRepresentation resource = new ResourceRepresentation();
         resource.setName("test-resource");
         resource.setDisplayName("Test Resource");
@@ -97,7 +97,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testListResources() {
+    void testListResources() {
         List<ResourceRepresentation> resources = given()
                 .when()
                 .get("/keycloak/resource/{realmName}/{clientId}", TEST_REALM_NAME, TEST_AUTHZ_CLIENT_ID)
@@ -123,7 +123,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetResource() {
+    void testGetResource() {
         assertThat(TEST_RESOURCE_ID, notNullValue());
 
         ResourceRepresentation resource = given()
@@ -143,7 +143,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateResource() {
+    void testUpdateResource() {
         assertThat(TEST_RESOURCE_ID, notNullValue());
 
         ResourceRepresentation resource = given()
@@ -183,7 +183,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(11)
-    public void testCreateResourcePolicy() {
+    void testCreateResourcePolicy() {
         PolicyRepresentation policy = new PolicyRepresentation();
         policy.setName("test-policy");
         policy.setDescription("Test Policy");
@@ -209,7 +209,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(12)
-    public void testListResourcePolicies() {
+    void testListResourcePolicies() {
         List<PolicyRepresentation> policies = given()
                 .when()
                 .get("/keycloak/resource-policy/{realmName}/{clientId}", TEST_REALM_NAME, TEST_AUTHZ_CLIENT_ID)
@@ -235,7 +235,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(13)
-    public void testGetResourcePolicy() {
+    void testGetResourcePolicy() {
         assertThat(TEST_POLICY_ID, notNullValue());
 
         PolicyRepresentation policy = given()
@@ -254,7 +254,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(14)
-    public void testUpdateResourcePolicy() {
+    void testUpdateResourcePolicy() {
         assertThat(TEST_POLICY_ID, notNullValue());
 
         PolicyRepresentation policy = given()
@@ -294,7 +294,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(21)
-    public void testCreateResourcePermission() {
+    void testCreateResourcePermission() {
         assertThat(TEST_RESOURCE_ID, notNullValue());
         assertThat(TEST_POLICY_ID, notNullValue());
 
@@ -324,7 +324,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(22)
-    public void testListResourcePermissions() {
+    void testListResourcePermissions() {
         List<ResourcePermissionRepresentation> permissions = given()
                 .when()
                 .get("/keycloak/resource-permission/{realmName}/{clientId}",
@@ -351,7 +351,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(23)
-    public void testGetResourcePermission() {
+    void testGetResourcePermission() {
         assertThat(TEST_PERMISSION_ID, notNullValue());
 
         PolicyRepresentation permission = given()
@@ -370,7 +370,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(24)
-    public void testUpdateResourcePermission() {
+    void testUpdateResourcePermission() {
         assertThat(TEST_PERMISSION_ID, notNullValue());
 
         PolicyRepresentation permission = given()
@@ -410,7 +410,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testDeleteResourcePermission() {
+    void testDeleteResourcePermission() {
         assertThat(TEST_PERMISSION_ID, notNullValue());
 
         given()
@@ -424,7 +424,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(102)
-    public void testDeleteResourcePolicy() {
+    void testDeleteResourcePolicy() {
         assertThat(TEST_POLICY_ID, notNullValue());
 
         given()
@@ -438,7 +438,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(103)
-    public void testDeleteResource() {
+    void testDeleteResource() {
         assertThat(TEST_RESOURCE_ID, notNullValue());
 
         given()
@@ -452,7 +452,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(104)
-    public void testCleanupAuthorizationClient() {
+    void testCleanupAuthorizationClient() {
         given()
                 .when()
                 .delete("/keycloak/client/{realmName}/{clientId}", TEST_REALM_NAME, TEST_AUTHZ_CLIENT_ID)
@@ -463,7 +463,7 @@ class KeycloakAuthorizationTest extends KeycloakTestBase {
 
     @Test
     @Order(105)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

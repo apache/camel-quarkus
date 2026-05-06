@@ -47,13 +47,13 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
     }
 
     @Test
     @Order(2)
-    public void testCreateUserWithHeaders() {
+    void testCreateUserWithHeaders() {
         given()
                 .queryParam("email", TEST_USER_NAME + "@test.com")
                 .queryParam("firstName", "Test")
@@ -67,7 +67,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testCreateUserWithPojo() {
+    void testCreateUserWithPojo() {
         String pojoUserName = TEST_USER_NAME + "-pojo";
 
         UserRepresentation user = new UserRepresentation();
@@ -89,7 +89,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetUser() {
+    void testGetUser() {
         UserRepresentation user = given()
                 .when()
                 .get("/keycloak/user/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -108,7 +108,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testListUsers() {
+    void testListUsers() {
         List<UserRepresentation> users = given()
                 .when()
                 .get("/keycloak/user/{realmName}", TEST_REALM_NAME)
@@ -126,7 +126,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(6)
-    public void testUpdateUser() {
+    void testUpdateUser() {
         // First get the user
         UserRepresentation user = given()
                 .when()
@@ -164,7 +164,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(7)
-    public void testSearchUsers() {
+    void testSearchUsers() {
         // Search for users by username prefix
         List<UserRepresentation> users = given()
                 .queryParam("query", TEST_USER_NAME)
@@ -186,7 +186,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(8)
-    public void testListUserSessions() {
+    void testListUserSessions() {
         List<?> sessions = given()
                 .when()
                 .get("/keycloak/user/{realmName}/{username}/sessions", TEST_REALM_NAME, TEST_USER_NAME)
@@ -204,7 +204,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(9)
-    public void testResetUserPassword() {
+    void testResetUserPassword() {
         given()
                 .queryParam("password", "newTestPassword123!")
                 .queryParam("temporary", false)
@@ -217,7 +217,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(10)
-    public void testSendVerifyEmail() {
+    void testSendVerifyEmail() {
         given()
                 .when()
                 .post("/keycloak/user/{realmName}/{username}/send-verify-email", TEST_REALM_NAME, TEST_USER_NAME)
@@ -228,7 +228,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(11)
-    public void testSendPasswordResetEmail() {
+    void testSendPasswordResetEmail() {
         given()
                 .when()
                 .post("/keycloak/user/{realmName}/{username}/send-password-reset-email", TEST_REALM_NAME,
@@ -240,7 +240,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(12)
-    public void testLogoutUser() {
+    void testLogoutUser() {
         given()
                 .when()
                 .post("/keycloak/user/{realmName}/{username}/logout", TEST_REALM_NAME, TEST_USER_NAME)
@@ -251,7 +251,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(13)
-    public void testSetUserAttribute() {
+    void testSetUserAttribute() {
         given()
                 .queryParam("attributeValue", "test-department")
                 .when()
@@ -264,7 +264,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(14)
-    public void testGetUserAttributes() {
+    void testGetUserAttributes() {
         Map<String, List<String>> attributes = given()
                 .when()
                 .get("/keycloak/user-attribute/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -284,7 +284,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(15)
-    public void testDeleteUserAttribute() {
+    void testDeleteUserAttribute() {
         Map<String, List<String>> attributesBefore = given()
                 .when()
                 .get("/keycloak/user-attribute/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -320,7 +320,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(16)
-    public void testGetUserCredentials() {
+    void testGetUserCredentials() {
         List<CredentialRepresentation> credentials = given()
                 .when()
                 .get("/keycloak/user-credential/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -337,7 +337,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(17)
-    public void testDeleteUserCredential() {
+    void testDeleteUserCredential() {
         List<CredentialRepresentation> credentials = given()
                 .when()
                 .get("/keycloak/user-credential/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -363,7 +363,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(18)
-    public void testAddRequiredAction() {
+    void testAddRequiredAction() {
         given()
                 .queryParam("action", "UPDATE_PASSWORD")
                 .when()
@@ -375,7 +375,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(19)
-    public void testRemoveRequiredAction() {
+    void testRemoveRequiredAction() {
         given()
                 .queryParam("action", "UPDATE_PASSWORD")
                 .when()
@@ -387,7 +387,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(20)
-    public void testExecuteActionsEmail() {
+    void testExecuteActionsEmail() {
         given()
                 .queryParam("actions", "VERIFY_EMAIL,UPDATE_PASSWORD")
                 .queryParam("lifespan", 3600)
@@ -400,7 +400,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(21)
-    public void testBulkCreateUsers() {
+    void testBulkCreateUsers() {
         String bulkUserNameOne = TEST_USER_NAME + "-bulkOne";
 
         UserRepresentation userOne = new UserRepresentation();
@@ -438,7 +438,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(22)
-    public void testBulkUpdateUsers() {
+    void testBulkUpdateUsers() {
         //First get list of users
         List<UserRepresentation> batchCreatedUsers = given()
                 .when()
@@ -493,7 +493,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(23)
-    public void testBulkUpdateUsersWithContinueOnError() {
+    void testBulkUpdateUsersWithContinueOnError() {
         //First get list of users
         List<UserRepresentation> batchCreatedUsers = new ArrayList<>(given()
                 .when()
@@ -525,7 +525,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(24)
-    public void testBulkDeleteUsers() {
+    void testBulkDeleteUsers() {
         // First get list of users
         List<String> batchCreatedUsers = given()
                 .when()
@@ -555,7 +555,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(100)
-    public void testCleanupUsers() {
+    void testCleanupUsers() {
         // Delete test users
         String[] usersToDelete = { TEST_USER_NAME, TEST_USER_NAME + "-pojo" };
 
@@ -571,7 +571,7 @@ class KeycloakUserTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

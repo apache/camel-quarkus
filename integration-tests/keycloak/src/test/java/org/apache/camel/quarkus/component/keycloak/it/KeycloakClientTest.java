@@ -47,7 +47,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
 
         // Create a test user for client role assignments
@@ -65,7 +65,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateClientWithHeaders() {
+    void testCreateClientWithHeaders() {
         given()
                 .when()
                 .post("/keycloak/client/{realmName}/{clientId}", TEST_REALM_NAME, TEST_CLIENT_ID)
@@ -76,7 +76,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateClientWithPojo() {
+    void testCreateClientWithPojo() {
         String pojoClientId = TEST_CLIENT_ID + "-pojo";
 
         ClientRepresentation client = new ClientRepresentation();
@@ -96,7 +96,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testListClients() {
+    void testListClients() {
         List<ClientRepresentation> clients = given()
                 .when()
                 .get("/keycloak/client/{realmName}", TEST_REALM_NAME)
@@ -114,7 +114,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetClient() {
+    void testGetClient() {
         ClientRepresentation client = given()
                 .when()
                 .get("/keycloak/client/{realmName}/{clientId}", TEST_REALM_NAME, TEST_CLIENT_ID)
@@ -130,7 +130,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateClient() {
+    void testUpdateClient() {
         ClientRepresentation client = given()
                 .when()
                 .get("/keycloak/client/{realmName}/{clientId}", TEST_REALM_NAME, TEST_CLIENT_ID)
@@ -165,7 +165,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(10)
-    public void testCreateClientRoleWithHeaders() {
+    void testCreateClientRoleWithHeaders() {
         given()
                 .queryParam("description", "Test client role for integration testing")
                 .when()
@@ -178,7 +178,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(11)
-    public void testCreateClientRoleWithPojo() {
+    void testCreateClientRoleWithPojo() {
         String pojoClientRoleName = TEST_CLIENT_ROLE_NAME + "-pojo";
 
         RoleRepresentation role = new RoleRepresentation();
@@ -197,7 +197,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(12)
-    public void testListClientRoles() {
+    void testListClientRoles() {
         List<RoleRepresentation> clientRoles = given()
                 .when()
                 .get("/keycloak/client-role/{realmName}/{clientId}", TEST_REALM_NAME, TEST_CLIENT_ID)
@@ -215,7 +215,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(13)
-    public void testGetClientRole() {
+    void testGetClientRole() {
         RoleRepresentation clientRole = given()
                 .when()
                 .get("/keycloak/client-role/{realmName}/{clientId}/{roleName}",
@@ -233,7 +233,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(14)
-    public void testUpdateClientRole() {
+    void testUpdateClientRole() {
         RoleRepresentation clientRole = given()
                 .when()
                 .get("/keycloak/client-role/{realmName}/{clientId}/{roleName}",
@@ -269,7 +269,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(15)
-    public void testAssignClientRoleToUser() {
+    void testAssignClientRoleToUser() {
         given()
                 .when()
                 .post("/keycloak/client-role-user/{realmName}/{clientId}/{username}/{roleName}",
@@ -281,7 +281,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(16)
-    public void testRemoveClientRoleFromUser() {
+    void testRemoveClientRoleFromUser() {
         given()
                 .when()
                 .delete("/keycloak/client-role-user/{realmName}/{clientId}/{username}/{roleName}",
@@ -295,7 +295,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(20)
-    public void testCreateClientScopeWithPojo() {
+    void testCreateClientScopeWithPojo() {
         ClientScopeRepresentation scope = new ClientScopeRepresentation();
         scope.setName(TEST_CLIENT_SCOPE_NAME);
         scope.setProtocol("openid-connect");
@@ -313,7 +313,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(21)
-    public void testListClientScopes() {
+    void testListClientScopes() {
         List<ClientScopeRepresentation> scopes = given()
                 .when()
                 .get("/keycloak/client-scope/{realmName}", TEST_REALM_NAME)
@@ -331,7 +331,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(22)
-    public void testGetClientScope() {
+    void testGetClientScope() {
         ClientScopeRepresentation scope = given()
                 .when()
                 .get("/keycloak/client-scope/{realmName}/{scopeName}", TEST_REALM_NAME, TEST_CLIENT_SCOPE_NAME)
@@ -347,7 +347,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(23)
-    public void testUpdateClientScope() {
+    void testUpdateClientScope() {
         ClientScopeRepresentation scope = given()
                 .when()
                 .get("/keycloak/client-scope/{realmName}/{scopeName}", TEST_REALM_NAME, TEST_CLIENT_SCOPE_NAME)
@@ -382,7 +382,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(30)
-    public void testGetClientSecret() {
+    void testGetClientSecret() {
         // First, make the client confidential to have a secret
         ClientRepresentation client = given()
                 .when()
@@ -418,7 +418,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(31)
-    public void testRegenerateClientSecret() {
+    void testRegenerateClientSecret() {
         CredentialRepresentation oldSecretData = given()
                 .when()
                 .get("/keycloak/client-secret/{realmName}/{clientId}", TEST_REALM_NAME, TEST_CLIENT_ID)
@@ -447,7 +447,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(100)
-    public void testCleanupClientRoles() {
+    void testCleanupClientRoles() {
         String[] rolesToDelete = { TEST_CLIENT_ROLE_NAME, TEST_CLIENT_ROLE_NAME + "-pojo" };
 
         for (String roleName : rolesToDelete) {
@@ -463,7 +463,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testCleanupClientScopes() {
+    void testCleanupClientScopes() {
         given()
                 .when()
                 .delete("/keycloak/client-scope/{realmName}/{scopeName}", TEST_REALM_NAME, TEST_CLIENT_SCOPE_NAME)
@@ -474,7 +474,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(102)
-    public void testCleanupClients() {
+    void testCleanupClients() {
         String[] clientsToDelete = { TEST_CLIENT_ID, TEST_CLIENT_ID + "-pojo" };
 
         for (String clientId : clientsToDelete) {
@@ -489,7 +489,7 @@ class KeycloakClientTest extends KeycloakTestBase {
 
     @Test
     @Order(103)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

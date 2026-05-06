@@ -37,7 +37,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
 
         // Create a test user for group-user operations
@@ -53,7 +53,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateGroupWithHeaders() {
+    void testCreateGroupWithHeaders() {
         given()
                 .when()
                 .post("/keycloak/group/{realmName}/{groupName}", TEST_REALM_NAME, TEST_GROUP_NAME)
@@ -64,7 +64,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateGroupWithPojo() {
+    void testCreateGroupWithPojo() {
         String pojoGroupName = TEST_GROUP_NAME + "-pojo";
 
         GroupRepresentation group = new GroupRepresentation();
@@ -82,7 +82,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testListGroups() {
+    void testListGroups() {
         List<GroupRepresentation> groups = given()
                 .when()
                 .get("/keycloak/group/{realmName}", TEST_REALM_NAME)
@@ -100,7 +100,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testGetGroup() {
+    void testGetGroup() {
         GroupRepresentation group = given()
                 .when()
                 .get("/keycloak/group/{realmName}/{groupName}", TEST_REALM_NAME, TEST_GROUP_NAME)
@@ -116,7 +116,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateGroup() {
+    void testUpdateGroup() {
         GroupRepresentation group = given()
                 .when()
                 .get("/keycloak/group/{realmName}/{groupName}", TEST_REALM_NAME, TEST_GROUP_NAME)
@@ -139,7 +139,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(6)
-    public void testAddUserToGroup() {
+    void testAddUserToGroup() {
         given()
                 .when()
                 .post("/keycloak/group-user/{realmName}/{username}/{groupName}",
@@ -151,7 +151,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(7)
-    public void testListUserGroups() {
+    void testListUserGroups() {
         List<GroupRepresentation> groups = given()
                 .when()
                 .get("/keycloak/group-user/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -169,7 +169,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(8)
-    public void testRemoveUserFromGroup() {
+    void testRemoveUserFromGroup() {
         given()
                 .when()
                 .delete("/keycloak/group-user/{realmName}/{username}/{groupName}",
@@ -181,7 +181,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(100)
-    public void testCleanupGroups() {
+    void testCleanupGroups() {
         String[] groupsToDelete = { TEST_GROUP_NAME, TEST_GROUP_NAME + "-pojo" };
 
         for (String groupName : groupsToDelete) {
@@ -196,7 +196,7 @@ class KeycloakGroupTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

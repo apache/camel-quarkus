@@ -41,7 +41,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup_CreateRealm() {
+    void testSetupCreateRealm() {
         KeycloakRealmLifecycle.createRealmWithSmtp(TEST_REALM_NAME);
 
         // Create a test user for user-role operations
@@ -57,7 +57,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateRoleWithHeaders() {
+    void testCreateRoleWithHeaders() {
         given()
                 .queryParam("description", "Test role for integration testing")
                 .when()
@@ -69,7 +69,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testCreateRoleWithPojo() {
+    void testCreateRoleWithPojo() {
         String pojoRoleName = TEST_ROLE_NAME + "-pojo";
 
         RoleRepresentation role = new RoleRepresentation();
@@ -88,7 +88,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testGetRole() {
+    void testGetRole() {
         RoleRepresentation role = given()
                 .when()
                 .get("/keycloak/role/{realmName}/{roleName}", TEST_REALM_NAME, TEST_ROLE_NAME)
@@ -105,7 +105,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testListRoles() {
+    void testListRoles() {
         List<RoleRepresentation> roles = given()
                 .when()
                 .get("/keycloak/role/{realmName}", TEST_REALM_NAME)
@@ -123,7 +123,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testUpdateRole() {
+    void testUpdateRole() {
         RoleRepresentation role = given()
                 .when()
                 .get("/keycloak/role/{realmName}/{roleName}", TEST_REALM_NAME, TEST_ROLE_NAME)
@@ -156,7 +156,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(6)
-    public void testAssignRoleToUser() {
+    void testAssignRoleToUser() {
         given()
                 .when()
                 .post("/keycloak/user-role/{realmName}/{username}/{roleName}",
@@ -168,7 +168,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(7)
-    public void testGetUserRoles() {
+    void testGetUserRoles() {
         List<RoleRepresentation> roles = given()
                 .when()
                 .get("/keycloak/user-role/{realmName}/{username}", TEST_REALM_NAME, TEST_USER_NAME)
@@ -190,7 +190,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(8)
-    public void testRemoveRoleFromUser() {
+    void testRemoveRoleFromUser() {
         given()
                 .when()
                 .delete("/keycloak/user-role/{realmName}/{username}/{roleName}",
@@ -202,7 +202,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(9)
-    public void testAssignRolesToUser() {
+    void testAssignRolesToUser() {
         List<String> existingRoleNames = given()
                 .when()
                 .get("/keycloak/role/{realmName}", TEST_REALM_NAME)
@@ -230,7 +230,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(10)
-    public void testAssignRoleToUsers() {
+    void testAssignRoleToUsers() {
         // get an role
         RoleRepresentation role = given()
                 .when()
@@ -283,7 +283,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(100)
-    public void testCleanupRoles() {
+    void testCleanupRoles() {
         String[] rolesToDelete = { TEST_ROLE_NAME, TEST_ROLE_NAME + "-pojo" };
 
         for (String roleName : rolesToDelete) {
@@ -298,7 +298,7 @@ class KeycloakRoleTest extends KeycloakTestBase {
 
     @Test
     @Order(101)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(TEST_REALM_NAME);
     }
 }

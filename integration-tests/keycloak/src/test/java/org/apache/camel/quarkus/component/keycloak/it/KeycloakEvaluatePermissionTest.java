@@ -60,7 +60,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(1)
-    public void testSetup() {
+    void testSetup() {
         KeycloakRealmLifecycle.createRealmWithSmtp(config("test.realm"));
 
         // 1. Confidential client with Authorization Services enabled
@@ -164,7 +164,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(2)
-    public void testPermissionsOnly_responseContainsRequiredFields() {
+    void testPermissionsOnlyResponseContainsRequiredFields() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -179,7 +179,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(3)
-    public void testPermissionsOnly_userGrantedAccessToDocumentsRead() {
+    void testPermissionsOnlyUserGrantedAccessToDocumentsRead() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -195,7 +195,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(4)
-    public void testRptMode_responseContainsAllExpectedFields() {
+    void testRptModeResponseContainsAllExpectedFields() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -214,7 +214,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(5)
-    public void testPermissionsOnly_resourceNamesWithWhitespace() {
+    void testPermissionsOnlyResourceNamesWithWhitespace() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -228,7 +228,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(6)
-    public void testPermissionsOnly_scopeOnlyNoResource() {
+    void testPermissionsOnlyScopeOnlyNoResource() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -242,7 +242,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(7)
-    public void testPermissionsOnly_withAudienceHeader() {
+    void testPermissionsOnlyWithAudienceHeader() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -257,7 +257,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(8)
-    public void testPermissionsOnly_withSubjectToken() {
+    void testPermissionsOnlyWithSubjectToken() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -271,7 +271,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(9)
-    public void testEvaluatePermission_usernamePasswordAuth_granted() {
+    void testEvaluatePermissionUsernamePasswordAuthGranted() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -286,7 +286,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(10)
-    public void testEvaluatePermission_missingClientSecret_returns500WithValidationMessage() {
+    void testEvaluatePermissionMissingClientSecretReturns500WithValidationMessage() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", "")
@@ -299,7 +299,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(11)
-    public void testEvaluatePermission_invalidToken_returns500WithAuthError() {
+    void testEvaluatePermissionInvalidTokenReturns500WithAuthError() {
         given()
                 .queryParam("clientId", TEST_CLIENT_ID)
                 .queryParam("clientSecret", TEST_CLIENT_SECRET)
@@ -314,7 +314,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(15)
-    public void testSetupAuthenticationTests() {
+    void testSetupAuthenticationTests() {
         // Create service account client for client credentials grant testing
         ClientRepresentation serviceAccountClient = new ClientRepresentation();
         serviceAccountClient.setClientId(SERVICE_ACCOUNT_CLIENT_ID);
@@ -328,7 +328,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(20)
-    public void testServiceAccount_FullResponse() {
+    void testServiceAccountFullResponse() {
         // Verify we can obtain a full token response using client credentials grant
         Map<String, Object> tokenResponse = getServiceAccountTokenResponse(
                 SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
@@ -341,7 +341,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(21)
-    public void testServiceAccount_ConvenienceMethod() {
+    void testServiceAccountConvenienceMethod() {
         // Verify the convenience method that returns just the access token
         String accessToken = getServiceAccountToken(
                 SERVICE_ACCOUNT_CLIENT_ID, TEST_CLIENT_SECRET);
@@ -351,7 +351,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(30)
-    public void testPasswordGrant_ObtainTokenWithRefreshToken() {
+    void testPasswordGrantObtainTokenWithRefreshToken() {
         // Obtain a token using password grant to get both access and refresh tokens
         Map<String, Object> tokenResponse = getTokenResponse(
                 TEST_USER_NAME,
@@ -371,7 +371,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(40)
-    public void testRefreshTokenGrant_FullResponse() {
+    void testRefreshTokenGrantFullResponse() {
         // Verify refresh token can be used to obtain a full token response
         Map<String, Object> refreshedTokenResponse = getRefreshedTokenResponse(
                 userRefreshToken,
@@ -386,7 +386,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(41)
-    public void testRefreshTokenGrant_ConvenienceMethod() {
+    void testRefreshTokenGrantConvenienceMethod() {
         // Verify the convenience method that returns just the new access token
         String newAccessToken = getRefreshedAccessToken(
                 userRefreshToken,
@@ -398,7 +398,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(43)
-    public void testRefreshTokenGrant_InvalidRefreshToken() {
+    void testRefreshTokenGrantInvalidRefreshToken() {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             getRefreshedTokenResponse("invalid.refresh.token", TEST_CLIENT_ID, TEST_CLIENT_SECRET);
         }, "Should have thrown an exception for invalid refresh token");
@@ -408,7 +408,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(44)
-    public void testRefreshTokenGrant_MultipleRefreshes() {
+    void testRefreshTokenGrantMultipleRefreshes() {
         // Test that we can refresh multiple times (token rotation)
         // First refresh using the user's refresh token
         Map<String, Object> firstRefresh = getRefreshedTokenResponse(
@@ -434,7 +434,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
 
     @Test
     @Order(100)
-    public void testCleanup_DeleteRealm() {
+    void testCleanupDeleteRealm() {
         KeycloakRealmLifecycle.deleteRealm(config("test.realm"));
     }
 
