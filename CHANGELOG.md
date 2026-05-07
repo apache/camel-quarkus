@@ -18,6 +18,27 @@
 -->
 # Changelog
 
+## 3.33.1
+
+* [3.33.x] Upgrade Quarkus Artemis to 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8454
+* [BACKPORT 3.33] fix: extension metadata status is a string value by @gansheer in https://github.com/apache/camel-quarkus/pull/8452
+* [3.33.x] Refactor OpenAI tests to work correctly with two separated models by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8459
+* [3.33.x] Improve HTTP proxy tests by @llowinge in https://github.com/apache/camel-quarkus/pull/8465
+* [3.33.x] Upgrade Quarkus to 3.33.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8470
+* [3.33.x] Upgrade Camel to 4.18.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8464
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8489
+* [3.33.x] Upgrade to Quarkus CXF 3.33.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/8494
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8524
+* [3.33.x] Use managed versions of annotation processors and their transitives by @ppalaga in https://github.com/apache/camel-quarkus/pull/8528
+* 3.33.x: [IBMMQ] For remote docker revert back to copyToContainer by @avano in https://github.com/apache/camel-quarkus/pull/8541
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8549
+* Upgrade to Quarkus CXF 3.33.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/8559
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8563
+* [3.33.x] Upgrade Camel to 4.18.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8554
+* [3.33.x] Backports + Upgrade to Quarkus 3.33.1.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8613
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.33.0...3.33.1
+
 ## 3.35.0
 
 * Bump io.quarkiverse.langchain4j:quarkus-langchain4j-bom from 1.7.4 to 1.8.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/8447
