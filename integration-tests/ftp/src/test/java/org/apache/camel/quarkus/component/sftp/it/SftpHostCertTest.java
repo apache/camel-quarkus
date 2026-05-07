@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.sftp.SftpHostCertTestResource;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,7 @@ import static org.hamcrest.CoreMatchers.is;
 class SftpHostCertTest {
 
     @Test
+    @DisabledIfFipsMode
     public void testHostCertificateVerification() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -57,6 +59,7 @@ class SftpHostCertTest {
     }
 
     @Test
+    @DisabledIfFipsMode
     public void testHostCertificateVerificationWithCaSignatureAlgorithms() {
         // Test host certificate verification with specific CA signature algorithms
         RestAssured.given()
