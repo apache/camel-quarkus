@@ -39,9 +39,12 @@ class FtpProcessor {
                 "com.jcraft.jsch.KeyPairEd25519",
                 "com.jcraft.jsch.KeyPairEd448",
                 "com.jcraft.jsch.KeyPairDSA",
-                "com.jcraft.jsch.SignatureRSA",
-                "com.jcraft.jsch.SignatureECDSA",
-                "com.jcraft.jsch.jce.SignatureEd25519")
+                "com.jcraft.jsch.KeyPairEdDSA",
+                "com.jcraft.jsch.KeyPairPKCS8",
+                "com.jcraft.jsch.jce.SignatureEd25519",
+                "com.jcraft.jsch.IdentityFile",
+                "com.jcraft.jsch.LocalIdentityRepository",
+                "com.jcraft.jsch.jce.KeyPairGenEdDSA")
                 .build();
     }
 }
