@@ -33,7 +33,6 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBui
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import net.i2p.crypto.eddsa.EdDSAEngine;
 import org.apache.sshd.common.channel.ChannelListener;
 import org.apache.sshd.common.forward.PortForwardingEventListener;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
@@ -51,15 +50,29 @@ class SshProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        // Register standard Java security and SSHD classes
+        java.util.List<Class<?>> classes = new java.util.ArrayList<>(java.util.Arrays.asList(
+                KeyPairGenerator.class,
+                KeyAgreement.class,
+                KeyFactory.class,
+                Signature.class,
+                Mac.class,
+                Nio2ServiceFactoryFactory.class));
+
+        // Conditionally register net.i2p.crypto EdDSA classes only if present on classpath.
+        // When net.i2p.crypto:eddsa is excluded, Apache SSHD 2.15+ automatically falls back
+        // to BouncyCastle for EdDSA support (see BouncyCastleSecurityProviderRegistrar).
+        try {
+            classes.add(Class.forName("net.i2p.crypto.eddsa.EdDSAEngine", false,
+                    Thread.currentThread().getContextClassLoader()));
+            classes.add(Class.forName("net.i2p.crypto.eddsa.KeyFactory", false,
+                    Thread.currentThread().getContextClassLoader()));
+        } catch (ClassNotFoundException e) {
+            // EdDSA classes not available - BouncyCastle will handle EdDSA instead
+        }
+
         reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(KeyPairGenerator.class,
-                        KeyAgreement.class,
-                        KeyFactory.class,
-                        Signature.class,
-                        Mac.class,
-                        Nio2ServiceFactoryFactory.class,
-                        EdDSAEngine.class,
-                        net.i2p.crypto.eddsa.KeyFactory.class).methods().build());
+                ReflectiveClassBuildItem.builder(classes.toArray(new Class<?>[0])).methods().build());
     }
 
     @BuildStep

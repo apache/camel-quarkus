@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.ftp.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class FtpProcessor {
 
@@ -26,5 +27,22 @@ class FtpProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerJSchCertificateClasses() {
+        return ReflectiveClassBuildItem.builder(
+                "com.jcraft.jsch.KeyPairRSA",
+                "com.jcraft.jsch.KeyPairECDSA",
+                "com.jcraft.jsch.KeyPairEd25519",
+                "com.jcraft.jsch.KeyPairEd448",
+                "com.jcraft.jsch.KeyPairDSA",
+                "com.jcraft.jsch.KeyPairEdDSA",
+                "com.jcraft.jsch.KeyPairPKCS8",
+                "com.jcraft.jsch.jce.SignatureEd25519",
+                "com.jcraft.jsch.IdentityFile",
+                "com.jcraft.jsch.LocalIdentityRepository",
+                "com.jcraft.jsch.jce.KeyPairGenEdDSA")
+                .build();
     }
 }

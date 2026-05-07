@@ -47,6 +47,15 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-ssh</artifactId>
+            <exclusions>
+                <!-- Exclude vulnerable net.i2p.crypto:eddsa (CVE: signature malleability).
+                     Apache SSHD 2.15+ automatically falls back to BouncyCastle for EdDSA
+                     when net.i2p.crypto EdDSA provider is not registered. -->
+                <exclusion>
+                    <groupId>net.i2p.crypto</groupId>
+                    <artifactId>eddsa</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

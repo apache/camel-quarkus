@@ -16,91 +16,209 @@
  */
 package org.apache.camel.quarkus.test.support.sftp;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
-import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
-import org.apache.sshd.common.keyprovider.FileKeyPairProvider;
-import org.apache.sshd.scp.server.ScpCommandFactory;
-import org.apache.sshd.server.SshServer;
-import org.apache.sshd.sftp.server.SftpSubsystemFactory;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 
+/**
+ * SFTP test resource using containerized OpenSSH server.
+ * Supports password authentication and SSH certificate-based authentication.
+ */
 public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = Logger.getLogger(SftpTestResource.class);
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "admin";
+    private static final int SFTP_PORT = 2222;
 
-    private static final String KNOWN_HOSTS = "[localhost]:%d ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDdfIWeSV4o68dRrKS"
-            + "zFd/Bk51E65UTmmSrmW0O1ohtzi6HzsDPjXgCtlTt3FqTcfFfI92IlTr4JWqC9UK1QT1ZTeng0MkPQmv68hDANHbt5CpETZHjW5q4OOgWhV"
-            + "vj5IyOC2NZHtKlJBkdsMAa15ouOOJLzBvAvbqOR/yUROsEiQ==";
-
-    private SshServer sshServer;
-    private Path sftpHome;
-    private Path sshHome;
+    private GenericContainer<?> container;
+    private Path tempDir;
+    private static SftpCertificates certificates;
 
     @Override
     public Map<String, String> start() {
         try {
-            final int port = AvailablePortFinder.getNextAvailable();
+            // Read configuration at runtime
+            String opensshImage = ConfigProvider.getConfig().getValue("openssh-server.container.image", String.class);
 
-            sftpHome = Files.createTempDirectory("sftp-");
-            sshHome = sftpHome.resolve("admin/.ssh");
+            // Create temp directory for SSH configuration
+            tempDir = Files.createTempDirectory("sftp-config-");
+            Path sshDir = tempDir.resolve("ssh");
+            Files.createDirectories(sshDir);
 
-            Files.createDirectories(sshHome);
+            // Generate user and CA certificates
+            certificates = SftpCertificates.generate(sshDir);
+            LOGGER.info("Generated SSH certificates in: " + sshDir);
 
-            byte[] knownHostsBytes = String.format(KNOWN_HOSTS, port).getBytes(StandardCharsets.UTF_8);
-            Files.write(sshHome.resolve(".known_hosts"), knownHostsBytes);
+            // Create custom sshd_config for certificate authentication
+            Path sshdConfigPath = createSshdConfig(sshDir);
 
-            VirtualFileSystemFactory factory = new VirtualFileSystemFactory();
-            factory.setUserHomeDir("admin", sftpHome.resolve("admin").toAbsolutePath());
+            // Create authorized_keys file with all public keys
+            Path authorizedKeysPath = createAuthorizedKeys(sshDir);
 
-            sshServer = SshServer.setUpDefaultServer();
-            sshServer.setPort(port);
-            sshServer.setKeyPairProvider(new FileKeyPairProvider(Paths.get("target/certs/ftp.key")));
-            sshServer.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
-            sshServer.setCommandFactory(new ScpCommandFactory());
-            sshServer.setPasswordAuthenticator((username, password, session) -> true);
-            sshServer.setPublickeyAuthenticator((username, key, session) -> true);
-            sshServer.setFileSystemFactory(factory);
-            sshServer.start();
+            // Create combined trusted CA file (Ed25519 + RSA CAs)
+            Path trustedCaPath = createTrustedCaKeys(sshDir);
 
-            return Collections.singletonMap("camel.sftp.test-port", Integer.toString(port));
+            // Start OpenSSH container
+            container = new GenericContainer<>(opensshImage)
+                    .withExposedPorts(SFTP_PORT)
+                    .withEnv("PASSWORD_ACCESS", "true")
+                    .withEnv("USER_NAME", USERNAME)
+                    .withEnv("USER_PASSWORD", PASSWORD)
+                    .withEnv("SUDO_ACCESS", "false")
+                    // Copy trusted user CAs (Ed25519 + RSA) for certificate verification
+                    .withCopyFileToContainer(
+                            MountableFile.forHostPath(trustedCaPath),
+                            "/config/.ssh/trusted_user_cas.pub")
+                    // Copy authorized_keys with all public keys
+                    .withCopyFileToContainer(
+                            MountableFile.forHostPath(authorizedKeysPath),
+                            "/config/.ssh/authorized_keys")
+                    // Copy custom sshd_config
+                    .withCopyFileToContainer(
+                            MountableFile.forHostPath(sshdConfigPath),
+                            "/etc/ssh/sshd_config")
+                    .waitingFor(Wait.forLogMessage(".*done.*", 1));
+
+            container.start();
+
+            Map<String, String> result = new HashMap<>();
+            result.put("camel.sftp.test-port", container.getMappedPort(SFTP_PORT).toString());
+
+            // Set system properties for JVM mode AND return in map for native mode command-line args
+            String userKeyPath = certificates.getUserPrivateKeyPath().toString();
+            String userCertPath = certificates.getUserCertificatePath().toString();
+            String userKeyRsaPath = certificates.getUserRsaPrivateKeyPath().toString();
+            String userCertRsaPath = certificates.getUserRsaCertificatePath().toString();
+            String ftpKeyPath = certificates.getFtpPrivateKeyPath().toString();
+            String ftpEncryptedKeyPath = certificates.getFtpEncryptedPrivateKeyPath().toString();
+
+            System.setProperty("sftp.test.user.key", userKeyPath);
+            System.setProperty("sftp.test.user.cert", userCertPath);
+            System.setProperty("sftp.test.user.key.rsa", userKeyRsaPath);
+            System.setProperty("sftp.test.user.cert.rsa", userCertRsaPath);
+            System.setProperty("sftp.test.ftp.key", ftpKeyPath);
+            System.setProperty("sftp.test.ftp.encrypted.key", ftpEncryptedKeyPath);
+
+            result.put("sftp.test.user.key", userKeyPath);
+            result.put("sftp.test.user.cert", userCertPath);
+            result.put("sftp.test.user.key.rsa", userKeyRsaPath);
+            result.put("sftp.test.user.cert.rsa", userCertRsaPath);
+            result.put("sftp.test.ftp.key", ftpKeyPath);
+            result.put("sftp.test.ftp.encrypted.key", ftpEncryptedKeyPath);
+
+            LOGGER.infof("SFTP container started on port %d", container.getMappedPort(SFTP_PORT));
+            return result;
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to start SFTP container", e);
         }
+    }
+
+    /**
+     * Create custom sshd_config that enables certificate authentication.
+     */
+    private Path createSshdConfig(Path sshDir) throws IOException {
+        Path sshdConfig = sshDir.resolve("sshd_config");
+        String config = String.join("\n",
+                "# Custom sshd_config for SFTP testing",
+                "Port 2222",
+                "Protocol 2",
+                "",
+                "# Host keys",
+                "HostKey /config/ssh_host_rsa_key",
+                "HostKey /config/ssh_host_ed25519_key",
+                "",
+                "# Authentication",
+                "PubkeyAuthentication yes",
+                "PasswordAuthentication yes",
+                "PermitRootLogin no",
+                "",
+                "# User certificate authentication - trust certificates signed by Ed25519 and RSA CAs",
+                "TrustedUserCAKeys /config/.ssh/trusted_user_cas.pub",
+                "",
+                "# Standard public key authentication uses authorized_keys",
+                "AuthorizedKeysFile /config/.ssh/authorized_keys",
+                "",
+                "# SFTP subsystem",
+                "Subsystem sftp internal-sftp",
+                "",
+                "# Logging",
+                "SyslogFacility AUTH",
+                "LogLevel DEBUG",
+                "");
+
+        Files.writeString(sshdConfig, config);
+        LOGGER.debug("Created sshd_config: " + sshdConfig);
+        return sshdConfig;
+    }
+
+    /**
+     * Create trusted CA keys file with both Ed25519 and RSA CAs.
+     */
+    private Path createTrustedCaKeys(Path sshDir) throws IOException {
+        Path trustedCaKeys = sshDir.resolve("trusted_user_cas.pub");
+
+        // Combine Ed25519 and RSA CA public keys
+        StringBuilder cas = new StringBuilder();
+        cas.append(Files.readString(certificates.getUserCaPubKeyPath()));
+        cas.append(Files.readString(certificates.getUserCaRsaPubKeyPath()));
+
+        Files.writeString(trustedCaKeys, cas.toString());
+        LOGGER.debug("Created trusted_user_cas.pub with Ed25519 and RSA CAs");
+        return trustedCaKeys;
+    }
+
+    /**
+     * Create authorized_keys file with all public keys for testing.
+     */
+    private Path createAuthorizedKeys(Path sshDir) throws IOException {
+        Path authorizedKeys = sshDir.resolve("authorized_keys");
+
+        // Combine all public keys into authorized_keys file
+        StringBuilder keys = new StringBuilder();
+        keys.append(Files.readString(certificates.getUserPublicKeyPath()));
+        keys.append(Files.readString(certificates.getFtpPublicKeyPath()));
+        keys.append(Files.readString(certificates.getFtpEncryptedPublicKeyPath()));
+
+        Files.writeString(authorizedKeys, keys.toString());
+        LOGGER.debug("Created authorized_keys with " + 3 + " keys");
+        return authorizedKeys;
     }
 
     @Override
     public void stop() {
         try {
-            if (sshServer != null) {
-                sshServer.stop();
+            if (container != null) {
+                container.stop();
+                LOGGER.info("SFTP container stopped");
             }
         } catch (Exception e) {
-            LOGGER.warn("Failed to stop FTP server due to {}", e);
+            LOGGER.warn("Failed to stop SFTP container", e);
         }
 
         try {
-            if (sftpHome != null) {
-                try (Stream<Path> files = Files.walk(sftpHome)) {
-                    files
-                            .sorted(Comparator.reverseOrder())
-                            .map(Path::toFile)
-                            .forEach(File::delete);
-                }
+            if (tempDir != null && Files.exists(tempDir)) {
+                Files.walk(tempDir)
+                        .sorted((a, b) -> -a.compareTo(b))
+                        .forEach(path -> {
+                            try {
+                                Files.delete(path);
+                            } catch (IOException e) {
+                                LOGGER.warn("Failed to delete temp file: " + path, e);
+                            }
+                        });
             }
         } catch (Exception e) {
-            LOGGER.warn("Failed delete sftp home: {}, {}", sftpHome, e);
+            LOGGER.warn("Failed to delete temp directory: " + tempDir, e);
         }
-
-        AvailablePortFinder.releaseReservedPorts();
     }
 }
