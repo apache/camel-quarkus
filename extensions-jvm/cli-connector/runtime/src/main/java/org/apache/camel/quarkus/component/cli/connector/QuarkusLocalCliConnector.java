@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.cli.connector;
 
 import io.quarkus.runtime.LaunchMode;
+import io.quarkus.runtime.Quarkus;
 import org.apache.camel.cli.connector.LocalCliConnector;
 import org.apache.camel.spi.CliConnectorFactory;
 
@@ -28,9 +29,13 @@ public class QuarkusLocalCliConnector extends LocalCliConnector {
     @Override
     public void sigterm() {
         if (LaunchMode.current().equals(LaunchMode.DEVELOPMENT)) {
-            // If Camel JBang launched us in dev mode, then stopping the CamelContext is not enough as dev mode will remain running.
-            // Therefore, init app shutdown which will still shut Camel down gracefully
-            System.exit(0);
+            if (System.getProperty("user.dir", "").contains(".camel-jbang")) {
+                // If Camel JBang launched us in dev mode, then stopping the CamelContext is not enough as dev mode will remain running.
+                System.exit(0);
+            } else {
+                // Delegate to standard shutdown lifecycle
+                Quarkus.asyncExit();
+            }
         } else {
             super.sigterm();
         }
