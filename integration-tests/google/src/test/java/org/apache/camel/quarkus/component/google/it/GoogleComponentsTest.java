@@ -201,6 +201,243 @@ class GoogleComponentsTest {
     }
 
     @Test
+    public void testGoogleMailUpdateLabels() {
+        String message = "Test message for label update";
+        String customLabelName = "TestLabel_" + UUID.randomUUID().toString().substring(0, 8);
+
+        // Create custom label to test name-to-ID resolution
+        String customLabelId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(customLabelName)
+                .post("/google-mail/label/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Create message
+        String messageId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/google-mail/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Test DataTypeTransformer: Use label NAME (not ID)
+        // Transformer should resolve label name to ID automatically
+        RestAssured.given()
+                .queryParam("messageId", messageId)
+                .queryParam("addLabel", customLabelName)
+                .patch("/google-mail/update-labels")
+                .then()
+                .statusCode(200);
+
+        // Update labels - remove custom label and add INBOX (system label)
+        RestAssured.given()
+                .queryParam("messageId", messageId)
+                .queryParam("removeLabel", customLabelName)
+                .queryParam("addLabel", "INBOX")
+                .patch("/google-mail/update-labels")
+                .then()
+                .statusCode(200);
+
+        // Clean up message
+        Awaitility.await()
+                .pollDelay(2, TimeUnit.SECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(15, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("messageId", messageId)
+                            .delete("/google-mail/delete")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code == 204;
+                });
+
+        // Clean up custom label
+        RestAssured.given()
+                .queryParam("labelId", customLabelId)
+                .delete("/google-mail/label/delete")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testGoogleMailDraftOperations() {
+        String draftMessage = "Draft message content";
+        String updatedMessage = "Updated draft message content";
+
+        // Create draft
+        String draftId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(draftMessage)
+                .post("/google-mail/draft/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read draft
+        RestAssured.given()
+                .queryParam("draftId", draftId)
+                .get("/google-mail/draft/read")
+                .then()
+                .statusCode(200)
+                .body(is(draftMessage));
+
+        // Update draft
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("draftId", draftId)
+                .body(updatedMessage)
+                .patch("/google-mail/draft/update")
+                .then()
+                .statusCode(200);
+
+        // Verify update
+        RestAssured.given()
+                .queryParam("draftId", draftId)
+                .get("/google-mail/draft/read")
+                .then()
+                .statusCode(200)
+                .body(is(updatedMessage));
+
+        // Send draft
+        String sentMessageId = RestAssured.given()
+                .queryParam("draftId", draftId)
+                .post("/google-mail/draft/send")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        // Verify draft no longer exists after sending
+        RestAssured.given()
+                .queryParam("draftId", draftId)
+                .get("/google-mail/draft/read")
+                .then()
+                .statusCode(404);
+
+        // Clean up sent message
+        Awaitility.await()
+                .pollDelay(2, TimeUnit.SECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(15, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("messageId", sentMessageId)
+                            .delete("/google-mail/delete")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code == 204;
+                });
+    }
+
+    @Test
+    public void testGoogleMailDraftWithThreadingMetadata() {
+        String originalMessage = "Original message";
+        String replyMessage = "Reply to original message";
+
+        // Create original message to get messageId and threadId
+        String originalMessageId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(originalMessage)
+                .post("/google-mail/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Get the actual threadId from the original message
+        String threadId = RestAssured.given()
+                .queryParam("messageId", originalMessageId)
+                .get("/google-mail/thread-id")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        // Get the actual Message-ID header from the original message
+        String messageIdHeader = RestAssured.given()
+                .queryParam("messageId", originalMessageId)
+                .get("/google-mail/message-id-header")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        // Create draft with threading metadata
+        // DataTypeTransformer should use threadId and messageId to set In-Reply-To and References headers
+        String draftId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("threadId", threadId)
+                .queryParam("messageId", messageIdHeader)
+                .body(replyMessage)
+                .post("/google-mail/draft/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read draft to verify it was created
+        RestAssured.given()
+                .queryParam("draftId", draftId)
+                .get("/google-mail/draft/read")
+                .then()
+                .statusCode(200)
+                .body(is(replyMessage));
+
+        // Send the draft
+        String sentMessageId = RestAssured.given()
+                .queryParam("draftId", draftId)
+                .post("/google-mail/draft/send")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        // Clean up original message
+        Awaitility.await()
+                .pollDelay(2, TimeUnit.SECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(15, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("messageId", originalMessageId)
+                            .delete("/google-mail/delete")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code == 204;
+                });
+
+        // Clean up sent message
+        Awaitility.await()
+                .pollDelay(2, TimeUnit.SECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(15, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("messageId", sentMessageId)
+                            .delete("/google-mail/delete")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code == 204;
+                });
+    }
+
+    @Test
     public void testGoogleSheetsComponent() {
         String title = "Camel Quarkus Google Sheet";
 
