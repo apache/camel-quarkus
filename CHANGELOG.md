@@ -18,6 +18,16 @@
 -->
 # Changelog
 
+## 3.27.4
+
+* [3.27.x] Upgrade Quarkus to 3.27.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8449
+* [BACKPORT 3.27] fix: extension metadata status is a string value by @gansheer in https://github.com/apache/camel-quarkus/pull/8453
+* [3.27.x] Upgrade Camel to 4.14.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8540
+* [3.27.x] Upgrade Camel to 4.14.7 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8582
+* [3.27.x] Backports + Upgrade to Quarkus 3.27.3.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8615
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.27.3...3.27.4
+
 ## 3.33.1
 
 * [3.33.x] Upgrade Quarkus Artemis to 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8454
