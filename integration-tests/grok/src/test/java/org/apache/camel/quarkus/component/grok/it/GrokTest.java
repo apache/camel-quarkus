@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.grok.it;
 
-import io.krakens.grok.api.exception.GrokException;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -100,8 +99,7 @@ class GrokTest {
 
     @Test
     public void grokFlattenShouldReturnGrokExceptionClassName() {
-        final String expected = GrokException.class.getName();
-        given().body("1 2").get("/grok/flatten").then().statusCode(200).body(is(expected));
+        given().body("1 2").get("/grok/flatten").then().statusCode(200).body(is("{i=1, j=2}"));
     }
 
     @Test
