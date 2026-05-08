@@ -1970,6 +1970,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jsoup</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jt400</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -5151,6 +5156,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-jsonpath-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jsoup</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jsoup-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

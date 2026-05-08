@@ -1878,6 +1878,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-jsoup</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.21.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-jt400</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.21.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -5015,6 +5020,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-jsonpath-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.36.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-jsoup</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.36.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-jsoup-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.36.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
