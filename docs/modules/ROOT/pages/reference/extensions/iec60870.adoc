@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-iec60870
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
