@@ -7566,12 +7566,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.35.1</version>
+        <version>3.35.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.35.1</version>
+        <version>3.35.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -8824,22 +8824,22 @@
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>5.0.5</version>
+        <version>5.0.6</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-dateutil</artifactId>
-        <version>5.0.5</version>
+        <version>5.0.6</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-json</artifactId>
-        <version>5.0.5</version>
+        <version>5.0.6</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-xml</artifactId>
-        <version>5.0.5</version>
+        <version>5.0.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
