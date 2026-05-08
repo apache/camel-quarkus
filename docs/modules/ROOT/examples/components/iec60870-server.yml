@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-iec60870
 cqArtifactIdBase: iec60870
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: iec60870-server

@@ -143,6 +143,7 @@
         <module>json-validator</module>
         <module>jsonata</module>
         <module>jsonpath</module>
+        <module>jsoup</module>
         <module>jt400</module>
         <module>jt400-mocked</module>
         <module>jta</module>
