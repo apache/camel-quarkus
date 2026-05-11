@@ -284,6 +284,7 @@
 *** xref:reference/extensions/ref.adoc[Ref]
 *** xref:reference/extensions/rest.adoc[Rest]
 *** xref:reference/extensions/robotframework.adoc[Robot Framework]
+*** xref:reference/extensions/rocketmq.adoc[RocketMQ]
 *** xref:reference/extensions/sap-netweaver.adoc[SAP NetWeaver]
 *** xref:reference/extensions/jsch.adoc[SCP]
 *** xref:reference/extensions/seda.adoc[SEDA]

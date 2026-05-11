@@ -246,6 +246,7 @@
         <module>ref</module>
         <module>rest</module>
         <module>rest-openapi</module>
+        <module>rocketmq</module>
         <module>rss</module>
         <module>saga</module>
         <module>salesforce</module>

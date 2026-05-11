@@ -47,6 +47,7 @@
         <camel-kamelets.version>4.20.0</camel-kamelets.version>
         <cassandra-quarkus.version>1.4.1</cassandra-quarkus.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
         <debezium.version>3.5.0.Final</debezium.version> <!-- This should be in sync with quarkus-platform https://github.com/quarkusio/quarkus-platform-->
+        <rocketmq.version>5.3.2</rocketmq.version><!-- @sync org.apache.camel:camel-rocketmq:${camel.version} dep:org.apache.rocketmq:rocketmq-client -->
         <optaplanner.version>10.0.0</optaplanner.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>3.18.0</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.14.2</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
@@ -281,6 +282,7 @@
         <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.16.0-unprivileged</qdrant.container.image>
         <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.2.4-management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:7.4.0-alpine</redis.container.image>
+        <rocketmq.container.image>apache/rocketmq:5.3.2</rocketmq.container.image>
         <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:2.0.0</smb.container.image>
         <solr.container.image>mirror.gcr.io/solr:9.9.0-slim</solr.container.image>
