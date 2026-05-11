@@ -123,6 +123,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>nativeimage</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-rocketmq</artifactId>
             <exclusions>

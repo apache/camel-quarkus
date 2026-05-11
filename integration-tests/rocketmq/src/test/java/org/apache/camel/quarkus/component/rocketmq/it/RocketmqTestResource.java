@@ -85,7 +85,7 @@ public class RocketmqTestResource implements QuarkusTestResourceLifecycleManager
         createTopic();
 
         Map<String, String> properties = new HashMap<>();
-        properties.put("rocketmq.namesrv.addr",
+        properties.put("camel.component.rocketmq.namesrv-addr",
                 namesrvContainer.getHost() + ":" + namesrvContainer.getMappedPort(NAMESRV_PORT));
         LOG.info("RocketMQ test properties: {}", properties);
         return properties;
