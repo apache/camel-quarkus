@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.quarkus.arc.Arc;
+import io.quarkus.arc.ArcContainer;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
 import io.smallrye.mutiny.subscription.Cancellable;
@@ -99,7 +100,13 @@ public class CamelCoreDevUIService {
     }
 
     static DevConsoleRegistry getDevConsoleRegistry() {
-        return Arc.container()
+        ArcContainer container = Arc.container();
+        if (container == null) {
+            // The app is likely performing a dev mode hot reload, thus the container may be temporarily unavailable
+            return null;
+        }
+
+        return container
                 .select(CamelContext.class)
                 .get()
                 .getCamelContextExtension()
