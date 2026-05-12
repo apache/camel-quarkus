@@ -48,7 +48,7 @@ public class SedaResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String get(@PathParam("name") String name) throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("seda:" + name, String.class);
+        final String message = consumerTemplate.receiveBody("seda:" + name, 5000, String.class);
         LOG.infof("Received from seda: %s", message);
         return message;
     }

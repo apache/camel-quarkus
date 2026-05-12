@@ -42,6 +42,7 @@ import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
@@ -77,6 +78,7 @@ import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -507,6 +509,14 @@ class CamelProcessor {
             CamelRecorder recorder) {
 
         return new CamelModelReifierFactoryBuildItem(recorder.modelReifierFactory());
+    }
+
+    @BuildStep
+    public SystemPropertyBuildItem camelVirtualThreadSupportSystemProperty() {
+        // Need to set camel.threads.virtual.enabled early as possible as the CamelContext is constructed during static init phase
+        return new SystemPropertyBuildItem("camel.threads.virtual.enabled", ConfigProvider.getConfig()
+                .getOptionalValue("camel.main.virtualThreadsEnabled", String.class)
+                .orElse("false"));
     }
 
     /**

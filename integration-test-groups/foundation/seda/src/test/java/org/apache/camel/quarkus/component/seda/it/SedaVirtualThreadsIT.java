@@ -16,37 +16,17 @@
  */
 package org.apache.camel.quarkus.component.seda.it;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-
-@QuarkusTest
-class SedaTest {
-
+@QuarkusIntegrationTest
+class SedaVirtualThreadsIT extends SedaVirtualThreadsTest {
+    /**
+     * Overridden to remove JDK version restrictions as the JDK used in native mode should be >= 25
+     */
+    @Override
     @Test
-    public void seda() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT).body("Hello World").post("/seda/foo")
-                .then().statusCode(201);
-
-        RestAssured.get("/seda/foo").then().body(equalTo("Hello World")).statusCode(200);
-    }
-
-    @Test
-    void virtualThreadsDisabled() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .post("/seda/virtualThreaded")
-                .then()
-                .statusCode(201);
-
-        RestAssured.get("/seda/virtualThreadedResults")
-                .then()
-                .body(is(Thread.class.getName()))
-                .statusCode(200);
+    void sedaExecutesOnVirtualThread() {
+        super.sedaExecutesOnVirtualThread();
     }
 }
