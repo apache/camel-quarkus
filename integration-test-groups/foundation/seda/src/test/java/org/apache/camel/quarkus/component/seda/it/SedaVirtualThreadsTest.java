@@ -17,27 +17,22 @@
 package org.apache.camel.quarkus.component.seda.it;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.QuarkusTestProfile;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.containsString;
 
+@TestProfile(SedaVirtualThreadsTest.VirtualThreadsTestProfile.class)
 @QuarkusTest
-class SedaTest {
-
+class SedaVirtualThreadsTest {
+    @EnabledForJreRange(min = JRE.JAVA_21)
     @Test
-    public void seda() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT).body("Hello World").post("/seda/foo")
-                .then().statusCode(201);
-
-        RestAssured.get("/seda/foo").then().body(equalTo("Hello World")).statusCode(200);
-    }
-
-    @Test
-    void virtualThreadsDisabled() {
+    void sedaExecutesOnVirtualThread() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .post("/seda/virtualThreaded")
@@ -46,7 +41,14 @@ class SedaTest {
 
         RestAssured.get("/seda/virtualThreadedResults")
                 .then()
-                .body(is(Thread.class.getName()))
+                .body(containsString("java.lang.VirtualThread"))
                 .statusCode(200);
+    }
+
+    public static final class VirtualThreadsTestProfile implements QuarkusTestProfile {
+        @Override
+        public String getConfigProfile() {
+            return "virtualThreads";
+        }
     }
 }
