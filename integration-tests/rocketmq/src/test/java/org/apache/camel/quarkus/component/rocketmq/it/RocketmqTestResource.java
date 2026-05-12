@@ -16,14 +16,13 @@
  */
 package org.apache.camel.quarkus.component.rocketmq.it;
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +55,7 @@ public class RocketmqTestResource implements QuarkusTestResourceLifecycleManager
 
         namesrvContainer.start();
 
-        int brokerPort = availablePort();
+        int brokerPort = AvailablePortFinder.getNextAvailable();
         String brokerConf = String.format(
                 "brokerIP1=%s%nlistenPort=%d%nbrokerName=broker-a%nbrokerClusterName=DefaultCluster%n",
                 namesrvContainer.getHost(), brokerPort);
@@ -110,14 +109,6 @@ public class RocketmqTestResource implements QuarkusTestResourceLifecycleManager
                     "sh", "mqadmin", "updateTopic", "-n", "namesrv:9876", "-t", "camel-test", "-c", "DefaultCluster");
         } catch (Exception e) {
             throw new IllegalStateException("Could not create topic via mqadmin", e);
-        }
-    }
-
-    private int availablePort() {
-        try (ServerSocket socket = new ServerSocket(0)) {
-            return socket.getLocalPort();
-        } catch (IOException e) {
-            throw new IllegalStateException("Could not find an available RocketMQ broker port", e);
         }
     }
 
