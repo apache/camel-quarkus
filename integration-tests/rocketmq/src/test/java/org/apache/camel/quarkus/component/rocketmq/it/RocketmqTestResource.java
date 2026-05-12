@@ -23,9 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.HostConfig;
-import com.github.dockerjava.api.model.Ports;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
@@ -64,20 +61,12 @@ public class RocketmqTestResource implements QuarkusTestResourceLifecycleManager
                 "brokerIP1=%s%nlistenPort=%d%nbrokerName=broker-a%nbrokerClusterName=DefaultCluster%n",
                 namesrvContainer.getHost(), brokerPort);
 
-        brokerContainer = new GenericContainer<>(ROCKETMQ_IMAGE)
+        brokerContainer = new RocketMQBrokerContainer(ROCKETMQ_IMAGE, brokerPort)
                 .withNetwork(network)
                 .withNetworkAliases("broker")
                 .withCopyToContainer(Transferable.of(brokerConf.getBytes(StandardCharsets.UTF_8)), "/tmp/broker.conf")
                 .withCommand("sh", "mqbroker", "-n", "namesrv:9876", "-c", "/tmp/broker.conf")
                 .dependsOn(namesrvContainer)
-                .withCreateContainerCmdModifier(createContainerCmd -> {
-                    Ports portBindings = new Ports();
-                    portBindings.bind(ExposedPort.tcp(brokerPort), Ports.Binding.bindPort(brokerPort));
-                    HostConfig hostConfig = HostConfig.newHostConfig()
-                            .withPortBindings(portBindings)
-                            .withNetworkMode(network.getId());
-                    createContainerCmd.withHostConfig(hostConfig);
-                })
                 .waitingFor(Wait.forLogMessage(".*The broker\\[.*\\] boot success.*", 1));
 
         brokerContainer.start();
@@ -154,6 +143,13 @@ public class RocketmqTestResource implements QuarkusTestResourceLifecycleManager
             }
         } catch (Exception e) {
             LOG.error("Error closing RocketMQ test network", e);
+        }
+    }
+
+    static class RocketMQBrokerContainer extends GenericContainer<RocketMQBrokerContainer> {
+        RocketMQBrokerContainer(String image, int brokerPort) {
+            super(image);
+            addFixedExposedPort(brokerPort, brokerPort);
         }
     }
 }
