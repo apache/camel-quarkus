@@ -30,7 +30,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/iec60870.html"
   categories:
   - "integration"
-  status: "stable"
+  status: "deprecated"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"
