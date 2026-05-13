@@ -7240,6 +7240,25 @@
                 <version>${hapi-fhir-core.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.atlassian.jira</groupId>
+                <artifactId>jira-rest-java-client-core</artifactId>
+                <version>${jira-rest-client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.atlassian.sal</groupId>
+                        <artifactId>sal-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.jettison</groupId>
+                        <artifactId>jettison</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>com.dylibso.chicory</groupId>
                 <artifactId>runtime</artifactId>
                 <version>${chicory.version}</version>
