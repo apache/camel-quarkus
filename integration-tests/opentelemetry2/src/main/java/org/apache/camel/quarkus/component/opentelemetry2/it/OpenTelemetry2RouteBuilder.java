@@ -34,14 +34,20 @@ public class OpenTelemetry2RouteBuilder extends RouteBuilder {
         from("direct:start")
                 .setBody().constant("Traced direct:start");
 
+        // NOTE: when we call the bean in this way, the resulting inner span will depends directly on the
+        // "to" processor node
         from("direct:greet")
                 .to("bean:greetingsBean");
+        // When, instead, it is called by a bean processor, then, the inner span will depends on the "bean"
+        // processor node
+        from("direct:greetBean")
+                .bean(GreetingsBean.class);
 
         from("timer:filtered?repeatCount=5&delay=-1")
                 .setBody().constant("Route filtered from tracing").id("timer-setbody");
 
         from("direct:jdbcQuery")
-                .to("bean:jdbcQueryBean");
+                .bean(JdbcQueryBean.class);
 
         from("direct:traceHeaderInclusion")
                 .log("Trace info: CAMEL_SPAN_ID=${header.CAMEL_SPAN_ID}, CAMEL_TRACE_ID=${header.CAMEL_TRACE_ID}");
