@@ -256,4 +256,4 @@ group-13:
   - slack
   - twilio
   - pgevent
-  
+  - rocketmq
