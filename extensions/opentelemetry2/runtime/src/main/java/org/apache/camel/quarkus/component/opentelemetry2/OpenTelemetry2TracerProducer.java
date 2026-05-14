@@ -41,6 +41,7 @@ public class OpenTelemetry2TracerProducer {
             OpenTelemetryTracer openTelemetryTracer = new OpenTelemetryTracer();
             config.excludePatterns().ifPresent(openTelemetryTracer::setExcludePatterns);
             openTelemetryTracer.setTraceProcessors(config.traceProcessors());
+            openTelemetryTracer.setDisableCoreProcessors(config.disableCoreProcessors());
             openTelemetryTracer.setTraceHeadersInclusion(config.traceHeadersInclusion());
             openTelemetryTracer.init(camelContext);
             return openTelemetryTracer;
