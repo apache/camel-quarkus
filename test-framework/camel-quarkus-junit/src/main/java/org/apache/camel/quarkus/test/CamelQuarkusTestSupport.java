@@ -17,7 +17,10 @@
 package org.apache.camel.quarkus.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +34,8 @@ import org.apache.camel.NoSuchEndpointException;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.AdviceWith;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
@@ -49,6 +54,8 @@ import org.apache.camel.test.junit6.TestSupport;
 import org.apache.camel.test.junit6.util.ExtensionHelper;
 import org.apache.camel.test.junit6.util.RouteCoverageDumperExtension;
 import org.apache.camel.util.StopWatch;
+import org.apache.camel.util.function.ThrowingConsumer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -109,6 +116,8 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
     @Inject
     protected CamelContext context;
     private Set<String> createdRoutes;
+    private Map<String, List<ProcessorDefinition<?>>> originalRouteOutputs;
+    private Set<String> existingComponents;
 
     public CamelQuarkusTestSupport() {
         super(new CustomTestExecutionConfiguration(), new CustomCamelContextConfiguration());
@@ -131,7 +140,10 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
                 .withRouteFilterExcludePattern(getRouteFilterExcludePattern())
                 .withRouteFilterIncludePattern(getRouteFilterIncludePattern())
                 .withMockEndpoints(isMockEndpoints())
-                .withMockEndpointsAndSkip(isMockEndpointsAndSkip());
+                .withMockEndpointsAndSkip(isMockEndpointsAndSkip())
+                .withShutdownTimeout(ConfigProvider.getConfig()
+                        .getOptionalValue("camel.main.shutdownTimeout", Integer.class)
+                        .orElse(10));
 
         //CQ starts and stops context with the application start/stop
         testConfiguration().withAutoStartContext(false);
@@ -306,9 +318,6 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         // noop
     }
 
-    /**
-     * Factory method which derived classes can use to create a {@link RouteBuilder} to define the routes for testing
-     */
     protected RoutesBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             @Override
@@ -391,6 +400,22 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
                     .map(Route::getRouteId)
                     .collect(Collectors.toSet());
         }
+
+        // Save a snapshot of route outputs before any advice is applied
+        // This allows us to restore routes to their original state between tests
+        ModelCamelContext modelContext = context.getCamelContextExtension().getContextPlugin(ModelCamelContext.class);
+        if (modelContext != null) {
+            originalRouteOutputs = new HashMap<>();
+            for (RouteDefinition routeDef : modelContext.getRouteDefinitions()) {
+                // Save a copy of the outputs list (the list itself, not cloning each processor)
+                List<ProcessorDefinition<?>> outputs = new ArrayList<>(routeDef.getOutputs());
+                originalRouteOutputs.put(routeDef.getId(), outputs);
+            }
+        }
+
+        // Save a snapshot of existing components before the test creates any new ones
+        // This allows us to only remove test-created components during cleanup
+        existingComponents = new HashSet<>(context.getComponentNames());
     }
 
     /**
@@ -427,12 +452,38 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
     }
 
     /**
-     * Override when using <a href="http://camel.apache.org/advicewith.html">advice with</a> and return <code>true</code>.
+     * Override when using <a href="https://camel.apache.org/manual/advice-with.html">advice with</a> and return
+     * <code>true</code>.
      * <p/>
-     * <b>Important:</b> You must execute method {@link #startRouteDefinitions()}} manually from the unit test
-     * after you are done doing all the advice with.
+     * <b>Advice Cleanup:</b> AdviceWith modifications are automatically cleaned up between test methods. This ensures
+     * that advice applied in one test does not persist to subsequent tests, preventing interference between tests.
+     * <p/>
+     * <b>Fundamental Limitation:</b> In Camel Quarkus, the CamelContext is assembled at build time and shared across
+     * all tests in a module. Unlike standalone Camel or Spring Boot (where the context can be manually started in each
+     * test), you cannot replay the build steps to get a fresh context. This means:
+     * <ul>
+     * <li>Routes may have already auto-started before advice can be applied</li>
+     * <li>Routes that connect to external systems (Kafka, JMS, etc.) may briefly attempt to connect before being
+     * suspended</li>
+     * <li>The context cannot be fully recreated between tests without using different {@code @TestProfile}s</li>
+     * </ul>
+     * <p/>
+     * <b>Workaround for Auto-Starting Routes:</b> If routes must not start (e.g., to avoid connection attempts), use
+     * {@code autoStartup=false} in your route definition or via properties (e.g.,
+     * {@code quarkus.camel.routes.auto-startup=false}). When using this deprecated approach, you must manually call
+     * {@link #startRouteDefinitions()} after applying advice.
+     * <p/>
+     * <b>Recommended Approach:</b> Instead of using this flag, apply advice in
+     * {@link #doBeforeEach(QuarkusTestMethodContext)}.
+     * This approach is simpler and works reliably for both routes defined in the test class and global routes
+     * (YAML routes or RouteBuilder beans). Routes that aren't advised will be automatically started after
+     * {@code doBeforeEach()} completes. Note that the fundamental build-time limitation still applies.
      *
-     * @return <code>true</code> to apply advice to existing route(s). <code>false</code> to disable advice.
+     * @return     <code>true</code> to suspend context during setup for applying advice. <code>false</code> to disable.
+     * @deprecated While this method works, it has fundamental lifecycle limitations in Camel Quarkus due to the
+     *             build-time context assembly. The recommended approach is to apply advice in
+     *             {@link #doBeforeEach(QuarkusTestMethodContext)}. Advice cleanup between tests and automatic route
+     *             starting happen automatically regardless of which approach you use.
      */
     @Override
     @Deprecated(since = "3.15.0")
@@ -442,15 +493,81 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     /**
      * Helper method to start routeDefinitions (to be used with `adviceWith`).
+     * <p>
+     * <b>Note:</b> This method is only necessary when using the deprecated {@link #isUseAdviceWith()} approach.
+     * If you apply AdviceWith in {@link #doBeforeEach(QuarkusTestMethodContext)}, route definitions are
+     * automatically started after {@code doBeforeEach()} completes, so you don't need to call this method.
+     * <p>
+     * When using {@code isUseAdviceWith() = true}, you must still call this method manually after applying
+     * advice in your {@code @BeforeEach} methods to start routes that weren't advised.
+     *
+     * @throws Exception if unable to start route definitions
      */
     protected void startRouteDefinitions() throws Exception {
-        ModelCamelContext modelCamelContext = (ModelCamelContext) context;
+        ModelCamelContext modelCamelContext = context.getCamelContextExtension().getContextPlugin(ModelCamelContext.class);
         List<RouteDefinition> definitions = new ArrayList<>(modelCamelContext.getRouteDefinitions());
         for (Route r : context.getRoutes()) {
             //existing route does not need to be started
             definitions.remove(r.getRoute());
         }
         modelCamelContext.startRouteDefinitions(definitions);
+    }
+
+    /**
+     * Helper method to apply AdviceWith to a route.
+     * <p>
+     * This method should be used to advise routes that already exist in your application
+     * code (src/main/java), and NOT routes created via {@link #createRouteBuilder()} in your test class.
+     * Advising test-created routes can cause unpredictable behavior.
+     * <p>
+     * This method handles the route lifecycle automatically:
+     * <ol>
+     * <li>Stops the route</li>
+     * <li>Applies the advice</li>
+     * <li>Starts the route</li>
+     * </ol>
+     * <p>
+     * You can use this when you need <b>different</b> advice per test method on existing routes
+     * <p>
+     * <b>Example - advising existing application route:</b>
+     *
+     * <pre>
+     * &#64;code
+     * &#64;QuarkusTest
+     * public class MyRouteTest extends CamelQuarkusTestSupport {
+     *     @Test
+     *     public void testWithMock() throws Exception {
+     *         // Advise an existing route from your application
+     *         adviceRoute("existing-route-id", route -> {
+     *             route.weaveByToUri("kafka:real-topic").replace().to("mock:result");
+     *         });
+     *         // ... test assertions
+     *     }
+     * }
+     * </pre>
+     * <p>
+     *
+     * @param  routeId   the ID of the <b>EXISTING</b> route to advise (must be from application code, not test)
+     * @param  advice    the AdviceWith configuration
+     * @throws Exception if unable to apply advice or manage route lifecycle
+     * @see              #isUseRouteBuilder()
+     * @see              #createRouteBuilder()
+     */
+    protected void adviceRoute(String routeId, ThrowingConsumer<AdviceWithRouteBuilder, Exception> advice) throws Exception {
+        // Check for Camel Quarkus advice antipattern
+        if (createdRoutes != null && createdRoutes.contains(routeId)) {
+            LOG.warn(
+                    "AdviceWith detected on route '{}' which was created in from a test createRouteBuilder() override. This may cause unpredictable behavior."
+                            +
+                            "\nRefer to the Camel Quarkus testing guide AdviceWith examples section for more details."
+                            +
+                            "\nhttps://camel.apache.org/camel-quarkus/latest/reference/testing.html",
+                    routeId);
+        }
+
+        context.getRouteController().stopRoute(routeId);
+        AdviceWith.adviceWith(context, routeId, advice);
+        context.getRouteController().startRoute(routeId);
     }
 
     /**
@@ -502,6 +619,77 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     Set<String> getCreatedRoutes() {
         return createdRoutes;
+    }
+
+    Set<String> getExistingComponents() {
+        return existingComponents;
+    }
+
+    /**
+     * Restores routes to their original state by resetting outputs that were modified by AdviceWith.
+     * This is called after each test to ensure advice doesn't persist across tests.
+     */
+    void restoreOriginalRouteDefinitions() {
+        if (originalRouteOutputs == null || originalRouteOutputs.isEmpty()) {
+            return;
+        }
+
+        ModelCamelContext modelContext = context.getCamelContextExtension().getContextPlugin(ModelCamelContext.class);
+        if (modelContext == null) {
+            return;
+        }
+
+        // Restore routes that have been modified by advice
+        for (RouteDefinition routeDef : modelContext.getRouteDefinitions()) {
+            String routeId = routeDef.getId();
+            List<ProcessorDefinition<?>> originalOutputs = originalRouteOutputs.get(routeId);
+
+            if (originalOutputs != null) {
+                List<ProcessorDefinition<?>> currentOutputs = routeDef.getOutputs();
+                boolean wasModified = false;
+
+                // Check if the route was modified by comparing size or processor instances
+                if (currentOutputs.size() != originalOutputs.size()) {
+                    wasModified = true;
+                } else {
+                    // Same size, but check if processors were replaced
+                    for (int i = 0; i < currentOutputs.size(); i++) {
+                        if (currentOutputs.get(i) != originalOutputs.get(i)) {
+                            wasModified = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (wasModified) {
+                    // Check if user is advising a test-created route which is considered an antipattern on Camel Quarkus
+                    if (createdRoutes != null && createdRoutes.contains(routeId)) {
+                        LOG.warn(
+                                "AdviceWith detected on route '{}' which was created in from a test createRouteBuilder() override. This may cause unpredictable behavior."
+                                        +
+                                        "\nRefer to the Camel Quarkus testing guide AdviceWith examples section for more details."
+                                        +
+                                        "\nhttps://camel.apache.org/camel-quarkus/latest/reference/testing.html",
+                                routeId);
+                    }
+
+                    try {
+                        // Stop the route before modifying it
+                        context.getRouteController().stopRoute(routeId);
+
+                        // Clear current outputs and restore original ones
+                        currentOutputs.clear();
+                        currentOutputs.addAll(originalOutputs);
+
+                        // Restart the route
+                        context.getRouteController().startRoute(routeId);
+                    } catch (Exception e) {
+                        LOG.warn("Failed to restore route '{}' after advice", routeId, e);
+                    }
+                }
+
+            }
+        }
     }
 
     private void assertTestClassCamelContextMatchesAppCamelContext() {
