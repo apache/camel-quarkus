@@ -1,0 +1,105 @@
+= Security Model
+
+This page documents the Camel Quarkus security model, which inherits the core security model from
+Apache Camel and adds Apache Camel Quarkus specific considerations.
+
+== Inherited Security Model
+
+Apache Camel Quarkus inherits its security model from Apache Camel. The authoritative reference is the
+xref:manual::security-model.adoc[Apache Camel Security Model], which documents:
+
+* Trust assumptions (route authors, deployment operators, and external message senders)
+* Trust boundaries (route + configuration vs. data flowing through routes)
+* In-scope vulnerability classes (unsafe deserialisation, XXE, injection, path traversal, etc.)
+* Out-of-scope categories (route author code execution, explicit opt-ins, DoS, etc.)
+* Deployment hardening guidance
+* Component author review checklist
+
+**Before reporting a security issue to Apache Camel Quarkus**, read the
+xref:manual::security-model.adoc[Apache Camel Security Model] to understand core security
+assumptions and scope.
+
+For suspected vulnerabilities in `io.quarkus` or `io.quarkiverse` dependencies that are **not
+reachable through Camel Quarkus extension code**, refer to the
+https://quarkus.io/security/[Quarkus Security Policy] and report directly to the Quarkus project.
+
+== Camel Quarkus Specific Considerations
+
+In addition to the inherited security model, the following considerations apply specifically to
+Camel Quarkus extensions and native compilation.
+
+=== In-Scope: Build-Time Configuration Baking Insecure Defaults
+
+Build-time configuration (`ConfigPhase.BUILD_TIME`) is baked into the native image and cannot be
+changed at runtime. A security-relevant option that defaults to an insecure value (e.g., disables
+TLS validation, enables unsafe deserialisation) is in scope if it cannot be overridden at runtime
+and should reasonably be runtime-configurable.
+
+Extension authors should prefer `ConfigPhase.RUN_TIME` or `ConfigPhase.BUILD_AND_RUN_TIME_FIXED`
+for security-relevant options unless build-time is necessary for native compilation.
+
+=== Out-of-Scope: Operator Misconfigurations
+
+The following are **not** framework vulnerabilities:
+
+* **Native image build failures** due to missing registrations that cause runtime errors but do not
+  introduce security vulnerabilities. These are bugs, not security issues.
+* **Performance differences** between JVM and native mode, unless the performance degradation
+  enables a DoS attack that would not be possible in JVM mode.
+
+=== Deployment Hardening
+
+In addition to the
+xref:manual::security-model.adoc#_deployment_hardening[Apache Camel deployment hardening guidance],
+operators should:
+
+* **Review build-time configuration** before building production native images. Build-time config
+  (`ConfigPhase.BUILD_TIME`) cannot be changed without a rebuild. Review all `quarkus.camel.*` and
+  extension-specific build-time properties.
+* **Minimize extension surface**. Only include the Camel Quarkus extensions your application
+  actually uses. Each extension increases the native image size, attack surface, and dependency tree.
+* **Use Camel and Quarkus security features**. Leverage xref:manual::security.adoc[Camel security
+  features] (vaults, JSSE Utility, route security) and
+  https://quarkus.io/guides/security[Quarkus security features] (OIDC, JWT, TLS configuration).
+
+=== Extension Author Guidance
+
+When writing or reviewing Camel Quarkus extensions, in addition to the
+xref:manual::security-model.adoc#_guidance_for_component_authors_and_reviewers[Apache Camel
+component author guidance]:
+
+* **Prefer runtime configuration for security options**. Use `ConfigPhase.RUN_TIME` for security-
+  relevant options (TLS settings, auth credentials, validation flags) unless build-time is strictly
+  necessary for native compilation.
+* **Review resource registrations**. When registering resources for native image
+  (`NativeImageResourceBuildItem`, `NativeImageResourceDirectoryBuildItem`), ensure no sensitive
+  files (keys, credentials, `.env`) are included. Prefer specific file registration over directory
+  registration.
+
+== Reporting a Vulnerability
+
+The Apache Camel Quarkus project uses the standard ASF vulnerability reporting process:
+
+* Read https://camel.apache.org/security/[Apache Camel Security] for instructions.
+* Email `private-security@camel.apache.org` with a description, affected versions, and a proof of
+  concept that demonstrates the trust-boundary breach.
+* Do **not** file a public GitHub issue, Jira ticket, open a public pull request, post on a mailing
+  list, social media, or any other public channel. Only contact the
+  https://apache.org/security/[Apache Software Foundation Security team].
+
+Reports that match the in-scope classes (inherited from Apache Camel or Camel Quarkus-specific)
+will be triaged on the private security list, fixed in a coordinated release, and published as a
+CVE advisory. Reports that match the out-of-scope categories will be closed with a reference to
+this document.
+
+== Related Documents
+
+* xref:manual::security-model.adoc[Apache Camel Security Model] - the authoritative security model
+  which Camel Quarkus inherits.
+* xref:manual::security.adoc[Apache Camel Security Features] - catalog of Camel security features
+  (vaults, JSSE, route security).
+* https://quarkus.io/security/[Quarkus Security Policy] - security policy for the Quarkus framework.
+* https://quarkus.io/guides/security[Quarkus Security Guides] - guides on securing Quarkus
+  applications.
+* https://camel.apache.org/security/[Apache Camel Security] - public advisory index and reporting
+  process.
