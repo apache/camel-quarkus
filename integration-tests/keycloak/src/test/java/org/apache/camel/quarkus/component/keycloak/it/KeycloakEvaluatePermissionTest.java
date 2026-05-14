@@ -307,7 +307,7 @@ public class KeycloakEvaluatePermissionTest extends KeycloakTestBase {
                 .get("/keycloak/evaluate-permission/permissions-only")
                 .then()
                 .statusCode(500)
-                .body(containsString("401"));
+                .body(containsString("400")); // Keycloak 26.6.0+ returns 400 per OAuth 2.0 spec
     }
 
     // ==================== Authentication Method Tests ====================

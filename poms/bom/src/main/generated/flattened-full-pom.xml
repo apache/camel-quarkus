@@ -8099,6 +8099,11 @@
         <version>23.1.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>org.infinispan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>infinispan-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>16.0.9</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>org.influxdb</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>influxdb-java</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>2.25</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8107,6 +8112,29 @@
         <groupId>org.javassist</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>javassist</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.31.0-GA</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.narayana.jta</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>narayana-jta</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.3.4.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.ben-manes.caffeine</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>caffeine</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan.protostream</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.jgroups</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jgroups</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -21431,11 +21459,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.jboss.narayana.jta</groupId><!-- io.quarkus:quarkus-bom:3.33.0 -->
-        <artifactId>narayana-jta</artifactId><!-- io.quarkus:quarkus-bom:3.33.0 -->
-        <version>7.3.3.Final</version><!-- io.quarkus:quarkus-bom:3.33.0 -->
-      </dependency>
-      <dependency>
         <groupId>org.jboss.narayana.jts</groupId><!-- io.quarkus:quarkus-bom:3.33.0 -->
         <artifactId>narayana-jts-integration</artifactId><!-- io.quarkus:quarkus-bom:3.33.0 -->
         <version>7.3.3.Final</version><!-- io.quarkus:quarkus-bom:3.33.0 -->
@@ -24785,11 +24808,6 @@
         <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:3.5.0.Final -->
         <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:3.5.0.Final -->
         <version>2.3.1</version><!-- io.debezium:debezium-bom:3.5.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.infinispan</groupId><!-- io.debezium:debezium-bom:3.5.0.Final -->
-        <artifactId>infinispan-core</artifactId><!-- io.debezium:debezium-bom:3.5.0.Final -->
-        <version>15.2.1.Final</version><!-- io.debezium:debezium-bom:3.5.0.Final -->
       </dependency>
       <dependency>
         <groupId>org.assertj</groupId><!-- io.debezium:debezium-bom:3.5.0.Final -->

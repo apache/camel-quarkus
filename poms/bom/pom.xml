@@ -8217,6 +8217,11 @@
                 <version>${graalvm.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-core</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.influxdb</groupId>
                 <artifactId>influxdb-java</artifactId>
                 <version>${influxdb.version}</version>
@@ -8225,6 +8230,30 @@
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>${javassist.version}</version>
+            </dependency>
+            <!-- TODO: Remove this -->
+            <dependency>
+                <groupId>org.jboss.narayana.jta</groupId>
+                <artifactId>narayana-jta</artifactId>
+                <version>${narayana-jta.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.github.ben-manes.caffeine</groupId>
+                        <artifactId>caffeine</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.infinispan.protostream</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jgroups</groupId>
+                        <artifactId>jgroups</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -8741,6 +8770,8 @@
                                     <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
                                     <ignoredOverlaps>
                                         <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
+                                        <!-- TODO: Remove this -->
+                                        <ignoredOverlap>org.jboss.narayana.jta:narayana-jta</ignoredOverlap>
                                     </ignoredOverlaps>
                                 </configuration>
                             </execution>

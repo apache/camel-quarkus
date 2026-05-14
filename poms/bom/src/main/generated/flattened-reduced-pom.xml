@@ -8028,6 +8028,29 @@
         <version>3.31.0-GA</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.narayana.jta</groupId>
+        <artifactId>narayana-jta</artifactId>
+        <version>7.3.4.Final</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan.protostream</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jgroups</groupId>
+            <artifactId>jgroups</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.jolokia</groupId>
         <artifactId>jolokia-agent-jvm</artifactId>
         <version>2.6.0</version>
