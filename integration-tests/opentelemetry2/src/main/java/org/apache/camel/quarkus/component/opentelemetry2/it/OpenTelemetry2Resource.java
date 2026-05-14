@@ -50,6 +50,13 @@ public class OpenTelemetry2Resource {
         return producerTemplate.requestBody("direct:greet", name, String.class);
     }
 
+    @Path("/greetBean/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceBeanRoute(@PathParam("name") String name) {
+        return producerTemplate.requestBody("direct:greetBean", name, String.class);
+    }
+
     @Path("/jdbc/query")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
