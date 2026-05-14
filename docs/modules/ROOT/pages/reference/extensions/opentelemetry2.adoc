@@ -138,8 +138,15 @@ pattern can take the following forms:
 
 a| [[quarkus-camel-opentelemetry2-trace-processors]]`link:#quarkus-camel-opentelemetry2-trace-processors[quarkus.camel.opentelemetry2.trace-processors]`
 
-Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
+Sets whether to create new telemetry spans for each Camel custom Processor. Use the excludePatterns property to
+filter
 out Processors.
+| `boolean`
+| `false`
+
+a| [[quarkus-camel-opentelemetry2-disable-core-processors]]`link:#quarkus-camel-opentelemetry2-disable-core-processors[quarkus.camel.opentelemetry2.disable-core-processors]`
+
+Disable any inner core processors (any core DSL processor provided in the route, for example `bean`, `log`, ...).
 | `boolean`
 | `false`
 

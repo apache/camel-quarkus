@@ -49,8 +49,10 @@ class Opentelemetry2Test {
 
     @Test
     public void testTraceRoute() {
+        int nTraces = 5;
+        int spanPerTrace = 4;
         // Generate messages
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < nTraces; i++) {
             RestAssured.get("/opentelemetry2/test/trace/")
                     .then()
                     .statusCode(200);
@@ -65,16 +67,19 @@ class Opentelemetry2Test {
         }
 
         // Retrieve recorded spans
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 10);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == (nTraces * spanPerTrace));
         List<Map<String, String>> spans = getSpans();
-        assertEquals(10, spans.size());
+        assertEquals(nTraces * spanPerTrace, spans.size());
 
         //
         for (int i = spans.size() - 1; i >= 0; i--) {
             Map<String, String> span = spans.get(i);
 
             // Verify the span hierarchy is Quarkus Vert.x HTTP server -> Platform HTTP Endpoint
-            if (i % 2 == 0) {
+            // NOTE: we expect 4 spans for each trace, being the last 2 the ones we want to check to verify http hierarchy
+            // This is a bit fragile and we may rethink how to properly extract span hierarchically from each trace instead.
+            if (i % 4 == 2) {
                 assertEquals("camel-platform-http", span.get("component"));
                 assertEquals("200", span.get("http.status_code"));
                 assertEquals("GET", span.get("http.method"));
@@ -82,7 +87,7 @@ class Opentelemetry2Test {
                 assertTrue(span.get("http.url").endsWith("/opentelemetry2/test/trace/"));
                 assertEquals(SpanKind.SERVER.name(), span.get("kind"));
                 assertEquals(spans.get(i + 1).get("spanId"), span.get("parentId"));
-            } else {
+            } else if (i % 4 == 3) {
                 assertEquals("200", span.get("http.response.status_code"));
                 assertEquals("GET", span.get("http.request.method"));
                 assertEquals("/opentelemetry2/test/trace/", span.get("url.path"));
@@ -94,41 +99,70 @@ class Opentelemetry2Test {
 
     @Test
     public void testTracedCamelRouteInvokedFromJaxRsService() {
+        int spanPerTrace = 4;
         RestAssured.get("/opentelemetry2/trace")
                 .then()
                 .statusCode(200)
                 .body(equalTo("Traced direct:start"));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 3);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(3, spans.size());
+        assertEquals(spanPerTrace, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
         assertEquals(SpanKind.INTERNAL.name(), spans.get(1).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
     }
 
     @Test
     public void testTracedBean() {
+        int spanPerTrace = 5;
+        String name = "Camel Quarkus OpenTelemetry";
+        RestAssured.get("/opentelemetry2/greetBean/" + name)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello " + name));
+
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(spanPerTrace, spans.size());
+
+        assertEquals(spans.get(1).get("spanId"), spans.get(0).get("parentId"));
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
+    }
+
+    @Test
+    public void testTracedBeanTo() {
+        int spanPerTrace = 6;
         String name = "Camel Quarkus OpenTelemetry";
         RestAssured.get("/opentelemetry2/greet/" + name)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello " + name));
 
-        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> To Bean
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(5, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
-        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
-        assertEquals(SpanKind.INTERNAL.name(), spans.get(3).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
+        assertEquals(spanPerTrace, spans.size());
+
+        // The inner span generated will depend on the "to" processor node
+        assertEquals(spans.get(2).get("spanId"), spans.get(0).get("parentId"));
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(4).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(5).get("kind"));
     }
 
     @Test
     public void testTracedJdbcQuery() {
+        int spanPerTrace = 5;
         String timestamp = RestAssured.get("/opentelemetry2/jdbc/query")
                 .then()
                 .statusCode(200)
@@ -139,30 +173,31 @@ class Opentelemetry2Test {
         assertTrue(Long.parseLong(timestamp) > 0);
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Endpoint -> JDBC query
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(5, spans.size());
+        assertEquals(spanPerTrace, spans.size());
 
         // JDBC SELECT operation span
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(spans.get(1).get("spanId"), spans.get(0).get("parentId"));
         assertEquals("SELECT", spans.get(0).get("db.operation"));
 
         // Bean endpoint span
-        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals("bean://jdbcQueryBean", spans.get(1).get("camel.uri"));
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertTrue(spans.get(1).get("component").contains("bean"));
 
         // Direct endpoint EVENT_RECEIVED span
-        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
+        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
         assertEquals("direct://jdbcQuery", spans.get(2).get("camel.uri"));
         assertEquals("EVENT_RECEIVED", spans.get(2).get("op"));
 
         // Direct endpoint EVENT_SENT span
-        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
+        assertEquals(spans.get(4).get("spanId"), spans.get(3).get("parentId"));
         assertEquals("direct://jdbcQuery", spans.get(3).get("camel.uri"));
         assertEquals("EVENT_SENT", spans.get(3).get("op"));
 
         // JAX-RS Server span (root)
-        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
+        assertEquals("0000000000000000", spans.get(4).get("parentId"));
         assertEquals("org.apache.camel.quarkus.component.opentelemetry2.it.OpenTelemetry2Resource.jdbcQuery",
                 spans.get(4).get(CODE_FUNCTION_NAME.getKey()));
     }
@@ -179,6 +214,7 @@ class Opentelemetry2Test {
     @ParameterizedTest
     @ValueSource(strings = { "http", "vertx-http" })
     void testHttpInvocation(String httpComponent) {
+        int spanPerTrace = 10;
         RestAssured.given()
                 .queryParam("httpComponent", httpComponent)
                 .get("/greeting")
@@ -186,24 +222,26 @@ class Opentelemetry2Test {
                 .statusCode(200)
                 .body(equalTo("Hello From Camel Quarkus!"));
 
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(5, spans.size());
+        assertEquals(spanPerTrace, spans.size());
+
         // Verify root doesn't have parent
-        assertEquals("0000000000000000", spans.get(4).get("parentId"));
+        assertEquals("0000000000000000", spans.get(9).get("parentId"));
         // Verify the span hierarchy
-        assertEquals(spans.get(4).get("spanId"), spans.get(3).get("parentId"));
-        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
+        assertEquals(spans.get(8).get("parentId"), spans.get(9).get("spanId"));
+        assertEquals(spans.get(7).get("parentId"), spans.get(8).get("spanId"));
         // Last two spans have the same parent
         // For /greeting there is no existing tracing in progress. For /greeting-provider there is, so its related to the trace propagation
-        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
-        assertEquals(spans.get(2).get("spanId"), spans.get(0).get("parentId"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(spans.get(0).get("parentId"), spans.get(2).get("spanId"));
 
-        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(1).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(9).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
 
-        assertEquals(SpanKind.SERVER.name(), spans.get(0).get("kind"));
-        assertEquals(SpanKind.CLIENT.name(), spans.get(2).get("kind"));
         assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
+        assertEquals(SpanKind.CLIENT.name(), spans.get(4).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(8).get("kind"));
     }
 }

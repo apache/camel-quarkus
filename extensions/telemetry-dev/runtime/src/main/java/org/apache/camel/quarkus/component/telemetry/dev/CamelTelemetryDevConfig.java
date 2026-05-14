@@ -42,13 +42,22 @@ public interface CamelTelemetryDevConfig {
     Optional<String> excludePatterns();
 
     /**
-     * Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
+     * Sets whether to create new telemetry spans for each Camel custom Processor. Use the excludePatterns property to
+     * filter
      * out Processors.
      *
      * @asciidoclet
      */
     @WithDefault("false")
     boolean traceProcessors();
+
+    /**
+     * Disable any inner core processors (any core DSL processor provided in the route, for example `bean`, `log`, ...).
+     *
+     * @asciidoclet
+     */
+    @WithDefault("false")
+    public boolean disableCoreProcessors();
 
     /**
      * The output format for traces
