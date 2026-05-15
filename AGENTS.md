@@ -217,6 +217,23 @@ Use `CombinedIndexBuildItem` to discover classes at build time — see `extensio
 
 See also https://quarkus.io/guides/writing-extensions.
 
+## Security Model
+
+Camel Quarkus inherits the security model from Apache Camel. The canonical document is
+[`docs/modules/ROOT/pages/user-guide/security-model.adoc`](docs/modules/ROOT/pages/user-guide/security-model.adoc).
+Use it as the reference when triaging security reports, deciding whether a finding warrants a
+CVE, or reviewing a security-sensitive PR.
+
+### Extension author review checklist (for security-sensitive PRs)
+
+All guidance from https://camel.apache.org/manual/security-model.html applies (header filtering,
+object input filters, secure defaults, auth enforcement). In addition, for Camel Quarkus extensions:
+
+- Does the change add resource registration (`NativeImageResourceBuildItem`) for files that contain
+  secrets or should not be embedded in the native image?
+- Does a new build-time configuration option control a security-relevant default? Prefer
+  `ConfigPhase.RUN_TIME` unless build-time is strictly necessary for native compilation.
+
 ## Common Tasks
 
 ### Update Camel Version
