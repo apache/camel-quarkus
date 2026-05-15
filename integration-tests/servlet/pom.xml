@@ -47,6 +47,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-servlet</artifactId>
         </dependency>
+        <!-- For Vert.x JSON serialization -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
