@@ -1,0 +1,29 @@
+= AWS IAM tests
+
+By default the tests run against a LocalStack container via the `Aws2TestEnvCustomizer` SPI.
+
+== Running against real AWS
+
+Refer to the xref:../README.adoc[AWS 2 integration tests README] for general instructions on how to set up AWS credentials.
+
+The AWS credentials must have the following IAM permissions:
+
+* `iam:CreateUser`
+* `iam:GetUser`
+* `iam:ListUsers`
+* `iam:DeleteUser`
+* `iam:CreateGroup`
+* `iam:ListGroups`
+* `iam:DeleteGroup`
+* `iam:AddUserToGroup`
+* `iam:RemoveUserFromGroup`
+
+=== Running tests directly against real AWS
+
+[source,shell]
+----
+export AWS_ACCESS_KEY=<your-access-key-id>
+export AWS_SECRET_KEY=<your-secret-access-key>
+export AWS_REGION=us-east-1
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+----
