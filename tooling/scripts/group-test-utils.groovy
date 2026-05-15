@@ -24,12 +24,26 @@ def makeTestClassNamesUnique(File sourceDir, String classNamePrefix) {
                 String newClassName = "${classNamePrefix}${className}"
 
                 String content = file.text
-                content = content.replaceAll(className, "${classNamePrefix}${className}")
+
+                // Save @QuarkusTestResource annotations
+                def annotations = []
+                content = content.replaceAll(/@QuarkusTestResource\([^)]+\)/) { match ->
+                    annotations.add(match)
+                    "___PLACEHOLDER_${annotations.size() - 1}___"
+                }
+
+                // Global replace
+                content = content.replaceAll(className, newClassName)
 
                 if (originalName.endsWith("IT.java")) {
                     String originalExtendsClassName = className.replace("IT", "Test")
                     String extendsClassName = newClassName.replace("IT", "Test")
                     content = content.replaceAll(originalExtendsClassName, extendsClassName)
+                }
+
+                // Restore annotations
+                annotations.eachWithIndex { annotation, i ->
+                    content = content.replace("___PLACEHOLDER_${i}___", annotation)
                 }
 
                 file.write(content)

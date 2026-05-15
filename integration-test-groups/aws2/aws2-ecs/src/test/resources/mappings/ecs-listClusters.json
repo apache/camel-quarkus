@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/",
+    "headers": {
+      "X-Amz-Target": {
+        "equalTo": "AmazonEC2ContainerServiceV20141113.ListClusters"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-amz-json-1.1"
+    },
+    "body": "{\"clusterArns\":[\"arn:aws:ecs:us-east-1:123456789:cluster/cq-test-cluster\"]}"
+  }
+}

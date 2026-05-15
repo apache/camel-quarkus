@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/",
+    "headers": {
+      "X-Amz-Target": {
+        "equalTo": "AmazonEC2ContainerServiceV20141113.DeleteCluster"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "contains": "cq-test-cluster"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-amz-json-1.1"
+    },
+    "body": "{\"cluster\":{\"clusterArn\":\"arn:aws:ecs:us-east-1:123456789:cluster/cq-test-cluster\",\"clusterName\":\"cq-test-cluster\",\"status\":\"INACTIVE\",\"registeredContainerInstancesCount\":0,\"runningTasksCount\":0,\"pendingTasksCount\":0,\"activeServicesCount\":0}}"
+  }
+}
