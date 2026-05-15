@@ -80,7 +80,7 @@ component author guidance]:
 
 The Apache Camel Quarkus project uses the standard ASF vulnerability reporting process:
 
-* Read https://camel.apache.org/security/[Apache Camel Security] for instructions.
+* Read link:/security/[Apache Camel Security] for instructions.
 * Email `private-security@camel.apache.org` with a description, affected versions, and a proof of
   concept that demonstrates the trust-boundary breach.
 * Do **not** file a public GitHub issue, Jira ticket, open a public pull request, post on a mailing
@@ -101,5 +101,5 @@ this document.
 * https://quarkus.io/security/[Quarkus Security Policy] - security policy for the Quarkus framework.
 * https://quarkus.io/guides/security[Quarkus Security Guides] - guides on securing Quarkus
   applications.
-* https://camel.apache.org/security/[Apache Camel Security] - public advisory index and reporting
+* link:/security/[Apache Camel Security] - public advisory index and reporting
   process.
