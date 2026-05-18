@@ -29,6 +29,7 @@ import software.amazon.awssdk.services.kms.model.DescribeKeyRequest;
 import software.amazon.awssdk.services.kms.model.KeyState;
 
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.not;
@@ -75,7 +76,7 @@ class Aws2KmsTest extends BaseAWs2TestSupport {
                     .describeKey(DescribeKeyRequest.builder().keyId(keyId).build())
                     .keyMetadata()
                     .keyState();
-            org.assertj.core.api.Assertions.assertThat(awsState).isEqualTo(KeyState.ENABLED);
+            assertThat(awsState).isEqualTo(KeyState.ENABLED);
         } finally {
             // scheduleKeyDeletion as cleanup; AWS minimum window is 7 days
             given()
@@ -108,7 +109,7 @@ class Aws2KmsTest extends BaseAWs2TestSupport {
                     .describeKey(DescribeKeyRequest.builder().keyId(keyId).build())
                     .keyMetadata()
                     .keyState();
-            org.assertj.core.api.Assertions.assertThat(afterDisable).isEqualTo(KeyState.DISABLED);
+            assertThat(afterDisable).isEqualTo(KeyState.DISABLED);
 
             // enableKey
             given()
@@ -120,7 +121,7 @@ class Aws2KmsTest extends BaseAWs2TestSupport {
                     .describeKey(DescribeKeyRequest.builder().keyId(keyId).build())
                     .keyMetadata()
                     .keyState();
-            org.assertj.core.api.Assertions.assertThat(afterEnable).isEqualTo(KeyState.ENABLED);
+            assertThat(afterEnable).isEqualTo(KeyState.ENABLED);
 
             // describeKey via Camel should also report ENABLED again
             given()
