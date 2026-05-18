@@ -197,4 +197,15 @@ public class HttpResource extends AbstractHttpResource {
                 .withHeader("Accept-Encoding", "gzip, deflate")
                 .request(String.class);
     }
+
+    @Path("/pqc/nginx/tls")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String pqcNginxTls() {
+        return producerTemplate
+                .to("direct:pqc-nginx-tls")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
 }
