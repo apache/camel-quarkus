@@ -35,6 +35,7 @@ github:
           - "~DEFAULT_BRANCH"
           - "release/*"
           - "rel/*"
+          - "[0-9]+.[0-9]+.x"
         excludes: []
       bypass_teams:
         - root
