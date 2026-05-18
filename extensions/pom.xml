@@ -342,6 +342,23 @@
                                     <goal>update-extension-doc-page</goal>
                                 </goals>
                                 <phase>process-classes</phase>
+                                <configuration>
+                                    <componentLinkOverrides>
+                                        <!-- TODO: Remove for Camel > 4.20.0 -->
+                                        <jackson>
+                                            <name>jackson2</name>
+                                        </jackson>
+                                        <avroJackson>
+                                            <name>avroJackson2</name>
+                                        </avroJackson>
+                                        <protobufJackson>
+                                            <name>protobufJackson2</name>
+                                        </protobufJackson>
+                                        <jacksonXml>
+                                            <name>jacksonXml2</name>
+                                        </jacksonXml>
+                                    </componentLinkOverrides>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
