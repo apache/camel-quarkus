@@ -24,10 +24,14 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
 import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.platform.engine.support.store.Namespace.GLOBAL;
 
 public class CallbackUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(CallbackUtil.class);
+
     private CallbackUtil() {
         // Utility class
     }
@@ -49,7 +53,6 @@ public class CallbackUtil {
         //because routes will be created again (in case of TestInstance.Lifecycle.PER_CLASS, this method is not executed)
         Set<String> createdRoutes = testInstance.getCreatedRoutes();
         if (testInstance.isUseRouteBuilder() && createdRoutes != null) {
-
             try {
                 for (String r : createdRoutes) {
                     testInstance.context().getRouteController().stopRoute(r);
@@ -60,7 +63,21 @@ public class CallbackUtil {
             }
         }
 
-        testInstance.context().getComponentNames().forEach(cn -> testInstance.context().removeComponent(cn));
+        // Restore original route definitions to clear any advice that was applied
+        testInstance.restoreOriginalRouteDefinitions();
+
+        // Only remove components created by the test, not pre-existing ones
+        Set<String> existingComponents = testInstance.getExistingComponents();
+        if (existingComponents != null) {
+            testInstance.context().getComponentNames().forEach(cn -> {
+                if (!existingComponents.contains(cn)) {
+                    LOG.debug("Removing test-created component: {}", cn);
+                    testInstance.context().removeComponent(cn);
+                } else {
+                    LOG.debug("Preserving existing component: {}", cn);
+                }
+            });
+        }
         MockEndpoint.resetMocks(testInstance.context());
     }
 
