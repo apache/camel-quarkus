@@ -40,6 +40,7 @@
         <module>aws-secrets-manager</module>
         <module>aws2-cw</module>
         <module>aws2-ddb</module>
+        <module>aws2-ec2</module>
         <module>aws2-kinesis</module>
         <module>aws2-kms</module>
         <module>aws2-lambda</module>
