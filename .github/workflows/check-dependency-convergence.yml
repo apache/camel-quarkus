@@ -81,6 +81,8 @@ jobs:
           IGNORED_GAVS=(
             # Mismatch between camel-quarkus-djl & camel-quarkus-langchain4j-embeddings
             "ai.djl:api"
+            # Mismatch between camel-fastjson & camel-rocketmq
+            "com.alibaba:fastjson"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
             "com.amazonaws:aws-java-sdk-core"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
@@ -99,6 +101,8 @@ jobs:
             "com.google.api:gax-grpc"
             # Mismatch between camel-quarkus-google-bigquery, camel-quarkus-google-functions, camel-quarkus-google-pubsub & camel-quarkus-google-storage
             "com.google.api.grpc:proto-google-iam-v1"
+            # Mismatch between camel-djl & camel-rocketmq
+            "com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru"
             # Mismatch between camel-quarkus-couchdb & camel-quarkus-ibm-secrets-manager
             "com.ibm.cloud:sdk-core"
             # Mismatch between camel-quarkus-mail-microsoft-oauth & camel-quarkus-weaviate
