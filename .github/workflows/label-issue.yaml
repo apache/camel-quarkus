@@ -46,7 +46,7 @@ jobs:
           ref: main
       - name: Install js-yaml package
         run: |
-          npm install js-yaml
+          npm install js-yaml@4.1.1
       - name: Label Issue
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
