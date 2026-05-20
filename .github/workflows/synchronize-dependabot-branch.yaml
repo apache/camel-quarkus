@@ -82,6 +82,11 @@ jobs:
               exit 1
             fi
 
+            PR_AUTHOR=$(cat /home/runner/work/dependabot-pr/PR_AUTHOR)
+            if [[ "${PR_AUTHOR}" != "dependabot[bot]" ]]; then
+              exit 1
+            fi
+
             echo "branch-ref=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)" >> $GITHUB_OUTPUT
             echo "pr-head-sha=${PR_HEAD_SHA}" >> $GITHUB_OUTPUT
             echo "pr-number=${PR_NUMBER}" >> $GITHUB_OUTPUT
