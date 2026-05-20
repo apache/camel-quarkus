@@ -14,13 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2.msk.it;
+package org.apache.camel.quarkus.component.aws2.ecs.it;
 
-/**
- * This class is required by the aws2-grouped module. The group-tests.groovy script copies test sources
- * from this module into the grouped module and renames all occurrences of Aws2MskTest to
- * GroupedAws2MskTest, which also renames Aws2MskTestResource to GroupedAws2MskTestResource
- * in the @QuarkusTestResource annotation. This class must therefore exist so that the grouped module compiles.
- */
-public class GroupedAws2MskTestResource extends Aws2MskTestResource {
+import io.quarkus.test.junit.QuarkusIntegrationTest;
+
+@QuarkusIntegrationTest
+class Aws2EcsIT extends Aws2EcsTest {
 }
