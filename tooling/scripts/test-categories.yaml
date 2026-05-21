@@ -63,7 +63,6 @@ group-03:
   - elasticsearch-rest-client
   - foundation-grouped
   - freemarker
-  - github
   - google
   - jolokia
   - json-validator
