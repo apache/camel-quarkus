@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -33,6 +34,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// Disabled due to Camel protobuf 4.35.0 upgrade vs Quarkus protobuf 4.33.2
+// https://github.com/apache/camel-quarkus/issues/8681
+@Disabled
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
