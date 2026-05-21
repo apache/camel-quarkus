@@ -241,15 +241,4 @@ public class CamelRecorder {
             throw new RuntimeException(e);
         }
     }
-
-    public void enableVirtualThreads(boolean enabled) {
-        if (enabled) {
-            try {
-                Class<?> threadTypeClass = Class.forName("org.apache.camel.util.concurrent.ThreadType");
-                threadTypeClass.getMethod("enable").invoke(null);
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to enable virtual threads", e);
-            }
-        }
-    }
 }
