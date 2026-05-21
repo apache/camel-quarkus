@@ -70,15 +70,16 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from("cxf:bean:codeFirstServiceEndpoint")
                 .choice()
-                .when(simple("${header.operationName} == 'Hello'"))
+                .when(simple("${header.CamelCxfOperationName} == 'Hello'"))
                 .setBody().simple("Hello ${body} code first")
                 .endChoice()
-                .when(simple("${header.operationName} == 'GoodBye'"))
+                .when(simple("${header.CamelCxfOperationName} == 'GoodBye'"))
                 .setBody().simple("Good bye ${body} code first")
                 .endChoice()
                 .otherwise()
                 .process(e -> {
-                    throw new IllegalStateException("Unexpected operation " + e.getMessage().getHeader("operationName"));
+                    throw new IllegalStateException(
+                            "Unexpected operation " + e.getMessage().getHeader(CxfConstants.OPERATION_NAME));
                 });
 
         from("cxf:bean:textServiceResponseFromRouteCxfMessageDataFormat")
@@ -120,7 +121,7 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from(String.format("cxf:textServiceResponseFromImpl?serviceClass=%s&address=/text-service-impl",
                 TextService.class.getName()))
-                .toD("bean:" + TextServiceImpl.class.getName() + "?method=${header.operationName}");
+                .toD("bean:" + TextServiceImpl.class.getName() + "?method=${header.CamelCxfOperationName}");
     }
 
     private String alterTextByTextOperation(String operation, String text) {

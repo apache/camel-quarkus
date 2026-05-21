@@ -32,6 +32,8 @@ import org.apache.cxf.message.MessageContentsList;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
+import static org.apache.camel.component.cxf.common.message.CxfConstants.OPERATION_NAME;
+
 @ApplicationScoped
 public class CxfSoapMtomAwtRoutes extends RouteBuilder {
 
@@ -56,7 +58,7 @@ public class CxfSoapMtomAwtRoutes extends RouteBuilder {
 
         from("direct:processAwtImage")
                 .process(exchange -> {
-                    String operationName = (String) exchange.getIn().getHeaders().get("operationName");
+                    String operationName = (String) exchange.getIn().getHeaders().get(OPERATION_NAME);
                     MessageContentsList list = exchange.getIn().getBody(MessageContentsList.class);
                     if ("uploadImage".equals(operationName)) {
                         exchange.getIn().getHeaders().put("image", list.get(0));
@@ -65,6 +67,7 @@ public class CxfSoapMtomAwtRoutes extends RouteBuilder {
                                 .put("operationName", "uploadImage(${header.image},${header.imageName})");
                     } else if ("downloadImage".equals(operationName)) {
                         exchange.getIn().setBody(list.get(0));
+                        exchange.getIn().getHeaders().put("operationName", "downloadImage(${body})");
                     }
                 })
                 .recipientList((simple("bean:imageAwtService?method=${header.operationName}")));
