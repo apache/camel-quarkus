@@ -167,12 +167,6 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         org.apache.camel.component.properties.PropertiesComponent pc = new org.apache.camel.component.properties.PropertiesComponent();
         pc.setAutoDiscoverPropertiesSources(true);
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
-        pc.setCamelContext(this);
-        try {
-            pc.build();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to build PropertiesComponent", e);
-        }
         return pc;
     }
 
