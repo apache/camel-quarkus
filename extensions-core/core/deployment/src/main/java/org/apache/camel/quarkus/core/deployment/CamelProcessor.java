@@ -509,15 +509,6 @@ class CamelProcessor {
         return new CamelModelReifierFactoryBuildItem(recorder.modelReifierFactory());
     }
 
-    @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    void configureVirtualThreads(CamelRecorder recorder) {
-        boolean enabled = org.eclipse.microprofile.config.ConfigProvider.getConfig()
-                .getOptionalValue("camel.main.virtualThreadsEnabled", Boolean.class)
-                .orElse(false);
-        recorder.enableVirtualThreads(enabled);
-    }
-
     /**
      * Useful for identifying Camel services that are potentially not covered by inclusion patterns
      */
