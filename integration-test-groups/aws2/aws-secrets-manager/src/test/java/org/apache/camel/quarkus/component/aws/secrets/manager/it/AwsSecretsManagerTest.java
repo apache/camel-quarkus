@@ -222,7 +222,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                     .statusCode(201)
                     .body(is("true"));
 
-            Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(
+            Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(3, TimeUnit.MINUTES).untilAsserted(
                     () -> {
                         var secret2RotatedMap = RestAssured.given()
                                 .contentType(ContentType.JSON)

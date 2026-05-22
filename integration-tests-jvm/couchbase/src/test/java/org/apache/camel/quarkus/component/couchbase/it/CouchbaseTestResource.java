@@ -103,7 +103,7 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
 
         cluster.bucket(bucketName);
         // wait for cluster
-        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(30));
+        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(60));
 
         // insert some documents
         for (int i = 0; i < 3; i++) {
@@ -111,6 +111,6 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
         }
 
         // wait for cluster
-        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(30));
+        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(60));
     }
 }
