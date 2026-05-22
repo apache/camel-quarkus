@@ -31,7 +31,7 @@ import org.apache.camel.FluentProducerTemplate;
 
 @ApplicationScoped
 public abstract class AbstractHttpResource {
-    public static final String PROXIED_URL = "https://repo.maven.apache.org/maven2/org/apache/camel/quarkus/camel-quarkus-%s/maven-metadata.xml";
+    public static final String PROXIED_URL = "https://localhost:{{quarkus.http.test-ssl-port}}/service/common/maven-metadata/%s";
     public static final String USER_ADMIN = "admin";
     public static final String USER_ADMIN_PASSWORD = "adm1n";
     public static final String USER_NO_ADMIN = "noadmin";
