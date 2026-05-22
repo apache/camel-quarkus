@@ -106,5 +106,31 @@ public class CamelKafkaRoutes extends RouteBuilder {
         from("kafka:test-propagation?headerDeserializer=#customHeaderDeserializer")
                 .to(SEDA_HEADER_PROPAGATION);
 
+        // AdviceWith Test Routes
+        // These routes are used by AdviceWith tests to demonstrate modifying existing routes
+        // Tests advise these routes to replace Kafka producers with mocks for testing
+
+        // Route 1: Primary route for AdviceWith testing
+        from("kafka:advice-test-topic-1?groupId=advice-test-group-1&autoOffsetReset=earliest")
+                .routeId("advice-test-route-1")
+                .log("Received on advice-test-route-1: ${body}")
+                .setBody(simple("Processed: ${body}"))
+                .to("kafka:advice-output-topic-1")
+                .to("mock:advice-result-1");
+
+        // Route 2: Secondary route for testing auto-start behavior
+        from("kafka:advice-test-topic-2?groupId=advice-test-group-2&autoOffsetReset=earliest")
+                .routeId("advice-test-route-2")
+                .log("Received on advice-test-route-2: ${body}")
+                .setBody(simple("Processed: ${body}"))
+                .to("mock:advice-result-2");
+
+        // Route 3: Route for per-test advice variations
+        from("kafka:per-test-advice-topic?groupId=per-test-advice-group&autoOffsetReset=earliest")
+                .routeId("per-test-advice-route")
+                .log("Received on per-test-advice-route: ${body}")
+                .setBody(simple("Processed: ${body}"))
+                .to("kafka:per-test-output-topic");
+
     }
 }
