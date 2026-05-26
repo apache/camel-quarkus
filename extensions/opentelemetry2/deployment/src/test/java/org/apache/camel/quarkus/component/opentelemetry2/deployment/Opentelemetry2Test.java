@@ -34,10 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Opentelemetry2Test {
 
+    private static final String INCLUDE_PATTERNS = "netty-http:*,netty-http:/prefix/.*";
     private static final String EXCLUDE_PATTERNS = "platform-http:*,platform-http:/prefix/.*";
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .overrideConfigKey("quarkus.camel.opentelemetry2.include-patterns", INCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.opentelemetry2.exclude-patterns", EXCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.opentelemetry2.trace-processors", "true")
             .overrideConfigKey("quarkus.camel.opentelemetry2.trace-headers-inclusion", "true")
@@ -53,6 +55,7 @@ public class Opentelemetry2Test {
 
         OpenTelemetryTracer tracer = tracers.iterator().next();
         assertInstanceOf(OpenTelemetryTracer.class, tracer);
+        assertEquals(INCLUDE_PATTERNS, tracer.getIncludePatterns());
         assertEquals(EXCLUDE_PATTERNS, tracer.getExcludePatterns());
         assertTrue(tracer.isTraceProcessors());
         assertTrue(tracer.isTraceHeadersInclusion());
