@@ -357,7 +357,13 @@
                                         <jacksonXml>
                                             <name>jacksonXml2</name>
                                         </jacksonXml>
+                                        <!-- TODO: Remove for Camel > 4.21.0 -->
+                                        <github>
+                                            <name>camel-github</name>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </github>
                                     </componentLinkOverrides>
+
                                 </configuration>
                             </execution>
                         </executions>
