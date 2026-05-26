@@ -139,7 +139,7 @@ class Opentelemetry2Test {
 
     @Test
     public void testTracedBeanTo() {
-        int spanPerTrace = 6;
+        int spanPerTrace = 5;
         String name = "Camel Quarkus OpenTelemetry";
         RestAssured.get("/opentelemetry2/greet/" + name)
                 .then()
@@ -152,12 +152,13 @@ class Opentelemetry2Test {
         List<Map<String, String>> spans = getSpans();
         assertEquals(spanPerTrace, spans.size());
 
-        // The inner span generated will depend on the "to" processor node
+        // Span 0 and 1 (bean EVENT_SENT and bean method) both have the same parent (direct endpoint span)
+        // because bean method's parent is set by OTel context from scope wrapper, not the event span
         assertEquals(spans.get(2).get("spanId"), spans.get(0).get("parentId"));
         assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
         assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
-        assertEquals(SpanKind.INTERNAL.name(), spans.get(4).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(5).get("kind"));
+        assertEquals(SpanKind.INTERNAL.name(), spans.get(3).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
     }
 
     @Test
@@ -214,7 +215,7 @@ class Opentelemetry2Test {
     @ParameterizedTest
     @ValueSource(strings = { "http", "vertx-http" })
     void testHttpInvocation(String httpComponent) {
-        int spanPerTrace = 10;
+        int spanPerTrace = 9;
         RestAssured.given()
                 .queryParam("httpComponent", httpComponent)
                 .get("/greeting")
@@ -228,20 +229,20 @@ class Opentelemetry2Test {
         assertEquals(spanPerTrace, spans.size());
 
         // Verify root doesn't have parent
-        assertEquals("0000000000000000", spans.get(9).get("parentId"));
+        assertEquals("0000000000000000", spans.get(8).get("parentId"));
         // Verify the span hierarchy
-        assertEquals(spans.get(8).get("parentId"), spans.get(9).get("spanId"));
         assertEquals(spans.get(7).get("parentId"), spans.get(8).get("spanId"));
+        assertEquals(spans.get(6).get("parentId"), spans.get(7).get("spanId"));
         // Last two spans have the same parent
         // For /greeting there is no existing tracing in progress. For /greeting-provider there is, so its related to the trace propagation
         assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
         assertEquals(spans.get(0).get("parentId"), spans.get(2).get("spanId"));
 
-        assertEquals(SpanKind.SERVER.name(), spans.get(9).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(8).get("kind"));
         assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
 
         assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
         assertEquals(SpanKind.CLIENT.name(), spans.get(4).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(8).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(7).get("kind"));
     }
 }
