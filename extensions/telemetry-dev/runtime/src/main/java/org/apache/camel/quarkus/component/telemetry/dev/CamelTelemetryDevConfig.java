@@ -42,6 +42,14 @@ public interface CamelTelemetryDevConfig {
     Optional<String> excludePatterns();
 
     /**
+     * Sets include pattern(s) that will explicitly enable tracing for Camel processors that matches the pattern.
+     * Multiple patterns can be separated by comma. All processors included by default if nothing is specified.
+     *
+     * @asciidoclet
+     */
+    Optional<String> includePatterns();
+
+    /**
      * Sets whether to create new telemetry spans for each Camel custom Processor. Use the excludePatterns property to
      * filter
      * out Processors.
