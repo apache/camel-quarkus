@@ -7481,6 +7481,11 @@
         <version>1.8.0</version>
       </dependency>
       <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2.2</version>
+      </dependency>
+      <dependency>
         <groupId>commons-net</groupId>
         <artifactId>commons-net</artifactId>
         <version>3.13.0</version>
@@ -8299,11 +8304,6 @@
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
         <version>7.6.0.202603022253-r</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.2.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
