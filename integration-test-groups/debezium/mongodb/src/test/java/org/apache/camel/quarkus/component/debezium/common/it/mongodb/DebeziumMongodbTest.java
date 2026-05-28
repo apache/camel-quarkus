@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.component.debezium.common.it.mongodb;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -28,7 +30,9 @@ import com.mongodb.client.result.DeleteResult;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
+import org.apache.camel.quarkus.test.support.debezium.SharedKafkaTestResource;
 import org.apache.camel.quarkus.test.support.debezium.Type;
+import org.awaitility.Awaitility;
 import org.bson.Document;
 import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.AfterAll;
@@ -39,8 +43,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -48,6 +56,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
 @QuarkusTestResource(value = DebeziumMongodbTestResource.class, restrictToAnnotatedClass = true)
+@QuarkusTestResource(SharedKafkaTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMongodbTest extends AbstractDebeziumTest {
     private static MongoClient mongoClient;
@@ -150,5 +159,27 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
         //validate that event for delete is in queue
         receiveResponse(200, equalTo("d"), "/receiveOperation");
+    }
+
+    @Test
+    @Order(4)
+    public void testKafkaOffsetBackingStore() {
+        given()
+                .when().get("/debezium-mongodb/kafkaBootstrapServers")
+                .then()
+                .statusCode(200)
+                .body(not(equalTo("not-available")))
+                .body(containsString("PLAINTEXT://"));
+
+        String suffix = UUID.randomUUID().toString().substring(0, 8);
+        insertCompany("KafkaOffsetTest_" + suffix, "KafkaCity");
+
+        Awaitility.await().pollDelay(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+            given()
+                    .when().get("/debezium-mongodb/receiveViaKafkaOffset")
+                    .then()
+                    .statusCode(200)
+                    .body(is(not(emptyOrNullString())));
+        });
     }
 }

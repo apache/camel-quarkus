@@ -51,10 +51,8 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.gizmo.Gizmo;
 import org.apache.camel.quarkus.support.debezium.DebeziumComponentObserver;
-import org.apache.kafka.common.security.authenticator.SaslClientAuthenticator;
 import org.apache.kafka.connect.json.JsonConverter;
 import org.apache.kafka.connect.source.SourceTask;
 import org.jboss.jandex.DotName;
@@ -75,11 +73,6 @@ public class DebeziumSupportProcessor {
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem(SaslClientAuthenticator.class.getName());
-    }
-
-    @BuildStep
     public void configureKafkaComponentForDevServices(BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         additionalBean.produce(AdditionalBeanBuildItem.unremovableOf(DebeziumComponentObserver.class));
     }
@@ -88,13 +81,18 @@ public class DebeziumSupportProcessor {
     void reflectiveClasses(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         IndexView index = combinedIndex.getIndex();
 
-        String[] dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
-                .filter(n -> n.startsWith("org.apache.kafka.connect.json")
-                        || n.startsWith("io.debezium.engine.spi"))
+        String[] debeziumEngineSpiClasses = index.getKnownClasses().stream().map(ci -> ci.name().toString())
+                .filter(n -> n.startsWith("io.debezium.engine.spi"))
                 .toArray(String[]::new);
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(dtos).fields().build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(debeziumEngineSpiClasses).fields().build());
 
-        dtos = index.getAllKnownImplementations(DotName.createSimple(SnapshotLock.class.getName())).stream()
+        String[] jsonConverters = index.getKnownClasses().stream().map(ci -> ci.name().toString())
+                .filter(n -> n.startsWith("org.apache.kafka.connect.json"))
+                .toArray(String[]::new);
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(jsonConverters).fields().constructors().methods().build());
+
+        String[] dtos = index.getAllKnownImplementations(DotName.createSimple(SnapshotLock.class.getName())).stream()
                 .map(ci -> ci.name().toString())
                 .toArray(String[]::new);
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(dtos).fields().build());
@@ -102,6 +100,7 @@ public class DebeziumSupportProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
                 "org.apache.kafka.connect.storage.FileOffsetBackingStore",
                 "org.apache.kafka.connect.storage.MemoryOffsetBackingStore",
+                "org.apache.kafka.connect.storage.KafkaOffsetBackingStore",
                 "io.debezium.storage.kafka.history.KafkaSchemaHistory",
                 "io.debezium.relational.history.FileDatabaseHistory",
                 "io.debezium.embedded.ConvertingEngineBuilderFactory",
@@ -114,7 +113,6 @@ public class DebeziumSupportProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
                 DebeziumEngine.BuilderFactory.class,
                 ConvertingAsyncEngineBuilderFactory.class,
-                SaslClientAuthenticator.class,
                 JsonConverter.class,
                 DefaultTransactionMetadataFactory.class,
                 SchemaTopicNamingStrategy.class,
@@ -143,6 +141,18 @@ public class DebeziumSupportProcessor {
                 DefaultTransactionMetadataFactory.class,
                 SchemaTopicNamingStrategy.class,
                 FileSchemaHistory.class)
+                .build());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                "org.apache.kafka.connect.converters.ByteArrayConverter",
+                "org.apache.kafka.connect.converters.BooleanConverter",
+                "org.apache.kafka.connect.converters.DoubleConverter",
+                "org.apache.kafka.connect.converters.FloatConverter",
+                "org.apache.kafka.connect.converters.IntegerConverter",
+                "org.apache.kafka.connect.converters.LongConverter",
+                "org.apache.kafka.connect.converters.ShortConverter")
+                .constructors()
+                .methods()
                 .build());
     }
 

@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.support.debezium;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.PreDestroy;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -27,6 +28,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.component.debezium.DebeziumConstants;
 import org.apache.camel.component.debezium.DebeziumEndpoint;
 import org.eclipse.microprofile.config.Config;
@@ -39,6 +41,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  */
 public abstract class AbstractDebeziumResource {
     private final Type type;
+    private volatile PollingConsumer kafkaOffsetConsumer;
 
     @ConfigProperty(name = "test.debezium.timeout", defaultValue = "10000")
     long TIMEOUT;
@@ -47,7 +50,7 @@ public abstract class AbstractDebeziumResource {
     ConsumerTemplate consumerTemplate;
 
     @Inject
-    Config config;
+    protected Config config;
 
     @Inject
     CamelContext camelContext;
@@ -64,6 +67,55 @@ public abstract class AbstractDebeziumResource {
                 + "&additionalProperties.database.connectionTimeZone=CET");
         return endpoint.getConfiguration().getAdditionalProperties().entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> (String) e.getValue()));
+    }
+
+    @Path("/kafkaBootstrapServers")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String kafkaBootstrapServers() {
+        String servers = config.getOptionalValue("kafka.bootstrap.servers", String.class).orElse(null);
+        return servers != null ? servers : "not-available";
+    }
+
+    @Path("/receiveViaKafkaOffset")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String receiveViaKafkaOffset() {
+        String kafkaEndpointUrl = getKafkaOffsetEndpointUrl();
+        if (kafkaEndpointUrl == null) {
+            return null;
+        }
+        if (kafkaOffsetConsumer == null) {
+            initKafkaOffsetConsumer(kafkaEndpointUrl);
+        }
+        Exchange exchange = kafkaOffsetConsumer.receive(TIMEOUT);
+        if (exchange == null) {
+            return null;
+        }
+        return exchange.getIn().getBody(String.class);
+    }
+
+    private synchronized void initKafkaOffsetConsumer(String endpointUrl) {
+        if (kafkaOffsetConsumer != null) {
+            return;
+        }
+        try {
+            kafkaOffsetConsumer = camelContext.getEndpoint(endpointUrl).createPollingConsumer();
+            kafkaOffsetConsumer.start();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to start Kafka offset consumer for " + type.name(), e);
+        }
+    }
+
+    @PreDestroy
+    void cleanup() {
+        if (kafkaOffsetConsumer != null) {
+            kafkaOffsetConsumer.stop();
+        }
+    }
+
+    protected String getKafkaOffsetEndpointUrl() {
+        return null;
     }
 
     protected String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,

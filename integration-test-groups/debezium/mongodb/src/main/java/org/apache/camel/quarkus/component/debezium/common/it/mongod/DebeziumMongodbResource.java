@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.debezium.common.it.mongod;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -25,14 +24,10 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumResource;
 import org.apache.camel.quarkus.test.support.debezium.Record;
 import org.apache.camel.quarkus.test.support.debezium.Type;
-import org.eclipse.microprofile.config.Config;
 
 @Path("/debezium-mongodb")
 @ApplicationScoped
 public class DebeziumMongodbResource extends AbstractDebeziumResource {
-
-    @Inject
-    Config config;
 
     public DebeziumMongodbResource() {
         super(Type.mongodb);
@@ -62,6 +57,27 @@ public class DebeziumMongodbResource extends AbstractDebeziumResource {
             return null;
         }
         return record.getOperation();
+    }
+
+    @Override
+    protected String getKafkaOffsetEndpointUrl() {
+        String kafkaBootstrapServers = config.getOptionalValue("kafka.bootstrap.servers", String.class).orElse(null);
+        if (kafkaBootstrapServers == null) {
+            return null;
+        }
+        String hostname = config.getValue(Type.mongodb.getPropertyHostname(), String.class);
+        String port = config.getValue(Type.mongodb.getPropertyPort(), String.class);
+        return Type.mongodb.getComponent() + ":localhost?"
+                + "mongodbUser=" + config.getValue(Type.mongodb.getPropertyUsername(), String.class)
+                + "&mongodbPassword=" + config.getValue(Type.mongodb.getPropertyPassword(), String.class)
+                + "&mongodbConnectionString=mongodb://" + hostname + ":" + port + "/?replicaSet=my-mongo-set"
+                + "&topicPrefix=cq-testing-kafka"
+                + "&offsetStorage=org.apache.kafka.connect.storage.KafkaOffsetBackingStore"
+                + "&offsetStorageTopic=debezium-offset-storage-mongodb"
+                + "&offsetStoragePartitions=1"
+                + "&offsetStorageReplicationFactor=1"
+                + "&offsetFlushIntervalMs=1000"
+                + "&additionalProperties.bootstrap.servers=" + kafkaBootstrapServers;
     }
 
     @Override
