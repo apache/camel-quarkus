@@ -80,6 +80,10 @@ on:
       - 'docs/antora.yml'
       - 'release-utils/**'
 
+
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
