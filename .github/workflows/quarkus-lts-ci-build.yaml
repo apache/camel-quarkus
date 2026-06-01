@@ -30,6 +30,10 @@ on:
           - "3.20"
         required: true
 
+
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true

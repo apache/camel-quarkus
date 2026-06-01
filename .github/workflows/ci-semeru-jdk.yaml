@@ -23,6 +23,10 @@ on:
     - cron:  '0 0 * * SAT'
   workflow_dispatch:
 
+
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true

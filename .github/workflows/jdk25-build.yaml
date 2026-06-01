@@ -26,6 +26,10 @@ on:
       - jdk25
   workflow_dispatch:
 
+
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
