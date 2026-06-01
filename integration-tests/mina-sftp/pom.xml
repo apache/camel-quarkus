@@ -43,6 +43,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-sftp</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -60,11 +64,6 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-tests-support-sftp</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -139,6 +138,17 @@
                     </exclusions>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>skip-testcontainers-tests</id>
+            <activation>
+                <property>
+                    <name>skip-testcontainers-tests</name>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
         </profile>
     </profiles>
 </project>
