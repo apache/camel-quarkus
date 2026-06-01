@@ -115,7 +115,9 @@ public class HttpResource extends AbstractHttpResource {
                         + "&proxyAuthHost=%s"
                         + "&proxyAuthPort=%d"
                         + "&proxyAuthUsername=%s"
-                        + "&proxyAuthPassword=%s", String.format(PROXIED_URL, "http"), proxyHost, proxyPort, USER_ADMIN,
+                        + "&proxyAuthPassword=%s"
+                        + "&sslContextParameters=#sslContextParameters", String.format(PROXIED_URL, "http"), proxyHost,
+                        proxyPort, USER_ADMIN,
                         USER_ADMIN_PASSWORD)
                 .request(String.class);
     }
@@ -133,7 +135,8 @@ public class HttpResource extends AbstractHttpResource {
                         + "&proxyAuthPort=%d"
                         + "&proxyAuthUsername=%s"
                         + "&proxyAuthPassword=%s"
-                        + "&nonProxyHosts=%s", String.format(PROXIED_URL, "http"),
+                        + "&nonProxyHosts=%s"
+                        + "&sslContextParameters=#sslContextParameters", String.format(PROXIED_URL, "http"),
                         proxyHost, proxyPort, USER_ADMIN,
                         USER_ADMIN_PASSWORD, nonProxyHosts)
                 .request(String.class);
