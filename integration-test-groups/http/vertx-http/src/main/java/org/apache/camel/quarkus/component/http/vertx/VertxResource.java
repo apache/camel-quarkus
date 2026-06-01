@@ -101,7 +101,9 @@ public class VertxResource extends AbstractHttpResource {
                         + "&proxyPort=%d"
                         + "&proxyType=HTTP"
                         + "&proxyUsername=%s"
-                        + "&proxyPassword=%s", String.format(PROXIED_URL, "vertx-http"), proxyHost, proxyPort, USER_ADMIN,
+                        + "&proxyPassword=%s"
+                        + "&sslContextParameters=#sslContextParameters", String.format(PROXIED_URL, "vertx-http"), proxyHost,
+                        proxyPort, USER_ADMIN,
                         USER_ADMIN_PASSWORD)
                 .request(String.class);
     }

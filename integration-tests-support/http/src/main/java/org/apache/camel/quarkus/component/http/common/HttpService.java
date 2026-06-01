@@ -21,6 +21,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.annotations.GZIP;
@@ -56,5 +57,20 @@ public class HttpService {
     @Produces(MediaType.TEXT_PLAIN)
     public String compress() {
         return "Compressed response";
+    }
+
+    @Path("/maven-metadata/{component}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public String mavenMetadata(@PathParam("component") String component) {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<metadata>\n"
+                + "  <groupId>org.apache.camel.quarkus</groupId>\n"
+                + "  <artifactId>camel-quarkus-" + component + "</artifactId>\n"
+                + "  <versioning>\n"
+                + "    <latest>3.0.0</latest>\n"
+                + "    <release>3.0.0</release>\n"
+                + "  </versioning>\n"
+                + "</metadata>";
     }
 }

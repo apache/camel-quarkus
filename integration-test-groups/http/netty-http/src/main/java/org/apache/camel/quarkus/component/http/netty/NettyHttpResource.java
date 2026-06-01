@@ -100,7 +100,8 @@ public class NettyHttpResource extends AbstractHttpResource {
         String url = String.format(PROXIED_URL, "netty-http");
         return producerTemplate
                 .withHeader(Exchange.HTTP_QUERY, "component=netty-http")
-                .toF("netty-http:%s?clientInitializerFactory=#proxyCapableClientInitializerFactory", url)
+                .toF("netty-http:%s?clientInitializerFactory=#proxyCapableClientInitializerFactory&ssl=true&sslContextParameters=#sslContextParameters",
+                        url)
                 .request(String.class);
     }
 

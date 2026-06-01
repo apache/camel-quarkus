@@ -133,9 +133,9 @@ public class HttpTest extends AbstractHttpTest {
         String expectedGroupId = "org.apache.camel.quarkus";
 
         return Stream.of(
-                arguments("repo.maven.apache.org", actualPort, host, 200, expectedGroupId, false),
-                arguments("*.apache.org", fakePort, host, 200, expectedGroupId, false),
-                arguments("*localhost*", actualPort, host, 200, expectedGroupId, true));
+                arguments("example.com", actualPort, host, 200, expectedGroupId, true),
+                arguments("localhost", fakePort, host, 200, expectedGroupId, false),
+                arguments("*local*", actualPort, host, 200, expectedGroupId, false));
     }
 
 }
