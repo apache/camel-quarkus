@@ -334,7 +334,6 @@ jobs:
   functional-extension-tests:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
-    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
