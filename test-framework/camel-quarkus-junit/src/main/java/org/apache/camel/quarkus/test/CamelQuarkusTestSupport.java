@@ -104,9 +104,6 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     private static final Logger LOG = LoggerFactory.getLogger(CamelQuarkusTestSupport.class);
 
-    //    @RegisterExtension
-    //    protected CamelTestSupport camelTestSupportExtension = this;
-
     private final StopWatch watch = new StopWatch();
     private String currentTestName;
 
@@ -120,21 +117,21 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
     private Set<String> existingComponents;
 
     public CamelQuarkusTestSupport() {
-        super(new CustomTestExecutionConfiguration(), new CustomCamelContextConfiguration());
+        super(new CamelQuarkusTestExecutionConfiguration(), new CamelQuarkusContextConfiguration());
 
         this.contextManagerFactory = new ContextNotStoppingManagerFactory();
 
         testConfigurationBuilder()
-                .withCustomUseAdviceWith(isUseAdviceWith())
+                .withUseAdviceWith(isUseAdviceWith())
                 .withJMX(useJmx())
                 .withUseRouteBuilder(isUseRouteBuilder())
                 .withDumpRouteCoverage(isDumpRouteCoverage())
                 .withAutoStartContext(false);
 
         contextConfiguration()
-                .withCustomCamelContextSupplier(this::camelContextSupplier)
-                .withCustomPostProcessor(this::postProcessTest)
-                .withCustomRoutesSupplier(this::createRouteBuilders)
+                .withCamelContextSupplier(this::camelContextSupplier)
+                .withPostProcessor(this::postProcessTest)
+                .withRoutesSupplier(this::createRouteBuilders)
                 .withRegistryBinder(this::bindToRegistry)
                 .withUseOverridePropertiesWithPropertiesComponent(useOverridePropertiesWithPropertiesComponent())
                 .withRouteFilterExcludePattern(getRouteFilterExcludePattern())
@@ -149,12 +146,12 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         testConfiguration().withAutoStartContext(false);
     }
 
-    CustomCamelContextConfiguration contextConfiguration() {
-        return (CustomCamelContextConfiguration) camelContextConfiguration;
+    CamelQuarkusContextConfiguration contextConfiguration() {
+        return (CamelQuarkusContextConfiguration) camelContextConfiguration;
     }
 
-    CustomTestExecutionConfiguration testConfigurationBuilder() {
-        return (CustomTestExecutionConfiguration) testConfigurationBuilder;
+    CamelQuarkusTestExecutionConfiguration testConfigurationBuilder() {
+        return (CamelQuarkusTestExecutionConfiguration) testConfigurationBuilder;
     }
 
     //------------------------ quarkus callbacks ---------------
@@ -359,7 +356,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
                 .filter(lc -> lc.equals(TestInstance.Lifecycle.PER_CLASS)).isPresent();
         if (perClassPresent) {
             LOG.trace("Creating a legacy context manager for {}", context.getDisplayName());
-            testConfigurationBuilder().withCustomCreateCamelContextPerClass(perClassPresent);
+            testConfigurationBuilder().withCreateCamelContextPerClass(perClassPresent);
             contextManager = contextManagerFactory.createContextManager(ContextManagerFactory.Type.BEFORE_ALL,
                     testConfigurationBuilder, camelContextConfiguration);
         }

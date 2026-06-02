@@ -18,13 +18,19 @@ package org.apache.camel.quarkus.test;
 
 import org.apache.camel.test.junit6.TestExecutionConfiguration;
 
-public final class CustomTestExecutionConfiguration extends TestExecutionConfiguration {
+/**
+ * Exposes protected methods from {@link TestExecutionConfiguration} for use within
+ * the {@code org.apache.camel.quarkus.test} package.
+ */
+final class CamelQuarkusTestExecutionConfiguration extends TestExecutionConfiguration {
 
-    CustomTestExecutionConfiguration withCustomUseAdviceWith(boolean useAdviceWith) {
-        return (CustomTestExecutionConfiguration) super.withUseAdviceWith(useAdviceWith);
+    @Override
+    public CamelQuarkusTestExecutionConfiguration withUseAdviceWith(boolean useAdviceWith) {
+        return (CamelQuarkusTestExecutionConfiguration) super.withUseAdviceWith(useAdviceWith);
     }
 
-    CustomTestExecutionConfiguration withCustomCreateCamelContextPerClass(boolean createCamelContextPerClass) {
-        return (CustomTestExecutionConfiguration) super.withCreateCamelContextPerClass(createCamelContextPerClass);
+    @Override
+    protected CamelQuarkusTestExecutionConfiguration withCreateCamelContextPerClass(boolean createCamelContextPerClass) {
+        return (CamelQuarkusTestExecutionConfiguration) super.withCreateCamelContextPerClass(createCamelContextPerClass);
     }
 }

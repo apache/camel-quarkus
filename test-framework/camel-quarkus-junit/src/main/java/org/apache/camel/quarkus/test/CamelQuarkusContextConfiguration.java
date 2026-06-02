@@ -18,17 +18,24 @@ package org.apache.camel.quarkus.test;
 
 import org.apache.camel.test.junit6.CamelContextConfiguration;
 
-public final class CustomCamelContextConfiguration extends CamelContextConfiguration {
+/**
+ * Exposes protected methods from {@link CamelContextConfiguration} for use within
+ * the {@code org.apache.camel.quarkus.test} package.
+ */
+final class CamelQuarkusContextConfiguration extends CamelContextConfiguration {
 
-    CustomCamelContextConfiguration withCustomCamelContextSupplier(CamelContextSupplier camelContextSupplier) {
-        return (CustomCamelContextConfiguration) super.withCamelContextSupplier(camelContextSupplier);
+    @Override
+    public CamelQuarkusContextConfiguration withCamelContextSupplier(CamelContextSupplier camelContextSupplier) {
+        return (CamelQuarkusContextConfiguration) super.withCamelContextSupplier(camelContextSupplier);
     }
 
-    CustomCamelContextConfiguration withCustomPostProcessor(PostProcessor postProcessor) {
-        return (CustomCamelContextConfiguration) super.withPostProcessor(postProcessor);
+    @Override
+    protected CamelQuarkusContextConfiguration withPostProcessor(PostProcessor postProcessor) {
+        return (CamelQuarkusContextConfiguration) super.withPostProcessor(postProcessor);
     }
 
-    CustomCamelContextConfiguration withCustomRoutesSupplier(RoutesSupplier routesSupplier) {
-        return (CustomCamelContextConfiguration) super.withRoutesSupplier(routesSupplier);
+    @Override
+    protected CamelQuarkusContextConfiguration withRoutesSupplier(RoutesSupplier routesSupplier) {
+        return (CamelQuarkusContextConfiguration) super.withRoutesSupplier(routesSupplier);
     }
 }
