@@ -1,5 +1,5 @@
 ifeval::[{doc-show-extra-content} == true]
-include::extra-content.adoc[]
+include::camel-quarkus-extensions/kubernetes-cluster-service.adoc[]
 endif::[]
 
 === Having only a single consumer in a cluster consuming from a given endpoint
