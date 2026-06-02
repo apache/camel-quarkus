@@ -14,7 +14,7 @@ endif::[]
 
 === Languages
 ifeval::[{doc-show-extra-content} == true]
-include::controlbus-supported-languages.adoc[]
+include::camel-quarkus-extensions/controlbus-supported-languages.adoc[]
 endif::[]
 
 ==== Bean

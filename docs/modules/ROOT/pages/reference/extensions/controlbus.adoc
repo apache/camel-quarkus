@@ -119,6 +119,6 @@ The `stats` action is not available in native mode as JMX is not supported on Gr
 endif::[]
 
 ifeval::[{doc-show-extra-content} == true]
-include::controlbus-statistics-unsupported.adoc[]
+include::camel-quarkus-extensions/controlbus-statistics-unsupported.adoc[]
 endif::[]
 
