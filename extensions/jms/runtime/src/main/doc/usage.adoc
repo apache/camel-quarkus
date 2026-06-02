@@ -97,6 +97,8 @@ public PlatformTransactionManager getTransactionManager() {
 Otherwise, you will get an exception like `MQRC_SYNCPOINT_NOT_AVAILABLE`.
 ====
 
+
+
 ifeval::[{doc-show-extra-content} == true]
 
 [NOTE]
