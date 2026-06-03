@@ -18,6 +18,9 @@ The `update-extension-doc-page` mojo merges the https://raw.githubusercontent.co
 * `jvmSince`: the `<camel.quarkus.jvmSince>` property in the runtime `pom.xml`
 * `nativeSince`: the `<camel.quarkus.nativeSince>` property in the runtime `pom.xml`
 * `nativeSupported`: `false` if the given extension lives under `extensions-jvm`, `true` otherwise.
+* `status`: the `<quarkus.metadata.status>` property in the runtime `pom.xml`. Possible values: `stable`, `preview`, `experimental`, `deprecated`. If not specified, defaults to `stable` for native-supported extensions or `preview` for JVM-only extensions.
+* `unlisted`: the `<quarkus.metadata.unlisted>` property in the runtime `pom.xml`. If `true`, the extension will not be listed in the extension catalog. Defaults to `true` for JVM-only extensions.
+* `deprecated`: the `<quarkus.metadata.deprecated>` property in the runtime `pom.xml`. If `true`, the extension is marked as deprecated in the documentation.
 * `models`: the list of Camel
    https://github.com/apache/camel/blob/main/tooling/camel-tooling-model/src/main/java/org/apache/camel/tooling/model/ComponentModel.java[components],
    https://github.com/apache/camel/blob/main/tooling/camel-tooling-model/src/main/java/org/apache/camel/tooling/model/DataFormatModel.java[data formats], https://github.com/apache/camel/blob/main/tooling/camel-tooling-model/src/main/java/org/apache/camel/tooling/model/LanguageModel.java[languages], etc. the given extension delivers.
