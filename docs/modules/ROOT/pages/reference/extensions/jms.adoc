@@ -61,18 +61,9 @@ Note that this extension automatically sets `quarkus.camel.native.reflection.ser
 
 [id="extensions-jms-usage-support-for-connection-pooling-and-x-open-xa-distributed-transactions"]
 === Support for Connection pooling and X/Open XA distributed transactions
+
 ifeval::[{doc-show-extra-content} == true]
-
-[NOTE]
-====
-Connection pooling is a Technical Preview feature in this release of {project-name}.
-
-To use connection pooling in the `camel-quarkus-jms` components, you must add `io.quarkiverse.artemis:quarkus-artemis` and `io.quarkiverse.messaginghub:quarkus-pooled-jms` to your pom.xml and set the following configuration:
-----
-quarkus.pooled-jms.max-connections = 8
-----
-====
-
+include::camel-quarkus-extensions/jms-connection-pooling.adoc[]
 endif::[]
 
 You can use the `quarkus-pooled-jms` extension to get pooling and XA support for JMS connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
@@ -159,17 +150,7 @@ Otherwise, you will get an exception like `MQRC_SYNCPOINT_NOT_AVAILABLE`.
 ====
 
 ifeval::[{doc-show-extra-content} == true]
-
-[NOTE]
-====
-When you are using `ibmmq-client` and rollback a transaction, there will be a WARN message like:
-[source]
-----
-WARN  [com.arj.ats.jta] (executor-thread-1) ARJUNA016045: attempted rollback of < formatId=131077, gtrid_length=35, bqual_length=36, tx_uid=0:ffffc0a86510:aed3:650915d7:16, node_name=quarkus, branch_uid=0:ffffc0a86510:aed3:650915d7:1f, subordinatenodename=null, eis_name=0 > (com.ibm.mq.jmqi.JmqiXAResource@79786dde) failed with exception code XAException.XAER_NOTA: javax.transaction.xa.XAException: The method 'xa_rollback' has failed with errorCode '-4'.
-----
-====
- it may be ignored and can be assumed that MQ has discarded the transaction's work. Please refer to https://access.redhat.com/solutions/1250743[Red Hat Knowledgebase] for more information.
-
+include::camel-quarkus-extensions/jms-connection-pooling-ibmmq.adoc[]
 endif::[]
 
 

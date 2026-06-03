@@ -64,8 +64,9 @@ endif::[]
 
 [id="extensions-controlbus-usage-languages"]
 === Languages
+
 ifeval::[{doc-show-extra-content} == true]
-include::controlbus-supported-languages.adoc[]
+include::camel-quarkus-extensions/controlbus-supported-languages.adoc[]
 endif::[]
 
 [id="extensions-controlbus-usage-bean"]
@@ -119,6 +120,6 @@ The `stats` action is not available in native mode as JMX is not supported on Gr
 endif::[]
 
 ifeval::[{doc-show-extra-content} == true]
-include::controlbus-statistics-unsupported.adoc[]
+include::camel-quarkus-extensions/controlbus-statistics-unsupported.adoc[]
 endif::[]
 

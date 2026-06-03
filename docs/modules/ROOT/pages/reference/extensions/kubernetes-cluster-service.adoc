@@ -41,7 +41,7 @@ endif::[]
 == Additional Camel Quarkus configuration
 
 ifeval::[{doc-show-extra-content} == true]
-include::extra-content.adoc[]
+include::camel-quarkus-extensions/kubernetes-cluster-service.adoc[]
 endif::[]
 
 [id="extensions-kubernetes-cluster-service-configuration-having-only-a-single-consumer-in-a-cluster-consuming-from-a-given-endpoint"]
