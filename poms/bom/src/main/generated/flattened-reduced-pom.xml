@@ -7972,6 +7972,11 @@
         <version>5.3.2</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.thrift</groupId>
+        <artifactId>libthrift</artifactId>
+        <version>0.23.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>xmlgraphics-commons</artifactId>
         <version>2.11</version>
