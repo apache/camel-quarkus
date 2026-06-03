@@ -14,6 +14,5 @@ Maven users, for example, can add *camel-quarkus-rest* extension to their `pom.x
 ----
 
 ifeval::[{doc-show-extra-content} == true]
-=== Webhook
-include::telegram-webhook.adoc[]
+include::camel-quarkus-extensions/telegram-webhook.adoc[]
 endif::[]

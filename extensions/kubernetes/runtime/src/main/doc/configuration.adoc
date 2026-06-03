@@ -1,3 +1,7 @@
+ifeval::[{doc-show-extra-content} == true]
+include::camel-quarkus-extensions/kubernetes.adoc[]
+endif::[]
+
 === Automatic registration of a Kubernetes Client instance
 
 The extension automatically registers a Kubernetes Client bean named `kubernetesClient`. You can reference the bean in your routes like this:
