@@ -1,0 +1,122 @@
+= Using custom Camel components
+:page-aliases: custom-components.adoc
+
+Guidelines for integrating custom or third-party Apache Camel components with Camel Quarkus.
+
+== Overview
+
+When adding custom or third-party Apache Camel components to a Camel Quarkus project, additional steps are required to ensure they are discovered correctly and function properly in both JVM and native modes.
+
+== Jandex indexing requirement
+
+Camel Quarkus requires a https://github.com/smallrye/jandex[Jandex] index to discover components at build time and perform build-time optimizations. Without this index, you may encounter `FailedToCreateRouteException` because the custom endpoint cannot be found.
+
+Some options to provide the required index are as follows:
+
+=== 1. Maven plugins
+
+If you control the source code of the custom component, you can configure its Maven build to generate a Jandex index automatically.
+
+Using the `camel-component-maven-plugin` plugin:
+
+[source,xml]
+----
+<plugin>
+  <groupId>org.apache.camel</groupId>
+  <artifactId>camel-component-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>generate</id>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <phase>process-classes</phase>
+    </execution>
+  </executions>
+</plugin>
+----
+
+Alternatively, you can use the `jandex-maven-plugin`:
+
+[source,xml]
+----
+<plugin>
+  <groupId>io.smallrye</groupId>
+  <artifactId>jandex-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>make-index</id>
+      <goals>
+        <goal>jandex</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+----
+
+=== 2. Configure Quarkus to index the dependency
+
+If you cannot modify the component's build configuration (e.g., using a third-party component), configure Quarkus to generate the index on-the-fly by adding the following to your `application.properties`:
+
+[source,properties]
+----
+quarkus.index-dependency.<name>.group-id=org.example
+quarkus.index-dependency.<name>.artifact-id=my-custom-component
+----
+
+Replace `<name>` with a unique identifier for your dependency (e.g., `my-custom-component`), and set the correct `group-id` and `artifact-id` values.
+
+=== 3. Create a custom Quarkus extension
+
+For advanced scenarios, especially when you need full native mode compatibility or build-time optimizations, you can create a custom Quarkus extension for the component.
+
+Creating a Quarkus extension provides the most control and allows you to:
+
+* Index the component dependency
+* Register classes for reflection
+* Include resources in the native executable
+* Perform build-time component initialization
+* Leverage all Quarkus extension capabilities
+
+See the https://quarkus.io/guides/writing-extensions[Quarkus Writing Extensions Guide] for detailed instructions.
+
+== Additional considerations
+
+=== Camel service discovery
+
+If your custom component uses custom services registered under `META-INF/services/org/apache/camel`, you may need to configure Camel Quarkus to discover them:
+
+[source,properties]
+----
+quarkus.camel.service.discovery.include-patterns = META-INF/services/org/apache/camel/my-custom/*
+----
+
+Adjust the pattern to match the actual service path in your component.
+
+If you are creating a custom Quarkus extension, you can register service providers at build time using the `CamelServicePatternBuildItem` in your deployment module's processor class.
+
+=== Native mode reflection
+
+Classes accessed via reflection at runtime must be explicitly registered for native compilation. Use the `quarkus.camel.native.reflection.include-patterns` configuration option:
+
+[source,properties]
+----
+quarkus.camel.native.reflection.include-patterns = org.example.*
+----
+
+See also xref:user-guide/native-mode.adoc#reflection[Registering classes for reflection] for more details.
+
+If you are creating a custom Quarkus extension, you can register classes for reflection at build time using `ReflectiveClassBuildItem` in your deployment module's processor class.
+
+=== Native mode resources
+
+Resources accessed via `Class.getResource()` or `ClassLoader.getResource()` must be explicitly included in the native executable:
+
+[source,properties]
+----
+quarkus.native.resources.includes = META-INF/mycomponent/*,config/*
+----
+
+See also xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resources in the native executable] for more details.
+
+If you are creating a custom Quarkus extension, you can register resources at build time using `NativeImageResourceBuildItem` or `NativeImageResourceDirectoryBuildItem` in your deployment module's processor class.

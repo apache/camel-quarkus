@@ -12,6 +12,7 @@
 ** xref:user-guide/security-model.adoc[Security model]
 ** xref:user-guide/examples.adoc[Examples]
 ** xref:user-guide/kubernetes.adoc[Kubernetes]
+** xref:user-guide/custom-components.adoc[Custom components]
 * xref:migration-guide/index.adoc[Migration guide]
 ** xref:migration-guide/2.0.0.adoc[Camel Quarkus 2.0.0 migration guide]
 ** xref:migration-guide/3.2.0.adoc[Camel Quarkus 3.2.0 migration guide]
