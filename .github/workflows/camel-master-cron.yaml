@@ -37,6 +37,7 @@ jobs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
       alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
+      atlassian-version: ${{ steps.atlassian-version.outputs.version }}
     env:
       MAVEN_OPTS: -Xmx4600m
     steps:
@@ -57,6 +58,18 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Get Atlassian dependency version
+        id: atlassian-version
+        run: |
+          JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -96,6 +109,14 @@ jobs:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
           retention-days: 1
+      - name: Save Atlassian Maven Cache
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        if: always()
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -161,6 +182,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
       - name: Rebase branch main onto camel-main
@@ -248,6 +276,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -350,6 +385,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -404,6 +446,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -459,6 +508,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -519,6 +575,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -604,6 +667,13 @@ jobs:
         with:
           ref: camel-main
           fetch-depth: 0
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Rebase branch main onto camel-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
