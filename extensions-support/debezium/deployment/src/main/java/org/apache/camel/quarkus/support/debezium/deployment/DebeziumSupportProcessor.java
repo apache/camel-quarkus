@@ -51,9 +51,9 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.gizmo.Gizmo;
 import org.apache.camel.quarkus.support.debezium.DebeziumComponentObserver;
-import org.apache.kafka.connect.json.JsonConverter;
 import org.apache.kafka.connect.source.SourceTask;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -104,16 +104,12 @@ public class DebeziumSupportProcessor {
                 "io.debezium.storage.kafka.history.KafkaSchemaHistory",
                 "io.debezium.relational.history.FileDatabaseHistory",
                 "io.debezium.embedded.ConvertingEngineBuilderFactory",
-                "io.debezium.processors.PostProcessorRegistry",
-                "io.debezium.pipeline.txmetadata.DefaultTransactionMetadataFactory",
-                "io.debezium.schema.SchemaTopicNamingStrategy",
-                "io.debezium.storage.file.history.FileSchemaHistory")
+                "io.debezium.processors.PostProcessorRegistry")
                 .build());
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
                 DebeziumEngine.BuilderFactory.class,
                 ConvertingAsyncEngineBuilderFactory.class,
-                JsonConverter.class,
                 DefaultTransactionMetadataFactory.class,
                 SchemaTopicNamingStrategy.class,
                 BaseSourceTask.class,
@@ -137,23 +133,14 @@ public class DebeziumSupportProcessor {
                 InProcessSignalChannel.class,
                 StandardActionProvider.class,
                 SourceTask.class,
-                ConvertingAsyncEngineBuilderFactory.class,
-                DefaultTransactionMetadataFactory.class,
-                SchemaTopicNamingStrategy.class,
                 FileSchemaHistory.class)
                 .build());
 
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                "org.apache.kafka.connect.converters.ByteArrayConverter",
-                "org.apache.kafka.connect.converters.BooleanConverter",
-                "org.apache.kafka.connect.converters.DoubleConverter",
-                "org.apache.kafka.connect.converters.FloatConverter",
-                "org.apache.kafka.connect.converters.IntegerConverter",
-                "org.apache.kafka.connect.converters.LongConverter",
-                "org.apache.kafka.connect.converters.ShortConverter")
-                .constructors()
-                .methods()
-                .build());
+    }
+
+    @BuildStep
+    ServiceProviderBuildItem registerConverterServiceProviders() {
+        return ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.kafka.connect.storage.Converter");
     }
 
     @BuildStep
