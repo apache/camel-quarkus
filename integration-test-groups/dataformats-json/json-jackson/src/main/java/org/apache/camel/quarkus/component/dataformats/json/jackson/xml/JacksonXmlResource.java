@@ -175,9 +175,7 @@ public class JacksonXmlResource {
         mock.message(1).body().isEqualTo(in);
         marshalled = producerTemplate.requestBody("direct:jacksonxml-marshal-inPretty", in);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        // WORKAROUND: Woodstox 7.2.0 has a regression (https://github.com/FasterXML/woodstox/issues/290)
-        // where the closing '>' bracket appears on a new line. Revert to normal formatting when fixed.
-        String expected = "<HashMap" + LS + "  ><name>Camel</name>" + LS + "</HashMap>" + LS;
+        String expected = "<HashMap>" + LS + "  <name>Camel</name>" + LS + "</HashMap>" + LS;
         assertEquals(expected, marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-marshal-backPretty", marshalled);
@@ -373,9 +371,7 @@ public class JacksonXmlResource {
 
         marshalled = producerTemplate.requestBody("direct:jacksonxml-xml-inPretty", in);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        // WORKAROUND: Woodstox 7.2.0 has a regression (https://github.com/FasterXML/woodstox/issues/290)
-        // where the closing '>' bracket appears on a new line. Revert to normal formatting when fixed.
-        String expected = "<HashMap" + LS + "  ><name>Camel</name>" + LS + "</HashMap>" + LS;
+        String expected = "<HashMap>" + LS + "  <name>Camel</name>" + LS + "</HashMap>" + LS;
         assertEquals(expected, marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-xml-back", marshalled);
