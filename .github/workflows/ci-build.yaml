@@ -123,6 +123,20 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
+      - name: Get Atlassian dependency version
+        id: atlassian-version
+        if: steps.init.outputs.run-checks == 'true'
+        run: |
+          JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        if: steps.init.outputs.run-checks == 'true'
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: Pre build checks
         id: pre-build-checks
         run: |
@@ -163,6 +177,7 @@ jobs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
       alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
+      atlassian-version: ${{ steps.atlassian-version.outputs.version }}
     env:
       MAVEN_OPTS: -Xmx4600m
     steps:
@@ -195,6 +210,18 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
+      - name: Get Atlassian dependency version
+        id: atlassian-version
+        run: |
+          JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: Update extension metadata
         run: |
           ./mvnw -N cq:update-quarkus-metadata ${CQ_MAVEN_ARGS}
@@ -220,6 +247,14 @@ jobs:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
           retention-days: 1
+      - name: Save Atlassian Maven Cache
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+        if: always()
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -272,18 +307,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
@@ -347,18 +374,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -439,18 +458,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
@@ -487,18 +498,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: cd integration-tests && mvn clean verify
         shell: bash
         env:
@@ -583,18 +586,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
       - name: set CQ_VERSION
         run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
       - name: clone and verify examples
