@@ -26,6 +26,7 @@ Apache Camel Quarkus provides Quarkus extensions for Apache Camel components, en
 - Do NOT directly modify generated files under `docs/modules` or `src/main/generated`
 - Do NOT use dynamic class loading or reflection (impacts native compilation)
 - Do NOT introduce Spring Boot or Spring unless explicitly required
+- Do NOT commit changes without running `./mvnw process-resources -Pformat` first
 
 ## Technology Stack
 - Java 17+
