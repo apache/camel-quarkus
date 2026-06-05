@@ -15,22 +15,20 @@
 # limitations under the License.
 #
 
-name: JDK 25 Build
+name: Semeru JDK 21 Build
 
 on:
   schedule:
-    # Run every Sunday at 8 AM
-    - cron:  '0 8 * * SUN'
-  pull_request:
-    branches:
-      - jdk25
+    # Run every Saturday at 2 PM
+    - cron:  '0 14 * * SAT'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  jdk25-build:
+  semeru21-build:
     uses: ./.github/workflows/alternate-jdk-build.yaml
     with:
-      jdk-version: '25'
+      jdk-version: '21'
+      jdk-distribution: 'semeru'
