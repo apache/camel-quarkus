@@ -15,22 +15,19 @@
 # limitations under the License.
 #
 
-name: JDK 25 Build
+name: JDK 21 Build
 
 on:
   schedule:
-    # Run every Sunday at 8 AM
-    - cron:  '0 8 * * SUN'
-  pull_request:
-    branches:
-      - jdk25
+    # Run every Sunday at 2 PM
+    - cron:  '0 14 * * SUN'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  jdk25-build:
+  jdk21-build:
     uses: ./.github/workflows/alternate-jdk-build.yaml
     with:
-      jdk-version: '25'
+      jdk-version: '21'

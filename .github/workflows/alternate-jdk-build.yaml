@@ -15,13 +15,32 @@
 # limitations under the License.
 #
 
-name: Semeru JDK Testing
+name: Camel Quarkus Alternate JDK CI
+run-name: Camel Quarkus Alternate JDK CI - ${{ inputs.jdk-distribution }} ${{ inputs.jdk-version }}
 
 on:
-  schedule:
-    # Run every Saturday at 0 AM
-    - cron:  '0 0 * * SAT'
+  workflow_call:
+    inputs:
+      jdk-version:
+        description: 'JDK version to use'
+        required: true
+        type: string
+      jdk-distribution:
+        description: 'JDK distribution to use (e.g. temurin, semeru)'
+        required: false
+        default: 'temurin'
+        type: string
   workflow_dispatch:
+    inputs:
+      jdk-version:
+        description: 'JDK version to use'
+        required: true
+        type: string
+      jdk-distribution:
+        description: 'JDK distribution to use (e.g. temurin, semeru)'
+        required: false
+        default: 'temurin'
+        type: string
 
 
 permissions:
@@ -37,6 +56,8 @@ env:
   CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
   TESTCONTAINERS_RYUK_DISABLED: true
   CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]' && github.head_ref || '' }}
+  JDK_VERSION: ${{ inputs.jdk-version }}
+  JDK_DISTRIBUTION: ${{ inputs.jdk-distribution || 'temurin' }}
 
 jobs:
   initial-mvn-install:
@@ -45,7 +66,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
-      alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
       atlassian-version: ${{ steps.atlassian-version.outputs.version }}
     env:
       MAVEN_OPTS: -Xmx4600m
@@ -53,11 +73,11 @@ jobs:
       - name: Check free space on disk
         run: |
           df -h /
-      - name: Set up Semeru 21
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: '21'
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -113,18 +133,6 @@ jobs:
         run: |
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
           echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
-      - name: Setup Alternate JVM Matrix
-        id: set-alternate-jvm-matrix
-        shell: bash
-        run: |
-          cd integration-tests
-          mvn help:evaluate -Dexpression=project.modules -N -q -DforceStdout | sed -e 's/<[^>]*>//g' -e 's/^[[:space:]]*//' -e '/^$/d' > ${{ runner.temp }}/itest-modules.txt
-          MODULE_COUNT=$(wc -l < ${{ runner.temp }}/itest-modules.txt)
-          GROUP1_COUNT=$((MODULE_COUNT / 2))
-          GROUP2_COUNT=$((MODULE_COUNT - GROUP1_COUNT))
-          GROUP1_MODULES=$(head -n $GROUP1_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
-          GROUP2_MODULES=$(tail -n $GROUP2_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
-          echo "alternate-jvm-matrix={'include': [{'name': 'group-01', 'modules': '${GROUP1_MODULES}'},{'name': 'group-02', 'modules': '${GROUP2_MODULES}'}]}" >> $GITHUB_OUTPUT
       - name: Setup Examples Matrix
         id: set-examples-matrix
         run: |
@@ -139,10 +147,11 @@ jobs:
           EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} tooling/scripts/generate-examples-matrix.groovy)
           echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
 
-  integration-tests:
-    name: Integration Tests - ${{matrix.category}}
+  native-tests:
+    name: Native Tests - ${{matrix.category}}
     needs: initial-mvn-install
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
@@ -154,11 +163,11 @@ jobs:
           fetch-depth: 0
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
-      - name: Set up Semeru JDK 21
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: '21'
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
@@ -193,10 +202,14 @@ jobs:
           fi
 
           if [[ ${NATIVE_MODULES[@]} ]]; then
+            NATIVE_PROFILES="-Pnative,docker,ci"
+            if [[ "${{ env.JDK_DISTRIBUTION }}" == "semeru" ]]; then
+              NATIVE_PROFILES="-Pdocker,ci"
+            fi
             eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Dquarkus.native.builder-image.pull=missing \
-              -Pdocker,ci \
+              "${NATIVE_PROFILES}" \
               --fail-at-end \
               -pl "${NATIVE_MODULES[*]}"
           fi
@@ -221,11 +234,11 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Set up Semeru JDK 21
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: '21'
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
@@ -293,10 +306,6 @@ jobs:
   integration-tests-jvm:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
-    strategy:
-      fail-fast: false
-      matrix:
-        java: [ '17', '21' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -305,11 +314,11 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Set up Semeru JDK ${{ matrix.java }}
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: ${{ matrix.java }}
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
@@ -342,11 +351,11 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Set up Semeru JDK 21
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: '21'
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Download Maven Repo
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -381,11 +390,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Set up Semeru JDK 21
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
-          distribution: 'semeru'
-          java-version: '21'
+          distribution: ${{ env.JDK_DISTRIBUTION }}
+          java-version: ${{ env.JDK_VERSION }}
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
@@ -415,8 +424,13 @@ jobs:
           for MODULE in ${EXAMPLE_MODULES//,/ }; do
             cd ${MODULE}
 
+            NATIVE_PROFILES="-Dquarkus.native.builder-image.pull=missing -Pnative,docker,ci"
+            if [[ "${{ env.JDK_DISTRIBUTION }}" == "semeru" ]]; then
+              NATIVE_PROFILES=""
+            fi
             ../mvnw ${CQ_MAVEN_ARGS} clean verify \
-              -Dformatter.skip -Dimpsort.skip
+              -Dformatter.skip -Dimpsort.skip \
+              ${NATIVE_PROFILES}
 
             if [[ $? -ne 0 ]]; then
               BUILD_FAILURES[${#BUILD_FAILURES[@]}]=${MODULE}

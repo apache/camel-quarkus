@@ -39,9 +39,12 @@ on:
       - '.github/workflows/assign-wontfix-issue-milestone.yaml'
       - '.github/workflows/camel-master-cron.yaml'
       - '.github/workflows/check-dependency-convergence.yml'
-      - '.github/workflows/ci-semeru-jdk.yaml'
+      - '.github/workflows/alternate-jdk-build.yaml'
       - '.github/workflows/generate-sbom-main.yml'
+      - '.github/workflows/jdk21-build.yaml'
       - '.github/workflows/jdk25-build.yaml'
+      - '.github/workflows/semeru17-build.yaml'
+      - '.github/workflows/semeru21-build.yaml'
       - '.github/workflows/label-issue.yaml'
       - '.github/workflows/pr-validate.yml'
       - '.github/workflows/quarkus-lts-ci-build.yaml'
@@ -82,10 +85,30 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+    - name: Get Atlassian dependency version
+      id: atlassian-version
+      run: |
+        JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+        echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
+    - name: Restore Atlassian Maven Cache
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+      with:
+        path: |
+          ~/.m2/repository/com/atlassian
+          ~/.m2/repository/io/atlassian
+        key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
     - name: mvn validate
       run: |
         ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -fae \
           -DskipTests \
           -Pcheck-format \
           clean validate
+    - name: Save Atlassian Maven Cache
+      uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+      if: always()
+      with:
+        path: |
+          ~/.m2/repository/com/atlassian
+          ~/.m2/repository/io/atlassian
+        key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
 
