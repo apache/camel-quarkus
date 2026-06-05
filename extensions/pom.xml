@@ -220,6 +220,7 @@
         <module>oaipmh</module>
         <module>oauth</module>
         <module>observability-services</module>
+        <module>ocsf</module>
         <module>ognl</module>
         <module>olingo4</module>
         <module>once</module>
