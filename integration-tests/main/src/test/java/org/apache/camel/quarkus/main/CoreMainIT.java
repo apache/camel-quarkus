@@ -21,3 +21,7 @@ import io.quarkus.test.junit.QuarkusIntegrationTest;
 @QuarkusIntegrationTest
 public class CoreMainIT extends CoreMainTest {
 }
+
+@QuarkusIntegrationTest
+class CoreMainErrorRegistryDisabledIT extends CoreMainErrorRegistryDisabledTest {
+}

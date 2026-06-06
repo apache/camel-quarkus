@@ -51,6 +51,7 @@ import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.ContextReloadStrategy;
 import org.apache.camel.spi.DataFormat;
+import org.apache.camel.spi.ErrorRegistry;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
@@ -202,6 +203,28 @@ public class CoreMainResource {
         }
 
         return builder.build();
+    }
+
+    @Path("/context/error-registry")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject errorRegistry() {
+        ErrorRegistry errorRegistry = main.getCamelContext().getErrorRegistry();
+
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+                .add("present", errorRegistry != null);
+
+        if (errorRegistry == null) {
+            return builder.add("enabled", false).build();
+        }
+
+        return builder
+                .add("enabled", errorRegistry.isEnabled())
+                .add("maximumEntries", errorRegistry.getMaximumEntries())
+                .add("timeToLiveSeconds", errorRegistry.getTimeToLive().toSeconds())
+                .add("stackTraceEnabled", errorRegistry.isStackTraceEnabled())
+                .add("size", errorRegistry.size())
+                .build();
     }
 
     @Path("/converter/my-pair")

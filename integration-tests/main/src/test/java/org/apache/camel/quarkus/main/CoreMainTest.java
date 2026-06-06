@@ -20,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.QuarkusTestProfile;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -174,6 +176,21 @@ public class CoreMainTest {
     }
 
     @Test
+    public void testErrorRegistry() {
+        RestAssured.given()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/context/error-registry")
+                .then()
+                .statusCode(200)
+                .body(
+                        "present", is(true),
+                        "enabled", is(true),
+                        "maximumEntries", is(37),
+                        "timeToLiveSeconds", is(19),
+                        "size", is(0));
+    }
+
+    @Test
     public void testCustomTypeConverter() {
         RestAssured.given()
                 .contentType(ContentType.TEXT).body("a:b")
@@ -235,4 +252,25 @@ public class CoreMainTest {
                 .body(containsString("public class " + CamelCdiBeanRoute.class.getSimpleName()));
     }
 
+}
+
+@QuarkusTest
+@TestProfile(CoreMainErrorRegistryDisabledTest.CoreMainErrorRegistryDisabledTestProfile.class)
+class CoreMainErrorRegistryDisabledTest {
+    @Test
+    void testErrorRegistryDisabled() {
+        RestAssured.given()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/context/error-registry")
+                .then()
+                .statusCode(200)
+                .body("enabled", is(false));
+    }
+
+    public static final class CoreMainErrorRegistryDisabledTestProfile implements QuarkusTestProfile {
+        @Override
+        public Map<String, String> getConfigOverrides() {
+            return Map.of("camel.main.error-registry-enabled", "false");
+        }
+    }
 }
