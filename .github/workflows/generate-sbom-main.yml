@@ -50,6 +50,18 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
           cache: 'maven'
+      - name: Get Atlassian dependency version
+        id: atlassian-version
+        run: |
+          JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
+      - name: Restore Atlassian Maven Cache
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            ~/.m2/repository/com/atlassian
+            ~/.m2/repository/io/atlassian
+          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
       - name: mvn build and sbom generation
         run: ./mvnw -V --no-transfer-progress -e -Psbom -Dquickly -DskipTests verify ${CQ_MAVEN_ARGS}
       - name: Create Pull Request
