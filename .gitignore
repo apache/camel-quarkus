@@ -47,3 +47,6 @@ perf-regression-report@*.txt
 
 # Claude
 .claude
+
+# Bob
+.bob
