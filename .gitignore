@@ -44,3 +44,9 @@ quarkus.log*
 
 # Camel Quarkus Performance Regression Reports
 perf-regression-report@*.txt
+
+# Claude
+.claude
+
+# Bob
+.bob
