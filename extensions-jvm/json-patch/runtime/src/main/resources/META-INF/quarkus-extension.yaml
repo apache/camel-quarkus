@@ -31,3 +31,7 @@ metadata:
   categories:
   - "integration"
   status: "deprecated"
+  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"

@@ -30,3 +30,7 @@ metadata:
   categories:
   - "integration"
   status: "preview"
+  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"

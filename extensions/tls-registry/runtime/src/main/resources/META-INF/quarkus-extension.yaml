@@ -32,3 +32,7 @@ metadata:
   config:
   - "quarkus.camel.tls-registry"
   status: "experimental"
+  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"
