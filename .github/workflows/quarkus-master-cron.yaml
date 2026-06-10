@@ -91,14 +91,14 @@ jobs:
       - name: Tar Maven Repo
         shell: bash
         run: |
-          tar -czf ${{ runner.temp }}/maven-repo.tgz -C ~ build-data .m2/repository
-          ls -lh ${{ runner.temp }}/maven-repo.tgz
+          tar -I 'zstd -T0' -cf ${{ runner.temp }}/maven-repo.tar.zst -C ~ build-data .m2/repository
+          ls -lh ${{ runner.temp }}/maven-repo.tar.zst
           df -h /
       - name: Persist Maven Repo
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: maven-repo
-          path: ${{ runner.temp }}/maven-repo.tgz
+          path: ${{ runner.temp }}/maven-repo.tar.zst
           retention-days: 1
       - name: Save Maven Cache
         uses: ./.github/actions/setup-maven-cache
