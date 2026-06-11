@@ -220,6 +220,25 @@ public class Jt400Test {
         getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, msg);
         getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, replyMsg);
 
+        //set filter for expected messages (for parallel executions)
+        RestAssured.given()
+                .body(msg)
+                .post("/jt400/inquiryMessageSetExpected")
+                .then()
+                .statusCode(204);
+
+        //start route before sending message (and wait for start)
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
+                () -> RestAssured.get("/jt400/route/start/inquiryRoute")
+                        .then()
+                        .statusCode(200)
+                        .extract().asString(),
+                Matchers.is(Boolean.TRUE.toString()));
+        LOGGER.debug("testInquiryMessageQueue: inquiry route started");
+
+        //give the route time to actually start consuming before sending the message
+        TimeUnit.SECONDS.sleep(2);
+
         //sending a message using the same client as component
         getClientHelper().sendInquiry(msg);
 
@@ -230,24 +249,8 @@ public class Jt400Test {
             LOGGER.debug("testInquiryMessageQueue: message confirmed by peek: " + msg);
         }
 
-        //set filter for expected messages (for parallel executions)
-        RestAssured.given()
-                .body(msg)
-                .post("/jt400/inquiryMessageSetExpected")
-                .then()
-                .statusCode(204);
-
-        //start route before sending message (and wait for start)
-        Awaitility.await().atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
-                () -> RestAssured.get("/jt400/route/start/inquiryRoute")
-                        .then()
-                        .statusCode(200)
-                        .extract().asString(),
-                Matchers.is(Boolean.TRUE.toString()));
-        LOGGER.debug("testInquiryMessageQueue: inquiry route started");
-
         //await to be processed
-        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
+        Awaitility.await().pollInterval(2, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> RestAssured.get("/jt400/inquiryMessageProcessed")
                         .then()
                         .statusCode(200)
@@ -256,7 +259,7 @@ public class Jt400Test {
         LOGGER.debug("testInquiryMessageQueue: inquiry message processed");
 
         //stop route (and wait for stop)
-        Awaitility.await().atMost(2 * WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(2 * WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> RestAssured.get("/jt400/route/stop/inquiryRoute")
                         .then()
                         .statusCode(200)
