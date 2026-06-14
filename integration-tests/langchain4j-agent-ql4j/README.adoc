@@ -1,0 +1,63 @@
+== Quarkus LangChain4j Integration Test
+
+This module tests the integration between Camel Quarkus LangChain4j extensions and Quarkus LangChain4j.
+
+=== What This Tests
+
+- Camel Agent API works correctly when QL4J is on the classpath
+- HTTP client is properly configured (JAX-RS)
+- Bean scoping prevents auto-discovery conflicts
+- Both JVM and native modes work correctly
+
+=== Key Integration Points
+
+**HTTP Client:**
+QL4J requires the JAX-RS HTTP client. The support module automatically enforces this via system property when QL4J is detected.
+
+**Bean Scoping:**
+All beans use `@Identifier` qualifiers to prevent QL4J's automatic bean discovery from interfering with explicit Camel Agent configuration.
+
+**Guardrails:**
+Guardrails are registered as synthetic beans by the support module when QL4J is present.
+
+=== Running Tests
+
+**JVM Mode:**
+[source,shell]
+----
+./mvnw clean verify -pl integration-tests/langchain4j-agent-ql4j
+----
+
+**Native Mode:**
+[source,shell]
+----
+./mvnw clean verify -pl integration-tests/langchain4j-agent-ql4j -Dnative
+----
+
+**With Real Ollama API:**
+[source,shell]
+----
+export LANGCHAIN4J_OLLAMA_BASE_URL=http://localhost:11434
+./mvnw clean verify -pl integration-tests/langchain4j-agent-ql4j
+----
+
+By default, the langchain4j-agent-ql4j integration tests use WireMock to stub Ollama API interactions.
+
+To run the `camel-quarkus-langchain4j-agent-ql4j` integration tests against the real API, you need an Ollama instance running with the `orca-mini` & `granite4:3b` models downloaded.
+
+The MCP client tests require https://nodejs.org/[Node.js] to be installed on the test host.
+
+When Ollama is running, set the following environment variables:
+
+[source,shell]
+----
+export LANGCHAIN4J_OLLAMA_BASE_URL=your-ollama-api-url
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

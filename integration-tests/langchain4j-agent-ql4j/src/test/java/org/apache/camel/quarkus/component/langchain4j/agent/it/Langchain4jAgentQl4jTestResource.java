@@ -14,21 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.langchain4j.agent.it;
 
-import java.util.function.BooleanSupplier;
-
-public class QuarkusLangchain4jPresent implements BooleanSupplier {
-
-    private static final String REGISTER_AI_SERVICE_CLASS = "io.quarkiverse.langchain4j.RegisterAiService";
-
-    @Override
-    public boolean getAsBoolean() {
-        try {
-            Thread.currentThread().getContextClassLoader().loadClass(REGISTER_AI_SERVICE_CLASS);
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
+public class Langchain4jAgentQl4jTestResource extends Langchain4jAgentTestResource {
 }

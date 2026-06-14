@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j.deployment;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,6 @@ import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -31,16 +31,13 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
-
-import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
 
 /**
  * Build steps required only when Quarkus LangChain4j is detected.
@@ -48,13 +45,11 @@ import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
 @BuildSteps(onlyIf = QuarkusLangchain4jPresent.class)
 class SupportQuarkusLangchain4jProcessor {
 
-    public static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName
-            .createSimple("io.quarkiverse.langchain4j.RegisterAiService");
-
     private static final Logger LOG = Logger.getLogger(SupportQuarkusLangchain4jProcessor.class);
 
     @BuildStep
     SystemPropertyBuildItem enforceJaxRsHttpClient() {
+        LOG.infof("Quarkus LangChain4j detected - enforcing JAX-RS HTTP client factory");
         return new SystemPropertyBuildItem("langchain4j.http.clientBuilderFactory",
                 "io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory");
     }
@@ -98,19 +93,28 @@ class SupportQuarkusLangchain4jProcessor {
                 });
     }
 
-    @BuildStep
-    void markAiServicesAsUnremovable(
-            CombinedIndexBuildItem indexBuildItem,
-            BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
-        LOG.debug("Discovering classes annotated with @RegisterAiService to mark implementation beans as unremovable");
+    @BuildStep()
+    void registerQuarkusLangchain4jNativeSupport(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
-        for (AnnotationInstance instance : indexBuildItem.getIndex().getAnnotations(REGISTER_AI_SERVICES_DOTNAME)) {
-            if (instance.target().kind() == AnnotationTarget.Kind.CLASS) {
-                String declarativeAiServiceClassName = instance.target().asClass().name().toString();
-                LOG.debugf("Marking Quarkus Ai service implementation class for %s as unremovable",
-                        declarativeAiServiceClassName);
-                unremovableBeans.produce(beanClassNames(declarativeAiServiceClassName + "$$QuarkusImpl"));
-            }
-        }
+        IndexView index = combinedIndex.getIndex();
+
+        // Discover all inner classes of QuarkusJsonCodecFactory
+        List<String> codecFactoryClasses = index.getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(n -> n.startsWith("io.quarkiverse.langchain4j.QuarkusJsonCodecFactory"))
+                .toList();
+
+        LOG.infof("Registered %d QuarkusJsonCodecFactory-related classes for native reflection",
+                codecFactoryClasses.size());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                codecFactoryClasses.toArray(new String[0]))
+                .methods()
+                .fields()
+                .constructors()
+                .build());
     }
 }

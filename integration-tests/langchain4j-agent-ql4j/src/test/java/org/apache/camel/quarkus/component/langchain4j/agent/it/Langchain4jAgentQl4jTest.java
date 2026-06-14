@@ -16,14 +16,27 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.agent.it;
 
-import java.util.Collections;
-import java.util.Map;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import io.quarkus.test.junit.QuarkusTestProfile;
+import static org.hamcrest.Matchers.*;
 
-public class Langchain4jAgentQl4jProfile implements QuarkusTestProfile {
-    public Map<String, String> getConfigOverrides() {
-        // Covers failure with RetrievalAugmentor with scope <default>, see README.adoc
-        return Collections.singletonMap("cq-test.retrieval.augmentor.disabled", "false");
+@ExtendWith(Langchain4jTestWatcher.class)
+@QuarkusTestResource(Langchain4jAgentQl4jTestResource.class)
+@QuarkusTest
+class Langchain4jAgentQl4jTest {
+    @Test
+    void simpleUserMessage() {
+        RestAssured.given()
+                .body(Langchain4jAgentTest.TEST_USER_MESSAGE_SIMPLE)
+                .post("/langchain4j-agent/simple")
+                .then()
+                .statusCode(200)
+                .body(
+                        not(Langchain4jAgentTest.TEST_USER_MESSAGE_SIMPLE),
+                        containsString("Apache Camel"));
     }
 }
