@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.keycloak.it;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -26,6 +28,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.keycloak.representations.idm.ClientRepresentation;
+import org.keycloak.representations.idm.ProtocolMapperRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import static io.restassured.RestAssured.given;
@@ -369,13 +372,30 @@ public class KeycloakSecurityPolicyTest extends KeycloakSecurityPolicyTestBase {
     }
 
     protected void createClient() {
+        String clientId = config("test.client.id");
+
         ClientRepresentation client = new ClientRepresentation();
-        client.setClientId(config("test.client.id"));
+        client.setClientId(clientId);
         client.setSecret(TEST_CLIENT_SECRET);
         client.setPublicClient(false);
+        client.setClientAuthenticatorType("client-secret");
         client.setDirectAccessGrantsEnabled(true);
         client.setStandardFlowEnabled(true);
         client.setFullScopeAllowed(true);
+        client.setServiceAccountsEnabled(true);
+
+        // Add audience protocol mapper to include this client in the token's audience claim
+        // This is required for Keycloak 26.6.2+ which enforces audience validation for introspection (CVE-2026-37979)
+        ProtocolMapperRepresentation audienceMapper = new ProtocolMapperRepresentation();
+        audienceMapper.setName("audience-mapper");
+        audienceMapper.setProtocol("openid-connect");
+        audienceMapper.setProtocolMapper("oidc-audience-mapper");
+        Map<String, String> mapperConfig = new HashMap<>();
+        mapperConfig.put("included.client.audience", clientId);
+        mapperConfig.put("id.token.claim", "false");
+        mapperConfig.put("access.token.claim", "true");
+        audienceMapper.setConfig(mapperConfig);
+        client.setProtocolMappers(List.of(audienceMapper));
 
         given()
                 .contentType(ContentType.JSON)
