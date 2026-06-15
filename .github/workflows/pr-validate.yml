@@ -32,6 +32,8 @@ on:
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
+      - 'camel-quarkus-sbom/**'
+      - '**/META-INF/quarkus-extension.yaml'
       - '.github/*.sh'
       - '.github/*.yaml'
       - '.github/*.yml'
