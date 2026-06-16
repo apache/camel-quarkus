@@ -8047,7 +8047,7 @@
       <dependency>
         <groupId>org.kiwiproject</groupId>
         <artifactId>consul-client</artifactId>
-        <version>1.12.0</version>
+        <version>1.12.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
