@@ -17,12 +17,8 @@
 package org.apache.camel.quarkus.component.salesforce;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-// Disabled due to Camel protobuf 4.35.0 upgrade vs Quarkus protobuf 4.33.2
-// https://github.com/apache/camel-quarkus/issues/8681
-@Disabled
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
