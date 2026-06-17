@@ -1,0 +1,18 @@
+{
+  "id" : "a1b2c3d4-1111-2222-3333-444455556666",
+  "name" : "repos_apache_camel-quarkus",
+  "request" : {
+    "url" : "/repos/apache/camel-quarkus",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"id\":193065376,\"node_id\":\"MDEwOlJlcG9zaXRvcnkxOTMwNjUzNzY=\",\"name\":\"camel-quarkus\",\"full_name\":\"apache/camel-quarkus\",\"private\":false,\"owner\":{\"login\":\"apache\",\"id\":47359,\"node_id\":\"MDEyOk9yZ2FuaXphdGlvbjQ3MzU5\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/47359?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/apache\",\"html_url\":\"https://github.com/apache\",\"type\":\"Organization\",\"site_admin\":false},\"html_url\":\"https://github.com/apache/camel-quarkus\",\"description\":\"Apache Camel Quarkus support\",\"fork\":false,\"url\":\"https://api.github.com/repos/apache/camel-quarkus\",\"default_branch\":\"main\"}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a1b2c3d4-1111-2222-3333-444455556666",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

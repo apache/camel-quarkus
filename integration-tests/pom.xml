@@ -98,6 +98,7 @@
         <module>geocoder</module>
         <module>git</module>
         <module>github</module>
+        <module>github2</module>
         <module>google</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>

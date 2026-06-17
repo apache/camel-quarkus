@@ -1,0 +1,22 @@
+== Camel Quarkus GitHub2 Integration Tests
+
+By default the GitHub2 integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-github2` integration tests against the real API, you must first create a GitHub personal access
+token.
+
+Then set the following environment variable:
+
+[source,shell]
+----
+export GITHUB_TOKEN=your-token
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run
+tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
