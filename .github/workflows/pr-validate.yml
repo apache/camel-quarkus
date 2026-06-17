@@ -87,30 +87,23 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Get Atlassian dependency version
-      id: atlassian-version
-      run: |
-        JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
-        echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
-    - name: Restore Atlassian Maven Cache
-      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+    - name: Setup Maven Cache
+      id: maven-cache
+      uses: ./.github/actions/setup-maven-cache
       with:
-        path: |
-          ~/.m2/repository/com/atlassian
-          ~/.m2/repository/io/atlassian
-        key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
+        maven-properties: |
+          jira-rest-client.version
+          quarkiverse-cxf.version
     - name: mvn validate
       run: |
         ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -fae \
           -DskipTests \
           -Pcheck-format \
           clean validate
-    - name: Save Atlassian Maven Cache
-      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+    - name: Save Maven Cache
+      uses: ./.github/actions/setup-maven-cache
       if: always()
       with:
-        path: |
-          ~/.m2/repository/com/atlassian
-          ~/.m2/repository/io/atlassian
-        key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
+        action: save
+        cache-key: ${{ steps.maven-cache.outputs.cache-key }}
 
