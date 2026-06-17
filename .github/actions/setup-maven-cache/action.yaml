@@ -16,31 +16,84 @@
 #
 
 name: 'Setup Maven Cache'
-description: 'Downloads Maven repository artifact and restores Atlassian dependencies cache'
+description: 'Manages the third-party Maven dependency cache. Use action=restore (default) before the build and action=save after.'
 inputs:
-  atlassian-version:
-    description: 'Version of Atlassian dependencies for cache key'
-    required: true
+  action:
+    description: 'restore (default) or save'
+    default: 'restore'
+  maven-properties:
+    description: 'Maven property expressions to evaluate for the cache key, one per line. Ignored when cache-key is provided. Only used for restore.'
+    default: ''
+  pom-path:
+    description: 'Path to the POM file or directory passed to Maven -f. Defaults to pom.xml. Only used for restore.'
+    default: 'pom.xml'
+  cache-key:
+    description: 'restore: pre-computed key override (skips property evaluation). save: the key to save under (required).'
+    default: ''
+  download-maven-repo:
+    description: 'Download and extract the maven-repo workflow artifact after restoring the cache. Only used for restore.'
+    default: 'false'
+  cache-paths:
+    description: 'Paths under ~/.m2/repository to cache, one per line. Defaults to the known third-party artifact groups.'
+    default: |
+      ~/.m2/repository/com/atlassian
+      ~/.m2/repository/io/atlassian
+      ~/.m2/repository/org/opensaml
+      ~/.m2/repository/net/shibboleth
+
+outputs:
+  cache-key:
+    description: 'The resolved cache key (only set for action=restore)'
+    value: ${{ steps.resolve-key.outputs.key }}
 
 runs:
   using: "composite"
   steps:
-    - name: Restore Atlassian Maven Cache
-      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.4.0
+    - name: Resolve cache key
+      id: resolve-key
+      if: ${{ inputs.action == 'restore' }}
+      shell: bash
+      env:
+        PROVIDED_KEY: ${{ inputs.cache-key }}
+        MAVEN_PROPERTIES: ${{ inputs.maven-properties }}
+        POM_PATH: ${{ inputs.pom-path }}
+      run: |
+        if [[ -n "${PROVIDED_KEY}" ]]; then
+          echo "key=${PROVIDED_KEY}" >> $GITHUB_OUTPUT
+        else
+          VALS=""
+          while IFS= read -r PROP; do
+            PROP="${PROP//[[:space:]]/}"
+            [[ -z "${PROP}" ]] && continue
+            VAL=$(./mvnw help:evaluate -f "${POM_PATH}" -Dexpression="${PROP}" -q -DforceStdout -N)
+            VALS="${VALS}${VAL}\n"
+          done <<< "${MAVEN_PROPERTIES}"
+          HASH=$(printf "${VALS}" | sha256sum | cut -c1-16)
+          echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
+        fi
+    - name: Restore Maven Cache
+      if: ${{ inputs.action == 'restore' }}
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
-        path: |
-          ~/.m2/repository/com/atlassian
-          ~/.m2/repository/io/atlassian
-        key: atlassian-maven-${{ inputs.atlassian-version }}
+        path: ${{ inputs.cache-paths }}
+        key: ${{ steps.resolve-key.outputs.key }}
     - name: Download Maven Repo
+      if: ${{ inputs.action == 'restore' && inputs.download-maven-repo == 'true' }}
       uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
         name: maven-repo
         path: ..
     - name: Extract Maven Repo
+      if: ${{ inputs.action == 'restore' && inputs.download-maven-repo == 'true' }}
       shell: bash
       run: |
         df -h /
         tar -I 'zstd -d' -xf ../maven-repo.tar.zst -C ~
         rm -f ../maven-repo.tar.zst
         df -h /
+    - name: Save Maven Cache
+      if: ${{ inputs.action == 'save' }}
+      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ${{ inputs.cache-paths }}
+        key: ${{ inputs.cache-key }}

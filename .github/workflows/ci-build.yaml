@@ -20,10 +20,7 @@ name: Camel Quarkus CI
 on:
   push:
     branches:
-      - main
-      - camel-main
-      - quarkus-main
-      - "[0-9]+.[0-9]+.x"
+      - '**'
     paths-ignore:
       - '**.adoc'
       - '**.md'
@@ -109,7 +106,6 @@ env:
 
 jobs:
   pre-build-checks:
-    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     outputs:
       continue-build: ${{ steps.pre-build-checks.outputs.continue-build }}
@@ -135,20 +131,13 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Get Atlassian dependency version
-        id: atlassian-version
+      - name: Setup Maven Cache
         if: steps.init.outputs.run-checks == 'true'
-        run: |
-          JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
-          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
-      - name: Restore Atlassian Maven Cache
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        if: steps.init.outputs.run-checks == 'true'
+        uses: ./.github/actions/setup-maven-cache
         with:
-          path: |
-            ~/.m2/repository/com/atlassian
-            ~/.m2/repository/io/atlassian
-          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
+          maven-properties: |
+            jira-rest-client.version
+            quarkiverse-cxf.version
       - name: Pre build checks
         id: pre-build-checks
         run: |
@@ -188,7 +177,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
-      atlassian-version: ${{ steps.atlassian-version.outputs.version }}
+      cache-key: ${{ steps.maven-cache.outputs.cache-key }}
     env:
       MAVEN_OPTS: -Xmx4600m
     steps:
@@ -220,23 +209,24 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Get Atlassian dependency version
-        id: atlassian-version
+      - name: Compute third-party cache key
+        id: cache-key
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/camel-main" || "${{ github.base_ref }}" == "camel-main" ]]; then
             cd ../camel/parent
-            JIRA_VERSION=$(../mvnw help:evaluate -Dexpression=jira-rest-client-api-version -q -DforceStdout -N)
+            JIRA_VER=$(../mvnw help:evaluate -Dexpression=jira-rest-client-api-version -q -DforceStdout -N)
+            cd -
           else
-            JIRA_VERSION=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
+            JIRA_VER=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
           fi
-          echo "version=${JIRA_VERSION}" >> $GITHUB_OUTPUT
-      - name: Restore Atlassian Maven Cache
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+          CXF_VER=$(./mvnw help:evaluate -Dexpression=quarkiverse-cxf.version -q -DforceStdout -N)
+          HASH=$(printf "${JIRA_VER}\n${CXF_VER}\n" | sha256sum | cut -c1-16)
+          echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
+      - name: Setup Maven Cache
+        id: maven-cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          path: |
-            ~/.m2/repository/com/atlassian
-            ~/.m2/repository/io/atlassian
-          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
+          cache-key: ${{ steps.cache-key.outputs.key }}
       - name: Build Camel
         if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
@@ -267,14 +257,12 @@ jobs:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tar.zst
           retention-days: 1
-      - name: Save Atlassian Maven Cache
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - name: Save Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         if: always()
         with:
-          path: |
-            ~/.m2/repository/com/atlassian
-            ~/.m2/repository/io/atlassian
-          key: atlassian-maven-${{ steps.atlassian-version.outputs.version }}
+          action: save
+          cache-key: ${{ steps.maven-cache.outputs.cache-key }}
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -318,7 +306,8 @@ jobs:
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
-          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
@@ -385,7 +374,8 @@ jobs:
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
-          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -465,7 +455,8 @@ jobs:
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
-          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
@@ -503,7 +494,8 @@ jobs:
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
-          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
@@ -537,7 +529,8 @@ jobs:
       - name: Setup Maven Cache
         uses: ./.github/actions/setup-maven-cache
         with:
-          atlassian-version: ${{ needs.initial-mvn-install.outputs.atlassian-version }}
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: set CQ_VERSION
         run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
       - name: clone and verify examples
