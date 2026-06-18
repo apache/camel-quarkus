@@ -48,16 +48,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-nats</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.i2p.crypto</groupId>
-            <artifactId>eddsa</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.sdk</groupId>
-            <artifactId>nativeimage</artifactId>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>

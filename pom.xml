@@ -94,7 +94,6 @@
         <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
-        <eddsa.version>0.3.0</eddsa.version>
         <eclipse-transformer.version>0.5.0</eclipse-transformer.version>
         <freemarker.version>2.3.34</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
