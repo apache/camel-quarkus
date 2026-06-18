@@ -1,0 +1,18 @@
+{
+  "id" : "a1b2c3d4-aaaa-bbbb-cccc-ddddeeeeffff",
+  "name" : "repos_apache_camel-quarkus_git_blobs_6195efafd0a8100795247e35942b5c61fea79267",
+  "request" : {
+    "url" : "/repos/apache/camel-quarkus/git/blobs/6195efafd0a8100795247e35942b5c61fea79267",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"sha\":\"6195efafd0a8100795247e35942b5c61fea79267\",\"node_id\":\"MDQ6QmxvYjE5MzA2NTM3Njo2MTk1ZWZhZmQwYTgxMDA3OTUyNDdlMzU5NDJiNWM2MWZlYTc5MjY3\",\"size\":520,\"url\":\"https://api.github.com/repos/apache/camel-quarkus/git/blobs/6195efafd0a8100795247e35942b5c61fea79267\",\"content\":\"PSBBcGFjaGUgQ2FtZWwgZXh0ZW5zaW9ucyBmb3IgUXVhcmt1cwoKVGhpcyBwcm9qZWN0IGhvc3RzIHRoZSBlZmZvcnRzIHRvIHBvcnQgYW5kIHBhY2thZ2UgdGhlIDI4MCsgQ2FtZWwgY29tcG9uZW50cyBhcyBRdWFya3VzIGV4dGVuc2lvbnMuCgpodHRwOi8vY2FtZWwuYXBhY2hlLm9yZy9bQXBhY2hlIENhbWVsXSBpcyB0aGUgU3dpc3Mga25pZmUgb2YgaW50ZWdyYXRpbmcgaGV0ZXJvZ2VuZW91cyBzeXN0ZW1zIHdpdGggbW9yZSB0aGFuIGEgZGVjYWRlIG9mIGhpc3RvcnkgYW5kIGEgbGl2ZWx5IGNvbW11bml0eSBvZiB1c2VycyBhbmQgZGV2ZWxvcGVycy4KCmh0dHBzOi8vcXVhcmt1cy5pby9bUXVhcmt1c10gaXMgYSBKYXZhIHBsYXRmb3JtIG9mZmVyaW5nIGZhc3QgYm9vdCB0aW1lcyBhbmQgbG93IG1lbW9yeSBmb290cHJpbnQuCgo9PSBIb3cgdG8gYnVpbGQKClNlZSB0aGUgY29udHJpYnV0b3IgZ3VpZGUuCgo9PSBMaWNlbnNpbmcKClRoaXMgc29mdHdhcmUgaXMgbGljZW5zZWQgdW5kZXIgdGhlIHRlcm1zIHlvdSBtYXkgZmluZCBpbiB0aGUgZmlsZSBuYW1lZCBMSUNFTlNFLnR4dCBpbiB0aGlzIGRpcmVjdG9yeS4K\",\"encoding\":\"base64\"}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a1b2c3d4-aaaa-bbbb-cccc-ddddeeeeffff",
+  "persistent" : true,
+  "insertionIndex" : 3
+}
