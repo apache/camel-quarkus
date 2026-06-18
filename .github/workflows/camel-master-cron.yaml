@@ -53,7 +53,7 @@ jobs:
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
           echo "${{ github.run_id }}-${{ github.run_number }}-$(uuidgen)" > ~/build-data/build-id.txt
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -145,7 +145,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -225,7 +225,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -316,7 +316,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -364,7 +364,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -412,7 +412,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
@@ -495,7 +495,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: camel-main
           fetch-depth: 0
