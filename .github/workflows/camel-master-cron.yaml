@@ -70,20 +70,9 @@ jobs:
           git clone --depth 1 --branch main https://github.com/apache/camel.git
           cd camel
           echo "Current Camel commit:" $(git rev-parse HEAD)
-      - name: Compute third-party cache key
-        id: cache-key
-        run: |
-          cd ../camel/parent
-          JIRA_VER=$(../mvnw help:evaluate -Dexpression=jira-rest-client-api-version -q -DforceStdout -N)
-          cd -
-          CXF_VER=$(./mvnw help:evaluate -Dexpression=quarkiverse-cxf.version -q -DforceStdout -N)
-          HASH=$(printf "${JIRA_VER}\n${CXF_VER}\n" | sha256sum | cut -c1-16)
-          echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
       - name: Setup Maven Cache
         id: maven-cache
         uses: ./.github/actions/setup-maven-cache
-        with:
-          cache-key: ${{ steps.cache-key.outputs.key }}
       - name: Build Camel
         run: |
           cd ../camel
