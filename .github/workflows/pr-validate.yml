@@ -90,10 +90,6 @@ jobs:
     - name: Setup Maven Cache
       id: maven-cache
       uses: ./.github/actions/setup-maven-cache
-      with:
-        maven-properties: |
-          jira-rest-client.version
-          quarkiverse-cxf.version
     - name: mvn validate
       run: |
         ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -fae \

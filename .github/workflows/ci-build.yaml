@@ -213,24 +213,9 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
-      - name: Compute third-party cache key
-        id: cache-key
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/camel-main" || "${{ github.base_ref }}" == "camel-main" ]]; then
-            cd ../camel/parent
-            JIRA_VER=$(../mvnw help:evaluate -Dexpression=jira-rest-client-api-version -q -DforceStdout -N)
-            cd -
-          else
-            JIRA_VER=$(./mvnw help:evaluate -Dexpression=jira-rest-client.version -q -DforceStdout -N)
-          fi
-          CXF_VER=$(./mvnw help:evaluate -Dexpression=quarkiverse-cxf.version -q -DforceStdout -N)
-          HASH=$(printf "${JIRA_VER}\n${CXF_VER}\n" | sha256sum | cut -c1-16)
-          echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
       - name: Setup Maven Cache
         id: maven-cache
         uses: ./.github/actions/setup-maven-cache
-        with:
-          cache-key: ${{ steps.cache-key.outputs.key }}
       - name: Build Camel
         if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |

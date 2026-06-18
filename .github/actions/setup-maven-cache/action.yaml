@@ -60,7 +60,7 @@ runs:
       run: |
         if [[ -n "${PROVIDED_KEY}" ]]; then
           echo "key=${PROVIDED_KEY}" >> $GITHUB_OUTPUT
-        else
+        elif [[ -n "${MAVEN_PROPERTIES}" ]]; then
           VALS=""
           while IFS= read -r PROP; do
             PROP="${PROP//[[:space:]]/}"
@@ -69,6 +69,11 @@ runs:
             VALS="${VALS}${VAL}\n"
           done <<< "${MAVEN_PROPERTIES}"
           HASH=$(printf "${VALS}" | sha256sum | cut -c1-16)
+          echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
+        else
+          CAMEL_VER=$(grep -m1 '<version>' "${POM_PATH}" | sed 's|.*<version>\(.*\)</version>.*|\1|' | tr -d ' ')
+          CXF_VER=$(grep -m1 '<quarkiverse-cxf\.version>' "${POM_PATH}" | sed 's|.*<quarkiverse-cxf\.version>\(.*\)</quarkiverse-cxf\.version>.*|\1|' | tr -d ' ')
+          HASH=$(printf "${CAMEL_VER}\n${CXF_VER}\n" | sha256sum | cut -c1-16)
           echo "key=third-party-maven-${HASH}" >> $GITHUB_OUTPUT
         fi
     - name: Restore Maven Cache
