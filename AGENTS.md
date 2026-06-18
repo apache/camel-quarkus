@@ -23,7 +23,7 @@ Rules & guidelines for AI agents working on this codebase.
 Apache Camel Quarkus provides Quarkus extensions for Apache Camel components, enabling users to build integration applications with fast boot times and low memory footprints.
 
 ## What NOT to do
-- Do NOT directly modify generated files under `docs/modules` or `src/main/generated`
+- Do NOT directly modify generated files under `docs/modules` or `src/main/generated` as they are automatically updated by maven
 - Do NOT use dynamic class loading or reflection (impacts native compilation)
 - Do NOT introduce Spring Boot or Spring unless explicitly required
 - Do NOT commit changes without running `./mvnw process-resources -Pformat` first
