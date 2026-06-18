@@ -174,6 +174,21 @@ public class CoreMainTest {
     }
 
     @Test
+    public void testErrorRegistry() {
+        RestAssured.given()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/context/error-registry")
+                .then()
+                .statusCode(200)
+                .body(
+                        "present", is(true),
+                        "enabled", is(true),
+                        "maximumEntries", is(37),
+                        "timeToLiveSeconds", is(19),
+                        "size", is(0));
+    }
+
+    @Test
     public void testCustomTypeConverter() {
         RestAssured.given()
                 .contentType(ContentType.TEXT).body("a:b")
