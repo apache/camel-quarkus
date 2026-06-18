@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.main;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-public class CoreMainIT extends CoreMainTest {
+class CoreMainErrorRegistryDisabledIT extends CoreMainErrorRegistryDisabledTest {
 }

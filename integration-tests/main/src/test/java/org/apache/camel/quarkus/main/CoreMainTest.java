@@ -20,8 +20,6 @@ import java.net.HttpURLConnection;
 import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.QuarkusTestProfile;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -252,25 +250,4 @@ public class CoreMainTest {
                 .body(containsString("public class " + CamelCdiBeanRoute.class.getSimpleName()));
     }
 
-}
-
-@QuarkusTest
-@TestProfile(CoreMainErrorRegistryDisabledTest.CoreMainErrorRegistryDisabledTestProfile.class)
-class CoreMainErrorRegistryDisabledTest {
-    @Test
-    void testErrorRegistryDisabled() {
-        RestAssured.given()
-                .accept(MediaType.APPLICATION_JSON)
-                .get("/test/context/error-registry")
-                .then()
-                .statusCode(200)
-                .body("enabled", is(false));
-    }
-
-    public static final class CoreMainErrorRegistryDisabledTestProfile implements QuarkusTestProfile {
-        @Override
-        public Map<String, String> getConfigOverrides() {
-            return Map.of("camel.main.error-registry-enabled", "false");
-        }
-    }
 }
