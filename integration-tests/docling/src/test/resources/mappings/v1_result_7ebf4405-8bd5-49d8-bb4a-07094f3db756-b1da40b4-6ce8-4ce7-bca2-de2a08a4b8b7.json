@@ -1,0 +1,20 @@
+{
+  "id" : "b1da40b4-6ce8-4ce7-bca2-de2a08a4b8b7",
+  "name" : "v1_result_7ebf4405-8bd5-49d8-bb4a-07094f3db756",
+  "request" : {
+    "url" : "/v1/result/7ebf4405-8bd5-49d8-bb4a-07094f3db756",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"document\":{\"filename\":\"docling-test.md\",\"md_content\":null,\"json_content\":{\"schema_name\":\"DoclingDocument\",\"version\":\"1.8.0\",\"name\":\"docling-test\",\"origin\":{\"mimetype\":\"text/markdown\",\"binary_hash\":9071087674415960371,\"filename\":\"docling-test.md\",\"uri\":null},\"furniture\":{\"self_ref\":\"#/furniture\",\"parent\":null,\"children\":[],\"content_layer\":\"furniture\",\"meta\":null,\"name\":\"_root_\",\"label\":\"unspecified\"},\"body\":{\"self_ref\":\"#/body\",\"parent\":null,\"children\":[{\"$ref\":\"#/texts/0\"},{\"$ref\":\"#/texts/1\"}],\"content_layer\":\"body\",\"meta\":null,\"name\":\"_root_\",\"label\":\"unspecified\"},\"groups\":[],\"texts\":[{\"self_ref\":\"#/texts/0\",\"parent\":{\"$ref\":\"#/body\"},\"children\":[],\"content_layer\":\"body\",\"meta\":null,\"label\":\"title\",\"prov\":[],\"orig\":\"Async JSON Test\",\"text\":\"Async JSON Test\",\"formatting\":null,\"hyperlink\":null},{\"self_ref\":\"#/texts/1\",\"parent\":{\"$ref\":\"#/body\"},\"children\":[],\"content_layer\":\"body\",\"meta\":null,\"label\":\"text\",\"prov\":[],\"orig\":\"This is a test for async JSON conversion.\",\"text\":\"This is a test for async JSON conversion.\",\"formatting\":null,\"hyperlink\":null}],\"pictures\":[],\"tables\":[],\"key_value_items\":[],\"form_items\":[],\"pages\":{}},\"html_content\":null,\"text_content\":null,\"doctags_content\":null},\"status\":\"success\",\"errors\":[],\"processing_time\":0.0012994150165468454,\"timings\":{}}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:18 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "b1da40b4-6ce8-4ce7-bca2-de2a08a4b8b7",
+  "persistent" : true,
+  "insertionIndex" : 10
+}

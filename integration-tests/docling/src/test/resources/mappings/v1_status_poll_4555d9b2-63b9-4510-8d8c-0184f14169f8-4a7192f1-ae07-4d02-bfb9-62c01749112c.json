@@ -1,0 +1,29 @@
+{
+  "id" : "4a7192f1-ae07-4d02-bfb9-62c01749112c",
+  "name" : "v1_status_poll_4555d9b2-63b9-4510-8d8c-0184f14169f8",
+  "request" : {
+    "urlPath" : "/v1/status/poll/4555d9b2-63b9-4510-8d8c-0184f14169f8",
+    "method" : "GET",
+    "queryParameters" : {
+      "wait" : {
+        "hasExactly" : [ {
+          "equalTo" : "0"
+        } ]
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"task_id\":\"4555d9b2-63b9-4510-8d8c-0184f14169f8\",\"task_type\":\"convert\",\"task_status\":\"success\",\"task_position\":null,\"task_meta\":null}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:14 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "4a7192f1-ae07-4d02-bfb9-62c01749112c",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-v1-status-poll-4555d9b2-63b9-4510-8d8c-0184f14169f8",
+  "requiredScenarioState" : "scenario-2-v1-status-poll-4555d9b2-63b9-4510-8d8c-0184f14169f8-2",
+  "insertionIndex" : 15
+}

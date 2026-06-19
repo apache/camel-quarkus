@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response extractText(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
+        var tempFile = Paths.get(System.getProperty("java.io.tmpdir"), "docling-test.md");
         Files.writeString(tempFile, documentContent);
         try {
             String result = producerTemplate.requestBody("direct:extractText", tempFile.toString(), String.class);
@@ -150,7 +151,7 @@ public class DoclingResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public DocumentMetadata extractMetadata(String documentContent) throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
+        var tempFile = Paths.get(System.getProperty("java.io.tmpdir"), "docling-test.md");
         Files.writeString(tempFile, documentContent);
         try {
             return producerTemplate.requestBody("direct:extractMetadata", tempFile.toString(),
@@ -165,7 +166,7 @@ public class DoclingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public DocumentMetadata extractMetadataFromPdf() throws IOException {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("multi_page.pdf")) {
-            java.nio.file.Path tempFile = Files.createTempFile("docling-test-multi_page", ".pdf");
+            var tempFile = Paths.get(System.getProperty("java.io.tmpdir"), "docling-test.pdf");
             Files.copy(is, tempFile.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
             try {
                 return producerTemplate.requestBody("direct:extractMetadata", tempFile.toString(),
@@ -202,7 +203,7 @@ public class DoclingResource {
 
     private Response convert(String documentContent, String endpointUri, String logErrorMessage, Class<?> resutType)
             throws IOException {
-        java.nio.file.Path tempFile = Files.createTempFile("docling-test", ".md");
+        var tempFile = Paths.get(System.getProperty("java.io.tmpdir"), "docling-test.md");
         Files.writeString(tempFile, documentContent);
         try {
             Object result = producerTemplate.requestBody(endpointUri, tempFile.toString(), resutType);
