@@ -7934,11 +7934,6 @@
                 <version>${mbassador.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.i2p.crypto</groupId>
-                <artifactId>eddsa</artifactId>
-                <version>${eddsa.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>net.minidev</groupId>
                 <artifactId>json-smart</artifactId>
                 <version>${json-smart.version}</version>
