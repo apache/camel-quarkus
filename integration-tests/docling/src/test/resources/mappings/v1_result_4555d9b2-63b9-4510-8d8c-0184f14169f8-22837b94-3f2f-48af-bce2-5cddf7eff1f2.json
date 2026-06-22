@@ -1,0 +1,20 @@
+{
+  "id" : "22837b94-3f2f-48af-bce2-5cddf7eff1f2",
+  "name" : "v1_result_4555d9b2-63b9-4510-8d8c-0184f14169f8",
+  "request" : {
+    "url" : "/v1/result/4555d9b2-63b9-4510-8d8c-0184f14169f8",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"document\":{\"filename\":\"docling-test.md\",\"md_content\":null,\"json_content\":null,\"html_content\":\"<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\\\"UTF-8\\\"/>\\n<title>docling-test</title>\\n<meta name=\\\"generator\\\" content=\\\"Docling HTML Serializer\\\"/>\\n<style>\\n    html {\\n        background-color: #f5f5f5;\\n        font-family: Arial, sans-serif;\\n        line-height: 1.6;\\n    }\\n    body {\\n        max-width: 800px;\\n        margin: 0 auto;\\n        padding: 2rem;\\n        background-color: white;\\n        box-shadow: 0 0 10px rgba(0,0,0,0.1);\\n    }\\n    h1, h2, h3, h4, h5, h6 {\\n        color: #333;\\n        margin-top: 1.5em;\\n        margin-bottom: 0.5em;\\n    }\\n    h1 {\\n        font-size: 2em;\\n        border-bottom: 1px solid #eee;\\n        padding-bottom: 0.3em;\\n    }\\n    table {\\n        border-collapse: collapse;\\n        margin: 1em 0;\\n        width: 100%;\\n    }\\n    th, td {\\n        border: 1px solid #ddd;\\n        padding: 8px;\\n        text-align: left;\\n    }\\n    th {\\n        background-color: #f2f2f2;\\n        font-weight: bold;\\n    }\\n    figure {\\n        margin: 1.5em 0;\\n        text-align: center;\\n    }\\n    figcaption {\\n        color: #666;\\n        font-style: italic;\\n        margin-top: 0.5em;\\n    }\\n    img {\\n        max-width: 100%;\\n        height: auto;\\n    }\\n    pre {\\n        background-color: #f6f8fa;\\n        border-radius: 3px;\\n        padding: 1em;\\n        overflow: auto;\\n    }\\n    code {\\n        font-family: monospace;\\n        background-color: #f6f8fa;\\n        padding: 0.2em 0.4em;\\n        border-radius: 3px;\\n    }\\n    pre code {\\n        background-color: transparent;\\n        padding: 0;\\n    }\\n    .formula {\\n        text-align: center;\\n        padding: 0.5em;\\n        margin: 1em 0;\\n        background-color: #f9f9f9;\\n    }\\n    .formula-not-decoded {\\n        text-align: center;\\n        padding: 0.5em;\\n        margin: 1em 0;\\n        background: repeating-linear-gradient(\\n            45deg,\\n            #f0f0f0,\\n            #f0f0f0 10px,\\n            #f9f9f9 10px,\\n            #f9f9f9 20px\\n        );\\n    }\\n    .page-break {\\n        page-break-after: always;\\n        border-top: 1px dashed #ccc;\\n        margin: 2em 0;\\n    }\\n    .key-value-region {\\n        background-color: #f9f9f9;\\n        padding: 1em;\\n        border-radius: 4px;\\n        margin: 1em 0;\\n    }\\n    .key-value-region dt {\\n        font-weight: bold;\\n    }\\n    .key-value-region dd {\\n        margin-left: 1em;\\n        margin-bottom: 0.5em;\\n    }\\n    .form-container {\\n        border: 1px solid #ddd;\\n        padding: 1em;\\n        border-radius: 4px;\\n        margin: 1em 0;\\n    }\\n    .form-item {\\n        margin-bottom: 0.5em;\\n    }\\n    .image-classification {\\n        font-size: 0.9em;\\n        color: #666;\\n        margin-top: 0.5em;\\n    }\\n</style>\\n</head>\\n<body>\\n<div class='page'>\\n<h1>Async HTML Test</h1>\\n<p>This is a test for async HTML conversion.</p>\\n</div>\\n</body>\\n</html>\",\"text_content\":null,\"doctags_content\":null},\"status\":\"success\",\"errors\":[],\"processing_time\":0.0024140799941960722,\"timings\":{}}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:14 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "22837b94-3f2f-48af-bce2-5cddf7eff1f2",
+  "persistent" : true,
+  "insertionIndex" : 14
+}

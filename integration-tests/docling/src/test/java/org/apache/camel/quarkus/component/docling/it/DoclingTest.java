@@ -218,8 +218,9 @@ class DoclingTest {
 
     private List<String> createTestFiles() throws IOException {
         List<String> filePaths = new ArrayList<>();
+        Path tempDir = Files.createTempDirectory("docling-batch-test");
         for (int i = 0; i < 5; i++) {
-            Path filepath = Files.createTempFile("test-docling-batch-" + i + "-", ".md");
+            Path filepath = tempDir.resolve("test-docling-batch-" + i + ".md");
             Files.writeString(filepath,
                     """
                             # Test doc %s
