@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/",
+    "headers": {
+      "X-Amz-Target": {
+        "equalTo": "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.LookupEvents"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-amz-json-1.1"
+    },
+    "body": "{\"Events\":[{\"EventId\":\"event-1\",\"EventName\":\"CreateTrail\",\"EventSource\":\"cloudtrail.amazonaws.com\",\"Username\":\"testuser\",\"EventTime\":1234567890,\"CloudTrailEvent\":\"{\\\"eventVersion\\\":\\\"1.08\\\",\\\"eventID\\\":\\\"event-1\\\",\\\"eventName\\\":\\\"CreateTrail\\\"}\"},{\"EventId\":\"event-2\",\"EventName\":\"DeleteTrail\",\"EventSource\":\"cloudtrail.amazonaws.com\",\"Username\":\"testuser\",\"EventTime\":1234567891,\"CloudTrailEvent\":\"{\\\"eventVersion\\\":\\\"1.08\\\",\\\"eventID\\\":\\\"event-2\\\",\\\"eventName\\\":\\\"DeleteTrail\\\"}\"}]}"
+  }
+}
