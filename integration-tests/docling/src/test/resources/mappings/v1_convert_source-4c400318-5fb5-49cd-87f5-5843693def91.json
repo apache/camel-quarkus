@@ -1,0 +1,25 @@
+{
+  "id" : "4c400318-5fb5-49cd-87f5-5843693def91",
+  "name" : "v1_convert_source",
+  "request" : {
+    "url" : "/v1/convert/source",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"sources\":[{\"kind\":\"file\",\"base64_string\":\"IyBUZXN0IGRvYyAxCgpjb250ZW50IDE=\",\"filename\":\"test-docling-batch-1.md\"}],\"options\":{\"to_formats\":[\"md\"]}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"document\":{\"filename\":\"test-docling-batch-1.md\",\"md_content\":\"# Test doc 1\\n\\ncontent 1\",\"json_content\":null,\"html_content\":null,\"text_content\":null,\"doctags_content\":null},\"status\":\"success\",\"errors\":[],\"processing_time\":0.0027867469761986285,\"timings\":{}}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:06 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "4c400318-5fb5-49cd-87f5-5843693def91",
+  "persistent" : true,
+  "insertionIndex" : 20
+}

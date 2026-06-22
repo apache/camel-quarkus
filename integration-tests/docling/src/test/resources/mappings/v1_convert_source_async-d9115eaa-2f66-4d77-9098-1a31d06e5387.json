@@ -1,0 +1,25 @@
+{
+  "id" : "d9115eaa-2f66-4d77-9098-1a31d06e5387",
+  "name" : "v1_convert_source_async",
+  "request" : {
+    "url" : "/v1/convert/source/async",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"sources\":[{\"kind\":\"file\",\"base64_string\":\"IyBBc3luYyBKU09OIFRlc3QKVGhpcyBpcyBhIHRlc3QgZm9yIGFzeW5jIEpTT04gY29udmVyc2lvbi4=\",\"filename\":\"docling-test.md\"}],\"options\":{\"to_formats\":[\"json\"]}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"task_id\":\"7ebf4405-8bd5-49d8-bb4a-07094f3db756\",\"task_type\":\"convert\",\"task_status\":\"pending\",\"task_position\":1,\"task_meta\":null}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:18 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "d9115eaa-2f66-4d77-9098-1a31d06e5387",
+  "persistent" : true,
+  "insertionIndex" : 12
+}

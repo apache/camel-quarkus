@@ -1,0 +1,20 @@
+{
+  "id" : "0121ab9c-4a5d-4232-9df1-cb99c368e678",
+  "name" : "v1_result_b89061f3-3601-4f4a-8d21-c977f2bf2a9e",
+  "request" : {
+    "url" : "/v1/result/b89061f3-3601-4f4a-8d21-c977f2bf2a9e",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"document\":{\"filename\":\"docling-test.md\",\"md_content\":\"# Async Test\\n\\nThis is a test for async markdown conversion.\",\"json_content\":null,\"html_content\":null,\"text_content\":null,\"doctags_content\":null},\"status\":\"success\",\"errors\":[],\"processing_time\":0.006008327007293701,\"timings\":{}}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:22 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "0121ab9c-4a5d-4232-9df1-cb99c368e678",
+  "persistent" : true,
+  "insertionIndex" : 5
+}
