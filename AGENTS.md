@@ -216,6 +216,8 @@ Native compilation with GraalVM requires explicit registration of classes, resou
 
 Use `CombinedIndexBuildItem` to discover classes at build time — see `extensions/servicenow/deployment/.../ServicenowProcessor.java`.
 
+**Camel components already ship with a Jandex index.** Do not add `IndexDependencyBuildItem` for Camel component JARs (e.g. `camel-a2a`, `camel-kafka`). `CombinedIndexBuildItem` can discover their classes directly. Only add `IndexDependencyBuildItem` for non-Camel third-party libraries that lack a Jandex index.
+
 See also https://quarkus.io/guides/writing-extensions.
 
 ## Security Model
