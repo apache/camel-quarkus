@@ -17,62 +17,71 @@
 package org.apache.camel.quarkus.component.docling.it;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-public class DoclingTestResource implements QuarkusTestResourceLifecycleManager {
+public class DoclingTestResource extends WireMockTestResourceLifecycleManager {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DoclingTestResource.class);
-
-    private static final String CONTAINER_IMAGE = ConfigProvider.getConfig().getValue("docling.container.image", String.class);
+    private static final String CONTAINER_IMAGE = ConfigProvider.getConfig().getValue("docling.container.image",
+            String.class);
     private static final int CONTAINER_PORT = 5001;
 
     private GenericContainer<?> container;
+    private String containerUrl;
 
     @Override
     public Map<String, String> start() {
-        try {
-            LOG.info("Starting Docling Serve container: {}", CONTAINER_IMAGE);
-
-            container = new GenericContainer<>(CONTAINER_IMAGE)
-                    .withExposedPorts(CONTAINER_PORT)
-                    .waitingFor(Wait.forListeningPorts(CONTAINER_PORT))
-                    .withStartupTimeout(Duration.ofMinutes(3));
-
-            container.start();
-
-            String doclingUrl = String.format("http://%s:%d",
-                    container.getHost(),
-                    container.getMappedPort(CONTAINER_PORT));
-
-            LOG.info("Docling Serve container started at: {}", doclingUrl);
-
-            Map<String, String> config = new HashMap<>();
-            config.put("docling.serve.url", doclingUrl);
-
-            return config;
-        } catch (Exception e) {
-            LOG.error("Failed to start Docling Serve container", e);
-            throw new RuntimeException("Failed to start Docling Serve container", e);
+        // The real container is needed when recording stubs or when mock backend is disabled
+        if (!isMockingEnabled() || isWireMockRecordingEnabled()) {
+            startContainer();
         }
+
+        Map<String, String> properties = super.start();
+
+        // In mock/record mode, point the app at WireMock; otherwise point directly at the container
+        String doclingUrl = properties.getOrDefault("wiremock.url", containerUrl);
+        properties.put("docling.serve.url", doclingUrl);
+        return properties;
     }
 
     @Override
     public void stop() {
         try {
+            super.stop();
+        } finally {
             if (container != null) {
-                LOG.info("Stopping Docling Serve container");
                 container.stop();
             }
-        } catch (Exception e) {
-            LOG.warn("Error stopping Docling Serve container", e);
         }
+    }
+
+    @Override
+    protected String getRecordTargetBaseUrl() {
+        return containerUrl;
+    }
+
+    @Override
+    protected boolean isMockingEnabled() {
+        return MockBackendUtils.startMockBackend();
+    }
+
+    private void startContainer() {
+        LOG.infof("Starting Docling Serve container: %s", CONTAINER_IMAGE);
+        container = new GenericContainer<>(CONTAINER_IMAGE)
+                .withExposedPorts(CONTAINER_PORT)
+                .waitingFor(Wait.forListeningPorts(CONTAINER_PORT))
+                .withStartupTimeout(Duration.ofMinutes(3));
+        container.start();
+        containerUrl = "http://%s:%d".formatted(container.getHost(), container.getMappedPort(CONTAINER_PORT));
+        LOG.infof("Docling Serve container started at: %s", containerUrl);
+    }
+
+    private static boolean isWireMockRecordingEnabled() {
+        return "true".equals(System.getProperty("wiremock.record", System.getenv("WIREMOCK_RECORD")));
     }
 }

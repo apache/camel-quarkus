@@ -1,0 +1,25 @@
+{
+  "id" : "937ef1ac-68e8-40b9-8d44-23b60c623ba4",
+  "name" : "v1_convert_source",
+  "request" : {
+    "url" : "/v1/convert/source",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"sources\":[{\"kind\":\"file\",\"base64_string\":\"IyBUZXN0IERvY3VtZW50CgpTb21lIGNvbnRlbnQgZm9yIG1ldGFkYXRhIGV4dHJhY3Rpb24uCg==\",\"filename\":\"docling-test.md\"}],\"options\":{\"to_formats\":[\"json\"]}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"document\":{\"filename\":\"docling-test.md\",\"md_content\":null,\"json_content\":{\"schema_name\":\"DoclingDocument\",\"version\":\"1.8.0\",\"name\":\"docling-test\",\"origin\":{\"mimetype\":\"text/markdown\",\"binary_hash\":547542221629127811,\"filename\":\"docling-test.md\",\"uri\":null},\"furniture\":{\"self_ref\":\"#/furniture\",\"parent\":null,\"children\":[],\"content_layer\":\"furniture\",\"meta\":null,\"name\":\"_root_\",\"label\":\"unspecified\"},\"body\":{\"self_ref\":\"#/body\",\"parent\":null,\"children\":[{\"$ref\":\"#/texts/0\"},{\"$ref\":\"#/texts/1\"}],\"content_layer\":\"body\",\"meta\":null,\"name\":\"_root_\",\"label\":\"unspecified\"},\"groups\":[],\"texts\":[{\"self_ref\":\"#/texts/0\",\"parent\":{\"$ref\":\"#/body\"},\"children\":[],\"content_layer\":\"body\",\"meta\":null,\"label\":\"title\",\"prov\":[],\"orig\":\"Test Document\",\"text\":\"Test Document\",\"formatting\":null,\"hyperlink\":null},{\"self_ref\":\"#/texts/1\",\"parent\":{\"$ref\":\"#/body\"},\"children\":[],\"content_layer\":\"body\",\"meta\":null,\"label\":\"text\",\"prov\":[],\"orig\":\"Some content for metadata extraction.\",\"text\":\"Some content for metadata extraction.\",\"formatting\":null,\"hyperlink\":null}],\"pictures\":[],\"tables\":[],\"key_value_items\":[],\"form_items\":[],\"pages\":{}},\"html_content\":null,\"text_content\":null,\"doctags_content\":null},\"status\":\"success\",\"errors\":[],\"processing_time\":0.0015936639974825084,\"timings\":{}}",
+    "headers" : {
+      "date" : "Fri, 19 Jun 2026 09:51:22 GMT",
+      "server" : "uvicorn",
+      "content-type" : "application/json"
+    }
+  },
+  "uuid" : "937ef1ac-68e8-40b9-8d44-23b60c623ba4",
+  "persistent" : true,
+  "insertionIndex" : 4
+}
