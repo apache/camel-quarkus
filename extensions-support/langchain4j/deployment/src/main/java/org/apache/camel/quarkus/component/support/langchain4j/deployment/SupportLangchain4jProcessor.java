@@ -68,7 +68,7 @@ class SupportLangchain4jProcessor {
     @BuildStep
     void indexDependencies(CurateOutcomeBuildItem curateOutcome, BuildProducer<IndexDependencyBuildItem> indexedDependencies) {
         ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
+        for (ResolvedDependency dependency : applicationModel.getRuntimeDependencies()) {
             if (dependency.getGroupId().equals("dev.langchain4j")) {
                 indexedDependencies.produce(new IndexDependencyBuildItem(dependency.getGroupId(), dependency.getArtifactId()));
             }

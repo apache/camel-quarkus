@@ -208,7 +208,7 @@ class CSimpleProcessor {
 
             final RuntimeValue<?> csimpleLanguage = recorder.buildCSimpleLanguage(builder);
             return new CamelBeanBuildItem("csimple", CSimpleLanguage.class.getName(), csimpleLanguage);
-        } else if (curateOutcomeBuildItem.getApplicationModel().getDependencies().stream().noneMatch(
+        } else if (curateOutcomeBuildItem.getApplicationModel().getRuntimeDependencies().stream().noneMatch(
                 x -> x.getGroupId().equals("org.apache.camel") && x.getArtifactId().equals("camel-csimple-joor"))) {
             LOG.warn(
                     "The expression extraction process has been disabled or failed, please add camel-csimple-joor to your classpath to compile the expressions at runtime");
