@@ -48,6 +48,12 @@
             <artifactId>quarkus-pooled-jms</artifactId>
         </dependency>
 
+        <!-- Only present to verify https://github.com/apache/camel-quarkus/issues/8783 -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>

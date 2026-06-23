@@ -79,7 +79,7 @@ class SupportLangchain4jProcessor {
     @BuildStep
     void indexDependencies(CurateOutcomeBuildItem curateOutcome, BuildProducer<IndexDependencyBuildItem> indexedDependencies) {
         ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
+        for (ResolvedDependency dependency : applicationModel.getRuntimeDependencies()) {
             if (dependency.getGroupId().equals("dev.langchain4j")) {
                 indexedDependencies.produce(new IndexDependencyBuildItem(dependency.getGroupId(), dependency.getArtifactId()));
             }
@@ -248,7 +248,7 @@ class SupportLangchain4jProcessor {
             BuildProducer<IndexDependencyBuildItem> indexDependency) {
 
         ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
+        for (ResolvedDependency dependency : applicationModel.getRuntimeDependencies()) {
             String groupId = dependency.getGroupId();
             String artifactId = dependency.getArtifactId();
 
@@ -300,7 +300,7 @@ class SupportLangchain4jProcessor {
 
         nativeImageResource.produce(new NativeImageResourceBuildItem("native/lib/tokenizers.properties"));
 
-        for (ResolvedDependency dependency : curateOutcome.getApplicationModel().getDependencies()) {
+        for (ResolvedDependency dependency : curateOutcome.getApplicationModel().getRuntimeDependencies()) {
             String artifactId = dependency.getArtifactId();
 
             // Native image resources for embeddings tokenizer metadata

@@ -79,7 +79,7 @@ class QuartzProcessor {
         IndexView index = combinedIndex.getIndex();
 
         ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        boolean oracleBlobIsPresent = applicationModel.getDependencies().stream()
+        boolean oracleBlobIsPresent = applicationModel.getRuntimeDependencies().stream()
                 .anyMatch(d -> d.getGroupId().equals("com.oracle.database.jdbc"));
 
         final String[] delegatesImpl = index
