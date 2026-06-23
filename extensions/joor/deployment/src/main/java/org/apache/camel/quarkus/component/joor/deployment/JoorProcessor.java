@@ -132,7 +132,7 @@ class JoorProcessor {
             unit.addClass(source.getClassName(), source.getSourceCode());
         }
         ApplicationModel model = curateOutcomeBuildItem.getApplicationModel();
-        List<ResolvedDependency> dependencies = new ArrayList<>(model.getDependencies());
+        List<ResolvedDependency> dependencies = new ArrayList<>(model.getRuntimeDependencies());
         dependencies.add(model.getAppArtifact());
         LOG.debug("Compiling unit: {}", unit);
         CompilationUnit.Result compilationResult = MultiCompile.compileUnit(
