@@ -17,11 +17,14 @@
 package org.apache.camel.quarkus.component.micrometer.it;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
@@ -228,5 +231,20 @@ public class MicrometerResource {
     public Response sendDumpAsJson() {
         producerTemplate.sendBody("direct:dumpAsJson", "hello");
         return Response.ok().build();
+    }
+
+    @Path("/appInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response appInfo() {
+        Gauge appInfo = prometheusMeterRegistry.find("app.info").gauge();
+        if (appInfo == null) {
+            return Response.status(500).entity("app.info appInfo not found").build();
+        }
+        Map<String, String> tags = new HashMap<>();
+        for (Tag tag : appInfo.getId().getTags()) {
+            tags.put(tag.getKey(), tag.getValue());
+        }
+        return Response.ok(tags).build();
     }
 }
