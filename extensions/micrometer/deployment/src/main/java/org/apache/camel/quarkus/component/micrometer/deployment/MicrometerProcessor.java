@@ -20,10 +20,13 @@ import java.util.List;
 import java.util.Optional;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import io.quarkus.builder.Version;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.gizmo.Gizmo;
 import io.quarkus.micrometer.deployment.MicrometerProcessor.MicrometerEnabled;
 import io.quarkus.micrometer.deployment.MicrometerRegistryProviderBuildItem;
 import io.quarkus.micrometer.deployment.RootMeterRegistryBuildItem;
@@ -33,6 +36,9 @@ import org.apache.camel.quarkus.component.micrometer.CamelMicrometerRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 class MicrometerProcessor {
 
@@ -79,6 +85,54 @@ class MicrometerProcessor {
         // Register SimpleMeterRegistry to the CompositeMeterRegistry (created by Quarkus) if there is no MicrometerRegistryProviderBuildItem
         if (registry.isPresent() && providers.isEmpty()) {
             recorder.configureDefaultRegistry(registry.get().getValue());
+        }
+    }
+
+    @BuildStep
+    BytecodeTransformerBuildItem generateRuntimeInfoMetricVersion() {
+        // Force the app.info metric version tag value, to avoid runtime usages of reflection
+        // and other dynamic version lookup strategies that may not work with all Quarkus package
+        // types. Such as uber-jar and native images
+        String quarkusVersion = Version.getVersion();
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform(
+                        "org.apache.camel.component.micrometer.json.AbstractMicrometerService$RuntimeInfo")
+                .setCacheable(true)
+                .setVisitorFunction(
+                        (className, classVisitor) -> new RuntimeInfoClassVisitor(classVisitor, quarkusVersion))
+                .build();
+    }
+
+    static class RuntimeInfoClassVisitor extends ClassVisitor {
+        private final String quarkusVersion;
+
+        protected RuntimeInfoClassVisitor(ClassVisitor classVisitor, String quarkusVersion) {
+            super(Gizmo.ASM_API_VERSION, classVisitor);
+            this.quarkusVersion = quarkusVersion;
+        }
+
+        @Override
+        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                String[] exceptions) {
+            MethodVisitor original = super.visitMethod(access, name, descriptor, signature, exceptions);
+            if ("scan".equals(name)) {
+                return new MethodVisitor(Gizmo.ASM_API_VERSION, original) {
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        visitLdcInsn(quarkusVersion);
+                        visitMethodInsn(Opcodes.INVOKESTATIC, "java/util/Optional", "of",
+                                "(Ljava/lang/Object;)Ljava/util/Optional;", false);
+                        visitInsn(Opcodes.ARETURN);
+                    }
+
+                    @Override
+                    public void visitMaxs(int maxStack, int maxLocals) {
+                        super.visitMaxs(1, 1);
+                    }
+                };
+            }
+            return original;
         }
     }
 }

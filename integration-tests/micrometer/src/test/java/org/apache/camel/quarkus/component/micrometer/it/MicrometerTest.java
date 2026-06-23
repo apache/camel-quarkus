@@ -38,6 +38,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -207,7 +209,7 @@ class MicrometerTest extends AbstractMicrometerTest {
             return filteredResult.values().stream().map(String::valueOf).collect(Collectors.joining());
         },
                 //1 exchange with completed status should be caught
-                Matchers.is("1"));
+                is("1"));
     }
 
     @ParameterizedTest
@@ -253,6 +255,17 @@ class MicrometerTest extends AbstractMicrometerTest {
 
         assertTrue(json.contains("jmxHistory"));
 
+    }
+
+    @Test
+    void testAppInfo() {
+        RestAssured.get("/micrometer/appInfo")
+                .then()
+                .statusCode(200)
+                .body("'camel.runtime.provider'", is("Quarkus"))
+                // Avoid matching against explicit versions as it could change if the Quarkus Platform is updated with a new Quarkus Core
+                .body("'camel.runtime.version'", not(Matchers.emptyString()))
+                .body("'camel.context'", is("quarkus-camel-micrometer"));
     }
 
     @Test
