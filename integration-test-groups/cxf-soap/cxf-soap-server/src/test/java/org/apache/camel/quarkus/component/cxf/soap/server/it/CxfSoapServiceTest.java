@@ -34,6 +34,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static io.quarkiverse.cxf.test.internal.QuarkusCxfInternalTestUtil.anyNs;
+import static io.restassured.RestAssured.given;
 
 @QuarkusTest
 class CxfSoapServiceTest {
@@ -109,6 +110,66 @@ class CxfSoapServiceTest {
     private void assertTextService(TextService textService, String input) {
         Assertions.assertEquals(input.toUpperCase(), textService.upperCase(input));
         Assertions.assertEquals(input.toLowerCase(), textService.lowerCase(input));
+    }
+
+    @Test
+    public void wsAddressingWithHeaders() {
+        final String soapRequest = "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\""
+                + " xmlns:wsa=\"http://www.w3.org/2005/08/addressing\""
+                + " xmlns:ns=\"" + WsAddressingService.TARGET_NS + "\">\n"
+                + "  <soap:Header>\n"
+                + "    <wsa:Action>" + WsAddressingService.HELLO_ACTION + "</wsa:Action>\n"
+                + "    <wsa:MessageID>urn:uuid:12345678-1234-1234-1234-123456789012</wsa:MessageID>\n"
+                + "    <wsa:ReplyTo>\n"
+                + "      <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>\n"
+                + "    </wsa:ReplyTo>\n"
+                + "    <wsa:To>" + getServerUrl() + "/soapservice/ws-addressing</wsa:To>\n"
+                + "  </soap:Header>\n"
+                + "  <soap:Body>\n"
+                + "    <ns:helloRequest>World</ns:helloRequest>\n"
+                + "  </soap:Body>\n"
+                + "</soap:Envelope>";
+
+        given()
+                .header("Content-Type", "text/xml")
+                .body(soapRequest)
+                .when()
+                .post("/soapservice/ws-addressing")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.containsString("Hello World from WS-Addressing service"));
+    }
+
+    @Test
+    public void wsAddressingWithoutHeaders() {
+        final String soapRequest = "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\""
+                + " xmlns:ns=\"" + WsAddressingService.TARGET_NS + "\">\n"
+                + "  <soap:Header/>\n"
+                + "  <soap:Body>\n"
+                + "    <ns:helloRequest>World</ns:helloRequest>\n"
+                + "  </soap:Body>\n"
+                + "</soap:Envelope>";
+
+        given()
+                .header("Content-Type", "text/xml")
+                .body(soapRequest)
+                .when()
+                .post("/soapservice/ws-addressing")
+                .then()
+                .statusCode(500)
+                .body(CoreMatchers
+                        .containsString("A required header representing a Message Addressing Property is not present"));
+    }
+
+    @Test
+    public void wsAddressingClient() {
+        given()
+                .body("CamelClient")
+                .when()
+                .post("/cxf-soap-server/ws-addressing/client/hello")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.containsString("Hello CamelClient from WS-Addressing service"));
     }
 
 }
