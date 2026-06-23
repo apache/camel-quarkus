@@ -46,7 +46,7 @@ class Hl7Processor {
     void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependency, CurateOutcomeBuildItem curateOutcome) {
         // Index any optional hapi-structures dependencies present on the classpath
         curateOutcome.getApplicationModel()
-                .getDependencies()
+                .getRuntimeDependencies()
                 .stream()
                 .filter(appArtifact -> appArtifact.getGroupId().equals(CA_UHN_HAPI_GROUP_ID)
                         && appArtifact.getArtifactId().startsWith("hapi-structures-"))

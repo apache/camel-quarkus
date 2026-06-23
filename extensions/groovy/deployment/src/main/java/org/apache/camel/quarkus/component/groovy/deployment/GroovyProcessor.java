@@ -128,7 +128,7 @@ class GroovyProcessor {
         // Disable InvokeDynamic because it triggers code paths to GraalVM deleted MethodHandleNatives.setCallSiteTargetNormal
         configuration.getOptimizationOptions().put(CompilerConfiguration.INVOKEDYNAMIC, Boolean.FALSE);
         configuration.setClasspathList(
-                curateOutcomeBuildItem.getApplicationModel().getDependencies().stream()
+                curateOutcomeBuildItem.getApplicationModel().getRuntimeDependencies().stream()
                         .map(ResolvedDependency::getResolvedPaths)
                         .flatMap(PathCollection::stream)
                         .map(Objects::toString)
