@@ -93,7 +93,7 @@ public class JavaJoorDslProcessor {
                 unit,
                 List.of(
                         "-classpath",
-                        curateOutcomeBuildItem.getApplicationModel().getDependencies().stream()
+                        curateOutcomeBuildItem.getApplicationModel().getRuntimeDependencies().stream()
                                 .map(ResolvedDependency::getResolvedPaths)
                                 .flatMap(PathCollection::stream)
                                 .map(Objects::toString)

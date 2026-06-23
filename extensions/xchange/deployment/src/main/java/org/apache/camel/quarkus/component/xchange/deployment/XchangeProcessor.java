@@ -63,7 +63,7 @@ class XchangeProcessor {
             CurateOutcomeBuildItem curateOutcome) {
 
         ApplicationModel applicationModel = curateOutcome.getApplicationModel();
-        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
+        for (ResolvedDependency dependency : applicationModel.getRuntimeDependencies()) {
             if (dependency.getGroupId().equals("org.knowm.xchange")) {
                 // Index any org.knowm.xchange dependencies present on the classpath as they contain the APIs for interacting with each crypto exchange
                 String artifactId = dependency.getArtifactId();
