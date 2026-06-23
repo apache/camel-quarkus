@@ -56,7 +56,7 @@ public class SpringKotlinProcessor {
 
     private boolean isKotlinStdlibAvailable(ApplicationModel applicationModel) {
         return applicationModel
-                .getDependencies()
+                .getRuntimeDependencies()
                 .stream()
                 .anyMatch(dependency -> dependency.getArtifactId().startsWith("kotlin-stdlib"));
     }

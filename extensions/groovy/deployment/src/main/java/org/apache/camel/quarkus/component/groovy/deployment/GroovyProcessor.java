@@ -136,7 +136,7 @@ class GroovyProcessor {
         }
         CompilerConfiguration cc = new CompilerConfiguration();
         cc.setClasspathList(
-                curateOutcomeBuildItem.getApplicationModel().getDependencies().stream()
+                curateOutcomeBuildItem.getApplicationModel().getRuntimeDependencies().stream()
                         .map(ResolvedDependency::getResolvedPaths)
                         .flatMap(PathCollection::stream)
                         .map(Objects::toString)
