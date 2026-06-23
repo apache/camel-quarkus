@@ -47,6 +47,7 @@ perf-regression-report@*.txt
 
 # Claude
 .claude
+CLAUDE.local.md
 
 # Bob
 .bob
