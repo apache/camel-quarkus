@@ -53,7 +53,7 @@ replaceInFiles.each { path ->
         while (m.find()) {
             final String property = m.group(3)
             final String newValue = project.properties.get(property)
-            if (property == "quarkus.version" && newValue == "999-SNAPSHOT") {
+            if (property == "quarkus.version" && newValue.contains("-SNAPSHOT")) {
                 // Skip updating this on quarkus-main
                 continue
             }
