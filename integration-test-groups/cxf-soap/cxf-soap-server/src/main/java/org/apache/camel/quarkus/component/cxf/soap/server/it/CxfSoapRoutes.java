@@ -42,6 +42,8 @@ import org.apache.camel.util.xml.StringSource;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.helpers.XPathUtils;
 import org.apache.cxf.message.MessageContentsList;
+import org.apache.cxf.ws.addressing.WSAddressingFeature;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class CxfSoapRoutes extends RouteBuilder {
@@ -49,6 +51,9 @@ public class CxfSoapRoutes extends RouteBuilder {
     @Inject
     @Named("loggingFeatureServer")
     LoggingFeature loggingFeature;
+
+    @ConfigProperty(name = "quarkus.http.test-port")
+    int httpTestPort;
 
     public static final String response = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://it.server.soap.cxf.component.quarkus.camel.apache.org/\">\n"
             +
@@ -121,6 +126,14 @@ public class CxfSoapRoutes extends RouteBuilder {
         from(String.format("cxf:textServiceResponseFromImpl?serviceClass=%s&address=/text-service-impl",
                 TextService.class.getName()))
                 .toD("bean:" + TextServiceImpl.class.getName() + "?method=${header.operationName}");
+
+        from("cxf:bean:wsAddressingServerEndpoint")
+                .routeId("ws-addressing-server")
+                .setBody().simple("Hello ${body} from WS-Addressing service");
+
+        from("direct:wsAddressingClient")
+                .routeId("ws-addressing-client")
+                .to("cxf:bean:wsAddressingClientEndpoint");
     }
 
     private String alterTextByTextOperation(String operation, String text) {
@@ -184,6 +197,32 @@ public class CxfSoapRoutes extends RouteBuilder {
         result.setAddress("/text-route-cxf-message-data-format");
         result.setDataFormat(DataFormat.CXF_MESSAGE);
         result.getFeatures().add(loggingFeature);
+        return result;
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint wsAddressingServerEndpoint() {
+        final CxfEndpoint result = new CxfEndpoint();
+        result.setServiceClass(WsAddressingService.class);
+        result.setAddress("/ws-addressing");
+        result.getFeatures().add(loggingFeature);
+        final WSAddressingFeature wsAddr = new WSAddressingFeature();
+        wsAddr.setAddressingRequired(true);
+        result.getFeatures().add(wsAddr);
+        return result;
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint wsAddressingClientEndpoint() {
+        final CxfEndpoint result = new CxfEndpoint();
+        result.setServiceClass(WsAddressingService.class);
+        result.setAddress("http://localhost:" + httpTestPort + "/soapservice/ws-addressing");
+        result.getFeatures().add(loggingFeature);
+        result.getFeatures().add(new WSAddressingFeature());
         return result;
     }
 
