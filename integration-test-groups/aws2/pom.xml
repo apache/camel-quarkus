@@ -37,6 +37,7 @@
 
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>aws-cloudtrail</module>
         <module>aws-secrets-manager</module>
         <module>aws2-cw</module>
         <module>aws2-ddb</module>

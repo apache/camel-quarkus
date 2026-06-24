@@ -1,0 +1,73 @@
+= AWS CloudTrail tests
+
+By default, the integration tests run against a WireMock container.
+
+== Running against real AWS
+
+Refer to the xref:../README.adoc[AWS 2 integration tests README] for general instructions on how to set up AWS credentials.
+
+The AWS credentials must have the following IAM permissions:
+
+* `cloudtrail:CreateTrail`
+* `cloudtrail:DeleteTrail`
+* `cloudtrail:LookupEvents`
+
+=== Running tests directly against real AWS
+
+==== Prerequisites
+
+Before running tests against real AWS, you must create an S3 bucket with proper CloudTrail permissions.
+
+Apply bucket policy to allow CloudTrail to write logs (replace `ACCOUNT-ID` and bucket name):
+
+[source,json]
+----
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AWSCloudTrailAclCheck",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+      },
+      "Action": "s3:GetBucketAcl",
+      "Resource": "arn:aws:s3:::my-cloudtrail-test-bucket"
+    },
+    {
+      "Sid": "AWSCloudTrailWrite",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::my-cloudtrail-test-bucket/AWSLogs/ACCOUNT-ID/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+      }
+    }
+  ]
+}
+----
+
+==== Set environment variables
+
+[source,shell]
+----
+export AWS_ACCESS_KEY=<your-access-key-id>
+export AWS_SECRET_KEY=<your-secret-access-key>
+export CLOUDTRAIL_REGION=us-east-1
+export AWS_CLOUDTRAIL_S3_BUCKET=<your-existing-bucket-name>
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+----
+
+==== Run the tests
+
+[source,shell]
+----
+mvn clean test -pl integration-test-groups/aws2/aws-cloudtrail
+----
+
+NOTE: The tests create and delete a trail named `cq-test-trail`. The S3 bucket is not created or deleted by the tests, so you must create it beforehand and clean it up manually when finished.
