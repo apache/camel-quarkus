@@ -119,6 +119,13 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
+      - name: Setup Maven Cache
+        if: steps.init.outputs.run-checks == 'true'
+        uses: ./.github/actions/setup-maven-cache
+        with:
+          maven-properties: |
+            jira-rest-client.version
+            quarkiverse-cxf.version
       - name: Pre build checks
         id: pre-build-checks
         run: |
@@ -157,7 +164,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
-      alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
+      cache-key: ${{ steps.maven-cache.outputs.cache-key }}
     env:
       MAVEN_OPTS: -Xmx4600m
     steps:
@@ -190,6 +197,9 @@ jobs:
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
+      - name: Setup Maven Cache
+        id: maven-cache
+        uses: ./.github/actions/setup-maven-cache
       - name: Update extension metadata
         run: |
           ./mvnw -N cq:update-quarkus-metadata ${CQ_MAVEN_ARGS}
@@ -215,23 +225,17 @@ jobs:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
           retention-days: 1
+      - name: Save Maven Cache
+        uses: ./.github/actions/setup-maven-cache
+        if: always()
+        with:
+          action: save
+          cache-key: ${{ steps.maven-cache.outputs.cache-key }}
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
           echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
-      - name: Setup Alternate JVM Matrix
-        id: set-alternate-jvm-matrix
-        shell: bash
-        run: |
-          cd integration-tests
-          mvn help:evaluate -Dexpression=project.modules -N -q -DforceStdout | sed -e 's/<[^>]*>//g' -e 's/^[[:space:]]*//' -e '/^$/d' > ${{ runner.temp }}/itest-modules.txt
-          MODULE_COUNT=$(wc -l < ${{ runner.temp }}/itest-modules.txt)
-          GROUP1_COUNT=$((MODULE_COUNT / 2))
-          GROUP2_COUNT=$((MODULE_COUNT - GROUP1_COUNT))
-          GROUP1_MODULES=$(head -n $GROUP1_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
-          GROUP2_MODULES=$(tail -n $GROUP2_COUNT ${{ runner.temp }}/itest-modules.txt | tr '\n' ',' | sed 's/,$//')
-          echo "alternate-jvm-matrix={'include': [{'name': 'group-01', 'modules': '${GROUP1_MODULES}'},{'name': 'group-02', 'modules': '${GROUP2_MODULES}'}]}" >> $GITHUB_OUTPUT
       - name: Setup Examples Matrix
         id: set-examples-matrix
         run: |
@@ -267,18 +271,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
@@ -343,18 +340,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -435,18 +425,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
@@ -459,58 +442,6 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: integration-tests-jvm
-
-  integration-tests-alternative-jdk:
-    name: Integration Tests Alternative JDK 21 ${{matrix.name}}
-    runs-on: ubuntu-latest
-    needs: initial-mvn-install
-    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.initial-mvn-install.outputs.alternate-jvm-matrix) }}
-    env:
-      MAVEN_OPTS: -Xmx3000m
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
-      - name: Reclaim Disk Space
-        run: .github/reclaim-disk-space.sh
-      - name: Set up JDK 21
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
-      - name: cd integration-tests && mvn clean verify
-        shell: bash
-        env:
-          TEST_MODULES: ${{matrix.modules}}
-        run: |
-          cd integration-tests
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -pl "${TEST_MODULES// /,}" \
-            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
-            --fail-at-end \
-            clean verify
-      - name: Report test failures
-        uses: ./.github/actions/test-summary-report
-        if: ${{ failure() }}
-        with:
-          test-report-xml-base-dir: integration-tests
 
   integration-tests-alternative-platform:
     runs-on: ${{ matrix.os }}
@@ -533,27 +464,16 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          mkdir "D:\\temp"
-          mkdir "D:\\maven-repo"
-          tar -xzf ../maven-repo.tgz -C "D:\\maven-repo"
-          rm -f ../maven-repo.tgz
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: cd integration-tests && mvn clean verify
         shell: bash
-        env:
-          TEMP: D:\\temp
-          TMP: D:\\temp
-          MAVEN_REPO_LOCAL: D:\\maven-repo\.m2\repository
         run: |
           cd integration-tests
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -Dmaven.repo.local='${{ env.MAVEN_REPO_LOCAL }}' \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
@@ -579,18 +499,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
         with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
+          cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
+          download-maven-repo: 'true'
       - name: set CQ_VERSION
         run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
       - name: clone and verify examples

@@ -82,10 +82,19 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+    - name: Setup Maven Cache
+      id: maven-cache
+      uses: ./.github/actions/setup-maven-cache
     - name: mvn validate
       run: |
         ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -fae \
           -DskipTests \
           -Pcheck-format \
           clean validate
+    - name: Save Maven Cache
+      uses: ./.github/actions/setup-maven-cache
+      if: always()
+      with:
+        action: save
+        cache-key: ${{ steps.maven-cache.outputs.cache-key }}
 

@@ -47,6 +47,12 @@ jobs:
           java-version: '17'
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Setup Maven Cache
+        uses: ./.github/actions/setup-maven-cache
+        with:
+          maven-properties: |
+            jira-rest-client.version
+            quarkiverse-cxf.version
       - name: Set Build Info
         run: |
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
