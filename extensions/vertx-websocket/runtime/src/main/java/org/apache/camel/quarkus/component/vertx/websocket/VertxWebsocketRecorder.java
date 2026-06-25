@@ -30,7 +30,6 @@ import io.quarkus.vertx.http.runtime.CertificateConfig;
 import io.quarkus.vertx.http.runtime.ServerSslConfig;
 import io.quarkus.vertx.http.runtime.VertxHttpConfig;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.WebSocketClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
 import io.vertx.ext.web.Router;

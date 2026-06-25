@@ -7,15 +7,15 @@
 :cq-artifact-id: camel-quarkus-reactive-executor
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Reactive Executor for camel-core using Vert.x
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 0.3.0
 :cq-native-since: 0.3.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##0.3.0## [.badge-key]##Native since##[.badge-supported]##0.3.0##
+[.badge-key]##JVM since##[.badge-supported]##0.3.0## [.badge-key]##Native since##[.badge-supported]##0.3.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Reactive Executor for camel-core using Vert.x

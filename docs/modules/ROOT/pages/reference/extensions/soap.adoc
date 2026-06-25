@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Marshal Java objects to SOAP messages and back.
+:cq-description: Marshal Java objects to SOAP messages and back
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Marshal Java objects to SOAP messages and back.
+Marshal Java objects to SOAP messages and back
 
 [id="extensions-soap-whats-inside"]
 == What's inside

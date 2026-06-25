@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Compress and decompress streams using LZF deflate algorithm.
+:cq-description: Compress and decompress streams using LZF deflate algorithm
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Compress and decompress streams using LZF deflate algorithm.
+Compress and decompress streams using LZF deflate algorithm
 
 [id="extensions-lzf-whats-inside"]
 == What's inside

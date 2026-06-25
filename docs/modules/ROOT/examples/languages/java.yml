@@ -9,5 +9,5 @@ cqJvmSince: 2.0.0
 cqNativeSince: 3.2.0
 cqCamelPartName: java
 cqCamelPartTitle: Java
-cqCamelPartDescription: Evaluates a Java (Java compiled once at runtime) expression.
+cqCamelPartDescription: Evaluates a Java (Java compiled once at runtime) expression
 cqExtensionPageTitle: jOOR

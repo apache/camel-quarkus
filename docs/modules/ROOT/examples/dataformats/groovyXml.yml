@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 3.2.0
 cqCamelPartName: groovyXml
 cqCamelPartTitle: Groovy XML
-cqCamelPartDescription: Transform between XML and Groovy Node (Map structure) objects.
+cqCamelPartDescription: Transform between XML and Groovy Node (Map structure) objects
 cqExtensionPageTitle: Groovy

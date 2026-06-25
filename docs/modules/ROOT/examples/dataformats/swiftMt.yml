@@ -9,5 +9,5 @@ cqJvmSince: 3.2.0
 cqNativeSince: 3.2.0
 cqCamelPartName: swiftMt
 cqCamelPartTitle: SWIFT MT
-cqCamelPartDescription: Encode and decode SWIFT MT messages.
+cqCamelPartDescription: Encode and decode SWIFT MT messages
 cqExtensionPageTitle: SWIFT

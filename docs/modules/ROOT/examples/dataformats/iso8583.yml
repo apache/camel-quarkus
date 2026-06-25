@@ -9,5 +9,5 @@ cqJvmSince: 3.26.0
 cqNativeSince: 3.26.0
 cqCamelPartName: iso8583
 cqCamelPartTitle: ISO-8583
-cqCamelPartDescription: Create, edit and read ISO-8583 messages.
+cqCamelPartDescription: Create, edit and read ISO-8583 messages
 cqExtensionPageTitle: ISO-8583

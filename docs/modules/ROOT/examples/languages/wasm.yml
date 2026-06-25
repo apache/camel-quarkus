@@ -9,5 +9,5 @@ cqJvmSince: 3.10.0
 cqNativeSince: 3.10.0
 cqCamelPartName: wasm
 cqCamelPartTitle: Wasm
-cqCamelPartDescription: Call a wasm (web assembly) function.
+cqCamelPartDescription: Call a wasm (web assembly) function
 cqExtensionPageTitle: Wasm

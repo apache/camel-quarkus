@@ -9,5 +9,5 @@ cqJvmSince: 0.3.0
 cqNativeSince: 0.3.0
 cqCamelPartName: tarFile
 cqCamelPartTitle: Tar File
-cqCamelPartDescription: Archive files into tarballs or extract files from tarballs.
+cqCamelPartDescription: Archive files into tarballs or extract files from tarballs
 cqExtensionPageTitle: Tar File
