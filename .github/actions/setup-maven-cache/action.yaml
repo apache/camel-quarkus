@@ -93,8 +93,8 @@ runs:
       shell: bash
       run: |
         df -h /
-        tar -xzf ../maven-repo.tgz -C ~
-        rm -f ../maven-repo.tgz
+        tar -I 'zstd -d' -xf ../maven-repo.tar.zst -C ~
+        rm -f ../maven-repo.tar.zst
         df -h /
     - name: Save Maven Cache
       if: ${{ inputs.action == 'save' }}
