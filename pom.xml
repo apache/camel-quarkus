@@ -254,6 +254,7 @@
         <fhir.container.image.base>mirror.gcr.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v8.6.0-1</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
+        <floci.container.image>mirror.gcr.io/floci/floci:1.5.28</floci.container.image>
         <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:551.0.0-emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
         <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.1.8</greenmail.container.image>
@@ -264,7 +265,6 @@
         <kafka.container.image>quay.io/strimzi-test-container/test-container:0.114.0-kafka-4.1.0</kafka.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:${keycloak.version}</keycloak.container.image>
         <kudu.container.image>mirror.gcr.io/apache/kudu:1.18.0-ubuntu</kudu.container.image>
-        <localstack.container.image>mirror.gcr.io/localstack/localstack:4.13.0</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <mariadb.container.image>mirror.gcr.io/mariadb:12.2-ubi</mariadb.container.image>
         <milvus.container.image>mirror.gcr.io/milvusdb/milvus:v2.3.9</milvus.container.image>

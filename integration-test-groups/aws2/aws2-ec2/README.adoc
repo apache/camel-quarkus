@@ -1,6 +1,6 @@
 = AWS EC2 tests
 
-By default, the integration tests run against a LocalStack container.
+By default, the integration tests run against a Floci container.
 
 == Running against real AWS
 

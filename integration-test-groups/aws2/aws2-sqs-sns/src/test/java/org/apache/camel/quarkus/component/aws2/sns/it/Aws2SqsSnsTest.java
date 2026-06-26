@@ -23,7 +23,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
+import org.apache.camel.quarkus.test.support.aws2.Aws2MockBackend;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -46,8 +46,8 @@ class Aws2SqsSnsTest extends BaseAWs2TestSupport {
         return ConfigProvider.getConfig().getValue("aws-sqs.queue-name", String.class);
     }
 
-    @Aws2LocalStack
-    private boolean localStack;
+    @Aws2MockBackend
+    private boolean mockBackend;
 
     @AfterEach
     public void purgeQueueAndWait() {
@@ -56,7 +56,7 @@ class Aws2SqsSnsTest extends BaseAWs2TestSupport {
         // purge takes up to 60 seconds
         // all messages delivered within those 60 seconds might get deleted
         try {
-            if (!localStack) {
+            if (!mockBackend) {
                 TimeUnit.SECONDS.sleep(60);
             }
         } catch (InterruptedException ignored) {

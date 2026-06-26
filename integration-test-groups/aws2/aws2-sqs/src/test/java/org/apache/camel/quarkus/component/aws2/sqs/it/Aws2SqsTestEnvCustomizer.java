@@ -33,12 +33,12 @@ import software.amazon.awssdk.services.sqs.model.QueueDoesNotExistException;
 public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.SQS, Service.KMS };
     }
 
     @Override
-    public Service[] exportCredentialsForLocalstackServices() {
+    public Service[] exportCredentialsForMockServices() {
         return new Service[] { Service.SQS };
     }
 
@@ -97,7 +97,7 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
                             .build())
                     .queueUrl();
 
-            if (envContext.isLocalStack()) {
+            if (envContext.isMockBackend()) {
                 final KmsClient kmsClient = envContext.client(Service.KMS, KmsClient::builder);
                 final String kmsKeyId = kmsClient
                         .createKey(CreateKeyRequest.builder().description("camel-quarkus-sqs-test").build())

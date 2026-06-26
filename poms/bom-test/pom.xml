@@ -118,7 +118,7 @@
                         <groupId>org.apache.camel.quarkus</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>localstack</artifactId>
+                        <artifactId>testcontainers</artifactId>
                         <groupId>org.testcontainers</groupId>
                     </exclusion>
                     <exclusion>

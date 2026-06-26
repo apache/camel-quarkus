@@ -25,17 +25,17 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-# Determine the LocalStack endpoint dynamically
+# Determine the mock backend endpoint dynamically
 ENDPOINT_URL = None
 
-if os.environ.get('LOCALSTACK_HOSTNAME'):
-    # Default LocalStack port is 4566
-    ENDPOINT_URL = f"http://{os.environ.get('LOCALSTACK_HOSTNAME')}:{os.environ.get('EDGE_PORT', 4566)}"
+if os.environ.get('AWS_ENDPOINT_URL'):
+    # Floci injects AWS_ENDPOINT_URL (standard AWS SDK convention)
+    ENDPOINT_URL = os.environ.get('AWS_ENDPOINT_URL')
 
 # Initialize Secrets Manager client
 secrets_manager = boto3.client(
     'secretsmanager',
-    region_name=os.environ.get('AWS_REGION', 'us-east-1'), # Default LocalStack region is 'us-east-1'
+    region_name=os.environ.get('AWS_REGION', 'us-east-1'),
     endpoint_url=ENDPOINT_URL
 )
 
@@ -121,18 +121,18 @@ def create_secret(arn, token, current_version_id):
 
 def set_secret(arn, token):
     """(Step 2) Updates the underlying service/database. (Skipped for simulation)"""
-    logger.info("Executing setSecret step. (Skipped for simple LocalStack test)")
+    logger.info("Executing setSecret step. (Skipped for simple mock backend test)")
     return {}
 
 def test_secret(arn, token):
     """(Step 3) Validates the new secret. (Skipped for simulation)"""
-    logger.info("Executing testSecret step. (Skipped for simple LocalStack test)")
+    logger.info("Executing testSecret step. (Skipped for simple mock backend test)")
     return {}
 
 def finish_secret(arn, token, current_version_id):
     """
     (Step 4) Moves the AWSCURRENT label from the old version to the PENDING version.
-    Requires explicit removal of AWSCURRENT from the old ID for LocalStack/Moto.
+    Requires explicit removal of AWSCURRENT from the old ID for mock backends.
     """
     logger.info("Executing finishSecret step.")
 

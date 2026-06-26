@@ -41,7 +41,7 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.DYNAMODB, Service.DYNAMODB_STREAMS };
     }
 

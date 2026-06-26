@@ -31,8 +31,8 @@ import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 public class AwsSecretsManagerTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
-        return new Service[] { Service.SECRETSMANAGER, Service.SQS };
+    public Service[] awsServices() {
+        return new Service[] { Service.SECRETSMANAGER, Service.SQS, Service.LAMBDA };
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AwsSecretsManagerTestEnvCustomizer implements Aws2TestEnvCustomizer
                 + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
 
         //configure endpoint override for properties function
-        if (envContext.isLocalStack()) {
+        if (envContext.isMockBackend()) {
             envContext.property("camel.vault.aws.override-endpoint",
                     envContext.getProperties().get("camel.component.aws-secrets-manager.override-endpoint"));
             envContext.property("camel.vault.aws.uri-endpoint-override",

@@ -1,6 +1,6 @@
 = AWS IAM tests
 
-By default the tests run against a LocalStack container via the `Aws2TestEnvCustomizer` SPI.
+By default the tests run against a Floci container via the `Aws2TestEnvCustomizer` SPI.
 
 == Running against real AWS
 

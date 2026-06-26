@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.test.support.aws2;
 
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +31,15 @@ import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.BindMode;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.localstack.LocalStackContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.core.SdkClient;
 
 public final class Aws2TestResource implements QuarkusTestResourceLifecycleManager {
+    static final int FLOCI_PORT = 4566;
     private static final Logger LOG = LoggerFactory.getLogger(Aws2TestResource.class);
 
     private Aws2TestEnvContext envContext;
@@ -63,37 +68,47 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
 
-            String localstackLogLevel = System.getProperty("localstack.log.level", System.getenv("LOCALSTACK_LOG_LEVEL"));
-            if (localstackLogLevel == null) {
-                localstackLogLevel = "info";
-            }
-
-            final String[] services = customizers.stream()
-                    .map(Aws2TestEnvCustomizer::localstackServices)
-                    .flatMap(Stream::of)
-                    .distinct()
-                    .map(Service::getName)
-                    .toArray(String[]::new);
-
             final Service[] exportCredentialsServices = customizers.stream()
-                    .map(Aws2TestEnvCustomizer::exportCredentialsForLocalstackServices)
+                    .map(Aws2TestEnvCustomizer::exportCredentialsForMockServices)
                     .flatMap(Stream::of)
                     .distinct()
                     .toArray(Service[]::new);
 
-            DockerImageName imageName = DockerImageName
-                    .parse(ConfigProvider.getConfig().getValue("localstack.container.image", String.class))
-                    .asCompatibleSubstituteFor("localstack/localstack");
-            LocalStackContainer localstack = new LocalStackContainer(imageName)
-                    .withServices(services);
-            localstack.withEnv("LS_LOG", localstackLogLevel);
-            localstack.withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId"); //has to be longer then `test`, to work on FIPS systems
-            localstack.withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId");
-            localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
-            localstack.start();
+            boolean needsDockerSocket = customizers.stream()
+                    .map(Aws2TestEnvCustomizer::awsServices)
+                    .flatMap(Stream::of)
+                    .anyMatch(s -> s == Service.LAMBDA);
 
-            envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
-                    useDefaultCredentialsProvider, Optional.of(localstack), exportCredentialsServices);
+            DockerImageName imageName = DockerImageName
+                    .parse(ConfigProvider.getConfig().getValue("floci.container.image", String.class));
+
+            GenericContainer<?> floci = new GenericContainer<>(imageName)
+                    .withExposedPorts(FLOCI_PORT)
+                    .waitingFor(Wait.forHttp("/_floci/health").forPort(FLOCI_PORT))
+                    .withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId") //has to be longer then `test`, to work on FIPS systems
+                    .withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId")
+                    .withLogConsumer(new Slf4jLogConsumer(LOG));
+
+            if (needsDockerSocket) {
+                Path dockerSocket = Path.of("/var/run/docker.sock");
+                if (Files.exists(dockerSocket)) {
+                    floci.withFileSystemBind(dockerSocket.toString(), "/var/run/docker.sock", BindMode.READ_WRITE)
+                            .withPrivilegedMode(true);
+                } else {
+                    LOG.warn("Docker socket not found at {}. Lambda container execution will not be available.",
+                            dockerSocket);
+                }
+            }
+
+            String logLevel = System.getProperty("floci.log.level", System.getenv("FLOCI_LOG_LEVEL"));
+            if (logLevel != null) {
+                floci.withEnv("QUARKUS_LOG_LEVEL", logLevel);
+            }
+
+            floci.start();
+
+            envContext = new Aws2TestEnvContext(getAccessKey(), getSecretKey(), getRegion(),
+                    useDefaultCredentialsProvider, Optional.of(floci), exportCredentialsServices);
 
         } else {
             if (!startMockBackend && !realCredentialsProvided && !useDefaultCredentialsProvider) {
@@ -135,11 +150,11 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                         throw new RuntimeException("Could not set " + c.getName() + "." + f.getName(), e);
                     }
                 }
-                Aws2LocalStack localStackAnnot = f.getAnnotation(Aws2LocalStack.class);
-                if (localStackAnnot != null) {
+                Aws2MockBackend mockBackendAnnot = f.getAnnotation(Aws2MockBackend.class);
+                if (mockBackendAnnot != null) {
                     f.setAccessible(true);
                     try {
-                        f.set(testInstance, envContext.isLocalStack());
+                        f.set(testInstance, envContext.isMockBackend());
                     } catch (IllegalArgumentException | IllegalAccessException e) {
                         throw new RuntimeException("Could not set " + c.getName() + "." + f.getName(), e);
                     }
@@ -147,6 +162,18 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             }
             c = c.getSuperclass();
         }
+    }
+
+    private String getAccessKey() {
+        return "testAccessKeyId";
+    }
+
+    private String getSecretKey() {
+        return "testSecretKeyId";
+    }
+
+    private String getRegion() {
+        return "us-east-1";
     }
 
 }

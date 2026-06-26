@@ -35,6 +35,7 @@ import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.camel.quarkus.test.support.aws2.DockerSocketAvailable;
 import org.apache.camel.quarkus.test.support.aws2.Service;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -61,10 +62,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTestResource(Aws2TestResource.class)
 public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
 
-    public static final String name2ToCreate = "CQTestSecret2-operation-2-" + System.currentTimeMillis();
     private static final Logger log = Logger.getLogger(AwsSecretsManagerTest.class);
     private static String lambdaArn;
     private static String lambdaName;
+    private String name2ToCreate;
 
     @Aws2Client(Service.LAMBDA)
     LambdaClient lambdaClient;
@@ -75,7 +76,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
         super("/aws-secrets-manager");
     }
 
-    public void setupLambdaFunction() throws IOException {
+    public void setupLambdaFunction(String secretName) throws IOException {
         String lambdaHandler = "rotation_handler.lambda_handler";
         String awsAccountId = "000000000000";
         if (!MockBackendUtils.startMockBackend(false)) {
@@ -113,7 +114,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                         .action("lambda:InvokeFunction")
                         .principal("secretsmanager.amazonaws.com")
                         .sourceArn("arn:aws:secretsmanager:%s:%s:secret:%s*"
-                                .formatted(System.getenv("AWS_REGION"), awsAccountId, AwsSecretsManagerTest.name2ToCreate))
+                                .formatted(System.getenv("AWS_REGION"), awsAccountId, secretName))
                         .build();
 
                 lambdaClient.addPermission(permissionRequest);
@@ -128,14 +129,17 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
     }
 
     @Test
+    @EnabledIf(DockerSocketAvailable.class)
     public void testOperations() throws IOException {
-        setupLambdaFunction();
-
         final String secretToCreate = "loadFirst";
         final String secret2ToCreate = "changeit2";
         final String secretToUpdate = "loadSecond";
         final String nameToCreate = "CQTestSecret-operation-1-" + System.currentTimeMillis();
+        name2ToCreate = "CQTestSecret2-operation-2-" + System.currentTimeMillis();
         final String description2ToCreate = "description-" + name2ToCreate;
+
+        setupLambdaFunction(name2ToCreate);
+
         String createdArn = null;
         String createdArn2 = null;
 
@@ -165,6 +169,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             Awaitility.await().pollInterval(5, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(
                     () -> {
                         Map<String, Boolean> secrets = AwsSecretsManagerUtil.listSecrets(null);
+
                         // contains both created secrets
                         assertTrue(secrets.containsKey(finalCreatedArn));
                         assertTrue(secrets.containsKey(finalCreatedArn2));
@@ -206,9 +211,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
 
             String rotateOperation = SecretsManagerOperations.rotateSecret.toString();
             if (MockBackendUtils.startMockBackend(false)) {
-                // rotate secret2 with rotation rules set to fix issue with LocalStack
-                // on real AWS use the default Camel rotateSecret operation without POJO involved
-                // this workaround is only for older LocalStack - it is not needed in 4.12.0 (probably fixed via https://github.com/localstack/localstack/pull/12391/)
+                // rotate secret2 with rotation rules set to work around mock backend limitations
                 rotateOperation = "rotateSecretWithRotationRulesSet";
             }
 
@@ -292,7 +295,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
                         assertTrue(secrets.containsKey(finalCreatedArn2));
                     });
 
-            // operation replicateSecretToRegions fails on local stack with 500
+            // operation replicateSecretToRegions fails on mock backend with 500
             // There is no possibility to delete secret in different region via camel
 
             // find different region then the actually used
@@ -307,7 +310,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             // .body(is("true"));
         } finally {
             // we must clean created secrets
-            // also on localstack, if not the second run of operations would fail
+            // also on mock backend, if not the second run of operations would fail
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn2);
 
@@ -326,7 +329,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
             assertNotNull(createdArn);
         } finally {
             // we must clean created secrets
-            // also on localstack, if not the second run of operations would fail
+            // also on mock backend, if not the second run of operations would fail
             AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
         }
     }
@@ -365,7 +368,7 @@ public class AwsSecretsManagerTest extends BaseAWs2TestSupport {
         } finally {
             if (!MockBackendUtils.startMockBackend(false)) {
                 // we must clean created secrets
-                // skip cleaning on localstack
+                // skip cleaning on mock backend
                 AwsSecretsManagerUtil.deleteSecretImmediately(createdArn);
             }
         }

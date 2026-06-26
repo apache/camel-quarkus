@@ -37,7 +37,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 @TestProfile(ContextReloadTestProfile.class)
-// disabled on Localstack due to https://docs.localstack.cloud/references/coverage/coverage_cloudtrail/#lookupevents
+// disabled on mock backend due to lack of CloudTrail lookupEvents support
 @EnabledIf(MockBackendDisabled.class)
 public class CamelContextRefreshOnSecretRefreshTest {
     @Test

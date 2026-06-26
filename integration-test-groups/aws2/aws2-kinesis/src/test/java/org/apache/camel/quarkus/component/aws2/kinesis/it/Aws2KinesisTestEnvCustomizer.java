@@ -66,12 +66,12 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
     private static final Logger LOG = Logger.getLogger(Aws2KinesisTestEnvCustomizer.class);
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.KINESIS, Service.FIREHOSE, Service.S3, Service.IAM, Service.STS };
     }
 
     @Override
-    public Service[] exportCredentialsForLocalstackServices() {
+    public Service[] exportCredentialsForMockServices() {
         return new Service[] { Service.KINESIS, Service.FIREHOSE };
     }
 

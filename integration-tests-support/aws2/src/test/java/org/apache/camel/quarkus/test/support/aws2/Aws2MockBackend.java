@@ -14,15 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2.ses.it;
+package org.apache.camel.quarkus.test.support.aws2;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/* Disabled on mock backend because it does not send e-mails which we do assume in our tests */
-@EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
-@EnabledIfEnvironmentVariable(named = "MAILSLURP_API_KEY", matches = "[a-zA-Z0-9]+")
-@QuarkusIntegrationTest
-class Aws2SesIT extends Aws2SesTest {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Aws2MockBackend {
 
 }

@@ -34,7 +34,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
+import org.apache.camel.quarkus.test.support.aws2.Aws2MockBackend;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -56,8 +56,8 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
 
     private static final Logger LOG = Logger.getLogger(Aws2SqsTest.class);
 
-    @Aws2LocalStack
-    private boolean localStack;
+    @Aws2MockBackend
+    private boolean mockBackend;
 
     public Aws2SqsTest() {
         super("/aws2-sqs");
@@ -95,7 +95,7 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
         // purge takes up to 60 seconds
         // all messages delivered within those 60 seconds might get deleted
         try {
-            if (!localStack) {
+            if (!mockBackend) {
                 TimeUnit.SECONDS.sleep(60);
             }
         } catch (InterruptedException ignored) {
@@ -294,7 +294,7 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
 
     @Test
     void sqsKmsEncryption() {
-        Assumptions.assumeTrue(localStack, "KMS test only runs on LocalStack");
+        Assumptions.assumeTrue(mockBackend, "KMS test only runs on mock backend");
 
         final String kmsQueueName = "camel-quarkus-kms-"
                 + RandomStringUtils.secure().nextAlphanumeric(10).toLowerCase(Locale.ROOT);

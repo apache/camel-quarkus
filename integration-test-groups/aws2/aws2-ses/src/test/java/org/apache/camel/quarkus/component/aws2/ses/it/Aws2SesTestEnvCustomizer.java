@@ -23,7 +23,7 @@ import org.apache.camel.quarkus.test.support.aws2.Service;
 public class Aws2SesTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.SES };
     }
 
