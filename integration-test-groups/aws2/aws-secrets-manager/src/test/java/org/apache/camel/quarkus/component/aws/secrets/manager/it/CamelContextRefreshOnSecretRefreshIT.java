@@ -21,7 +21,7 @@ import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
 
 @QuarkusIntegrationTest
-// disabled on Localstack due to https://docs.localstack.cloud/references/coverage/coverage_cloudtrail/#lookupevents
+// disabled on mock backend due to lack of CloudTrail lookupEvents support
 @EnabledIf(MockBackendDisabled.class)
 class CamelContextRefreshOnSecretRefreshIT extends CamelContextRefreshOnSecretRefreshTest {
 

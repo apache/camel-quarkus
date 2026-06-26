@@ -1,8 +1,8 @@
 = AWS 2 isolated integration tests
 
-=== Localstack
+=== Floci
 
-The tests able to run against Localstack are run against Localstack by default.
+The tests able to run against Floci are run against Floci by default.
 
 The SES test is ignored unless `MAILSLURP_API_KEY` variable is set.
 

@@ -37,8 +37,6 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -47,7 +45,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DisabledOnOs(value = OS.MAC, disabledReason = "Requires /var/run/docker.sock mount")
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2LambdaTest extends BaseAWs2TestSupport {

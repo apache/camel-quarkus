@@ -39,12 +39,12 @@ import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
 public class Aws2LambdaTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.LAMBDA, Service.IAM, Service.SQS };
     }
 
     @Override
-    public Service[] exportCredentialsForLocalstackServices() {
+    public Service[] exportCredentialsForMockServices() {
         return new Service[] { Service.LAMBDA };
     }
 

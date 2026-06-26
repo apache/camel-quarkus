@@ -16,13 +16,13 @@
  */
 package org.apache.camel.quarkus.test.support.aws2;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.function.BooleanSupplier;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Aws2LocalStack {
-
+public class DockerSocketAvailable implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return Files.exists(Path.of("/var/run/docker.sock"));
+    }
 }

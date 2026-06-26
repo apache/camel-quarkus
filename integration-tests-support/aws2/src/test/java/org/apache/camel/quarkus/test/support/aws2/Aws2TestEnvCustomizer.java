@@ -23,15 +23,18 @@ package org.apache.camel.quarkus.test.support.aws2;
 public interface Aws2TestEnvCustomizer {
 
     /**
-     * @return an array of services the Localstack container should expose
+     * @return an array of services the mock backend (Floci) container should provide
      */
-    Service[] localstackServices();
+    default Service[] awsServices() {
+        return new Service[0];
+    }
 
     /**
-     * @return an array of Localstack services for which {@link Aws2TestEnvContext} should export credentials properties
+     * @return an array of mock backend services for which {@link Aws2TestEnvContext} should export credentials
+     *         properties
      */
-    default Service[] exportCredentialsForLocalstackServices() {
-        return localstackServices();
+    default Service[] exportCredentialsForMockServices() {
+        return awsServices();
     }
 
     /**

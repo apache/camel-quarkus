@@ -42,7 +42,7 @@ import static java.util.Map.entry;
 public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
-    public Service[] localstackServices() {
+    public Service[] awsServices() {
         return new Service[] { Service.SQS, Service.SNS };
     }
 

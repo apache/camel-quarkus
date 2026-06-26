@@ -2,7 +2,7 @@
 
 By default the tests run in WireMock playback mode using pre-recorded mappings from `src/test/resources/mappings/`.
 
-NOTE: Amazon MSK is not supported by LocalStack community version, so the `Aws2TestEnvCustomizer` SPI (used by other AWS modules to start a LocalStack container) cannot be used here. WireMock is used instead to simulate the MSK API in the default (non-real AWS) test mode.
+NOTE: Amazon MSK is not supported by Floci, so the `Aws2TestEnvCustomizer` SPI (used by other AWS modules to start a Floci container) cannot be used here. WireMock is used instead to simulate the MSK API in the default (non-real AWS) test mode.
 
 == Running against real AWS
 
