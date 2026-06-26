@@ -2741,6 +2741,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-shiro</artifactId>
         <version>4.21.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
