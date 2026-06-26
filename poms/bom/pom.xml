@@ -2861,8 +2861,8 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.omnifaces</groupId>
-                        <artifactId>omnifaces</artifactId>
+                        <groupId>org.apache.shiro</groupId>
+                        <artifactId>shiro-jakarta-ee</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -8183,6 +8183,11 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-tools</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.thrift</groupId>
