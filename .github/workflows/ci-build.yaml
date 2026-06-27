@@ -109,7 +109,7 @@ env:
   # Scalpel configuration (defaults for all jobs; initial-mvn-install overrides SCALPEL_FULL_BUILD_TRIGGERS).
   # Broad extensions-core/** trigger here is intentional: functional-extension-tests uses trim mode,
   # which actively excludes modules from the build, so any extensions-core change should run full tests.
-  SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/**,tooling/maven-plugin/**,.mvn/**"
+  SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/**,.mvn/**,.github/workflows/ci-build.yaml"
   SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=**.adoc,**.md,docs/**,Jenkinsfile*,LICENSE.txt,NOTICE.txt,KEYS,camel-quarkus-sbom/**,.github/*.sh"
   CQ_MAVEN_SKIP_CHECKS: "-Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip"
 
@@ -202,7 +202,7 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx4600m
       SCALPEL_ENABLED: "-Dscalpel.enabled=true"
-      SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/core/**,tooling/maven-plugin/**,.mvn/**"
+      SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/core/**,.mvn/**,.github/workflows/ci-build.yaml"
       SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=docs/**"
     steps:
       - name: Check free space on disk
