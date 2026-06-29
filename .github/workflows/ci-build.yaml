@@ -363,6 +363,12 @@ jobs:
             echo "run-test-framework-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runTestFrameworkTests')" >> $GITHUB_OUTPUT
             echo "run-tooling-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runToolingTests')" >> $GITHUB_OUTPUT
             echo "run-catalog-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runCatalogTests')" >> $GITHUB_OUTPUT
+
+            {
+              echo "### Incremental Native Test Matrix"
+              echo ""
+              echo "$DATA" | jq -r '.nativeTestMatrix.include[] | "**\(.name):** \(.modules | split(",") | map("`\(.)`") | join(", "))"'
+            } >> $GITHUB_STEP_SUMMARY
           else
             echo "Full build will be used"
             echo "run-integration-tests-jvm=true" >> $GITHUB_OUTPUT
