@@ -32,3 +32,7 @@ metadata:
   config:
   - "quarkus.camel.joor"
   status: "deprecated"
+  integrates:
+    - name: "Camel"
+      artifact: "org.apache.camel:camel-base"
+      version: "${camel.version}"
