@@ -302,6 +302,15 @@ public class IncrementalBuildMojo extends AbstractMojo {
         Set<String> affectedTests = extractAffectedTests(report.affectedModules);
         affectedTests.addAll(containerModules.nativeModules);
 
+        if (affectedTests.isEmpty() && isBomDirectlyAffected(report)) {
+            getLog().info(
+                    "BOM directly affected but no test modules identified - falling back to full build for safety");
+            result.put("incrementalBuild", false);
+            result.put("modules", new ArrayList<>());
+            result.put("totalModules", 0);
+            return result;
+        }
+
         result.put("incrementalBuild", true);
         result.put("modules", new ArrayList<>(affectedTests));
         result.put("totalModules", affectedTests.size());
@@ -339,7 +348,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             // Handle regular integration-tests
             if (path != null && path.startsWith(nativeTestsPrefix)) {
                 // Include both DIRECT and DOWNSTREAM - if Scalpel detected it, test it
-                if ("DIRECT".equals(category) || "DOWNSTREAM".equals(category)) {
+                if ("DIRECT".equals(category) || "DOWNSTREAM".equals(category) || "TRANSITIVE".equals(category)) {
                     // Extract test name: integration-tests/box -> box
                     String testName = path.substring(nativeTestsPrefix.length());
                     // Remove any trailing path components
@@ -353,6 +362,17 @@ public class IncrementalBuildMojo extends AbstractMojo {
         }
 
         return affectedTests;
+    }
+
+    private boolean isBomDirectlyAffected(ScalpelReport report) {
+        for (Map<String, Object> module : report.affectedModules) {
+            String path = (String) module.get("path");
+            String category = (String) module.get("category");
+            if (path != null && path.startsWith("poms/bom") && "DIRECT".equals(category)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static class ContainerAffectedModules {
