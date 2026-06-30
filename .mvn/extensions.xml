@@ -3,6 +3,6 @@
     <extension>
         <groupId>eu.maveniverse.maven.scalpel</groupId>
         <artifactId>extension</artifactId>
-        <version>0.3.5</version>
+        <version>0.3.7</version>
     </extension>
 </extensions>
