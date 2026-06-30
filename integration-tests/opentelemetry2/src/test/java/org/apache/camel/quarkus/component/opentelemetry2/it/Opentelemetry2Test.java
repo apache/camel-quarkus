@@ -80,7 +80,7 @@ class Opentelemetry2Test {
                 assertEquals("GET", span.get("http.method"));
                 assertEquals("platform-http:///opentelemetry2/test/trace?httpMethodRestrict=GET", span.get("camel.uri"));
                 assertTrue(span.get("http.url").endsWith("/opentelemetry2/test/trace/"));
-                assertEquals(SpanKind.INTERNAL.name(), span.get("kind"));
+                assertEquals(SpanKind.SERVER.name(), span.get("kind"));
                 assertEquals(spans.get(i + 1).get("spanId"), span.get("parentId"));
             } else {
                 assertEquals("200", span.get("http.response.status_code"));
@@ -198,8 +198,8 @@ class Opentelemetry2Test {
         assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
         assertEquals(SpanKind.SERVER.name(), spans.get(1).get("kind"));
 
-        assertEquals(SpanKind.INTERNAL.name(), spans.get(0).get("kind"));
-        assertEquals(SpanKind.INTERNAL.name(), spans.get(2).get("kind"));
-        assertEquals(SpanKind.INTERNAL.name(), spans.get(3).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(0).get("kind"));
+        assertEquals(SpanKind.CLIENT.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
     }
 }
