@@ -18,6 +18,6 @@ package org.apache.camel.quarkus.component.fory.it;
 
 import io.quarkiverse.fory.ForySerialization;
 
-@ForySerialization
+@ForySerialization(serializer = PojoSerializer.class)
 public record Pojo(int f1, String f2) {
 }
