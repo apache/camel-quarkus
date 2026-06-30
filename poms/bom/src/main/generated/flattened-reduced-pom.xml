@@ -7959,6 +7959,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-transforms</artifactId>
+        <version>4.2.1</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.kudu</groupId>
         <artifactId>kudu-client</artifactId>
         <version>1.18.1</version>
@@ -9686,11 +9691,6 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-file</artifactId>
-        <version>4.1.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>connect-transforms</artifactId>
         <version>4.1.2</version>
       </dependency>
       <dependency>
