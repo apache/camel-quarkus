@@ -57,6 +57,8 @@ updates:
       - dependency-name: "org.zeroturnaround:zt-exec"
       - dependency-name: "com.microsoft.graph:microsoft-graph"
       - dependency-name: "com.microsoft.graph:microsoft-graph-auth"
+      # Maven extensions
+      - dependency-name: "eu.maveniverse.maven.scalpel:extension"
       # Maven plugins
       - dependency-name: "*:*-plugin"
     ignore:
