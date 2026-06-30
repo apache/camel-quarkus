@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-geocoder</artifactId>
     <name>Camel Quarkus :: Geocoder :: Runtime</name>
-    <description>Find geocodes (latitude and longitude) for a given address or the other way round.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

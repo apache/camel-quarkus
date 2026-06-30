@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-opensearch</artifactId>
     <name>Camel Quarkus :: OpenSearch :: Runtime</name>
-    <description>Send requests to OpenSearch via Java Client API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.8.0</camel.quarkus.jvmSince>

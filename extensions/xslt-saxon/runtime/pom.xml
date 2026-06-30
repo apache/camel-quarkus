@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-xslt-saxon</artifactId>
     <name>Camel Quarkus :: XSLT Saxon :: Runtime</name>
-    <description>Transform XML payloads using an XSLT template using Saxon.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-splunk</artifactId>
     <name>Camel Quarkus :: Splunk :: Runtime</name>
-    <description>Publish or search for events in Splunk.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.8.0</camel.quarkus.jvmSince>

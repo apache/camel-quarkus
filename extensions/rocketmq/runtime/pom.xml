@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-rocketmq</artifactId>
     <name>Camel Quarkus :: RocketMQ :: Runtime</name>
-    <description>Send and receive messages from RocketMQ cluster.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.36.0</camel.quarkus.jvmSince>
@@ -110,7 +109,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

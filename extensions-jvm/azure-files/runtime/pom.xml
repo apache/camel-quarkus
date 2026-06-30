@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-azure-files</artifactId>
     <name>Camel Quarkus :: Azure Files :: Runtime</name>
-    <description>Send and receive files to Azure storage file share</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.22.0</camel.quarkus.jvmSince>
@@ -74,7 +73,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

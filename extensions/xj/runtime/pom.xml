@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-xj</artifactId>
     <name>Camel Quarkus :: XJ :: Runtime</name>
-    <description>Transform JSON and XML message using a XSLT.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

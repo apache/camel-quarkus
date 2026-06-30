@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-jt400</artifactId>
     <name>Camel Quarkus :: JT400 :: Runtime</name>
-    <description>Exchanges messages with an IBM i system using data queues, message queues, or program call. IBM i is the replacement for AS/400 and iSeries servers.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

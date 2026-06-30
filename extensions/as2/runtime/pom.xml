@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-as2</artifactId>
     <name>Camel Quarkus :: AS2 :: Runtime</name>
-    <description>Transfer data securely and reliably using the AS2 protocol (RFC4130).</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

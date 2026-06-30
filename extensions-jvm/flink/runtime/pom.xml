@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-flink</artifactId>
     <name>Camel Quarkus :: Flink :: Runtime</name>
-    <description>Send DataSet jobs to an Apache Flink cluster.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

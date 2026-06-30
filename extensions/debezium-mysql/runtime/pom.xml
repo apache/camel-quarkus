@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-debezium-mysql</artifactId>
     <name>Camel Quarkus :: Debezium MySQL Connector :: Runtime</name>
-    <description>Capture changes from a MySQL database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-freemarker</artifactId>
     <name>Camel Quarkus :: Freemarker :: Runtime</name>
-    <description>Transform messages using FreeMarker templates.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-tika</artifactId>
     <name>Camel Quarkus :: Tika :: Runtime</name>
-    <description>Parse documents and extract metadata and text using Apache Tika.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

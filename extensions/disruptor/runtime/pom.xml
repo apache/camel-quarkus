@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-disruptor</artifactId>
     <name>Camel Quarkus :: Disruptor :: Runtime</name>
-    <description>Provides asynchronous SEDA behavior using LMAX Disruptor.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

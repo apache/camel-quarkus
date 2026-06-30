@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-weather</artifactId>
     <name>Camel Quarkus :: Weather :: Runtime</name>
-    <description>Poll the weather information from Open Weather Map.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

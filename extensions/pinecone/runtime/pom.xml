@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-pinecone</artifactId>
     <name>Camel Quarkus :: Pinecone :: Runtime</name>
-    <description>Perform operations on the Pinecone Vector Database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.12.0</camel.quarkus.jvmSince>

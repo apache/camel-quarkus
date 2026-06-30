@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-aws-secrets-manager</artifactId>
     <name>Camel Quarkus :: AWS Secrets Manager :: Runtime</name>
-    <description>Manage AWS Secrets Manager services using AWS SDK version 2.x.</description>
+    <description>Manage secrets using AWS Secrets Manager using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.0.0</camel.quarkus.jvmSince>

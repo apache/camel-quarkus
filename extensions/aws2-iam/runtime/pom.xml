@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-iam</artifactId>
     <name>Camel Quarkus :: AWS 2 Identity and Access Management (IAM) :: Runtime</name>
+    <description>Manage AWS IAM instances using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

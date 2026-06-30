@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-functions</artifactId>
     <name>Camel Quarkus :: GoogleCloudFunctions :: Runtime</name>
-    <description>Manage and invoke Google Cloud Functions</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.0.0</camel.quarkus.jvmSince>

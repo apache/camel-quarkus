@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-azure-key-vault</artifactId>
     <name>Camel Quarkus :: Azure Key Vault :: Runtime</name>
-    <description>Manage secrets and keys in Azure Key Vault Service</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.10.0</camel.quarkus.jvmSince>

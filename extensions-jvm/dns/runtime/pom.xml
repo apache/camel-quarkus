@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-dns</artifactId>
     <name>Camel Quarkus :: DNS :: Runtime</name>
-    <description>Perform DNS queries using DNSJava.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -30,7 +30,6 @@
 
     <artifactId>camel-quarkus-aws-cloudtrail</artifactId>
     <name>Camel Quarkus :: AWS Cloudtrail :: Runtime</name>
-    <description>Consume events from Amazon Cloudtrail using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.37.0</camel.quarkus.jvmSince>
@@ -77,7 +76,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-langchain4j-tools</artifactId>
     <name>Camel Quarkus :: LangChain4j Tools :: Runtime</name>
-    <description>LangChain4j Tools and Function Calling Features</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.15.0</camel.quarkus.jvmSince>
@@ -72,7 +71,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-kinesis</artifactId>
     <name>Camel Quarkus :: AWS 2 Kinesis :: Runtime</name>
-    <description>Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.</description>
+    <description>Consume and produce records from and to AWS Kinesis Streams and Firehose using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

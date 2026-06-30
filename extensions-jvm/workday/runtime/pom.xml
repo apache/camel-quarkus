@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-workday</artifactId>
     <name>Camel Quarkus :: Workday :: Runtime</name>
-    <description>Detect and parse documents using Workday.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

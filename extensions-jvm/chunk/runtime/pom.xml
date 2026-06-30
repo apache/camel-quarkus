@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-chunk</artifactId>
     <name>Camel Quarkus :: Chunk :: Runtime</name>
-    <description>Transform messages using Chunk templating engine.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

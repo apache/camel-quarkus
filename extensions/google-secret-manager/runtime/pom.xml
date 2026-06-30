@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-secret-manager</artifactId>
     <name>Camel Quarkus :: Google Secret Manager :: Runtime</name>
-    <description>Manage Google Secret Manager Secrets</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.8.0</camel.quarkus.jvmSince>

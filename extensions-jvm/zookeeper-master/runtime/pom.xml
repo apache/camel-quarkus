@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-zookeeper-master</artifactId>
     <name>Camel Quarkus :: ZooKeeper Master :: Runtime</name>
-    <description>Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Post Quantum Computing Signature and Verification component.
+:cq-description: Post Quantum Cryptography Signature and Verification component.
 :cq-deprecated: false
 :cq-jvm-since: 3.24.0
 :cq-native-since: 3.35.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.24.0## [.badge-key]##Native since##[.badge-supported]##3.35.0##
 endif::[]
 
-Post Quantum Computing Signature and Verification component.
+Post Quantum Cryptography Signature and Verification component.
 
 [id="extensions-pqc-whats-inside"]
 == What's inside

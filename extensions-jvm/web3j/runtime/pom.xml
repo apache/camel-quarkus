@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-web3j</artifactId>
     <name>Camel Quarkus :: Web3j Ethereum Blockchain :: Runtime</name>
-    <description>Interact with Ethereum nodes using web3j client API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

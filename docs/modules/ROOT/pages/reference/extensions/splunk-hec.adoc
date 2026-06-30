@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: The splunk component allows to publish events in Splunk using the HTTP Event Collector.
+:cq-description: The splunk component allows publishing events in Splunk using the HTTP Event Collector.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: 3.8.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##3.8.0##
 endif::[]
 
-The splunk component allows to publish events in Splunk using the HTTP Event Collector.
+The splunk component allows publishing events in Splunk using the HTTP Event Collector.
 
 [id="extensions-splunk-hec-whats-inside"]
 == What's inside

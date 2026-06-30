@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-elasticsearch</artifactId>
     <name>Camel Quarkus :: Elasticsearch :: Runtime</name>
-    <description>Send requests to ElasticSearch via Java Client API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.2.0</camel.quarkus.jvmSince>
