@@ -34,6 +34,8 @@ import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
 import io.vertx.ext.web.Router;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Consumer;
+import org.apache.camel.Processor;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketComponent;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketConfiguration;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketConstants;
@@ -135,6 +137,12 @@ public class VertxWebsocketRecorder {
         public QuarkusVertxWebsocketEndpoint(String uri, VertxWebsocketComponent component,
                 VertxWebsocketConfiguration configuration) {
             super(uri, component, configuration);
+        }
+
+        @Override
+        public Consumer createConsumer(Processor processor) throws Exception {
+            // Use our custom consumer that captures OpenTelemetry span context
+            return new QuarkusVertxWebsocketConsumer(this, processor);
         }
 
         @Override

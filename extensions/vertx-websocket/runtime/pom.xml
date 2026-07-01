@@ -48,6 +48,12 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-vertx-websocket</artifactId>
         </dependency>
+        <!-- OpenTelemetry API for span context capture (optional) -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-api</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
