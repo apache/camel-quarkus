@@ -21,15 +21,17 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
-import jakarta.enterprise.inject.spi.DeploymentException;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.pool.ConnPoolControl;
 import software.amazon.awssdk.http.SdkHttpService;
+import software.amazon.awssdk.http.apache.ApacheSdkHttpService;
 import software.amazon.awssdk.http.apache.internal.conn.Wrapped;
+import software.amazon.awssdk.http.apache5.Apache5SdkHttpService;
 
 class AwsCommonsProcessor {
     private static final String FEATURE = "camel-aws2-commons";
-    private static final String APACHE_HTTP_SERVICE = "software.amazon.awssdk.http.apache.ApacheSdkHttpService";
+    private static final String APACHE_HTTP_SERVICE = ApacheSdkHttpService.class.getName();
+    private static final String APACHE5_HTTP_SERVICE = Apache5SdkHttpService.class.getName();
 
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
@@ -38,22 +40,15 @@ class AwsCommonsProcessor {
 
     @BuildStep
     NativeImageProxyDefinitionBuildItem httpProxies() {
-        return new NativeImageProxyDefinitionBuildItem(HttpClientConnectionManager.class.getName(),
-                ConnPoolControl.class.getName(), Wrapped.class.getName());
+        return new NativeImageProxyDefinitionBuildItem(
+                HttpClientConnectionManager.class.getName(),
+                ConnPoolControl.class.getName(),
+                Wrapped.class.getName());
     }
 
     @BuildStep
     void client(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
-        checkClasspath(APACHE_HTTP_SERVICE, "apache-client");
+        serviceProvider.produce(new ServiceProviderBuildItem(SdkHttpService.class.getName(), APACHE5_HTTP_SERVICE));
         serviceProvider.produce(new ServiceProviderBuildItem(SdkHttpService.class.getName(), APACHE_HTTP_SERVICE));
-    }
-
-    private void checkClasspath(String className, String dependencyName) {
-        try {
-            Class.forName(className, true, Thread.currentThread().getContextClassLoader());
-        } catch (ClassNotFoundException e) {
-            throw new DeploymentException(
-                    "Missing 'software.amazon.awssdk:" + dependencyName + "' dependency on the classpath");
-        }
     }
 }
