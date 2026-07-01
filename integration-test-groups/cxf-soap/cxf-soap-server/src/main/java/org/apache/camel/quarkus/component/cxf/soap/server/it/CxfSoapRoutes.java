@@ -46,6 +46,8 @@ import org.apache.cxf.message.MessageContentsList;
 @ApplicationScoped
 public class CxfSoapRoutes extends RouteBuilder {
 
+    private static final String OPERATION_NAME_HEADER = "${header.%s}".formatted(CxfConstants.OPERATION_NAME);
+
     @Inject
     @Named("loggingFeatureServer")
     LoggingFeature loggingFeature;
@@ -70,15 +72,16 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from("cxf:bean:codeFirstServiceEndpoint")
                 .choice()
-                .when(simple("${header.operationName} == 'Hello'"))
+                .when(simple(OPERATION_NAME_HEADER + " == 'Hello'"))
                 .setBody().simple("Hello ${body} code first")
                 .endChoice()
-                .when(simple("${header.operationName} == 'GoodBye'"))
+                .when(simple(OPERATION_NAME_HEADER + " == 'GoodBye'"))
                 .setBody().simple("Good bye ${body} code first")
                 .endChoice()
                 .otherwise()
                 .process(e -> {
-                    throw new IllegalStateException("Unexpected operation " + e.getMessage().getHeader("operationName"));
+                    throw new IllegalStateException(
+                            "Unexpected operation " + e.getMessage().getHeader(CxfConstants.OPERATION_NAME));
                 });
 
         from("cxf:bean:textServiceResponseFromRouteCxfMessageDataFormat")
@@ -120,7 +123,7 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from(String.format("cxf:textServiceResponseFromImpl?serviceClass=%s&address=/text-service-impl",
                 TextService.class.getName()))
-                .toD("bean:" + TextServiceImpl.class.getName() + "?method=${header.operationName}");
+                .toD("bean:" + TextServiceImpl.class.getName() + "?method=" + OPERATION_NAME_HEADER);
     }
 
     private String alterTextByTextOperation(String operation, String text) {
