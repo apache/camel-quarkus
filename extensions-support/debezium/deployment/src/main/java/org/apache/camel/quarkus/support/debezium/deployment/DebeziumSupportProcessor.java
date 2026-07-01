@@ -24,6 +24,7 @@ import io.debezium.engine.DebeziumEngine;
 import io.debezium.pipeline.notification.channels.LogNotificationChannel;
 import io.debezium.pipeline.notification.channels.SinkNotificationChannel;
 import io.debezium.pipeline.notification.channels.jmx.JmxNotificationChannel;
+import io.debezium.pipeline.signal.actions.SignalActionProvider;
 import io.debezium.pipeline.signal.actions.StandardActionProvider;
 import io.debezium.pipeline.signal.channels.FileSignalChannel;
 import io.debezium.pipeline.signal.channels.KafkaSignalChannel;
@@ -141,6 +142,11 @@ public class DebeziumSupportProcessor {
     @BuildStep
     ServiceProviderBuildItem registerConverterServiceProviders() {
         return ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.kafka.connect.storage.Converter");
+    }
+
+    @BuildStep
+    ServiceProviderBuildItem registerSignalActionProviders() {
+        return ServiceProviderBuildItem.allProvidersFromClassPath(SignalActionProvider.class.getName());
     }
 
     @BuildStep
