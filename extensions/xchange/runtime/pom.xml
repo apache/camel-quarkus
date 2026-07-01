@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-xchange</artifactId>
     <name>Camel Quarkus :: XChange :: Runtime</name>
-    <description>Access market data and trade on Bitcoin and Altcoin exchanges.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-language</artifactId>
     <name>Camel Quarkus :: Language :: Runtime</name>
-    <description>Execute scripts in any of the languages supported by Camel.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

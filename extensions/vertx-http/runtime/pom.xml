@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-vertx-http</artifactId>
     <name>Camel Quarkus :: Vert.x HTTP Client :: Runtime</name>
-    <description>Camel HTTP client support with Vert.x</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-ibm-watson-discovery</artifactId>
     <name>Camel Quarkus :: IBM Watson Discovery :: Runtime</name>
-    <description>Perform document understanding and search using IBM Watson Discovery</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.30.0</camel.quarkus.jvmSince>
@@ -76,7 +75,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

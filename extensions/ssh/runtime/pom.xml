@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-ssh</artifactId>
     <name>Camel Quarkus :: SSH :: Runtime</name>
-    <description>Execute commands on remote hosts using SSH.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

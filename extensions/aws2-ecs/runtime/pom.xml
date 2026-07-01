@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-ecs</artifactId>
     <name>Camel Quarkus :: AWS 2 Elastic Container Service (ECS) :: Runtime</name>
+    <description>Manage AWS ECS cluster instances using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-langchain4j-agent</artifactId>
     <name>Camel Quarkus :: LangChain4j Agent :: Runtime</name>
-    <description>LangChain4j Agent component</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.26.0</camel.quarkus.jvmSince>
@@ -72,7 +71,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

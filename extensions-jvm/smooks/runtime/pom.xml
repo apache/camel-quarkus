@@ -67,7 +67,6 @@
         </plugins>
     </build>
 
-
     <profiles>
         <profile>
             <id>full</id>

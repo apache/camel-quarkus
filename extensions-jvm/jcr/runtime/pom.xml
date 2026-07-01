@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-jcr</artifactId>
     <name>Camel Quarkus :: JCR :: Runtime</name>
-    <description>Read and write nodes to/from a JCR compliant content repository.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

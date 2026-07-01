@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-lumberjack</artifactId>
     <name>Camel Quarkus :: Lumberjack :: Runtime</name>
-    <description>Receive logs messages using the Lumberjack protocol.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

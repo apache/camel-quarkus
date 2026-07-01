@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-msk</artifactId>
     <name>Camel Quarkus :: AWS 2 Managed Streaming for Apache Kafka (MSK) :: Runtime</name>
+    <description>Manage AWS MSK instances using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

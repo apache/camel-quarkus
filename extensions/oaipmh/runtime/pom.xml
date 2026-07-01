@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-oaipmh</artifactId>
     <name>Camel Quarkus :: OAI-PMH :: Runtime</name>
-    <description>Harvest metadata using OAI-PMH protocol</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-stitch</artifactId>
     <name>Camel Quarkus :: Stitch :: Runtime</name>
-    <description>Stitch is a cloud ETL service that integrates various data sources into a central data warehouse through various integrations.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.8.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-velocity</artifactId>
     <name>Camel Quarkus :: Velocity :: Runtime</name>
-    <description>Transform messages using a Velocity template.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-micrometer</artifactId>
     <name>Camel Quarkus :: Micrometer :: Runtime</name>
-    <description>Collect various metrics directly from Camel routes using the Micrometer library.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.5.0</camel.quarkus.jvmSince>

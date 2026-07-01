@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-ec2</artifactId>
     <name>Camel Quarkus :: AWS 2 Elastic Compute Cloud (EC2) :: Runtime</name>
+    <description>Manage AWS EC2 instances using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

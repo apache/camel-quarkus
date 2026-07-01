@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-digitalocean</artifactId>
     <name>Camel Quarkus :: DigitalOcean :: Runtime</name>
-    <description>Manage Droplets and resources within the DigitalOcean cloud.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

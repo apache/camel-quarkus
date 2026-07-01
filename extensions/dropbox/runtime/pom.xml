@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-dropbox</artifactId>
     <name>Camel Quarkus :: Dropbox :: Runtime</name>
-    <description>Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-langchain4j-web-search</artifactId>
     <name>Camel Quarkus :: LangChain4j Web Search :: Runtime</name>
-    <description>LangChain4j Web Search Engine</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.15.0</camel.quarkus.jvmSince>
@@ -80,7 +79,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

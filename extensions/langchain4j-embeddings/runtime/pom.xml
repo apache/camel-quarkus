@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-langchain4j-embeddings</artifactId>
     <name>Camel Quarkus :: LangChain4j Embeddings :: Runtime</name>
-    <description>LangChain4j Embeddings</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.10.0</camel.quarkus.jvmSince>

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-pqc</artifactId>
     <name>Camel Quarkus :: PQC Algorithms :: Runtime</name>
-    <description>Post Quantum Computing Signature and Verification component.</description>
+    <description>Post Quantum Cryptography Signature and Verification component.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.24.0</camel.quarkus.jvmSince>
@@ -71,7 +71,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

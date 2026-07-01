@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-qdrant</artifactId>
     <name>Camel Quarkus :: Qdrant :: Runtime</name>
-    <description>Perform operations on the Qdrant Vector Database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.10.0</camel.quarkus.jvmSince>

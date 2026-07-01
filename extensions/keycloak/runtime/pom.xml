@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-keycloak</artifactId>
     <name>Camel Quarkus :: Keycloak :: Runtime</name>
-    <description>Manage Keycloak instances via Admin API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.29.0</camel.quarkus.jvmSince>
@@ -81,7 +80,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

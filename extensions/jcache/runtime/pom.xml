@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-jcache</artifactId>
     <name>Camel Quarkus :: JCache :: Runtime</name>
-    <description>Perform caching operations against JSR107/JCache.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.2.0</camel.quarkus.jvmSince>

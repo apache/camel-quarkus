@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-elasticsearch-rest-client</artifactId>
     <name>Camel Quarkus :: Elasticsearch Low level Rest Client :: Runtime</name>
-    <description>Perform queries and other operations on Elasticsearch or OpenSearch (uses low-level client).</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.8.0</camel.quarkus.jvmSince>

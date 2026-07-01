@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-ldap</artifactId>
     <name>Camel Quarkus :: LDAP :: Runtime</name>
-    <description>Perform searches on LDAP servers.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

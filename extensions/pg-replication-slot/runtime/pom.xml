@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-pg-replication-slot</artifactId>
     <name>Camel Quarkus :: PostgresSQL Replication Slot :: Runtime</name>
-    <description>Poll for PostgreSQL Write-Ahead Log (WAL) records using Streaming Replication Slots.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

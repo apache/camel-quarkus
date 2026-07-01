@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-smpp</artifactId>
     <name>Camel Quarkus :: SMPP :: Runtime</name>
-    <description>Send and receive SMS messages using a SMSC (Short Message Service Center).</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

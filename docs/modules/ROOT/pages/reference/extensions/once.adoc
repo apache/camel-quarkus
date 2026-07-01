@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Camel Once component
+:cq-description: Trigger a single message only once at startup (useful for development and testing purposes).
 :cq-deprecated: false
 :cq-jvm-since: 3.31.0
 :cq-native-since: 3.31.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.31.0## [.badge-key]##Native since##[.badge-supported]##3.31.0##
 endif::[]
 
-Camel Once component
+Trigger a single message only once at startup (useful for development and testing purposes).
 
 [id="extensions-once-whats-inside"]
 == What's inside

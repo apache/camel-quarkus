@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-pgevent</artifactId>
     <name>Camel Quarkus :: PostgresSQL Event :: Runtime</name>
-    <description>Send and receive PostgreSQL events via LISTEN and NOTIFY commands.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

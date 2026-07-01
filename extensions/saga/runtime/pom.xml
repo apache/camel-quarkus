@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-saga</artifactId>
     <name>Camel Quarkus :: Saga :: Runtime</name>
-    <description>Execute custom actions within a route using the Saga EIP.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

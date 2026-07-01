@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-djl</artifactId>
     <name>Camel Quarkus :: Deep Java Library :: Runtime</name>
-    <description>Infer Deep Learning models from message exchanges data using Deep Java Library (DJL).</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

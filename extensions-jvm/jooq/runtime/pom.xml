@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-jooq</artifactId>
     <name>Camel Quarkus :: JOOQ :: Runtime</name>
-    <description>Store and retrieve Java objects from an SQL database using JOOQ.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

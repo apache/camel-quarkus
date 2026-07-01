@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Camel Azure Datalake Gen2 Component
+:cq-description: Sends and receives files to/from Azure Data Lake Storage.
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
 :cq-native-since: 3.24.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##3.24.0##
 endif::[]
 
-Camel Azure Datalake Gen2 Component
+Sends and receives files to/from Azure Data Lake Storage.
 
 [id="extensions-azure-storage-datalake-whats-inside"]
 == What's inside

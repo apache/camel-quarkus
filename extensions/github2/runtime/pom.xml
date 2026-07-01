@@ -30,7 +30,6 @@
 
     <artifactId>camel-quarkus-github2</artifactId>
     <name>Camel Quarkus :: GitHub2 :: Runtime</name>
-    <description>Interact with the GitHub API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.37.0</camel.quarkus.jvmSince>
@@ -74,7 +73,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

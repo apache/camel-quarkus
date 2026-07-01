@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-weaviate</artifactId>
     <name>Camel Quarkus :: weaviate :: Runtime</name>
-    <description>Perform operations on the Weaviate Vector Database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.24.0</camel.quarkus.jvmSince>
@@ -75,7 +74,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>

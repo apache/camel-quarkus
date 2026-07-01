@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-pulsar</artifactId>
     <name>Camel Quarkus :: Pulsar :: Runtime</name>
-    <description>Send and receive messages from/to Apache Pulsar messaging system.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

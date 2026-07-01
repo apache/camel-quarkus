@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-athena</artifactId>
     <name>Camel Quarkus :: AWS 2 Athena :: Runtime</name>
-    <description>Access AWS Athena service using AWS SDK version 2.x.</description>
+    <description>Access AWS Athena using AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
