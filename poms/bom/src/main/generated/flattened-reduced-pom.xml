@@ -48,6 +48,16 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>ai.docling</groupId>
+        <artifactId>docling-serve-api</artifactId>
+        <version>0.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>ai.docling</groupId>
+        <artifactId>docling-serve-client</artifactId>
+        <version>0.5.0</version>
+      </dependency>
+      <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-base</artifactId>
         <version>2.6.0</version>
@@ -294,6 +304,11 @@
         <groupId>com.azure</groupId>
         <artifactId>azure-xml</artifactId>
         <version>1.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.datadoghq</groupId>
+        <artifactId>sketches-java</artifactId>
+        <version>0.8.2</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId>
@@ -792,92 +807,92 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-config</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connect-plugins</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-common</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-oracle</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-openlineage-api</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-sink</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-file</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-kafka</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-util</artifactId>
-        <version>3.5.2.Final</version>
+        <version>3.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>mysql-binlog-connector-java</artifactId>
-        <version>0.40.6</version>
+        <version>0.41.0</version>
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
@@ -8784,7 +8799,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-file</artifactId>
-        <version>4.1.2</version>
+        <version>4.3.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
