@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.support.debezium.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import io.debezium.connector.base.DefaultQueueProvider;
 import io.debezium.connector.common.BaseSourceTask;
 import io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory;
 import io.debezium.engine.DebeziumEngine;
@@ -38,9 +39,9 @@ import io.debezium.snapshot.mode.AlwaysSnapshotter;
 import io.debezium.snapshot.mode.ConfigurationBasedSnapshotter;
 import io.debezium.snapshot.mode.InitialOnlySnapshotter;
 import io.debezium.snapshot.mode.InitialSnapshotter;
-import io.debezium.snapshot.mode.NeverSnapshotter;
 import io.debezium.snapshot.mode.NoDataSnapshotter;
 import io.debezium.snapshot.mode.RecoverySnapshotter;
+import io.debezium.snapshot.mode.WhenNeededNoDataSnapshotter;
 import io.debezium.snapshot.mode.WhenNeededSnapshotter;
 import io.debezium.snapshot.spi.SnapshotLock;
 import io.debezium.storage.file.history.FileSchemaHistory;
@@ -105,7 +106,8 @@ public class DebeziumSupportProcessor {
                 "io.debezium.storage.kafka.history.KafkaSchemaHistory",
                 "io.debezium.relational.history.FileDatabaseHistory",
                 "io.debezium.embedded.ConvertingEngineBuilderFactory",
-                "io.debezium.processors.PostProcessorRegistry")
+                "io.debezium.processors.PostProcessorRegistry",
+                "io.debezium.relational.ConcurrentMapTableMappingStorage")
                 .build());
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
@@ -125,7 +127,7 @@ public class DebeziumSupportProcessor {
                 NoDataSnapshotter.class,
                 RecoverySnapshotter.class,
                 WhenNeededSnapshotter.class,
-                NeverSnapshotter.class,
+                WhenNeededNoDataSnapshotter.class,
                 ConfigurationBasedSnapshotter.class,
                 SourceSignalChannel.class,
                 KafkaSignalChannel.class,
@@ -134,7 +136,8 @@ public class DebeziumSupportProcessor {
                 InProcessSignalChannel.class,
                 StandardActionProvider.class,
                 SourceTask.class,
-                FileSchemaHistory.class)
+                FileSchemaHistory.class,
+                DefaultQueueProvider.class)
                 .build());
 
     }
@@ -164,6 +167,7 @@ public class DebeziumSupportProcessor {
 
         resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.snapshot.spi.SnapshotLock"));
         resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.snapshot.spi.SnapshotQuery"));
+        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.connector.base.QueueProvider"));
         resources
                 .produce(new NativeImageResourceBuildItem("META-INF/services/org.apache.kafka.connect.source.SourceConnector"));
     }
