@@ -1,0 +1,36 @@
+{
+  "name": "Full Feature Agent",
+  "description": "A Quarkus test agent with all features",
+  "version": "2.0.0",
+  "provider": {
+    "name": "Test Provider",
+    "url": "https://example.com/provider"
+  },
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true
+  },
+  "skills": [
+    {
+      "id": "echo",
+      "name": "Echo Skill",
+      "description": "Echoes back the input message",
+      "tags": ["test", "echo"],
+      "inputModes": ["text/plain", "application/json"],
+      "outputModes": ["text/plain"]
+    },
+    {
+      "id": "transform",
+      "name": "Transform Skill",
+      "description": "Transforms input data"
+    }
+  ],
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ],
+  "defaultInputModes": ["text/plain"],
+  "defaultOutputModes": ["text/plain"]
+}

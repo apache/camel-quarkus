@@ -1,0 +1,14 @@
+{
+  "name": "Emit Test Agent",
+  "description": "A test agent using a2a:emit Simple language function",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true
+  },
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

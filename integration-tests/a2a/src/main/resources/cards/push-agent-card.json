@@ -1,0 +1,14 @@
+{
+  "name": "Push Test Agent",
+  "description": "A Quarkus test agent with push notification support",
+  "version": "1.0.0",
+  "capabilities": {
+    "pushNotifications": true
+  },
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

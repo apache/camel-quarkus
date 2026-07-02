@@ -1,0 +1,28 @@
+{
+  "name": "API Key Agent",
+  "description": "A test agent with API key authentication",
+  "version": "1.0.0",
+  "securitySchemes": {
+    "apikey": {
+      "apiKeySecurityScheme": {
+        "location": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "schemes": {
+        "apikey": {
+          "list": []
+        }
+      }
+    }
+  ],
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Extension Test Agent",
+  "description": "A test agent with A2A protocol extensions",
+  "version": "1.0.0",
+  "capabilities": {
+    "extensions": [
+      {
+        "uri": "urn:test:tracking",
+        "description": "Test tracking extension"
+      }
+    ]
+  },
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

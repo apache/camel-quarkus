@@ -48,6 +48,7 @@
         <module>main-yaml</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>a2a</module>
         <module>activemq</module>
         <module>activemq6</module>
         <module>amqp</module>

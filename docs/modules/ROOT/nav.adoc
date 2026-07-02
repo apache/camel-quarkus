@@ -30,6 +30,7 @@
 * xref:reference/index.adoc[Reference]
 ** xref:reference/index.adoc[Extensions]
 // extensions: START
+*** xref:reference/extensions/a2a.adoc[A2A]
 *** xref:reference/extensions/amqp.adoc[AMQP]
 *** xref:reference/extensions/as2.adoc[AS2]
 *** xref:reference/extensions/asn1.adoc[ASN.1 File]
