@@ -65,10 +65,24 @@ pattern can take the following forms:
 | `string`
 | 
 
+a| [[quarkus-camel-telemetrydev-include-patterns]]`link:#quarkus-camel-telemetrydev-include-patterns[quarkus.camel.telemetryDev.include-patterns]`
+
+Sets include pattern(s) that will explicitly enable tracing for Camel processors that matches the pattern.
+Multiple patterns can be separated by comma. All processors included by default if nothing is specified.
+| `string`
+| 
+
 a| [[quarkus-camel-telemetrydev-trace-processors]]`link:#quarkus-camel-telemetrydev-trace-processors[quarkus.camel.telemetryDev.trace-processors]`
 
-Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
+Sets whether to create new telemetry spans for each Camel custom Processor. Use the excludePatterns property to
+filter
 out Processors.
+| `boolean`
+| `false`
+
+a| [[quarkus-camel-telemetrydev-disable-core-processors]]`link:#quarkus-camel-telemetrydev-disable-core-processors[quarkus.camel.telemetryDev.disable-core-processors]`
+
+Disable any inner core processors (any core DSL processor provided in the route, for example `bean`, `log`, ...).
 | `boolean`
 | `false`
 

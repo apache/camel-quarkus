@@ -97,7 +97,6 @@
         <module>ftp</module>
         <module>geocoder</module>
         <module>git</module>
-        <module>github</module>
         <module>github2</module>
         <module>google</module>
         <module>google-bigquery</module>
@@ -144,6 +143,7 @@
         <module>json-validator</module>
         <module>jsonata</module>
         <module>jsonpath</module>
+        <module>jsoup</module>
         <module>jt400</module>
         <module>jt400-mocked</module>
         <module>jta</module>

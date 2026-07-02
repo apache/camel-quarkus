@@ -29,7 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/reactive-executor.html"
   categories:
   - "integration"
-  status: "stable"
+  status: "deprecated"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"

@@ -9,5 +9,5 @@ cqJvmSince: 0.3.0
 cqNativeSince: 0.3.0
 cqCamelPartName: fhirJson
 cqCamelPartTitle: FHIR JSon
-cqCamelPartDescription: Marshall and unmarshall FHIR objects to/from JSON.
+cqCamelPartDescription: Marshall and unmarshall FHIR objects to/from JSON
 cqExtensionPageTitle: FHIR

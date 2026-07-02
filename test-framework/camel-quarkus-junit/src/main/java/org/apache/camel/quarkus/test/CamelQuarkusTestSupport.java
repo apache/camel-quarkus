@@ -117,18 +117,19 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
     private Set<String> existingComponents;
 
     public CamelQuarkusTestSupport() {
-        super(new CamelQuarkusTestExecutionConfiguration(), new CamelQuarkusContextConfiguration());
+        super(new TestExecutionConfiguration(), new CamelContextConfiguration());
 
         this.contextManagerFactory = new ContextNotStoppingManagerFactory();
 
-        testConfigurationBuilder()
+        testConfigurationBuilder
                 .withUseAdviceWith(isUseAdviceWith())
                 .withJMX(useJmx())
                 .withUseRouteBuilder(isUseRouteBuilder())
                 .withDumpRouteCoverage(isDumpRouteCoverage())
-                .withAutoStartContext(false);
+                .withAutoStartContext(false)
+                .withCreateCamelContextPerClass(false);
 
-        contextConfiguration()
+        camelContextConfiguration
                 .withCamelContextSupplier(this::camelContextSupplier)
                 .withPostProcessor(this::postProcessTest)
                 .withRoutesSupplier(this::createRouteBuilders)
@@ -144,14 +145,6 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
         //CQ starts and stops context with the application start/stop
         testConfiguration().withAutoStartContext(false);
-    }
-
-    CamelQuarkusContextConfiguration contextConfiguration() {
-        return (CamelQuarkusContextConfiguration) camelContextConfiguration;
-    }
-
-    CamelQuarkusTestExecutionConfiguration testConfigurationBuilder() {
-        return (CamelQuarkusTestExecutionConfiguration) testConfigurationBuilder;
     }
 
     //------------------------ quarkus callbacks ---------------
@@ -356,7 +349,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
                 .filter(lc -> lc.equals(TestInstance.Lifecycle.PER_CLASS)).isPresent();
         if (perClassPresent) {
             LOG.trace("Creating a legacy context manager for {}", context.getDisplayName());
-            testConfigurationBuilder().withCreateCamelContextPerClass(perClassPresent);
+            testConfigurationBuilder.withCreateCamelContextPerClass(perClassPresent);
             contextManager = contextManagerFactory.createContextManager(ContextManagerFactory.Type.BEFORE_ALL,
                     testConfigurationBuilder, camelContextConfiguration);
         }

@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: jsonpath
 cqCamelPartTitle: JSONPath
-cqCamelPartDescription: Evaluates a JSONPath expression against a JSON message body.
+cqCamelPartDescription: Evaluates a JSONPath expression against a JSON message body
 cqExtensionPageTitle: JSON Path

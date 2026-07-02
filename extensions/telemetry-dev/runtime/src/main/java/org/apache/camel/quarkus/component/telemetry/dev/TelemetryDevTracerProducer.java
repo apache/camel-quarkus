@@ -37,8 +37,16 @@ public class TelemetryDevTracerProducer {
             telemetryDevTracer.setExcludePatterns(config.excludePatterns().get());
         }
 
+        if (config.includePatterns().isPresent()) {
+            telemetryDevTracer.setIncludePatterns(config.includePatterns().get());
+        }
+
         if (config.traceProcessors()) {
             telemetryDevTracer.setTraceProcessors(config.traceProcessors());
+        }
+
+        if (config.disableCoreProcessors()) {
+            telemetryDevTracer.setDisableCoreProcessors(config.disableCoreProcessors());
         }
 
         if (config.traceFormat().isPresent()) {

@@ -121,7 +121,6 @@
         <module>ftp</module>
         <module>geocoder</module>
         <module>git</module>
-        <module>github</module>
         <module>github2</module>
         <module>google-bigquery</module>
         <module>google-calendar</module>
@@ -172,6 +171,7 @@
         <module>jsonata</module>
         <module>jsonb</module>
         <module>jsonpath</module>
+        <module>jsoup</module>
         <module>jt400</module>
         <module>jta</module>
         <module>kafka</module>

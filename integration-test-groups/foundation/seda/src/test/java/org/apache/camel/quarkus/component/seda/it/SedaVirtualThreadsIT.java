@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.seda.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/8687
 @QuarkusIntegrationTest
 class SedaVirtualThreadsIT extends SedaVirtualThreadsTest {
     /**

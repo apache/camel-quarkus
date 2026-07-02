@@ -64,7 +64,6 @@ group-03:
   - elasticsearch-rest-client
   - foundation-grouped
   - freemarker
-  - github
   - google
   - jolokia
   - json-validator
@@ -212,6 +211,7 @@ group-11:
   - google-secret-manager
   - grok
   - jolt
+  - jsoup
   - jsonata
   - langchain4j-tokenizer
   - milo

@@ -16,19 +16,23 @@
  */
 package org.apache.camel.quarkus.component.seda.it;
 
+import java.util.Map;
+
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.QuarkusTestProfile;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.condition.JRE;
 
 import static org.hamcrest.Matchers.containsString;
 
-@TestProfile(SedaVirtualThreadsTest.VirtualThreadsTestProfile.class)
+@QuarkusTestResource(value = SedaVirtualThreadsTest.VirtualThreadsResource.class, restrictToAnnotatedClass = true)
 @QuarkusTest
+@Disabled //https://github.com/apache/camel-quarkus/issues/8687
 class SedaVirtualThreadsTest {
     @EnabledForJreRange(min = JRE.JAVA_21)
     @Test
@@ -45,10 +49,14 @@ class SedaVirtualThreadsTest {
                 .statusCode(200);
     }
 
-    public static final class VirtualThreadsTestProfile implements QuarkusTestProfile {
+    public static class VirtualThreadsResource implements QuarkusTestResourceLifecycleManager {
         @Override
-        public String getConfigProfile() {
-            return "virtualThreads";
+        public Map<String, String> start() {
+            return Map.of("camel.main.virtualThreadsEnabled", "true");
+        }
+
+        @Override
+        public void stop() {
         }
     }
 }

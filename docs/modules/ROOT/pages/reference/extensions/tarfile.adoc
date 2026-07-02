@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Archive files into tarballs or extract files from tarballs.
+:cq-description: Archive files into tarballs or extract files from tarballs
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0
 :cq-native-since: 0.3.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##0.3.0## [.badge-key]##Native since##[.badge-supported]##0.3.0##
 endif::[]
 
-Archive files into tarballs or extract files from tarballs.
+Archive files into tarballs or extract files from tarballs
 
 [id="extensions-tarfile-whats-inside"]
 == What's inside

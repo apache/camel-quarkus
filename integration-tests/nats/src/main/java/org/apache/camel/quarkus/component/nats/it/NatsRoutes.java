@@ -61,7 +61,7 @@ public class NatsRoutes extends RouteBuilder {
         fromF(maxMsgUriPattern, 3).routeId("3-qmsg-max").bean(natsResource, "storeMessage");
         fromF(maxMsgUriPattern, 8).routeId("8-qmsg-max").bean(natsResource, "storeMessage");
 
-        from("natsNoAuth:request-reply").setBody().simple("${body} => Reply");
+        from("natsNoAuth:request-reply?exchangePattern=InOut").setBody().simple("${body} => Reply");
         from("natsNoAuth:reply").routeId("reply").bean(natsResource, "storeMessage");
     }
 

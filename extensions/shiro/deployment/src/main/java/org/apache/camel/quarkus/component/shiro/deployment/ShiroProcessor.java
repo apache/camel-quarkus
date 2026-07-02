@@ -100,4 +100,5 @@ class ShiroProcessor {
     IndexDependencyBuildItem registerDependencyForIndex() {
         return new IndexDependencyBuildItem("org.apache.shiro", "shiro-core");
     }
+
 }

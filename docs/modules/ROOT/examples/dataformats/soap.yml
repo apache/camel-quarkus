@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: soap
 cqCamelPartTitle: SOAP
-cqCamelPartDescription: Marshal Java objects to SOAP messages and back.
+cqCamelPartDescription: Marshal Java objects to SOAP messages and back
 cqExtensionPageTitle: SOAP dataformat

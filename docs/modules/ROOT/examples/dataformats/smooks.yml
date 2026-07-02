@@ -9,5 +9,5 @@ cqJvmSince: 3.18.0
 cqNativeSince: n/a
 cqCamelPartName: smooks
 cqCamelPartTitle: Smooks
-cqCamelPartDescription: Transform and bind XML as well as non-XML data, including EDI, CSV, JSON, and YAML using Smooks.
+cqCamelPartDescription: Transform and bind XML as well as non-XML data, including EDI, CSV, JSON, and YAML using Smooks
 cqExtensionPageTitle: Smooks
