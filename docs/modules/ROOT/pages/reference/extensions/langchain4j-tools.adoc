@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-langchain4j-tools
 :cq-native-supported: true
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: LangChain4j Tools and Function Calling Features
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 3.15.0
 :cq-native-since: 3.24.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.15.0## [.badge-key]##Native since##[.badge-supported]##3.24.0##
+[.badge-key]##JVM since##[.badge-supported]##3.15.0## [.badge-key]##Native since##[.badge-supported]##3.24.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 LangChain4j Tools and Function Calling Features

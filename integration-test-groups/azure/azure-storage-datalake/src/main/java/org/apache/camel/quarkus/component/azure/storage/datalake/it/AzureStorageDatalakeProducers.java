@@ -26,7 +26,7 @@ import com.azure.storage.file.datalake.DataLakeServiceClientBuilder;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import jakarta.ws.rs.Produces;
-import org.apache.camel.component.azure.storage.datalake.CredentialType;
+import org.apache.camel.component.azure.common.CredentialType;
 import org.apache.camel.component.azure.storage.datalake.DataLakeComponent;
 import org.apache.camel.component.azure.storage.datalake.DataLakeConfiguration;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

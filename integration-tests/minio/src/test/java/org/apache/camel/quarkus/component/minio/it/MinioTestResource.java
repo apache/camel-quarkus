@@ -27,8 +27,8 @@ import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
 public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
-    public static final String CONTAINER_ACCESS_KEY = "MINIO_ACCESS_KEY";
-    public static final String CONTAINER_SECRET_KEY = "MINIO_SECRET_KEY";
+    public static final String CONTAINER_ACCESS_KEY = "MINIO_ROOT_USER";
+    public static final String CONTAINER_SECRET_KEY = "MINIO_ROOT_PASSWORD";
     private static final String CONTAINER_IMAGE = ConfigProvider.getConfig().getValue("minio.container.image", String.class);
     private static final int BROKER_PORT = 9000;
     private String endpoint;

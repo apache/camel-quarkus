@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.minio.it;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -431,9 +430,9 @@ class MinioTest {
                             .bucket(bucketName)
                             .object(objectName)
                             .contentType("text/xml")
-                            .stream(is, -1, PART_SIZE)
+                            .stream(is, -1L, PART_SIZE)
                             .build());
-        } catch (MinioException | GeneralSecurityException | IOException e) {
+        } catch (MinioException | IOException e) {
             throw new IllegalStateException(e);
         }
     }

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Send requests to ElasticSearch via Java Client API.
+:cq-description: Send requests to Elasticsearch via Java Client API.
 :cq-deprecated: false
 :cq-jvm-since: 3.2.0
 :cq-native-since: 3.36.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.2.0## [.badge-key]##Native since##[.badge-supported]##3.36.0##
 endif::[]
 
-Send requests to ElasticSearch via Java Client API.
+Send requests to Elasticsearch via Java Client API.
 
 [id="extensions-elasticsearch-whats-inside"]
 == What's inside
