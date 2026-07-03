@@ -83,7 +83,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("TZ", TimeZone.getDefault().getID())
                     .waitingFor(
                             Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
-                                    .withStartupTimeout(Duration.ofMinutes(5)));
+                                    .withStartupTimeout(Duration.ofMinutes(10)));
 
             if (certPath != null && caCertPath != null && keystorePassword != null) {
                 //combine key + certificates into 1 pem - required for splunk
