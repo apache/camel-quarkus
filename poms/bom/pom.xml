@@ -141,6 +141,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-ai-tool</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-amqp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -187,6 +192,10 @@
                     <exclusion>
                         <groupId>com.google.code.findbugs</groupId>
                         <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-core</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.checkerframework</groupId>
@@ -1035,6 +1044,11 @@
                         <artifactId>javax.servlet-api</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-dataweave</artifactId>
+                <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7462,16 +7476,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.dylibso.chicory</groupId>
-                <artifactId>runtime</artifactId>
-                <version>${chicory.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dylibso.chicory</groupId>
-                <artifactId>wasm</artifactId>
-                <version>${chicory.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.esotericsoftware.kryo</groupId>
                 <artifactId>kryo</artifactId>
                 <version>${kryo.version}</version>
@@ -8602,6 +8606,11 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>run.endive</groupId>
+                <artifactId>runtime</artifactId>
+                <version>${endive.version}</version>
             </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>

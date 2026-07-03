@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Type Conversion using Mapstruct
+:cq-description: Type Conversion using MapStruct
 :cq-deprecated: false
 :cq-jvm-since: 3.2.0
 :cq-native-since: 3.2.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.2.0## [.badge-key]##Native since##[.badge-supported]##3.2.0##
 endif::[]
 
-Type Conversion using Mapstruct
+Type Conversion using MapStruct
 
 [id="extensions-mapstruct-whats-inside"]
 == What's inside
