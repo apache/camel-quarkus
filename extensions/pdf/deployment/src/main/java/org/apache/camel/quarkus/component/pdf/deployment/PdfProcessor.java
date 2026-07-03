@@ -58,7 +58,8 @@ class PdfProcessor {
             "org.apache.pdfbox.pdmodel.font.PDType1Font",
             "org.apache.pdfbox.pdmodel.PDDocument",
             "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB",
-            "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray"
+            "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray",
+            "org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler"
     };
 
     @BuildStep

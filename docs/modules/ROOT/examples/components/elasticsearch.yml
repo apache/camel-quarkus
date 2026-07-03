@@ -9,5 +9,5 @@ cqJvmSince: 3.2.0
 cqNativeSince: 3.36.0
 cqCamelPartName: elasticsearch
 cqCamelPartTitle: Elasticsearch
-cqCamelPartDescription: Send requests to ElasticSearch via Java Client API.
+cqCamelPartDescription: Send requests to Elasticsearch via Java Client API.
 cqExtensionPageTitle: Elasticsearch

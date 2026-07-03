@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: pgevent
-cqCamelPartTitle: PostgresSQL Event
+cqCamelPartTitle: PostgreSQL Event
 cqCamelPartDescription: Send and receive PostgreSQL events via LISTEN and NOTIFY commands.
 cqExtensionPageTitle: PostgresSQL Event

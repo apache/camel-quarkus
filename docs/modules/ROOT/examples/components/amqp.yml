@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: amqp
 cqCamelPartTitle: AMQP
-cqCamelPartDescription: Messaging with AMQP protocol using Apache QPid Client.
+cqCamelPartDescription: Messaging with AMQP protocol using Apache Qpid Client.
 cqExtensionPageTitle: AMQP

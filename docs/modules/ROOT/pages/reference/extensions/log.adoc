@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Prints data form the routed message (such as body and headers) to the logger.
+:cq-description: Prints data from the routed message (such as body and headers) to the logger.
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1
 :cq-native-since: 0.0.1
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##0.0.1## [.badge-key]##Native since##[.badge-supported]##0.0.1##
 endif::[]
 
-Prints data form the routed message (such as body and headers) to the logger.
+Prints data from the routed message (such as body and headers) to the logger.
 
 [id="extensions-log-whats-inside"]
 == What's inside
