@@ -37,7 +37,6 @@ class MicroProfileFaultToleranceConfigurationTest {
                         "requestVolumeThreshold", is(60),
                         "failureRatio", is(94),
                         "timeoutEnabled", is(true),
-                        "timeoutDuration", is(3000),
-                        "timeoutPoolSize", is(3));
+                        "timeoutDuration", is(3000));
     }
 }

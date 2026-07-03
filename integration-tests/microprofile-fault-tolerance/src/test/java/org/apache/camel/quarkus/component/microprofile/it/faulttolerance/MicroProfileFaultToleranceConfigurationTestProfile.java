@@ -34,7 +34,6 @@ public class MicroProfileFaultToleranceConfigurationTestProfile implements Quark
                 "camel.faulttolerance.requestVolumeThreshold", "60",
                 "camel.faulttolerance.failureRatio", "94",
                 "camel.faulttolerance.timeoutEnabled", "true",
-                "camel.faulttolerance.timeoutDuration", "3000",
-                "camel.faulttolerance.timeoutPoolSize", "3");
+                "camel.faulttolerance.timeoutDuration", "3000");
     }
 }

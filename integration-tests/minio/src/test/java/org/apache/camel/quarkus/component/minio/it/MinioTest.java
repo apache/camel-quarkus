@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.minio.it;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -38,6 +37,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.minio.MinioConstants;
 import org.apache.camel.component.minio.MinioOperations;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.both;
@@ -48,6 +48,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled("camel-minio requires minio 9.x but quarkiverse-minio 3.8.6 ships 8.6.0 - https://github.com/apache/camel-quarkus/issues/8920")
 @QuarkusTest
 @QuarkusTestResource(MinioTestResource.class)
 class MinioTest {
@@ -431,9 +432,9 @@ class MinioTest {
                             .bucket(bucketName)
                             .object(objectName)
                             .contentType("text/xml")
-                            .stream(is, -1, PART_SIZE)
+                            .stream(is, -1L, PART_SIZE)
                             .build());
-        } catch (MinioException | GeneralSecurityException | IOException e) {
+        } catch (MinioException | IOException | java.security.GeneralSecurityException e) {
             throw new IllegalStateException(e);
         }
     }

@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: pg-replication-slot
-cqCamelPartTitle: PostgresSQL Replication Slot
+cqCamelPartTitle: PostgreSQL Replication Slot
 cqCamelPartDescription: Poll for PostgreSQL Write-Ahead Log (WAL) records using Streaming Replication Slots.
 cqExtensionPageTitle: PostgresSQL Replication Slot

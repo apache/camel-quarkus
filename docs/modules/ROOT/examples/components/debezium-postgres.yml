@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: debezium-postgres
-cqCamelPartTitle: Debezium PostgresSQL Connector
-cqCamelPartDescription: Capture changes from a PostgresSQL database.
+cqCamelPartTitle: Debezium PostgreSQL Connector
+cqCamelPartDescription: Capture changes from a PostgreSQL database.
 cqExtensionPageTitle: Debezium PostgresSQL Connector
