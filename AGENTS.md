@@ -177,6 +177,27 @@ After making changes, run the following from the project root to sync and regene
 ## Integration Tests
 Tests use the Quarkus test framework based on JUnit 6.
 
+### Test Coverage Philosophy
+
+**Camel Quarkus vs Camel Testing:**
+
+Most component functionality is tested in Camel itself. Camel Quarkus tests focus on validating that documented features work correctly in the Quarkus runtime environment (JVM and native mode).
+
+**Recommended test coverage:**
+- **Documented user-facing features** - Verify key features from the upstream Camel component documentation work in Quarkus (operations, data formats, protocols, configuration options)
+- **Quarkus-specific constraints** - Test limitations or behaviors unique to Quarkus (e.g., platform-http vs Undertow differences, native compilation requirements)
+- **Quarkus integration points** - Validate integration with Quarkus extensions (e.g., OAuth with Keycloak testcontainers, camel-oauth integration)
+- **Native mode compatibility** - Ensure resource loading from classpath, reflection registration, and JSON serialization work in native mode
+
+**Quick validation when adding an extension:**
+```bash
+# Review upstream Camel component docs
+open https://github.com/apache/camel/tree/main/components/camel-<category>/camel-<name>/src/main/docs
+
+# Compare documented features against your test methods
+grep "@Test" integration-tests/<name>/src/test/java/**/*Test.java
+```
+
 ### Test Structure
 Follow `docs/modules/root/contributor-guide/extension-testing.adoc`.
 
