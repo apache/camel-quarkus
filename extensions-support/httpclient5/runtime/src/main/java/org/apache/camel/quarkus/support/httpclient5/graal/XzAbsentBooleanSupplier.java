@@ -18,11 +18,17 @@ package org.apache.camel.quarkus.support.httpclient5.graal;
 
 import java.util.function.BooleanSupplier;
 
-public class BrotliAbsentBooleanSupplier implements BooleanSupplier {
+public class XzAbsentBooleanSupplier implements BooleanSupplier {
     @Override
     public boolean getAsBoolean() {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try {
-            Thread.currentThread().getContextClassLoader().loadClass("com.aayushatharva.brotli4j.Brotli4jLoader");
+            cl.loadClass("org.apache.commons.compress.compressors.CompressorStreamFactory");
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+        try {
+            cl.loadClass("org.tukaani.xz.XZInputStream");
             return false;
         } catch (ClassNotFoundException e) {
             return true;

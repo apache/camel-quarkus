@@ -25,7 +25,7 @@ import org.apache.hc.client5.http.entity.BrotliDecompressingEntity;
 import org.apache.hc.client5.http.entity.BrotliInputStreamFactory;
 
 /**
- * Remove references to optional brotli:dec dependency.
+ * Remove references to optional brotli4j dependency.
  */
 final class BrotliSubstitutions {
 }
@@ -35,7 +35,7 @@ final class SubstituteBrotliInputStreamFactory {
     @Substitute
     public InputStream create(InputStream inputStream) throws IOException {
         throw new UnsupportedOperationException(
-                "Cannot create BrotliInputStream. Add org.brotli:dec to the application classpath.");
+                "Cannot create BrotliInputStream. Add com.aayushatharva.brotli4j:brotli4j to the application classpath.");
     }
 }
 

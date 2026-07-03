@@ -33,7 +33,7 @@ import io.quarkus.gizmo.MethodDescriptor;
 import org.apache.camel.quarkus.support.httpclient5.graal.BrotliAbsentBooleanSupplier;
 
 class HttpClient5Processor {
-    private static final String BROTLI_INPUT_STREAM_CLASS_NAME = "org.brotli.dec.BrotliInputStream";
+    private static final String BROTLI_INPUT_STREAM_CLASS_NAME = "com.aayushatharva.brotli4j.decoder.BrotliInputStream";
     private static final String NTLM_ENGINE_IMPL = "org.apache.hc.client5.http.impl.auth.NTLMEngineImpl";
 
     @BuildStep
@@ -90,7 +90,7 @@ class HttpClient5Processor {
                 readMethod.setModifiers(Modifier.PUBLIC);
                 readMethod.addException(IOException.class);
                 readMethod.throwException(UnsupportedOperationException.class,
-                        "Cannot read from BrotliInputStream. Add org.brotli:dec to the application classpath");
+                        "Cannot read from BrotliInputStream. Add com.aayushatharva.brotli4j:brotli4j to the application classpath");
             }
         }
     }
