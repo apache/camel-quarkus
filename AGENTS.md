@@ -189,15 +189,6 @@ Most component functionality is tested in Camel itself. Camel Quarkus tests focu
 - **Quarkus integration points** - Validate integration with Quarkus extensions (e.g., OAuth with Keycloak testcontainers, camel-oauth integration)
 - **Native mode compatibility** - Ensure resource loading from classpath, reflection registration, and JSON serialization work in native mode
 
-**Quick validation when adding an extension:**
-```bash
-# Review upstream Camel component docs
-open https://github.com/apache/camel/tree/main/components/camel-<category>/camel-<name>/src/main/docs
-
-# Compare documented features against your test methods
-grep "@Test" integration-tests/<name>/src/test/java/**/*Test.java
-```
-
 ### Test Structure
 Follow `docs/modules/root/contributor-guide/extension-testing.adoc`.
 
