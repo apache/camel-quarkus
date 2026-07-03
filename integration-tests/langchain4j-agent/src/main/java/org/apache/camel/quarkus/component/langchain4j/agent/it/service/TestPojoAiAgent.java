@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.langchain4j.agent.it.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.service.AiServices;
+import dev.langchain4j.service.Result;
 import dev.langchain4j.service.tool.ToolProvider;
 import org.apache.camel.component.langchain4j.agent.api.Agent;
 import org.apache.camel.component.langchain4j.agent.api.AgentConfiguration;
@@ -35,10 +36,10 @@ public class TestPojoAiAgent implements Agent {
     }
 
     @Override
-    public String chat(AiAgentBody aiAgentBody, ToolProvider toolProvider) {
+    public Result<String> chat(AiAgentBody<?> aiAgentBody, ToolProvider toolProvider) {
         TestPojo response = createService().getTestPojo(aiAgentBody.getUserMessage());
         try {
-            return objectMapper.writeValueAsString(response);
+            return Result.<String> builder().content(objectMapper.writeValueAsString(response)).build();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

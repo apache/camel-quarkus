@@ -382,7 +382,7 @@ class SpringRabbitmqTest {
     }
 
     private void bindQueue(String queue, String exchange, String routingKey) {
-        Queue q = new Queue(queue, false);
+        Queue q = new Queue(queue, true);
 
         AmqpAdmin admin = new RabbitAdmin(connectionFactory);
         admin.declareQueue(q);

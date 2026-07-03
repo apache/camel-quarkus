@@ -17,6 +17,7 @@
 
 package org.apache.camel.quarkus.test.support.azure;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -64,7 +65,8 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
                         .withEnv("MSSQL_SA_PASSWORD", MSSQL_PASSWORD)
                         .withNetworkAliases("sql-edge")
                         .waitingFor(
-                                Wait.forLogMessage(".*xp_sqlagent_notify.*", 1));
+                                Wait.forLogMessage(".*xp_sqlagent_notify.*", 1)
+                                        .withStartupTimeout(Duration.ofMinutes(2)));
                 sqlContainer.start();
 
                 emulatorContainer = new GenericContainer<>(EMULATOR_IMAGE)

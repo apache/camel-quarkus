@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
 import io.minio.Result;
-import io.minio.messages.Bucket;
 import io.minio.messages.Item;
+import io.minio.messages.ListAllMyBucketsResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -193,8 +193,8 @@ public class MinioResource {
                     } else {
                         sb.append(o);
                     }
-                } else if (r instanceof Bucket) {
-                    sb.append("bucket: ").append(((Bucket) r).name());
+                } else if (r instanceof ListAllMyBucketsResult.Bucket) {
+                    sb.append("bucket: ").append(((ListAllMyBucketsResult.Bucket) r).name());
                 } else if (r instanceof GetObjectResponse) {
                     if (length != null && offset != null) {
                         byte[] bytes = new byte[length];

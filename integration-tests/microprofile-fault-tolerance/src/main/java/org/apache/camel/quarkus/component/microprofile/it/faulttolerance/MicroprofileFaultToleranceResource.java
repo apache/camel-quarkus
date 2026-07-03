@@ -99,10 +99,9 @@ public class MicroprofileFaultToleranceResource {
         objectBuilder.add("delay", processor.getDelay());
         objectBuilder.add("successThreshold", processor.getSuccessThreshold());
         objectBuilder.add("requestVolumeThreshold", processor.getRequestVolumeThreshold());
-        objectBuilder.add("failureRatio", (int) (processor.getFailureRate() * 100));
+        objectBuilder.add("failureRatio", (int) (processor.getFailureRatio() * 100));
         objectBuilder.add("timeoutEnabled", processor.isTimeoutEnabled());
         objectBuilder.add("timeoutDuration", processor.getTimeoutDuration());
-        objectBuilder.add("timeoutPoolSize", processor.getTimeoutPoolSize());
         objectBuilder.add("bulkheadEnabled", processor.isBulkheadEnabled());
         objectBuilder.add("bulkheadMaxConcurrentCalls", processor.getBulkheadMaxConcurrentCalls());
         objectBuilder.add("bulkheadWaitingTaskQueue", processor.getBulkheadWaitingTaskQueue());
