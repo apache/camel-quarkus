@@ -49,6 +49,11 @@
     <dependencies>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-a2a</artifactId>
+        <version>4.21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-activemq</artifactId>
         <version>4.21.0</version>
       </dependency>
@@ -3375,6 +3380,16 @@
             <artifactId>checker-qual</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-a2a</artifactId>
+        <version>3.37.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-a2a-deployment</artifactId>
+        <version>3.37.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>

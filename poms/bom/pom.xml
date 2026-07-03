@@ -126,6 +126,11 @@
             <!--$ org.apache.camel $-->
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-a2a</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-activemq</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3507,6 +3512,16 @@
             </dependency>
 
             <!--$ org.apache.camel.quarkus $-->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-a2a</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-a2a-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-activemq</artifactId>

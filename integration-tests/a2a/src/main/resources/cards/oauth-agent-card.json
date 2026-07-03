@@ -1,0 +1,27 @@
+{
+  "name": "OAuth Agent",
+  "description": "A test agent with OAuth2 authentication",
+  "version": "1.0.0",
+  "securitySchemes": {
+    "oauth2": {
+      "openIdConnectSecurityScheme": {
+        "openIdConnectUrl": "http://placeholder/.well-known/openid-configuration"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "schemes": {
+        "oauth2": {
+          "list": []
+        }
+      }
+    }
+  ],
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8080",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

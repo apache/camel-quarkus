@@ -1,0 +1,14 @@
+{
+  "name": "Streaming Test Agent",
+  "description": "A Quarkus test agent with streaming support",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true
+  },
+  "supportedInterfaces": [
+    {
+      "url": "http://localhost:8081/streaming",
+      "protocolBinding": "JSONRPC"
+    }
+  ]
+}

@@ -97,6 +97,7 @@ group-04:
   - observability-services
   - sjms-artemis-client
 group-05:
+  - a2a
   - avro
   - base64
   - bindy
