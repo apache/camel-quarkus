@@ -133,6 +133,32 @@ public class AzureStorageBlobRoutes extends RouteBuilder {
 
         from("direct:deleteBlobContainer")
                 .to(componentUri(BlobOperationsDefinition.deleteBlobContainer));
+
+        from("direct:createBlobSnapshot")
+                .to(componentUri(BlobOperationsDefinition.createBlobSnapshot));
+
+        from("direct:readBlobSnapshot")
+                .to(componentUri(BlobOperationsDefinition.getBlob));
+
+        from("direct:setBlobTags")
+                .to(componentUri(BlobOperationsDefinition.setBlobTags));
+
+        from("direct:getBlobTags")
+                .to(componentUri(BlobOperationsDefinition.getBlobTags));
+
+        from("direct:findBlobsByTags")
+                .toF("azure-storage-blob://%s?operation=%s",
+                        azureStorageAccountName,
+                        BlobOperationsDefinition.findBlobsByTags.name());
+
+        from("direct:listBlobVersions")
+                .toF("azure-storage-blob://%s/%s?operation=%s",
+                        azureStorageAccountName,
+                        azureBlobContainerName,
+                        BlobOperationsDefinition.listBlobVersions.name());
+
+        from("direct:readBlobVersion")
+                .to(componentUri(BlobOperationsDefinition.getBlob));
     }
 
     private String componentUri(final BlobOperationsDefinition operation) {

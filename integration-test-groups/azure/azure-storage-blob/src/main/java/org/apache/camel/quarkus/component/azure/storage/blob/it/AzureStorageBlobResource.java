@@ -44,8 +44,10 @@ import com.azure.storage.blob.models.BlobStorageException;
 import com.azure.storage.blob.models.Block;
 import com.azure.storage.blob.models.BlockList;
 import com.azure.storage.blob.models.BlockListType;
+import com.azure.storage.blob.models.DeleteSnapshotsOptionType;
 import com.azure.storage.blob.models.PageRange;
 import com.azure.storage.blob.models.PageRangeItem;
+import com.azure.storage.blob.models.TaggedBlobItem;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
@@ -172,9 +174,13 @@ public class AzureStorageBlobResource {
 
     @Path("/blob/delete")
     @DELETE
-    public Response deleteBlob() {
+    public Response deleteBlob(@QueryParam("deleteSnapshots") String deleteSnapshots) {
         try {
-            producerTemplate.sendBody("direct:delete", null);
+            Map<String, Object> headers = new HashMap<>();
+            if (deleteSnapshots != null) {
+                headers.put(BlobConstants.DELETE_SNAPSHOT_OPTION_TYPE, DeleteSnapshotsOptionType.fromString(deleteSnapshots));
+            }
+            producerTemplate.sendBodyAndHeaders("direct:delete", null, headers);
         } catch (CamelExecutionException e) {
             Throwable cause = e.getCause();
             if (cause instanceof BlobStorageException) {
@@ -445,6 +451,109 @@ public class AzureStorageBlobResource {
         ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
                 exceptionInformation.getExceptionBodyType());
         return reflectiveInvoker != null;
+    }
+
+    @Path("/blob/snapshot/create")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createBlobSnapshot() throws URISyntaxException {
+        String snapshotId = producerTemplate.requestBody("direct:createBlobSnapshot", null, String.class);
+        return Response.created(new URI("https://camel.apache.org/"))
+                .entity(snapshotId)
+                .build();
+    }
+
+    @Path("/blob/snapshot/read")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String readBlobSnapshot(@QueryParam("snapshotId") String snapshotId) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name());
+        headers.put(BlobConstants.BLOB_SNAPSHOT_ID, snapshotId);
+        return producerTemplate.requestBodyAndHeaders("direct:readBlobSnapshot", null, headers, String.class);
+    }
+
+    @Path("/blob/tags/set")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setBlobTags(Map<String, String> tags) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(BlobConstants.BLOB_TAGS, tags);
+        producerTemplate.sendBodyAndHeaders("direct:setBlobTags", null, headers);
+        return Response.ok().build();
+    }
+
+    @Path("/blob/tags/get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public Map<String, String> getBlobTags() {
+        return producerTemplate.requestBody("direct:getBlobTags", null, Map.class);
+    }
+
+    @Path("/blob/tags/find")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public JsonObject findBlobsByTags(@QueryParam("filter") String filter) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(BlobConstants.BLOB_TAG_FILTER, filter);
+
+        List<?> blobs = producerTemplate.requestBodyAndHeaders("direct:findBlobsByTags", null, headers, List.class);
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        blobs.forEach(blob -> {
+            JsonObjectBuilder blobBuilder = Json.createObjectBuilder();
+            // The blob object has containerName and name properties
+            if (blob instanceof TaggedBlobItem) {
+                TaggedBlobItem taggedBlob = (TaggedBlobItem) blob;
+                blobBuilder.add("containerName", taggedBlob.getContainerName());
+                blobBuilder.add("name", taggedBlob.getName());
+            }
+            arrayBuilder.add(blobBuilder.build());
+        });
+
+        objectBuilder.add("blobs", arrayBuilder);
+        return objectBuilder.build();
+    }
+
+    @Path("/blob/versions/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public JsonObject listBlobVersions() {
+        List<?> versions = producerTemplate.requestBody("direct:listBlobVersions", null, List.class);
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        versions.forEach(version -> {
+            JsonObjectBuilder versionBuilder = Json.createObjectBuilder();
+            if (version instanceof BlobItem) {
+                BlobItem blobItem = (BlobItem) version;
+                versionBuilder.add("name", blobItem.getName());
+                if (blobItem.getVersionId() != null) {
+                    versionBuilder.add("versionId", blobItem.getVersionId());
+                }
+                versionBuilder.add("isCurrentVersion", blobItem.isCurrentVersion() != null && blobItem.isCurrentVersion());
+            }
+            arrayBuilder.add(versionBuilder.build());
+        });
+
+        objectBuilder.add("versions", arrayBuilder);
+        return objectBuilder.build();
+    }
+
+    @Path("/blob/version/read")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String readBlobVersion(@QueryParam("versionId") String versionId) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name());
+        headers.put(BlobConstants.BLOB_VERSION_ID, versionId);
+        return producerTemplate.requestBodyAndHeaders("direct:readBlobVersion", null, headers, String.class);
     }
 
     private void extractBlockNames(JsonObjectBuilder builder, List<Block> blocks, BlockListType listType) {
