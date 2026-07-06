@@ -39,13 +39,21 @@ class JolokiaTest {
 
     @Test
     void defaultConfiguration() {
+        // Read the configured discovery mode to determine expected discoveryEnabled value
+        // Some machines don't support IPV4 multicast
+        String discoveryMode = ConfigProvider.getConfig()
+                .getOptionalValue("quarkus.camel.jolokia.server.discovery-enabled-mode", String.class)
+                .orElse("all");
+
+        boolean discoveryExpected = !"none".equals(discoveryMode);
+
         RestAssured.given()
                 .get("/jolokia/")
                 .then()
                 .statusCode(200)
                 .body(
                         "status", equalTo(200),
-                        "value.config.discoveryEnabled", equalTo("true"),
+                        "value.config.discoveryEnabled", equalTo(String.valueOf(discoveryExpected)),
                         "value.config.restrictorClass", equalTo(CamelJolokiaRestrictor.class.getName()),
                         "value.config.agentDescription", equalTo("camel-quarkus-integration-test-jolokia"),
                         "value.details.url", matchesPattern("http://.*:8778/jolokia"));
