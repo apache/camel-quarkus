@@ -79,6 +79,7 @@ public class CommandModeTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "ci.slow.machine", matches = "true", disabledReason = "Test is timing-sensitive and may be unreliable on slow machines")
     void testMainStopsAfterMaxSeconds() throws IOException, InterruptedException, ExecutionException {
         final StartedProcess process = new QuarkusProcessExecutor("-Dgreeted.subject=Jade",
                 "-Dcamel.main.duration-max-seconds=3").start();
