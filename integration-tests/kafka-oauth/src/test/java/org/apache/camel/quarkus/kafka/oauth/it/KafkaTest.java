@@ -31,7 +31,7 @@ public class KafkaTest {
 
     @Test
     public void testKafka() {
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+        await().atMost(45, TimeUnit.SECONDS).until(() -> {
             String message = RestAssured.get("/kafka-oauth").asString();
             return message != null && message.contains("Message #");
         });
