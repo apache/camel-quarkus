@@ -17,33 +17,38 @@
 package org.apache.camel.quarkus.component.mdc.it;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @QuarkusTest
-class MdcTest {
+@TestProfile(MdcAsyncTestProfile.class)
+class MdcAsyncTest {
 
     @Test
-    void testCustomHeader() {
-        RestAssured.get("/mdc/customHeader")
+    void testAsyncProcessingWithMdcPropagation() {
+        String response = RestAssured.get("/mdc/async")
                 .then()
                 .statusCode(200)
-                .body(equalTo("HELO"));
+                .body(containsString("asyncHeader:asyncValue"))
+                .body(containsString("asyncProp:asyncPropValue"))
+                .body(containsString("threadId:"), not(containsString("threadId:null")))
+                .extract().asString();
+
+        // MDC threadId on the async thread must differ from the calling thread
+        assertNotEquals(extractValue(response, "threadId"), extractValue(response, "callingThread"));
     }
 
-    @Test
-    void testDefaultMdcFields() {
-        RestAssured.get("/mdc/defaultFields")
-                .then()
-                .statusCode(200)
-                .body(containsString("exchangeId:"), not(containsString("exchangeId:null")))
-                .body(containsString("messageId:"), not(containsString("messageId:null")))
-                .body(containsString("routeId:"), not(containsString("routeId:null")))
-                .body(containsString("contextId:"), not(containsString("contextId:null")))
-                .body(containsString("threadId:"), not(containsString("threadId:null")));
+    private static String extractValue(String response, String key) {
+        for (String line : response.split("\n")) {
+            if (line.startsWith(key + ":")) {
+                return line.substring(key.length() + 1);
+            }
+        }
+        return null;
     }
 }

@@ -31,10 +31,38 @@ public class MdcResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/trace")
+    @Path("/customHeader")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String traceRoute() {
-        return producerTemplate.requestBody("direct:start", null, String.class);
+    public String customHeader() {
+        return producerTemplate.requestBody("direct:customHeader", null, String.class);
+    }
+
+    @Path("/defaultFields")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String defaultFields() {
+        return producerTemplate.requestBody("direct:defaultFields", null, String.class);
+    }
+
+    @Path("/properties")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String properties() {
+        return producerTemplate.requestBody("direct:properties", null, String.class);
+    }
+
+    @Path("/async")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String async() {
+        return producerTemplate.requestBody("direct:async", null, String.class);
+    }
+
+    @Path("/interceptBean")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String interceptBean() {
+        return producerTemplate.requestBody("direct:interceptBean", null, String.class);
     }
 }

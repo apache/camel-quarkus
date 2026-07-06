@@ -23,11 +23,76 @@ public class MdcRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
+        // Route for testing custom headers
+        from("direct:customHeader")
                 .setHeader("myHeader", constant("HELO"))
                 .process(exchange -> {
                     exchange.getIn().setBody(MDC.get("myHeader"));
                 })
-                .log("done!");
+                .log("Custom header route done");
+
+        // Route for testing default MDC fields
+        from("direct:defaultFields")
+                .process(exchange -> {
+                    StringBuilder result = new StringBuilder();
+                    result.append("exchangeId:").append(MDC.get("camel.exchangeId")).append(",");
+                    result.append("messageId:").append(MDC.get("camel.messageId")).append(",");
+                    result.append("routeId:").append(MDC.get("camel.routeId")).append(",");
+                    result.append("contextId:").append(MDC.get("camel.contextId")).append(",");
+                    result.append("threadId:").append(MDC.get("camel.threadId"));
+                    exchange.getIn().setBody(result.toString());
+                })
+                .log("Default fields route done");
+
+        // Route for testing properties
+        from("direct:properties")
+                .setProperty("prop1", constant("property1"))
+                .setProperty("prop2", constant("property2"))
+                .process(exchange -> {
+                    StringBuilder result = new StringBuilder();
+                    String p1 = MDC.get("prop1");
+                    String p2 = MDC.get("prop2");
+                    result.append("prop1:").append(p1 != null ? p1 : "null").append(",");
+                    result.append("prop2:").append(p2 != null ? p2 : "null");
+                    exchange.getIn().setBody(result.toString());
+                })
+                .log("Properties route done");
+
+        // Route for testing async processing
+        from("direct:async")
+                .setHeader("asyncHeader", constant("asyncValue"))
+                .setProperty("asyncProp", constant("asyncPropValue"))
+                .process(exchange -> exchange.setProperty("callingThread", Thread.currentThread().getName()))
+                .threads(2)
+                .process(exchange -> {
+                    StringBuilder result = new StringBuilder();
+                    String ah = MDC.get("asyncHeader");
+                    String ap = MDC.get("asyncProp");
+                    String threadId = MDC.get("camel.threadId");
+                    result.append("asyncHeader:").append(ah != null ? ah : "null").append("\n");
+                    result.append("asyncProp:").append(ap != null ? ap : "null").append("\n");
+                    result.append("threadId:").append(threadId != null ? threadId : "null").append("\n");
+                    result.append("callingThread:").append(exchange.getProperty("callingThread", String.class));
+                    exchange.getIn().setBody(result.toString());
+                })
+                .log("Async route done");
+
+        // Route for testing intercept + bean processor MDC propagation
+        from("direct:interceptBean")
+                .setHeader("interceptHeader", constant("interceptValue"))
+                .process(exchange -> {
+                    // Processor acting as the "bean": assert MDC is populated here
+                    StringBuilder result = new StringBuilder();
+                    String ih = MDC.get("interceptHeader");
+                    String exchangeId = MDC.get("camel.exchangeId");
+                    String routeId = MDC.get("camel.routeId");
+                    String contextId = MDC.get("camel.contextId");
+                    result.append("interceptHeader:").append(ih != null ? ih : "null").append(",");
+                    result.append("exchangeId:").append(exchangeId != null ? "present" : "null").append(",");
+                    result.append("routeId:").append(routeId != null ? "present" : "null").append(",");
+                    result.append("contextId:").append(contextId != null ? "present" : "null");
+                    exchange.getIn().setBody(result.toString());
+                })
+                .log("Intercept-bean route done");
     }
 }

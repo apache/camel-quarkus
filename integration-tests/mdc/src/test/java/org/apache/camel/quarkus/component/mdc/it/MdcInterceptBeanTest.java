@@ -17,33 +17,24 @@
 package org.apache.camel.quarkus.component.mdc.it;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 
 @QuarkusTest
-class MdcTest {
+@TestProfile(MdcInterceptBeanTestProfile.class)
+class MdcInterceptBeanTest {
 
     @Test
-    void testCustomHeader() {
-        RestAssured.get("/mdc/customHeader")
+    void testInterceptBeanMdcPropagation() {
+        RestAssured.get("/mdc/interceptBean")
                 .then()
                 .statusCode(200)
-                .body(equalTo("HELO"));
-    }
-
-    @Test
-    void testDefaultMdcFields() {
-        RestAssured.get("/mdc/defaultFields")
-                .then()
-                .statusCode(200)
-                .body(containsString("exchangeId:"), not(containsString("exchangeId:null")))
-                .body(containsString("messageId:"), not(containsString("messageId:null")))
-                .body(containsString("routeId:"), not(containsString("routeId:null")))
-                .body(containsString("contextId:"), not(containsString("contextId:null")))
-                .body(containsString("threadId:"), not(containsString("threadId:null")));
+                .body(containsString("interceptHeader:interceptValue"))
+                .body(containsString("exchangeId:present"))
+                .body(containsString("routeId:present"))
+                .body(containsString("contextId:present"));
     }
 }
