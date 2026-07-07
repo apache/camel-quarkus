@@ -9,12 +9,12 @@
 :cq-status-deprecation: Stable
 :cq-description: Parse HTML using jsoup
 :cq-deprecated: false
-:cq-jvm-since: 3.36.0
-:cq-native-since: 3.36.0
+:cq-jvm-since: 3.38.0
+:cq-native-since: 3.38.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.36.0## [.badge-key]##Native since##[.badge-supported]##3.36.0##
+[.badge-key]##JVM since##[.badge-supported]##3.38.0## [.badge-key]##Native since##[.badge-supported]##3.38.0##
 endif::[]
 
 Parse HTML using jsoup
