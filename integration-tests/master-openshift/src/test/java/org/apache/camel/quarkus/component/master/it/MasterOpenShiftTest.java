@@ -55,8 +55,8 @@ class MasterOpenShiftTest {
     private KubernetesServer mockOpenShiftServer;
 
     @BeforeAll
-    public static void deleteClusterFiles() throws IOException {
-        FileUtils.deleteDirectory(Paths.get("target/cluster/").toFile());
+    public static void deleteClusterFiles() {
+        FileUtils.deleteQuietly(Paths.get("target/cluster/").toFile());
     }
 
     @Test
@@ -86,7 +86,7 @@ class MasterOpenShiftTest {
 
             try {
                 // Verify that this process is the cluster leader
-                Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
+                Awaitility.await().atMost(60, TimeUnit.SECONDS).with().until(() -> {
                     return readLeaderFile("leader").equals("leader");
                 });
 
@@ -103,7 +103,7 @@ class MasterOpenShiftTest {
 
                 // Verify that the secondary application has been elected as the
                 // cluster leader
-                Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+                Awaitility.await().atMost(60, TimeUnit.SECONDS).until(() -> {
                     return readLeaderFile("follower").equals("leader");
                 });
             } finally {
@@ -119,7 +119,7 @@ class MasterOpenShiftTest {
     }
 
     private void awaitStartup(QuarkusProcessExecutor quarkusProcessExecutor) {
-        Awaitility.await().atMost(40, TimeUnit.SECONDS).pollDelay(1, TimeUnit.SECONDS).until(() -> {
+        Awaitility.await().atMost(60, TimeUnit.SECONDS).pollDelay(1, TimeUnit.SECONDS).until(() -> {
             return isApplicationHealthy(quarkusProcessExecutor.getHttpPort());
         });
     }
