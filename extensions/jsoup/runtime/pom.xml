@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsoup-parent</artifactId>
-        <version>3.37.0-SNAPSHOT</version>
+        <version>3.38.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -31,8 +31,8 @@
     <description>Parse HTML using jsoup</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.36.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>3.36.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>3.38.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>3.38.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>

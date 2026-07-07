@@ -5,8 +5,8 @@ cqArtifactIdBase: ocsf
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.37.0
-cqNativeSince: 3.37.0
+cqJvmSince: 3.38.0
+cqNativeSince: 3.38.0
 cqCamelPartName: ocsf
 cqCamelPartTitle: OCSF
 cqCamelPartDescription: Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON

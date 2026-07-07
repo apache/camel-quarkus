@@ -5,8 +5,8 @@ cqArtifactIdBase: github2
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.37.0
-cqNativeSince: 3.37.0
+cqJvmSince: 3.38.0
+cqNativeSince: 3.38.0
 cqCamelPartName: github2
 cqCamelPartTitle: GitHub2
 cqCamelPartDescription: Interact with the GitHub API.

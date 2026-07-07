@@ -9,12 +9,12 @@
 :cq-status-deprecation: Stable
 :cq-description: Consume events from Amazon Cloudtrail using AWS SDK version 2.x.
 :cq-deprecated: false
-:cq-jvm-since: 3.37.0
-:cq-native-since: 3.37.0
+:cq-jvm-since: 3.38.0
+:cq-native-since: 3.38.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.37.0## [.badge-key]##Native since##[.badge-supported]##3.37.0##
+[.badge-key]##JVM since##[.badge-supported]##3.38.0## [.badge-key]##Native since##[.badge-supported]##3.38.0##
 endif::[]
 
 Consume events from Amazon Cloudtrail using AWS SDK version 2.x.

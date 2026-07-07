@@ -5,8 +5,8 @@ cqArtifactIdBase: aws-cloudtrail
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.37.0
-cqNativeSince: 3.37.0
+cqJvmSince: 3.38.0
+cqNativeSince: 3.38.0
 cqCamelPartName: aws-cloudtrail
 cqCamelPartTitle: AWS Cloudtrail
 cqCamelPartDescription: Consume events from Amazon Cloudtrail using AWS SDK version 2.x.
