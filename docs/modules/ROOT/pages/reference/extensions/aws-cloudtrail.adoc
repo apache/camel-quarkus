@@ -22,7 +22,7 @@ Consume events from Amazon Cloudtrail using AWS SDK version 2.x.
 [id="extensions-aws-cloudtrail-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::aws-cloudtrail-component.adoc[AWS Cloudtrail component], URI syntax: `aws-cloudtrail:label`
+* xref:{cq-camel-components}::aws-cloudtrail-component.adoc[AWS CloudTrail component], URI syntax: `aws-cloudtrail:label`
 
 Please refer to the above link for usage and configuration details.
 
