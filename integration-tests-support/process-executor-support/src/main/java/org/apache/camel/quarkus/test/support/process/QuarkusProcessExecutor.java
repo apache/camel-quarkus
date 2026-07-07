@@ -90,7 +90,8 @@ public class QuarkusProcessExecutor {
                 this.process.onExit().get(timeout, unit);
                 LOGGER.infof("Process %d completed with exit code %d", this.process.pid(), this.process.exitValue());
             } catch (TimeoutException e) {
-                LOGGER.warnf(e, "Timed out waiting to destroy process %d", this.process.pid());
+                LOGGER.warnf("Timed out waiting to destroy process %d, forcing termination", this.process.pid());
+                this.process.destroyForcibly();
             } catch (ExecutionException | InterruptedException e) {
                 LOGGER.warnf(e, "Error occurred destroying process %d", this.process.pid());
             } finally {
