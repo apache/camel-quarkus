@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.aws2.lambda.it;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
@@ -31,11 +29,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
+import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
+import org.apache.camel.quarkus.test.support.aws2.DockerSocketAvailable;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
@@ -47,16 +45,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
+@EnabledIf(DockerSocketAvailable.class)
 class Aws2LambdaTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2LambdaTest.class);
 
     public Aws2LambdaTest() {
         super("/aws2-lambda");
-    }
-
-    @BeforeEach
-    public void beforeEach() {
-        Assumptions.assumeTrue(Files.exists(Paths.get("/var/run/docker.sock")));
     }
 
     @Test
