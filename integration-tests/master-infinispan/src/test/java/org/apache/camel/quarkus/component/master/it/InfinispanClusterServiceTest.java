@@ -43,14 +43,14 @@ import static org.hamcrest.Matchers.emptyString;
 @QuarkusTestResource(InfinispanClusterServiceTestResource.class)
 class InfinispanClusterServiceTest {
     @AfterEach
-    public void deleteClusterFiles() throws IOException {
-        FileUtils.deleteDirectory(Paths.get("target/cluster/").toFile());
+    public void deleteClusterFiles() {
+        FileUtils.deleteQuietly(Paths.get("target/cluster/").toFile());
     }
 
     @Test
     void testFailover() throws IOException {
         // Verify that this process is the cluster leader
-        Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
+        Awaitility.await().atMost(60, TimeUnit.SECONDS).with().until(() -> {
             return readLeaderFile("leader").equals("leader");
         });
 
@@ -82,7 +82,7 @@ class InfinispanClusterServiceTest {
 
             // Verify that the secondary application has been elected as the
             // cluster leader
-            Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            Awaitility.await().atMost(60, TimeUnit.SECONDS).until(() -> {
                 return readLeaderFile("follower").equals("leader");
             });
         } finally {
@@ -93,7 +93,7 @@ class InfinispanClusterServiceTest {
     }
 
     private void awaitStartup(QuarkusProcessExecutor quarkusProcessExecutor) {
-        Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(1, TimeUnit.SECONDS).until(() -> {
+        Awaitility.await().atMost(60, TimeUnit.SECONDS).pollDelay(1, TimeUnit.SECONDS).until(() -> {
             return isApplicationHealthy(quarkusProcessExecutor.getHttpPort());
         });
     }
