@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Capture changes from a PostgresSQL database.
+:cq-description: Capture changes from a PostgreSQL database.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,12 +18,12 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Capture changes from a PostgresSQL database.
+Capture changes from a PostgreSQL database.
 
 [id="extensions-debezium-postgres-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::debezium-postgres-component.adoc[Debezium PostgresSQL Connector component], URI syntax: `debezium-postgres:name`
+* xref:{cq-camel-components}::debezium-postgres-component.adoc[Debezium PostgreSQL Connector component], URI syntax: `debezium-postgres:name`
 
 Please refer to the above link for usage and configuration details.
 

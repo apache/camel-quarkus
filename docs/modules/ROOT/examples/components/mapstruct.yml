@@ -9,5 +9,5 @@ cqJvmSince: 3.2.0
 cqNativeSince: 3.2.0
 cqCamelPartName: mapstruct
 cqCamelPartTitle: MapStruct
-cqCamelPartDescription: Type Conversion using Mapstruct
+cqCamelPartDescription: Type Conversion using MapStruct
 cqExtensionPageTitle: MapStruct

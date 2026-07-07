@@ -9,5 +9,5 @@ cqJvmSince: 3.29.0
 cqNativeSince: 3.29.0
 cqCamelPartName: langchain4j-embeddingstore
 cqCamelPartTitle: LangChain4j Embedding Store
-cqCamelPartDescription: Perform operations on the Langchain4jEmbeddingStores.
+cqCamelPartDescription: Perform operations on the LangChain4jEmbeddingStores.
 cqExtensionPageTitle: LangChain4j Embedding Store
