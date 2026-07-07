@@ -23,6 +23,8 @@ import java.util.function.BooleanSupplier;
 public class DockerSocketAvailable implements BooleanSupplier {
     @Override
     public boolean getAsBoolean() {
-        return Files.exists(Path.of("/var/run/docker.sock"));
+        // Check for local Docker socket or remote Docker via DOCKER_HOST
+        return Files.exists(Path.of("/var/run/docker.sock"))
+                || System.getenv("DOCKER_HOST") != null;
     }
 }
