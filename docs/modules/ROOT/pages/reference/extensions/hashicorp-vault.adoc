@@ -22,7 +22,7 @@ Manage secrets in Hashicorp Vault Service
 [id="extensions-hashicorp-vault-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::hashicorp-vault-component.adoc[Hashicorp Vault component], URI syntax: `hashicorp-vault:secretsEngine`
+* xref:{cq-camel-components}::hashicorp-vault-component.adoc[HashiCorp Vault component], URI syntax: `hashicorp-vault:secretsEngine`
 
 Please refer to the above link for usage and configuration details.
 
