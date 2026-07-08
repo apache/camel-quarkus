@@ -33,9 +33,22 @@ pipeline {
             logRotator(artifactNumToKeepStr: '5', numToKeepStr: '10')
         )
         disableConcurrentBuilds()
+        skipDefaultCheckout()
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout([
+					$class: 'GitSCM',
+                    branches: scm.branches,
+                    userRemoteConfigs: scm.userRemoteConfigs,
+                    extensions: [
+						[$class: 'CloneOption', shallow: true, depth: 1, noTags: true]
+					]
+                ])
+            }
+        }
         stage('Deploy') {
             environment {
                 MAVEN_OPTS = "-Xmx4600m"
