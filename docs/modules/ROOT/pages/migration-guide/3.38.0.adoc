@@ -1,0 +1,18 @@
+= Camel Quarkus 3.38.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.38.0.
+
+== CXF SOAP - WS-Security dependency is now optional
+
+The `quarkus-cxf-rt-ws-security` dependency has been removed from the `camel-quarkus-cxf-soap` extension.
+This aligns with the same change made in xref:manual::camel-4x-upgrade-guide-4_21.adoc#_ws_security_dependency_is_now_optional[Apache Camel 4.21.0], where the WS-Security dependency was made optional.
+
+If your application uses WS-Security features, you must now add the dependency explicitly to your project `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.cxf</groupId>
+    <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+</dependency>
+----
