@@ -58,4 +58,17 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            cleanWs(cleanWhenNotBuilt: false,
+                    cleanWhenUnstable: false,
+                    cleanWhenFailure: false,
+                    cleanWhenAborted: false,
+                    cleanWhenSuccess: true,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true)
+        }
+    }
 }
