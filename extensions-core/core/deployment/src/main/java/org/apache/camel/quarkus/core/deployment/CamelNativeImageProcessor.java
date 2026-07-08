@@ -37,6 +37,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
@@ -65,6 +66,7 @@ import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.util.SecureRandomHelper;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
@@ -299,6 +301,11 @@ public class CamelNativeImageProcessor {
                     ReflectiveClassBuildItem.builder(camelRoutesBuilderClassBuildItem.getDotName().toString()).methods()
                             .fields().build());
         });
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    RuntimeInitializedClassBuildItem runtimeInitSecureRandomHelper() {
+        return new RuntimeInitializedClassBuildItem(SecureRandomHelper.class.getName());
     }
 
     @BuildStep
