@@ -104,11 +104,27 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     @Override
     protected void onDefaultCredentialsProviderChange() throws Exception {
         log.info("onDefaultCredentialsProviderChange start");
-        //reset connection, because irt is cached since https://github.com/apache/camel/pull/10919
+
+        // Suspend consumers so they don't race to recreate the shared KinesisClient
+        // with static credentials before the producer can recreate it with DefaultCredentialsProvider
+        for (org.apache.camel.Route route : camelContext.getRoutes()) {
+            if (route.getEndpoint().getEndpointUri().startsWith("aws2-kinesis://")) {
+                camelContext.getRouteController().suspendRoute(route.getRouteId());
+            }
+        }
+
+        //reset connection, because it is cached since https://github.com/apache/camel/pull/10919
         KinesisConnection kc = camelContext.getRegistry().findSingleByType(Kinesis2Component.class).getConnection();
         kc.close();
         kc.setKinesisAsyncClient(null);
         kc.setKinesisClient(null);
         super.onDefaultCredentialsProviderChange();
+
+        // Resume consumers
+        for (org.apache.camel.Route route : camelContext.getRoutes()) {
+            if (route.getEndpoint().getEndpointUri().startsWith("aws2-kinesis://")) {
+                camelContext.getRouteController().resumeRoute(route.getRouteId());
+            }
+        }
     }
 }
