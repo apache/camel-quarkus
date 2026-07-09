@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jolokia.it;
 
-import java.net.ConnectException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.time.Duration;
 import java.util.Map;
@@ -75,7 +75,7 @@ class JolokiaDisableAutoStartTest {
 
         // Connecting to Jolokia should not be possible
         RestAssured.port = 8778;
-        assertThrows(ConnectException.class, () -> {
+        assertThrows(SocketException.class, () -> {
             RestAssured.get("/jolokia/")
                     .then()
                     .statusCode(204);
