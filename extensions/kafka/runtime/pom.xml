@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-kafka</artifactId>
     <name>Camel Quarkus :: Kafka :: Runtime</name>
+    <description>Send and receive messages to/from an Apache Kafka broker.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

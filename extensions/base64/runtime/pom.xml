@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-base64</artifactId>
     <name>Camel Quarkus :: Base64 :: Runtime</name>
+    <description>Encode and decode data using Base64</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

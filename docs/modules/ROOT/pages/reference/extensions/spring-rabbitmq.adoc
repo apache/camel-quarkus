@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Send and receive messages from RabbitMQ using Spring RabbitMQ client.
+:cq-description: Send and receive messages from RabbitMQ using the Spring RabbitMQ client.
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0
 :cq-native-since: 1.7.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.7.0## [.badge-key]##Native since##[.badge-supported]##1.7.0##
 endif::[]
 
-Send and receive messages from RabbitMQ using Spring RabbitMQ client.
+Send and receive messages from RabbitMQ using the Spring RabbitMQ client.
 
 [id="extensions-spring-rabbitmq-whats-inside"]
 == What's inside

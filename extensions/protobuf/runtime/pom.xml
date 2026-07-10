@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-protobuf</artifactId>
     <name>Camel Quarkus :: Protobuf :: Runtime</name>
+    <description>Serialize and deserialize Java objects using Google's Protocol buffers</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

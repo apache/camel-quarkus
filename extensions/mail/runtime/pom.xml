@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-mail</artifactId>
     <name>Camel Quarkus :: Mail :: Runtime</name>
+    <description>Send and receive emails using imap, pop3 and smtp protocols.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

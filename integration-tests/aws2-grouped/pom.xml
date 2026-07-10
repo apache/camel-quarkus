@@ -39,94 +39,117 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-quartz</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-multipart</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws-cloudtrail</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws-secrets-manager</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-cw</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-ddb</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-ec2</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-ecs</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-iam</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-kinesis</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-kms</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-lambda</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-mq</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-msk</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-s3</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-ses</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-sns</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-sqs</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -141,6 +164,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ec2</artifactId>
+            <type>jar</type>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -151,6 +175,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ecs</artifactId>
+            <type>jar</type>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -171,6 +196,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>kafka</artifactId>
+            <type>jar</type>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -181,6 +207,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>mq</artifactId>
+            <type>jar</type>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -191,26 +218,31 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>htmlunit-driver</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>

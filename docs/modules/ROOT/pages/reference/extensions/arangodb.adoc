@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Perform operations on ArangoDb documents, collections and graphs.
+:cq-description: Perform operations on ArangoDb when used as a Document Database, or as a Graph Database
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.1.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.1.0##
 endif::[]
 
-Perform operations on ArangoDb documents, collections and graphs.
+Perform operations on ArangoDb when used as a Document Database, or as a Graph Database
 
 [id="extensions-arangodb-whats-inside"]
 == What's inside

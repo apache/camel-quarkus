@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-azure-servicebus</artifactId>
     <name>Camel Quarkus :: Azure ServiceBus :: Runtime</name>
+    <description>Send and receive messages to/from Azure Service Bus.</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.8.0</camel.quarkus.jvmSince>

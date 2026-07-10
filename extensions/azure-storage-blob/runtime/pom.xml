@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-azure-storage-blob</artifactId>
     <name>Camel Quarkus :: Azure Storage Blob Service :: Runtime</name>
-    <description>Store and retrieve blobs from Azure Storage Blob Service using SDK v12.</description>
+    <description>Store and retrieve blobs from Azure Storage Blob Service.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

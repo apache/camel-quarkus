@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-jaxb</artifactId>
     <name>Camel Quarkus :: JAXB :: Runtime</name>
+    <description>Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

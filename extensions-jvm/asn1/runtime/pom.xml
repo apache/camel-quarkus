@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-asn1</artifactId>
     <name>Camel Quarkus :: ASN.1 File :: Runtime</name>
-    <description>Encode and decode data structures using Abstract Syntax Notation One (ASN.1).</description>
+    <description>Encode and decode data structures using Abstract Syntax Notation One (ASN.1)</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

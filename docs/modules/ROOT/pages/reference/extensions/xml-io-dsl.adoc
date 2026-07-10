@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: An XML stack for parsing XML route definitions
+:cq-description: Camel XML DSL with camel-xml-io
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
 :cq-native-since: 1.8.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##1.8.0##
 endif::[]
 
-An XML stack for parsing XML route definitions
+Camel XML DSL with camel-xml-io
 
 [id="extensions-xml-io-dsl-whats-inside"]
 == What's inside

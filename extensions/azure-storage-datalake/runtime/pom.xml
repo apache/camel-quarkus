@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-azure-storage-datalake</artifactId>
     <name>Camel Quarkus :: Azure storage datalake service :: Runtime</name>
-    <description>Camel Azure Datalake Gen2 Component</description>
+    <description>Sends and receives files to/from Azure Data Lake Storage.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.8.0</camel.quarkus.jvmSince>

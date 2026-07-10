@@ -33,7 +33,7 @@ metadata:
   - "camel.dataformat"
   - "quarkus.camel"
   - "quarkus.camel.main"
-  status: "deprecated"
+  status: "stable"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"

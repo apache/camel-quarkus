@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Support for Camel K style modeline
+:cq-description: Camel DSL modeline
 :cq-deprecated: false
 :cq-jvm-since: 2.14.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.14.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Support for Camel K style modeline
+Camel DSL modeline
 
 [id="extensions-dsl-modeline-whats-inside"]
 == What's inside

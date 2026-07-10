@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON.
+:cq-description: Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON
 :cq-deprecated: false
 :cq-jvm-since: 3.38.0
 :cq-native-since: 3.38.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.38.0## [.badge-key]##Native since##[.badge-supported]##3.38.0##
 endif::[]
 
-Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON.
+Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON
 
 [id="extensions-ocsf-whats-inside"]
 == What's inside

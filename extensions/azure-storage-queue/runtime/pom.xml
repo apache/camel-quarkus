@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-azure-storage-queue</artifactId>
     <name>Camel Quarkus :: Azure Storage Queue Service :: Runtime</name>
-    <description>The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.</description>
+    <description>Stores and retrieves messages to/from Azure Storage Queue.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

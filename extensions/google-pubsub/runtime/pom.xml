@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-google-pubsub</artifactId>
     <name>Camel Quarkus :: Google Pubsub :: Runtime</name>
+    <description>Send and receive messages to/from Google Cloud Platform PubSub Service.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

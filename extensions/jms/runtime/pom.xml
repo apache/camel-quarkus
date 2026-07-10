@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-jms</artifactId>
     <name>Camel Quarkus :: JMS :: Runtime</name>
+    <description>Send and receive messages to/from JMS message brokers.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

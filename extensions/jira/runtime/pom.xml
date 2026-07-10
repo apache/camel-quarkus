@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-jira</artifactId>
     <name>Camel Quarkus :: Jira :: Runtime</name>
+    <description>Interact with JIRA issue tracker.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

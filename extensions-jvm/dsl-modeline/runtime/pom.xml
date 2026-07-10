@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-dsl-modeline</artifactId>
     <name>Camel Quarkus :: DSL Modeline :: Runtime</name>
-    <description>Support for Camel K style modeline</description>
+    <description>Camel DSL modeline</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.14.0</camel.quarkus.jvmSince>

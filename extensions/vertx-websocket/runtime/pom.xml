@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-vertx-websocket</artifactId>
     <name>Camel Quarkus :: Vert.x WebSocket :: Runtime</name>
-    <description>Camel WebSocket support with Vert.x</description>
+    <description>Expose WebSocket endpoints and connect to remote WebSocket servers using Vert.x</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

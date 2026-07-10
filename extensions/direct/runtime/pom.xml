@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-direct</artifactId>
     <name>Camel Quarkus :: Direct :: Runtime</name>
+    <description>Call another endpoint from the same Camel Context synchronously.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>

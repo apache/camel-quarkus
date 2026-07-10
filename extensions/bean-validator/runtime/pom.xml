@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-bean-validator</artifactId>
     <name>Camel Quarkus :: Bean Validator :: Runtime</name>
+    <description>Validate the message body using the Java Bean Validation API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

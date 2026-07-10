@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-consul</artifactId>
     <name>Camel Quarkus :: Consul :: Runtime</name>
+    <description>Integrate with Consul service discovery and configuration store.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

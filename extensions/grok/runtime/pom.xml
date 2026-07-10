@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-grok</artifactId>
     <name>Camel Quarkus :: Grok :: Runtime</name>
-    <description>Unmarshal unstructured data to objects using Logstash based Grok patterns.</description>
+    <description>Unmarshal unstructured data to objects using Logstash based Grok patterns</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

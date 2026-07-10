@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-slack</artifactId>
     <name>Camel Quarkus :: Slack :: Runtime</name>
+    <description>Send and receive messages to/from Slack.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-ical</artifactId>
     <name>Camel Quarkus :: iCal :: Runtime</name>
+    <description>Marshal and unmarshal iCal (*.ics) documents to/from model objects</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

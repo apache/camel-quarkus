@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-kudu</artifactId>
     <name>Camel Quarkus :: Kudu :: Runtime</name>
+    <description>Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

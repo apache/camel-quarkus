@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-eks</artifactId>
     <name>Camel Quarkus :: AWS 2 Elastic Kubernetes Service (EKS) :: Runtime</name>
+    <description>Manage AWS EKS cluster instances.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

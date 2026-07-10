@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-python</artifactId>
     <name>Camel Quarkus :: Python :: Runtime</name>
-    <description>Evaluates a Python expression.</description>
+    <description>Evaluates a Python expression</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.24.0</camel.quarkus.jvmSince>

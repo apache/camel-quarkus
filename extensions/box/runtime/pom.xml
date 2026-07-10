@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-box</artifactId>
     <name>Camel Quarkus :: Box :: Runtime</name>
+    <description>Upload, download and manage files, folders, groups, collaborations, etc. on box.com.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

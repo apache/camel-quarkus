@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-kamelet</artifactId>
     <name>Camel Quarkus :: Kamelet :: Runtime</name>
-    <description>Materialize route templates</description>
+    <description>To call Kamelets</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>

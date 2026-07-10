@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-cbor</artifactId>
     <name>Camel Quarkus :: CBOR :: Runtime</name>
-    <description>Unmarshal a CBOR payload to POJO and back.</description>
+    <description>Unmarshal a CBOR payload to POJO and back</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

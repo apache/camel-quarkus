@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-spring-rabbitmq</artifactId>
     <name>Camel Quarkus :: Spring RabbitMQ :: Runtime</name>
-    <description>Send and receive messages from RabbitMQ using Spring RabbitMQ client.</description>
+    <description>Send and receive messages from RabbitMQ using the Spring RabbitMQ client.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>

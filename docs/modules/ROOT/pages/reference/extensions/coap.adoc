@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Send and receive messages to/from COAP capable devices.
+:cq-description: Send and receive messages to/from CoAP (Constrained Application Protocol) capable devices.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Send and receive messages to/from COAP capable devices.
+Send and receive messages to/from CoAP (Constrained Application Protocol) capable devices.
 
 [id="extensions-coap-whats-inside"]
 == What's inside

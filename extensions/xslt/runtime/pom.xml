@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-xslt</artifactId>
     <name>Camel Quarkus :: XSLT :: Runtime</name>
+    <description>Transforms XML payload using an XSLT template.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

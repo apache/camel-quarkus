@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-datasonnet</artifactId>
     <name>Camel Quarkus :: DataSonnet :: Runtime</name>
-    <description>To use DataSonnet scripts for message transformations.</description>
+    <description>To use DataSonnet scripts for message transformations</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.10.0</camel.quarkus.jvmSince>

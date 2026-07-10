@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-jsoup</artifactId>
     <name>Camel Quarkus :: Jsoup :: Runtime</name>
-    <description>Parse HTML using jsoup</description>
+    <description>Cleanup HTML content</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.38.0</camel.quarkus.jvmSince>

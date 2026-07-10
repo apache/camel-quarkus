@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-platform-http</artifactId>
     <name>Camel Quarkus :: Platform HTTP :: Runtime</name>
+    <description>Expose HTTP endpoints using the HTTP server available in the current platform.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

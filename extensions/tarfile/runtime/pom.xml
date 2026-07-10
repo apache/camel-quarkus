@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-tarfile</artifactId>
     <name>Camel Quarkus :: Tar File :: Runtime</name>
+    <description>Archive files into tarballs or extract files from tarballs</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

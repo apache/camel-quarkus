@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Evaluates a JavaScript expression.
+:cq-description: Evaluates a JavaScript expression
 :cq-deprecated: false
 :cq-jvm-since: 3.14.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.14.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Evaluates a JavaScript expression.
+Evaluates a JavaScript expression
 
 [id="extensions-javascript-whats-inside"]
 == What's inside

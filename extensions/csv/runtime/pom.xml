@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-csv</artifactId>
     <name>Camel Quarkus :: CSV :: Runtime</name>
+    <description>Handle CSV (Comma Separated Values) payloads</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

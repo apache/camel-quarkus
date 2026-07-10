@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-zipfile</artifactId>
     <name>Camel Quarkus :: Zip File :: Runtime</name>
+    <description>Compression and decompress streams using java.util.zip.Zip*Stream</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-iso8583</artifactId>
     <name>Camel Quarkus :: ISO-8583 :: Runtime</name>
-    <description>Create, edit and read ISO-8583 messages.</description>
+    <description>Create, edit and read ISO-8583 messages</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.26.0</camel.quarkus.jvmSince>

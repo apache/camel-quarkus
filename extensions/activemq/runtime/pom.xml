@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-activemq</artifactId>
     <name>Camel Quarkus :: ActiveMQ :: Runtime</name>
+    <description>Send messages to (or consume from) Apache ActiveMQ 5.x. This component extends the Camel JMS component.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

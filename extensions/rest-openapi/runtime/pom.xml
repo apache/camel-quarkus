@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-rest-openapi</artifactId>
     <name>Camel Quarkus :: REST OpenApi :: Runtime</name>
+    <description>To call and expose REST services using OpenAPI specification as contract.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

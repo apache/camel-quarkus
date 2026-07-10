@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-ocsf</artifactId>
     <name>Camel Quarkus :: OCSF :: Runtime</name>
-    <description>Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON.</description>
+    <description>Marshal and unmarshal OCSF (Open Cybersecurity Schema Framework) security events to/from JSON</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.38.0</camel.quarkus.jvmSince>

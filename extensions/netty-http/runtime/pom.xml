@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-netty-http</artifactId>
     <name>Camel Quarkus :: Netty HTTP :: Runtime</name>
+    <description>Netty HTTP server and client using the Netty 4.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

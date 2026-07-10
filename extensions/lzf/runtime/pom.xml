@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-lzf</artifactId>
     <name>Camel Quarkus :: LZF Deflate Compression :: Runtime</name>
+    <description>Compress and decompress streams using LZF deflate algorithm</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

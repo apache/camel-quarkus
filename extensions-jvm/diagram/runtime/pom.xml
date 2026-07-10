@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-diagram</artifactId>
     <name>Camel Quarkus :: Diagram :: Runtime</name>
-    <description>Camel Route Diagram Dev UI</description>
+    <description>Camel Route Diagram rendering</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.38.0</camel.quarkus.jvmSince>

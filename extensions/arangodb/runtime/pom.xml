@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-arangodb</artifactId>
     <name>Camel Quarkus :: ArangoDb :: Runtime</name>
-    <description>Perform operations on ArangoDb documents, collections and graphs.</description>
+    <description>Perform operations on ArangoDb when used as a Document Database, or as a Graph Database</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

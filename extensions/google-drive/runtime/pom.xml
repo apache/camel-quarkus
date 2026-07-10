@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-google-drive</artifactId>
     <name>Camel Quarkus :: Google Drive :: Runtime</name>
+    <description>Manage files in Google Drive.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-snakeyaml</artifactId>
     <name>Camel Quarkus :: SnakeYAML :: Runtime</name>
+    <description>Marshal and unmarshal Java objects to and from YAML using SnakeYAML</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

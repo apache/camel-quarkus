@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-debezium-mongodb</artifactId>
     <name>Camel Quarkus :: Debezium MongoDB Connector :: Runtime</name>
+    <description>Capture changes from a MongoDB database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

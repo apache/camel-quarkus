@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-influxdb</artifactId>
     <name>Camel Quarkus :: InfluxDB :: Runtime</name>
+    <description>Interact with InfluxDB v1, a time series database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

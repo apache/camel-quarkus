@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-sjms2</artifactId>
     <name>Camel Quarkus :: Simple JMS2 :: Runtime</name>
+    <description>Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-jsonata</artifactId>
     <name>Camel Quarkus :: JSONATA :: Runtime</name>
-    <description>JSON to JSON transformation using JSONATA.</description>
+    <description>Transforms JSON payload using JSONata transformation.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.6.0</camel.quarkus.jvmSince>

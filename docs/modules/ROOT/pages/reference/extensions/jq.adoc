@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Evaluates a JQ expression against a JSON message body.
+:cq-description: Evaluates a JQ expression against a JSON message body
 :cq-deprecated: false
 :cq-jvm-since: 2.11.0
 :cq-native-since: 2.11.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.11.0## [.badge-key]##Native since##[.badge-supported]##2.11.0##
 endif::[]
 
-Evaluates a JQ expression against a JSON message body.
+Evaluates a JQ expression against a JSON message body
 
 [id="extensions-jq-whats-inside"]
 == What's inside

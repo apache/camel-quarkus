@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Camel Route Diagram Dev UI
+:cq-description: Camel Route Diagram rendering
 :cq-deprecated: false
 :cq-jvm-since: 3.38.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.38.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Camel Route Diagram Dev UI
+Camel Route Diagram rendering
 
 [id="extensions-diagram-whats-inside"]
 == What's inside
