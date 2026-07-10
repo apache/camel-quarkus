@@ -29,6 +29,8 @@ import org.testcontainers.weaviate.WeaviateContainer;
 
 public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager {
 
+    private static final int GRPC_PORT = 50051;
+
     private static final DockerImageName WEAVIATE_IMAGE = DockerImageName
             .parse(ConfigProvider.getConfig().getValue("weaviate.container.image", String.class))
             .asCompatibleSubstituteFor("semitechnologies/weaviate");
@@ -38,7 +40,6 @@ public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        //detect real/mock backend
         Optional<String> apiKey = ConfigProvider.getConfig().getOptionalValue(WeaviateResource.WEAVIATE_API_KEY_ENV,
                 String.class);
         Optional<String> hostKey = ConfigProvider.getConfig().getOptionalValue(WeaviateResource.WEAVIATE_HOST_ENV,
@@ -53,7 +54,9 @@ public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager
             container.start();
 
             return Map.of(
-                    WeaviateResource.WEAVIATE_CONTAINER_ADDRESS, container.getHttpHostAddress());
+                    WeaviateResource.WEAVIATE_CONTAINER_ADDRESS, container.getHttpHostAddress(),
+                    WeaviateResource.WEAVIATE_CONTAINER_GRPC_HOST, container.getHost(),
+                    WeaviateResource.WEAVIATE_CONTAINER_GRPC_PORT, String.valueOf(container.getMappedPort(GRPC_PORT)));
         } else if (!startMockBackend && !realApiProvided) {
             throw new IllegalStateException(
                     "Set %s and %s env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false"
