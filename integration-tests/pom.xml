@@ -159,6 +159,7 @@
         <module>kubernetes</module>
         <module>kudu</module>
         <module>langchain4j-agent</module>
+        <module>langchain4j-agent-bean-binding-ql4j</module>
         <module>langchain4j-agent-ql4j</module>
         <module>langchain4j-chat</module>
         <module>langchain4j-embeddings</module>
