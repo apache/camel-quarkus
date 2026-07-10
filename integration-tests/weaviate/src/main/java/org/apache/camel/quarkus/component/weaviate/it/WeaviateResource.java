@@ -22,10 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import io.weaviate.client6.v1.api.collections.Vectors;
 import io.weaviate.client6.v1.api.collections.WeaviateObject;
-import io.weaviate.client6.v1.api.collections.aggregate.AggregateResponse;
-import io.weaviate.client6.v1.api.collections.data.InsertManyResponse;
 import io.weaviate.client6.v1.api.collections.query.QueryResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -36,8 +33,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.component.weaviate.WeaviateVectorDbAction;
-import org.apache.camel.component.weaviate.WeaviateVectorDbHeaders;
 import org.jboss.logging.Logger;
 
 @Path("/weaviate")
@@ -66,32 +61,8 @@ public class WeaviateResource {
         headers.remove("body");
 
         if (body instanceof List) {
-            String action = String.valueOf(headers.get(WeaviateVectorDbHeaders.ACTION));
-            if (WeaviateVectorDbAction.BATCH_CREATE.name().equals(action)) {
-                body = ((List<Map<String, Object>>) body).stream().map(m -> {
-                    Map<String, Object> props = (Map<String, Object>) m.get("properties");
-                    List<Number> vector = (List<Number>) m.get("vector");
-                    float[] floatVector = new float[vector.size()];
-                    for (int i = 0; i < vector.size(); i++) {
-                        floatVector[i] = vector.get(i).floatValue();
-                    }
-                    return new WeaviateObject.Builder<Map<String, Object>>()
-                            .properties(props)
-                            .vectors(Vectors.of(floatVector))
-                            .build();
-                }).collect(Collectors.toList());
-            } else {
-                body = ((List<?>) body).stream().map(o -> o instanceof Double ? ((Double) o).floatValue() : o)
-                        .collect(Collectors.toList());
-            }
-        }
-
-        Object queryVector = headers.get(WeaviateVectorDbHeaders.QUERY_VECTOR);
-        if (queryVector instanceof List) {
-            headers.put(WeaviateVectorDbHeaders.QUERY_VECTOR,
-                    ((List<?>) queryVector).stream()
-                            .map(o -> o instanceof Double ? ((Double) o).floatValue() : o)
-                            .collect(Collectors.toList()));
+            body = ((List<?>) body).stream().map(o -> o instanceof Double ? ((Double) o).floatValue() : o)
+                    .collect(Collectors.toList());
         }
 
         Exchange response = context.createFluentProducerTemplate()
@@ -124,13 +95,6 @@ public class WeaviateResource {
                     WeaviateObject<Map<String, Object>> wo = opt.get();
                     map.put("result", Map.of(wo.uuid(), wo.properties()));
                 }
-            } else if (result instanceof InsertManyResponse) {
-                InsertManyResponse imr = (InsertManyResponse) result;
-                map.put("uuids", imr.uuids());
-                map.put("errors", imr.errors());
-            } else if (result instanceof AggregateResponse) {
-                AggregateResponse ar = (AggregateResponse) result;
-                map.put("totalCount", ar.totalCount());
             } else if (result instanceof QueryResponse) {
                 QueryResponse<Map<String, Object>> qr = (QueryResponse<Map<String, Object>>) result;
                 List<Map<String, Object>> objects = qr.objects().stream()
