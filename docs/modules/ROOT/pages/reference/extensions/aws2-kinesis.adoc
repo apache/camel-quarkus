@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
+:cq-description: Consume and produce records from and to AWS Kinesis Streams. Produce data to AWS Kinesis Firehose streams.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.7.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.7.0##
 endif::[]
 
-Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
+Consume and produce records from and to AWS Kinesis Streams. Produce data to AWS Kinesis Firehose streams.
 
 [id="extensions-aws2-kinesis-whats-inside"]
 == What's inside

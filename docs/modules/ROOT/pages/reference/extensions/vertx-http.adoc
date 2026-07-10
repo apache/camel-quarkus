@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Camel HTTP client support with Vert.x
+:cq-description: Send requests to external HTTP servers using Vert.x
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.1.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.1.0##
 endif::[]
 
-Camel HTTP client support with Vert.x
+Send requests to external HTTP servers using Vert.x
 
 [id="extensions-vertx-http-whats-inside"]
 == What's inside

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-javascript</artifactId>
     <name>Camel Quarkus :: JavaScript :: Runtime</name>
-    <description>Evaluates a JavaScript expression.</description>
+    <description>Evaluates a JavaScript expression</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.14.0</camel.quarkus.jvmSince>

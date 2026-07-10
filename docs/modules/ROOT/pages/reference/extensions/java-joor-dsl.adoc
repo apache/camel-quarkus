@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Support for parsing Java route definitions at runtime
+:cq-description: Camel Java DSL with jOOR
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
 :cq-native-since: 2.16.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##2.16.0##
 endif::[]
 
-Support for parsing Java route definitions at runtime
+Camel Java DSL with jOOR
 
 [id="extensions-java-joor-dsl-whats-inside"]
 == What's inside

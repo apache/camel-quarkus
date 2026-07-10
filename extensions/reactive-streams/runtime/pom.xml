@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-reactive-streams</artifactId>
     <name>Camel Quarkus :: Reactive Streams :: Runtime</name>
+    <description>Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

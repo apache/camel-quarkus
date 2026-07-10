@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: To use DataSonnet scripts for message transformations.
+:cq-description: To use DataSonnet scripts for message transformations
 :cq-deprecated: false
 :cq-jvm-since: 2.10.0
 :cq-native-since: 2.10.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.10.0## [.badge-key]##Native since##[.badge-supported]##2.10.0##
 endif::[]
 
-To use DataSonnet scripts for message transformations.
+To use DataSonnet scripts for message transformations
 
 [id="extensions-datasonnet-whats-inside"]
 == What's inside

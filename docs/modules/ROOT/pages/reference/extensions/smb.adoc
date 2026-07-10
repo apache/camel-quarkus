@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: SMB component which consumes natively from file shares using the Server Message Block (SMB, also known as Common Internet File System - CIFS) protocol
+:cq-description: Read and write files to Server Message Block (SMB) file shares.
 :cq-deprecated: false
 :cq-jvm-since: 3.7.0
 :cq-native-since: 3.7.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.7.0## [.badge-key]##Native since##[.badge-supported]##3.7.0##
 endif::[]
 
-SMB component which consumes natively from file shares using the Server Message Block (SMB, also known as Common Internet File System - CIFS) protocol
+Read and write files to Server Message Block (SMB) file shares.
 
 [id="extensions-smb-whats-inside"]
 == What's inside

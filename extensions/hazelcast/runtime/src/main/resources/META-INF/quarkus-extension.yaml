@@ -29,7 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/hazelcast.html"
   categories:
   - "integration"
-  status: "deprecated"
+  status: "stable"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"

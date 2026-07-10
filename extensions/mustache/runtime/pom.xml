@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-mustache</artifactId>
     <name>Camel Quarkus :: Mustache :: Runtime</name>
+    <description>Transform messages using a Mustache template.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

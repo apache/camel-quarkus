@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-translate</artifactId>
     <name>Camel Quarkus :: AWS 2 Translate :: Runtime</name>
+    <description>Translate texts using AWS Translate and AWS SDK version 2.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

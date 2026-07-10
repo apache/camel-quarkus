@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-json-patch</artifactId>
     <name>Camel Quarkus :: JsonPatch :: Runtime</name>
-    <description>JsonPatch component which transform JSON using JSON patch (RFC 6902).</description>
+    <description>Transforms JSON using JSON patch (RFC 6902).</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.7.0</camel.quarkus.jvmSince>

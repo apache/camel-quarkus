@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-infinispan</artifactId>
     <name>Camel Quarkus :: Infinispan :: Runtime</name>
+    <description>Read and write from/to Infinispan distributed key/value store and data grid.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>

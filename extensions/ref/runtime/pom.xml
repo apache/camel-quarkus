@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-ref</artifactId>
     <name>Camel Quarkus :: Ref :: Runtime</name>
+    <description>Route messages to an endpoint looked up dynamically by name in the Camel Registry.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

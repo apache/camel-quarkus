@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-salesforce</artifactId>
     <name>Camel Quarkus :: Salesforce :: Runtime</name>
+    <description>Communicate with Salesforce using Java DTOs.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

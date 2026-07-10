@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-log</artifactId>
     <name>Camel Quarkus :: Log :: Runtime</name>
+    <description>Prints data form the routed message (such as body and headers) to the logger.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>

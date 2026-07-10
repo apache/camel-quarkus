@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-soap</artifactId>
     <name>Camel Quarkus :: SOAP dataformat :: Runtime</name>
+    <description>Marshal Java objects to SOAP messages and back</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

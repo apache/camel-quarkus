@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-azure-eventhubs</artifactId>
     <name>Camel Quarkus :: Azure Event Hubs :: Runtime</name>
-    <description>The azure-eventhubs component that integrates Azure Event Hubs using AMQP protocol. Azure EventHubs is a highly scalable publish-subscribe service that can ingest millions of events per second and stream them to multiple consumers.</description>
+    <description>Send and receive events to/from Azure Event Hubs using AMQP protocol.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>

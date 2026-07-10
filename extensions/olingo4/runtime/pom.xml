@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-olingo4</artifactId>
     <name>Camel Quarkus :: Olingo4 :: Runtime</name>
+    <description>Communicate with OData 4.0 services using Apache Olingo OData API.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: An YAML stack for parsing YAML route definitions
+:cq-description: Camel YAML DSL
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
 :cq-native-since: 1.8.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##1.8.0##
 endif::[]
 
-An YAML stack for parsing YAML route definitions
+Camel YAML DSL
 
 [id="extensions-yaml-dsl-whats-inside"]
 == What's inside

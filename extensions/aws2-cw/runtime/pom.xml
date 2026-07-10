@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-cw</artifactId>
     <name>Camel Quarkus :: AWS 2 CloudWatch :: Runtime</name>
+    <description>Sending metrics to AWS CloudWatch.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

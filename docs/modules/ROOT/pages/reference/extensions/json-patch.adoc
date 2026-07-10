@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview Deprecated
-:cq-description: JsonPatch component which transform JSON using JSON patch (RFC 6902).
+:cq-description: Transforms JSON using JSON patch (RFC 6902).
 :cq-deprecated: true
 :cq-jvm-since: 2.7.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.7.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
-JsonPatch component which transform JSON using JSON patch (RFC 6902).
+Transforms JSON using JSON patch (RFC 6902).
 
 [id="extensions-json-patch-whats-inside"]
 == What's inside

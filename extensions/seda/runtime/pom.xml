@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-seda</artifactId>
     <name>Camel Quarkus :: SEDA :: Runtime</name>
+    <description>Asynchronously call another endpoint from any Camel Context in the same JVM.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

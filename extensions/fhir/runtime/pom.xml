@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-fhir</artifactId>
     <name>Camel Quarkus :: FHIR :: Runtime</name>
+    <description>Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

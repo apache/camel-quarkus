@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-google-sheets</artifactId>
     <name>Camel Quarkus :: Google Sheets :: Runtime</name>
+    <description>Manage spreadsheets in Google Sheets.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

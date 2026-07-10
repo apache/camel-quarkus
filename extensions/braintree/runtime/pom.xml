@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-braintree</artifactId>
     <name>Camel Quarkus :: Braintree :: Runtime</name>
+    <description>Process payments using Braintree Payments.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

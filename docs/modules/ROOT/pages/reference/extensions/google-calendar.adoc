@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Perform various operations on a Google Calendar. Poll for changes in a Google Calendar.
+:cq-description: Perform various operations on a Google Calendar.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Perform various operations on a Google Calendar. Poll for changes in a Google Calendar.
+Perform various operations on a Google Calendar.
 
 [id="extensions-google-calendar-whats-inside"]
 == What's inside

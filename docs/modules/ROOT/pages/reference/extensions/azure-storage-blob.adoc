@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
+:cq-description: Store and retrieve blobs from Azure Storage Blob Service.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.6.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
 endif::[]
 
-Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
+Store and retrieve blobs from Azure Storage Blob Service.
 
 [id="extensions-azure-storage-blob-whats-inside"]
 == What's inside

@@ -35,10 +35,12 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -51,26 +53,32 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-lzf</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-mock</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-zip-deflater</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-zipfile</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>

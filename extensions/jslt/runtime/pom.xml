@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-jslt</artifactId>
     <name>Camel Quarkus :: JSLT :: Runtime</name>
-    <description>Query or transform JSON payloads using an JSLT.</description>
+    <description>Query or transform JSON payloads using JSLT.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Parse HTML using jsoup
+:cq-description: Cleanup HTML content
 :cq-deprecated: false
 :cq-jvm-since: 3.38.0
 :cq-native-since: 3.38.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.38.0## [.badge-key]##Native since##[.badge-supported]##3.38.0##
 endif::[]
 
-Parse HTML using jsoup
+Cleanup HTML content
 
 [id="extensions-jsoup-whats-inside"]
 == What's inside

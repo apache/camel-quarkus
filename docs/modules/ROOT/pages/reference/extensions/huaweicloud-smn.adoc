@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Huawei Cloud component to integrate with SimpleNotification services
+:cq-description: To broadcast messages and connect cloud services through notifications on Huawei Cloud
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Huawei Cloud component to integrate with SimpleNotification services
+To broadcast messages and connect cloud services through notifications on Huawei Cloud
 
 [id="extensions-huaweicloud-smn-whats-inside"]
 == What's inside

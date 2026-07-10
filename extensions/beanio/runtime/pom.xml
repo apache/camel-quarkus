@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-beanio</artifactId>
     <name>Camel Quarkus :: BeanIO :: Runtime</name>
-    <description>Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).</description>
+    <description>Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats)</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.8.0</camel.quarkus.jvmSince>

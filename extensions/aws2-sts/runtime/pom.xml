@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-sts</artifactId>
     <name>Camel Quarkus :: AWS 2 Security Token Service (STS) :: Runtime</name>
-    <description>Manage AWS STS cluster instances using AWS SDK version 2.x.</description>
+    <description>Manage AWS STS cluster instances.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

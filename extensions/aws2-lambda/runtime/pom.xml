@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-lambda</artifactId>
     <name>Camel Quarkus :: AWS 2 Lambda :: Runtime</name>
-    <description>Manage and invoke AWS Lambda functions using AWS SDK version 2.x.</description>
+    <description>Manage and invoke AWS Lambda functions.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-once</artifactId>
     <name>Camel Quarkus :: Once :: Runtime</name>
-    <description>Camel Once component</description>
+    <description>Trigger a single message only once at startup (useful for development and testing purposes).</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.31.0</camel.quarkus.jvmSince>

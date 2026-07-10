@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).
+:cq-description: Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats)
 :cq-deprecated: false
 :cq-jvm-since: 3.8.0
 :cq-native-since: 3.16.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.8.0## [.badge-key]##Native since##[.badge-supported]##3.16.0##
 endif::[]
 
-Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).
+Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats)
 
 [id="extensions-beanio-whats-inside"]
 == What's inside

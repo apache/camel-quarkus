@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Encrypt and decrypt messages using Bouncy Castle OpenPGP API.
+:cq-description: Encrypt and decrypt messages using Java Cryptographic Extension (JCE) and PGP
 :cq-deprecated: false
 :cq-jvm-since: 3.13.0
 :cq-native-since: 3.13.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.13.0## [.badge-key]##Native since##[.badge-supported]##3.13.0##
 endif::[]
 
-Encrypt and decrypt messages using Bouncy Castle OpenPGP API.
+Encrypt and decrypt messages using Java Cryptographic Extension (JCE) and PGP
 
 [id="extensions-crypto-pgp-whats-inside"]
 == What's inside

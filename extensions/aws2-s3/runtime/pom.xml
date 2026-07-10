@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-aws2-s3</artifactId>
     <name>Camel Quarkus :: AWS 2 S3 Storage Service :: Runtime</name>
+    <description>Store and retrieve objects from AWS S3 Storage Service.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

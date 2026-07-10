@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-file</artifactId>
     <name>Camel Quarkus :: File :: Runtime</name>
+    <description>Read and write files.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

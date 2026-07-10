@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: JSON to JSON transformation using JSONATA.
+:cq-description: Transforms JSON payload using JSONata transformation.
 :cq-deprecated: false
 :cq-jvm-since: 1.6.0
 :cq-native-since: 1.6.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.6.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
 endif::[]
 
-JSON to JSON transformation using JSONATA.
+Transforms JSON payload using JSONata transformation.
 
 [id="extensions-jsonata-whats-inside"]
 == What's inside

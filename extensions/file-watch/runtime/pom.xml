@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-file-watch</artifactId>
     <name>Camel Quarkus :: File Watch :: Runtime</name>
+    <description>Get notified about file events in a directory using java.nio.file.WatchService.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

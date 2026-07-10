@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
     <name>Camel Quarkus :: Microprofile Fault Tolerance :: Runtime</name>
-    <description>Circuit Breaker EIP using Microprofile Fault Tolerance</description>
+    <description>Circuit Breaker EIP using MicroProfile Fault Tolerance</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

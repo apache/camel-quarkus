@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-jdbc</artifactId>
     <name>Camel Quarkus :: JDBC :: Runtime</name>
+    <description>Access databases through SQL and JDBC.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>

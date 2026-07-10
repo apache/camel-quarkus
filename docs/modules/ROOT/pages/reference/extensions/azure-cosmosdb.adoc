@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Azure Cosmos DB is Microsofts globally distributed, multi-model database service for operational and analytics workloads. It offers multi-mastering feature by automatically scaling throughput, compute, and storage. This component interacts with Azure CosmosDB through Azure SQL API
+:cq-description: To read and write records to the CosmosDB database on Azure cloud platform.
 :cq-deprecated: false
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Azure Cosmos DB is Microsofts globally distributed, multi-model database service for operational and analytics workloads. It offers multi-mastering feature by automatically scaling throughput, compute, and storage. This component interacts with Azure CosmosDB through Azure SQL API
+To read and write records to the CosmosDB database on Azure cloud platform.
 
 [id="extensions-azure-cosmosdb-whats-inside"]
 == What's inside

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-sap-netweaver</artifactId>
     <name>Camel Quarkus :: SAP NetWeaver :: Runtime</name>
+    <description>Send requests to SAP NetWeaver Gateway using HTTP.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

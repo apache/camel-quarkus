@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-crypto-pgp</artifactId>
     <name>Camel Quarkus :: PGP :: Runtime</name>
-    <description>Encrypt and decrypt messages using Bouncy Castle OpenPGP API.</description>
+    <description>Encrypt and decrypt messages using Java Cryptographic Extension (JCE) and PGP</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.13.0</camel.quarkus.jvmSince>

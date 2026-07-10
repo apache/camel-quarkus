@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-reactive-executor</artifactId>
     <name>Camel Quarkus :: Core :: Reactive Executor :: Runtime</name>
+    <description>Reactive Executor for camel-core using Vert.x</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

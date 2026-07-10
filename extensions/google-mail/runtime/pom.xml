@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-google-mail</artifactId>
     <name>Camel Quarkus :: Google Mail :: Runtime</name>
+    <description>Manage messages in Google Mail.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

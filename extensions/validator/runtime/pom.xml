@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-validator</artifactId>
     <name>Camel Quarkus :: Validator :: Runtime</name>
+    <description>Validate the payload using XML Schema and JAXP Validation.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

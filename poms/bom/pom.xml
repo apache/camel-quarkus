@@ -1411,11 +1411,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-github</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-github2</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -2495,11 +2490,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-observability-services</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-ocsf</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3165,17 +3155,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-telemetry-dev</artifactId>
                 <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-test-junit5</artifactId>
-                <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-directvm</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7688,21 +7667,6 @@
                 <version>${json-schema-validator.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.orbitz.consul</groupId>
-                <artifactId>consul-client</artifactId>
-                <version>${consul-client.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>com.sangupta</groupId>
                 <artifactId>murmur</artifactId>
                 <version>${murmur.version}</version>
@@ -7786,11 +7750,6 @@
                 <version>${commons-collections.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
                 <version>${commons-validator.version}</version>
@@ -7808,7 +7767,7 @@
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>dropwizard-core</artifactId>
+                <artifactId>metrics-core</artifactId>
                 <version>${dropwizard-metrics.version}</version>
             </dependency>
             <dependency>
@@ -7933,16 +7892,6 @@
                 <groupId>io.quarkiverse.messaginghub</groupId>
                 <artifactId>quarkus-pooled-jms-deployment</artifactId>
                 <version>${quarkiverse-pooled-jms.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.minio</groupId>
-                <artifactId>quarkus-minio</artifactId>
-                <version>${quarkiverse-minio.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.minio</groupId>
-                <artifactId>quarkus-minio-deployment</artifactId>
-                <version>${quarkiverse-minio.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.minio</groupId>
@@ -8077,16 +8026,6 @@
                 <version>${antlr3.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-ipc-jetty</artifactId>
-                <version>${avro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-ipc-netty</artifactId>
-                <version>${avro.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.camel.kamelets</groupId>
                 <artifactId>camel-kamelets</artifactId>
                 <version>${camel-kamelets.version}</version>
@@ -8114,11 +8053,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -8307,11 +8241,6 @@
                 <version>${rocketmq.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-tools</artifactId>
-                <version>${rocketmq.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-core</artifactId>
                 <version>${shiro-version}</version>
@@ -8358,11 +8287,6 @@
                 <version>${graalvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.graalvm.js</groupId>
-                <artifactId>js-scriptengine</artifactId>
-                <version>${graalvm.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.influxdb</groupId>
                 <artifactId>influxdb-java</artifactId>
                 <version>${influxdb.version}</version>
@@ -8371,27 +8295,6 @@
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>${javassist.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-scripting-compiler-embeddable</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-scripting-compiler-impl-embeddable</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains.kotlinx</groupId>
-                <artifactId>kotlinx-serialization-core-jvm</artifactId>
-                <version>${kotlinx.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-stdlib-common</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.jolokia</groupId>
@@ -8459,26 +8362,6 @@
                 <version>${opensearch-rest-client-version}</version>
             </dependency>
             <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus-deployment</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus-jackson</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.snakeyaml</groupId>
                 <artifactId>snakeyaml-engine</artifactId>
                 <version>${snakeyaml-engine.version}</version>
@@ -8542,21 +8425,6 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-messaging</artifactId>
-                <version>${spring.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
                 <exclusions>
                     <exclusion>
@@ -8726,9 +8594,12 @@
                                 <!-- We not only flatten the BOM, we also shrink it down so that includes -->
                                 <!-- entries that our extensions need. Here we define the set of our artifacts -->
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
+                                <resolutionEntryPointInclude>org.apache.camel:camel-endpointdsl-support</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.apache.camel.kamelets:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
+                                <!-- Transitives of quarkus-micrometer-registry-jmx overridden to avoid stale versions declared in debzium-bom -->
+                                <resolutionEntryPointInclude>io.dropwizard.metrics:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.minio:minio-native</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-stream</artifactId>
     <name>Camel Quarkus :: Stream :: Runtime</name>
+    <description>Read from system-in and write to system-out and system-err streams.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

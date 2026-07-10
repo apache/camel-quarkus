@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-huaweicloud-smn</artifactId>
     <name>Camel Quarkus :: SimpleNotification :: Runtime</name>
-    <description>Huawei Cloud component to integrate with SimpleNotification services</description>
+    <description>To broadcast messages and connect cloud services through notifications on Huawei Cloud</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.8.0</camel.quarkus.jvmSince>

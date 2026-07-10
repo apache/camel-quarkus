@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-controlbus</artifactId>
     <name>Camel Quarkus :: Control Bus :: Runtime</name>
+    <description>Manage and monitor Camel routes.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

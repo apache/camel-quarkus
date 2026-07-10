@@ -35,6 +35,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-agroal</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -43,6 +44,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -51,152 +53,188 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-bean</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-browse</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-controlbus</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-cron</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-dataset</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-file</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-hl7</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-http</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-custom-type-converter</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jsonpath</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-language</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-mock</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-ref</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-saxon</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-scheduler</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-seda</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-stream</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-xml-io-dsl</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-xpath</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-yaml-dsl</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit-mockito</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
+            <type>jar</type>
             <scope>test</scope>
         </dependency>
     </dependencies>

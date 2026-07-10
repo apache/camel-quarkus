@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Create, edit and read ISO-8583 messages.
+:cq-description: Create, edit and read ISO-8583 messages
 :cq-deprecated: false
 :cq-jvm-since: 3.26.0
 :cq-native-since: 3.26.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.26.0## [.badge-key]##Native since##[.badge-supported]##3.26.0##
 endif::[]
 
-Create, edit and read ISO-8583 messages.
+Create, edit and read ISO-8583 messages
 
 [id="extensions-iso8583-whats-inside"]
 == What's inside

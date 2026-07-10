@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-pdf</artifactId>
     <name>Camel Quarkus :: PDF :: Runtime</name>
+    <description>Create, modify or extract content from PDF documents.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.1</camel.quarkus.jvmSince>

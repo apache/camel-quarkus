@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-netty</artifactId>
     <name>Camel Quarkus :: Netty :: Runtime</name>
+    <description>Socket level networking using TCP or UDP with Netty 4.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>

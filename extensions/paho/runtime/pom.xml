@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-paho</artifactId>
     <name>Camel Quarkus :: Paho :: Runtime</name>
+    <description>Communicate with MQTT message brokers using Eclipse Paho MQTT Client.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

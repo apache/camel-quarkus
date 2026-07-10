@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-graphql</artifactId>
     <name>Camel Quarkus :: GraphQL :: Runtime</name>
+    <description>Send GraphQL queries and mutations to external systems.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

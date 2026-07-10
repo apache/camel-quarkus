@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-coap</artifactId>
     <name>Camel Quarkus :: CoAP :: Runtime</name>
-    <description>Send and receive messages to/from COAP capable devices.</description>
+    <description>Send and receive messages to/from CoAP (Constrained Application Protocol) capable devices.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

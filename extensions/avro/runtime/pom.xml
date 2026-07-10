@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-avro</artifactId>
     <name>Camel Quarkus :: Avro :: Runtime</name>
+    <description>Serialize and deserialize messages using Apache Avro binary data format</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

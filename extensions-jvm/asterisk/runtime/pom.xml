@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-asterisk</artifactId>
     <name>Camel Quarkus :: Asterisk :: Runtime</name>
-    <description>Interact with Asterisk PBX Server.</description>
+    <description>Interact with Asterisk PBX Server (VoIP).</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

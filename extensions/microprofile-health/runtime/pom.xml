@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-microprofile-health</artifactId>
     <name>Camel Quarkus :: MicroProfile Health :: Runtime</name>
+    <description>Expose Camel health checks via MicroProfile Health</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

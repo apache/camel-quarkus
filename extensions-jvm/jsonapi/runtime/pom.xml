@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-jsonapi</artifactId>
     <name>Camel Quarkus :: JSonApi :: Runtime</name>
-    <description>Marshal and unmarshal JSON:API resources using JSONAPI-Converter library.</description>
+    <description>Marshal and unmarshal JSON:API resources using JSONAPI-Converter library</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

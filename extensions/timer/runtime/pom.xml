@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-timer</artifactId>
     <name>Camel Quarkus :: Timer :: Runtime</name>
+    <description>Generate messages in specified intervals using java.util.Timer.</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>

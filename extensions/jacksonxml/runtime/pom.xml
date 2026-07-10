@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-jacksonxml</artifactId>
     <name>Camel Quarkus :: JacksonXML :: Runtime</name>
+    <description>Unmarshal an XML payloads to POJOs and back using XMLMapper extension of Jackson</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

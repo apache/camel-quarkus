@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: The azure-eventhubs component that integrates Azure Event Hubs using AMQP protocol. Azure EventHubs is a highly scalable publish-subscribe service that can ingest millions of events per second and stream them to multiple consumers.
+:cq-description: Send and receive events to/from Azure Event Hubs using AMQP protocol.
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0
 :cq-native-since: 1.7.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.7.0## [.badge-key]##Native since##[.badge-supported]##1.7.0##
 endif::[]
 
-The azure-eventhubs component that integrates Azure Event Hubs using AMQP protocol. Azure EventHubs is a highly scalable publish-subscribe service that can ingest millions of events per second and stream them to multiple consumers.
+Send and receive events to/from Azure Event Hubs using AMQP protocol.
 
 [id="extensions-azure-eventhubs-whats-inside"]
 == What's inside

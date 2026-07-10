@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-cron</artifactId>
     <name>Camel Quarkus :: Cron :: Runtime</name>
+    <description>A generic interface for triggering events at times specified through the Unix cron syntax.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
