@@ -48,6 +48,11 @@ public class CamelCoreDevConsoleProcessor {
                 .componentLink("qwc-camel-core-context.js"));
 
         cardPageBuildItem.addPage(Page.webComponentPageBuilder()
+                .title("Diagram")
+                .icon("font-awesome-solid:sitemap")
+                .componentLink("qwc-camel-core-diagram.js"));
+
+        cardPageBuildItem.addPage(Page.webComponentPageBuilder()
                 .title("Events")
                 .icon("font-awesome-solid:bolt-lightning")
                 .componentLink("qwc-camel-core-events.js"));

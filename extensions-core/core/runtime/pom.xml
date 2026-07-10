@@ -104,6 +104,7 @@
                     <conditionalDevDependencies>
                         <artifact>org.apache.camel.quarkus:camel-quarkus-cli-connector:${project.version}</artifact>
                         <artifact>org.apache.camel.quarkus:camel-quarkus-debug:${project.version}</artifact>
+                        <artifact>org.apache.camel.quarkus:camel-quarkus-diagram:${project.version}</artifact>
                     </conditionalDevDependencies>
                 </configuration>
             </plugin>
