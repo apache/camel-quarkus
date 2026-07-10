@@ -19,11 +19,11 @@ package org.apache.camel.quarkus.component.weaviate.it;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import io.weaviate.client.base.Result;
-import io.weaviate.client.v1.data.model.WeaviateObject;
-import io.weaviate.client.v1.graphql.model.GraphQLResponse;
+import io.weaviate.client6.v1.api.collections.WeaviateObject;
+import io.weaviate.client6.v1.api.collections.query.QueryResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
@@ -40,6 +40,8 @@ import org.jboss.logging.Logger;
 public class WeaviateResource {
 
     public static final String WEAVIATE_CONTAINER_ADDRESS = "cq.weaviate.container.address";
+    public static final String WEAVIATE_CONTAINER_GRPC_HOST = "cq.weaviate.container.grpc.host";
+    public static final String WEAVIATE_CONTAINER_GRPC_PORT = "cq.weaviate.container.grpc.port";
     public static final String WEAVIATE_API_KEY_ENV = "WEAVIATE_API_KEY";
     public static final String WEAVIATE_HOST_ENV = "WEAVIATE_HOST";
 
@@ -48,6 +50,7 @@ public class WeaviateResource {
     @Inject
     CamelContext context;
 
+    @SuppressWarnings("unchecked")
     @Path("/request")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,7 +60,6 @@ public class WeaviateResource {
         Object body = headers.get("body");
         headers.remove("body");
 
-        //convert Double to Float in body list (for create)
         if (body instanceof List) {
             body = ((List<?>) body).stream().map(o -> o instanceof Double ? ((Double) o).floatValue() : o)
                     .collect(Collectors.toList());
@@ -69,25 +71,36 @@ public class WeaviateResource {
                 .withHeaders(headers)
                 .request(Exchange.class);
 
-        Result<?> result = response.getIn().getBody(Result.class);
-        LOG.debugf("Response for collections with headers (%s) is: \"%s\".", headers, result);
+        if (response.getException() != null) {
+            HashMap<String, Object> errorMap = new HashMap<>();
+            errorMap.put("error", response.getException().getMessage());
+            return Response.ok(errorMap).build();
+        }
+
+        Object result = response.getIn().getBody();
+        LOG.debugf("Response for request with headers (%s) is: \"%s\".", headers, result);
 
         if (result != null) {
-            HashMap<String, Object> map = new HashMap();
-            map.put("error", result.getError() == null ? "" : result.getError());
+            HashMap<String, Object> map = new HashMap<>();
 
-            if (result.getResult() instanceof Boolean) {
-                map.put("result", result.getResult());
-            } else if (result.getResult() instanceof WeaviateObject) {
-                map.put("result", ((WeaviateObject) result.getResult()).getId());
-                map.put("resultProperties", ((WeaviateObject) result.getResult()).getProperties());
-            } else if (result.getResult() instanceof List) {
-                @SuppressWarnings("unchecked")
-                List<WeaviateObject> objects = (List<WeaviateObject>) result.getResult();
-                map.put("result",
-                        objects.stream().collect(Collectors.toMap(WeaviateObject::getId, WeaviateObject::getProperties)));
-            } else if (result.getResult() instanceof GraphQLResponse) {
-                map.put("result", result.getResult());
+            if (result instanceof Boolean) {
+                map.put("result", result);
+            } else if (result instanceof WeaviateObject) {
+                WeaviateObject<Map<String, Object>> wo = (WeaviateObject<Map<String, Object>>) result;
+                map.put("result", wo.uuid());
+                map.put("resultProperties", wo.properties());
+            } else if (result instanceof Optional) {
+                Optional<WeaviateObject<Map<String, Object>>> opt = (Optional<WeaviateObject<Map<String, Object>>>) result;
+                if (opt.isPresent()) {
+                    WeaviateObject<Map<String, Object>> wo = opt.get();
+                    map.put("result", Map.of(wo.uuid(), wo.properties()));
+                }
+            } else if (result instanceof QueryResponse) {
+                QueryResponse<Map<String, Object>> qr = (QueryResponse<Map<String, Object>>) result;
+                List<Map<String, Object>> objects = qr.objects().stream()
+                        .map(WeaviateObject::properties)
+                        .collect(Collectors.toList());
+                map.put("result", objects);
             }
 
             return Response.ok(map).build();
