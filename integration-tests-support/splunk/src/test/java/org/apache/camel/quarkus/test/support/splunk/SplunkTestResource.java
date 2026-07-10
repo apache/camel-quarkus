@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import io.quarkus.logging.Log;
@@ -124,6 +125,17 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
             LOG.debug(m.entrySet().stream().map(e -> e.getKey() + ": " + e.getValue()).sorted()
                     .collect(Collectors.joining("\n")));
             LOG.debug(banner);
+
+            // In Quarkus native, test can fail with `java.net.SocketException: Network is unreachable` if underlying network isn't ready yet
+            int sleepSeconds = Integer.getInteger("splunk.test.post-container-start.sleep-seconds", 0);
+            if (sleepSeconds > 0) {
+                try {
+                    LOG.info("Waiting {} seconds for network routing to stabilize...", sleepSeconds);
+                    TimeUnit.SECONDS.sleep(sleepSeconds);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
 
             return m;
         } catch (Exception e) {
