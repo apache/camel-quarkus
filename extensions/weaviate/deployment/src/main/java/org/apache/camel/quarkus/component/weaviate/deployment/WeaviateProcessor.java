@@ -18,12 +18,17 @@ package org.apache.camel.quarkus.component.weaviate.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.IndexView;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.commons.ClassRemapper;
+import org.objectweb.asm.commons.Remapper;
 
 class WeaviateProcessor {
 
@@ -40,28 +45,52 @@ class WeaviateProcessor {
 
         String[] dtos = index.getKnownClasses().stream()
                 .map(ci -> ci.name().toString())
-                .filter(n -> n.startsWith("io.weaviate.client.v1.")
-                        && n.contains(".model"))
+                .filter(n -> n.startsWith("io.weaviate.client6.v1.api."))
                 .sorted()
                 .toArray(String[]::new);
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtos).methods().fields().build());
-
-        //error handler
-        reflectiveClass.produce(
-                ReflectiveClassBuildItem
-                        .builder(new String[] { "io.weaviate.client.base.WeaviateErrorResponse",
-                                "io.weaviate.client.base.WeaviateErrorMessage", "io.weaviate.client.base.WeaviateError" })
-                        .methods().fields().build());
     }
 
     @BuildStep
     IndexDependencyBuildItem registerDependencyForIndex() {
-        return new IndexDependencyBuildItem("io.weaviate", "client");
+        return new IndexDependencyBuildItem("io.weaviate", "client6");
     }
 
     @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
         return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
+    }
+
+    @BuildStep
+    void relocateShadedGrpcCalls(
+            CombinedIndexBuildItem index,
+            BuildProducer<BytecodeTransformerBuildItem> transformers) {
+
+        index.getIndex().getKnownClasses().stream()
+                .filter(ci -> ci.name().toString().startsWith("io.weaviate.client6"))
+                .forEach(ci -> transformers.produce(new BytecodeTransformerBuildItem(
+                        ci.name().toString(),
+                        (name, cv) -> new ShadedRelocationVisitor(cv))));
+    }
+
+    private static class ShadedRelocationVisitor extends ClassRemapper {
+        ShadedRelocationVisitor(ClassVisitor cv) {
+            super(Opcodes.ASM9, cv, new Remapper(Opcodes.ASM9) {
+                @Override
+                public String map(String internalName) {
+                    if (internalName == null) {
+                        return null;
+                    }
+                    if (internalName.startsWith("io/grpc/netty/shaded/io/grpc")) {
+                        return internalName.replace("io/grpc/netty/shaded/io/grpc", "io/grpc");
+                    }
+                    if (internalName.startsWith("io/grpc/netty/shaded/io/netty")) {
+                        return internalName.replace("io/grpc/netty/shaded/io/netty", "io/netty");
+                    }
+                    return super.map(internalName);
+                }
+            });
+        }
     }
 }
