@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-debezium-postgres</artifactId>
     <name>Camel Quarkus :: Debezium PostgresSQL Connector :: Runtime</name>
-    <description>Capture changes from a PostgresSQL database.</description>
+    <description>Capture changes from a PostgreSQL database.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

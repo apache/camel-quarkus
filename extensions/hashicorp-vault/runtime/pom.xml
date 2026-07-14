@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-hashicorp-vault</artifactId>
     <name>Camel Quarkus :: Hashicorp Vault :: Runtime</name>
-    <description>Manage secrets in Hashicorp Vault Service</description>
+    <description>Manage secrets in HashiCorp Vault Service</description>
 
     <properties>
         <camel.quarkus.jvmSince>2.11.0</camel.quarkus.jvmSince>

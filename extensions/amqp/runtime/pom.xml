@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-amqp</artifactId>
     <name>Camel Quarkus :: AMQP :: Runtime</name>
-    <description>Messaging with AMQP protocol using Apache QPid Client.</description>
+    <description>Messaging with AMQP protocol using Apache Qpid Client.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
