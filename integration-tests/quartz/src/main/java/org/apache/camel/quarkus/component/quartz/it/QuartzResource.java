@@ -50,6 +50,14 @@ public class QuartzResource {
         return new QuartzComponent();
     }
 
+    @Path("/scheduler-name")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSchedulerName() throws Exception {
+        QuartzComponent component = camelContext.getComponent("quartz", QuartzComponent.class);
+        return component.getScheduler().getSchedulerName();
+    }
+
     @Path("/getNameAndResult")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
