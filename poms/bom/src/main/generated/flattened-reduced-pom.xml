@@ -3779,6 +3779,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-openapi-validator</artifactId>
+        <version>4.21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-opensearch</artifactId>
         <version>4.21.0</version>
         <exclusions>
@@ -7092,6 +7097,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openapi-java-deployment</artifactId>
+        <version>3.38.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-openapi-validator</artifactId>
+        <version>3.38.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-openapi-validator-deployment</artifactId>
         <version>3.38.0-SNAPSHOT</version>
       </dependency>
       <dependency>

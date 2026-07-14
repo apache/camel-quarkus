@@ -229,6 +229,7 @@
         <module>once</module>
         <module>openai</module>
         <module>openapi-java</module>
+        <module>openapi-validator</module>
         <module>openstack</module>
         <module>opentelemetry</module>
         <module>opentelemetry2</module>

@@ -257,6 +257,7 @@
 *** xref:reference/extensions/once.adoc[Once]
 *** xref:reference/extensions/openai.adoc[OpenAI]
 *** xref:reference/extensions/openapi-java.adoc[OpenAPI Java]
+*** xref:reference/extensions/openapi-validator.adoc[OpenAPI Validator]
 *** xref:reference/extensions/opensearch.adoc[OpenSearch]
 *** xref:reference/extensions/openstack.adoc[OpenStack]
 *** xref:reference/extensions/opentelemetry.adoc[OpenTelemetry]
