@@ -2226,6 +2226,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-micrometer-observability</artifactId>
+        <version>4.21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-microprofile-config</artifactId>
         <version>4.21.0</version>
       </dependency>
@@ -5528,6 +5533,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-micrometer-observability</artifactId>
+        <version>3.38.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-micrometer-observability-deployment</artifactId>
+        <version>3.38.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
         <version>3.38.0-SNAPSHOT</version>
       </dependency>
@@ -7656,6 +7671,16 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-jmx</artifactId>
         <version>4.2.39</version>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-tracing</artifactId>
+        <version>1.6.6</version>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        <version>1.6.6</version>
       </dependency>
       <dependency>
         <groupId>io.minio</groupId>

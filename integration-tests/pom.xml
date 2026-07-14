@@ -180,6 +180,7 @@
         <module>master-openshift</module>
         <module>mdc</module>
         <module>micrometer</module>
+        <module>micrometer-observability</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>milo</module>

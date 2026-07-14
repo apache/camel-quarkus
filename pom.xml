@@ -146,6 +146,7 @@
         <langchain4j-beta.version>1.17.2-beta27</langchain4j-beta.version><!-- @sync dev.langchain4j:langchain4j-bom:${langchain4j.version} prop:langchain4j.beta.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
         <mbassador.version>1.3.0</mbassador.version><!-- @sync com.hierynomus:smbj:${smbj-version} dep:net.engio:mbassador -->
+        <micrometer-tracing.version>1.6.6</micrometer-tracing.version><!-- Not in quarkus-bom yet, align with micrometer version in io.quarkus:quarkus-bom:${quarkus.version} - tracing 1.6.x matches core 1.16.x https://repo1.maven.org/maven2/io/micrometer/micrometer-tracing-bom/ -->
         <minio.version>8.6.0</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.23.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <murmur.version>1.0.0</murmur.version>
