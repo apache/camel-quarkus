@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Perform operations on the Langchain4jEmbeddingStores.
+:cq-description: Perform operations on the LangChain4jEmbeddingStores.
 :cq-deprecated: false
 :cq-jvm-since: 3.29.0
 :cq-native-since: 3.29.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.29.0## [.badge-key]##Native since##[.badge-supported]##3.29.0##
 endif::[]
 
-Perform operations on the Langchain4jEmbeddingStores.
+Perform operations on the LangChain4jEmbeddingStores.
 
 [id="extensions-langchain4j-embeddingstore-whats-inside"]
 == What's inside

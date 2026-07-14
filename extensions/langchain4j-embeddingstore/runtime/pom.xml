@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-langchain4j-embeddingstore</artifactId>
     <name>Camel Quarkus :: LangChain4j Embedding Store :: Runtime</name>
-    <description>Perform operations on the Langchain4jEmbeddingStores.</description>
+    <description>Perform operations on the LangChain4jEmbeddingStores.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.29.0</camel.quarkus.jvmSince>
