@@ -57,7 +57,8 @@ public class PqcResource {
     @jakarta.ws.rs.Produces(MediaType.TEXT_PLAIN)
     public String sign(String message, @PathParam("algorithm") String algorithm) {
         Exchange exchange = producerTemplate.request(
-                "pqc:sign?operation=sign&signatureAlgorithm=%s&keyPair=%s".formatted(algorithm, toKeyPair(algorithm)),
+                "pqc:sign?operation=sign&signatureAlgorithm=%s&keyPair=%s".formatted(toEnumName(algorithm),
+                        toKeyPair(algorithm)),
                 ex -> ex.getIn().setBody(message.getBytes(StandardCharsets.UTF_8)));
 
         // The sign operation outputs signature in the HEADER, not the body
@@ -78,7 +79,8 @@ public class PqcResource {
         headers.put("CamelPQCSignature", signatureBytes);
 
         Exchange exchange = producerTemplate.request(
-                "pqc:verify?operation=verify&signatureAlgorithm=%s&keyPair=%s".formatted(algorithm, toKeyPair(algorithm)),
+                "pqc:verify?operation=verify&signatureAlgorithm=%s&keyPair=%s".formatted(toEnumName(algorithm),
+                        toKeyPair(algorithm)),
                 ex -> {
                     ex.getIn().setBody(message.getBytes(StandardCharsets.UTF_8));
                     ex.getIn().setHeaders(headers);
@@ -96,7 +98,7 @@ public class PqcResource {
             @PathParam("length") int length) {
         SecretKeyWithEncapsulation secretKeyWithEncapsulation = producerTemplate.requestBody(
                 "pqc:encapsulate?operation=generateSecretKeyEncapsulation&keyEncapsulationAlgorithm=%s&symmetricKeyAlgorithm=%s&symmetricKeyLength=%s&keyPair=%s"
-                        .formatted(algorithm, keyAlgorithm, length, toKeyPair(algorithm)),
+                        .formatted(toEnumName(algorithm), keyAlgorithm, length, toKeyPair(algorithm)),
                 null,
                 SecretKeyWithEncapsulation.class);
         String enc = Base64.getEncoder().encodeToString(secretKeyWithEncapsulation.getEncapsulation());
@@ -120,14 +122,28 @@ public class PqcResource {
 
         SecretKeyWithEncapsulation result = producerTemplate.requestBody(
                 "pqc:extract?operation=extractSecretKeyEncapsulation&keyEncapsulationAlgorithm=%s&symmetricKeyAlgorithm=%s&symmetricKeyLength=%s&keyPair=%s"
-                        .formatted(algorithm, keyAlgorithm, length, toKeyPair(algorithm)),
+                        .formatted(toEnumName(algorithm), keyAlgorithm, length, toKeyPair(algorithm)),
                 privateKeyWithEncapsulation,
                 SecretKeyWithEncapsulation.class);
         return Base64.getEncoder().encodeToString(result.getEncoded());
     }
 
+    private String toEnumName(String algorithm) {
+        return switch (algorithm) {
+        case "ML-DSA" -> "DILITHIUM";
+        case "SLH-DSA" -> "SPHINCSPLUS";
+        case "ML-KEM" -> "KYBER";
+        default -> algorithm;
+        };
+    }
+
     private String toKeyPair(String algorithm) {
-        return "SPHINCSPLUS".equals(algorithm) ? "#sphincsKeyPair" : "#" + algorithm.toLowerCase() + "KeyPair";
+        return switch (algorithm) {
+        case "ML-DSA" -> "#dilithiumKeyPair";
+        case "SLH-DSA" -> "#sphincsKeyPair";
+        case "ML-KEM" -> "#kyberKeyPair";
+        default -> "#" + algorithm.toLowerCase() + "KeyPair";
+        };
     }
 
     // Body tests: binary data

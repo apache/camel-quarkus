@@ -22,9 +22,14 @@ import java.security.spec.AlgorithmParameterSpec;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.bouncycastle.jcajce.spec.MLDSAParameterSpec;
+import org.bouncycastle.jcajce.spec.MLKEMParameterSpec;
+import org.bouncycastle.jcajce.spec.SLHDSAParameterSpec;
 import org.bouncycastle.pqc.crypto.lms.LMOtsParameters;
 import org.bouncycastle.pqc.crypto.lms.LMSigParameters;
-import org.bouncycastle.pqc.jcajce.spec.*;
+import org.bouncycastle.pqc.jcajce.spec.FalconParameterSpec;
+import org.bouncycastle.pqc.jcajce.spec.LMSParameterSpec;
+import org.bouncycastle.pqc.jcajce.spec.XMSSParameterSpec;
 
 @Singleton
 public class PqcProducers {
@@ -36,53 +41,54 @@ public class PqcProducers {
     @Singleton
     @Named("dilithiumKeyPair")
     KeyPair dilithiumKeyPair() throws Exception {
-        return generateKeyPair("Dilithium", DilithiumParameterSpec.dilithium2);
+        return generateKeyPair("ML-DSA", "BC", MLDSAParameterSpec.ml_dsa_44);
     }
 
     @Produces
     @Singleton
     @Named("falconKeyPair")
     public KeyPair falconKeyPair() throws Exception {
-        return generateKeyPair("Falcon", FalconParameterSpec.falcon_512);
+        return generateKeyPair("Falcon", "BCPQC", FalconParameterSpec.falcon_512);
     }
 
     @Produces
     @Singleton
     @Named("sphincsKeyPair")
     public KeyPair sphincsKeyPair() throws Exception {
-        return generateKeyPair("SPHINCSPlus", SPHINCSPlusParameterSpec.sha2_128f);
+        return generateKeyPair("SLH-DSA", "BC", SLHDSAParameterSpec.slh_dsa_sha2_128s);
     }
 
     @Produces
     @Singleton
     @Named("lmsKeyPair")
     public KeyPair lmsKeyPair() throws Exception {
-        return generateKeyPair("LMS", new LMSParameterSpec(LMSigParameters.lms_sha256_n32_h5, LMOtsParameters.sha256_n32_w4));
+        return generateKeyPair("LMS", "BCPQC",
+                new LMSParameterSpec(LMSigParameters.lms_sha256_n32_h5, LMOtsParameters.sha256_n32_w4));
     }
 
     @Produces
     @Singleton
     @Named("xmssKeyPair")
     public KeyPair xmssKeyPair() throws Exception {
-        return generateKeyPair("XMSS", XMSSParameterSpec.SHA2_10_256);
+        return generateKeyPair("XMSS", "BCPQC", XMSSParameterSpec.SHA2_10_256);
     }
 
     @Produces
     @Singleton
     @Named("kyberKeyPair")
     public KeyPair kyberKeyPair() throws Exception {
-        return generateKeyPair("Kyber", KyberParameterSpec.kyber512);
+        return generateKeyPair("ML-KEM", "BC", MLKEMParameterSpec.ml_kem_512);
     }
 
     @Produces
     @Singleton
-    @Named("kyberWrongKeyPair") //second keypair for negative scenario
+    @Named("kyberWrongKeyPair")
     public KeyPair kyberWrongKeyPair() throws Exception {
-        return generateKeyPair("Kyber", KyberParameterSpec.kyber512);
+        return generateKeyPair("ML-KEM", "BC", MLKEMParameterSpec.ml_kem_512);
     }
 
-    private KeyPair generateKeyPair(String algorithm, AlgorithmParameterSpec spec) throws Exception {
-        KeyPairGenerator gen = KeyPairGenerator.getInstance(algorithm, "BCPQC");
+    private KeyPair generateKeyPair(String algorithm, String provider, AlgorithmParameterSpec spec) throws Exception {
+        KeyPairGenerator gen = KeyPairGenerator.getInstance(algorithm, provider);
         gen.initialize(spec, secureRandom);
         return gen.generateKeyPair();
     }
