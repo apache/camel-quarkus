@@ -22,6 +22,7 @@
   - !user Dave
   - !host myDemoApp
   - !variable secretVar
+  - !variable versionVar
   - !permit
     # Give permissions to the human user to update the secret and fetch the secret.
     role: !user Dave
@@ -32,3 +33,11 @@
     role: !host myDemoApp
     privileges: [read, execute]
     resource: !variable secretVar
+  - !permit
+    role: !user Dave
+    privileges: [read, update, execute]
+    resource: !variable versionVar
+  - !permit
+    role: !host myDemoApp
+    privileges: [read, execute]
+    resource: !variable versionVar

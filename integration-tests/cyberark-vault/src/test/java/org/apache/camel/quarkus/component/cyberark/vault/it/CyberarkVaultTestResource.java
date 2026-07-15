@@ -122,8 +122,15 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
             throw new RuntimeException("Failed to start Conjur test environment", e);
         }
 
+        String conjurUrl = "http://localhost:" + conjurContainer.getMappedPort(80);
+
         result.put("conjur.account", CONJUR_ACCOUNT);
-        result.put("conjur.url", "http://localhost:" + conjurContainer.getMappedPort(80));
+        result.put("conjur.url", conjurUrl);
+
+        result.put("camel.vault.cyberark.url", conjurUrl);
+        result.put("camel.vault.cyberark.account", CONJUR_ACCOUNT);
+        result.put("camel.vault.cyberark.username", result.get("conjur.read.username"));
+        result.put("camel.vault.cyberark.apiKey", result.get("conjur.read.apiKey"));
 
         return result;
     }
