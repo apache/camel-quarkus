@@ -16,9 +16,12 @@
  */
 package org.apache.camel.quarkus.devui;
 
+import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -26,14 +29,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
+import io.quarkus.runtime.annotations.DevMCPEnableByDefault;
+import io.quarkus.runtime.annotations.JsonRpcDescription;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
 import io.smallrye.mutiny.subscription.Cancellable;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.CamelContext;
+import org.apache.camel.catalog.EndpointValidationResult;
+import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.console.DevConsole;
 import org.apache.camel.console.DevConsoleRegistry;
+import org.apache.camel.util.StringHelper;
+import org.apache.camel.util.json.DeserializationException;
 import org.apache.camel.util.json.JsonObject;
+import org.apache.camel.util.json.Jsoner;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
@@ -139,6 +149,125 @@ public class CamelCoreDevUIService {
             consoleSubscription.setOptions(sanitized);
             return consoleSubscription;
         }) != null;
+    }
+
+    /**
+     * Gets the Camel catalog documentation of a component available in the application.
+     *
+     * @param  name          The component scheme
+     * @param  optionsFilter Optional keyword to keep only the matching options
+     * @return               JSON String representation of the component catalog documentation
+     */
+    @JsonRpcDescription("Camel catalog documentation of a component: endpoint URI syntax and all options"
+            + " (name, type, default value, description), from the exact Camel version of this application."
+            + " Use it before writing a route with an unfamiliar component instead of guessing URI options.")
+    @DevMCPEnableByDefault
+    public String camelCatalogDoc(
+            @JsonRpcDescription("Component scheme, e.g. timer, kafka, sql") String name,
+            @JsonRpcDescription("Optional keyword to keep only the options whose name or description matches") String optionsFilter) {
+        RuntimeCamelCatalog catalog = getRuntimeCamelCatalog();
+        if (catalog == null) {
+            return "{}";
+        }
+        String json = catalog.componentJSonSchema(name);
+        if (json == null) {
+            JsonObject error = new JsonObject();
+            error.put("error", "Component '" + name + "' is not on the application classpath. Add the camel-quarkus-"
+                    + name + " dependency to the project.");
+            return error.toJson();
+        }
+        if (optionsFilter == null || optionsFilter.isBlank()) {
+            return json;
+        }
+        return filterComponentOptions(json, optionsFilter);
+    }
+
+    /**
+     * Validates a Camel endpoint URI against the catalog of the application.
+     *
+     * @param  uri The full endpoint URI
+     * @return     JSON String representation of the validation result
+     */
+    @JsonRpcDescription("Validates a Camel endpoint URI against the catalog of this application:"
+            + " unknown options (with suggestions), invalid enum or boolean values, missing required options."
+            + " Call it after writing or changing any endpoint URI.")
+    @DevMCPEnableByDefault
+    public String camelValidateEndpointUri(
+            @JsonRpcDescription("Full endpoint URI, e.g. kafka:orders?brokers=localhost:9092") String uri) {
+        RuntimeCamelCatalog catalog = getRuntimeCamelCatalog();
+        if (catalog == null) {
+            return "{}";
+        }
+        JsonObject result = new JsonObject();
+        String scheme = uri != null ? StringHelper.before(uri, ":") : null;
+        if (scheme == null || scheme.isBlank()) {
+            result.put("valid", false);
+            result.put("errors", "Malformed endpoint URI, expected scheme:path[?options]");
+            return result.toJson();
+        }
+        if (catalog.componentJSonSchema(scheme) == null) {
+            result.put("valid", false);
+            result.put("errors", "Component '" + scheme + "' is not on the application classpath. Add the camel-quarkus-"
+                    + scheme + " dependency to the project.");
+            return result.toJson();
+        }
+        try {
+            EndpointValidationResult validation = catalog.validateProperties(scheme, catalog.endpointProperties(uri));
+            result.put("valid", validation.isSuccess());
+            if (!validation.isSuccess()) {
+                result.put("errors", validation.summaryErrorMessage(false));
+            }
+        } catch (URISyntaxException e) {
+            result.put("valid", false);
+            result.put("errors", "Malformed endpoint URI: " + e.getMessage());
+        }
+        return result.toJson();
+    }
+
+    private static String filterComponentOptions(String json, String filter) {
+        try {
+            JsonObject schema = (JsonObject) Jsoner.deserialize(json);
+            String keyword = filter.toLowerCase(Locale.ROOT);
+            for (String section : List.of("componentProperties", "properties", "headers")) {
+                if (schema.get(section) instanceof JsonObject options) {
+                    JsonObject filtered = new JsonObject();
+                    for (Map.Entry<String, Object> option : options.entrySet()) {
+                        if (optionMatches(option, keyword)) {
+                            filtered.put(option.getKey(), option.getValue());
+                        }
+                    }
+                    schema.put(section, filtered);
+                }
+            }
+            return schema.toJson();
+        } catch (DeserializationException e) {
+            return json;
+        }
+    }
+
+    private static boolean optionMatches(Map.Entry<String, Object> option, String keyword) {
+        if (option.getKey().toLowerCase(Locale.ROOT).contains(keyword)) {
+            return true;
+        }
+        if (option.getValue() instanceof Map<?, ?> attributes) {
+            return attributes.get("description") instanceof String description
+                    && description.toLowerCase(Locale.ROOT).contains(keyword);
+        }
+        return false;
+    }
+
+    private static RuntimeCamelCatalog getRuntimeCamelCatalog() {
+        ArcContainer container = Arc.container();
+        if (container == null) {
+            // The app is likely performing a dev mode hot reload, thus the container may be temporarily unavailable
+            return null;
+        }
+
+        return container
+                .select(CamelContext.class)
+                .get()
+                .getCamelContextExtension()
+                .getContextPlugin(RuntimeCamelCatalog.class);
     }
 
     private static boolean isConsoleAllowed(String id) {
