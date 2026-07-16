@@ -12,6 +12,7 @@
 *** xref:user-guide/testing/external-services.adoc[External services]
 *** xref:user-guide/testing/camel-quarkus-test.adoc[Annotation based testing]
 *** xref:user-guide/testing/camel-quarkus-test-support.adoc[CamelTestSupport style]
+** xref:user-guide/quarkus-agent-mcp.adoc[AI-assisted development]
 ** xref:user-guide/security-model.adoc[Security model]
 ** xref:user-guide/examples.adoc[Examples]
 ** xref:user-guide/kubernetes.adoc[Kubernetes]
