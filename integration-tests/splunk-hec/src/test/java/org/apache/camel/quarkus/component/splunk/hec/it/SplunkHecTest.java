@@ -82,8 +82,7 @@ public class SplunkHecTest {
                 .post("/splunk-hec/send/wrongSslContextParameters")
                 .then()
                 .statusCode(500)
-                .body(Matchers.either(org.hamcrest.core.StringContains.containsString("ssl exception"))
-                        .or(org.hamcrest.core.StringContains.containsString("Connection refused")));
+                .body(Matchers.containsString("ssl exception"));
     }
 
     @Test
