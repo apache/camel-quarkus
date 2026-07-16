@@ -8413,22 +8413,22 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>endpoints-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth-aws</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sdk-core</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk.crt</groupId>
         <artifactId>aws-crt</artifactId>
-        <version>0.46.1</version>
+        <version>0.47.3</version>
       </dependency>
       <dependency>
         <groupId>xalan</groupId>
@@ -9380,152 +9380,152 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegen-lite-maven-plugin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegen-lite</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegen-maven-plugin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegen</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>annotations</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>arns</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>json-utils</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>third-party-jackson-core</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>third-party-jackson-dataformat-cbor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>auth</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-core</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>profiles</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-cbor-protocol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-json-protocol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-query-protocol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-xml-protocol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>smithy-rpcv2-protocol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>protocol-core</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>regions</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>checksums-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>checksums</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth-aws-crt</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth-aws-eventstream</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>identity-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-client-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>retries</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>retries-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apache-client</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -9536,2207 +9536,2202 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apache5-client</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>netty-nio-client</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>url-connection-client</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>utils</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>utils-lite</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudwatch-metric-publisher</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>emf-metric-logging-publisher</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3-transfer-manager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3-event-notifications</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sns-message-manager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aws-crt-client</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>auth-crt</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iam-policy-builder</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>acm</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>acmpca</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>amplify</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apigateway</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apigatewaymanagementapi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apigatewayv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>applicationautoscaling</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>applicationdiscovery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appmesh</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appstream</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appsync</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>athena</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>autoscaling</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>autoscalingplans</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>backup</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>batch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>budgets</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloud9</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>clouddirectory</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudformation</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudfront</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudhsm</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudhsmv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudsearch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudsearchdomain</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudtrail</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudwatch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudwatchevents</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudwatchlogs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codebuild</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codecommit</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codedeploy</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codepipeline</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cognitoidentity</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cognitoidentityprovider</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cognitosync</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>comprehend</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>comprehendmedical</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>config</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>costandusagereport</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>costexplorer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>databasemigration</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>datapipeline</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>datasync</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dax</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>devicefarm</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>directconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>directory</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dlm</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>docdb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb-enhanced</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ec2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ecr</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ecs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>efs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>eks</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elasticache</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elasticbeanstalk</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elasticloadbalancing</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elasticloadbalancingv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elasticsearch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>emr</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>firehose</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>fms</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>fsx</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>gamelift</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>glacier</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>globalaccelerator</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>glue</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>greengrass</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>guardduty</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>health</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iam</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>inspector</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iot</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotdataplane</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotjobsdataplane</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kafka</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesis</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisanalytics</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisanalyticsv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisvideo</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisvideoarchivedmedia</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisvideomedia</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kms</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lambda</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lexmodelbuilding</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lexruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>licensemanager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lightsail</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>machinelearning</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>managedblockchain</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacecommerceanalytics</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplaceentitlement</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacemetering</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediaconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediaconvert</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>medialive</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediapackage</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediapackagevod</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediastore</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediastoredata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediatailor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>migrationhub</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mq</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mturk</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>neptune</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>organizations</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pinpoint</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pinpointemail</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pinpointsmsvoice</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>polly</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pricing</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>quicksight</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ram</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rds</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rdsdata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>redshift</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rekognition</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>resourcegroups</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>resourcegroupstaggingapi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53domains</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53resolver</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3control</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemaker</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakerruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>secretsmanager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>securityhub</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>serverlessapplicationrepository</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>servicecatalog</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>servicediscovery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ses</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sfn</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>shield</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>signer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>snowball</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sns</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sqs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssm</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>storagegateway</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sts</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>support</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>swf</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>textract</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>transcribe</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>transcribestreaming</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>transfer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>translate</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>waf</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workdocs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workmail</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workspaces</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>xray</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>groundstation</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotthingsgraph</artifactId>
-        <version>2.46.17</version>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>iotevents</artifactId>
-        <version>2.46.17</version>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>ioteventsdata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>personalizeruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>personalize</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>personalizeevents</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>servicequotas</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>applicationinsights</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ec2instanceconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>eventbridge</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lakeformation</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>forecast</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>forecastquery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workmailmessageflow</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codestarnotifications</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>savingsplans</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sso</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssooidc</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacecatalog</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sesv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dataexchange</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>migrationhubconfig</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connectparticipant</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>wafv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appconfig</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotsecuretunneling</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>imagebuilder</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>schemas</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>accessanalyzer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>computeoptimizer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>networkmanager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kendra</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>frauddetector</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegurureviewer</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codeguruprofiler</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>outposts</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakera2iruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ebs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisvideosignaling</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>detective</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codestarconnections</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>synthetics</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotsitewise</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>macie2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codeartifact</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ivs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>braket</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>identitystore</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appflow</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>redshiftdata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssoadmin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>timestreamwrite</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>timestreamquery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3outposts</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>metrics-spi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>databrew</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>servicecatalogappregistry</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>networkfirewall</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mwaa</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>devopsguru</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakerfeaturestoreruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appintegrations</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ecrpublic</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>amplifybackend</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connectcontactlens</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>customerprofiles</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>emrcontainers</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakeredge</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>healthlake</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>auditmanager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>amp</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>greengrassv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotwireless</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotdeviceadvisor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>location</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>wellarchitected</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lexruntimev2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lexmodelsv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>fis</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mgn</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lookoutequipment</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>finspacedata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>finspace</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssmincidents</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssmcontacts</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>applicationcostprofiler</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>apprunner</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>proton</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53recoveryreadiness</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53recoverycontrolconfig</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53recoverycluster</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chimesdkmessaging</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chimesdkidentity</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>snowdevicemanagement</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>memorydb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>opensearch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kafkaconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>wisdom</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>voiceid</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>account</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudcontrol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>grafana</artifactId>
-        <version>2.46.17</version>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>panorama</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chimesdkmeetings</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>resiliencehub</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>migrationhubstrategy</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>drs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appconfigdata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>migrationhubrefactorspaces</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>inspector2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rum</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rbin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iottwinmaker</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workspacesweb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>backupgateway</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>amplifyuibuilder</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>keyspaces</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>billingconductor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pinpointsmsvoicev2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ivschat</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chimesdkmediapipelines</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>emrserverless</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>m2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connectcampaigns</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>redshiftserverless</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rolesanywhere</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>licensemanagerusersubscriptions</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>supportapp</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>controltower</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotfleetwise</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>migrationhuborchestrator</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connectcases</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>resourceexplorer2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>scheduler</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssmsap</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chimesdkvoice</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>oam</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>arczonalshift</artifactId>
-        <version>2.46.17</version>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>simspaceweaver</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>securitylake</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>opensearchserverless</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>omics</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>docdbelastic</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakergeospatial</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pipes</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codecatalyst</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakermetrics</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kinesisvideowebrtcstorage</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>licensemanagerlinuxsubscriptions</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>kendraranking</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cleanrooms</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudtraildata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>imds</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>tnb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>internetmonitor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ivsrealtime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>vpclattice</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>osis</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mediapackagev2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>paymentcryptographydata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>paymentcryptography</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codegurusecurity</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>verifiedpermissions</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>appfabric</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>medicalimaging</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>entityresolution</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>managedblockchainquery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pcaconnectorad</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>neptunedata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrock</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>datazone</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>launchwizard</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>trustedadvisor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cloudfrontkeyvaluestore</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>inspectorscan</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>costoptimizationhub</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>repostspace</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bcmdataexports</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>freetier</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>eksauth</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workspacesthinclient</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>b2bi</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockagentruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>qbusiness</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>qconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockagent</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>cleanroomsml</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacedeployment</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplaceagreement</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>neptunegraph</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>networkmonitor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>supplychain</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>artifact</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>chatbot</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>timestreaminfluxdb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>codeconnections</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>deadline</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>controlcatalog</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53profiles</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mailmanager</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>taxsettings</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>applicationsignals</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pcaconnectorscep</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>qapps</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssmquicksetup</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>pcs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>directoryservicedata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacereporting</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>socialmessaging</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>geoplaces</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>geomaps</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>georoutes</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>billing</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>partnercentralselling</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connectcampaignsv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>notifications</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>notificationscontacts</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bcmpricingcalculator</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>observabilityadmin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>securityir</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>invoicing</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>networkflowmonitor</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3tables</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dsql</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockdataautomationruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockdataautomation</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>backupsearch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>iotmanagedintegrations</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>gameliftstreams</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>ssmguiconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>evs</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mpa</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>aiops</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>workspacesinstances</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>keyspacesstreams</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>odb</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3vectors</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockagentcore</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bedrockagentcorecontrol</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>arcregionswitch</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bcmrecommendedactions</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>bcmdashboards</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>rtbfabric</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>mwaaserverless</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>signin</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>partnercentralchannel</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>computeoptimizerautomation</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakerruntimehttp2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>partnercentralaccount</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>route53globalresolver</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>partnercentralbenefits</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>novaact</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>wickr</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>signerdata</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>elementalinference</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>connecthealth</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>simpledbv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>uxc</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>devopsagent</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>securityagent</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sustainability</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>s3files</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>marketplacediscovery</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>interconnect</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>resiliencehubv2</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sagemakerjobruntime</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>lambdamicrovms</artifactId>
-        <version>2.46.17</version>
+        <version>2.47.6</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>lambdacore</artifactId>
+        <version>2.47.6</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>supportauthz</artifactId>
+        <version>2.47.6</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>partnercentralrevenuemeasurement</artifactId>
+        <version>2.47.6</version>
       </dependency>
       <dependency>
         <groupId>org.apache.qpid</groupId>
