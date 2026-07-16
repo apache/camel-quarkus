@@ -81,9 +81,12 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("SPLUNK_LICENSE_URI", "Free")
                     .withEnv("SPLUNK_GENERAL_TERMS", "--accept-sgt-current-at-splunk-com")
                     .withEnv("TZ", TimeZone.getDefault().getID())
-                    .waitingFor(
-                            Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
-                                    .withStartupTimeout(Duration.ofMinutes(10)));
+                    .waitingFor(Wait.forHttp("/services/collector/health")
+                            .forPort(HEC_PORT)
+                            .forStatusCode(200)
+                            .usingTls()
+                            .allowInsecure()
+                            .withStartupTimeout(Duration.ofMinutes(10)));
 
             if (certPath != null && caCertPath != null && keystorePassword != null) {
                 //combine key + certificates into 1 pem - required for splunk
