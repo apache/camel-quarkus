@@ -87,4 +87,25 @@ public class CyberarkVaultResource {
     public String propertyPlaceholder() {
         return producerTemplate.requestBody("direct:propertyPlaceholder", "", String.class);
     }
+
+    @Path("/getSecretByPassword")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSecretByPassword() {
+        return producerTemplate.requestBody("direct:getSecretByPassword", "", String.class);
+    }
+
+    @Path("/getSecretByToken")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSecretByToken() {
+        return producerTemplate.requestBody("direct:getSecretByToken", "", String.class);
+    }
+
+    @Path("/getSecretByClient")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSecretByClient() {
+        return producerTemplate.requestBody("direct:getSecretByClient", "", String.class);
+    }
 }

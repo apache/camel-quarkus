@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.cyberark.vault.it;
 
+import java.util.Optional;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.PropertiesComponent;
@@ -28,40 +30,44 @@ public class CyberArkRoutes extends RouteBuilder {
     String url;
     @ConfigProperty(name = "conjur.account")
     String account;
-    @ConfigProperty(name = "conjur.write.username")
-    String writeUsername;
-    @ConfigProperty(name = "conjur.write.apiKey")
-    String writeApiKey;
-    @ConfigProperty(name = "conjur.read.username")
-    String readUsername;
-    @ConfigProperty(name = "conjur.read.apiKey")
-    String readApiKey;
+    @ConfigProperty(name = "conjur.reader.username")
+    String readerUsername;
+    @ConfigProperty(name = "conjur.reader.apiKey")
+    String readerApiKey;
+    @ConfigProperty(name = "conjur.reader.authToken")
+    Optional<String> readerAuthToken;
+    @ConfigProperty(name = "conjur.writer.password")
+    Optional<String> writerPassword;
+    @ConfigProperty(name = "conjur.writer.username")
+    String writerUsername;
+    @ConfigProperty(name = "conjur.writer.apiKey")
+    String writerApiKey;
 
     @Override
     public void configure() throws Exception {
 
         from("direct:createSecret")
                 .toF("cyberark-vault:secret?operation=createSecret&url=%s&account=%s&username=%s&apiKey=%s",
-                        url, account, writeUsername, writeApiKey)
+                        url, account, writerUsername, writerApiKey)
                 .log("Secret created/updated");
 
         from("direct:createSecretUnauthorized")
                 .toF("cyberark-vault:secret?operation=createSecret&url=%s&account=%s&username=%s&apiKey=%s",
-                        url, account, readUsername, readApiKey)
+                        url, account, readerUsername, readerApiKey)
                 .log("Secret created/updated");
 
         from("direct:getSecret")
                 .toF("cyberark-vault:secret?secretId=BotApp/secretVar&url=%s&account=%s&username=%s&apiKey=%s",
-                        url, account, readUsername, readApiKey)
+                        url, account, readerUsername, readerApiKey)
                 .log("Retrieved secret: ${body}");
 
         from("direct:getSecretByHeader")
                 .toF("cyberark-vault:secret?url=%s&account=%s&username=%s&apiKey=%s",
-                        url, account, readUsername, readApiKey);
+                        url, account, readerUsername, readerApiKey);
 
         from("direct:getSecretVersion")
                 .toF("cyberark-vault:secret?secretId=BotApp/versionVar&url=%s&account=%s&username=%s&apiKey=%s",
-                        url, account, readUsername, readApiKey);
+                        url, account, readerUsername, readerApiKey);
 
         // Programmatic equivalent of {{cyberark:BotApp/secretVar}} placeholder — resolved at runtime since the secret doesn't exist at route build time
         from("direct:propertyPlaceholder")
@@ -71,6 +77,17 @@ public class CyberArkRoutes extends RouteBuilder {
                         exchange.getMessage().setBody(value);
                     });
                 });
+
+        writerPassword.ifPresent(password -> from("direct:getSecretByPassword")
+                .toF("cyberark-vault:secret?secretId=BotApp/secretVar&url=%s&account=%s&username=%s&password=%s",
+                        url, account, writerUsername, password));
+
+        readerAuthToken.ifPresent(token -> from("direct:getSecretByToken")
+                .toF("cyberark-vault:secret?secretId=BotApp/secretVar&url=%s&account=%s&authToken=RAW(%s)",
+                        url, account, token));
+
+        from("direct:getSecretByClient")
+                .to("cyberark-vault:secret?secretId=BotApp/secretVar&conjurClient=#myConjurClient");
 
     }
 }
