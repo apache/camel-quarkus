@@ -33,7 +33,9 @@ import static org.hamcrest.CoreMatchers.is;
         @Certificate(name = "ftp", formats = {
                 Format.PEM }, password = "password"),
         @Certificate(name = "ftp", formats = {
-                Format.PKCS12 }, password = "password") })
+                Format.PKCS12 }, password = "password"),
+        @Certificate(name = "sftp-auth", formats = {
+                Format.PEM }, password = "") })
 @QuarkusTest
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
@@ -104,20 +106,20 @@ class SftpTest {
 
     @Test
     @DisabledIfFipsMode
-    void testCertificateAuthenticationWithFile() {
+    void testPrivateKeyFileAuthentication() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("Certificate file authentication test")
-                .post("/sftp/certificateFile/create/certificate-file-test.txt")
+                .body("Private key file authentication test")
+                .post("/sftp/privateKeyFile/create/private-key-file-test.txt")
                 .then()
                 .statusCode(201);
 
-        RestAssured.get("/sftp/certificateFile/get/certificate-file-test.txt")
+        RestAssured.get("/sftp/privateKeyFile/get/private-key-file-test.txt")
                 .then()
                 .statusCode(200)
-                .body(is("Certificate file authentication test"));
+                .body(is("Private key file authentication test"));
 
-        RestAssured.delete("/sftp/delete/certificate-file-test.txt")
+        RestAssured.delete("/sftp/delete/private-key-file-test.txt")
                 .then()
                 .statusCode(204);
     }

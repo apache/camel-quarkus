@@ -120,13 +120,13 @@ public class SftpResource {
                 String.class);
     }
 
-    @Path("/certificateFile/create/{fileName}")
+    @Path("/privateKeyFile/create/{fileName}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response createFileWithCertificateFile(@PathParam("fileName") String fileName, String fileContent)
+    public Response createFileWithPrivateKeyFile(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/classes/certs/test-key-rsa.key&certFile=target/classes/certs/test-key-rsa-cert.pub",
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/sftp-auth.key",
                 fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
@@ -134,12 +134,12 @@ public class SftpResource {
                 .build();
     }
 
-    @Path("/certificateFile/get/{fileName}")
+    @Path("/privateKeyFile/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFileWithCertificateFile(@PathParam("fileName") String fileName) {
+    public String getFileWithPrivateKeyFile(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/classes/certs/test-key-rsa.key&certFile=target/classes/certs/test-key-rsa-cert.pub&localWorkDirectory=target&fileName="
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?privateKeyFile=target/certs/sftp-auth.key&localWorkDirectory=target&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
