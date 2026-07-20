@@ -18,6 +18,41 @@
 -->
 # Changelog
 
+## 3.33.2
+
+* [BACKPORT 3.33] OpenSSH certificate-based authentication and host verification by @gansheer in https://github.com/apache/camel-quarkus/pull/8633
+* [3.33.x] Align dev.langchain4j dependencies with Quarkus LangChain4j 1.7.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8646
+* [3.33.x] Upgrade Quarkus CXF to 3.33.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8652
+* [3.33.x] Upgrade camel-kamelets to 4.18.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8659
+* chore: Bump quarkiverse-jsch.version from 3.1.3 to 3.2.0 by @gansheer in https://github.com/apache/camel-quarkus/pull/8666
+* [BACKPORT 3.33] chore: remove unused build step on sftp/jsch by @gansheer in https://github.com/apache/camel-quarkus/pull/8678
+* [3.33.x] Upgrade Quarkus to 3.33.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8688
+* [3.33.x] Replace external Maven Central URL with local test endpoint in HTTP tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8710
+* [backport 3.33.x] Manage libthrift version in camel-quarkus-bom by @jomin7 in https://github.com/apache/camel-quarkus/pull/8725
+* [3.33.x] jira: use non-deprecated maven url (CAMEL-23389) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8727
+* [3.33] Remove the last rest of quarkus-junit5* by @ppalaga in https://github.com/apache/camel-quarkus/pull/8741
+* [jt400-stabilize] Change order of sending message by @tveskrna in https://github.com/apache/camel-quarkus/pull/8750
+* [3.33.x] Cherry-pick 661abc4 by @tveskrna in https://github.com/apache/camel-quarkus/pull/8781
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8791
+* [3.33.x] ci: Use zstd compression when taring Maven repo by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8794
+* [3.33.x] Upgrade to Quarkus 3.33.2.1 & Quarkus CXF 3.33.8 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8802
+* [3.33.x] Backport : Ensure extension is created with camel-base metadatas by @jomin7 in https://github.com/apache/camel-quarkus/pull/8788
+* [3.33.x] Upgrade to Camel 4.18.3 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8809
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8837
+* [3.33.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8842
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.33.1...3.33.2
+
+## 3.27.5
+
+* [3.27.x] Upgrade Quarkus CXF to 3.27.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8653
+* [3.27.x] Backport datasource config rationalization for JPA & SQL tests by @llowinge in https://github.com/apache/camel-quarkus/pull/8673
+* [3.27.x] Upgrade Quarkus to 3.27.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8689
+* [3.27.x] Upgrade Camel to 4.14.8  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/8813
+* [3.27.x] Backports + Upgrade Quarkus to 3.27.4.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8827
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.27.4...3.27.5
+
 ## 3.36.0
 
 * Add 3.33 to branch options in the LTS CI workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8576
