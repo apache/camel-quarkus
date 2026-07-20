@@ -136,7 +136,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.init.outputs.run-checks == 'true'
         with:
           ref: ${{ env.CHECKOUT_REF }}
@@ -229,7 +229,7 @@ jobs:
             && sed -i '/<module>integration-tests<\/module>/d' pom.xml \
             && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -Prelocations -T1C
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -448,7 +448,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.integration-tests-matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -544,7 +544,7 @@ jobs:
       SCALPEL_TRIM_ARGS: "-Dscalpel.enabled=true -Dscalpel.mode=trim -Dscalpel.alsoMake=true -Dscalpel.alsoMakeDependents=false"
     steps:
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -646,7 +646,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -698,7 +698,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m -Xms3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -751,7 +751,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
