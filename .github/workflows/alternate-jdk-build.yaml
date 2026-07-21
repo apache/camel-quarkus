@@ -58,6 +58,7 @@ env:
   CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]' && github.head_ref || '' }}
   JDK_VERSION: ${{ inputs.jdk-version }}
   JDK_DISTRIBUTION: ${{ inputs.jdk-distribution || 'temurin' }}
+  DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
 jobs:
   initial-mvn-install:
