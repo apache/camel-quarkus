@@ -1,0 +1,8 @@
+=== Native Mode
+
+When using a classpath-based OpenAPI specification in native mode, the file must be explicitly included in the native image. Add the following to your `application.properties`:
+
+[source,properties]
+----
+quarkus.native.resources.includes=openapi.json
+----

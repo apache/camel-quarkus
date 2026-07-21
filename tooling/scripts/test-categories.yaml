@@ -238,6 +238,7 @@ group-12:
   - langchain4j-web-search
   - langchain4j-tools
   - openapi-java
+  - openapi-validator
   - paho-mqtt5
   - platform-http
   - reactive-streams
