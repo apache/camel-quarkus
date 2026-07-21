@@ -917,7 +917,7 @@
       <dependency>
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
-        <version>8.6.0</version>
+        <version>9.0.3</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -1190,12 +1190,12 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
-        <version>3.8.6</version>
+        <version>3.9.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native-deployment</artifactId>
-        <version>3.8.6</version>
+        <version>3.9.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
