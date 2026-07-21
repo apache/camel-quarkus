@@ -1,11 +1,12 @@
 {
   "id" : "45c75cdd-225c-4e51-a133-a3146fff462b",
   "name" : "chat_completions",
+  "priority" : 1,
   "request" : {
     "url" : "/chat/completions",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"messages\":[{\"role\":\"assistant\",\"content\":\"Hello, Camelus dromedarius! Nice to meet you. How can I help you today?\\n\\nOptions:\\n- Quick facts about dromedaries (diet, habitat, adaptations)\\n- A short story or monologue from your perspective\\n- Comparison with Bactrian camels\\n- Q&A about behavior, physiology, or history\\n\\nTell me what you’re in the mood for.\"},{\"content\":\"What is my name? Respond maximum 5 words.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "equalToJson" : "{\"messages\":[{\"content\":\"My name is John.\",\"role\":\"user\"},{\"role\":\"assistant\",\"content\":\"Hello, Camelus dromedarius! Nice to meet you. How can I help you today?\\n\\nOptions:\\n- Quick facts about dromedaries (diet, habitat, adaptations)\\n- A short story or monologue from your perspective\\n- Comparison with Bactrian camels\\n- Q&A about behavior, physiology, or history\\n\\nTell me what you’re in the mood for.\"},{\"content\":\"What is my name? Respond maximum 5 words.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
