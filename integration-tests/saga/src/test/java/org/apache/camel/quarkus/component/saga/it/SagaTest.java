@@ -68,7 +68,7 @@ class SagaTest {
                 .then()
                 .statusCode(500)
                 .body("creditBalance", Matchers.is(50))
-                .body("train", Matchers.is(LraTicketServiceStatus.refunded.name()))
+                .body("train", Matchers.is(LraTicketServiceStatus.error.name()))
                 .body("flight", Matchers.is(LraTicketServiceStatus.error.name()));
     }
 
@@ -101,7 +101,7 @@ class SagaTest {
                 .then()
                 .statusCode(500)
                 .body("creditBalance", Matchers.is(50))
-                .body("train", Matchers.is(LraTicketServiceStatus.refunded.name()))
+                .body("train", Matchers.is(LraTicketServiceStatus.error.name()))
                 .body("flight", Matchers.is(LraTicketServiceStatus.error.name())); //the second buy action fails
     }
 
