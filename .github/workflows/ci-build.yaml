@@ -112,6 +112,7 @@ env:
   SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/**,.mvn/**,.github/workflows/ci-build.yaml"
   SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=**.adoc,**.md,docs/**,Jenkinsfile*,LICENSE.txt,NOTICE.txt,KEYS,camel-quarkus-sbom/**,.github/*.sh"
   CQ_MAVEN_SKIP_CHECKS: "-Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip"
+  DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
 jobs:
   pre-build-checks:
