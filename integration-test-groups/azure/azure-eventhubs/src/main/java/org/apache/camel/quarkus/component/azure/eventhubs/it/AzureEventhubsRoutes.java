@@ -26,7 +26,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
-import org.apache.camel.component.azure.eventhubs.CredentialType;
+import org.apache.camel.component.azure.common.CredentialType;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

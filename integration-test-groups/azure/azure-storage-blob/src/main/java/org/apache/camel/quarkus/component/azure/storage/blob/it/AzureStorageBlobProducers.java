@@ -24,9 +24,9 @@ import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import jakarta.inject.Named;
+import org.apache.camel.component.azure.common.CredentialType;
 import org.apache.camel.component.azure.storage.blob.BlobComponent;
 import org.apache.camel.component.azure.storage.blob.BlobConfiguration;
-import org.apache.camel.component.azure.storage.blob.CredentialType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class AzureStorageBlobProducers {
