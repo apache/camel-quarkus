@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.cyberark.vault.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.PropertiesComponent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -40,12 +41,12 @@ public class CyberArkRoutes extends RouteBuilder {
     public void configure() throws Exception {
 
         from("direct:createSecret")
-                .toF("cyberark-vault:secret?operation=createSecret&secretId=BotApp/secretVar&url=%s&account=%s&username=%s&apiKey=%s",
+                .toF("cyberark-vault:secret?operation=createSecret&url=%s&account=%s&username=%s&apiKey=%s",
                         url, account, writeUsername, writeApiKey)
                 .log("Secret created/updated");
 
         from("direct:createSecretUnauthorized")
-                .toF("cyberark-vault:secret?operation=createSecret&secretId=BotApp/secretVar&url=%s&account=%s&username=%s&apiKey=%s",
+                .toF("cyberark-vault:secret?operation=createSecret&url=%s&account=%s&username=%s&apiKey=%s",
                         url, account, readUsername, readApiKey)
                 .log("Secret created/updated");
 
@@ -53,6 +54,23 @@ public class CyberArkRoutes extends RouteBuilder {
                 .toF("cyberark-vault:secret?secretId=BotApp/secretVar&url=%s&account=%s&username=%s&apiKey=%s",
                         url, account, readUsername, readApiKey)
                 .log("Retrieved secret: ${body}");
+
+        from("direct:getSecretByHeader")
+                .toF("cyberark-vault:secret?url=%s&account=%s&username=%s&apiKey=%s",
+                        url, account, readUsername, readApiKey);
+
+        from("direct:getSecretVersion")
+                .toF("cyberark-vault:secret?secretId=BotApp/versionVar&url=%s&account=%s&username=%s&apiKey=%s",
+                        url, account, readUsername, readApiKey);
+
+        // Programmatic equivalent of {{cyberark:BotApp/secretVar}} placeholder — resolved at runtime since the secret doesn't exist at route build time
+        from("direct:propertyPlaceholder")
+                .process(exchange -> {
+                    PropertiesComponent component = exchange.getContext().getPropertiesComponent();
+                    component.resolveProperty("cyberark:BotApp/secretVar").ifPresent(value -> {
+                        exchange.getMessage().setBody(value);
+                    });
+                });
 
     }
 }

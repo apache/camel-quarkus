@@ -41,7 +41,7 @@ class CyberarkVaultTest {
         //create secret
         RestAssured.given()
                 .body(secret)
-                .post("/cyberark-vault/createSecret/false")
+                .post("/cyberark-vault/createSecret/false/BotApp/secretVar")
                 .then()
                 .statusCode(500)
                 .body(containsString("403"));
@@ -49,7 +49,7 @@ class CyberarkVaultTest {
         //create secret
         RestAssured.given()
                 .body(secret)
-                .post("/cyberark-vault/createSecret/true")
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
                 .then()
                 .statusCode(200);
 
@@ -59,5 +59,69 @@ class CyberarkVaultTest {
                 .then()
                 .statusCode(200)
                 .body(is(secret));
+    }
+
+    @Test
+    void testPropertyPlaceholder() {
+        String secret = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secret)
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/propertyPlaceholder")
+                .then()
+                .statusCode(200)
+                .body(is(secret));
+    }
+
+    @Test
+    void testGetSecretByHeader() {
+        String secret = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secret)
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/getSecretByHeader/BotApp/secretVar")
+                .then()
+                .statusCode(200)
+                .body(is(secret));
+    }
+
+    @Test
+    void testGetSecretVersion() {
+        String secretV1 = UUID.randomUUID().toString();
+        String secretV2 = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secretV1)
+                .post("/cyberark-vault/createSecret/true/BotApp/versionVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .body(secretV2)
+                .post("/cyberark-vault/createSecret/true/BotApp/versionVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/getSecretVersion/1")
+                .then()
+                .statusCode(200)
+                .body(is(secretV1));
+
+        RestAssured
+                .get("/cyberark-vault/getSecretVersion/2")
+                .then()
+                .statusCode(200)
+                .body(is(secretV2));
     }
 }

@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.cyberark.vault.it;
 
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -27,6 +29,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.cyberark.vault.CyberArkVaultConstants;
 import org.jboss.logging.Logger;
 
 @Path("/cyberark-vault")
@@ -38,12 +41,15 @@ public class CyberarkVaultResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/createSecret/{authorized}")
+    @Path("/createSecret/{authorized}/{policy}/{secret}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response createSecret(String secret, @PathParam("authorized") boolean authorized) {
+    public Response createSecret(String body, @PathParam("authorized") boolean authorized,
+            @PathParam("policy") String policy, @PathParam("secret") String secret) {
         try {
-            producerTemplate.requestBody("direct:createSecret" + (authorized ? "" : "Unauthorized"), secret, String.class);
+            producerTemplate.requestBodyAndHeader(
+                    "direct:createSecret" + (authorized ? "" : "Unauthorized"), body,
+                    CyberArkVaultConstants.SECRET_ID, policy + "/" + secret, String.class);
         } catch (RuntimeException e) {
             return Response.serverError().entity(e.getCause().getCause().getMessage()).build();
         }
@@ -55,5 +61,30 @@ public class CyberarkVaultResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getSecret() {
         return producerTemplate.requestBody("direct:getSecret", "", String.class);
+    }
+
+    @Path("/getSecretByHeader/{policy}/{secret}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSecretByHeader(@PathParam("policy") String policy, @PathParam("secret") String secret) {
+        return producerTemplate.requestBodyAndHeader(
+                "direct:getSecretByHeader", "", CyberArkVaultConstants.SECRET_ID, policy + "/" + secret, String.class);
+    }
+
+    @Path("/getSecretVersion/{version}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSecretVersion(@PathParam("version") int version) {
+        return producerTemplate.requestBodyAndHeaders(
+                "direct:getSecretVersion", "",
+                Map.of(CyberArkVaultConstants.SECRET_VERSION, version),
+                String.class);
+    }
+
+    @Path("/propertyPlaceholder")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String propertyPlaceholder() {
+        return producerTemplate.requestBody("direct:propertyPlaceholder", "", String.class);
     }
 }
