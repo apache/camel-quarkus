@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(CyberarkVaultTestResource.class)
 class CyberarkVaultTest {
     @Test
-    void testRetrieveSecret() {
+    void testUnauthorizedFailure() {
         String secret = UUID.randomUUID().toString();
         //create secret
         RestAssured.given()
@@ -123,5 +123,56 @@ class CyberarkVaultTest {
                 .then()
                 .statusCode(200)
                 .body(is(secretV2));
+    }
+
+    @Test
+    void testGetSecretByPassword() {
+        String secret = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secret)
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/getSecretByPassword")
+                .then()
+                .statusCode(200)
+                .body(is(secret));
+    }
+
+    @Test
+    void testGetSecretByToken() {
+        String secret = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secret)
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/getSecretByToken")
+                .then()
+                .statusCode(200)
+                .body(is(secret));
+    }
+
+    @Test
+    void testGetSecretByClient() {
+        String secret = UUID.randomUUID().toString();
+
+        RestAssured.given()
+                .body(secret)
+                .post("/cyberark-vault/createSecret/true/BotApp/secretVar")
+                .then()
+                .statusCode(200);
+
+        RestAssured
+                .get("/cyberark-vault/getSecretByClient")
+                .then()
+                .statusCode(200)
+                .body(is(secret));
     }
 }

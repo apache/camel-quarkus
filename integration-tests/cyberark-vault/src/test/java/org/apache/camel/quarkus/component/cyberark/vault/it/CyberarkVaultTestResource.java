@@ -17,6 +17,12 @@
 
 package org.apache.camel.quarkus.component.cyberark.vault.it;
 
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,8 +135,8 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
 
         result.put("camel.vault.cyberark.url", conjurUrl);
         result.put("camel.vault.cyberark.account", CONJUR_ACCOUNT);
-        result.put("camel.vault.cyberark.username", result.get("conjur.read.username"));
-        result.put("camel.vault.cyberark.apiKey", result.get("conjur.read.apiKey"));
+        result.put("camel.vault.cyberark.username", result.get("conjur.reader.username"));
+        result.put("camel.vault.cyberark.apiKey", result.get("conjur.reader.apiKey"));
 
         return result;
     }
@@ -274,12 +280,30 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(er.getStdout());
 
-        result.put("conjur.read.username", "host/BotApp/myDemoApp");
-        result.put("conjur.read.apiKey",
-                jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":host:BotApp/myDemoApp").get("api_key").textValue());
-        result.put("conjur.write.username", "user/Dave@BotApp");
-        result.put("conjur.write.apiKey",
-                jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":user:Dave@BotApp").get("api_key").textValue());
+        result.put("conjur.reader.username", "host/BotApp/myDemoApp");
+        String readApiKey = jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":host:BotApp/myDemoApp").get("api_key")
+                .textValue();
+        result.put("conjur.reader.apiKey", readApiKey);
+        result.put("conjur.writer.username", "user/Dave@BotApp");
+        String writeApiKey = jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":user:Dave@BotApp").get("api_key")
+                .textValue();
+        result.put("conjur.writer.apiKey", writeApiKey);
+        result.put("conjur.writer.password", writeApiKey);
+
+        // Obtain a pre-authenticated token for token-based auth testing
+        String conjurUrl = "http://localhost:" + conjurContainer.getMappedPort(80);
+        String encodedLogin = URLEncoder.encode(result.get("conjur.reader.username"), StandardCharsets.UTF_8);
+        String authUrl = String.format("%s/authn/%s/%s/authenticate", conjurUrl, CONJUR_ACCOUNT, encodedLogin);
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest authRequest = HttpRequest.newBuilder()
+                .uri(URI.create(authUrl))
+                .header("Content-Type", "text/plain")
+                .POST(HttpRequest.BodyPublishers.ofString(readApiKey))
+                .build();
+        HttpResponse<String> authResponse = httpClient.send(authRequest, HttpResponse.BodyHandlers.ofString());
+        Assertions.assertEquals(200, authResponse.statusCode(), "Authentication failed: " + authResponse.body());
+        result.put("conjur.reader.authToken", authResponse.body());
+        LOGGER.info("Pre-authenticated token obtained for token-based auth test");
 
         // Logout
         clientContainer.execInContainer("conjur", "logout");
