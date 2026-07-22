@@ -34,7 +34,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.gizmo.ClassCreator;
 import io.quarkus.gizmo.Gizmo;
@@ -135,11 +134,6 @@ final class FhirProcessor {
                 methodCreator.returnValue(stringBuilder.callToString());
             }
         }
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 
     static final class IsFhirServerAbsent implements BooleanSupplier {
