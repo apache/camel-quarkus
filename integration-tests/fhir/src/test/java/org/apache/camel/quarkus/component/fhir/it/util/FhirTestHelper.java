@@ -16,10 +16,7 @@
  */
 package org.apache.camel.quarkus.component.fhir.it.util;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import org.apache.camel.quarkus.component.fhir.it.AbstractFhirRouteBuilder;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public final class FhirTestHelper {
 
@@ -28,15 +25,7 @@ public final class FhirTestHelper {
     }
 
     public static boolean isFhirVersionEnabled(String version) {
-        try {
-            Properties properties = new Properties();
-            properties.load(AbstractFhirRouteBuilder.class.getResourceAsStream("/application.properties"));
-            String key = "quarkus.camel.fhir.enable-" + version.toLowerCase();
-            String envKey = key.toUpperCase().replace('.', '_');
-            String value = (String) properties.getOrDefault(key, System.getProperty(key, System.getenv(envKey)));
-            return Boolean.valueOf(value);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String key = "quarkus.camel.fhir.enable-" + version.toLowerCase();
+        return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(false);
     }
 }
