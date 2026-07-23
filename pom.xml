@@ -188,7 +188,7 @@
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>3.0</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
-        <microsoft.graph.version>6.66.1</microsoft.graph.version>
+        <microsoft.graph.version>6.67.0</microsoft.graph.version>
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.18.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
