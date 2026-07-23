@@ -128,7 +128,7 @@ class KameletProcessor {
                     .build());
 
             PathFilter pathFilter = PathFilter.forIncludes(kameletClasspathPatterns);
-            PathVisitor pathVisitor = visit -> kameletResources.add(CLASSPATH_PREFIX + ":" + sanitizePath(visit.getPath()));
+            PathVisitor pathVisitor = visit -> kameletResources.add(CLASSPATH_PREFIX + ":" + visit.getResourceName());
 
             // Discover Kamelets in the application artifact
             ApplicationModel applicationModel = curateOutcome.getApplicationModel();
@@ -211,8 +211,4 @@ class KameletProcessor {
         return null;
     }
 
-    private String sanitizePath(Path path) {
-        String normalizedPath = FileUtil.normalizePath(path.toString());
-        return FileUtil.stripLeadingSeparator(normalizedPath);
-    }
 }
