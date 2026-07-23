@@ -210,7 +210,7 @@
         <impsort-maven-plugin.version>1.13.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>3.6.0</jandex-maven-plugin.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:jandex.version -->
         <keytool-maven-plugin.version>2.0.2</keytool-maven-plugin.version>
-        <license-maven-plugin.version>5.0.0</license-maven-plugin.version>
+        <license-maven-plugin.version>5.1.1</license-maven-plugin.version>
         <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
         <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
