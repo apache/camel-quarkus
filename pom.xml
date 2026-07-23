@@ -98,17 +98,17 @@
         <geny.version>0.6.2</geny.version>
         <github-api.version>${github-api-version}</github-api.version><!-- Used in the build-notification profile -->
         <google-api-client.version>2.7.2</google-api-client.version><!-- @sync com.google.cloud:google-cloud-bigquery:${google-cloud-bigquery.version} dep:com.google.api-client:google-api-client -->
-        <google-auth-library.version>1.48.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
-        <google-cloud-api-common.version>2.64.0</google-cloud-api-common.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:api-common -->
-        <google-cloud-bigquery.version>2.67.0</google-cloud-bigquery.version><!--  @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-bigquery-bom -->
-        <google-cloud-bom.version>0.265.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-libraries-bom.version} dep:com.google.cloud:google-cloud-bom -->
-        <google-cloud-gapic-libraries-bom.version>1.87.1</google-cloud-gapic-libraries-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:gapic-libraries-bom -->
-        <google-cloud-libraries-bom.version>26.84.0</google-cloud-libraries-bom.version><!-- Keep aligned with quarkus-google-cloud-services -->
-        <google-cloud-pubsub-bom.version>1.151.0</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
-        <google-cloud-pubsub.version>1.151.0</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
-        <google-cloud-storage-bom.version>2.69.0</google-cloud-storage-bom.version><!-- @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-storage-bom -->
-        <google-cloud-storage.version>2.69.0</google-cloud-storage.version><!-- @sync com.google.cloud:google-cloud-storage-bom:${google-cloud-storage-bom.version} dep:com.google.cloud:google-cloud-storage -->
-        <google-gax-httpjson.version>2.81.0</google-gax-httpjson.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:gax-httpjson -->
+        <google-auth-library.version>1.49.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
+        <google-cloud-api-common.version>2.65.0</google-cloud-api-common.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:api-common -->
+        <google-cloud-bigquery.version>2.68.0</google-cloud-bigquery.version><!--  @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-bigquery-bom -->
+        <google-cloud-bom.version>0.266.1</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-libraries-bom.version} dep:com.google.cloud:google-cloud-bom -->
+        <google-cloud-gapic-libraries-bom.version>1.88.1</google-cloud-gapic-libraries-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:gapic-libraries-bom -->
+        <google-cloud-libraries-bom.version>26.85.1</google-cloud-libraries-bom.version><!-- Keep aligned with quarkus-google-cloud-services -->
+        <google-cloud-pubsub-bom.version>1.152.0</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
+        <google-cloud-pubsub.version>1.152.0</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
+        <google-cloud-storage-bom.version>2.70.0</google-cloud-storage-bom.version><!-- @sync com.google.cloud:gapic-libraries-bom:${google-cloud-gapic-libraries-bom.version} dep:com.google.cloud:google-cloud-storage-bom -->
+        <google-cloud-storage.version>2.70.0</google-cloud-storage.version><!-- @sync com.google.cloud:google-cloud-storage-bom:${google-cloud-storage-bom.version} dep:com.google.cloud:google-cloud-storage -->
+        <google-gax-httpjson.version>2.82.0</google-gax-httpjson.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.api:gax-httpjson -->
         <google-oauth-client.version>1.39.0</google-oauth-client.version><!-- @sync com.google.cloud:google-cloud-bigquery:${google-cloud-bigquery.version} dep:com.google.oauth-client:google-oauth-client -->
         <graalvm.version>23.1.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:nativeimage -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
