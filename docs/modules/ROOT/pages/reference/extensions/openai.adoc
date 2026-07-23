@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: OpenAI endpoint for chat completion, embeddings, and audio transcription.
+:cq-description: OpenAI endpoint for chat completion, embeddings, audio transcription, audio translation, and text-to-speech.
 :cq-deprecated: false
 :cq-jvm-since: 3.32.0
 :cq-native-since: 3.32.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.32.0## [.badge-key]##Native since##[.badge-supported]##3.32.0##
 endif::[]
 
-OpenAI endpoint for chat completion, embeddings, and audio transcription.
+OpenAI endpoint for chat completion, embeddings, audio transcription, audio translation, and text-to-speech.
 
 [id="extensions-openai-whats-inside"]
 == What's inside

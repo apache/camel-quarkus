@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-openai</artifactId>
     <name>Camel Quarkus :: OpenAI :: Runtime</name>
-    <description>OpenAI endpoint for chat completion, embeddings, and audio transcription.</description>
+    <description>OpenAI endpoint for chat completion, embeddings, audio transcription, audio translation, and text-to-speech.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.32.0</camel.quarkus.jvmSince>
