@@ -25,10 +25,10 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-
-        from("timer:quarkus-athena?repeatCount=1")
-                .to("aws2-athena://cluster?operation=listQueryExecutions")
-                .to("log:sf?showAll=true");
+        // TODO: Restore these - https://github.com/apache/camel-quarkus/issues/8912
+        //        from("timer:quarkus-athena?repeatCount=1")
+        //                .to("aws2-athena://cluster?operation=listQueryExecutions")
+        //                .to("log:sf?showAll=true");
 
         from("timer:quarkus-cw?repeatCount=1")
                 .setBody(constant("Quarkus is great!"))
@@ -75,9 +75,10 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws2-sts://myaccount?operation=getSessionToken")
                 .to("log:sf?showAll=true");
 
-        from("timer:quarkus-bedrock?repeatCount=1")
-                .to("aws-bedrock://myaccount?operation=invokeTextModel")
-                .to("log:sf?showAll=true");
+        // TODO: Restore these - https://github.com/apache/camel-quarkus/issues/8912
+        //        from("timer:quarkus-bedrock?repeatCount=1")
+        //                .to("aws-bedrock://myaccount?operation=invokeTextModel")
+        //                .to("log:sf?showAll=true");
 
         from("timer:quarkus-translate?repeatCount=1")
                 .setHeader(Translate2Constants.SOURCE_LANGUAGE, constant(Translate2LanguageEnum.ITALIAN))
