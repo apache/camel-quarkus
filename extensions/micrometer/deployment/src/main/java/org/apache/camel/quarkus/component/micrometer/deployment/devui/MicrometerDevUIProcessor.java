@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
+import org.apache.camel.quarkus.core.deployment.devui.CamelDevUIConstants;
 
 @BuildSteps(onlyIf = IsDevelopment.class)
 public class MicrometerDevUIProcessor {
@@ -32,7 +33,8 @@ public class MicrometerDevUIProcessor {
         cardPageBuildItem.addPage(Page.webComponentPageBuilder()
                 .title("Metrics")
                 .icon("font-awesome-solid:chart-line")
-                .componentLink("qwc-camel-micrometer.js"));
+                .componentLink("qwc-camel-micrometer.js")
+                .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, "micrometer"));
 
         cardsProducer.produce(cardPageBuildItem);
     }
