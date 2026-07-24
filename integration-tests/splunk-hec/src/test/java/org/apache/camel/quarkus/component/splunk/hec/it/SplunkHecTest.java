@@ -25,6 +25,8 @@ import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.test.DisabledOnArm;
@@ -82,8 +84,7 @@ public class SplunkHecTest {
                 .post("/splunk-hec/send/wrongSslContextParameters")
                 .then()
                 .statusCode(500)
-                .body(Matchers.either(org.hamcrest.core.StringContains.containsString("ssl exception"))
-                        .or(org.hamcrest.core.StringContains.containsString("Connection refused")));
+                .body(Matchers.containsString("ssl exception"));
     }
 
     @Test

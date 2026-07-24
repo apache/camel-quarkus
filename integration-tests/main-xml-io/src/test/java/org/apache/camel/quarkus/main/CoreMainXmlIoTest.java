@@ -29,6 +29,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.xml.LwModelToXMLDumper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -125,8 +126,10 @@ public class CoreMainXmlIoTest {
 
     @Test
     public void testDumpRoutes() {
+        final String logPath = ConfigProvider.getConfig()
+                .getValue("quarkus.log.file.path", String.class);
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = Files.readString(Paths.get("target/quarkus.log"));
+            String log = Files.readString(Paths.get(logPath));
             return logContainsDumpedRoutes(log);
         });
     }
