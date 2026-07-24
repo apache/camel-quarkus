@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
+import org.apache.camel.quarkus.core.deployment.devui.CamelDevUIConstants;
 
 @BuildSteps(onlyIf = IsDevelopment.class)
 public class VertxWebsocketDevUIProcessor {
@@ -32,7 +33,8 @@ public class VertxWebsocketDevUIProcessor {
         cardPageBuildItem.addPage(Page.webComponentPageBuilder()
                 .title("Endpoints")
                 .icon("font-awesome-solid:plug")
-                .componentLink("qwc-camel-vertx-websocket.js"));
+                .componentLink("qwc-camel-vertx-websocket.js")
+                .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, "vertx-websocket"));
 
         cardsProducer.produce(cardPageBuildItem);
     }

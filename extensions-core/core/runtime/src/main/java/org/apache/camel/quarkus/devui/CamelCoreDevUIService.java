@@ -17,8 +17,11 @@
 package org.apache.camel.quarkus.devui;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.quarkus.arc.Arc;
@@ -40,7 +43,37 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class CamelCoreDevUIService {
     private static final Logger LOG = Logger.getLogger(CamelCoreDevUIService.class);
+    private static volatile Set<String> ALLOWED_CONSOLE_IDS = Collections.emptySet();
+    private static volatile Map<String, Map<String, Set<String>>> ALLOWED_CONSOLE_OPTIONS = Collections.emptyMap();
     private final Map<String, ConsoleSubscription> PROCESSORS = new ConcurrentHashMap<>();
+
+    static void setAllowedConsoleIds(Set<String> consoleIds) {
+        ALLOWED_CONSOLE_IDS = Set.copyOf(consoleIds);
+    }
+
+    static void setAllowedConsoleOptions(Map<String, String> optionSpecs) {
+        Map<String, Map<String, Set<String>>> parsed = new HashMap<>();
+        for (Map.Entry<String, String> entry : optionSpecs.entrySet()) {
+            String spec = entry.getValue();
+            Map<String, Set<String>> optionRules = new HashMap<>();
+            if (spec != null && !spec.isEmpty()) {
+                for (String optionEntry : spec.split(";")) {
+                    String[] parts = optionEntry.split("=", 2);
+                    if (parts.length == 2) {
+                        String optionKey = parts[0].trim();
+                        String valuesStr = parts[1].trim();
+                        if ("*".equals(valuesStr)) {
+                            optionRules.put(optionKey, Set.of("*"));
+                        } else {
+                            optionRules.put(optionKey, Set.of(valuesStr.split("\\|")));
+                        }
+                    }
+                }
+            }
+            parsed.put(entry.getKey(), Collections.unmodifiableMap(optionRules));
+        }
+        ALLOWED_CONSOLE_OPTIONS = Collections.unmodifiableMap(parsed);
+    }
 
     /**
      * Deactivates a Dev UI subscription for the given Camel console id.
@@ -67,7 +100,11 @@ public class CamelCoreDevUIService {
      * @return         JSON String representation of the Camel console
      */
     public String getConsoleJSON(String id, Map<String, Object> options) {
-        return getOrCreateConsoleSubscription(id, options).callDevConsole();
+        if (!isConsoleAllowed(id)) {
+            LOG.debugf("Rejected Dev UI request for console '%s' — not in the allowlist", id);
+            return "{}";
+        }
+        return getOrCreateConsoleSubscription(id, sanitizeOptions(id, options)).callDevConsole();
     }
 
     /**
@@ -78,7 +115,11 @@ public class CamelCoreDevUIService {
      * @return         {@link Multi} of JSON String representation of the Camel console
      */
     public Multi<String> streamConsole(String id, Map<String, Object> options) {
-        return getOrCreateConsoleSubscription(id, options).getBroadcaster();
+        if (!isConsoleAllowed(id)) {
+            LOG.debugf("Rejected Dev UI stream request for console '%s' — not in the allowlist", id);
+            return Multi.createFrom().empty();
+        }
+        return getOrCreateConsoleSubscription(id, sanitizeOptions(id, options)).getBroadcaster();
     }
 
     /**
@@ -89,10 +130,48 @@ public class CamelCoreDevUIService {
      * @return         {@code true} if the options were updated, else {@code false}
      */
     public boolean updateConsoleOptions(String id, Map<String, Object> options) {
+        if (!isConsoleAllowed(id)) {
+            LOG.debugf("Rejected Dev UI options update for console '%s' — not in the allowlist", id);
+            return false;
+        }
+        Map<String, Object> sanitized = sanitizeOptions(id, options);
         return PROCESSORS.computeIfPresent(id, (key, consoleSubscription) -> {
-            consoleSubscription.setOptions(options);
+            consoleSubscription.setOptions(sanitized);
             return consoleSubscription;
         }) != null;
+    }
+
+    private static boolean isConsoleAllowed(String id) {
+        return ALLOWED_CONSOLE_IDS.contains(id);
+    }
+
+    private static Map<String, Object> sanitizeOptions(String id, Map<String, Object> options) {
+        if (options == null || options.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        Map<String, Set<String>> rules = ALLOWED_CONSOLE_OPTIONS.get(id);
+        if (rules == null || rules.isEmpty()) {
+            if (!options.isEmpty()) {
+                LOG.debugf("Stripped all options for console '%s' — no options are allowed", id);
+            }
+            return Collections.emptyMap();
+        }
+        Map<String, Object> sanitized = new HashMap<>();
+        for (Map.Entry<String, Object> entry : options.entrySet()) {
+            String key = entry.getKey();
+            Set<String> allowedValues = rules.get(key);
+            if (allowedValues == null) {
+                LOG.debugf("Stripped disallowed option key '%s' for console '%s'", key, id);
+                continue;
+            }
+            String stringValue = String.valueOf(entry.getValue());
+            if (allowedValues.contains("*") || allowedValues.contains(stringValue)) {
+                sanitized.put(key, entry.getValue());
+            } else {
+                LOG.debugf("Stripped option '%s' for console '%s' — value '%s' is not allowed", key, id, stringValue);
+            }
+        }
+        return sanitized;
     }
 
     ConsoleSubscription getOrCreateConsoleSubscription(String id, Map<String, Object> options) {
