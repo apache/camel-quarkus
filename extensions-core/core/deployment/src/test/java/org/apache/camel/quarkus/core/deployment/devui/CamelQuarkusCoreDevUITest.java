@@ -43,4 +43,31 @@ public class CamelQuarkusCoreDevUITest extends DevUIJsonRPCTest {
         assertEquals("camel-1", json.getString("name"));
         assertEquals("Started", json.getString("state"));
     }
+
+    @Test
+    void getNonAllowedConsoleReturnsEmptyJSON() throws Exception {
+        // 'send' console is registered from camel-console, but is not in the allowlist, so expect an empty JSON response
+        String result = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
+                Map.of("id", "send", "options", Map.of()));
+        assertEquals("{}", result);
+    }
+
+    @Test
+    void browseConsoleStripsDisallowedDumpTrue() throws Exception {
+        String withBadOption = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
+                Map.of("id", "browse", "options", Map.of("dump", "true")));
+        String withGoodOption = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
+                Map.of("id", "browse", "options", Map.of("dump", "false")));
+        assertEquals(withGoodOption, withBadOption);
+    }
+
+    @Test
+    void contextConsoleStripsAllOptions() throws Exception {
+        // context has no allowed options, so malicious keys should be stripped and the console should still respond
+        String result = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
+                Map.of("id", "context", "options", Map.of("malicious", "payload")));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertEquals("camel-1", json.getString("name"));
+        assertEquals("Started", json.getString("state"));
+    }
 }
