@@ -26,6 +26,7 @@ import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptBuildTimeConfig;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptDevUIService;
+import org.apache.camel.quarkus.core.deployment.devui.CamelDevUIConstants;
 
 @BuildSteps(onlyIf = { IsDevelopment.class, JasyptUtilsDevUIProcessor.CamelJasyptEnabled.class })
 public class JasyptUtilsDevUIProcessor {
@@ -35,7 +36,8 @@ public class JasyptUtilsDevUIProcessor {
         card.addPage(Page.webComponentPageBuilder()
                 .title("Utilities")
                 .componentLink("qwc-camel-jasypt-utils.js")
-                .icon("font-awesome-solid:house-lock"));
+                .icon("font-awesome-solid:house-lock")
+                .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, CamelDevUIConstants.CONSOLE_ID_NONE));
         return card;
     }
 

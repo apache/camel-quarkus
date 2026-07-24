@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
+import org.apache.camel.quarkus.core.deployment.devui.CamelDevUIConstants;
 
 @BuildSteps(onlyIf = IsDevelopment.class)
 public class MicroprofileFaultToleranceDevUIProcessor {
@@ -32,7 +33,8 @@ public class MicroprofileFaultToleranceDevUIProcessor {
         cardPageBuildItem.addPage(Page.webComponentPageBuilder()
                 .title("Circuit Breakers")
                 .icon("font-awesome-solid:plug")
-                .componentLink("qwc-camel-microprofile-fault-tolerance.js"));
+                .componentLink("qwc-camel-microprofile-fault-tolerance.js")
+                .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, "fault-tolerance"));
 
         cardsProducer.produce(cardPageBuildItem);
     }
