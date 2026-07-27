@@ -1997,6 +1997,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jsonb</artifactId>
         <version>4.22.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2505,6 +2511,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
