@@ -52,7 +52,6 @@
         <module>activemq</module>
         <module>activemq6</module>
         <module>ai-tool</module>
-        <module>ai-tool-langchain4j</module>
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
