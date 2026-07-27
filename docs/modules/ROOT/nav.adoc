@@ -236,6 +236,7 @@
 *** xref:reference/extensions/mdc.adoc[Mdc]
 *** xref:reference/extensions/microprofile-health.adoc[MicroProfile Health]
 *** xref:reference/extensions/micrometer.adoc[Micrometer]
+*** xref:reference/extensions/micrometer-observability.adoc[Micrometer Observability 2]
 *** xref:reference/extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]
 *** xref:reference/extensions/milvus.adoc[Milvus]
 *** xref:reference/extensions/minio.adoc[Minio]

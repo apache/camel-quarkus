@@ -92,6 +92,7 @@ group-04:
   - leveldb
   - mdc
   - micrometer
+  - micrometer-observability
   - minio
   - mongodb-grouped
   - mybatis
