@@ -393,7 +393,7 @@ camel.dataformat.beanio.stream-name = test-stream
 camel.dataformat.beanio.mapping = test-mapping.xml
 ----
 | `Map<String,Map<String,String>>`
-| 
+|
 
 a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[quarkus.camel.bootstrap.enabled]`
 
@@ -493,13 +493,13 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-trace-pattern]]`lin
 
 Filter for tracing by route or node id.
 | `string`
-| 
+|
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-trace-filter]]`link:#quarkus-camel-trace-trace-filter[quarkus.camel.trace.trace-filter]`
 
 Filter for tracing messages.
 | `string`
-| 
+|
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-type-converter-statistics-enabled]]`link:#quarkus-camel-type-converter-statistics-enabled[quarkus.camel.type-converter.statistics-enabled]`
 
