@@ -231,6 +231,8 @@ group-11:
   - xml-grouped
   - xslt-saxon
 group-12:
+  - ai-tool
+  - ai-tool-langchain4j
   - aws2-grouped
   - csimple
   - github2
