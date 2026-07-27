@@ -1,0 +1,15 @@
+== Camel Quarkus AI Tool LangChain4j Integration Tests
+
+By default, the tests use a mock `ChatModel` that simulates tool calling without a real LLM.
+
+=== Running with a real Ollama LLM
+
+To run additional tests against a real Ollama model (qwen3:1.7b) via dev services, activate the `ollama` Maven profile.
+This requires Docker to be running.
+
+[source,shell]
+----
+./mvnw verify -f integration-tests/ai-tool-langchain4j -Pollama
+----
+
+The first run may take longer as the Ollama container image and model are downloaded.

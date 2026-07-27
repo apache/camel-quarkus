@@ -16,13 +16,19 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j.deployment;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.GeneratedBeanBuildItem;
+import io.quarkus.arc.deployment.GeneratedBeanGizmoAdaptor;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -34,7 +40,14 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.gizmo.ClassCreator;
+import io.quarkus.gizmo.MethodCreator;
+import io.quarkus.gizmo.MethodDescriptor;
+import io.quarkus.gizmo.ResultHandle;
 import jakarta.inject.Singleton;
+import org.apache.camel.quarkus.component.support.langchain4j.AiToolSpecConverter;
+import org.apache.camel.quarkus.component.support.langchain4j.CamelAiToolProvider;
+import org.apache.camel.quarkus.component.support.langchain4j.CamelAiToolsInterceptor;
 import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
@@ -53,6 +66,8 @@ class SupportQuarkusLangchain4jProcessor {
 
     public static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName
             .createSimple("io.quarkiverse.langchain4j.RegisterAiService");
+    private static final DotName CAMEL_AI_TOOLS_DOTNAME = DotName
+            .createSimple("org.apache.camel.quarkus.component.support.langchain4j.CamelAiTools");
 
     private static final Logger LOG = Logger.getLogger(SupportQuarkusLangchain4jProcessor.class);
 
@@ -127,10 +142,104 @@ class SupportQuarkusLangchain4jProcessor {
                 .build());
     }
 
+    @BuildStep(onlyIf = AiToolPresent.class)
+    AdditionalBeanBuildItem registerCamelAiToolProvider() {
+        LOG.info("Camel AI Tool detected - registering CamelAiToolProvider as CDI bean for ToolProvider auto-discovery");
+        return AdditionalBeanBuildItem.unremovableOf(CamelAiToolProvider.class);
+    }
+
+    @BuildStep(onlyIf = AiToolPresent.class)
+    void generateAiToolSpecConverter(BuildProducer<GeneratedBeanBuildItem> generatedBeans,
+            BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
+
+        String generatedClassName = "org.apache.camel.quarkus.component.support.langchain4j.AiToolSpecConverterImpl";
+
+        try (ClassCreator cc = ClassCreator.builder()
+                .classOutput(new GeneratedBeanGizmoAdaptor(generatedBeans))
+                .className(generatedClassName)
+                .interfaces(AiToolSpecConverter.class)
+                .build()) {
+
+            cc.addAnnotation(Singleton.class);
+
+            String toolSpecClass = "dev.langchain4j.agent.tool.ToolSpecification";
+            String aiToolSpecClass = "org.apache.camel.component.ai.tool.AiToolSpec";
+
+            try (MethodCreator mc = cc.getMethodCreator("toToolSpecification",
+                    toolSpecClass, aiToolSpecClass)) {
+
+                ResultHandle spec = mc.getMethodParam(0);
+                ResultHandle result = mc.invokeStaticMethod(
+                        MethodDescriptor.ofMethod(
+                                "org.apache.camel.component.langchain4j.agent.AiToolSpecToLangChain4j",
+                                "toToolSpecification",
+                                toolSpecClass,
+                                aiToolSpecClass),
+                        spec);
+                mc.returnValue(result);
+            }
+        }
+
+        unremovableBeans.produce(beanClassNames(generatedClassName));
+    }
+
+    @BuildStep(onlyIf = AiToolPresent.class)
+    @Record(ExecutionTime.STATIC_INIT)
+    void configureCamelAiToolTags(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
+            QuarkusLangchain4jRecorder recorder) {
+
+        IndexView index = combinedIndex.getIndex();
+        Map<String, String> tagMap = new HashMap<>();
+        for (AnnotationInstance annotation : index.getAnnotations(CAMEL_AI_TOOLS_DOTNAME)) {
+            if (annotation.target().kind() == AnnotationTarget.Kind.CLASS) {
+                String className = annotation.target().asClass().name().toString();
+                if (annotation.value() == null) {
+                    LOG.warnf("@CamelAiTools on %s has no value — skipping", className);
+                    continue;
+                }
+                String tagValue = annotation.value().asString();
+                if (tagValue.isBlank()) {
+                    LOG.warnf("@CamelAiTools on %s has blank value — skipping", className);
+                    continue;
+                }
+                tagMap.put(className, tagValue);
+                LOG.infof("Discovered @CamelAiTools(\"%s\") on %s", tagValue, className);
+            }
+        }
+
+        if (tagMap.isEmpty()) {
+            return;
+        }
+
+        recorder.setCamelAiToolTagMap(tagMap);
+
+        additionalBeans.produce(AdditionalBeanBuildItem.builder()
+                .addBeanClasses(CamelAiToolsInterceptor.class)
+                .setUnremovable()
+                .build());
+    }
+
     @BuildStep
-    void markAiServicesAsUnremovable(
+    void validateAndRegisterAiServices(
             CombinedIndexBuildItem indexBuildItem,
             BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
+
+        if (!new AiToolPresent().getAsBoolean()) {
+            Collection<AnnotationInstance> aiToolsAnnotations = indexBuildItem.getIndex()
+                    .getAnnotations(CAMEL_AI_TOOLS_DOTNAME);
+            if (!aiToolsAnnotations.isEmpty()) {
+                LOG.warnf("@CamelAiTools annotations found but camel-langchain4j-agent is not on the classpath. "
+                        + "Add camel-langchain4j-agent dependency to enable the Camel AI tool bridge. "
+                        + "Affected classes: %s",
+                        aiToolsAnnotations.stream()
+                                .filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
+                                .map(a -> a.target().asClass().name().toString())
+                                .collect(Collectors.joining(", ")));
+            }
+        }
+
         LOG.debug("Discovering classes annotated with @RegisterAiService to mark implementation beans as unremovable");
 
         for (AnnotationInstance instance : indexBuildItem.getIndex().getAnnotations(REGISTER_AI_SERVICES_DOTNAME)) {

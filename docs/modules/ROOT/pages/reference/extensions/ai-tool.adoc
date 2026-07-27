@@ -92,3 +92,59 @@ from("ai-tool:greet?description=Greet a user"
     .setBody(simple("Hello, ${header.name}!"));
 ----
 
+[id="extensions-ai-tool-usage-langchain4j-integration"]
+=== LangChain4j integration
+
+When both `camel-quarkus-ai-tool` and a Quarkus LangChain4j extension (`quarkus-langchain4j-ollama`, `quarkus-langchain4j-openai`, etc.) are on the classpath, a `ToolProvider` CDI bean is registered automatically at build time.
+All routes registered via `ai-tool:` endpoints become available to `@RegisterAiService` AI services without explicit wiring.
+
+You must also add `camel-langchain4j-agent` to your project dependencies. This artifact provides the `AiToolSpec` to `ToolSpecification` conversion and is not brought in transitively.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-langchain4j-agent</artifactId>
+</dependency>
+----
+
+With both dependencies in place, a `@RegisterAiService` interface can call Camel tools directly:
+
+[source,java]
+----
+@RegisterAiService
+public interface WeatherAiService {
+    String chat(@UserMessage String question);
+}
+----
+
+Any `ai-tool:` route is now callable by the LLM behind `WeatherAiService`. No `toolProvider` attribute or manual bean reference is needed.
+
+[id="extensions-ai-tool-usage-tag-filtering-with-camelaitools"]
+==== Tag filtering with `@CamelAiTools`
+
+By default, all registered `ai-tool:` routes are visible to every AI service. When you need different AI services to see different subsets of tools, annotate the service interface with `@CamelAiTools` and specify a tag value that matches the `tags` parameter on your `ai-tool:` routes.
+
+[source,java]
+----
+@RegisterAiService
+@CamelAiTools("weather")
+public interface WeatherAgent {
+    String chat(@UserMessage String question);
+}
+
+@RegisterAiService
+@CamelAiTools("support")
+public interface SupportAgent {
+    String chat(@UserMessage String question);
+}
+----
+
+With this setup:
+
+* `WeatherAgent` sees only tools tagged with `weather` (plus any untagged tools from the default pool).
+* `SupportAgent` sees only tools tagged with `support` (plus any untagged tools from the default pool).
+* A `@RegisterAiService` without `@CamelAiTools` sees all registered tools regardless of tags.
+
+NOTE: The `@CamelAiTools` value must match a tag declared in the `ai-tool:` endpoint URI (e.g. `from("ai-tool:getWeather?tags=weather&...")`). If the annotation value is blank or does not match any route tag, the AI service will only see untagged tools.
+

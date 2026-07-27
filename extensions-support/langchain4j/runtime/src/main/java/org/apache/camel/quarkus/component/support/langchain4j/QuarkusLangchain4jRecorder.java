@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.support.langchain4j;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 import dev.langchain4j.guardrail.Guardrail;
 import io.quarkus.runtime.RuntimeValue;
@@ -25,6 +26,10 @@ import org.jboss.logging.Logger;
 
 @Recorder
 public class QuarkusLangchain4jRecorder {
+
+    public void setCamelAiToolTagMap(Map<String, String> tagMap) {
+        CamelAiToolProvider.TAG_MAP.putAll(tagMap);
+    }
 
     public RuntimeValue<Guardrail<?, ?>> instantiateGuardrails(Class<Guardrail<?, ?>> guardrailClass) {
         try {
