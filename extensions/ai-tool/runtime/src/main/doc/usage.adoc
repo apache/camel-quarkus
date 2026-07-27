@@ -1,0 +1,43 @@
+The `ai-tool` component is a framework-agnostic consumer endpoint that registers Camel routes as LLM-callable tools in a shared `AiToolRegistry`. Framework-specific extensions (such as `camel-quarkus-langchain4j-tools`, `camel-quarkus-openai`) discover and invoke these tools at runtime.
+
+=== Defining a tool
+
+Use the `ai-tool` consumer endpoint to register a route as an AI tool. Tool parameters are declared via URI options.
+
+[source,java]
+----
+public class MyRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("ai-tool:getWeather?tags=weather"
+                + "&description=Get the current weather for a city"
+                + "&parameter.city=string"
+                + "&parameter.city.description=The city name"
+                + "&parameter.city.required=true"
+                + "&parameter.unit=string"
+                + "&parameter.unit.enum=celsius,fahrenheit")
+            .setBody(simple("Sunny in ${header.city}, temperature in ${header.unit}"));
+    }
+}
+----
+
+Arguments passed by the LLM are set as exchange headers (e.g. `${header.city}`).
+
+=== Tag-based grouping
+
+Tools can be grouped by tags. AI producer endpoints use tags to discover a subset of available tools.
+
+A tool with no tags is placed in a default pool and is available to all tag queries.
+
+[source,java]
+----
+// Tagged tool — only visible to producers querying the "support" tag
+from("ai-tool:lookupOrder?tags=support&description=Look up order status"
+        + "&parameter.orderId=string&parameter.orderId.required=true")
+    .to("sql:SELECT status FROM orders WHERE id = :#${header.orderId}");
+
+// Untagged tool — available to all producers
+from("ai-tool:greet?description=Greet a user"
+        + "&parameter.name=string&parameter.name.required=true")
+    .setBody(simple("Hello, ${header.name}!"));
+----
