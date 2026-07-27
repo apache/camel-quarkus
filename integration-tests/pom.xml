@@ -51,6 +51,7 @@
         <module>a2a</module>
         <module>activemq</module>
         <module>activemq6</module>
+        <module>ai-tool</module>
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
