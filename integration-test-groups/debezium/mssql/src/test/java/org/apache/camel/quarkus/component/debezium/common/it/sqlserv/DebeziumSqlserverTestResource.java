@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
@@ -50,7 +51,8 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
                 .withEnv(Collections.singletonMap("MSSQL_AGENT_ENABLED", "True"))
                 .withInitScript("initSqlserver.sql")
                 .waitingFor(
-                        Wait.forLogMessage(".*xp_sqlagent_notify.*", 1));
+                        Wait.forLogMessage(".*xp_sqlagent_notify.*", 1)
+                                .withStartupTimeout(Duration.ofMinutes(2)));
     }
 
     @Override
