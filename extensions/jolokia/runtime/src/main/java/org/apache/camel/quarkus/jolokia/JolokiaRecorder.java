@@ -31,6 +31,7 @@ import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.DiscoveryEna
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.Kubernetes;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.Server;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import org.apache.camel.quarkus.jolokia.util.JolokiaHostUtils;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -73,7 +74,7 @@ public class JolokiaRecorder {
                     host = ALL_INTERFACES;
                 }
             } else {
-                host = ALL_INTERFACES;
+                host = LOCALHOST;
             }
         }
 
@@ -92,10 +93,27 @@ public class JolokiaRecorder {
                 serverOptions.put("useSslClientAuthentication", "true");
                 serverOptions.put("extendedClientCheck", "true");
                 serverOptions.put("caCert", kubernetes.serviceCaCert().getAbsolutePath());
-                kubernetes.clientPrincipal()
-                        .ifPresent(clientPrincipal -> serverOptions.put("clientPrincipal", clientPrincipal));
-            } else {
-                LOG.warnf("Kubernetes service CA certificate %s does not exist", kubernetes.serviceCaCert());
+                if (kubernetes.clientPrincipal().isPresent()) {
+                    serverOptions.put("clientPrincipal", kubernetes.clientPrincipal().get());
+                } else {
+                    LOG.warn("Kubernetes SSL client authentication is enabled but no client principal is configured"
+                            + " ('quarkus.camel.jolokia.kubernetes.client-principal'). Any pod presenting a valid"
+                            + " certificate signed by the service CA can access Jolokia. Set a client principal"
+                            + " to restrict access to a specific service identity.");
+                }
+            } else if (kubernetes.clientAuthenticationEnabled()) {
+                if (!isLoopbackHost(host)) {
+                    throw new RuntimeException(
+                            String.format("Kubernetes SSL client authentication is enabled but the service CA certificate"
+                                    + " '%s' does not exist. The Jolokia server is configured to bind to '%s'"
+                                    + " which would expose it without authentication. Either provide the CA certificate,"
+                                    + " set 'quarkus.camel.jolokia.kubernetes.client-authentication-enabled=false',"
+                                    + " or bind to localhost with 'quarkus.camel.jolokia.server.host=localhost'.",
+                                    kubernetes.serviceCaCert(), host));
+                }
+                LOG.warnf("Kubernetes SSL client authentication is enabled but the service CA certificate"
+                        + " '%s' does not exist. Proceeding without TLS since the Jolokia server is bound to"
+                        + " the loopback interface.", kubernetes.serviceCaCert());
             }
         }
 
@@ -150,6 +168,10 @@ public class JolokiaRecorder {
 
     public RuntimeValue<CamelQuarkusJolokiaServer> createJolokiaServerBean(RuntimeValue<JolokiaServer> jolokiaServer) {
         return new RuntimeValue<>(new CamelQuarkusJolokiaServer(jolokiaServer.getValue()));
+    }
+
+    static boolean isLoopbackHost(String host) {
+        return JolokiaHostUtils.isLoopbackAddress(host);
     }
 
     static final class CamelQuarkusJolokiaAgent extends JolokiaServer {

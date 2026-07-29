@@ -1,0 +1,37 @@
+= Camel Quarkus 3.39.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.39.0.
+
+== Jolokia extension changes
+
+=== Default bind address changed to localhost
+
+The Jolokia agent HTTP server now binds to `localhost` by default in production mode (previously `0.0.0.0`). Dev and test modes already defaulted to `localhost`. Remote dev mode and WSL environments continue to default to `0.0.0.0`. This means Jolokia is only accessible from the local machine in production unless explicitly configured otherwise.
+
+=== Remote access blocked by default
+
+The default Camel Jolokia restrictor now blocks connections from non-loopback (remote) addresses. This provides defense-in-depth: even if the server host is configured to bind to all interfaces, remote requests are rejected unless the `remote-access-allowed` property is explicitly set to `true`.
+
+=== Cross-origin requests (CORS) blocked by default
+
+The default Camel Jolokia restrictor now denies all cross-origin requests from non-loopback origins. If you rely on browser-based monitoring tools connecting cross-origin, configure a https://jolokia.org/reference/html/manual/security.html[Jolokia access policy] (`jolokia-access.xml`) with a `<cors>` section, or use a custom restrictor. See the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation] for details.
+
+=== CamelJolokiaRestrictor no longer extends AllowAllRestrictor
+
+`CamelJolokiaRestrictor` now implements `Restrictor` directly instead of extending Jolokia's `AllowAllRestrictor`. If you have a custom restrictor that extends `AllowAllRestrictor`, consider switching to `extends CamelJolokiaRestrictor` to inherit the secure defaults (remote access control, CORS blocking, MBean domain filtering, `jolokia-access.xml` policy delegation).
+
+=== Jolokia access policy (jolokia-access.xml) delegation
+
+The default Camel Jolokia restrictor now loads `jolokia-access.xml` from the classpath if present and delegates remote access, CORS, HTTP method, and request type checks to it for non-loopback requests. This allows fine-grained access control alongside the Camel MBean domain filtering. The policy location can be configured via `quarkus.camel.jolokia.additional-properties."policyLocation"`.
+
+=== Required configuration for Kubernetes remote management
+
+If you use tools such as https://hawt.io/[Hawtio] or https://github.com/hawtio/hawtio-online[hawtio-online] to connect to Jolokia running on Kubernetes or OpenShift, you must add the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.server.host=0.0.0.0
+quarkus.camel.jolokia.remote-access-allowed=true
+----
+
+This is safe when combined with SSL client authentication (enabled by default in Kubernetes environments), which ensures only clients presenting a valid certificate can connect. Refer to the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation] for full details.

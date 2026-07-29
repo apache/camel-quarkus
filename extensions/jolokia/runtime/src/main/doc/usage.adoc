@@ -2,11 +2,11 @@ This extension adds https://jolokia.org/[Jolokia] support to your application.
 
 === Jolokia HTTP endpoints
 
-In prod mode, Jolokia is accessible at the following URLs.
+Jolokia is accessible at the following URL.
 
-* http://0.0.0.0:8778/jolokia/
+* http://localhost:8778/jolokia/
 
-In dev and test modes Jolokia is bound only to `localhost`.
+By default, the Jolokia agent HTTP server binds to `localhost`. Remote dev mode and WSL environments default to `0.0.0.0`.
 
 If you want to disable Jolokia entirely, then add the following configuration to `application.properties`.
 
@@ -58,11 +58,11 @@ quarkus.camel.jolokia.register-camel-restrictor=false
 
 ==== Create a custom restrictor
 
-You can create your own restrictor class and register it with Jolokia.
+You can create your own restrictor class and register it with Jolokia. Extending `CamelJolokiaRestrictor` inherits the secure defaults (remote access control, CORS blocking, MBean domain filtering).
 
 [source,java]
 ----
-public class CustomRestrictor extends AllowAllRestrictor {
+public class CustomRestrictor extends CamelJolokiaRestrictor {
     // Override methods to apply custom restrictions
 }
 ----
@@ -99,9 +99,96 @@ This functionality can be disabled by adding the following configuration to `app
 quarkus.camel.jolokia.kubernetes.client-authentication-enabled=false
 ----
 
-Note that if you choose to use https://github.com/hawtio/hawtio-online[hawtio-online] to connect to your running application, then you must configure the Jolokia client principal.
+==== Configuring Jolokia for remote management tools
+
+Tools such as https://hawt.io/[Hawtio] and https://github.com/hawtio/hawtio-online[hawtio-online] connect to Jolokia via the pod IP address, which is a non-loopback address. By default, the Jolokia agent binds to `localhost` and the default restrictor blocks connections from non-loopback addresses.
+
+To allow remote management tools to connect to Jolokia in Kubernetes, add the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.server.host=0.0.0.0
+quarkus.camel.jolokia.remote-access-allowed=true
+----
+
+This is safe when combined with SSL client authentication (enabled by default in Kubernetes), which ensures that only clients presenting a valid certificate signed by the service CA can connect. If you use hawtio-online, you must also configure the Jolokia client principal.
 
 [source]
 ----
 quarkus.camel.jolokia.kubernetes.client-principal=cn=hawtio-online.hawtio.svc
+----
+
+=== Security
+
+NOTE: Even when bound to `localhost`, Jolokia does not require authentication by default. On shared hosts or in container environments where localhost may be reachable from other containers, consider using a custom restrictor or Jolokia access policy to restrict access further.
+
+==== Network binding
+
+By default, the Jolokia agent HTTP server binds to `localhost`, making it accessible only from the local machine. If you need to expose Jolokia to remote hosts, you must explicitly configure the bind address and enable remote access.
+
+[source]
+----
+quarkus.camel.jolokia.server.host=0.0.0.0
+quarkus.camel.jolokia.remote-access-allowed=true
+----
+
+==== Remote access control
+
+The default Camel Jolokia restrictor blocks connections from non-loopback addresses. This is controlled by the `quarkus.camel.jolokia.remote-access-allowed` property (default `false`). When set to `false`, only connections from loopback addresses (e.g. `127.0.0.1`, `::1`) are accepted, regardless of the server bind address.
+
+==== Cross-origin requests (CORS)
+
+The default Camel Jolokia restrictor denies all cross-origin requests. If you need to allow specific origins (e.g. for a browser-based monitoring tool connecting cross-origin), you can use a https://jolokia.org/reference/html/manual/security.html[Jolokia access policy] (`jolokia-access.xml`) with a `<cors>` section, or configure a custom restrictor that overrides `isOriginAllowed()`.
+
+==== Jolokia access policy
+
+Jolokia supports fine-grained access control via an XML policy file (`jolokia-access.xml`). This can restrict access by IP address, CORS origin, HTTP method, and MBean operation.
+
+The default Camel restrictor automatically loads `jolokia-access.xml` from the classpath if present. Place the file in `src/main/resources/jolokia-access.xml` to use it alongside the Camel restrictor. The Camel restrictor always allows loopback connections. For non-loopback requests, it delegates remote access, CORS, allowed request types (`<commands>`), and HTTP method (`<http>`) checks to the policy file, while continuing to enforce MBean domain filtering.
+
+For example, the following `jolokia-access.xml` allows access from the `10.0.0.0/8` subnet, CORS requests from a monitoring tool, and restricts Jolokia to read-only operations over HTTP GET.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<restrict>
+    <remote>
+        <host>10.0.0.0/8</host>
+    </remote>
+    <cors>
+        <allow-origin>http://monitoring.example.com</allow-origin>
+    </cors>
+    <commands>
+        <command>read</command>
+        <command>list</command>
+        <command>version</command>
+        <command>search</command>
+    </commands>
+    <http>
+        <method>get</method>
+    </http>
+</restrict>
+----
+
+Refer to the https://jolokia.org/reference/html/manual/security.html[Jolokia security documentation] for the full policy file format.
+
+To load the policy file from a different location, such as a file path mounted from a Kubernetes ConfigMap, configure the `policyLocation` property.
+
+[source]
+----
+quarkus.camel.jolokia.additional-properties."policyLocation"=file:/etc/jolokia/jolokia-access.xml
+----
+
+As an alternative, you can disable the default Camel restrictor entirely and let Jolokia manage the policy file directly. This gives full control to `jolokia-access.xml` (including MBean-level rules) but loses the Camel MBean domain filtering.
+
+[source]
+----
+quarkus.camel.jolokia.register-camel-restrictor=false
+----
+
+If you are building a native executable, the policy file must be explicitly included as a native resource.
+
+[source]
+----
+quarkus.native.resources.includes=jolokia-access.xml
 ----

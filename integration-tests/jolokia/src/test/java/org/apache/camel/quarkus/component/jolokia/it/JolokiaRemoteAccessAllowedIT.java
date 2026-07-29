@@ -16,19 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jolokia.it;
 
-import javax.management.ObjectName;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
-
-/**
- * Only allows MBean operation sendStringBody.
- */
-public class CustomRestrictor extends CamelJolokiaRestrictor {
-    @Override
-    public boolean isOperationAllowed(ObjectName pName, String pOperation) {
-        if (pOperation.startsWith("sendStringBody")) {
-            return true;
-        }
-        return false;
-    }
+@QuarkusIntegrationTest
+class JolokiaRemoteAccessAllowedIT extends JolokiaRemoteAccessAllowedTest {
 }

@@ -61,6 +61,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 import org.jolokia.core.api.LogHandler;
 import org.jolokia.server.core.service.api.Restrictor;
 import org.jolokia.server.core.service.impl.QuietLogHandler;
@@ -161,8 +162,10 @@ public class JolokiaProcessor {
                         .methods(true)
                         .build());
 
+        IndexView index = combinedIndex.getIndex();
+
         // Register custom (non-OSGi) Jolokia Restrictor impls for reflection
-        Set<String> jolokiaRestrictorClasses = combinedIndex.getIndex()
+        Set<String> jolokiaRestrictorClasses = index
                 .getAllKnownImplementations(Restrictor.class)
                 .stream()
                 .map(ClassInfo::name)
@@ -170,11 +173,18 @@ public class JolokiaProcessor {
                 .filter(className -> !className.startsWith("org.jolokia.server.core.osgi"))
                 .collect(Collectors.toSet());
 
+        // Register the builtin CamelJolokiaRestrictor and subclasses
         jolokiaRestrictorClasses.add(CamelJolokiaRestrictor.class.getName());
+        index.getAllKnownSubclasses(CamelJolokiaRestrictor.class)
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .forEach(jolokiaRestrictorClasses::add);
+
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(jolokiaRestrictorClasses.toArray(new String[0])).build());
 
         // Register custom LogHandler classes for reflection
-        Set<String> jolokiaLogHandlerClasses = combinedIndex.getIndex()
+        Set<String> jolokiaLogHandlerClasses = index
                 .getAllKnownImplementations(LogHandler.class)
                 .stream()
                 .map(ClassInfo::name)

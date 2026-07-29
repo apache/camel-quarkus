@@ -34,7 +34,7 @@ final class CamelQuarkusJolokiaLogHandler implements LogHandler {
 
     @Override
     public void error(String s, Throwable throwable) {
-        LOG.error(s);
+        LOG.error(s, throwable);
     }
 
     @Override

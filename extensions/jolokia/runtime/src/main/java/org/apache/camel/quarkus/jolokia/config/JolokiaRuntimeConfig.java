@@ -58,6 +58,18 @@ public interface JolokiaRuntimeConfig {
     @WithDefault("true")
     boolean registerCamelRestrictor();
 
+    /**
+     * When `true`, the default Camel Jolokia restrictor allows connections from non-loopback (remote) addresses.
+     * When `false` (the default), only connections from loopback addresses (e.g. 127.0.0.1, ::1) are permitted.
+     * This provides defense-in-depth: even if the server host is configured to bind to all interfaces,
+     * remote requests are rejected unless this property is explicitly set to `true`.
+     *
+     * This option only takes effect when `register-camel-restrictor` is `true` and a custom restrictor class
+     * is not configured via `quarkus.camel.jolokia.additional-properties."restrictorClass"`.
+     */
+    @WithDefault("false")
+    boolean remoteAccessAllowed();
+
     interface Server {
         /**
          * Whether the Jolokia agent HTTP server should be started automatically.
@@ -69,8 +81,8 @@ public interface JolokiaRuntimeConfig {
 
         /**
          * The host address to which the Jolokia agent HTTP server should bind.
-         * When unspecified, the default is localhost for dev and test mode.
-         * In prod mode the default is to bind to all interfaces at 0.0.0.0.
+         * When unspecified, the default is localhost in all modes except remote dev,
+         * where it defaults to 0.0.0.0.
          */
         Optional<String> host();
 

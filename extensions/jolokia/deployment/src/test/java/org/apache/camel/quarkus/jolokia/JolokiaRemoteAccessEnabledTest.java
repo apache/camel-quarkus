@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jolokia.it;
+package org.apache.camel.quarkus.jolokia;
 
-import javax.management.ObjectName;
+import io.quarkus.test.QuarkusUnitTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
-import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import static org.hamcrest.Matchers.equalTo;
 
-/**
- * Only allows MBean operation sendStringBody.
- */
-public class CustomRestrictor extends CamelJolokiaRestrictor {
-    @Override
-    public boolean isOperationAllowed(ObjectName pName, String pOperation) {
-        if (pOperation.startsWith("sendStringBody")) {
-            return true;
-        }
-        return false;
+class JolokiaRemoteAccessEnabledTest {
+    @RegisterExtension
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .withEmptyApplication()
+            .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true");
+
+    @Test
+    void connectionAllowedWhenRemoteAccessEnabled() {
+        RestAssured.port = 8778;
+        RestAssured.get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(200));
     }
 }
