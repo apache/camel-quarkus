@@ -63,7 +63,6 @@
     </dependencies>
 
     <profiles>
-        <!-- native profile disabled: camel-minio requires minio 9.x but quarkiverse-minio 3.8.6 ships 8.6.0 - https://github.com/apache/camel-quarkus/issues/8920
         <profile>
             <id>native</id>
             <activation>
@@ -91,7 +90,6 @@
                 </plugins>
             </build>
         </profile>
-        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
