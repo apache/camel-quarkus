@@ -449,7 +449,7 @@ NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
 git checkout main
 git fetch upstream
 git reset --hard upstream/main
-./mvnw versions:set versions:update-child-modules -DnewVersion=$NEW_CQ_VERSION
+./mvnw versions:set -DnewVersion=$NEW_CQ_VERSION -DprocessAllModules=true
 # Update version labels in Kubernetes resources
 ./mvnw process-sources
 git add -A
