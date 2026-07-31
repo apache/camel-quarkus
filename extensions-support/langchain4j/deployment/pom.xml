@@ -52,6 +52,11 @@
             <artifactId>quarkus-junit-internal</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-core-deployment</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
