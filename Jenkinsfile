@@ -16,7 +16,7 @@
  */
 def AGENT_LABEL = env.AGENT_LABEL ?: 'ubuntu'
 def JDK_NAME = env.JDK_NAME ?: 'jdk_17_latest'
-def MAVEN_PARAMS = '-B -e -ntp'
+def MAVEN_PARAMS = '-B -e -ntp -T1C'
 
 pipeline {
 

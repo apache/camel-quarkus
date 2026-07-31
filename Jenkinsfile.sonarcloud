@@ -40,7 +40,7 @@ pipeline {
                 MAVEN_OPTS = "-Xmx4600m"
             }
             steps {
-                sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean install"
+                sh "./mvnw ${MAVEN_PARAMS} -T1C -Dquickly clean install"
             }
         }
 
