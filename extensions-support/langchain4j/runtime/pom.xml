@@ -50,6 +50,11 @@
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-embeddings</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-core</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>

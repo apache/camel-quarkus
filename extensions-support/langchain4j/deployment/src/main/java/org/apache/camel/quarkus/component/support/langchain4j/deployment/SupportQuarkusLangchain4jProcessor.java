@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
+import io.quarkiverse.langchain4j.deployment.ExcludeFromImpliedAiServiceBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -125,6 +126,16 @@ class SupportQuarkusLangchain4jProcessor {
                 .fields()
                 .constructors()
                 .build());
+    }
+
+    @BuildStep
+    void excludeCamelAgentInterfacesFromImpliedRegistration(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ExcludeFromImpliedAiServiceBuildItem> excludedFromImplied) {
+        String agentWithoutMemory = "org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService";
+        if (combinedIndex.getIndex().getClassByName(DotName.createSimple(agentWithoutMemory)) != null) {
+            excludedFromImplied.produce(new ExcludeFromImpliedAiServiceBuildItem(agentWithoutMemory));
+        }
     }
 
     @BuildStep
