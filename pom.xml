@@ -614,6 +614,7 @@
                                     <exclude>**/node_modules/**</exclude>
                                     <exclude>**/pom.xml.versionsBackup</exclude>
                                     <exclude>.mvn/**</exclude>
+                                    <exclude>.oss-ai-helper-rules/**</exclude>
                                     <exclude>KEYS</exclude>
                                     <exclude>doap.rdf</exclude>
                                     <exclude>ide-config/**</exclude>
