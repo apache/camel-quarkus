@@ -200,6 +200,7 @@ jobs:
       run-integration-tests-jvm: ${{ steps.process-incremental.outputs.run-integration-tests-jvm }}
       run-test-framework-tests: ${{ steps.process-incremental.outputs.run-test-framework-tests }}
       run-tooling-tests: ${{ steps.process-incremental.outputs.run-tooling-tests }}
+      incremental-build-enabled: ${{ steps.process-incremental.outputs.use-incremental }}
     env:
       MAVEN_OPTS: -Xmx4600m
       SCALPEL_ENABLED: "-Dscalpel.enabled=true"
@@ -559,15 +560,20 @@ jobs:
         with:
           cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
           download-maven-repo: 'true'
-      - name: cd extensions-core && mvn test
+      - name: extensions-core mvn test
         if: needs.initial-mvn-install.outputs.run-extensions-core-tests == 'true'
         run: |
-          cd extensions-core
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          MVNW="./mvnw"
+          if [ "${{ needs.initial-mvn-install.outputs.incremental-build-enabled }}" != "true" ]; then
+            cd extensions-core
+            MVNW="../mvnw"
+          fi
+          ${MVNW} ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
             ${SCALPEL_TRIM_ARGS} \
             ${SCALPEL_FULL_BUILD_TRIGGERS} \
             ${SCALPEL_EXCLUDE_PATHS} \
+            -Dscalpel.includePaths=extensions-core/** \
             --fail-at-end \
             test
       - name: Report test failures
@@ -575,15 +581,20 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: extensions-core
-      - name: cd extensions && mvn test
+      - name: extensions mvn test
         if: needs.initial-mvn-install.outputs.run-extensions-tests == 'true'
         run: |
-          cd extensions
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          MVNW="./mvnw"
+          if [ "${{ needs.initial-mvn-install.outputs.incremental-build-enabled }}" != "true" ]; then
+            cd extensions
+            MVNW="../mvnw"
+          fi
+          ${MVNW} ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
             ${SCALPEL_TRIM_ARGS} \
             ${SCALPEL_FULL_BUILD_TRIGGERS} \
             ${SCALPEL_EXCLUDE_PATHS} \
+            -Dscalpel.includePaths=extensions/** \
             --fail-at-end \
             test
       - name: Report test failures
@@ -591,15 +602,20 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: extensions
-      - name: cd test-framework && mvn test
+      - name: test-framework mvn test
         if: needs.initial-mvn-install.outputs.run-test-framework-tests == 'true'
         run: |
-          cd test-framework
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          MVNW="./mvnw"
+          if [ "${{ needs.initial-mvn-install.outputs.incremental-build-enabled }}" != "true" ]; then
+            cd test-framework
+            MVNW="../mvnw"
+          fi
+          ${MVNW} ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
             ${SCALPEL_TRIM_ARGS} \
             ${SCALPEL_FULL_BUILD_TRIGGERS} \
             ${SCALPEL_EXCLUDE_PATHS} \
+            -Dscalpel.includePaths=test-framework/** \
             --fail-at-end \
             test
       - name: Report test failures
@@ -607,15 +623,20 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: test-framework
-      - name: cd tooling && mvn verify
+      - name: tooling mvn verify
         if: needs.initial-mvn-install.outputs.run-tooling-tests == 'true'
         run: |
-          cd tooling
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          MVNW="./mvnw"
+          if [ "${{ needs.initial-mvn-install.outputs.incremental-build-enabled }}" != "true" ]; then
+            cd tooling
+            MVNW="../mvnw"
+          fi
+          ${MVNW} ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
             ${SCALPEL_TRIM_ARGS} \
             ${SCALPEL_FULL_BUILD_TRIGGERS} \
             ${SCALPEL_EXCLUDE_PATHS} \
+            -Dscalpel.includePaths=tooling/** \
             --fail-at-end \
             verify
       - name: Report test failures
@@ -623,15 +644,20 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: tooling
-      - name: cd catalog && mvn test
+      - name: catalog mvn test
         if: needs.initial-mvn-install.outputs.run-catalog-tests == 'true'
         run: |
-          cd catalog
-          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          MVNW="./mvnw"
+          if [ "${{ needs.initial-mvn-install.outputs.incremental-build-enabled }}" != "true" ]; then
+            cd catalog
+            MVNW="../mvnw"
+          fi
+          ${MVNW} ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
             ${SCALPEL_TRIM_ARGS} \
             ${SCALPEL_FULL_BUILD_TRIGGERS} \
             ${SCALPEL_EXCLUDE_PATHS} \
+            -Dscalpel.includePaths=catalog/** \
             test
       - name: Report test failures
         uses: ./.github/actions/test-summary-report

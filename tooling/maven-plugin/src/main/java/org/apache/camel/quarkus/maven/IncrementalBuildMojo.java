@@ -610,7 +610,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
 
         for (Map<String, Object> module : report.affectedModules) {
             String category = (String) module.get("category");
-            if (!"DIRECT".equals(category)) {
+            if ("UPSTREAM".equals(category)) {
                 continue;
             }
 
@@ -678,8 +678,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             String path = (String) module.get("path");
             String category = (String) module.get("category");
 
-            // Only consider DIRECT changes
-            if (!"DIRECT".equals(category)) {
+            if ("UPSTREAM".equals(category)) {
                 continue;
             }
 
