@@ -78,6 +78,18 @@ class McpServerTest {
     }
 
     @Test
+    void testQuarkusAnnotatedToolsCoexistWithCamelTools() {
+        // both tool sources are served by the same MCP server
+        assertThat(client().listTools().tools()).extracting(McpSchema.Tool::name)
+                .contains("add_numbers", "say_hello");
+
+        McpSchema.CallToolResult result = client()
+                .callTool(new McpSchema.CallToolRequest("add_numbers", Map.of("a", 17, "b", 25)));
+        assertThat(result.isError()).as(textOf(result)).isNotEqualTo(Boolean.TRUE);
+        assertThat(textOf(result)).isEqualTo("42");
+    }
+
+    @Test
     void testCallToolSuccess() {
         McpSchema.CallToolResult result = client()
                 .callTool(new McpSchema.CallToolRequest("say_hello", Map.of("name", "World")));

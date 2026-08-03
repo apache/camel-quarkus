@@ -64,21 +64,141 @@ from("ai-tool:query_db?tags=crm&description=Query customer database"
     .to("jdbc:dataSource");
 ----
 
-Select the tags to expose in `application.properties`:
+or in YAML DSL:
+
+[source,yaml]
+----
+- route:
+    from:
+      uri: "ai-tool:send_email"
+      parameters:
+        description: "Send email notification"
+        tags: "notify"
+        parameter.to: string
+        parameter.to.description: "Recipient address"
+        parameter.to.required: "true"
+        parameter.subject: string
+        parameter.priority: string
+        parameter.priority.enum: "low,normal,high"
+      steps:
+        - to: "smtp://mail.example.com"
+----
+
+Tool parameters are declared with the `parameter.NAME` options: the value is
+the JSON type (`string`, `integer`, `number`, `boolean`), and the
+`parameter.NAME.description`, `parameter.NAME.required` and
+`parameter.NAME.enum` options refine the generated input schema. Arguments
+arrive as message headers in the route (`${header.customerId}`).
+
+[id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
+=== Combining the Camel and quarkus-mcp-server configuration
+
+The configuration is split by ownership: `quarkus.camel.mcp-server.*`
+decides *which tools exist and how they execute* (identical semantics on
+every Camel runtime), while `quarkus.mcp.server.*` decides *how the server
+is exposed*. Both are set side by side in `application.properties`:
 
 [source,properties]
 ----
+# Camel-owned: tool selection and execution
 quarkus.camel.mcp-server.tags = crm,notify
+quarkus.camel.mcp-server.tool-timeout = 10000
+
+# quarkus-mcp-server-owned: serving and server identity
+quarkus.mcp.server.server-info.name = my-integration-app
+quarkus.mcp.server.server-info.version = 1.0.0
+quarkus.mcp.server.http.root-path = /mcp
+
+# quarkus-mcp-server-owned: diagnostics while developing
+quarkus.mcp.server.traffic-logging.enabled = true
+quarkus.mcp.server.traffic-logging.text-limit = 200
 ----
 
-The MCP endpoint is served by quarkus-mcp-server over streamable HTTP
-(default path `/mcp`) — see the
-https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server documentation]
-for the `quarkus.mcp.server.*` serving options (path, transports, dev UI,
-authentication, guardrails). Tools appearing or disappearing (routes
-starting and stopping) emit `notifications/tools/list_changed` to connected
-clients, and Camel tools coexist with tools defined natively with
-quarkus-mcp-server's `@Tool` annotation on the same server.
+See the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#configuration-reference[quarkus-mcp-server configuration reference]
+for the full list of `quarkus.mcp.server.*` properties (transports, dev UI,
+authentication, guardrails, pagination, timeouts).
+
+[id="extensions-mcp-server-usage-connecting-mcp-clients"]
+=== Connecting MCP clients
+
+Any MCP client can connect over streamable HTTP. Another Camel integration
+can consume the tools with the camel-openai MCP client and automatic tool
+execution:
+
+[source,java]
+----
+from("direct:agent")
+    .to("openai:chat-completion"
+        + "?model={{llm.model}}"
+        + "&autoToolExecution=true"
+        + "&mcpServer.myCamelTools.transportType=streamableHttp"
+        + "&mcpServer.myCamelTools.url=http://localhost:8080/mcp");
+----
+
+A coding agent or IDE is configured with the same URL, e.g. in an
+`mcp.json`-style client configuration:
+
+[source,json]
+----
+{
+  "mcpServers": {
+    "my-integration-app": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp"
+    }
+  }
+}
+----
+
+[id="extensions-mcp-server-usage-mixing-with-quarkus-mcp-server-annotated-tools"]
+=== Mixing with quarkus-mcp-server annotated tools
+
+Camel tools coexist with tools defined natively with quarkus-mcp-server —
+both are served by the same MCP server and appear in the same `tools/list`.
+For example, a `@Tool`-annotated business method:
+
+[source,java]
+----
+public class CalculatorTools {
+
+    @Tool(name = "add_numbers", description = "Add two numbers")
+    String add(
+            @ToolArg(description = "First addend") long a,
+            @ToolArg(description = "Second addend") long b) {
+        return String.valueOf(a + b);
+    }
+}
+----
+
+is exposed alongside the `ai-tool` routes. Annotated tools are registered at
+build time; Camel tools are added and removed dynamically with the route
+lifecycle. Choose distinct tool names — MCP has a flat tool namespace.
+
+[id="extensions-mcp-server-usage-dynamic-tools"]
+=== Dynamic tools
+
+The exposed tool list follows the route lifecycle: stopping or suspending an
+`ai-tool` route removes its tool, starting or resuming it publishes the tool
+again, and connected clients are notified via
+`notifications/tools/list_changed`:
+
+[source,java]
+----
+camelContext.getRouteController().stopRoute("query-db-route");   // tool disappears
+camelContext.getRouteController().startRoute("query-db-route");  // tool is back
+----
+
+[id="extensions-mcp-server-usage-error-handling"]
+=== Error handling
+
+Results returned to MCP clients are sanitized by the bridge: a route
+exception produces an error result with the generic message
+`Tool execution failed` (the cause is logged server-side and never sent to
+the client), a missing or invalid argument returns the validation message,
+and a call exceeding `quarkus.camel.mcp-server.tool-timeout` returns
+`Tool execution timed out` while the route keeps running until it completes
+on its own.
 
 On Camel Main and Camel JBang the equivalent setup is the
 `camel-mcp-server` module with the `camel.server.mcp-*` options; on Spring
