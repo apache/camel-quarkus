@@ -90,41 +90,6 @@ public class SchedulerResource {
         return greedyCounter.get();
     }
 
-    @jakarta.enterprise.inject.Produces
-    @ApplicationScoped
-    @Named("schedulerCounter")
-    AtomicInteger schedulerCounter() {
-        return new AtomicInteger();
-    }
-
-    @jakarta.enterprise.inject.Produces
-    @ApplicationScoped
-    @Named("withDelayRepeatCounter")
-    AtomicInteger withDelayRepeatCounter() {
-        return new AtomicInteger();
-    }
-
-    @jakarta.enterprise.inject.Produces
-    @ApplicationScoped
-    @Named("withDelayCounter")
-    AtomicInteger withDelayCounter() {
-        return new AtomicInteger();
-    }
-
-    @jakarta.enterprise.inject.Produces
-    @ApplicationScoped
-    @Named("useFixedDelayCounter")
-    AtomicInteger useFixedDelayCounter() {
-        return new AtomicInteger();
-    }
-
-    @jakarta.enterprise.inject.Produces
-    @ApplicationScoped
-    @Named("greedyCounter")
-    AtomicInteger greedyCounter() {
-        return new AtomicInteger();
-    }
-
     @POST
     @Path("route/{route}/{enable}")
     public void mangeRoutes(@PathParam("route") String route, @PathParam("enable") boolean enable) throws Exception {
