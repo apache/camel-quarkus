@@ -74,6 +74,7 @@
         <module>jsonapi</module>
         <module>ldif</module>
         <module>lucene</module>
+        <module>mcp-server</module>
         <module>mvel</module>
         <module>opensearch</module>
         <module>printer</module>
