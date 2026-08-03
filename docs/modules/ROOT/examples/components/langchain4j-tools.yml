@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-langchain4j-tools
 cqArtifactIdBase: langchain4j-tools
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 3.15.0
 cqNativeSince: 3.24.0
 cqCamelPartName: langchain4j-tools
