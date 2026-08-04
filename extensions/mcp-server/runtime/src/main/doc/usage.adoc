@@ -116,12 +116,14 @@ disable the HTTP transport of the default MCP server:
 
 [source,properties]
 ----
-quarkus.mcp.server.http.enabled = false
+quarkus.mcp.server."<default>".http.enabled = false
 ----
 
-Conversely, `quarkus.mcp.server.stdio.enabled = false` keeps the stdio
-extension on the classpath without activating it, which is useful when the
-same application is deployed both ways.
+The server name of the default MCP server is the literal string
+`<default>`, so it has to be quoted. Conversely,
+`quarkus.mcp.server.stdio.enabled = false` keeps the stdio extension on the
+classpath without activating it, which is useful when the same application
+is deployed both ways.
 
 Because stdout carries the MCP protocol, nothing else may be written to it;
 `quarkus-mcp-server-stdio` takes care of this by routing console logging to
