@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.test.support.kafka;
 
 import java.util.Properties;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -30,7 +30,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class KafkaProducers {
 
-    @ApplicationScoped
+    @Singleton
     @Named("kafka-consumer-properties")
     public Properties kafkaConsumerProperties() {
         Properties props = createBaseConfiguration();
@@ -41,7 +41,7 @@ public class KafkaProducers {
         return props;
     }
 
-    @ApplicationScoped
+    @Singleton
     @Named("kafka-producer-properties")
     public Properties kafkaProducerProperties() {
         Properties props = createBaseConfiguration();
