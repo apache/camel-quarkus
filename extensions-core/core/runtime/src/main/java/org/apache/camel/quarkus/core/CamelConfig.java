@@ -95,15 +95,22 @@ public interface CamelConfig {
     /**
      * Build time configuration options for the Camel tracing.
      *
+     * @deprecated  use the standard Apache Camel {@code camel.trace.*} configuration properties instead. Deprecated in
+     *              3.39.0,
+     *              will be removed in 4.0.0.
      * @asciidoclet
      */
+    @Deprecated(since = "3.39.0", forRemoval = true)
     TraceConfig trace();
 
     /**
      * Build time configuration options for Camel type converters.
      *
+     * @deprecated  use the standard Apache Camel {@code camel.main.typeConverterStatisticsEnabled} configuration property
+     *              instead. Deprecated in 3.39.0, will be removed in 4.0.0.
      * @asciidoclet
      */
+    @Deprecated(since = "3.39.0", forRemoval = true)
     TypeConverterConfig typeConverter();
 
     /**
@@ -423,6 +430,12 @@ public interface CamelConfig {
         boolean enabled();
     }
 
+    /**
+     * @deprecated use the standard Apache Camel {@code camel.trace.*} configuration properties instead. Deprecated in
+     *             3.39.0,
+     *             will be removed in 4.0.0.
+     */
+    @Deprecated(since = "3.39.0", forRemoval = true)
     interface TraceConfig {
         /**
          * Enables tracer in your Camel application.
@@ -539,6 +552,11 @@ public interface CamelConfig {
         Optional<String> traceFilter();
     }
 
+    /**
+     * @deprecated use the standard Apache Camel {@code camel.main.typeConverterStatisticsEnabled} configuration property
+     *             instead. Deprecated in 3.39.0, will be removed in 4.0.0.
+     */
+    @Deprecated(since = "3.39.0", forRemoval = true)
     interface TypeConverterConfig {
         /**
          * Whether type converter statistics are enabled. By default, type converter utilization statistics are disabled. Note

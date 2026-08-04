@@ -355,6 +355,64 @@ Build time configuration options for enable/disable camel source location.
 | `boolean`
 | `false`
 
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-dev-ui-update-interval]]`link:#quarkus-camel-dev-ui-update-interval[quarkus.camel.dev-ui.update-interval]`
+
+The interval at which data is updated in Camel Quarkus Dev UI pages.
+| link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
+| `5S`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-shutdown-timeout]]`link:#quarkus-camel-main-shutdown-timeout[quarkus.camel.main.shutdown.timeout]`
+
+A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
+| link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
+| `PT3S`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-arguments-on-unknown]]`link:#quarkus-camel-main-arguments-on-unknown[quarkus.camel.main.arguments.on-unknown]`
+
+The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and
+throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn -
+Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
+| `fail`, `warn`, `ignore`
+| `warn`
+
+a| [[camel-dataformat-data-format-configs]]`link:#camel-dataformat-data-format-configs[camel.dataformat."data-format-configs"]`
+
+Camel data format configuration.
+
+The format of the configuration is as follows.
+
+[source,properties]
+----
+camel.dataformat.<name>.<property> = value
+----
+
+For example.
+[source,properties]
+----
+camel.dataformat.beanio.stream-name = test-stream
+camel.dataformat.beanio.mapping = test-mapping.xml
+----
+| `Map<String,Map<String,String>>`
+| 
+
+a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[quarkus.camel.bootstrap.enabled]`
+
+When set to true, the {@link CamelRuntime} will be started automatically.
+| `boolean`
+| `true`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-routes-discovery-enabled]]`link:#quarkus-camel-routes-discovery-enabled[quarkus.camel.routes-discovery.enabled]`
+
+Enable automatic discovery of routes during static initialization.
+| `boolean`
+| `true`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-analysis-failure]]`link:#quarkus-camel-csimple-on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
+
+What to do if it is not possible to extract CSimple expressions from a route definition at build time.
+| `fail`, `warn`, `ignore`
+| `warn`
+
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-enabled]]`link:#quarkus-camel-trace-enabled[quarkus.camel.trace.enabled]`
 
 Enables tracer in your Camel application.
@@ -449,64 +507,6 @@ Whether type converter statistics are enabled. By default, type converter utiliz
 that enabling statistics incurs a minor performance impact under very heavy load.
 | `boolean`
 | `false`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-dev-ui-update-interval]]`link:#quarkus-camel-dev-ui-update-interval[quarkus.camel.dev-ui.update-interval]`
-
-The interval at which data is updated in Camel Quarkus Dev UI pages.
-| link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
-| `5S`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-shutdown-timeout]]`link:#quarkus-camel-main-shutdown-timeout[quarkus.camel.main.shutdown.timeout]`
-
-A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
-| link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
-| `PT3S`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-arguments-on-unknown]]`link:#quarkus-camel-main-arguments-on-unknown[quarkus.camel.main.arguments.on-unknown]`
-
-The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and
-throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn -
-Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
-| `fail`, `warn`, `ignore`
-| `warn`
-
-a| [[camel-dataformat-data-format-configs]]`link:#camel-dataformat-data-format-configs[camel.dataformat."data-format-configs"]`
-
-Camel data format configuration.
-
-The format of the configuration is as follows.
-
-[source,properties]
-----
-camel.dataformat.<name>.<property> = value
-----
-
-For example.
-[source,properties]
-----
-camel.dataformat.beanio.stream-name = test-stream
-camel.dataformat.beanio.mapping = test-mapping.xml
-----
-| `Map<String,Map<String,String>>`
-| 
-
-a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[quarkus.camel.bootstrap.enabled]`
-
-When set to true, the {@link CamelRuntime} will be started automatically.
-| `boolean`
-| `true`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-routes-discovery-enabled]]`link:#quarkus-camel-routes-discovery-enabled[quarkus.camel.routes-discovery.enabled]`
-
-Enable automatic discovery of routes during static initialization.
-| `boolean`
-| `true`
-
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-analysis-failure]]`link:#quarkus-camel-csimple-on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
-
-What to do if it is not possible to extract CSimple expressions from a route definition at build time.
-| `fail`, `warn`, `ignore`
-| `warn`
 |===
 
 [.configuration-legend]
