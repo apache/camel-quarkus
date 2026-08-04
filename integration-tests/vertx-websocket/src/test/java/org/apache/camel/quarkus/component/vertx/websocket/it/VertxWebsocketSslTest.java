@@ -21,6 +21,8 @@ import java.util.List;
 
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.restassured.RestAssured;
+import io.vertx.core.http.WebSocketClientOptions;
+import io.vertx.core.net.PfxOptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +51,13 @@ public abstract class VertxWebsocketSslTest {
                 .body(matchesPattern(
                         "Invalid host/port localhost:8441.*can only be configured as (localhost|0.0.0.0):" + uri.getPort()));
 
-        try (VertxWebsocketTest.WebSocketConnection connection = new VertxWebsocketTest.WebSocketConnection(uri, null)) {
+        WebSocketClientOptions sslOptions = new WebSocketClientOptions()
+                .setTrustOptions(new PfxOptions()
+                        .setPath("target/certs/vertx-websocket-truststore.p12")
+                        .setPassword("changeit"));
+
+        try (VertxWebsocketTest.WebSocketConnection connection = new VertxWebsocketTest.WebSocketConnection(uri, null, 1,
+                sslOptions)) {
             connection.connect();
 
             RestAssured.given()

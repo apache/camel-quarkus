@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-websockets</artifactId>
+            <artifactId>quarkus-websockets-next</artifactId>
         </dependency>
 
     	<!-- test dependencies -->

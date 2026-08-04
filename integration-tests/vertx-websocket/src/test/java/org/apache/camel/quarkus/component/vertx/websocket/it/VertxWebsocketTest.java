@@ -28,12 +28,9 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import jakarta.websocket.ClientEndpointConfig;
-import jakarta.websocket.ContainerProvider;
-import jakarta.websocket.Endpoint;
-import jakarta.websocket.EndpointConfig;
-import jakarta.websocket.MessageHandler;
-import jakarta.websocket.Session;
+import io.vertx.core.Vertx;
+import io.vertx.core.http.WebSocketClientOptions;
+import io.vertx.core.http.WebSocketConnectOptions;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketConstants;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
@@ -340,38 +337,63 @@ class VertxWebsocketTest {
         private final CountDownLatch latch;
         private final URI webSocketUri;
         private final String payload;
-        private Session session;
+        private final WebSocketClientOptions clientOptions;
+        private io.vertx.core.http.WebSocket webSocket;
+        private Vertx vertx;
+        private boolean closed;
 
         public WebSocketConnection(URI webSocketUri, String payload) {
             this(webSocketUri, payload, 1);
         }
 
         public WebSocketConnection(URI webSocketUri, String payload, int expectedMessageCount) {
+            this(webSocketUri, payload, expectedMessageCount, null);
+        }
+
+        public WebSocketConnection(URI webSocketUri, String payload, int expectedMessageCount,
+                WebSocketClientOptions clientOptions) {
             this.webSocketUri = webSocketUri;
             this.payload = payload;
             this.latch = new CountDownLatch(expectedMessageCount);
+            this.clientOptions = clientOptions;
         }
 
         public void connect() throws Exception {
-            Endpoint endpoint = new Endpoint() {
-                @Override
-                public void onOpen(Session session, EndpointConfig endpointConfig) {
-                    session.addMessageHandler(new MessageHandler.Whole<String>() {
-                        @Override
-                        public void onMessage(String message) {
-                            messages.add(message);
-                            latch.countDown();
-                        }
-                    });
+            vertx = Vertx.vertx();
+            io.vertx.core.http.WebSocketClient client = clientOptions != null
+                    ? vertx.createWebSocketClient(clientOptions)
+                    : vertx.createWebSocketClient();
 
-                    if (payload != null) {
-                        session.getAsyncRemote().sendText(payload);
-                    }
-                }
-            };
+            String scheme = webSocketUri.getScheme();
+            boolean ssl = "wss".equals(scheme) || "https".equals(scheme);
 
-            ClientEndpointConfig config = ClientEndpointConfig.Builder.create().build();
-            this.session = ContainerProvider.getWebSocketContainer().connectToServer(endpoint, config, webSocketUri);
+            StringBuilder requestUri = new StringBuilder();
+            if (webSocketUri.getPath() != null) {
+                requestUri.append(webSocketUri.getPath());
+            }
+            if (webSocketUri.getQuery() != null) {
+                requestUri.append("?").append(webSocketUri.getQuery());
+            }
+
+            WebSocketConnectOptions connectOptions = new WebSocketConnectOptions()
+                    .setHost(webSocketUri.getHost())
+                    .setPort(webSocketUri.getPort())
+                    .setURI(requestUri.toString())
+                    .setSsl(ssl);
+
+            this.webSocket = client.connect(connectOptions)
+                    .toCompletionStage()
+                    .toCompletableFuture()
+                    .join();
+
+            webSocket.textMessageHandler(message -> {
+                messages.add(message);
+                latch.countDown();
+            });
+
+            if (payload != null) {
+                webSocket.writeTextMessage(payload);
+            }
         }
 
         public List<String> getMessages() throws InterruptedException {
@@ -385,8 +407,15 @@ class VertxWebsocketTest {
 
         @Override
         public void close() throws IOException {
-            if (session != null) {
-                session.close();
+            if (closed) {
+                return;
+            }
+            closed = true;
+            if (webSocket != null && !webSocket.isClosed()) {
+                webSocket.close().toCompletionStage().toCompletableFuture().join();
+            }
+            if (vertx != null) {
+                vertx.close().toCompletionStage().toCompletableFuture().join();
             }
         }
     }

@@ -18,17 +18,17 @@ package org.apache.camel.quarkus.component.vertx.websocket.it;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
+import io.quarkus.websockets.next.OnTextMessage;
+import io.quarkus.websockets.next.WebSocket;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.websocket.OnMessage;
-import jakarta.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/managed/by/quarkus/websockets")
+@WebSocket(path = "/managed/by/quarkus/websockets")
 @ApplicationScoped
 public class QuarkusWebsocketResource {
 
     private static final LinkedBlockingDeque<String> MESSAGES = new LinkedBlockingDeque<>();
 
-    @OnMessage
+    @OnTextMessage
     public void onMessage(String message) {
         MESSAGES.add("Received message: " + message);
     }
