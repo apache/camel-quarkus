@@ -917,12 +917,12 @@
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-tracing</artifactId>
-        <version>1.6.6</version>
+        <version>1.7.0</version>
       </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-tracing-bridge-otel</artifactId>
-        <version>1.6.6</version>
+        <version>1.7.0</version>
       </dependency>
       <dependency>
         <groupId>io.minio</groupId>
