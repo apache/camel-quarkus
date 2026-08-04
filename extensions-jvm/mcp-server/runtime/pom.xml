@@ -41,9 +41,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
-        <!-- the runtime-agnostic MCP bridge and engine SPI; the serving engine is provided
-             by the quarkiverse quarkus-mcp-server extension below (NOT the camel-mcp-server
-             Vert.x engine used on Camel Main / JBang) -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mcp-server-api</artifactId>

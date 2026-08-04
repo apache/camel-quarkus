@@ -27,8 +27,7 @@ import io.modelcontextprotocol.client.McpSyncClient;
 import io.modelcontextprotocol.client.transport.HttpClientStreamableHttpTransport;
 import io.modelcontextprotocol.spec.McpSchema;
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
-import org.apache.camel.CamelContext;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,9 +41,6 @@ import static org.awaitility.Awaitility.await;
  */
 @QuarkusTest
 class McpServerTest {
-
-    @Inject
-    CamelContext camelContext;
 
     private McpSyncClient client;
 
@@ -117,16 +113,37 @@ class McpServerTest {
     }
 
     @Test
-    void testToolsListReflectsRouteStopAndStart() throws Exception {
+    void testToolsListReflectsRouteStopAndStart() {
         assertThat(client().listTools().tools()).extracting(McpSchema.Tool::name).contains("say_hello");
 
-        camelContext.getRouteController().stopRoute("say-hello-route");
+        controlRoute("stop");
+        assertThat(routeStatus()).isEqualTo("Stopped");
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> assertThat(client().listTools().tools())
                 .extracting(McpSchema.Tool::name).doesNotContain("say_hello"));
 
-        camelContext.getRouteController().startRoute("say-hello-route");
+        controlRoute("start");
+        assertThat(routeStatus()).isEqualTo("Started");
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> assertThat(client().listTools().tools())
                 .extracting(McpSchema.Tool::name).contains("say_hello"));
+    }
+
+    private static void controlRoute(String action) {
+        RestAssured.given()
+                .when()
+                .post("/mcp-server/route/say-hello-route/" + action)
+                .then()
+                .statusCode(204);
+    }
+
+    private static String routeStatus() {
+        return RestAssured.given()
+                .when()
+                .get("/mcp-server/route/say-hello-route/status")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
     }
 
     private static String textOf(McpSchema.CallToolResult result) {

@@ -32,10 +32,6 @@
     <name>Camel Quarkus :: Integration Tests :: MCP Server</name>
     <description>Integration tests for Camel Quarkus MCP Server extension</description>
 
-    <properties>
-        <mcp-java-sdk.version>2.0.0</mcp-java-sdk.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -45,19 +41,21 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-ai-tool</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <!-- official MCP Java SDK client, same artifacts camel-openai uses -->
         <dependency>
             <groupId>io.modelcontextprotocol.sdk</groupId>
             <artifactId>mcp-core</artifactId>
-            <version>${mcp-java-sdk.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.modelcontextprotocol.sdk</groupId>
             <artifactId>mcp-json-jackson2</artifactId>
-            <version>${mcp-java-sdk.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
