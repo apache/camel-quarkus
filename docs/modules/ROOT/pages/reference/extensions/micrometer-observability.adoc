@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-micrometer-observability
 :cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Micrometer Observability implementation of Camel Telemetry
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
