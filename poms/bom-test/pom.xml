@@ -464,15 +464,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>io.modelcontextprotocol.sdk</groupId>
-                <artifactId>mcp-core</artifactId>
-                <version>${mcp-java-sdk.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.modelcontextprotocol.sdk</groupId>
-                <artifactId>mcp-json-jackson2</artifactId>
-                <version>${mcp-java-sdk.version}</version>
+                <groupId>io.quarkiverse.mcp</groupId>
+                <artifactId>quarkus-mcp-server-test</artifactId>
+                <version>${quarkiverse-mcp-server.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

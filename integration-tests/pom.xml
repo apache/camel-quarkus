@@ -179,6 +179,7 @@
         <module>master-file</module>
         <module>master-infinispan</module>
         <module>master-openshift</module>
+        <module>mcp-server</module>
         <module>mdc</module>
         <module>micrometer</module>
         <module>micrometer-observability</module>

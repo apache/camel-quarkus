@@ -58,8 +58,6 @@ updates:
       - dependency-name: "org.zeroturnaround:zt-exec"
       - dependency-name: "com.microsoft.graph:microsoft-graph"
       - dependency-name: "com.microsoft.graph:microsoft-graph-auth"
-      - dependency-name: "io.modelcontextprotocol.sdk:mcp-core"
-      - dependency-name: "io.modelcontextprotocol.sdk:mcp-json-jackson2"
       # Maven extensions
       - dependency-name: "com.gradle:develocity-maven-extension"
       - dependency-name: "com.gradle:common-custom-user-data-maven-extension"

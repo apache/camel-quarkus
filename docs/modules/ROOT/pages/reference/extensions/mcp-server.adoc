@@ -4,17 +4,17 @@
 = MCP Server
 :linkattrs:
 :cq-artifact-id: camel-quarkus-mcp-server
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Expose ai-tool routes as MCP tools over streamable HTTP
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
-:cq-native-since: n/a
+:cq-native-since: 3.39.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.39.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##3.39.0## [.badge-key]##Native since##[.badge-supported]##3.39.0##
 endif::[]
 
 The MCP Server extension exposes Camel routes registered via the `ai-tool`
@@ -41,6 +41,10 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-mcp-server-maven-coordinates"]
 == Maven coordinates
+
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-mcp-server[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----
