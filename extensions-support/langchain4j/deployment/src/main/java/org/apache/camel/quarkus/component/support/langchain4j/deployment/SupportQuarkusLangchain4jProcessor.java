@@ -82,8 +82,13 @@ class SupportQuarkusLangchain4jProcessor {
                 .map(ClassInfo::name)
                 .forEach(guardrailTypes::add);
 
+        index.getAllKnownSubclasses(SupportLangchain4jProcessor.JSON_EXTRACTOR_OUTPUT_GUARDRAIL)
+                .stream()
+                .map(ClassInfo::name)
+                .forEach(guardrailTypes::add);
+
         guardrailTypes.stream()
-                .filter(s -> !s.toString().equals("dev.langchain4j.guardrail.JsonExtractorOutputGuardrail"))
+                .filter(s -> !s.equals(SupportLangchain4jProcessor.JSON_EXTRACTOR_OUTPUT_GUARDRAIL))
                 .forEach(s -> {
                     try {
                         Class<Guardrail<?, ?>> guardrailClass;
