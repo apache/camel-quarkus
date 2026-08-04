@@ -92,6 +92,63 @@ A coding agent or IDE is configured with the same URL, e.g. in an
 }
 ----
 
+=== Serving over stdio
+
+Out of the box the tools are served over streamable HTTP. MCP clients that
+launch the server as a subprocess speak over stdin/stdout instead — add the
+stdio transport alongside the extension:
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.mcp</groupId>
+    <artifactId>quarkus-mcp-server-stdio</artifactId>
+    <!-- the same version as the quarkus-mcp-server-http extension pulled in
+         by camel-quarkus-mcp-server; the transports share their core module -->
+    <version>1.13.1</version>
+</dependency>
+----
+
+The stdio transport is active as soon as it is on the classpath
+(`quarkus.mcp.server.stdio.enabled` defaults to `true`), and the same Camel
+tools are then served over both transports. To serve over stdio *only*,
+disable the HTTP transport of the default MCP server:
+
+[source,properties]
+----
+quarkus.mcp.server."<default>".http.enabled = false
+----
+
+The server name of the default MCP server is the literal string
+`<default>`, so it has to be quoted. Conversely,
+`quarkus.mcp.server.stdio.enabled = false` keeps the stdio extension on the
+classpath without activating it, which is useful when the same application
+is deployed both ways.
+
+Because stdout carries the MCP protocol, nothing else may be written to it;
+`quarkus-mcp-server-stdio` takes care of this by routing console logging to
+stderr. A stdio server is typically built as a native executable and
+launched by the client:
+
+[source,json]
+----
+{
+  "mcpServers": {
+    "my-integration-app": {
+      "command": "/path/to/target/my-integration-app-1.0.0-runner"
+    }
+  }
+}
+----
+
+See the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/getting-started-stdio.html[quarkus-mcp-server stdio guide]
+and the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/reference-configuration.html[configuration reference]
+for the transport options. On Spring Boot the equivalent setup is described
+in the
+https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html[Spring AI MCP Server Boot Starter documentation].
+
 === Mixing with quarkus-mcp-server annotated tools
 
 Camel tools coexist with tools defined natively with quarkus-mcp-server —
