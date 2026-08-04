@@ -161,6 +161,7 @@ group-08:
   - joor
   - jq
   - langchain4j-chat
+  - langchain4j-chat-ql4j
   - main-unknown-args-ignore
   - master-file
   - pdf

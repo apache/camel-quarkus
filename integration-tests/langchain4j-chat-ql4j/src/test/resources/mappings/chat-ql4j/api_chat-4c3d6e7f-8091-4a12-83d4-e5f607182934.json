@@ -1,0 +1,22 @@
+{
+  "id" : "4c3d6e7f-8091-4a12-83d4-e5f607182934",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"granite4:3b\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Which large language model are you?\"\n  } ]\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"granite4:3b\",\"created_at\":\"2026-08-04T12:24:05.123456789Z\",\"message\":{\"role\":\"assistant\",\"content\":\"I am Granite, a large language model developed by IBM.\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":874483342,\"load_duration\":5203531,\"prompt_eval_count\":32,\"prompt_eval_duration\":38645877,\"eval_count\":15,\"eval_duration\":819787081}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "4c3d6e7f-8091-4a12-83d4-e5f607182934",
+  "persistent" : true
+}

@@ -164,6 +164,7 @@
         <module>langchain4j-agent-bean-binding-ql4j</module>
         <module>langchain4j-agent-ql4j</module>
         <module>langchain4j-chat</module>
+        <module>langchain4j-chat-ql4j</module>
         <module>langchain4j-embeddings</module>
         <module>langchain4j-embeddingstore</module>
         <module>langchain4j-rag-bridge-ql4j</module>
