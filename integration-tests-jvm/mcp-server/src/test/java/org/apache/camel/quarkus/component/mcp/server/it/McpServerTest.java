@@ -28,6 +28,7 @@ import io.modelcontextprotocol.client.transport.HttpClientStreamableHttpTranspor
 import io.modelcontextprotocol.spec.McpSchema;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ class McpServerTest {
     private McpSyncClient client() {
         if (client == null) {
             client = McpClient
-                    .sync(HttpClientStreamableHttpTransport.builder("http://localhost:8081").build())
+                    .sync(HttpClientStreamableHttpTransport.builder(serverUrl()).build())
                     .requestTimeout(Duration.ofSeconds(10))
                     .initializationTimeout(Duration.ofSeconds(10))
                     .build();
@@ -125,6 +126,11 @@ class McpServerTest {
         assertThat(routeStatus()).isEqualTo("Started");
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> assertThat(client().listTools().tools())
                 .extracting(McpSchema.Tool::name).contains("say_hello"));
+    }
+
+    private static String serverUrl() {
+        return "http://localhost:%d".formatted(
+                ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class));
     }
 
     private static void controlRoute(String action) {
