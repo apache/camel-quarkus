@@ -195,7 +195,7 @@
         <sshd.version>2.18.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>7.0.5</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
-        <xmlunit.version>2.12.0</xmlunit.version>
+        <xmlunit.version>2.13.0</xmlunit.version>
         <zt-exec.version>1.13.0</zt-exec.version>
 
         <!-- Tooling dependency versions (keep sorted alphabetically) -->
