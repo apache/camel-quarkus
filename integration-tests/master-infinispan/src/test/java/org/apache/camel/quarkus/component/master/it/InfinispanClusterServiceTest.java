@@ -32,7 +32,7 @@ import org.apache.commons.io.FileUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.StartedProcess;
 
@@ -42,7 +42,7 @@ import static org.hamcrest.Matchers.emptyString;
 @QuarkusTest
 @QuarkusTestResource(InfinispanClusterServiceTestResource.class)
 class InfinispanClusterServiceTest {
-    @AfterEach
+    @BeforeEach
     public void deleteClusterFiles() {
         FileUtils.deleteQuietly(Paths.get("target/cluster/").toFile());
     }
