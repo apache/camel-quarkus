@@ -112,4 +112,28 @@ class JolokiaTest {
                 .body(
                         "status", equalTo(403));
     }
+
+    @Test
+    void disallowedDomainExecDenied() {
+        String payload = "{\"type\":\"exec\",\"mbean\":\"java.util.logging:type=Logging\",\"operation\":\"getLoggerLevel\",\"arguments\":[\"\"]}";
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(payload)
+                .post("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
+
+    @Test
+    void disallowedDomainWriteDenied() {
+        String payload = "{\"type\":\"write\",\"mbean\":\"java.util.logging:type=Logging\",\"attribute\":\"LoggerNames\",\"value\":\"test\"}";
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(payload)
+                .post("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
 }
