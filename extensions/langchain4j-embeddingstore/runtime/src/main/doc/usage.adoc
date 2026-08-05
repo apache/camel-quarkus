@@ -1,0 +1,14 @@
+=== Named embedding stores from Quarkus LangChain4j
+
+When the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j] extensions are present, any `EmbeddingStore` CDI bean qualified with `@EmbeddingStoreName` is automatically bound into the Camel registry under its qualifier value.
+This covers both stores declared through Quarkus LangChain4j named configuration (for example `quarkus.langchain4j.pgvector.products.\*`) and stores produced by your own `@Produces` methods.
+
+Such a store can be referenced from a route by name, with no manual registry binding:
+
+[source,java]
+----
+from("direct:ingest-products")
+    .to("langchain4j-embeddingstore:products?embeddingStore=#products&embeddingModel=#embeddingModel");
+----
+
+A store only referenced from routes does not need to be injected anywhere in Java code; it is retained and instantiated lazily on first use. If the Camel registry already resolves a different `EmbeddingStore` under the same name (for example a `@Named` bean), that existing bean keeps winning lookups and a warning is logged at startup.

@@ -51,6 +51,17 @@ public class RagBridgeProducers {
         return new InMemoryEmbeddingStore<>();
     }
 
+    // Deliberately carries no @Named qualifier. CDI @Named beans end up in the Camel
+    // registry on their own, so a store that has both qualifiers cannot tell us whether
+    // the @EmbeddingStoreName registry bridge did anything. This one is only reachable
+    // through the bridge.
+    @Produces
+    @Singleton
+    @EmbeddingStoreName("qualifier-only")
+    EmbeddingStore<TextSegment> qualifierOnlyEmbeddingStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
     @Produces
     @Singleton
     EmbeddingModel embeddingModel() {

@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Tests the auto-detection path: no augmentor config is set, but EmbeddingStore
@@ -63,5 +64,56 @@ class RagBridgeTest {
                 .then()
                 .statusCode(200)
                 .body(containsString("Apache Camel"));
+    }
+
+    @Test
+    void namedEmbeddingStoreIsInCamelRegistry() {
+        RestAssured.given()
+                .get("/rag-bridge/registry/embedding-store/products")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    /**
+     * Exercises the {@code @EmbeddingStoreName} registry bridge in isolation. The
+     * {@code qualifier-only} store carries no {@code @Named} qualifier, so CDI does not
+     * put it in the Camel registry by itself - the only thing that can bind it under
+     * that name is {@code QuarkusLangchain4jRecorder.registerNamedEmbeddingStores()}.
+     * Unlike {@link #namedEmbeddingStoreIsInCamelRegistry()}, this fails if the bridge
+     * is removed.
+     */
+    @Test
+    void qualifierOnlyEmbeddingStoreIsBridgedIntoCamelRegistry() {
+        RestAssured.given()
+                .get("/rag-bridge/registry/embedding-store/qualifier-only")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @Test
+    void unknownEmbeddingStoreIsNotInCamelRegistry() {
+        RestAssured.given()
+                .get("/rag-bridge/registry/embedding-store/nonexistent")
+                .then()
+                .statusCode(200)
+                .body(is("false"));
+    }
+
+    @Test
+    void defaultAugmentorDoesNotSeeDataInOtherStore() {
+        RestAssured.given()
+                .body("Quarkus is a supersonic subatomic Java framework")
+                .post("/rag-bridge/ingest-products")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .body("Tell me about Java frameworks")
+                .post("/rag-bridge/ask")
+                .then()
+                .statusCode(200)
+                .body(not(containsString("Quarkus")));
     }
 }

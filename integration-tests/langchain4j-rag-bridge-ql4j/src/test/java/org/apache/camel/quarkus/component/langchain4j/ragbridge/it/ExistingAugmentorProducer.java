@@ -25,6 +25,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Singleton;
 
+//located in *test* packages, because the test does not have (deliberately) the native *IT
 @ApplicationScoped
 @IfBuildProperty(name = "test.existing-augmentor", stringValue = "true", enableIfMissing = false)
 public class ExistingAugmentorProducer {
