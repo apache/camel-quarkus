@@ -35,7 +35,7 @@ public class FtpsTestResource extends FtpTestResource {
         sslConfigFactory.setKeystoreFile(Path.of(FtpsTest.CERTIFICATE_KEYSTORE_FILE).toFile());
         sslConfigFactory.setKeystoreType("PKCS12");
         sslConfigFactory.setKeystorePassword("password");
-        sslConfigFactory.setSslProtocol("TLSv1.3");
+        sslConfigFactory.setSslProtocol(new String[] { "TLSv1.3" });
 
         ListenerFactory factory = super.createListenerFactory(port);
         factory.setSslConfiguration(sslConfigFactory.createSslConfiguration());
