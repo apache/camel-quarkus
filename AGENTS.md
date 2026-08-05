@@ -64,7 +64,7 @@ examples/            # Example projects (separate repo: camel-quarkus-examples)
 ./mvnw clean install -Dquickly                 # fast build, no tests
 ./mvnw clean install -T1C -Dquickly            # parallel fast build, no tests
 ./mvnw clean install                           # full build with JVM tests
-./mvnw clean install -Dnative -Ddocker         # full build with native tests (very slow, -Ddocker can usually be omitted on MacOS)
+./mvnw clean install -pl integration-tests/kafka -Dnative  # native tests for a specific module (only for integration-tests/ or integration-test-groups/ modules)
 ./mvnw clean install -pl extensions/kafka -am  # single extension
 ./mvnw process-resources -Pformat              # format code & update metadata
 ```
@@ -75,7 +75,7 @@ examples/            # Example projects (separate repo: camel-quarkus-examples)
 ```bash
 ./mvnw test                              # unit tests
 ./mvnw verify                            # integration tests JVM mode
-./mvnw verify -Dnative -Ddocker          # integration tests JVM + native mode (-Ddocker can usually be omitted on MacOS)
+./mvnw verify -pl integration-tests/kafka -Dnative  # native tests for a specific module (only for integration-tests/ or integration-test-groups/ modules)
 ./mvnw test -Dtest=MyTest                # specific test
 ./mvnw test -pl integration-tests/kafka  # specific module
 ```
