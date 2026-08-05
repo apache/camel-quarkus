@@ -4,7 +4,7 @@ This rule file contains build tools, commands, and code style constraints for th
 
 - **Build tool:** Maven (wrapper `./mvnw` provided in root — always use it instead of bare `mvn`)
 - **Build command:** `./mvnw clean install` (full build with tests) or `./mvnw clean install -Dquickly` (fast build, no tests)
-- **Test command:** `./mvnw verify` (JVM integration tests) or `./mvnw verify -Dnative -Ddocker` (JVM + native tests)
+- **Test command:** `./mvnw verify` (JVM integration tests) or `./mvnw verify -pl integration-tests/<module> -Dnative` (native tests — only run for specific modules under `integration-tests/` or `integration-test-groups/`, never from the project root)
 - **Format command:** `./mvnw process-resources -Pformat` (run from project root, formats code and updates metadata)
 - **Module-specific build:** yes (use `-pl` from root, e.g. `./mvnw clean install -pl extensions/kafka -am`)
 - **Parallelized Maven:** no, unless tests are skipped and it is not a native build (e.g. `./mvnw clean install -Dquickly -T1C`). Tests cause port clashes and native builds exhaust CPU, memory and disk I/O
