@@ -17,8 +17,8 @@
 package org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail;
 
 import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.guardrail.JsonExtractorOutputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrailResult;
+import dev.langchain4j.guardrails.JsonExtractorOutputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.model.TestPojo;
 
 public class TestPojoJsonExtractorOutputGuardrail extends JsonExtractorOutputGuardrail<TestPojo> {
