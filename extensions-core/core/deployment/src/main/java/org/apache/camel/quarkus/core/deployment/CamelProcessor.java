@@ -77,6 +77,7 @@ import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -262,8 +263,12 @@ class CamelProcessor {
 
         IndexView index = combinedIndex.getIndex();
 
+        boolean statisticsEnabled = ConfigProvider.getConfig()
+                .getOptionalValue("camel.main.typeConverterStatisticsEnabled", Boolean.class)
+                .orElseGet(() -> config.typeConverter().statisticsEnabled());
+
         RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder
-                .createTypeConverterRegistry(config.typeConverter().statisticsEnabled());
+                .createTypeConverterRegistry(statisticsEnabled);
 
         //
         // This should be simplified by searching for classes implementing TypeConverterLoader but that
