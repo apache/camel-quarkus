@@ -293,6 +293,25 @@ public class OpenApiV3Test {
 
     @ParameterizedTest
     @EnumSource(OpenApiContentType.class)
+    public void openApiDefaultProducesConsumes(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "paths.'/api/body/no-consumes'", hasKey("post"),
+                        "paths.'/api/body/no-consumes'.post.summary", is("Post endpoint without consumes"),
+                        "paths.'/api/body/no-consumes'.post.requestBody", hasKey("content"),
+                        "paths.'/api/body/no-consumes'.post.requestBody.content", hasKey("application/json"),
+                        "paths.'/api/body/no-consumes'.post.requestBody.content.'application/json'.schema.$ref",
+                        is("#/components/schemas/Fruit"),
+                        "paths.'/api/body/no-consumes'.post.requestBody.required", is(true));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
     public void openApiOneOf(OpenApiContentType contentType) {
         RestAssured.given()
                 .header("Accept", contentType.getMimeType())

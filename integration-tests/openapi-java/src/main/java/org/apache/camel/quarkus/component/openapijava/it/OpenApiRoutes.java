@@ -224,6 +224,17 @@ public class OpenApiRoutes extends RouteBuilder {
                 .endParam()
                 .to("seda:echoMethodPath");
 
+        rest("/api")
+                .post("/body/no-consumes")
+                .description("Post endpoint without consumes")
+                .type(Fruit.class)
+                .param()
+                .type(RestParamType.body)
+                .name("body")
+                .description("The request body")
+                .endParam()
+                .to("seda:res");
+
         rest("/form")
                 .post("/oneOf")
                 .tag("OneOf")
