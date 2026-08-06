@@ -1,0 +1,200 @@
+Define tools as regular `ai-tool` routes and give them tags:
+
+[source,java]
+----
+from("ai-tool:query_db?tags=crm&description=Query customer database"
+     + "&parameter.customerId=string&parameter.customerId.required=true")
+    .to("jdbc:dataSource");
+----
+
+or in YAML DSL:
+
+[source,yaml]
+----
+- route:
+    from:
+      uri: "ai-tool:send_email"
+      parameters:
+        description: "Send email notification"
+        tags: "notify"
+        parameter.to: string
+        parameter.to.description: "Recipient address"
+        parameter.to.required: "true"
+        parameter.subject: string
+        parameter.priority: string
+        parameter.priority.enum: "low,normal,high"
+      steps:
+        - to: "smtp://mail.example.com"
+----
+
+Tool parameters are declared with the `parameter.NAME` options: the value is
+the JSON type (`string`, `integer`, `number`, `boolean`), and the
+`parameter.NAME.description`, `parameter.NAME.required` and
+`parameter.NAME.enum` options refine the generated input schema. Arguments
+arrive as message headers in the route (`${header.customerId}`).
+
+=== Combining the Camel and quarkus-mcp-server configuration
+
+The configuration is split by ownership: `quarkus.camel.mcp-server.*`
+decides *which tools exist and how they execute* (identical semantics on
+every Camel runtime), while `quarkus.mcp.server.*` decides *how the server
+is exposed*. Both are set side by side in `application.properties`:
+
+[source,properties]
+----
+# Camel-owned: tool selection and execution
+quarkus.camel.mcp-server.tags = crm,notify
+quarkus.camel.mcp-server.tool-timeout = 10000
+
+# quarkus-mcp-server-owned: serving and server identity
+quarkus.mcp.server.server-info.name = my-integration-app
+quarkus.mcp.server.server-info.version = 1.0.0
+quarkus.mcp.server.http.root-path = /mcp
+
+# quarkus-mcp-server-owned: diagnostics while developing
+quarkus.mcp.server.traffic-logging.enabled = true
+quarkus.mcp.server.traffic-logging.text-limit = 200
+----
+
+See the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#configuration-reference[quarkus-mcp-server configuration reference]
+for the full list of `quarkus.mcp.server.*` properties (transports, dev UI,
+authentication, guardrails, pagination, timeouts).
+
+=== Connecting MCP clients
+
+Any MCP client can connect over streamable HTTP. Another Camel integration
+can consume the tools with the camel-openai MCP client and automatic tool
+execution:
+
+[source,java]
+----
+from("direct:agent")
+    .to("openai:chat-completion"
+        + "?model={{llm.model}}"
+        + "&autoToolExecution=true"
+        + "&mcpServer.myCamelTools.transportType=streamableHttp"
+        + "&mcpServer.myCamelTools.url=http://localhost:8080/mcp");
+----
+
+A coding agent or IDE is configured with the same URL, e.g. in an
+`mcp.json`-style client configuration:
+
+[source,json]
+----
+{
+  "mcpServers": {
+    "my-integration-app": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp"
+    }
+  }
+}
+----
+
+=== Serving over stdio
+
+Out of the box the tools are served over streamable HTTP. MCP clients that
+launch the server as a subprocess speak over stdin/stdout instead — add the
+stdio transport alongside the extension:
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.mcp</groupId>
+    <artifactId>quarkus-mcp-server-stdio</artifactId>
+    <!-- the same version as the quarkus-mcp-server-http extension pulled in
+         by camel-quarkus-mcp-server; the transports share their core module -->
+    <version>1.13.1</version>
+</dependency>
+----
+
+The stdio transport is active as soon as it is on the classpath
+(`quarkus.mcp.server.stdio.enabled` defaults to `true`), and the same Camel
+tools are then served over both transports. To serve over stdio *only*,
+disable the HTTP transport of the default MCP server:
+
+[source,properties]
+----
+quarkus.mcp.server."<default>".http.enabled = false
+----
+
+The server name of the default MCP server is the literal string
+`<default>`, so it has to be quoted. Conversely,
+`quarkus.mcp.server.stdio.enabled = false` keeps the stdio extension on the
+classpath without activating it, which is useful when the same application
+is deployed both ways.
+
+Because stdout carries the MCP protocol, nothing else may be written to it;
+`quarkus-mcp-server-stdio` takes care of this by routing console logging to
+stderr. A stdio server is typically built as a native executable and
+launched by the client:
+
+[source,json]
+----
+{
+  "mcpServers": {
+    "my-integration-app": {
+      "command": "/path/to/target/my-integration-app-1.0.0-runner"
+    }
+  }
+}
+----
+
+See the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/getting-started-stdio.html[quarkus-mcp-server stdio guide]
+and the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/reference-configuration.html[configuration reference]
+for the transport options. On Spring Boot the equivalent setup is described
+in the
+https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html[Spring AI MCP Server Boot Starter documentation].
+
+=== Mixing with quarkus-mcp-server annotated tools
+
+Camel tools coexist with tools defined natively with quarkus-mcp-server —
+both are served by the same MCP server and appear in the same `tools/list`.
+For example, a `@Tool`-annotated business method:
+
+[source,java]
+----
+public class CalculatorTools {
+
+    @Tool(name = "add_numbers", description = "Add two numbers")
+    String add(
+            @ToolArg(description = "First addend") long a,
+            @ToolArg(description = "Second addend") long b) {
+        return String.valueOf(a + b);
+    }
+}
+----
+
+is exposed alongside the `ai-tool` routes. Annotated tools are registered at
+build time; Camel tools are added and removed dynamically with the route
+lifecycle. Choose distinct tool names — MCP has a flat tool namespace.
+
+=== Dynamic tools
+
+The exposed tool list follows the route lifecycle: stopping or suspending an
+`ai-tool` route removes its tool, starting or resuming it publishes the tool
+again, and connected clients are notified via
+`notifications/tools/list_changed`:
+
+[source,java]
+----
+camelContext.getRouteController().stopRoute("query-db-route");   // tool disappears
+camelContext.getRouteController().startRoute("query-db-route");  // tool is back
+----
+
+=== Error handling
+
+Results returned to MCP clients are sanitized by the bridge: a route
+exception produces an error result with the generic message
+`Tool execution failed` (the cause is logged server-side and never sent to
+the client), a missing or invalid argument returns the validation message,
+and a call exceeding `quarkus.camel.mcp-server.tool-timeout` returns
+`Tool execution timed out` while the route keeps running until it completes
+on its own.
+
+On Camel Main and Camel JBang the equivalent setup is the
+`camel-mcp-server` module with the `camel.server.mcp-*` options; on Spring
+Boot it is the `camel-mcp-server-starter`.

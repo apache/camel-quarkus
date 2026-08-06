@@ -1,0 +1,13 @@
+The MCP Server extension exposes Camel routes registered via the `ai-tool`
+component as tools of a Model Context Protocol (MCP) server, served through
+the quarkiverse https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server]
+extension. No route is needed for the server itself: add the extension, tag
+the `ai-tool` routes to expose, and any MCP client (another Camel
+application, an IDE, a coding agent) can discover and call them.
+
+Tool semantics — tag-based opt-in (the untagged default pool is never
+exposed), flat-namespace collision refusal, per-call timeout and error
+sanitization — are owned by the runtime-agnostic `camel-mcp-server-api`
+bridge and are identical on every Camel runtime. Serving concerns (endpoint
+path, transports, authentication) are owned by quarkus-mcp-server and
+configured via `quarkus.mcp.server.*`.

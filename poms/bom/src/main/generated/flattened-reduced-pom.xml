@@ -1188,6 +1188,16 @@
         <version>3.2.0</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.mcp</groupId>
+        <artifactId>quarkus-mcp-server-http</artifactId>
+        <version>1.13.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.mcp</groupId>
+        <artifactId>quarkus-mcp-server-http-deployment</artifactId>
+        <version>1.13.1</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms</artifactId>
         <version>2.12.0</version>
@@ -3551,6 +3561,11 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-master</artifactId>
         <version>4.21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mcp-server-api</artifactId>
+        <version>4.22.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6867,6 +6882,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-master-deployment</artifactId>
+        <version>3.39.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mcp-server</artifactId>
+        <version>3.39.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mcp-server-deployment</artifactId>
         <version>3.39.0-SNAPSHOT</version>
       </dependency>
       <dependency>
