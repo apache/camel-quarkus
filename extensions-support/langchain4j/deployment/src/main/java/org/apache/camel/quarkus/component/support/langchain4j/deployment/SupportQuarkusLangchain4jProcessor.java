@@ -26,11 +26,16 @@ import java.util.stream.Collectors;
 import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.rag.RetrievalAugmentor;
+import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanDiscoveryFinishedBuildItem;
 import io.quarkus.arc.deployment.GeneratedBeanBuildItem;
 import io.quarkus.arc.deployment.GeneratedBeanGizmoAdaptor;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
+import io.quarkus.arc.processor.BeanInfo;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -44,11 +49,15 @@ import io.quarkus.gizmo.ClassCreator;
 import io.quarkus.gizmo.MethodCreator;
 import io.quarkus.gizmo.MethodDescriptor;
 import io.quarkus.gizmo.ResultHandle;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.AiToolSpecConverter;
 import org.apache.camel.quarkus.component.support.langchain4j.CamelAiToolProvider;
 import org.apache.camel.quarkus.component.support.langchain4j.CamelAiToolsInterceptor;
 import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
+import org.apache.camel.quarkus.component.support.langchain4j.RagBridgeConfig;
+import org.apache.camel.quarkus.component.support.langchain4j.RagBridgeConfig.AugmentorConfig;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -254,6 +263,96 @@ class SupportQuarkusLangchain4jProcessor {
                         declarativeAiServiceClassName);
                 unremovableBeans.produce(beanClassNames(declarativeAiServiceClassName + "$$QuarkusImpl"));
             }
+        }
+    }
+
+    /**
+     * Produces {@link RetrievalAugmentor} CDI beans that bridge Camel ingestion routes with
+     * {@code @RegisterAiService} RAG.
+     *
+     * <p>
+     * Two modes:
+     * <ul>
+     * <li><b>Explicit config</b> — each entry under {@code quarkus.camel.langchain4j.rag.augmentors.<name>}
+     * produces a {@code @Named("<name>")} RetrievalAugmentor backed by the configured store.
+     * If only one entry exists, it is also marked as {@code defaultBean()} for auto-discovery.</li>
+     * <li><b>Auto-detection</b> — when no config entries exist, at least one EmbeddingStore and one
+     * EmbeddingModel are present, and no RetrievalAugmentor exists yet, a default one is produced
+     * backed by the {@code @Default} CDI bean.</li>
+     * </ul>
+     */
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    void registerDefaultRetrievalAugmentor(
+            BeanDiscoveryFinishedBuildItem beanDiscovery,
+            RagBridgeConfig ragBridgeConfig,
+            QuarkusLangchain4jRecorder recorder,
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+
+        DotName embeddingStoreDN = DotName.createSimple(EmbeddingStore.class.getName());
+        DotName embeddingModelDN = DotName.createSimple(EmbeddingModel.class.getName());
+        DotName retrievalAugmentorDN = DotName.createSimple(RetrievalAugmentor.class.getName());
+
+        int embeddingStoreCount = 0;
+        int embeddingModelCount = 0;
+        boolean hasRetrievalAugmentor = false;
+
+        for (BeanInfo bean : beanDiscovery.beanStream().collect(Collectors.toList())) {
+            for (org.jboss.jandex.Type type : bean.getTypes()) {
+                DotName typeName = type.name();
+                if (typeName.equals(embeddingStoreDN)) {
+                    embeddingStoreCount++;
+                } else if (typeName.equals(embeddingModelDN)) {
+                    embeddingModelCount++;
+                } else if (typeName.equals(retrievalAugmentorDN)) {
+                    hasRetrievalAugmentor = true;
+                }
+            }
+        }
+
+        Map<String, AugmentorConfig> augmentors = ragBridgeConfig.augmentors();
+
+        if (!augmentors.isEmpty()) {
+            for (Map.Entry<String, AugmentorConfig> entry : augmentors.entrySet()) {
+                String name = entry.getKey();
+                AugmentorConfig cfg = entry.getValue();
+
+                LOG.infof("Registering named RetrievalAugmentor '%s' backed by EmbeddingStore '%s'",
+                        name, cfg.embeddingStoreName());
+
+                SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
+                        .configure(RetrievalAugmentor.class)
+                        .scope(ApplicationScoped.class)
+                        .addQualifier().annotation(Named.class).addValue("value", name).done()
+                        .setRuntimeInit()
+                        .supplier(recorder.createDefaultRetrievalAugmentorSupplier(
+                                cfg.embeddingStoreName(), cfg.embeddingModelName().orElse(null)));
+
+                // Single augmentor configured and no user/Easy-RAG augmentor present:
+                // mark as defaultBean() so @RegisterAiService discovers it without a qualifier
+                if (augmentors.size() == 1 && !hasRetrievalAugmentor) {
+                    configurator.defaultBean();
+                }
+
+                syntheticBeans.produce(configurator.done());
+            }
+            return;
+        }
+
+        if (hasRetrievalAugmentor) {
+            return;
+        }
+
+        if (embeddingStoreCount >= 1 && embeddingModelCount >= 1) {
+            LOG.info("EmbeddingStore and EmbeddingModel CDI beans detected"
+                    + " - registering default RetrievalAugmentor backed by @Default store");
+            syntheticBeans.produce(SyntheticBeanBuildItem
+                    .configure(RetrievalAugmentor.class)
+                    .scope(ApplicationScoped.class)
+                    .defaultBean()
+                    .setRuntimeInit()
+                    .supplier(recorder.createDefaultRetrievalAugmentorSupplier(null, null))
+                    .done());
         }
     }
 }

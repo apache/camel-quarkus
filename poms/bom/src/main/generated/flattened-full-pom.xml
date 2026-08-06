@@ -7825,6 +7825,11 @@
         <version>2.5.2</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.langchain4j</groupId>
+        <artifactId>quarkus-langchain4j-core</artifactId>
+        <version>1.12.2</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch</artifactId>
         <version>3.2.0</version>
