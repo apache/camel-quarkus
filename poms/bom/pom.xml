@@ -2312,6 +2312,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-mcp-server-api</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-mdc</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -5652,6 +5657,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-mcp-server</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-mcp-server-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-mdc</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -7931,6 +7946,16 @@
                 <groupId>io.quarkiverse.jsch</groupId>
                 <artifactId>quarkus-jsch-deployment</artifactId>
                 <version>${quarkiverse-jsch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.mcp</groupId>
+                <artifactId>quarkus-mcp-server-http</artifactId>
+                <version>${quarkiverse-mcp-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.mcp</groupId>
+                <artifactId>quarkus-mcp-server-http-deployment</artifactId>
+                <version>${quarkiverse-mcp-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.messaginghub</groupId>

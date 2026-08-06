@@ -463,6 +463,12 @@
                 <version>${microsoft.graph.auth.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.mcp</groupId>
+                <artifactId>quarkus-mcp-server-test</artifactId>
+                <version>${quarkiverse-mcp-server.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
