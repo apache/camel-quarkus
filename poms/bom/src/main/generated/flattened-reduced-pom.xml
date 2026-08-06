@@ -1188,6 +1188,11 @@
         <version>3.2.0</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.langchain4j</groupId>
+        <artifactId>quarkus-langchain4j-core</artifactId>
+        <version>1.12.2</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.mcp</groupId>
         <artifactId>quarkus-mcp-server-http</artifactId>
         <version>1.13.1</version>

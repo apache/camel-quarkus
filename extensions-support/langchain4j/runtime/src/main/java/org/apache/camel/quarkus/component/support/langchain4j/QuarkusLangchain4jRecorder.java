@@ -18,8 +18,10 @@ package org.apache.camel.quarkus.component.support.langchain4j;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import dev.langchain4j.guardrail.Guardrail;
+import dev.langchain4j.rag.RetrievalAugmentor;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.jboss.logging.Logger;
@@ -40,5 +42,10 @@ public class QuarkusLangchain4jRecorder {
                     "Can not instantiate guardrail of class %s", guardrailClass.getName());
             return null;
         }
+    }
+
+    public Supplier<RetrievalAugmentor> createDefaultRetrievalAugmentorSupplier(
+            String embeddingStoreName, String embeddingModelName) {
+        return new DefaultRetrievalAugmentorSupplier(embeddingStoreName, embeddingModelName);
     }
 }
