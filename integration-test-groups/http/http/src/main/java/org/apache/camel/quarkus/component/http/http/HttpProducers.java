@@ -16,7 +16,13 @@
  */
 package org.apache.camel.quarkus.component.http.http;
 
+import javax.net.ssl.SSLContext;
+
 import jakarta.inject.Named;
+import org.apache.camel.component.http.HttpClientConfigurer;
+import org.apache.camel.quarkus.test.support.pqc.certificate.client.PqcSslClientConfigurer;
+import org.apache.camel.quarkus.test.support.pqc.certificate.trustmanager.HybridPqcX509TrustManager;
+import org.apache.camel.quarkus.test.support.pqc.certificate.util.BctlsSSLContextFactory;
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.client5.http.impl.auth.BasicAuthCache;
@@ -31,6 +37,7 @@ import static org.apache.camel.quarkus.component.http.common.AbstractHttpResourc
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN_PASSWORD;
 
 public class HttpProducers {
+
     @Named
     HttpContext basicAuthContext() {
         Integer port = ConfigProvider.getConfig().getValue("quarkus.http.test-ssl-port", Integer.class);
@@ -50,4 +57,18 @@ public class HttpProducers {
 
         return context;
     }
+
+    @Named
+    public HttpClientConfigurer pqcNginxHttpClientConfigurer() {
+        try {
+            // Create SSLContext using BouncyCastle JSSE provider with hybrid certificate validator
+            // This enables validation of RSA+PQC composite certificates following BC Almanac recommendations
+            HybridPqcX509TrustManager trustManager = new HybridPqcX509TrustManager();
+            SSLContext sslContext = BctlsSSLContextFactory.createSSLContext(trustManager);
+            return new PqcSslClientConfigurer(sslContext);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create PQC HttpClient configurer", e);
+        }
+    }
+
 }
