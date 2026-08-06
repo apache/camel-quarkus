@@ -204,6 +204,7 @@
         <module>management</module>
         <module>mapstruct</module>
         <module>master</module>
+        <module>mcp-server</module>
         <module>mdc</module>
         <module>micrometer</module>
         <module>micrometer-observability</module>
