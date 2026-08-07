@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.mcp.server.it;
 
+import java.util.List;
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -43,5 +46,19 @@ public class McpServerRoutes extends RouteBuilder {
 
         from("ai-tool:other_tool?tags=untrusted&description=Not a selected tag, must not be exposed")
                 .setBody(constant("other"));
+
+        from("ai-tool:annotated_tool?tags=conformance&description=Tool with annotation hints"
+                + "&title=Annotated tool"
+                + "&readOnlyHint=true"
+                + "&idempotentHint=true")
+                .setBody(constant("annotated"));
+
+        from("ai-tool:create_order?tags=conformance&description=Create an order"
+                + "&argSchema=classpath:schema/create-order.json")
+                .process(e -> {
+                    Map<?, ?> customer = e.getMessage().getHeader("customer", Map.class);
+                    List<?> items = e.getMessage().getHeader("items", List.class);
+                    e.getMessage().setBody("order for customer " + customer.get("id") + " with " + items.size() + " item(s)");
+                });
     }
 }
