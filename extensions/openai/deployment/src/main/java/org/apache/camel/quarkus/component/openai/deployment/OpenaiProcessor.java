@@ -35,6 +35,7 @@ import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourcePatternsBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.jackson.deployment.IgnoreJsonDeserializeClassBuildItem;
 import io.quarkus.maven.dependency.ArtifactKey;
@@ -51,8 +52,44 @@ class OpenaiProcessor {
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
-    IndexDependencyBuildItem indexDependencies() {
-        return new IndexDependencyBuildItem("com.openai", "openai-java-core");
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("com.openai", "openai-java-core"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.modelcontextprotocol.sdk", "mcp-core"));
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void registerMcpSdkServiceProviders(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
+        // the MCP client (mcpServer.* endpoint options) resolves its JSON mapper and schema
+        // validator through java.util.ServiceLoader; without these registrations a native
+        // application fails at runtime with "No McpJsonMapperSupplier available"
+        serviceProvider.produce(new ServiceProviderBuildItem(
+                "io.modelcontextprotocol.json.McpJsonMapperSupplier",
+                "io.modelcontextprotocol.json.jackson2.JacksonMcpJsonMapperSupplier"));
+        serviceProvider.produce(new ServiceProviderBuildItem(
+                "io.modelcontextprotocol.json.schema.JsonSchemaValidatorSupplier",
+                "io.modelcontextprotocol.json.schema.jackson2.JacksonJsonSchemaValidatorSupplier"));
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void registerMcpSdkSchemaForReflection(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        // the MCP protocol messages (McpSchema records and friends) are (de)serialized by Jackson
+        // reflectively; the MCP Java SDK ships no native-image metadata
+        Set<String> mcpSchemaClassNames = combinedIndex.getIndex()
+                .getKnownClasses()
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .filter(className -> className.startsWith("io.modelcontextprotocol.spec")
+                        || className.startsWith("io.modelcontextprotocol.json"))
+                .collect(Collectors.toSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(mcpSchemaClassNames.toArray(new String[0]))
+                .constructors()
+                .fields()
+                .methods()
+                .build());
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
