@@ -63,6 +63,7 @@ import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
+import org.jboss.jandex.Type;
 import org.jboss.logging.Logger;
 
 import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
@@ -281,7 +282,7 @@ class SupportQuarkusLangchain4jProcessor {
      * backed by the {@code @Default} CDI bean.</li>
      * </ul>
      */
-    @BuildStep
+    @BuildStep(onlyIfNot = EasyRagPresent.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerDefaultRetrievalAugmentor(
             BeanDiscoveryFinishedBuildItem beanDiscovery,
@@ -298,7 +299,7 @@ class SupportQuarkusLangchain4jProcessor {
         boolean hasRetrievalAugmentor = false;
 
         for (BeanInfo bean : beanDiscovery.beanStream().collect(Collectors.toList())) {
-            for (org.jboss.jandex.Type type : bean.getTypes()) {
+            for (Type type : bean.getTypes()) {
                 DotName typeName = type.name();
                 if (typeName.equals(embeddingStoreDN)) {
                     embeddingStoreCount++;
@@ -317,7 +318,7 @@ class SupportQuarkusLangchain4jProcessor {
                 String name = entry.getKey();
                 AugmentorConfig cfg = entry.getValue();
 
-                LOG.infof("Registering named RetrievalAugmentor '%s' backed by EmbeddingStore '%s'",
+                LOG.debugf("Registering named RetrievalAugmentor '%s' backed by EmbeddingStore '%s'",
                         name, cfg.embeddingStoreName());
 
                 SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
@@ -344,7 +345,7 @@ class SupportQuarkusLangchain4jProcessor {
         }
 
         if (embeddingStoreCount >= 1 && embeddingModelCount >= 1) {
-            LOG.info("EmbeddingStore and EmbeddingModel CDI beans detected"
+            LOG.debug("EmbeddingStore and EmbeddingModel CDI beans detected"
                     + " - registering default RetrievalAugmentor backed by @Default store");
             syntheticBeans.produce(SyntheticBeanBuildItem
                     .configure(RetrievalAugmentor.class)

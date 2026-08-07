@@ -61,8 +61,13 @@ public class DefaultRetrievalAugmentorSupplier implements Supplier<RetrievalAugm
             store = Arc.container()
                     .instance(EMBEDDING_STORE_TYPE, EmbeddingStoreName.Literal.of(embeddingStoreName)).get();
             if (store == null) {
+                store = Arc.container()
+                        .instance(EMBEDDING_STORE_TYPE, NamedLiteral.of(embeddingStoreName)).get();
+            }
+            if (store == null) {
                 throw new IllegalStateException(
-                        "No EmbeddingStore CDI bean found with @EmbeddingStoreName(\"" + embeddingStoreName + "\")");
+                        "No EmbeddingStore CDI bean found with @EmbeddingStoreName(\"" + embeddingStoreName
+                                + "\") or @Named(\"" + embeddingStoreName + "\")");
             }
         } else {
             store = Arc.container().instance(EMBEDDING_STORE_TYPE).get();
@@ -86,7 +91,7 @@ public class DefaultRetrievalAugmentorSupplier implements Supplier<RetrievalAugm
             }
         }
 
-        LOG.infof("Creating default RetrievalAugmentor bridging Camel ingestion with @RegisterAiService RAG"
+        LOG.debugf("Creating default RetrievalAugmentor bridging Camel ingestion with @RegisterAiService RAG"
                 + " (store=%s, model=%s)", embeddingStoreName != null ? embeddingStoreName : "@Default",
                 embeddingModelName != null ? embeddingModelName : "@Default");
 
