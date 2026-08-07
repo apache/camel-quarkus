@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "customer": {
+      "type": "object",
+      "description": "The customer placing the order",
+      "properties": {
+        "id": { "type": "string", "description": "Customer id" }
+      },
+      "required": ["id"]
+    },
+    "items": {
+      "type": "array",
+      "description": "The items to order",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sku": { "type": "string" },
+          "qty": { "type": "integer" }
+        },
+        "required": ["sku", "qty"]
+      }
+    }
+  },
+  "required": ["customer", "items"],
+  "additionalProperties": false
+}
