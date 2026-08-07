@@ -76,6 +76,46 @@ class McpServerTest {
     }
 
     @Test
+    void testToolAnnotationHintsArePublished() {
+        client().when()
+                .toolsList(page -> {
+                    ToolInfo tool = toolByName(page, "annotated_tool");
+                    assertThat(tool.title()).isEqualTo("Annotated tool");
+                    assertThat(tool.annotations()).isPresent();
+                    assertThat(tool.annotations().orElseThrow().readOnlyHint()).isTrue();
+                    assertThat(tool.annotations().orElseThrow().idempotentHint()).isTrue();
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testArgSchemaIsPublishedAsInputSchema() {
+        client().when()
+                .toolsList(page -> {
+                    ToolInfo tool = toolByName(page, "create_order");
+                    assertThat(tool.inputSchema().getJsonObject("properties").getJsonObject("customer")
+                            .getString("type")).isEqualTo("object");
+                    assertThat(tool.inputSchema().getJsonObject("properties").getJsonObject("items")
+                            .getString("type")).isEqualTo("array");
+                    assertThat(tool.inputSchema().getJsonArray("required")).contains("customer", "items");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testArgSchemaToolExecutesWithNestedArguments() {
+        client().when()
+                .toolsCall("create_order",
+                        Map.of("customer", Map.of("id", "C-1"),
+                                "items", List.of(Map.of("sku", "BOOK", "qty", 2))),
+                        response -> {
+                            assertThat(response.isError()).isFalse();
+                            assertThat(textOf(response)).isEqualTo("order for customer C-1 with 1 item(s)");
+                        })
+                .thenAssertResults();
+    }
+
+    @Test
     void testQuarkusAnnotatedToolsCoexistWithCamelTools() {
         // both tool sources are served by the same MCP server
         client().when()
@@ -159,6 +199,13 @@ class McpServerTest {
 
     private static List<String> toolNames(ToolsPage page) {
         return page.tools().stream().map(ToolInfo::name).toList();
+    }
+
+    private static ToolInfo toolByName(ToolsPage page, String name) {
+        return page.tools().stream()
+                .filter(t -> name.equals(t.name()))
+                .findFirst()
+                .orElseThrow();
     }
 
     private static String textOf(ToolResponse response) {
