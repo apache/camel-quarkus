@@ -29,8 +29,6 @@ import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.clock.Clock;
 import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
-import org.apache.camel.quarkus.core.dataformat.CamelDataFormatRuntimeConfig;
-import org.apache.camel.quarkus.core.dataformat.CamelQuarkusDataFormatConfigLifecycleStrategy;
 import org.apache.camel.quarkus.core.devmode.NoOpModelineFactory;
 import org.apache.camel.quarkus.core.devmode.NoShutdownStrategy;
 import org.apache.camel.spi.CamelContextCustomizer;
@@ -50,11 +48,6 @@ import org.eclipse.microprofile.config.ConfigProvider;
 
 @Recorder
 public class CamelContextRecorder {
-    private final RuntimeValue<CamelDataFormatRuntimeConfig> dataFormatConfig;
-
-    public CamelContextRecorder(RuntimeValue<CamelDataFormatRuntimeConfig> dataFormatConfig) {
-        this.dataFormatConfig = dataFormatConfig;
-    }
 
     public RuntimeValue<CamelContext> createContext(
             RuntimeValue<Registry> registry,
@@ -192,13 +185,4 @@ public class CamelContextRecorder {
         return new RuntimeValue<>(clock);
     }
 
-    public RuntimeValue<CamelContextCustomizer> registerDataFormatLifecycleStrategy() {
-        return new RuntimeValue<>(new CamelContextCustomizer() {
-            @Override
-            public void configure(CamelContext camelContext) {
-                camelContext.addLifecycleStrategy(
-                        new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig.getValue()));
-            }
-        });
-    }
 }

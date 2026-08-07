@@ -192,12 +192,6 @@ public class CamelContextProcessor {
         return new CamelBootClockBuildItem(recorder.createBootClock(false));
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
-    @BuildStep
-    RuntimeCamelContextCustomizerBuildItem registerDataFormatLifecycleStrategy(CamelContextRecorder recorder) {
-        return new RuntimeCamelContextCustomizerBuildItem(recorder.registerDataFormatLifecycleStrategy());
-    }
-
     public static final class EventBridgeEnabled implements BooleanSupplier {
         CamelConfig config;
 
