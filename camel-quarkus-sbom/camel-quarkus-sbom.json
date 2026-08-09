@@ -128437,44 +128437,44 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/io.micrometer/micrometer-tracing@1.6.6?type=jar",
+      "bom-ref" : "pkg:maven/io.micrometer/micrometer-tracing@1.7.0?type=jar",
       "group" : "io.micrometer",
       "name" : "micrometer-tracing",
-      "version" : "1.6.6",
+      "version" : "1.7.0",
       "description" : "Facade over tracing concepts",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "a0625f2982feff42fee230ed53bf4190"
+          "content" : "1a7541f1d39a27ec1dad4889263c3870"
         },
         {
           "alg" : "SHA-1",
-          "content" : "ef5651918e6ebc726bdb387ae08ebbc6929f1fe7"
+          "content" : "47434783bb73871e0c7a383ae7adf05f180eb35f"
         },
         {
           "alg" : "SHA-256",
-          "content" : "b335096393e4d070dfda4fb30808f8488d31d43811b93b2d7496703c5f1315ef"
+          "content" : "990788f635dde631cdd66977c1526f3b23d8857731f53cb02dea05745b1758db"
         },
         {
           "alg" : "SHA-512",
-          "content" : "76768499aad1da6fffa56620839a69db35e2e500ff499fe15c9d6c3de22ae8f5ce98092e7f5122b2bedd440527796b4db57845d0e04d8c0ea46de7706040fa6d"
+          "content" : "c9112533354f0ad4974b296b4da3bdd1a3b3e0ea83786c7faad2a3be6ab318767b3d44dfe285786e78a2c35e7704da599747ab017db0fab94fa71e724a01da9f"
         },
         {
           "alg" : "SHA-384",
-          "content" : "4dc6463f80d7caee552f0aea6828d73a1883cbadb7f732e7dead19bf953fbcfc6dd077a842dc00fcf83d92f7b0153040"
+          "content" : "33dc09fd0da98c9e216dc98e9f99acd7d06ca4d7722bc5637f36bfb3c322020348ac8b1868b99c2dc6781c696a6e0911"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "adf1fa506f4b4ff7d67e7b1a06ea6f498c6d7d6de49112e52658d585e7053464624c4a14b159928ca41ce0c16466f7aa"
+          "content" : "82926b1447aa3ccc9b90b3b1619ed701f1d5af6b8c9b0526ec58909b8fcc482f707007c6163e0036d6455efb147b0516"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "5d1fab125dcf2f62de36133ade25b7e59113c09b3f0e092c319886252deb613b"
+          "content" : "73436da8cdb4d1c48bfb3480e2c7803ec78a904ebed1f9ac08f0f8b4c206ce86"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "13182193d8e0ccae4db9be0d48485fd966a74d3025341f46b6d363dedf2cd3fc4542530a5368dea0ff3f89e2771c58ef941a78ff4523ac4e7b7f20fc30027130"
+          "content" : "a52bed52574aefa52052713800c57defa5cac959acb5ce87e795cfdf8268137a28c8f9a98379a780acbc75afed989c4d41506f7cf8829194c0d67df58689eecd"
         }
       ],
       "licenses" : [
@@ -128484,7 +128484,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/io.micrometer/micrometer-tracing@1.6.6?type=jar",
+      "purl" : "pkg:maven/io.micrometer/micrometer-tracing@1.7.0?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -129316,44 +129316,44 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.6.6?type=jar",
+      "bom-ref" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.0?type=jar",
       "group" : "io.micrometer",
       "name" : "micrometer-tracing-bridge-otel",
-      "version" : "1.6.6",
+      "version" : "1.7.0",
       "description" : "Facade over tracing concepts",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "4ec3b06b02db7c3f2408cbcf7018090e"
+          "content" : "f3a95340454170114f600a9ce9d7fefc"
         },
         {
           "alg" : "SHA-1",
-          "content" : "a568722e526a2f51e41cc7dd37cd47c5185a7b94"
+          "content" : "7a958170dc43ffa721dd6112f6437ae437c723f0"
         },
         {
           "alg" : "SHA-256",
-          "content" : "581b6908d46ed2df6b9bb8167df4c44deddc5c2567c430c73bca66326138f661"
+          "content" : "ce302503079dc3946d9f547fc7173517f53d968d67d1bc1dce2b645f92c96959"
         },
         {
           "alg" : "SHA-512",
-          "content" : "87873ca6953618e78da5424a1ef4ef3b540a7f5c178e4acad9d24fe27d48019817429ec9b0c749d93cf69caa3f104ad8e7e1f47d7df7ed56e1712274a7bd3a3d"
+          "content" : "d2798d3da0f01bee2e1bf9c607a4e5cd978388b611ecbed5887b63c32f196a776277f5b0d49edc3527c9da9db14a5f6c3b4be95677364784789fa98859d8bf2d"
         },
         {
           "alg" : "SHA-384",
-          "content" : "799543ba415a719281b0b0a568f264fcd27820831a5facab8332c9d0c07a0fcd9e28c3ea1b466ff1bcdc8d737bf9e889"
+          "content" : "2835e3f8e2505b8e5ca0218094923b73b5888764a456bff90cc1358d87a2e15df91d377a21069b737e7a00f57db2ec47"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "7d1b76a43128a1c1fb3c89fc557cac60abf1d64c403d0083463b8ec3481073b5ab18e4427fabe102b635e416f41ceef9"
+          "content" : "8da59ff79f6da76c0f3f6737a75b1c93667fef90155598e3cac0359779b14b2ddee6c2382e4c43cef9c63b1c1a01ff9e"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "7a4bc9e6ad709281d1b6bd37ecdb1dc96f3fbf69bd50f5fb22b9b32865661bd0"
+          "content" : "0aecebd1aad1e651e60900b7880c87ecad18e24a9559fa2e16d6d886dfe65755"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "11fa57f2a0eee292eb8b02280dc42c0d767a9b4b32f1890bbda46d2f34922d09db9e268223ce552feaf3f577fb1dd8b175553f9692ebad5530400ac469c33159"
+          "content" : "eb7fc3abd94b756abbfa79b4d7925a9f3fce4c59a4a1b09742cd1855eacd654c718f4bb4fe24ba9723bc23f30bff61b9ca0bb7b05edabaa0531f3b1383579d11"
         }
       ],
       "licenses" : [
@@ -129363,7 +129363,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.6.6?type=jar",
+      "purl" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.0?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -216537,44 +216537,44 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/io.quarkus/quarkus-websockets@3.38.0?type=jar",
+      "bom-ref" : "pkg:maven/io.quarkus/quarkus-websockets-next@3.38.0?type=jar",
       "group" : "io.quarkus",
-      "name" : "quarkus-websockets",
+      "name" : "quarkus-websockets-next",
       "version" : "3.38.0",
-      "description" : "WebSocket communication channel support",
+      "description" : "Implementation of the WebSocket API with enhanced efficiency and usability",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "2469cb3d37ee298be5c39084c2575117"
+          "content" : "97734bd1dee678824d5d9c2192c4cae3"
         },
         {
           "alg" : "SHA-1",
-          "content" : "736fa4beb8de87bf7698a6f920a23d6b1f12e42a"
+          "content" : "34d074352a9f85ea007c1089d04a352fdf20bff2"
         },
         {
           "alg" : "SHA-256",
-          "content" : "f5cddea56a35a6c3514f98e191b232dd73e6b2458784d4bf7ca14c185cfe7b1c"
+          "content" : "008f080d3c27ec2422feed0823fde5e6d6cc338b0d92badffdf294eb2d96c070"
         },
         {
           "alg" : "SHA-512",
-          "content" : "ae9ba81e242e0015b4562fe998d514ba6b53ad6bd1028718ee04d6c8bebfec560af02bcc5fb9533fbca8398bc71903110e006d66454b6f8cd5191517cc9738bb"
+          "content" : "7f058ebd3f47448438bb1c2fc34ee2fd6c0ad389c2580193ae93676c4bf83d65aaa494474e912bc96eeff78be9b0ed46bac7373048fc1575bb2b8e5d84501d83"
         },
         {
           "alg" : "SHA-384",
-          "content" : "9032bf7b19766b76586657e649db26259370d79b6049afba094cd86b8e0abb8bbcec0ebd9c383cc4440be004d6041be9"
+          "content" : "18e7664e3d11f3f6b56c1f1073b2436942a8328120ea64974c36239e68c4fb860e6fb7561e831b3a31bc4aacd748dec7"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "665bfb35983a193a3deccfe9108237344ab4fe7dabc39e765701c4fd7618c5ba699257af559a3d8e229b930b8d075609"
+          "content" : "8f903f123a34a4fc060d89fb0aa9389cc7e9c8305fca0643ed1f98d7158c33a096b45a741715dc7abd8ae34e8fbfb697"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "93511fad90d2bf02a2f62e7b2a78f986abd59210a48a0ba38e8eccab0e26ea47"
+          "content" : "d6a44bad1bc07cff669028061874c8dcea5ab6013b7b3e33a923d565b58a7916"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "c4fdbae92712f116d939494292e72a83b76d492bbe07fce86afa6807b74bbda62262b33d4271ea5c29c50c3d784e1a8e0d760b9f7f7b6f62385cdcbbdf741030"
+          "content" : "e28743c75cecdff5b48f6938913a94d51c993ee4894ca6f86f118384a8cecaf8a99e43f27d6a06366750aafc2c27c97b256ea319b0e32083fd7e39a7c76e6266"
         }
       ],
       "licenses" : [
@@ -216584,7 +216584,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/io.quarkus/quarkus-websockets@3.38.0?type=jar",
+      "purl" : "pkg:maven/io.quarkus/quarkus-websockets-next@3.38.0?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -216606,44 +216606,44 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/io.quarkus/quarkus-websockets-client@3.38.0?type=jar",
+      "bom-ref" : "pkg:maven/io.quarkus/quarkus-websockets-next-kotlin@3.38.0?type=jar",
       "group" : "io.quarkus",
-      "name" : "quarkus-websockets-client",
+      "name" : "quarkus-websockets-next-kotlin",
       "version" : "3.38.0",
-      "description" : "Client for WebSocket communication channel",
+      "description" : "Use a modern declarative API to define WebSocket server and client endpoints",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "2a6b611321c0e4edb991e76d241bdf64"
+          "content" : "2ac81a2570f2636c6934bb7c926cd9c0"
         },
         {
           "alg" : "SHA-1",
-          "content" : "0a8cde0216466da228ccaf675db3ed4f5c39283f"
+          "content" : "fa47c5b179313f68da7d5c59e9f022d40a4d3b39"
         },
         {
           "alg" : "SHA-256",
-          "content" : "e5082c283efb9f5e9854e17b9e4b1c7a1721e721f4d9d511bdfa6f38809d1d70"
+          "content" : "758370a236c54bdca17f9fbb6b3730526d15690ca69216b981e71e0659779c94"
         },
         {
           "alg" : "SHA-512",
-          "content" : "3289f1cd79d56a269220aedf01ed4d39ce32837100a5f590f811cf559e9d87d090830aeaa83b99a0882f6ae96cf270c5eee1492112ade716d71e047a049b73ce"
+          "content" : "996e8a74a7e4faaa3a23dd692bf1ecb4c94b5b5cdc788fe8bec2aa40ef9342609e98fd9899b32e8a5c18fae187f87e39248f80ade09af566e595da74445e9b2d"
         },
         {
           "alg" : "SHA-384",
-          "content" : "56aa92944916db341d5eed08d479014b1056ef9e322be9d1d9cf724ddb05bea13d0a7aa84d02a1b18581f6f47dacd659"
+          "content" : "0a2352061851000477b950dc1a2d57a6ac4e6475e6073337ad2fbba405d1a3ea3ab0d852a64fb93039112f8eb46dc68d"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "a4fa2a015a4c4a4b5b4c828c1a92f8c0c27a25e1c3013daf95933789a6e56273ac832de77448997ec184ecfe13ea4a42"
+          "content" : "aef7d186bb6f0266ae0555b241334ff0d71667ea4afd03068590fc8697e2b80970e8ffda857040182e121bd38f4b913b"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "6db22cec526e5e0364d263c884e32fc54d22db296e82ea3d4b49765b795d75b6"
+          "content" : "bd01aadb693a7028ef3594b09151b7b6c8ae171c3cd5dea66bd593ab0347b989"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "52861cd047146955f2d519338f1af3a9cb5393acb808ae4b5e42c38ef480f687ab8f6f74575264a6170409e3a59677d627e7a771b6be0a89e41a0bf04bf2952d"
+          "content" : "e2153d0587747d811835ec056670aeb1694581c0aa2cb3b23c3fb6c87651f5e020ffd405345d1b7aecfdafd9bf860ca1a6d8a3fd3e14675f57aa4e041a061542"
         }
       ],
       "licenses" : [
@@ -216653,7 +216653,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/io.quarkus/quarkus-websockets-client@3.38.0?type=jar",
+      "purl" : "pkg:maven/io.quarkus/quarkus-websockets-next-kotlin@3.38.0?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -216670,306 +216670,6 @@
         {
           "type" : "vcs",
           "url" : "https://github.com/quarkusio/quarkus"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-core@5.5.0?type=jar",
-      "publisher" : "JBoss by Red Hat",
-      "group" : "io.quarkus.http",
-      "name" : "quarkus-http-websocket-core",
-      "version" : "5.5.0",
-      "description" : "WebSocket Parent",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "760140b55eea370cd30cf124a9dfb0ab"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "2e08299f25c01a507e227d60d456cf44e7f94e01"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "82960baf04924e4fe6a2e089e6663966ba59aa542a32dade7e3dbb9805a72cc1"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "2093577c277efb9ea947e70f2e7a15ec5ccb6a90df21be6fa477be92a8d9252982f4429293c2e69eded25d3966c56013368fba0b48346de8dce2156b4a8399b1"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "5ced66459f60bd1b40f19826232b2dcb796c8fb9ec3365a4fda87bac62af9fa36b7c6a19e4175fb85d7342098b65e016"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "625f38002c9caa16403d624fa1ad1098d883f5cda7e9f5d2fe65f7fe2502fbafe96e9c817cd06285b24bdbd6996bc740"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "a37d0480623bbdf17b27bd6d3d8543e8d569e95d6a4fe9e005055507a609771b"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "6721402b57489fa2cf0ddffa65167fe03cf9e3d15f92eb0f8ef8975ef6ed7296c180d6b3f7465659b0f89f38387baeca9a5297b522b5eb4b662e33eb453468e1"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-core@5.5.0?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "http://www.jboss.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.redhat.com/"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "http://lists.jboss.org/pipermail/jboss-user/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/quarkus/quarkus-http"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/jakarta.websocket/jakarta.websocket-client-api@2.1.0?type=jar",
-      "publisher" : "Eclipse Foundation",
-      "group" : "jakarta.websocket",
-      "name" : "jakarta.websocket-client-api",
-      "version" : "2.1.0",
-      "description" : "Jakarta WebSocket - Client API",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "0ff98843ff4a6b9af51cac2d32719ffb"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "ac185d7945d4c0a501b79ae003d9f8d9a1ae7eff"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "853b5b5c7544c5289c5db038873da9be5970eef8ec9445bf66c00a09693cda89"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "cf9934f7163f0b8736b7bbe4aee31ba210e03b50308db2e39258dd1db5112c89d9eb116fbde958334bdfb0c02343291bd37e0e0e907690073f68fad516179a68"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "d6965d2b803c1cd4f2a03e9965338640e3af51c01a2597b48e1f9c4a7a45d47cffd50c3ab6d9d29e77f82e8a783de047"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "4199fb1d245cf413d11c240066db6877d839eec6eb4edffc16f8985ab6c703cc9a51b6a4dfb6c43e7e2cfcafd5d4425e"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "98177271b337c82473a3f5d119f24e478e08fa26d049a039f760a9cb6cb45683"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "4328303fb9327a0ad8892003db77b00035e0e95f835cb96a044144d5f5123389685793b7c89191ee349072135a87d6511b6cf580c7d2650ea37fe80d8edf4905"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "EPL-2.0"
-          }
-        },
-        {
-          "license" : {
-            "name" : "GNU General Public License, version 2 with the GNU Classpath Exception",
-            "url" : "https://www.gnu.org/software/classpath/license.html"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/jakarta.websocket/jakarta.websocket-client-api@2.1.0?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://projects.eclipse.org/projects/ee4j.websocket"
-        },
-        {
-          "type" : "distribution-intake",
-          "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/eclipse-ee4j/websocket-api/issues"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://dev.eclipse.org/mhonarc/lists/websocket-dev"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/eclipse-ee4j/websocket-api/jakarta.websocket-client-api"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-vertx@5.5.0?type=jar",
-      "publisher" : "JBoss by Red Hat",
-      "group" : "io.quarkus.http",
-      "name" : "quarkus-http-websocket-vertx",
-      "version" : "5.5.0",
-      "description" : "WebSocket Parent",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "e15aa20aefac09b69f94e277c410ef46"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "72943d98be6daf68119abd9076ca11020641d3e9"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "22131f9e105f342c3a1dd4aa3a8bf70ef18afc5542c05113f2e08f091facd61c"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "cd1a3c4fa840b861df4024c411ad873c3f964f901d5ddac1882fbb9afa5e84b80d7dc511801893bb09975a756340573a2ca7883224efafc014b464291d35ed19"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "c4823b958e22bd4439713018b9da62f69ec78f497e181f22d91456a0d6b7abddb78e117e1d6b60a9f1c6416ca87e3278"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "5c5a63846716377c0ff796a5fdb4fb429f2a6942c4c8111666fee3be31bce30282bbb94e479e602cb1818ae08534fa84"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "cfef724c593f438d0f5e16ae2433736e2f3cc915a62e9c9cc03b49d436d57f60"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "d3f67db2a9026ba397927a05e339166e1f67cf02f9a362c050d8d00972e65f39c0896f8ddf072c0665066a06cc9df1e0eefeb943d8702d8c1ec089c9544b1405"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-vertx@5.5.0?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "http://www.jboss.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.redhat.com/"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "http://lists.jboss.org/pipermail/jboss-user/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/quarkus/quarkus-http"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar",
-      "publisher" : "Eclipse Foundation",
-      "group" : "jakarta.websocket",
-      "name" : "jakarta.websocket-api",
-      "version" : "2.1.1",
-      "description" : "Jakarta WebSocket - Server API",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "701d642108df6aa73b5642649250d797"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "d3614cd4fe86803efe3f94d57f17925d3edff712"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "beadb92c26d04da653f6d2db2532b549b7a0dbe59c6e22c23e55bd03617f0120"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "c15acedc295c022a000a67af1abf619b21f250b8ecb1a635b32d8f96c301a839b6ced40c703d1179dfe549366055c1d76429e5b06ada032ccb5fea592a0291b3"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "e012efbee628d2b9e6f96c0a3116072c0a747b7d8fe586f92ca6cbe893d3ed3a4f5c6739fcfeb9d1042c1c7c5a5f51e2"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "ed35c4834db8e908eac3dc40723590a90cd1443a7cce1b3c088d23167cfc721e6640a36adf9a8f97eeb5d3cae24e665a"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "143a64c3822d47d967d96f66640d55188c6971c67a9ddbddd301509feb182bd6"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "a1f1c75d614dae53f32e815291115ce781a44af3f1dca4b31c556781d9484e38e90744905e6200aab59a0efa6eb6bc6a6a783db1714f52fe028c5fb96ab0e82b"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "EPL-2.0"
-          }
-        },
-        {
-          "license" : {
-            "name" : "GNU General Public License, version 2 with the GNU Classpath Exception",
-            "url" : "https://www.gnu.org/software/classpath/license.html"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://projects.eclipse.org/projects/ee4j.websocket"
-        },
-        {
-          "type" : "distribution-intake",
-          "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/eclipse-ee4j/websocket-api/issues"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://dev.eclipse.org/mhonarc/lists/websocket-dev"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/eclipse-ee4j/websocket-api/jakarta.websocket-api"
         }
       ]
     },
@@ -242397,7 +242097,7 @@
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.39.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-micrometer-observability@4.21.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-opentelemetry@3.38.0?type=jar",
-        "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.6.6?type=jar"
+        "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.0?type=jar"
       ]
     },
     {
@@ -242405,7 +242105,7 @@
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-telemetry@4.21.0?type=jar",
         "pkg:maven/io.micrometer/micrometer-core@1.17.0?type=jar",
-        "pkg:maven/io.micrometer/micrometer-tracing@1.6.6?type=jar"
+        "pkg:maven/io.micrometer/micrometer-tracing@1.7.0?type=jar"
       ]
     },
     {
@@ -242415,7 +242115,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/io.micrometer/micrometer-tracing@1.6.6?type=jar",
+      "ref" : "pkg:maven/io.micrometer/micrometer-tracing@1.7.0?type=jar",
       "dependsOn" : [
         "pkg:maven/org.jspecify/jspecify@1.0.0?type=jar",
         "pkg:maven/io.micrometer/micrometer-observation@1.17.0?type=jar",
@@ -242546,10 +242246,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.6.6?type=jar",
+      "ref" : "pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.0?type=jar",
       "dependsOn" : [
         "pkg:maven/org.jspecify/jspecify@1.0.0?type=jar",
-        "pkg:maven/io.micrometer/micrometer-tracing@1.6.6?type=jar",
+        "pkg:maven/io.micrometer/micrometer-tracing@1.7.0?type=jar",
         "pkg:maven/org.slf4j/slf4j-api@2.0.18?type=jar",
         "pkg:maven/io.micrometer/micrometer-observation@1.17.0?type=jar",
         "pkg:maven/io.opentelemetry/opentelemetry-api@1.62.0?type=jar",
@@ -255636,50 +255336,27 @@
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.39.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-seda@3.39.0-SNAPSHOT?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.38.0?type=jar",
-        "pkg:maven/io.quarkus/quarkus-websockets@3.38.0?type=jar"
+        "pkg:maven/io.quarkus/quarkus-websockets-next@3.38.0?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/io.quarkus/quarkus-websockets@3.38.0?type=jar",
+      "ref" : "pkg:maven/io.quarkus/quarkus-websockets-next@3.38.0?type=jar",
       "dependsOn" : [
         "pkg:maven/io.quarkus/quarkus-core@3.38.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-vertx-http@3.38.0?type=jar",
-        "pkg:maven/io.quarkus/quarkus-websockets-client@3.38.0?type=jar",
-        "pkg:maven/io.quarkus.http/quarkus-http-websocket-vertx@5.5.0?type=jar",
-        "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar"
+        "pkg:maven/io.quarkus.vertx.utils/quarkus-vertx-utils@3.38.0?type=jar",
+        "pkg:maven/io.quarkus/quarkus-jackson@3.38.0?type=jar",
+        "pkg:maven/io.quarkus/quarkus-tls-registry@3.38.0?type=jar",
+        "pkg:maven/io.quarkus/quarkus-websockets-next-kotlin@3.38.0?type=jar",
+        "pkg:maven/io.quarkus/quarkus-websockets-next-spi@3.38.0?type=jar",
+        "pkg:maven/io.quarkus.security/quarkus-security@2.3.2?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/io.quarkus/quarkus-websockets-client@3.38.0?type=jar",
+      "ref" : "pkg:maven/io.quarkus/quarkus-websockets-next-kotlin@3.38.0?type=jar",
       "dependsOn" : [
-        "pkg:maven/io.quarkus/quarkus-vertx@3.38.0?type=jar",
-        "pkg:maven/io.quarkus.security/quarkus-security@2.3.2?type=jar",
-        "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar",
-        "pkg:maven/io.quarkus.http/quarkus-http-websocket-core@5.5.0?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar",
-      "dependsOn" : [ ]
-    },
-    {
-      "ref" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-core@5.5.0?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.jboss.logging/jboss-logging@3.6.3.Final?type=jar",
-        "pkg:maven/io.netty/netty-codec-http@4.1.136.Final?type=jar",
-        "pkg:maven/jakarta.websocket/jakarta.websocket-api@2.1.1?type=jar",
-        "pkg:maven/jakarta.websocket/jakarta.websocket-client-api@2.1.0?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/jakarta.websocket/jakarta.websocket-client-api@2.1.0?type=jar",
-      "dependsOn" : [ ]
-    },
-    {
-      "ref" : "pkg:maven/io.quarkus.http/quarkus-http-websocket-vertx@5.5.0?type=jar",
-      "dependsOn" : [
-        "pkg:maven/io.quarkus.http/quarkus-http-websocket-core@5.5.0?type=jar",
-        "pkg:maven/io.vertx/vertx-web@4.5.30?type=jar"
+        "pkg:maven/io.quarkus/quarkus-arc@3.38.0?type=jar",
+        "pkg:maven/io.quarkus/quarkus-vertx@3.38.0?type=jar"
       ]
     },
     {
