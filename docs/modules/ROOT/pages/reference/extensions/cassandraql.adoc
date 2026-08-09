@@ -48,6 +48,18 @@ endif::[]
 [id="extensions-cassandraql-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
+[id="extensions-cassandraql-configuration-cassandra-health-check"]
+=== Cassandra health check
+
+The `cassandra-quarkus-client` dependency, which is used internally by this extension, automatically registers a health check. However, Camel manages its own `CqlSession` independently and does not use the Quarkus-managed Cassandra client, so the health check may fail and cause Kubernetes readiness probes to report the pod as not ready.
+
+To work around this, disable the Cassandra health check in your `application.properties`:
+
+[source,properties]
+----
+quarkus.cassandra.health.enabled=false
+----
+
 [id="extensions-cassandraql-configuration-cassandra-aggregation-repository-in-native-mode"]
 === Cassandra aggregation repository in native mode
 
