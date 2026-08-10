@@ -7368,7 +7368,7 @@
       <dependency>
         <groupId>com.github.mwiede</groupId>
         <artifactId>jsch</artifactId>
-        <version>2.28.2</version>
+        <version>2.28.6</version>
       </dependency>
       <dependency>
         <groupId>com.google.api</groupId>
@@ -7798,12 +7798,12 @@
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch-deployment</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
