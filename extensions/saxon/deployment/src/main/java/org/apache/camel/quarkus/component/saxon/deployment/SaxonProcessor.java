@@ -25,11 +25,13 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.NativeImageFeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.functions.SystemFunction;
 import net.sf.saxon.xpath.XPathFactoryImpl;
+import org.apache.camel.quarkus.component.saxon.SaxonClassInitializationFeature;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.logging.Logger;
@@ -72,6 +74,11 @@ class SaxonProcessor {
     @BuildStep
     void indexSaxonHe(BuildProducer<IndexDependencyBuildItem> deps) {
         deps.produce(new IndexDependencyBuildItem("net.sf.saxon", "Saxon-HE"));
+    }
+
+    @BuildStep
+    NativeImageFeatureBuildItem classInitializationFeature() {
+        return new NativeImageFeatureBuildItem(SaxonClassInitializationFeature.class);
     }
 
     @BuildStep
