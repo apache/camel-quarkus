@@ -32,6 +32,7 @@ public class OpenTelemetry2RouteBuilder extends RouteBuilder {
                 .setBody(constant("GET: /opentelemetry2/test/trace/filtered"));
 
         from("direct:start")
+                .routeId("tracedRoute")
                 .setBody().constant("Traced direct:start");
 
         // NOTE: when we call the bean in this way, the resulting inner span will depends directly on the
