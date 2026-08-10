@@ -36,17 +36,17 @@ quarkus.camel.jolokia.remote-access-allowed=true
 
 This is safe when combined with SSL client authentication (enabled by default in Kubernetes environments), which ensures only clients presenting a valid certificate can connect. Refer to the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation] for full details.
 
-== CassandraQL extension
+== CassandraQL extension changes
 
-=== Cassandra health check may cause pod readiness failures
+=== Cassandra health check disabled by default
 
-The `cassandra-quarkus-client` dependency used by the CassandraQL extension automatically registers a health check that connects to the Cassandra instance configured via `quarkus.cassandra.contact-points`. Since Camel manages its own `CqlSession` independently, this property is typically not set, causing the health check to default to `127.0.0.1:9042` and fail. This results in Kubernetes readiness probes reporting the pod as not ready.
+The `cassandra-quarkus-client` health check is now disabled by default (`quarkus.cassandra.health.enabled=false`). Camel manages its own `CqlSession` independently and does not use the Quarkus-managed Cassandra client, so the health check may fail and cause Kubernetes readiness probes to report the pod as not ready.
 
-If you encounter this issue, disable the Cassandra Quarkus Client health check in your `application.properties`:
+If you use `quarkus.cassandra.*` configuration properties to set up the Cassandra client and leverage that in the Camel CassandraQL component, re-enable the health check in your `application.properties`:
 
 [source,properties]
 ----
-quarkus.cassandra.health.enabled=false
+quarkus.cassandra.health.enabled=true
 ----
 
 Refer to the xref:reference/extensions/cassandraql.adoc[CassandraQL extension documentation] for more details.
