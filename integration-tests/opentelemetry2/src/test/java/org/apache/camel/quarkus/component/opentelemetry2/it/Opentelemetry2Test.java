@@ -204,6 +204,27 @@ class Opentelemetry2Test {
     }
 
     @Test
+    void routeIdSpanAttribute() {
+        int spanPerTrace = 4;
+        RestAssured.get("/opentelemetry2/trace")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Traced direct:start"));
+
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS)
+                .until(() -> getSpans().size() == spanPerTrace);
+        List<Map<String, String>> spans = getSpans();
+
+        // The route id is only known once the exchange is being routed, so it is present on the EVENT_RECEIVED span
+        Map<String, String> span = spans.stream()
+                .filter(s -> "direct://start".equals(s.get("camel.uri")) && "EVENT_RECEIVED".equals(s.get("op")))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No EVENT_RECEIVED span found for direct://start"));
+
+        assertEquals("tracedRoute", span.get("camel.route.id"));
+    }
+
+    @Test
     void traceHeaderInclusion() {
         RestAssured.get("/opentelemetry2/trace/headers")
                 .then()
