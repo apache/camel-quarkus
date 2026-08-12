@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.langchain4j.agent.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -25,7 +26,7 @@ public class Langchain4jAgentRoutes extends RouteBuilder {
     public static final String USER_JOHN = "John Doe";
 
     @ConfigProperty(name = "nodejs.installed")
-    boolean isNodeJSInstaled;
+    boolean isNodeJSInstalled;
 
     @Override
     public void configure() throws Exception {
@@ -66,9 +67,34 @@ public class Langchain4jAgentRoutes extends RouteBuilder {
         from("direct:agent-with-custom-tools")
                 .to("langchain4j-agent:test-agent-custom-tools?agent=#agentWithCustomTools");
 
-        if (isNodeJSInstaled) {
+        // Structured output - outputClass
+        from("direct:structured-output-class")
+                .to("langchain4j-agent:test-so-class?agentConfiguration=#agentConfigSimple"
+                        + "&outputClass=org.apache.camel.quarkus.component.langchain4j.agent.it.model.TestPojo");
+
+        // Structured output - jsonSchema from classpath resource
+        from("direct:structured-output-json-schema")
+                .to("langchain4j-agent:test-so-schema?agentConfiguration=#agentConfigSimple"
+                        + "&jsonSchema=resource:classpath:schemas/test-pojo-schema.json");
+
+        // AgentConfiguration auto-provisioning without memory
+        from("direct:auto-provision-simple")
+                .to("langchain4j-agent:test-auto-simple?agentConfiguration=#agentConfigSimple");
+
+        // AgentConfiguration auto-provisioning with memory
+        from("direct:auto-provision-memory")
+                .to("langchain4j-agent:test-auto-memory?agentConfiguration=#agentConfigWithMemory");
+
+        if (isNodeJSInstalled) {
             from("direct:agent-with-mcp-client")
                     .to("langchain4j-agent:test-agent-with-mcp-client?agent=#agentWithMcpClient");
+
+            // MCP server config via inline URI options
+            from("direct:mcp-server-config")
+                    .to("langchain4j-agent:test-mcp-config?agentConfiguration=#agentConfigForMcp"
+                            + "&mcpServer.everything.transportType=stdio"
+                            + "&mcpServer.everything.command=" + ProcessUtils.getNpxExecutable()
+                            + ",-y,@modelcontextprotocol/server-everything@2025.12.18");
         }
     }
 }

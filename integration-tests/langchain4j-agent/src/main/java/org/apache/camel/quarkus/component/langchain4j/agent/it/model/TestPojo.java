@@ -16,5 +16,8 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.agent.it.model;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public record TestPojo(String name, String description) {
 }
