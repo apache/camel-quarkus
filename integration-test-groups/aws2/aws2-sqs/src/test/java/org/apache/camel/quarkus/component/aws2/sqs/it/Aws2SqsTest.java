@@ -195,11 +195,7 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
                     .statusCode(200)
                     .body(equalTo(msg));
             awaitMessageWithExpectedContentFromQueue(msg, qName);
-            // CAMEL-24156 correctly removed per-message DelaySeconds when delayQueue=true;
-            // unfortunatelly the mocked backed ignores the parameter, therefore the assertion would always fail
-            if (!mockBackend) {
-                Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
-            }
+            Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
         } catch (AssertionError e) {
             e.printStackTrace();
             Assertions.fail();
