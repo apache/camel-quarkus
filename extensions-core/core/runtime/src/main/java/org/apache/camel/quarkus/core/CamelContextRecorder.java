@@ -160,6 +160,18 @@ public class CamelContextRecorder {
             tracer.setTracePattern(trace.tracePattern().orElse(null));
             tracer.setTraceFilter(trace.traceFilter().orElse(null));
 
+            // activityEnabled: prefer quarkus.camel.trace.activity-enabled, fall back to camel.trace.activity-enabled
+            boolean activityEnabled = ConfigProvider.getConfig()
+                    .getOptionalValue("camel.trace.activity-enabled", Boolean.class)
+                    .orElse(trace.activityEnabled());
+            tracer.setActivityEnabled(activityEnabled);
+
+            // activitySize: prefer quarkus.camel.trace.activity-size, fall back to camel.trace.activity-size
+            int activitySize = ConfigProvider.getConfig()
+                    .getOptionalValue("camel.trace.activity-size", Integer.class)
+                    .orElse(trace.activitySize());
+            tracer.setActivitySize(activitySize);
+
             context.getCamelContextExtension().addContextPlugin(BacklogTracer.class, tracer);
         });
     }

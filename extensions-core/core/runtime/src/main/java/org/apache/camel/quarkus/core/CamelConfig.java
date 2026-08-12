@@ -550,6 +550,24 @@ public interface CamelConfig {
          * @asciidoclet
          */
         Optional<String> traceFilter();
+
+        /**
+         * Whether activity tracking is enabled. Activity tracking captures a rolling window of completed exchange
+         * summaries with enriched span decorator attributes (e.g. Kafka topic, HTTP method, SQL query).
+         *
+         * @asciidoclet
+         */
+        @WithDefault("false")
+        boolean activityEnabled();
+
+        /**
+         * The maximum number of completed exchange summaries to keep in the activity queue. The valid range is 1 to
+         * 1000.
+         *
+         * @asciidoclet
+         */
+        @WithDefault("100")
+        int activitySize();
     }
 
     /**
