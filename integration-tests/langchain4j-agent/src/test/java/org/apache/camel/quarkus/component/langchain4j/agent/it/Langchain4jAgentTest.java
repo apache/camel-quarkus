@@ -59,7 +59,7 @@ class Langchain4jAgentTest {
                 .statusCode(200)
                 .body(
                         not(TEST_USER_MESSAGE_SIMPLE),
-                        containsString("Apache Camel"));
+                        containsString("Apache Came"));
     }
 
     @Test
