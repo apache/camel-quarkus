@@ -18,15 +18,20 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,6 +68,15 @@ public class IncrementalBuildMojo extends AbstractMojo {
 
     private static final TypeReference<Map<String, Object>> JSON_TYPE_REF = new TypeReference<>() {
     };
+
+    /**
+     * Matches the {@code copy-tests.source.dir} and {@code group-tests.source.dir} properties configured for executions
+     * of {@code tooling/scripts/copy-tests.groovy} and {@code tooling/scripts/group-tests.groovy}.
+     */
+    private static final Pattern GENERATED_SOURCE_DIR_PATTERN = Pattern
+            .compile("<(copy|group)-tests\\.source\\.dir>([^<]+)</\\1-tests\\.source\\.dir>");
+
+    private static final String MULTI_MODULE_DIR_PLACEHOLDER = "${maven.multiModuleProjectDirectory}/";
 
     /**
      * Action to perform. Supported values:
@@ -189,6 +203,8 @@ public class IncrementalBuildMojo extends AbstractMojo {
 
     private final ObjectMapper jsonMapper = new ObjectMapper();
 
+    private Map<String, Set<String>> generatedSourceConsumers;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
@@ -252,18 +268,205 @@ public class IncrementalBuildMojo extends AbstractMojo {
             return null;
         }
         Map<String, Object> raw = jsonMapper.readValue(scalpelReportJson.toFile(), JSON_TYPE_REF);
-        return new ScalpelReport(
+        return expandGeneratedSourceConsumers(
                 Boolean.TRUE.equals(raw.get("fullBuildTriggered")),
                 (List<Map<String, Object>>) raw.get("affectedModules"));
+    }
+
+    /**
+     * Adds modules that consume another module's sources via {@code tooling/scripts/copy-tests.groovy} or
+     * {@code tooling/scripts/group-tests.groovy} to the affected module list.
+     * <p>
+     * Such modules have no Maven dependency on the module whose sources they consume, so Scalpel cannot see the
+     * relationship. For example {@code integration-tests/langchain4j-agent-ql4j} copies the sources of
+     * {@code integration-tests/langchain4j-agent}, meaning a change confined to the latter must also test the former.
+     * Likewise {@code integration-tests-jvm/xml-grouped} groups the modules under
+     * {@code integration-test-groups/xml/jvm}.
+     * <p>
+     * Consumers are matched both for changes inside a declared source directory and for changes at or above it, so
+     * that a change to an aggregator pom such as {@code integration-test-groups/xml} pulls in every consumer beneath
+     * it.
+     */
+    private ScalpelReport expandGeneratedSourceConsumers(boolean fullBuildTriggered,
+            List<Map<String, Object>> affectedModules) throws IOException {
+
+        if (affectedModules == null || affectedModules.isEmpty()) {
+            return new ScalpelReport(fullBuildTriggered, affectedModules, Set.of());
+        }
+
+        Set<String> affectedPaths = new LinkedHashSet<>();
+        for (Map<String, Object> module : affectedModules) {
+            String path = (String) module.get("path");
+            if (path != null) {
+                affectedPaths.add(normalizePath(path));
+            }
+        }
+
+        // Paths whose consumers are known precisely, so that heuristics elsewhere can be skipped for them
+        Set<String> resolvedPaths = new LinkedHashSet<>();
+        Set<String> consumers = findTransitiveConsumers(affectedPaths, resolvedPaths);
+        if (consumers.isEmpty()) {
+            return new ScalpelReport(fullBuildTriggered, affectedModules, resolvedPaths);
+        }
+
+        List<Map<String, Object>> expanded = new ArrayList<>(affectedModules);
+        for (String consumer : consumers) {
+            Map<String, Object> module = new LinkedHashMap<>();
+            module.put("path", consumer);
+            module.put("category", "DOWNSTREAM");
+            expanded.add(module);
+        }
+
+        return new ScalpelReport(fullBuildTriggered, expanded, resolvedPaths);
+    }
+
+    /**
+     * Returns the paths of all modules transitively consuming the sources of any of {@code paths}, excluding
+     * {@code paths} themselves. Input paths that matched a declared source directory are added to
+     * {@code resolvedPaths} when it is non-null.
+     */
+    private Set<String> findTransitiveConsumers(Set<String> paths, Set<String> resolvedPaths) throws IOException {
+        Map<String, Set<String>> sourceToConsumers = generatedSourceConsumers();
+        if (sourceToConsumers.isEmpty()) {
+            return Set.of();
+        }
+
+        Set<String> consumers = new LinkedHashSet<>();
+        Set<String> seen = new LinkedHashSet<>(paths);
+
+        // Fixpoint, so that chains of source consuming modules are fully resolved
+        Set<String> pending = new LinkedHashSet<>(paths);
+        while (!pending.isEmpty()) {
+            Set<String> next = new LinkedHashSet<>();
+            for (String path : pending) {
+                for (Map.Entry<String, Set<String>> entry : sourceToConsumers.entrySet()) {
+                    String sourcePath = entry.getKey();
+                    boolean insideSource = path.equals(sourcePath) || path.startsWith(sourcePath + "/");
+                    boolean aboveSource = sourcePath.startsWith(path + "/");
+                    if (!insideSource && !aboveSource) {
+                        continue;
+                    }
+
+                    if (resolvedPaths != null) {
+                        resolvedPaths.add(path);
+                    }
+                    for (String consumer : entry.getValue()) {
+                        if (seen.add(consumer)) {
+                            getLog().info("Including " + consumer + " which consumes sources of " + sourcePath);
+                            consumers.add(consumer);
+                            next.add(consumer);
+                        }
+                    }
+                }
+            }
+            pending = next;
+        }
+
+        return consumers;
+    }
+
+    /**
+     * Lazily computed and cached, since the underlying source tree scan is shared by Scalpel report expansion and
+     * container property detection.
+     */
+    private Map<String, Set<String>> generatedSourceConsumers() throws IOException {
+        if (generatedSourceConsumers == null) {
+            generatedSourceConsumers = findGeneratedSourceConsumers();
+        }
+        return generatedSourceConsumers;
+    }
+
+    /**
+     * Scans every {@code pom.xml} in the source tree for a {@code copy-tests.source.dir} or
+     * {@code group-tests.source.dir} property and returns a map of consumed source directory to the set of module
+     * paths consuming it. Paths are relative to the project root.
+     */
+    private Map<String, Set<String>> findGeneratedSourceConsumers() throws IOException {
+        Map<String, Set<String>> sourceToConsumers = new LinkedHashMap<>();
+
+        walkSourceFiles(projectRootDir, name -> name.equals("pom.xml"), file -> {
+            Matcher matcher = GENERATED_SOURCE_DIR_PATTERN.matcher(Files.readString(file, StandardCharsets.UTF_8));
+            while (matcher.find()) {
+                String property = matcher.group(1) + "-tests.source.dir";
+                String sourceDir = matcher.group(2).trim();
+                if (!sourceDir.startsWith(MULTI_MODULE_DIR_PLACEHOLDER)) {
+                    getLog().warn("Cannot resolve " + property + " '" + sourceDir + "' in " + file
+                            + ". Changes to it will not trigger tests of the consuming module");
+                    continue;
+                }
+
+                String sourcePath = normalizePath(sourceDir.substring(MULTI_MODULE_DIR_PLACEHOLDER.length()));
+                if (!Files.isDirectory(projectRootDir.resolve(sourcePath))) {
+                    getLog().warn(property + " '" + sourcePath + "' configured in " + file + " does not exist");
+                    continue;
+                }
+
+                String consumerPath = normalizePath(projectRootDir.relativize(file.getParent()).toString());
+                sourceToConsumers.computeIfAbsent(sourcePath, k -> new LinkedHashSet<>()).add(consumerPath);
+            }
+        });
+
+        getLog().debug("Generated source relationships: " + sourceToConsumers);
+        return sourceToConsumers;
+    }
+
+    @FunctionalInterface
+    private interface FileHandler {
+        void accept(Path file) throws IOException;
+    }
+
+    /**
+     * Walks {@code dir} for files whose name satisfies {@code fileNameFilter}, skipping build output and VCS metadata
+     * directories. Build output is expensive to traverse and holds copies of sources produced by
+     * {@code copy-tests.groovy} and {@code group-tests.groovy}, which would otherwise be matched twice.
+     */
+    private void walkSourceFiles(Path dir, Predicate<String> fileNameFilter, FileHandler handler) throws IOException {
+        Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path subDir, BasicFileAttributes attrs) {
+                String name = subDir.getFileName().toString();
+                if (!subDir.equals(dir) && (name.equals("target") || name.equals(".git"))) {
+                    return FileVisitResult.SKIP_SUBTREE;
+                }
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                if (fileNameFilter.test(file.getFileName().toString())) {
+                    try {
+                        handler.accept(file);
+                    } catch (IOException e) {
+                        getLog().warn("Failed to read " + file + ": " + e.getMessage());
+                    }
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    private static String normalizePath(String path) {
+        String normalized = path.replace('\\', '/');
+        while (normalized.endsWith("/")) {
+            normalized = normalized.substring(0, normalized.length() - 1);
+        }
+        return normalized;
     }
 
     private static class ScalpelReport {
         final boolean fullBuildTriggered;
         final List<Map<String, Object>> affectedModules;
+        /**
+         * Affected paths whose consuming test modules were resolved precisely from a declared source directory. The
+         * grouped module name heuristic is skipped for these.
+         */
+        final Set<String> resolvedPaths;
 
-        ScalpelReport(boolean fullBuildTriggered, List<Map<String, Object>> affectedModules) {
+        ScalpelReport(boolean fullBuildTriggered, List<Map<String, Object>> affectedModules,
+                Set<String> resolvedPaths) {
             this.fullBuildTriggered = fullBuildTriggered;
             this.affectedModules = affectedModules != null ? affectedModules : List.of();
+            this.resolvedPaths = resolvedPaths;
         }
     }
 
@@ -299,7 +502,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             return result;
         }
 
-        Set<String> affectedTests = extractAffectedTests(report.affectedModules);
+        Set<String> affectedTests = extractAffectedTests(report);
         affectedTests.addAll(containerModules.nativeModules);
 
         if (affectedTests.isEmpty() && isBomDirectlyAffected(report)) {
@@ -324,15 +527,22 @@ public class IncrementalBuildMojo extends AbstractMojo {
      * Includes both DIRECT and DOWNSTREAM changes - if Scalpel reports it as affected,
      * we should test it.
      */
-    private Set<String> extractAffectedTests(List<Map<String, Object>> affectedModules) {
+    private Set<String> extractAffectedTests(ScalpelReport report) {
         Set<String> affectedTests = new LinkedHashSet<>();
 
-        for (Map<String, Object> module : affectedModules) {
+        for (Map<String, Object> module : report.affectedModules) {
             String path = (String) module.get("path");
             String category = (String) module.get("category");
 
             // Handle integration-test-groups: integration-test-groups/<group>/... -> <group>-grouped
             if (path != null && path.startsWith(integrationTestGroupsPrefix)) {
+                // Modules whose grouping module is known from a declared group-tests.source.dir were already added by
+                // expandGeneratedSourceConsumers, which also knows whether they group into a native or a JVM only
+                // module. The name based heuristic below can only guess at a native one, so skip it for those.
+                if (report.resolvedPaths.contains(normalizePath(path))) {
+                    continue;
+                }
+
                 // Extract group name from: integration-test-groups/<group>/...
                 String remainder = path.substring(integrationTestGroupsPrefix.length());
                 String[] parts = remainder.split("/");
@@ -450,6 +660,8 @@ public class IncrementalBuildMojo extends AbstractMojo {
             }
         }
 
+        addGeneratedSourceConsumers(result);
+
         if (!result.nativeModules.isEmpty()) {
             getLog().info("Container property changes affect native test modules: " + result.nativeModules);
         }
@@ -458,6 +670,28 @@ public class IncrementalBuildMojo extends AbstractMojo {
         }
 
         return result;
+    }
+
+    /**
+     * Adds modules consuming the sources of an already affected test module, so that a container property referenced
+     * by a module whose sources are copied elsewhere also tests the copying module.
+     */
+    private void addGeneratedSourceConsumers(ContainerAffectedModules result) throws IOException {
+        Set<String> paths = new LinkedHashSet<>();
+        for (String moduleName : result.nativeModules) {
+            paths.add(normalizePath(nativeTestsPrefix.trim()) + "/" + moduleName);
+        }
+        for (String moduleName : result.jvmModules) {
+            paths.add(normalizePath(jvmTestsPrefix.trim()) + "/" + moduleName);
+        }
+
+        for (String consumer : findTransitiveConsumers(paths, null)) {
+            if (consumer.startsWith(jvmTestsPrefix)) {
+                result.jvmModules.add(consumer.substring(jvmTestsPrefix.length()));
+            } else if (consumer.startsWith(nativeTestsPrefix)) {
+                result.nativeModules.add(consumer.substring(nativeTestsPrefix.length()));
+            }
+        }
     }
 
     @FunctionalInterface
@@ -470,24 +704,16 @@ public class IncrementalBuildMojo extends AbstractMojo {
      * For each match, extracts the top-level module name and passes it to the consumer.
      */
     private void scanTestResourceFiles(Path dir, Set<String> changedProps, ModuleConsumer consumer) throws IOException {
-        try (Stream<Path> paths = Files.walk(dir)) {
-            paths.filter(p -> p.getFileName().toString().endsWith("TestResource.java"))
-                    .forEach(file -> {
-                        try {
-                            String content = Files.readString(file, StandardCharsets.UTF_8);
-                            for (String prop : changedProps) {
-                                if (content.contains("\"" + prop + "\"")) {
-                                    Path relative = dir.relativize(file);
-                                    String moduleName = relative.getName(0).toString();
-                                    consumer.accept(moduleName);
-                                    break;
-                                }
-                            }
-                        } catch (IOException e) {
-                            getLog().warn("Failed to read " + file + ": " + e.getMessage());
-                        }
-                    });
-        }
+        walkSourceFiles(dir, name -> name.endsWith("TestResource.java"), file -> {
+            String content = Files.readString(file, StandardCharsets.UTF_8);
+            for (String prop : changedProps) {
+                if (content.contains("\"" + prop + "\"")) {
+                    Path relative = dir.relativize(file);
+                    consumer.accept(relative.getName(0).toString());
+                    break;
+                }
+            }
+        });
     }
 
     /**
@@ -533,22 +759,15 @@ public class IncrementalBuildMojo extends AbstractMojo {
      * Finds modules under a directory whose pom.xml contains a dependency on the given artifactId.
      */
     private void findDependentModules(Path dir, String artifactId, ModuleConsumer consumer) throws IOException {
-        try (Stream<Path> paths = Files.walk(dir)) {
-            paths.filter(p -> p.getFileName().toString().equals("pom.xml"))
-                    .forEach(pomFile -> {
-                        try {
-                            String content = Files.readString(pomFile, StandardCharsets.UTF_8);
-                            if (content.contains(artifactId)) {
-                                Path relative = dir.relativize(pomFile);
-                                String moduleName = relative.getName(0).toString();
-                                consumer.accept(moduleName);
-                                getLog().debug("  " + moduleName + " depends on " + artifactId);
-                            }
-                        } catch (IOException e) {
-                            getLog().warn("Failed to read " + pomFile + ": " + e.getMessage());
-                        }
-                    });
-        }
+        walkSourceFiles(dir, name -> name.equals("pom.xml"), pomFile -> {
+            String content = Files.readString(pomFile, StandardCharsets.UTF_8);
+            if (content.contains(artifactId)) {
+                Path relative = dir.relativize(pomFile);
+                String moduleName = relative.getName(0).toString();
+                consumer.accept(moduleName);
+                getLog().debug("  " + moduleName + " depends on " + artifactId);
+            }
+        });
     }
 
     private Map<String, Object> generateNativeMatrix(List<String> modules) throws MojoExecutionException {
