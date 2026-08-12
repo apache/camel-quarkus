@@ -50,6 +50,9 @@ public class CamelAiToolProvider implements ToolProvider {
     static final Map<String, String> TAG_MAP = new ConcurrentHashMap<>();
     // Set by CamelAiToolsInterceptor before each AI service call so provideTools() can filter by the calling service's tag
     private static final ThreadLocal<String> CURRENT_TAG = new ThreadLocal<>();
+    private static final Set<String> CAMEL_AGENT_SERVICE_INTERFACES = Set.of(
+            "org.apache.camel.component.langchain4j.agent.api.AiAgentWithMemoryService",
+            "org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService");
 
     @Inject
     CamelContext camelContext;
@@ -74,6 +77,14 @@ public class CamelAiToolProvider implements ToolProvider {
 
     @Override
     public ToolProviderResult provideTools(ToolProviderRequest request) {
+        if (isCamelAgentRequest(request)) {
+            // Camel agents select registry tools through their endpoint's tags parameter — the
+            // langchain4j-agent producer builds its own provider from the AiToolRegistry. Serving
+            // them here too would attach every registered tool to every agent (breaking agents
+            // backed by models without tool support) and duplicate the tags-selected tools.
+            return ToolProviderResult.builder().build();
+        }
+
         AiToolRegistry registry = AiToolRegistry.getOrCreate(camelContext);
         String effectiveTag = CURRENT_TAG.get();
         Set<AiToolSpec> tools = effectiveTag != null ? registry.getToolsByTag(effectiveTag) : registry.getAllTools();
@@ -86,6 +97,20 @@ public class CamelAiToolProvider implements ToolProvider {
         }
 
         return resultBuilder.build();
+    }
+
+    /**
+     * Whether the request originates from a Camel {@code langchain4j-agent} endpoint: the agent
+     * component builds its AI services from exactly these {@code camel-langchain4j-agent-api}
+     * interfaces. Name constants rather than class literals on purpose — the agent artifact is
+     * an optional dependency, absent in applications that bridge tools to AI services only.
+     * When a Camel release adds a new agent service interface, it must be added here.
+     */
+    static boolean isCamelAgentRequest(ToolProviderRequest request) {
+        if (request.invocationContext() == null) {
+            return false;
+        }
+        return CAMEL_AGENT_SERVICE_INTERFACES.contains(request.invocationContext().interfaceName());
     }
 
     private ToolExecutor createExecutor(AiToolSpec spec) {

@@ -208,11 +208,20 @@ public class AgentProducers {
         return new AgentWithoutMemory(new AgentConfiguration().withChatModel(chatModel));
     }
 
+    // Configurable: in the langchain4j-agent-ql4j flavor this custom AiService receives the
+    // registered ai-tools (the all-tools default for user-built services), so there it must be
+    // backed by a tool-capable model — orca-mini rejects requests carrying tools.
+    @ConfigProperty(name = "agent.tests.custom-service-model-id", defaultValue = "orca-mini")
+    String customServiceModelId;
+
     @Produces
     @Identifier("agentWithCustomService")
-    public Agent agentCustom(
-            @Identifier("ollamaOrcaMiniModel") ChatModel chatModel,
-            ObjectMapper objectMapper) {
+    public Agent agentCustom(ObjectMapper objectMapper) {
+        ChatModel chatModel = OllamaChatModel.builder()
+                .baseUrl(baseUrl)
+                .modelName(customServiceModelId)
+                .temperature(0.3)
+                .build();
         return new TestPojoAiAgent(new AgentConfiguration()
                 .withChatModel(chatModel), objectMapper);
     }
