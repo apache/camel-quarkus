@@ -23,7 +23,6 @@ import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.Validat
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationFailureOutputGuardrail;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -194,7 +193,6 @@ class Langchain4jAgentTest {
                 .body(containsStringIgnoringCase("full refund"));
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/8914")
     @Test
     void simpleToolInvocation() {
         RestAssured.given()
