@@ -98,7 +98,9 @@ public class CamelMicrometerRecorder {
                 if (config.logMetricsOnShutdownFilters().isPresent()) {
                     eventNotifier.setLogMetricsOnShutdownFilters(config.logMetricsOnShutdownFilters().get());
                 }
-
+                if (config.logMetricsOnShutdownFormat().isPresent()) {
+                    eventNotifier.setLogMetricsOnShutdownFormat(config.logMetricsOnShutdownFormat().get());
+                }
                 if (config.namingStrategy().equals(MetricsNamingStrategy.LEGACY)) {
                     eventNotifier.setNamingStrategy(
                             new MicrometerExchangeEventNotifierNamingStrategyLegacy(

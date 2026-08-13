@@ -165,6 +165,12 @@ List of metrics (comma separated) to log when application is shutting down. You 
 metrics containing the wildcard, for example `camel.exchanges.*` (default to all metrics available).
 | List of `string`
 | 
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-log-metrics-on-shutdown-format]]`link:#quarkus-camel-metrics-log-metrics-on-shutdown-format[quarkus.camel.metrics.log-metrics-on-shutdown-format]`
+
+Format used to log metrics when application is shutting down. Either json (default) or prometheus format.
+| `string`
+| `json`
 |===
 
 [.configuration-legend]

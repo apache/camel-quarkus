@@ -121,6 +121,14 @@ public interface CamelMicrometerConfig {
      */
     Optional<String[]> logMetricsOnShutdownFilters();
 
+    /**
+     * Format used to log metrics when application is shutting down. Either json (default) or prometheus format.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("json")
+    Optional<String> logMetricsOnShutdownFormat();
+
     enum MetricsNamingStrategy {
         DEFAULT, LEGACY
     }
