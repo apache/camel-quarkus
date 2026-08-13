@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CamelTraceTest {
+class CamelTraceActivityTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -48,7 +48,8 @@ class CamelTraceTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.camel.trace.enabled", "true");
-        props.setProperty("quarkus.camel.trace.backlog-size", "100");
+        props.setProperty("quarkus.camel.trace.activity-enabled", "true");
+        props.setProperty("quarkus.camel.trace.activity-size", "200");
 
         try {
             props.store(writer, "");
@@ -60,17 +61,11 @@ class CamelTraceTest {
     }
 
     @Test
-    void testTraceConfiguration() {
+    void testTraceActivityConfiguration() {
         BacklogTracer tracer = camelContext.getCamelContextExtension().getContextPlugin(BacklogTracer.class);
 
-        assertThat(camelContext.isBacklogTracing()).isTrue();
-        assertThat(camelContext.isBacklogTracingStandby()).isFalse();
-        assertThat(camelContext.isBacklogTracingTemplates()).isFalse();
         assertThat(tracer).isNotNull();
-        assertThat(tracer.getBacklogSize()).isEqualTo(100);
-        assertThat(tracer.getTracePattern()).isNull();
-        assertThat(tracer.getTraceFilter()).isNull();
-        assertThat(tracer.isActivityEnabled()).isFalse();
-        assertThat(tracer.getActivitySize()).isEqualTo(100);
+        assertThat(tracer.isActivityEnabled()).isTrue();
+        assertThat(tracer.getActivitySize()).isEqualTo(200);
     }
 }

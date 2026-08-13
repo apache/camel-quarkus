@@ -481,6 +481,20 @@ Filter for tracing messages.
 | `string`
 | 
 
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-activity-enabled]]`link:#quarkus-camel-trace-activity-enabled[quarkus.camel.trace.activity-enabled]`
+
+Whether activity tracking is enabled. Activity tracking captures a rolling window of completed exchange
+summaries with enriched span decorator attributes (e.g. Kafka topic, HTTP method, SQL query).
+| `boolean`
+| `false`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-activity-size]]`link:#quarkus-camel-trace-activity-size[quarkus.camel.trace.activity-size]`
+
+The maximum number of completed exchange summaries to keep in the activity queue. The valid range is 1 to
+1000.
+| `int`
+| `100`
+
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-type-converter-statistics-enabled]]`link:#quarkus-camel-type-converter-statistics-enabled[quarkus.camel.type-converter.statistics-enabled]`
 
 Whether type converter statistics are enabled. By default, type converter utilization statistics are disabled. Note
