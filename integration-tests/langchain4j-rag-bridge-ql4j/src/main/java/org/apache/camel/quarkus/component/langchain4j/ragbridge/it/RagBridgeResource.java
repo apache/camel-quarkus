@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.langchain4j.ragbridge.it;
 
 import dev.langchain4j.rag.RetrievalAugmentor;
+import dev.langchain4j.store.embedding.EmbeddingStore;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -24,8 +25,10 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 
 @Path("/rag-bridge")
@@ -40,6 +43,9 @@ public class RagBridgeResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext camelContext;
 
     @Inject
     RagAiService aiService;
@@ -74,6 +80,14 @@ public class RagBridgeResource {
     public String ingestProducts(String text) {
         producerTemplate.sendBody("direct:ingest-products", text);
         return "ingested";
+    }
+
+    @GET
+    @Path("/registry/embedding-store/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean isEmbeddingStoreInRegistry(@PathParam("name") String name) {
+        EmbeddingStore<?> store = camelContext.getRegistry().lookupByNameAndType(name, EmbeddingStore.class);
+        return store != null;
     }
 
     @POST
