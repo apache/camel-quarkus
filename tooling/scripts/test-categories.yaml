@@ -201,6 +201,7 @@ group-10:
   - ibm-cos
   - ibm-watson-discovery
   - ibm-watson-language
+  - ai-tool-langchain4j
   - mail
   - platform-http-proxy
   - platform-http-proxy-ssl
