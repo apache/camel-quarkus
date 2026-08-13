@@ -67,7 +67,7 @@ public class AgentProducers {
     String baseUrl;
 
     @ConfigProperty(name = "nodejs.installed")
-    boolean isNodeJSInstaled;
+    boolean isNodeJSInstalled;
 
     @Produces
     @Identifier("ollamaOrcaMiniModel")
@@ -235,9 +235,40 @@ public class AgentProducers {
     }
 
     @Produces
+    @Identifier("agentConfigSimple")
+    AgentConfiguration agentConfigSimple(@Identifier("ollamaOrcaMiniModel") ChatModel chatModel) {
+        return new AgentConfiguration().withChatModel(chatModel);
+    }
+
+    @Produces
+    @Identifier("agentConfigWithMemory")
+    AgentConfiguration agentConfigWithMemory(@Identifier("granite4Model") ChatModel chatModel,
+            ChatMemoryStore chatMemoryStore) {
+        ChatMemoryProvider chatMemoryProvider = memoryId -> MessageWindowChatMemory.builder()
+                .id(memoryId)
+                .maxMessages(10)
+                .chatMemoryStore(chatMemoryStore)
+                .build();
+        return new AgentConfiguration()
+                .withChatModel(chatModel)
+                .withChatMemoryProvider(chatMemoryProvider);
+    }
+
+    @Produces
+    @Identifier("agentConfigForMcp")
+    AgentConfiguration agentConfigForMcp(@Identifier("granite4Model") ChatModel chatModel) {
+        return new AgentConfiguration()
+                .withChatModel(chatModel)
+                .withMcpToolProviderFilter((mcpClient, toolSpecification) -> {
+                    String toolName = toolSpecification.name().toLowerCase();
+                    return toolName.contains("add") || toolName.contains("echo") || toolName.contains("long");
+                });
+    }
+
+    @Produces
     @Identifier("agentWithMcpClient")
     Agent agentWithMcpClient(@Identifier("granite4Model") ChatModel chatModel) {
-        if (isNodeJSInstaled) {
+        if (isNodeJSInstalled) {
             return new AgentWithoutMemory(new AgentConfiguration()
                     .withChatModel(chatModel)
                     .withMcpClient(new DefaultMcpClient.Builder()

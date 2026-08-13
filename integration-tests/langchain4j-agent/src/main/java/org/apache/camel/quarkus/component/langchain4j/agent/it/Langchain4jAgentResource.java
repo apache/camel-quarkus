@@ -252,4 +252,79 @@ public class Langchain4jAgentResource {
                 .header(HttpHeaders.CONTENT_TYPE, contentType)
                 .build();
     }
+
+    @Path("/structured-output/class")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response structuredOutputClass(String userMessage) {
+        String result = producerTemplate.to("direct:structured-output-class")
+                .withBody(userMessage)
+                .request(String.class);
+
+        return Response.ok(result.trim())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @Path("/structured-output/json-schema")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response structuredOutputJsonSchema(String userMessage) {
+        String result = producerTemplate.to("direct:structured-output-json-schema")
+                .withBody(userMessage)
+                .request(String.class);
+
+        return Response.ok(result.trim())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @Path("/auto-provision/simple")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response autoProvisionSimple(String userMessage) {
+        String result = producerTemplate.to("direct:auto-provision-simple")
+                .withBody(userMessage)
+                .request(String.class);
+
+        return Response.ok(result.trim()).build();
+    }
+
+    @Path("/auto-provision/memory")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response autoProvisionMemory(
+            @QueryParam("memoryId") String memoryId,
+            String userMessage) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(MEMORY_ID, memoryId);
+
+        String result = producerTemplate.to("direct:auto-provision-memory")
+                .withBody(userMessage)
+                .withHeaders(headers)
+                .request(String.class);
+
+        return Response.ok(result.trim()).build();
+    }
+
+    @Path("/mcp/server-config")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(value = { MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON })
+    public Response mcpServerConfig(String userMessage) {
+        String result = producerTemplate.to("direct:mcp-server-config")
+                .withBody(userMessage)
+                .request(String.class);
+
+        String contentType = userMessage.contains("JSON") ? MediaType.APPLICATION_JSON : MediaType.TEXT_PLAIN;
+
+        return Response.ok(result.trim())
+                .header(HttpHeaders.CONTENT_TYPE, contentType)
+                .build();
+    }
 }

@@ -228,6 +228,73 @@ class Langchain4jAgentTest {
     }
 
     @Test
+    void structuredOutputWithOutputClass() {
+        RestAssured.given()
+                .body("Return an example JSON object about a person named '%s' with the fields name and description"
+                        .formatted(USER_JOHN))
+                .post("/langchain4j-agent/structured-output/class")
+                .then()
+                .statusCode(200)
+                .body(
+                        "name", is(USER_JOHN),
+                        "description", notNullValue());
+    }
+
+    @Test
+    void structuredOutputWithJsonSchema() {
+        RestAssured.given()
+                .body("Return an example JSON object about a person named '%s' with the fields name and description"
+                        .formatted(USER_JOHN))
+                .post("/langchain4j-agent/structured-output/json-schema")
+                .then()
+                .statusCode(200)
+                .body(
+                        "name", is(USER_JOHN),
+                        "description", notNullValue());
+    }
+
+    @Test
+    void autoProvisionSimple() {
+        RestAssured.given()
+                .body(TEST_USER_MESSAGE_SIMPLE)
+                .post("/langchain4j-agent/auto-provision/simple")
+                .then()
+                .statusCode(200)
+                .body(
+                        not(TEST_USER_MESSAGE_SIMPLE),
+                        containsString("Apache Camel"));
+    }
+
+    @Test
+    void autoProvisionWithMemory() {
+        String memoryId = "auto-provision-memory-1";
+
+        RestAssured.given()
+                .queryParam("memoryId", memoryId)
+                .body("Hello - my name is " + USER_ALICE)
+                .post("/langchain4j-agent/auto-provision/memory")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .queryParam("memoryId", memoryId)
+                .body("And my favorite color is " + USER_FAVORITE_COLOR)
+                .post("/langchain4j-agent/auto-provision/memory")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .queryParam("memoryId", memoryId)
+                .body("Now tell me about myself - what's my name and favorite color?")
+                .post("/langchain4j-agent/auto-provision/memory")
+                .then()
+                .statusCode(200)
+                .body(
+                        containsString(USER_ALICE),
+                        containsString(USER_FAVORITE_COLOR));
+    }
+
+    @Test
     void agentWithMcpClient() {
         boolean isNodeJSInstalled = ConfigProvider.getConfig().getValue("nodejs.installed", boolean.class);
         Assumptions.assumeTrue(isNodeJSInstalled, "Node.js is not installed");
@@ -242,6 +309,28 @@ class Langchain4jAgentTest {
         RestAssured.given()
                 .body("Use your available tools to perform a long running operation for 2 seconds with 2 steps. DO NOT use any markdown formatting in the response.")
                 .post("/langchain4j-agent/mcp/client")
+                .then()
+                .statusCode(200)
+                .body(containsStringIgnoringCase("operation"))
+                .and().body(containsStringIgnoringCase("successfully"))
+                .and().body(containsStringIgnoringCase("executed"));
+    }
+
+    @Test
+    void mcpServerConfig() {
+        boolean isNodeJSInstalled = ConfigProvider.getConfig().getValue("nodejs.installed", boolean.class);
+        Assumptions.assumeTrue(isNodeJSInstalled, "Node.js is not installed");
+
+        RestAssured.given()
+                .body("Please list your available tools. You MUST respond using ONLY valid JSON with tool names as an array. DO NOT add explanations. DO NOT add comments. DO NOT wrap in markdown.")
+                .post("/langchain4j-agent/mcp/server-config")
+                .then()
+                .statusCode(200)
+                .body(".", containsInAnyOrder("add", "echo", "longRunningOperation"));
+
+        RestAssured.given()
+                .body("Use your available tools to perform a long running operation for 2 seconds with 2 steps. DO NOT use any markdown formatting in the response.")
+                .post("/langchain4j-agent/mcp/server-config")
                 .then()
                 .statusCode(200)
                 .body(containsStringIgnoringCase("operation"))

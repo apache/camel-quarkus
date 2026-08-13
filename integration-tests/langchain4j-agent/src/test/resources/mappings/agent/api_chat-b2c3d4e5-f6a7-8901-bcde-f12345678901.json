@@ -1,11 +1,11 @@
 {
-  "id" : "87f109c4-a6de-4770-bab4-8bbbdc5f6d4a",
+  "id" : "b2c3d4e5-f6a7-8901-bcde-f12345678901",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named 'John Doe' with the fields name and description\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"format\" : {\n    \"type\" : \"object\",\n    \"properties\" : {\n      \"name\" : {\n        \"type\" : \"string\",\n        \"description\" : \"The name of the person\"\n      },\n      \"description\" : {\n        \"type\" : \"string\",\n        \"description\" : \"A description of the person\"\n      }\n    },\n    \"required\" : [ \"name\", \"description\" ],\n    \"additionalProperties\" : false\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Return an example JSON object about a person named 'John Doe' with the fields name and description\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : false
     } ]
@@ -18,7 +18,7 @@
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "87f109c4-a6de-4770-bab4-8bbbdc5f6d4a",
+  "uuid" : "b2c3d4e5-f6a7-8901-bcde-f12345678901",
   "persistent" : true,
-  "insertionIndex" : 15
+  "insertionIndex" : 24
 }
