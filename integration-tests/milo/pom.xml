@@ -81,6 +81,8 @@
             </activation>
             <properties>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <!-- TODO: https://github.com/apache/camel-quarkus/issues/9001 -->
+                <quarkus.native.additional-build-args-append>-H:-AOTSingleCallsiteInline</quarkus.native.additional-build-args-append>
             </properties>
             <build>
                 <plugins>
