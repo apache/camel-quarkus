@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.console.it;
 
+import java.util.List;
 import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -63,6 +64,29 @@ class ConsoleTest {
                 .statusCode(200)
                 .body("context.name", is("camel-1"),
                         "context.state", is(ServiceStatus.Started.name()));
+    }
+
+    @Test
+    void propertiesConsoleFiltersCamelMicroProfileSource() {
+        JsonPath response = RestAssured.get("/q/camel/dev-console/properties")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response()
+                .jsonPath();
+
+        List<Map<String, Object>> properties = response.getList("properties.properties");
+
+        assertTrue(properties.stream()
+                .anyMatch(p -> "my.test.property".equals(p.get("key"))
+                        && "hello".equals(p.get("value"))
+                        && "Quarkus".equals(p.get("source"))));
+
+        assertFalse(properties.stream()
+                .anyMatch(p -> {
+                    Object loc = p.get("location");
+                    return loc instanceof String s && s.startsWith("CamelMicroProfilePropertiesSource");
+                }));
     }
 
     @Test
