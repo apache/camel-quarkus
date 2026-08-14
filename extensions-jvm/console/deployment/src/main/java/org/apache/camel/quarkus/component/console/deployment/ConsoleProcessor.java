@@ -36,6 +36,8 @@ import org.apache.camel.quarkus.component.console.CamelConsoleConfig;
 import org.apache.camel.quarkus.component.console.CamelConsoleRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.spi.RuntimePropertiesProvider;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
@@ -47,6 +49,15 @@ class ConsoleProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    CamelRuntimeBeanBuildItem registerRuntimePropertiesProvider(CamelConsoleRecorder recorder) {
+        return new CamelRuntimeBeanBuildItem(
+                "quarkusRuntimePropertiesProvider",
+                RuntimePropertiesProvider.class.getName(),
+                recorder.createRuntimePropertiesProvider());
     }
 
     @BuildStep
@@ -101,13 +112,14 @@ class ConsoleProcessor {
     }
 
     static final class CamelConsoleEnabled implements BooleanSupplier {
-        CamelConsoleConfig config;
+        CamelConsoleConfig camelConsoleConfig;
 
         @Override
         public boolean getAsBoolean() {
-            return config.enabled() || ConfigProvider.getConfig()
-                    .getOptionalValue("camel.main.dev-console-enabled", Boolean.class)
-                    .orElse(false);
+            var config = ConfigProvider.getConfig();
+            return camelConsoleConfig.enabled()
+                    || config.getOptionalValue("camel.main.dev-console-enabled", Boolean.class).orElse(false)
+                    || "dev".equals(config.getOptionalValue("camel.main.profile", String.class).orElse(null));
         }
     }
 }

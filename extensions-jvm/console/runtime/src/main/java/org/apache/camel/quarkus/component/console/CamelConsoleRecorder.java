@@ -50,10 +50,15 @@ public class CamelConsoleRecorder {
     }
 
     public void initDevConsoleRegistry(RuntimeValue<CamelContext> camelContextRuntimeValue) {
-        camelContextRuntimeValue.getValue()
+        DevConsoleRegistry registry = camelContextRuntimeValue.getValue()
                 .getCamelContextExtension()
-                .getContextPlugin(DevConsoleRegistry.class)
-                .loadDevConsoles();
+                .getContextPlugin(DevConsoleRegistry.class);
+        registry.register(new QuarkusPropertiesDevConsole());
+        registry.loadDevConsoles();
+    }
+
+    public RuntimeValue<QuarkusRuntimePropertiesProvider> createRuntimePropertiesProvider() {
+        return new RuntimeValue<>(new QuarkusRuntimePropertiesProvider());
     }
 
     static final class CamelConsoleHandler implements Handler<RoutingContext> {
