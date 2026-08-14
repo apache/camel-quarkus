@@ -26,22 +26,23 @@ import static org.hamcrest.Matchers.hasSize;
 /**
  * Runs the {@code IngestionTracker} behavioural guarantees (mirrored from {@code JdbcIngestionTrackerTest})
  * against a real PostgreSQL server, provisioned by Quarkus Dev Services, through
- * {@link IngestionTrackerResource}.
+ * {@link IngestionTrackerResource}. Each test uses its own pipeline id — the database is shared
+ * across methods and never reset, so isolation comes from the keys.
  */
 @QuarkusTest
 class Langchain4jIngestionTrackerTest {
 
     @Test
     void unknownDocumentReadsEmpty() {
-        RestAssured.get("/ingestion-tracker/p/missing").then().statusCode(404);
+        RestAssured.get("/ingestion-tracker/p-unknown/missing").then().statusCode(404);
     }
 
     @Test
     void intentIsDurableAndNeverSkippable() {
         RestAssured.given()
                 .queryParam("fingerprint", "fp1").queryParam("contentHash", "hash1")
-                .queryParam("committedCount", 0).queryParam("intendedCount", 5).queryParam("origin", "source")
-                .post("/ingestion-tracker/p/doc/intent")
+                .queryParam("intendedCount", 5).queryParam("origin", "source")
+                .post("/ingestion-tracker/p-intent/doc/intent")
                 .then().statusCode(200)
                 .body("status", equalTo("in_progress"))
                 .body("intendedCount", equalTo(5));
@@ -49,11 +50,11 @@ class Langchain4jIngestionTrackerTest {
 
     @Test
     void commitCompletesTheIntent() {
-        writeIntent("p", "doc", "fp1", "hash1", 0, 5, "source");
+        writeIntent("p-commit", "doc", "fp1", "hash1", 5, "source");
 
         RestAssured.given()
                 .queryParam("fingerprint", "fp1").queryParam("contentHash", "hash1").queryParam("segmentCount", 3)
-                .post("/ingestion-tracker/p/doc/commit")
+                .post("/ingestion-tracker/p-commit/doc/commit")
                 .then().statusCode(200)
                 .body("status", equalTo("done"))
                 .body("fingerprint", equalTo("fp1"))
@@ -62,23 +63,41 @@ class Langchain4jIngestionTrackerTest {
     }
 
     @Test
+    void commitWithoutIntentFails() {
+        RestAssured.given()
+                .queryParam("fingerprint", "fp").queryParam("contentHash", "h").queryParam("segmentCount", 1)
+                .post("/ingestion-tracker/p-commit-ghost/ghost/commit")
+                .then().statusCode(500);
+    }
+
+    @Test
     void reintentKeepsTheLargestKnownCount() {
-        writeIntent("p", "doc", "fp1", "hash1", 0, 5, "source");
-        commit("p", "doc", "fp1", "hash1", 5);
-        writeIntent("p", "doc", "fp2", "hash2", 5, 2, "source");
+        writeIntent("p-reintent", "doc", "fp1", "hash1", 5, "source");
+        commit("p-reintent", "doc", "fp1", "hash1", 5);
+        writeIntent("p-reintent", "doc", "fp2", "hash2", 2, "source");
 
         // shrink must still see the previously committed tail
-        RestAssured.get("/ingestion-tracker/p/doc").then()
+        RestAssured.get("/ingestion-tracker/p-reintent/doc").then()
                 .body("segmentCount", equalTo(5));
     }
 
     @Test
+    void reintentBeforeCommitKeepsTheLargestIntendedCount() {
+        writeIntent("p-reintent-crash", "doc", "fp1", "hash1", 5, "source");
+        // no commit — the crashed attempt may have written up to 5 segments
+        writeIntent("p-reintent-crash", "doc", "fp2", "hash2", 2, "source");
+
+        RestAssured.get("/ingestion-tracker/p-reintent-crash/doc").then()
+                .body("intendedCount", equalTo(5));
+    }
+
+    @Test
     void refreshFingerprintTouchesNothingElse() {
-        writeIntent("p", "doc", "fp1", "hash1", 0, 2, "source");
-        commit("p", "doc", "fp1", "hash1", 2);
+        writeIntent("p-refresh", "doc", "fp1", "hash1", 2, "source");
+        commit("p-refresh", "doc", "fp1", "hash1", 2);
 
         RestAssured.given().queryParam("fingerprint", "fp2")
-                .post("/ingestion-tracker/p/doc/refresh-fingerprint")
+                .post("/ingestion-tracker/p-refresh/doc/refresh-fingerprint")
                 .then().statusCode(200)
                 .body("fingerprint", equalTo("fp2"))
                 .body("contentHash", equalTo("hash1"))
@@ -88,52 +107,61 @@ class Langchain4jIngestionTrackerTest {
 
     @Test
     void listDocumentsIsIsolatedByPipeline() {
-        writeIntent("p1", "a", "fp", "h", 0, 1, "source");
-        commit("p1", "a", "fp", "h", 1);
-        writeIntent("p2", "b", "fp", "h", 0, 1, "source");
-        commit("p2", "b", "fp", "h", 1);
+        writeIntent("p-list-a", "a", "fp", "h", 1, "source");
+        commit("p-list-a", "a", "fp", "h", 1);
+        writeIntent("p-list-b", "b", "fp", "h", 1, "source");
+        commit("p-list-b", "b", "fp", "h", 1);
 
-        RestAssured.get("/ingestion-tracker/p1").then()
+        RestAssured.get("/ingestion-tracker/p-list-a").then()
                 .body("", hasSize(1))
                 .body("[0].documentId", equalTo("a"));
     }
 
     @Test
     void deleteRowForgetsTheDocument() {
-        writeIntent("p", "doc", "fp", "h", 0, 1, "source");
-        commit("p", "doc", "fp", "h", 1);
+        writeIntent("p-delete", "doc", "fp", "h", 1, "source");
+        commit("p-delete", "doc", "fp", "h", 1);
 
-        RestAssured.delete("/ingestion-tracker/p/doc").then().statusCode(204);
+        RestAssured.delete("/ingestion-tracker/p-delete/doc").then().statusCode(204);
 
-        RestAssured.get("/ingestion-tracker/p/doc").then().statusCode(404);
-        RestAssured.get("/ingestion-tracker/p").then().body("", hasSize(0));
+        RestAssured.get("/ingestion-tracker/p-delete/doc").then().statusCode(404);
+        RestAssured.get("/ingestion-tracker/p-delete").then().body("", hasSize(0));
     }
 
     @Test
     void tombstoneSurvivesAndLifts() {
-        writeIntent("p", "doc", "fp", "h", 0, 1, "source");
-        commit("p", "doc", "fp", "h", 1);
+        writeIntent("p-tombstone", "doc", "fp", "h", 1, "source");
+        commit("p-tombstone", "doc", "fp", "h", 1);
 
-        RestAssured.post("/ingestion-tracker/p/doc/tombstone").then().body("tombstone", equalTo(true));
-        RestAssured.post("/ingestion-tracker/p/doc/unsuppress").then().body("tombstone", equalTo(false));
+        RestAssured.post("/ingestion-tracker/p-tombstone/doc/tombstone").then().body("tombstone", equalTo(true));
+        RestAssured.post("/ingestion-tracker/p-tombstone/doc/unsuppress").then().body("tombstone", equalTo(false));
+    }
+
+    @Test
+    void tombstoneOfANeverIngestedDocumentCreatesTheSuppressionRow() {
+        RestAssured.post("/ingestion-tracker/p-tombstone-ghost/ghost/tombstone")
+                .then().statusCode(200)
+                .body("tombstone", equalTo(true))
+                .body("status", equalTo("done"))
+                .body("segmentCount", equalTo(0));
     }
 
     @Test
     void pinSurvivesAndLifts() {
-        writeIntent("p", "doc", "fp", "h", 0, 1, "api");
-        commit("p", "doc", "fp", "h", 1);
+        writeIntent("p-pin", "doc", "fp", "h", 1, "api");
+        commit("p-pin", "doc", "fp", "h", 1);
 
-        RestAssured.post("/ingestion-tracker/p/doc/pin").then().body("pinned", equalTo(true));
-        RestAssured.post("/ingestion-tracker/p/doc/unpin").then().body("pinned", equalTo(false));
+        RestAssured.post("/ingestion-tracker/p-pin/doc/pin").then().body("pinned", equalTo(true));
+        RestAssured.post("/ingestion-tracker/p-pin/doc/unpin").then().body("pinned", equalTo(false));
     }
 
     @Test
     void markFailedRecordsTheAttemptAndKeepsCommittedState() {
-        writeIntent("p", "doc", "fp1", "h1", 0, 2, "source");
-        commit("p", "doc", "fp1", "h1", 2);
+        writeIntent("p-fail", "doc", "fp1", "h1", 2, "source");
+        commit("p-fail", "doc", "fp1", "h1", 2);
 
         RestAssured.given().queryParam("fingerprint", "fp2")
-                .post("/ingestion-tracker/p/doc/fail")
+                .post("/ingestion-tracker/p-fail/doc/fail")
                 .then().statusCode(200)
                 .body("status", equalTo("failed"))
                 // the failed attempt's fingerprint gates retries
@@ -143,10 +171,10 @@ class Langchain4jIngestionTrackerTest {
     }
 
     private static void writeIntent(String pipeline, String docId, String fingerprint, String contentHash,
-            int committedCount, int intendedCount, String origin) {
+            int intendedCount, String origin) {
         RestAssured.given()
                 .queryParam("fingerprint", fingerprint).queryParam("contentHash", contentHash)
-                .queryParam("committedCount", committedCount).queryParam("intendedCount", intendedCount)
+                .queryParam("intendedCount", intendedCount)
                 .queryParam("origin", origin)
                 .post("/ingestion-tracker/" + pipeline + "/" + docId + "/intent")
                 .then().statusCode(200);

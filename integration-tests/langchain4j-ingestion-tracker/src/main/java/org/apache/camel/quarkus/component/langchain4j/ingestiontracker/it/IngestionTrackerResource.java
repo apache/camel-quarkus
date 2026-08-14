@@ -20,7 +20,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import jakarta.annotation.PostConstruct;
+import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -38,6 +40,7 @@ import org.apache.camel.quarkus.component.support.langchain4j.tracker.jdbc.JdbcI
  * directly injected test field because {@code @QuarkusIntegrationTest} runs the application as a
  * separate process and cannot use {@code @Inject}.
  */
+@ApplicationScoped
 @Path("/ingestion-tracker")
 public class IngestionTrackerResource {
 
@@ -46,8 +49,7 @@ public class IngestionTrackerResource {
 
     private IngestionTracker tracker;
 
-    @PostConstruct
-    void init() {
+    void init(@Observes StartupEvent startup) {
         tracker = new JdbcIngestionTracker(dataSource);
         tracker.ensureSchema();
     }
@@ -68,9 +70,8 @@ public class IngestionTrackerResource {
     @Path("/{pipeline}/{docId}/intent")
     public TrackerRow writeIntent(@PathParam("pipeline") String pipeline, @PathParam("docId") String docId,
             @QueryParam("fingerprint") String fingerprint, @QueryParam("contentHash") String contentHash,
-            @QueryParam("committedCount") int committedCount, @QueryParam("intendedCount") int intendedCount,
-            @QueryParam("origin") String origin) {
-        tracker.writeIntent(pipeline, docId, fingerprint, contentHash, committedCount, intendedCount, origin);
+            @QueryParam("intendedCount") int intendedCount, @QueryParam("origin") String origin) {
+        tracker.writeIntent(pipeline, docId, fingerprint, contentHash, intendedCount, origin);
         return read(pipeline, docId);
     }
 

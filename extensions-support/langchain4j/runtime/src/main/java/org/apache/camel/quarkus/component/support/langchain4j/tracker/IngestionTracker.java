@@ -65,32 +65,48 @@ public interface IngestionTracker {
     /**
      * Durably records the intent to (re)write a document <em>before</em> the store is touched.
      * A row left {@code in_progress} by a crash is never skipped by change detection, so the
-     * next delivery of the document converges the store.
+     * next delivery of the document converges the store. The recorded intended count is
+     * <em>monotone until commit</em>: a re-intent never lowers it, because once an intent for N
+     * is durable, up to N segments may exist in the store and only a {@link #commit} proves the
+     * sweep happened.
      */
     void writeIntent(String pipeline, String documentId, String fingerprint, String contentHash,
-            int committedCount, int intendedCount, String origin);
+            int intendedCount, String origin);
 
-    /** Marks the write complete. Only rows in {@code done} status participate in skip decisions. */
+    /**
+     * Marks the write complete. Only rows in {@code done} status participate in skip decisions.
+     * Throws {@link IllegalStateException} when no row exists for the key — a commit without a
+     * preceding intent is a protocol violation, never a no-op.
+     */
     void commit(String pipeline, String documentId, String fingerprint, String contentHash, int segmentCount);
 
     /**
      * Refreshes the stored fingerprint of an already-{@code done} row whose content turned out
      * unchanged (tier-2 hash match after a tier-1 fingerprint miss), so the cheaper tier-1 check
-     * skips the document next time.
+     * skips the document next time. Deliberately a silent no-op for rows in any other status: on
+     * a {@code failed} row the fingerprint is the dead-letter gate — the fingerprint of the
+     * attempt that failed — and refreshing it would silently re-arm retries.
      */
     void refreshFingerprint(String pipeline, String documentId, String fingerprint);
 
     /**
      * Marks an explicit delete: the row survives as a suppression record, so the document stays
-     * deleted even while its source file still exists. Lifted with {@link #unsuppress}.
+     * deleted even while its source file still exists. When no row exists (a document deleted
+     * before its first ingest), a pure suppression row is created, so the suppression holds
+     * regardless. Lifted with {@link #unsuppress}.
      */
     void tombstone(String pipeline, String documentId);
 
+    /** Lifts a {@link #tombstone}. A no-op when no row exists. */
     void unsuppress(String pipeline, String documentId);
 
-    /** Pins a document: source updates are suppressed until {@link #unpin}. */
+    /**
+     * Pins a document: source updates are suppressed until {@link #unpin}. A no-op when no row
+     * exists — pinning a document that was never ingested has nothing to protect.
+     */
     void pin(String pipeline, String documentId);
 
+    /** Lifts a {@link #pin}. A no-op when no row exists. */
     void unpin(String pipeline, String documentId);
 
     /** Removes a row entirely — used by deletion-by-disappearance, where nothing needs remembering. */

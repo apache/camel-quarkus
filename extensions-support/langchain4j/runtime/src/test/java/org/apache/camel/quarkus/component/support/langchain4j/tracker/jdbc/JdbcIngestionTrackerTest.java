@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -60,7 +61,7 @@ class JdbcIngestionTrackerTest {
 
     @Test
     void intentIsDurableAndNeverSkippable() {
-        tracker.writeIntent("p", "doc", "fp1", "hash1", 0, 5, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp1", "hash1", 5, IngestionTracker.ORIGIN_SOURCE);
 
         IngestionTracker.TrackerRow row = tracker.read("p", "doc").orElseThrow();
         assertFalse(row.done(), "an intent row must not count as done");
@@ -69,7 +70,7 @@ class JdbcIngestionTrackerTest {
 
     @Test
     void commitCompletesTheIntent() {
-        tracker.writeIntent("p", "doc", "fp1", "hash1", 0, 5, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp1", "hash1", 5, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp1", "hash1", 3);
 
         IngestionTracker.TrackerRow row = tracker.read("p", "doc").orElseThrow();
@@ -80,21 +81,39 @@ class JdbcIngestionTrackerTest {
     }
 
     @Test
+    void commitWithoutIntentThrows() {
+        IllegalStateException e = assertThrows(IllegalStateException.class,
+                () -> tracker.commit("p", "ghost", "fp", "h", 1));
+        assertTrue(e.getMessage().contains("preceding intent"), e.getMessage());
+    }
+
+    @Test
     void reintentKeepsTheLargestKnownCount() {
-        tracker.writeIntent("p", "doc", "fp1", "hash1", 0, 5, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp1", "hash1", 5, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp1", "hash1", 5);
         // a re-intent does not change what the store really holds — the five old segments are
         // still in it, so the committed count has to stay; only commit, which runs after the
         // stale tail was actually removed, may lower the bound
-        tracker.writeIntent("p", "doc", "fp2", "hash2", 5, 2, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp2", "hash2", 2, IngestionTracker.ORIGIN_SOURCE);
 
         assertEquals(5, tracker.read("p", "doc").orElseThrow().maxKnownCount(),
                 "shrink must still see the previously committed tail");
     }
 
     @Test
+    void reintentBeforeCommitKeepsTheLargestIntendedCount() {
+        tracker.writeIntent("p", "doc", "fp1", "hash1", 5, IngestionTracker.ORIGIN_SOURCE);
+        // the consumer may have written up to 5 segments before dying without a commit; a
+        // smaller re-intent must not lower the sweep bound below what may exist in the store
+        tracker.writeIntent("p", "doc", "fp2", "hash2", 2, IngestionTracker.ORIGIN_SOURCE);
+
+        assertEquals(5, tracker.read("p", "doc").orElseThrow().maxKnownCount(),
+                "an uncommitted intent must never lower the sweep bound");
+    }
+
+    @Test
     void refreshFingerprintTouchesNothingElse() {
-        tracker.writeIntent("p", "doc", "fp1", "hash1", 0, 2, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp1", "hash1", 2, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp1", "hash1", 2);
         tracker.refreshFingerprint("p", "doc", "fp2");
 
@@ -106,10 +125,20 @@ class JdbcIngestionTrackerTest {
     }
 
     @Test
+    void refreshFingerprintIgnoresRowsThatAreNotDone() {
+        tracker.writeIntent("p", "doc", "fp1", "h1", 1, IngestionTracker.ORIGIN_SOURCE);
+        tracker.markFailed("p", "doc", "fp-failed");
+        tracker.refreshFingerprint("p", "doc", "fp-new");
+
+        assertEquals("fp-failed", tracker.read("p", "doc").orElseThrow().fingerprint(),
+                "a refresh must not re-arm the dead-letter gate of a failed row");
+    }
+
+    @Test
     void listDocumentsIsIsolatedByPipeline() {
-        tracker.writeIntent("p1", "a", "fp", "h", 0, 1, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p1", "a", "fp", "h", 1, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p1", "a", "fp", "h", 1);
-        tracker.writeIntent("p2", "b", "fp", "h", 0, 1, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p2", "b", "fp", "h", 1, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p2", "b", "fp", "h", 1);
 
         List<IngestionTracker.TrackerRow> rows = tracker.listDocuments("p1");
@@ -119,7 +148,7 @@ class JdbcIngestionTrackerTest {
 
     @Test
     void deleteRowForgetsTheDocument() {
-        tracker.writeIntent("p", "doc", "fp", "h", 0, 1, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp", "h", 1, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp", "h", 1);
         tracker.deleteRow("p", "doc");
 
@@ -129,7 +158,7 @@ class JdbcIngestionTrackerTest {
 
     @Test
     void tombstoneSurvivesAndLifts() {
-        tracker.writeIntent("p", "doc", "fp", "h", 0, 1, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp", "h", 1, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp", "h", 1);
 
         tracker.tombstone("p", "doc");
@@ -141,8 +170,19 @@ class JdbcIngestionTrackerTest {
     }
 
     @Test
+    void tombstoneOfANeverIngestedDocumentCreatesTheSuppressionRow() {
+        tracker.tombstone("p", "ghost");
+
+        IngestionTracker.TrackerRow row = tracker.read("p", "ghost").orElseThrow();
+        assertTrue(row.tombstone(), "a pure suppression row must be created, or the suppression "
+                + "would not survive for a document deleted before its first ingest");
+        assertTrue(row.done());
+        assertEquals(0, row.segmentCount());
+    }
+
+    @Test
     void pinSurvivesAndLifts() {
-        tracker.writeIntent("p", "doc", "fp", "h", 0, 1, IngestionTracker.ORIGIN_API);
+        tracker.writeIntent("p", "doc", "fp", "h", 1, IngestionTracker.ORIGIN_API);
         tracker.commit("p", "doc", "fp", "h", 1);
 
         tracker.pin("p", "doc");
@@ -154,7 +194,7 @@ class JdbcIngestionTrackerTest {
 
     @Test
     void markFailedRecordsTheAttemptAndKeepsCommittedState() {
-        tracker.writeIntent("p", "doc", "fp1", "h1", 0, 2, IngestionTracker.ORIGIN_SOURCE);
+        tracker.writeIntent("p", "doc", "fp1", "h1", 2, IngestionTracker.ORIGIN_SOURCE);
         tracker.commit("p", "doc", "fp1", "h1", 2);
         // the failed attempt's fingerprint has to be persisted, so the tracker knows it was fp2
         // that failed: passes skip the poison document while it still fingerprints as fp2 and
@@ -165,5 +205,30 @@ class JdbcIngestionTrackerTest {
         assertTrue(row.failed());
         assertEquals("fp2", row.fingerprint(), "the failed attempt's fingerprint gates retries");
         assertEquals(2, row.segmentCount(), "previously committed segments keep serving");
+    }
+
+    @Test
+    void markFailedFromInProgressKeepsTheBound() {
+        tracker.writeIntent("p", "doc", "fp1", "h1", 3, IngestionTracker.ORIGIN_SOURCE);
+        tracker.markFailed("p", "doc", "fp1");
+
+        IngestionTracker.TrackerRow row = tracker.read("p", "doc").orElseThrow();
+        assertTrue(row.failed());
+        assertEquals(0, row.segmentCount(), "nothing was ever committed");
+        assertEquals(3, row.maxKnownCount(),
+                "the failed intent's bound must survive — up to 3 segments may sit in the store");
+    }
+
+    @Test
+    void preProvisionedModeRequiresTheTableToExist() {
+        JdbcDataSource fresh = new JdbcDataSource();
+        fresh.setURL("jdbc:h2:mem:" + UUID.randomUUID() + ";DB_CLOSE_DELAY=-1");
+
+        JdbcIngestionTracker probing = new JdbcIngestionTracker(fresh, false);
+        assertThrows(IllegalStateException.class, probing::ensureSchema,
+                "without DDL rights the tracker must refuse loudly, not fail on first use");
+
+        new JdbcIngestionTracker(fresh).ensureSchema();
+        probing.ensureSchema();
     }
 }

@@ -84,9 +84,18 @@ transition except `deleteRow`, which removes the row whole.
 reference implementation: deliberately dialect-free SQL (upserts are update-then-insert inside
 application code rather than vendor `MERGE`/`ON CONFLICT`), using only JDK types, so the same
 code runs unmodified against PostgreSQL and H2. It owns its own schema
-(`cq_ingestion_tracker`, created on first use via `ensureSchema()`) and expects to be handed a
+(`camel_quarkus_ingestion_tracker`, created on first use via `ensureSchema()`; document ids up
+to 1024 characters, the S3 object-key maximum) and expects to be handed a
 `javax.sql.DataSource` — in a Quarkus application that's typically an Agroal-managed datasource,
-with Dev Services providing one automatically in dev/test when none is configured.
+with Dev Services providing one automatically in dev/test when none is configured. Operators who
+run the application's DB user without DDL privileges can pre-provision the table and construct
+the tracker with `createTableIfNotExists = false`, in which case `ensureSchema()` only probes
+that the table exists (the same escape hatch camel-sql's `JdbcMessageIdRepository` offers).
+
+NOTE: the tracker table is a durable inventory of the corpus. Document content never lands in
+it, but `doc_id` values are typically paths, URLs or object keys, and those routinely encode
+sensitive structure (`/customers/12345/contract.pdf`). Document ids also appear in exception
+messages, so they reach logs and stack traces.
 
 `JdbcIngestionTrackerTest` (in this module) pins the behavioural guarantees every implementation
 must satisfy (durability of in-progress intents, shrink-bound tracking across re-intents,
