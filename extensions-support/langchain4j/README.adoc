@@ -45,18 +45,21 @@ the annotations in parentheses describe when the consumer (the ingestion pipelin
     ├─ writeIntent ──► in_progress    (edited content: replace; the shrink bound
     │                                  max(committed, intended) rides along in the row)
     │
-    ├─ markFailed ──► failed          (processing failure — also fired straight from
-    │      │                           in_progress; previously committed segments, if
-    │      │                           any — a stale but valid version — keep serving)
+    ├─ markFailed ──► failed          (content-attributable failure only — infrastructure
+    │      │                           failures after the intent instead leave the row
+    │      │                           in_progress and are retried; previously committed
+    │      │                           segments, if any — stale but valid — keep serving)
     │      │
     │      ├─ (fingerprint unchanged) ──► failed   dead-lettered: skipped on every
     │      │                                       pass until the content changes
     │      │
     │      └─ writeIntent ──► in_progress          (changed content: retry)
     │
-    ├─ tombstone() ──► done(0) + tombstone    (explicit delete: the consumer removes
-    │      │                                   the vectors and records commit(0) with
-    │      │                                   the flag) — "deleted stays deleted":
+    ├─ tombstone() ──► done(0) + tombstone    (explicit delete: the flag is written first,
+    │      │                                   then vectors removed, then commit(0) — a
+    │      │                                   crash fails toward "suppressed", never
+    │      │                                   toward a reverting delete) — "deleted stays
+    │      │                                   deleted":
     │      │                                   every future ingest of the document is
     │      │                                   suppressed, even though the source
     │      │                                   still has it
@@ -114,3 +117,101 @@ public API — no compatibility guarantees between releases, and applications mu
 call it directly; it may change or be removed without a deprecation cycle. It exists so the
 implementation can be replaced wholesale later. It is not yet wired into a user-facing extension;
 it is consumed by the upcoming `langchain4j-ingest` extension's `sync` mode.
+
+== Sync engine
+
+Status: *Experimental* — the same caveats as the tracker above: internal, not yet consumed by any
+user-facing extension, groundwork for the upcoming `langchain4j-ingest` extension.
+
+`org.apache.camel.quarkus.component.support.langchain4j.ingest` is the engine that drives the
+document states above — deliberately free of Camel imports, so that together with the tracker it
+forms the unit that could one day be replaced by (or proposed to) an upstream LangChain4j
+record-manager mechanism:
+
+* `IngestService` — the write path for one document: tier-1 fingerprint / tier-2 content-hash
+  change detection, deterministic segment ids, the `writeIntent` → store write → shrink-remove →
+  `commit` protocol, and a per-store write strategy (`upsert` for stores whose same-id write
+  overwrites; `remove-then-add` for stores that keep or mix old content on same-id writes).
+  Embedding calls are batched and optionally rate-limited.
+* `SyncPassRunner` — one bounded synchronisation pass over a complete source listing, ending in
+  reconciliation (tracker-versus-source, the store is never enumerated) behind the safety
+  interlock: a pass with any failure deletes nothing, a bulk-delete floor refuses to remove more
+  than a configured fraction of the corpus without explicit consent, and only `origin=source`
+  rows are ever deletion candidates.
+* `IngestIds` — deterministic RFC 4122 name-based (v5) segment ids: the same
+  `(pipeline, documentId, segmentIndex)` always yields the same id, which is what turns
+  re-ingestion into overwrite instead of duplication and makes crashes converge.
+* `IngestResult` — the per-document outcome (`ingested`, `replaced`, `skipped-unchanged`,
+  `suppressed-*`, `dead-lettered`, `deleted`, `empty`).
+
+=== How `IngestService` decides
+
+One delivery of one document walks the gates below, in code order. The shape to notice is the
+cost ladder: each gate exits earlier and cheaper than the next — gates 1–4 cost a single tracker
+read (tier 1 does not even fetch the document, which is why an unchanged corpus restarts for
+free), gates 5–6 add a fetch and a hash, and only step 7 pays for splitting, embedding and store
+writes. The suppression gates sit above everything deliberately: a tombstone or pin wins before
+any content is looked at.
+
+----
+ingest(docId, fingerprint, textSupplier, origin, tenant)
+│
+├─ docId null/blank ─────────────────────────► throw IllegalArgumentException
+│
+├─ tracker == null?  (APPEND MODE)
+│    ├─ text blank ──────────────────────────► EMPTY        [fetched; nothing else]
+│    └─ split → metadata → embed → store.addAll(derived ids)
+│                                             ► INGESTED    [no tracker at all]
+│
+└─ SYNC MODE — read the tracker row, then:
+   │
+   ├─ 1. row.tombstone? ─────────────────────► SUPPRESSED_TOMBSTONE  [nothing touched:
+   │        "deleted stays deleted"                                    no fetch, no store]
+   │
+   ├─ 2. row.pinned && origin == SOURCE? ────► SUPPRESSED_PINNED     [nothing touched:
+   │        "the correction wins"; API writes pass through             no fetch, no store]
+   │
+   ├─ 3. row.failed && fingerprint == row's? ► DEAD_LETTERED         [nothing touched:
+   │        same content already failed — retry only when it changes; fingerprint-less
+   │        sources gate on the content hash instead, right after step 6]
+   │
+   │    (note: origin == API over a source-owned row ⇒ remember pinAfterWrite)
+   │
+   ├─ 4. TIER 1  row.done && fingerprint == row's?
+   │            ─────────────────────────────► SKIPPED_UNCHANGED     [not even FETCHED —
+   │        the skip that makes restarts free]                         zero cost]
+   │
+   ├─ 5. fetch text via supplier … blank? ───► EMPTY                 [fetched; keep the
+   │        (glitch-proofing: never empty a KB on a blank read)        previous version]
+   │
+   ├─ 6. TIER 2  row.done && contentHash == row's?
+   │        ├─ refreshFingerprint (so tier 1 works next pass)
+   │        └────────────────────────────────► SKIPPED_UNCHANGED     [fetched + hashed;
+   │        (fingerprint moved, bytes didn't — touch/re-upload case)   store untouched]
+   │
+   └─ 7. THE WRITE PROTOCOL  (content genuinely new or changed)
+        split → metadata → derive ids 0…newCount-1
+        maxKnown = max(row.committed, row.intended)   (0 if no row)
+        │
+        ├─ a. tracker.writeIntent(newCount)            durable BEFORE the store
+        ├─ b. REMOVE_THEN_ADD && maxKnown > 0?
+        │        store.removeAll(ids 0…maxKnown-1)     clear the old generation first
+        │        (chroma/milvus: same-id write would keep or mix old content)
+        ├─ c. per batch: throttle → embedAll → store.addAll(ids…)
+        ├─ d. UPSERT && maxKnown > newCount?
+        │        store.removeAll(ids newCount…maxKnown-1)   the shrink tail
+        ├─ e. tracker.commit(newCount)
+        └─ f. pinAfterWrite? tracker.pin
+                 │
+                 ├─ row existed (maxKnown > 0) ──────► REPLACED
+                 └─ first time ─────────────────────► INGESTED
+
+ failure typing: anything thrown in b–e is infrastructure — the row stays in_progress, the
+ next delivery retries and converges, and it is NEVER dead-lettered (a transient provider
+ outage must not freeze or drop a document). Only failures before the intent (fetch, split)
+ are content-attributable and dead-letter material.
+----
+
+The engine's invariants are pinned by `IngestSyncProtocolTest` (skip tiers, replace without
+duplicates, shrink, both write strategies, crash convergence) and `SyncPassRunnerTest` (the
+deletion interlock, tombstone/pin behaviour over passes, dead-letter retry semantics).

@@ -39,6 +39,14 @@
             <artifactId>quarkus-jackson</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <!-- optional: only the ingestion engine (IngestIds) needs it, and that is not yet
+                 wired into any extension — consumers of this support module must not inherit
+                 the jar. The future langchain4j-ingest extension declares it explicitly. -->
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
         </dependency>
