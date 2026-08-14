@@ -49,19 +49,45 @@ import org.apache.camel.quarkus.component.support.langchain4j.tracker.IngestionT
  */
 public class JdbcIngestionTracker implements IngestionTracker {
 
-    static final String TABLE = "cq_ingestion_tracker";
+    /**
+     * Concatenated into every statement: this must never become caller-supplied without strict
+     * identifier validation, or the class turns into an SQL injection vector.
+     */
+    static final String TABLE = "camel_quarkus_ingestion_tracker";
 
     private final DataSource dataSource;
+    private final boolean createTableIfNotExists;
 
     public JdbcIngestionTracker(DataSource dataSource) {
+        this(dataSource, true);
+    }
+
+    /**
+     * @param createTableIfNotExists when {@code false}, {@link #ensureSchema()} only probes that
+     *                               a pre-provisioned table exists, so the runtime DB user needs
+     *                               no DDL privilege (mirrors camel-sql's
+     *                               {@code JdbcMessageIdRepository}). When this surfaces as a
+     *                               configuration option it must be {@code ConfigPhase.RUN_TIME}.
+     */
+    public JdbcIngestionTracker(DataSource dataSource, boolean createTableIfNotExists) {
         this.dataSource = dataSource;
+        this.createTableIfNotExists = createTableIfNotExists;
     }
 
     @Override
     public void ensureSchema() {
+        if (!createTableIfNotExists) {
+            if (!tableExists()) {
+                throw new IllegalStateException(
+                        "The ingestion tracker table '" + TABLE + "' does not exist and table creation is "
+                                + "disabled. Pre-provision the table or enable createTableIfNotExists.");
+            }
+            return;
+        }
         String ddl = "CREATE TABLE IF NOT EXISTS " + TABLE + " ("
                 + "pipeline VARCHAR(128) NOT NULL, "
-                + "doc_id VARCHAR(512) NOT NULL, "
+                // 1024: the S3 object-key maximum; file paths and URLs used as ids fit as well
+                + "doc_id VARCHAR(1024) NOT NULL, "
                 + "fingerprint VARCHAR(256), "
                 + "content_hash VARCHAR(64), "
                 + "segment_count INT DEFAULT 0 NOT NULL, "
@@ -72,14 +98,26 @@ public class JdbcIngestionTracker implements IngestionTracker {
                 + "pinned BOOLEAN DEFAULT FALSE NOT NULL, "
                 + "updated_at TIMESTAMP, "
                 + "PRIMARY KEY (pipeline, doc_id))";
-        try (Connection connection = dataSource.getConnection()) {
-            connection.createStatement().execute(ddl);
+        try (Connection connection = dataSource.getConnection();
+                java.sql.Statement statement = connection.createStatement()) {
+            statement.execute(ddl);
         } catch (SQLException e) {
             throw new IllegalStateException(
                     "Cannot create the ingestion tracker table '" + TABLE + "'. "
                             + "mode=sync needs a working datasource — configure quarkus.datasource "
                             + "(Dev Services provides one in dev mode) or use mode=append.",
                     e);
+        }
+    }
+
+    private boolean tableExists() {
+        try (Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "SELECT 1 FROM " + TABLE + " WHERE 1 = 0")) {
+            statement.executeQuery();
+            return true;
+        } catch (SQLException e) {
+            return false;
         }
     }
 
@@ -135,35 +173,39 @@ public class JdbcIngestionTracker implements IngestionTracker {
 
     @Override
     public void writeIntent(String pipeline, String documentId, String fingerprint, String contentHash,
-            int committedCount, int intendedCount, String origin) {
+            int intendedCount, String origin) {
         try (Connection connection = dataSource.getConnection()) {
+            // intended_count is monotone until commit: once an intent for N was durable, up to N
+            // segments may exist in the store, so a smaller re-intent must never lower the bound
+            // — only a commit, which runs after the sweep, may collapse it
             String update = "UPDATE " + TABLE + " SET fingerprint = ?, content_hash = ?, "
-                    + "intended_count = ?, status = 'in_progress', origin = ?, updated_at = ? "
+                    + "intended_count = CASE WHEN intended_count > ? THEN intended_count ELSE ? END, "
+                    + "status = 'in_progress', origin = ?, updated_at = ? "
                     + "WHERE pipeline = ? AND doc_id = ?";
             int updated;
             try (PreparedStatement statement = connection.prepareStatement(update)) {
                 statement.setString(1, fingerprint);
                 statement.setString(2, contentHash);
                 statement.setInt(3, intendedCount);
-                statement.setString(4, origin);
-                statement.setTimestamp(5, Timestamp.from(Instant.now()));
-                statement.setString(6, pipeline);
-                statement.setString(7, documentId);
+                statement.setInt(4, intendedCount);
+                statement.setString(5, origin);
+                statement.setTimestamp(6, Timestamp.from(Instant.now()));
+                statement.setString(7, pipeline);
+                statement.setString(8, documentId);
                 updated = statement.executeUpdate();
             }
             if (updated == 0) {
                 String insert = "INSERT INTO " + TABLE
                         + " (pipeline, doc_id, fingerprint, content_hash, segment_count, intended_count, "
-                        + "status, origin, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'in_progress', ?, ?)";
+                        + "status, origin, updated_at) VALUES (?, ?, ?, ?, 0, ?, 'in_progress', ?, ?)";
                 try (PreparedStatement statement = connection.prepareStatement(insert)) {
                     statement.setString(1, pipeline);
                     statement.setString(2, documentId);
                     statement.setString(3, fingerprint);
                     statement.setString(4, contentHash);
-                    statement.setInt(5, committedCount);
-                    statement.setInt(6, intendedCount);
-                    statement.setString(7, origin);
-                    statement.setTimestamp(8, Timestamp.from(Instant.now()));
+                    statement.setInt(5, intendedCount);
+                    statement.setString(6, origin);
+                    statement.setTimestamp(7, Timestamp.from(Instant.now()));
                     statement.executeUpdate();
                 }
             }
@@ -174,7 +216,21 @@ public class JdbcIngestionTracker implements IngestionTracker {
 
     @Override
     public void tombstone(String pipeline, String documentId) {
-        setFlag(pipeline, documentId, "tombstone", true);
+        if (setFlag(pipeline, documentId, "tombstone", true) == 0) {
+            // deleted before ever ingested: create a pure suppression row so the tombstone holds
+            String insert = "INSERT INTO " + TABLE
+                    + " (pipeline, doc_id, segment_count, intended_count, status, origin, tombstone, "
+                    + "updated_at) VALUES (?, ?, 0, 0, 'done', 'api', TRUE, ?)";
+            try (Connection connection = dataSource.getConnection();
+                    PreparedStatement statement = connection.prepareStatement(insert)) {
+                statement.setString(1, pipeline);
+                statement.setString(2, documentId);
+                statement.setTimestamp(3, Timestamp.from(Instant.now()));
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new IllegalStateException("Tracker tombstone insert failed for '" + documentId + "'", e);
+            }
+        }
     }
 
     @Override
@@ -192,7 +248,7 @@ public class JdbcIngestionTracker implements IngestionTracker {
         setFlag(pipeline, documentId, "pinned", false);
     }
 
-    private void setFlag(String pipeline, String documentId, String column, boolean value) {
+    private int setFlag(String pipeline, String documentId, String column, boolean value) {
         String sql = "UPDATE " + TABLE + " SET " + column + " = ?, updated_at = ? "
                 + "WHERE pipeline = ? AND doc_id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -201,7 +257,7 @@ public class JdbcIngestionTracker implements IngestionTracker {
             statement.setTimestamp(2, Timestamp.from(Instant.now()));
             statement.setString(3, pipeline);
             statement.setString(4, documentId);
-            statement.executeUpdate();
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException("Tracker " + column + " update failed for '" + documentId + "'", e);
         }
@@ -221,6 +277,10 @@ public class JdbcIngestionTracker implements IngestionTracker {
                 updated = statement.executeUpdate();
             }
             if (updated == 0) {
+                // a failed row with no prior intent can only originate from a source pass — a
+                // failure before the intent is written (e.g. the content supplier throwing) is
+                // dead-lettered by the pass runner, while API-path failures propagate
+                // synchronously to the caller and never reach markFailed — hence 'source'
                 String insert = "INSERT INTO " + TABLE
                         + " (pipeline, doc_id, fingerprint, status, origin, updated_at) "
                         + "VALUES (?, ?, ?, 'failed', 'source', ?)";
@@ -264,7 +324,11 @@ public class JdbcIngestionTracker implements IngestionTracker {
             statement.setTimestamp(5, Timestamp.from(Instant.now()));
             statement.setString(6, pipeline);
             statement.setString(7, documentId);
-            statement.executeUpdate();
+            if (statement.executeUpdate() == 0) {
+                throw new IllegalStateException(
+                        "Commit without a preceding intent for '" + documentId + "' in pipeline '"
+                                + pipeline + "' — the two-phase protocol requires writeIntent first");
+            }
         } catch (SQLException e) {
             throw new IllegalStateException("Tracker commit failed for '" + documentId + "'", e);
         }

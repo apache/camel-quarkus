@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-langchain4j-ingestion-tracker</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: LangChain4j Sync Tracker</name>
+    <name>Camel Quarkus :: Integration Tests :: LangChain4j Ingestion Tracker</name>
     <description>Integration tests for the JDBC ingestion tracker against a real PostgreSQL database</description>
 
     <dependencies>
