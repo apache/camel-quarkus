@@ -66,6 +66,10 @@ class InfinispanClusterServiceTest {
             }
         }
 
+        // Use a distinct cluster service ID so the follower is not mistaken for the
+        // leader recovering from a crash by InfinispanRemoteClusterView's lock logic
+        jvmArgs.add("-Dquarkus.camel.cluster.infinispan.id=follower");
+
         // Start secondary application process
         QuarkusProcessExecutor quarkusProcessExecutor = new QuarkusProcessExecutor(jvmArgs.toArray(String[]::new));
         StartedProcess process = quarkusProcessExecutor.start();
