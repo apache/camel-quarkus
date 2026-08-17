@@ -27,9 +27,9 @@ import static org.hamcrest.Matchers.not;
 
 /**
  * Verifies explicit single-augmentor configuration: a single named augmentor is
- * configured via {@code quarkus.camel.langchain4j.rag.augmentors.products}, so
- * it is also marked as {@code defaultBean()} for auto-discovery by
- * {@code @RegisterAiService}.
+ * configured via {@code quarkus.camel.langchain4j.rag.augmentors.products}, and with
+ * nothing to be ambiguous with it serves the unqualified lookup of
+ * {@code @RegisterAiService} without needing {@code default=true}.
  *
  * <p>
  * No {@code @QuarkusIntegrationTest} counterpart exists because this test uses

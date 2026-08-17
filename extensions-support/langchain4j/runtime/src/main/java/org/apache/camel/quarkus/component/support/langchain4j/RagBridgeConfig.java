@@ -22,6 +22,8 @@ import java.util.Optional;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
 // BUILD_AND_RUN_TIME_FIXED: augmentor bean definitions are baked in at build time and cannot change at runtime
 @ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
@@ -54,5 +56,15 @@ public interface RagBridgeConfig {
          * When not set, the default (unnamed) EmbeddingModel is used.
          */
         Optional<String> embeddingModelName();
+
+        /**
+         * Marks this augmentor as the one {@code @RegisterAiService} AI services use when they
+         * do not select an augmentor explicitly. Exactly one augmentor must be marked when more
+         * than one is configured — otherwise the build fails, because an unmarked ambiguity
+         * would silently disable RAG for every AI service in the application.
+         */
+        @WithName("default")
+        @WithDefault("false")
+        boolean defaultAugmentor();
     }
 }
