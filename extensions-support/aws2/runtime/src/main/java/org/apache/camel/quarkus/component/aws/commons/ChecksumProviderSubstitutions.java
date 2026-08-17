@@ -37,7 +37,10 @@ final class AwsChecksumSubstitutions {
 /**
  * Avoids references to types that are only available if aws-crt is on the classpath.
  */
-@TargetClass(value = ChecksumProvider.class, onlyWith = ChecksumProviderSubstitutions.AwsCrtIsAbsent.class)
+@TargetClass(value = ChecksumProvider.class, onlyWith = {
+        ChecksumProviderSubstitutions.AwsCrtIsAbsent.class,
+        ChecksumProviderSubstitutions.QuarkusAmazonCrtSubstitutionsAbsent.class
+})
 final class ChecksumProviderSubstitutions {
     @Substitute
     static SdkChecksum crc64NvmeCrtImplementation() {
@@ -63,6 +66,23 @@ final class ChecksumProviderSubstitutions {
         public boolean getAsBoolean() {
             try {
                 Thread.currentThread().getContextClassLoader().loadClass(CRT_CRC64NVME_PATH);
+                return false;
+            } catch (ClassNotFoundException e) {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * Skip these substitutions when Quarkus Amazon Services already registers an equivalent
+     * (and broader) ChecksumProvider substitution.
+     */
+    public static final class QuarkusAmazonCrtSubstitutionsAbsent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Thread.currentThread().getContextClassLoader()
+                        .loadClass("io.quarkiverse.amazon.common.runtime.CrtSubstitutions");
                 return false;
             } catch (ClassNotFoundException e) {
                 return true;
