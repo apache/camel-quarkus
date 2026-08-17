@@ -51,6 +51,7 @@ group-02:
   - langchain4j-agent
   - langchain4j-agent-bean-binding-ql4j
   - langchain4j-agent-ql4j
+  - langchain4j-ingestion-tracker
   - oaipmh
   - ocsf
   - pubnub

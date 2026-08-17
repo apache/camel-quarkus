@@ -166,6 +166,7 @@
         <module>langchain4j-chat</module>
         <module>langchain4j-embeddings</module>
         <module>langchain4j-embeddingstore</module>
+        <module>langchain4j-ingestion-tracker</module>
         <module>langchain4j-rag-bridge-ql4j</module>
         <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
