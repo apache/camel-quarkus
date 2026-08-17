@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import dev.langchain4j.data.segment.TextSegment;
@@ -26,6 +27,7 @@ import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.quarkiverse.langchain4j.EmbeddingStoreName;
 import io.quarkus.arc.Arc;
+import io.quarkus.arc.InstanceHandle;
 import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.enterprise.util.TypeLiteral;
 import org.jboss.logging.Logger;
@@ -42,6 +44,7 @@ public class DefaultRetrievalAugmentorSupplier implements Supplier<RetrievalAugm
     private static final TypeLiteral<EmbeddingStore<TextSegment>> EMBEDDING_STORE_TYPE = new TypeLiteral<>() {
     };
 
+    private final String augmentorName;
     private final String embeddingStoreName;
     private final String embeddingModelName;
 
@@ -50,8 +53,14 @@ public class DefaultRetrievalAugmentorSupplier implements Supplier<RetrievalAugm
     }
 
     public DefaultRetrievalAugmentorSupplier(String embeddingStoreName, String embeddingModelName) {
+        this(embeddingStoreName, embeddingModelName, null);
+    }
+
+    public DefaultRetrievalAugmentorSupplier(String embeddingStoreName, String embeddingModelName,
+            String augmentorName) {
         this.embeddingStoreName = embeddingStoreName;
         this.embeddingModelName = embeddingModelName;
+        this.augmentorName = augmentorName;
     }
 
     @Override
@@ -95,11 +104,33 @@ public class DefaultRetrievalAugmentorSupplier implements Supplier<RetrievalAugm
                 + " (store=%s, model=%s)", embeddingStoreName != null ? embeddingStoreName : "@Default",
                 embeddingModelName != null ? embeddingModelName : "@Default");
 
+        EmbeddingStoreContentRetriever.EmbeddingStoreContentRetrieverBuilder retriever = EmbeddingStoreContentRetriever
+                .builder()
+                .embeddingStore(store)
+                .embeddingModel(model);
+
+        // The retrieval-side isolation hook: segment metadata written at ingestion time becomes
+        // an actual access control. Resolved with listAll rather than instance(), which matches
+        // on @Default only and answers "unavailable" for an ambiguity - either would drop the
+        // filter silently and serve every tenant's documents. The build rejects both cases; this
+        // is the second line of defence.
+        List<InstanceHandle<RagRetrievalFilterSupplier>> filterSuppliers = Arc.container()
+                .listAll(RagRetrievalFilterSupplier.class);
+        if (filterSuppliers.size() > 1) {
+            throw new IllegalStateException("Found " + filterSuppliers.size()
+                    + " RagRetrievalFilterSupplier beans, expected at most one: "
+                    + filterSuppliers.stream().map(handle -> handle.getBean().getBeanClass().getName()).toList());
+        }
+        if (!filterSuppliers.isEmpty()) {
+            RagRetrievalFilterSupplier filterSupplier = filterSuppliers.get(0).get();
+            retriever.dynamicFilter(query -> filterSupplier.filter(query, augmentorName, embeddingStoreName));
+            LOG.debugf("Retrieval filter %s active for augmentor '%s' over store '%s'",
+                    filterSupplier.getClass().getName(), augmentorName,
+                    embeddingStoreName != null ? embeddingStoreName : "@Default");
+        }
+
         return DefaultRetrievalAugmentor.builder()
-                .contentRetriever(EmbeddingStoreContentRetriever.builder()
-                        .embeddingStore(store)
-                        .embeddingModel(model)
-                        .build())
+                .contentRetriever(retriever.build())
                 .build();
     }
 }

@@ -23,8 +23,13 @@ import io.quarkus.test.junit.QuarkusTestProfile;
 public class MultiAugmentorProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
+        // Two augmentors require exactly one designated default — without the marking the build
+        // fails (see SupportQuarkusLangchain4jProcessor.resolveDesignatedDefault and its test)
         return Map.of(
                 "quarkus.camel.langchain4j.rag.augmentors.products.embedding-store-name", "products",
-                "quarkus.camel.langchain4j.rag.augmentors.support.embedding-store-name", "support");
+                "quarkus.camel.langchain4j.rag.augmentors.products.default", "true",
+                // the same store on purpose: this augmentor is here to prove that the non-default
+                // one stays selectable by name, so creating it must not fail on a missing store
+                "quarkus.camel.langchain4j.rag.augmentors.support.embedding-store-name", "products");
     }
 }
