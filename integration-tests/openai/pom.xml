@@ -41,6 +41,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-mcp-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-openai</artifactId>
         </dependency>
         <dependency>
@@ -132,6 +136,19 @@
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-file-deployment</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-mcp-server-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>
