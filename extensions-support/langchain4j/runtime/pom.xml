@@ -39,6 +39,14 @@
             <artifactId>quarkus-jackson</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <!-- optional: only the ingestion engine (IngestIds) needs it, and that is not yet
+                 wired into any extension — consumers of this support module must not inherit
+                 the jar. The future langchain4j-ingest extension declares it explicitly. -->
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
         </dependency>
@@ -64,6 +72,18 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-langchain4j-agent</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

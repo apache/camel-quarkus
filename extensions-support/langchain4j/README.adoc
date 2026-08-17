@@ -1,0 +1,217 @@
+= LangChain4j Support
+
+This module provides common support code shared by Camel Quarkus LangChain4j extensions.
+
+== Ingestion tracker
+
+Status: *Experimental*.
+
+`org.apache.camel.quarkus.component.support.langchain4j.tracker.IngestionTracker` is the bookkeeping
+SPI behind keeping a vector store in sync with a changing document source (files, buckets, feeds,
+...). Vector stores cannot be enumerated for "what did I already ingest", and LangChain4j has no
+equivalent of LangChain-Python's `RecordManager`
+(https://github.com/langchain4j/langchain4j/issues/2931[langchain4j#2931]), so without external
+bookkeeping any ingestion pipeline is either append-only (restarts re-embed the whole corpus,
+edited documents join their previous vectors instead of replacing them) or wipe-and-reload
+(loses everything between passes). `IngestionTracker` closes that gap: it tracks one row per document
+— fingerprint, content hash, segment count, a two-phase `in_progress`/`done`/`failed` status,
+and `tombstone`/`pinned` flags — as the single authority on what was ingested. The vector store
+itself stays a disposable projection that is never asked questions; losing the tracker only costs
+re-ingestion, never correctness, because segment ids are deterministic.
+
+The two-phase `writeIntent`/`commit` protocol is what makes the tracker crash-safe: a row left
+`in_progress` by a crash (killed process, OOM, ...) is never mistaken for "already ingested", so
+the next delivery of the same document converges the store instead of skipping it.
+
+=== Document states
+
+Each document is one row that moves through the states below. Transitions are the SPI methods;
+the annotations in parentheses describe when the consumer (the ingestion pipeline) invokes them.
+
+----
+ (no row)
+    │  writeIntent                 durable BEFORE the store is touched; a crash strands
+    ▼                              the row here, and an in_progress row is never trusted
+ in_progress                       as "already ingested" — the next delivery of the
+    │  commit                      document converges the store
+    ▼
+  done ◄──────────────────────┐
+    │                         │
+    ├─ (unchanged) ──► done   │  no transition: the skip that makes restarts free
+    │                         │
+    ├─ refreshFingerprint ────┘  fingerprint renewed after a content-hash match
+    │                            (tier-2), so the cheap tier-1 check works next pass
+    │
+    ├─ writeIntent ──► in_progress    (edited content: replace; the shrink bound
+    │                                  max(committed, intended) rides along in the row)
+    │
+    ├─ markFailed ──► failed          (content-attributable failure only — infrastructure
+    │      │                           failures after the intent instead leave the row
+    │      │                           in_progress and are retried; previously committed
+    │      │                           segments, if any — stale but valid — keep serving)
+    │      │
+    │      ├─ (fingerprint unchanged) ──► failed   dead-lettered: skipped on every
+    │      │                                       pass until the content changes
+    │      │
+    │      └─ writeIntent ──► in_progress          (changed content: retry)
+    │
+    ├─ tombstone() ──► done(0) + tombstone    (explicit delete: the flag is written first,
+    │      │                                   then vectors removed, then commit(0) — a
+    │      │                                   crash fails toward "suppressed", never
+    │      │                                   toward a reverting delete) — "deleted stays
+    │      │                                   deleted":
+    │      │                                   every future ingest of the document is
+    │      │                                   suppressed, even though the source
+    │      │                                   still has it
+    │      │
+    │      └─ unsuppress() ──► done(0)         suppression lifted: the next pass
+    │                                          re-ingests the document
+    │
+    └─ pin() ──► done + pinned        (an API write corrected a source-owned document)
+           │                           — "the correction wins": source-origin updates
+           │                           are suppressed; API-origin writes still pass
+           │
+           └─ unpin() ──► done         the source owns the document again
+
+ any state ── deleteRow ──► (no row)   reconciliation: the source no longer lists the
+                                       document (guarded by the consumer's pass
+                                       interlock, never fired by the tracker itself)
+----
+
+`tombstone` and `pinned` are columns orthogonal to `status`: drawn above off `done` because
+that is how the consumer composes them, but they can accompany any state (a tombstone can even
+be recorded for a never-ingested document, as a pure suppression record) and they survive every
+transition except `deleteRow`, which removes the row whole.
+
+`org.apache.camel.quarkus.component.support.langchain4j.tracker.jdbc.JdbcIngestionTracker` is the
+reference implementation: deliberately dialect-free SQL (upserts are update-then-insert inside
+application code rather than vendor `MERGE`/`ON CONFLICT`), using only JDK types, so the same
+code runs unmodified against PostgreSQL and H2. It owns its own schema
+(`camel_quarkus_ingestion_tracker`, created on first use via `ensureSchema()`; document ids up
+to 1024 characters, the S3 object-key maximum) and expects to be handed a
+`javax.sql.DataSource` — in a Quarkus application that's typically an Agroal-managed datasource,
+with Dev Services providing one automatically in dev/test when none is configured. Operators who
+run the application's DB user without DDL privileges can pre-provision the table and construct
+the tracker with `createTableIfNotExists = false`, in which case `ensureSchema()` only probes
+that the table exists (the same escape hatch camel-sql's `JdbcMessageIdRepository` offers).
+
+NOTE: the tracker table is a durable inventory of the corpus. Document content never lands in
+it, but `doc_id` values are typically paths, URLs or object keys, and those routinely encode
+sensitive structure (`/customers/12345/contract.pdf`). Document ids also appear in exception
+messages, so they reach logs and stack traces.
+
+`JdbcIngestionTrackerTest` (in this module) pins the behavioural guarantees every implementation
+must satisfy (durability of in-progress intents, shrink-bound tracking across re-intents,
+tombstone/pin lifecycle, dead-letter semantics on failure, ...) against H2 for a fast unit loop.
+Its test methods are written against the SPI only, so they double as the contract: the day a
+second implementation exists — for example an adapter over a future upstream LangChain4j record
+manager — they are meant to be extracted into an abstract `IngestionTrackerContract` base class
+with one `*Test` subclass per implementation, and a replacement is a drop-in exactly when its
+subclass passes. The guarantees are verified twice:
+`integration-tests/langchain4j-ingestion-tracker` runs the same set over REST against a real
+PostgreSQL instance (Dev Services), because H2 alone does not prove the "works on PostgreSQL"
+half of the contract.
+
+CAUTION: `IngestionTracker` and its `tracker.*` package are experimental and an internal SPI, not a
+public API — no compatibility guarantees between releases, and applications must not implement or
+call it directly; it may change or be removed without a deprecation cycle. It exists so the
+implementation can be replaced wholesale later. It is not yet wired into a user-facing extension;
+it is consumed by the upcoming `langchain4j-ingest` extension's `sync` mode.
+
+== Sync engine
+
+Status: *Experimental* — the same caveats as the tracker above: internal, not yet consumed by any
+user-facing extension, groundwork for the upcoming `langchain4j-ingest` extension.
+
+`org.apache.camel.quarkus.component.support.langchain4j.ingest` is the engine that drives the
+document states above — deliberately free of Camel imports, so that together with the tracker it
+forms the unit that could one day be replaced by (or proposed to) an upstream LangChain4j
+record-manager mechanism:
+
+* `IngestService` — the write path for one document: tier-1 fingerprint / tier-2 content-hash
+  change detection, deterministic segment ids, the `writeIntent` → store write → shrink-remove →
+  `commit` protocol, and a per-store write strategy (`upsert` for stores whose same-id write
+  overwrites; `remove-then-add` for stores that keep or mix old content on same-id writes).
+  Embedding calls are batched and optionally rate-limited.
+* `SyncPassRunner` — one bounded synchronisation pass over a complete source listing, ending in
+  reconciliation (tracker-versus-source, the store is never enumerated) behind the safety
+  interlock: a pass with any failure deletes nothing, a bulk-delete floor refuses to remove more
+  than a configured fraction of the corpus without explicit consent, and only `origin=source`
+  rows are ever deletion candidates.
+* `IngestIds` — deterministic RFC 4122 name-based (v5) segment ids: the same
+  `(pipeline, documentId, segmentIndex)` always yields the same id, which is what turns
+  re-ingestion into overwrite instead of duplication and makes crashes converge.
+* `IngestResult` — the per-document outcome (`ingested`, `replaced`, `skipped-unchanged`,
+  `suppressed-*`, `dead-lettered`, `deleted`, `empty`).
+
+=== How `IngestService` decides
+
+One delivery of one document walks the gates below, in code order. The shape to notice is the
+cost ladder: each gate exits earlier and cheaper than the next — gates 1–4 cost a single tracker
+read (tier 1 does not even fetch the document, which is why an unchanged corpus restarts for
+free), gates 5–6 add a fetch and a hash, and only step 7 pays for splitting, embedding and store
+writes. The suppression gates sit above everything deliberately: a tombstone or pin wins before
+any content is looked at.
+
+----
+ingest(docId, fingerprint, textSupplier, origin, tenant)
+│
+├─ docId null/blank ─────────────────────────► throw IllegalArgumentException
+│
+├─ tracker == null?  (APPEND MODE)
+│    ├─ text blank ──────────────────────────► EMPTY        [fetched; nothing else]
+│    └─ split → metadata → embed → store.addAll(derived ids)
+│                                             ► INGESTED    [no tracker at all]
+│
+└─ SYNC MODE — read the tracker row, then:
+   │
+   ├─ 1. row.tombstone? ─────────────────────► SUPPRESSED_TOMBSTONE  [nothing touched:
+   │        "deleted stays deleted"                                    no fetch, no store]
+   │
+   ├─ 2. row.pinned && origin == SOURCE? ────► SUPPRESSED_PINNED     [nothing touched:
+   │        "the correction wins"; API writes pass through             no fetch, no store]
+   │
+   ├─ 3. row.failed && fingerprint == row's? ► DEAD_LETTERED         [nothing touched:
+   │        same content already failed — retry only when it changes; fingerprint-less
+   │        sources gate on the content hash instead, right after step 6]
+   │
+   │    (note: origin == API over a source-owned row ⇒ remember pinAfterWrite)
+   │
+   ├─ 4. TIER 1  row.done && fingerprint == row's?
+   │            ─────────────────────────────► SKIPPED_UNCHANGED     [not even FETCHED —
+   │        the skip that makes restarts free]                         zero cost]
+   │
+   ├─ 5. fetch text via supplier … blank? ───► EMPTY                 [fetched; keep the
+   │        (glitch-proofing: never empty a KB on a blank read)        previous version]
+   │
+   ├─ 6. TIER 2  row.done && contentHash == row's?
+   │        ├─ refreshFingerprint (so tier 1 works next pass)
+   │        └────────────────────────────────► SKIPPED_UNCHANGED     [fetched + hashed;
+   │        (fingerprint moved, bytes didn't — touch/re-upload case)   store untouched]
+   │
+   └─ 7. THE WRITE PROTOCOL  (content genuinely new or changed)
+        split → metadata → derive ids 0…newCount-1
+        maxKnown = max(row.committed, row.intended)   (0 if no row)
+        │
+        ├─ a. tracker.writeIntent(newCount)            durable BEFORE the store
+        ├─ b. REMOVE_THEN_ADD && maxKnown > 0?
+        │        store.removeAll(ids 0…maxKnown-1)     clear the old generation first
+        │        (chroma/milvus: same-id write would keep or mix old content)
+        ├─ c. per batch: throttle → embedAll → store.addAll(ids…)
+        ├─ d. UPSERT && maxKnown > newCount?
+        │        store.removeAll(ids newCount…maxKnown-1)   the shrink tail
+        ├─ e. tracker.commit(newCount)
+        └─ f. pinAfterWrite? tracker.pin
+                 │
+                 ├─ row existed (maxKnown > 0) ──────► REPLACED
+                 └─ first time ─────────────────────► INGESTED
+
+ failure typing: anything thrown in b–e is infrastructure — the row stays in_progress, the
+ next delivery retries and converges, and it is NEVER dead-lettered (a transient provider
+ outage must not freeze or drop a document). Only failures before the intent (fetch, split)
+ are content-attributable and dead-letter material.
+----
+
+The engine's invariants are pinned by `IngestSyncProtocolTest` (skip tiers, replace without
+duplicates, shrink, both write strategies, crash convergence) and `SyncPassRunnerTest` (the
+deletion interlock, tombstone/pin behaviour over passes, dead-letter retry semantics).

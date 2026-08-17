@@ -125,6 +125,7 @@
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-driver-query-builder.version>4.19.2</java-driver-query-builder.version><!-- @sync com.datastax.oss.quarkus:cassandra-quarkus-parent:${cassandra-quarkus.version} prop:java-driver.version -->
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
+        <java-uuid-generator.version>5.2.0</java-uuid-generator.version>
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
         <javassist.version>${javassist-version}</javassist.version><!-- debezium -->
         <jetty.version>${jetty-version}</jetty.version>
