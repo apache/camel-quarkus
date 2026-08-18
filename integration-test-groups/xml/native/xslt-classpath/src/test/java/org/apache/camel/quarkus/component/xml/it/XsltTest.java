@@ -139,7 +139,6 @@ public class XsltTest {
 
     @ParameterizedTest
     @ValueSource(strings = { "xslt", "xslt-saxon" })
-    @DisabledOnIntegrationTest("Generating xslt templates dynamically does not be supported in native mode")
     public void xsltInclude(String component) {
         final String actual = RestAssured.given()
                 .body(BODY)

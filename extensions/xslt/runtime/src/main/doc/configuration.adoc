@@ -11,7 +11,9 @@ Scheme-less URIs are interpreted as `classpath:` URIs.
 
 Only `classpath:` URIs are supported on Quarkus native mode. `file:`, `http:` and other kinds of URIs can be used on JVM mode only.
 
-`<xsl:include>` and `<xsl:messaging>` XSLT elements are also supported in JVM mode only right now.
+`<xsl:include>` is supported in native mode when the including stylesheet is listed in `quarkus.camel.xslt.sources`
+and included stylesheets are classpath-relative. Nested classpath includes are resolved at build time.
+`<xsl:messaging>` XSLT elements are supported in JVM mode only right now.
 
 If `aggregate` DSL is used, `XsltSaxonAggregationStrategy` has to be used such as
 [source,java]

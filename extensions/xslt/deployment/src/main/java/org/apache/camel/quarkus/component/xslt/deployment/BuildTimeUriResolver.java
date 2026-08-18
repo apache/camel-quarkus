@@ -20,13 +20,19 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.xml.transform.Source;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.StringHelper;
 
-public class BuildTimeUriResolver {
+/**
+ * Resolves classpath XSLT sources at build time, including nested {@code <xsl:include>}
+ * hrefs, so they can be compiled into Xalan translets.
+ */
+public class BuildTimeUriResolver implements URIResolver {
 
     public ResolutionResult resolve(String templateUri) {
         if (templateUri == null) {
@@ -49,7 +55,8 @@ public class BuildTimeUriResolver {
             throw new IllegalStateException("Could not find the XSLT resource " + compacted + " in the classpath");
         }
         try {
-            final Source src = new StreamSource(url.openStream());
+            final String systemId = effectiveScheme + compacted;
+            final Source src = new StreamSource(url.openStream(), systemId);
             // TODO: if the XSLT file is under target/classes of the current project we should mark it for exclusion
             // from the application archive. See https://github.com/apache/camel-quarkus/issues/438
             return new ResolutionResult(templateUri, transletName, src);
@@ -57,6 +64,42 @@ public class BuildTimeUriResolver {
             throw new RuntimeException("Could not read the class path resource " + templateUri, e);
         }
 
+    }
+
+    @Override
+    public Source resolve(String href, String base) throws TransformerException {
+        try {
+            return resolve(toClasspathUri(href, base)).source;
+        } catch (RuntimeException e) {
+            throw new TransformerException(
+                    "Could not resolve XSLT include href '" + href + "' with base '" + base + "'", e);
+        }
+    }
+
+    static String toClasspathUri(String href, String base) {
+        if (href == null) {
+            throw new RuntimeException("href parameter cannot be null");
+        }
+        href = href.trim();
+        if (href.isEmpty()) {
+            throw new RuntimeException("href parameter cannot be empty");
+        }
+
+        final String hrefScheme = ResourceHelper.getScheme(href);
+        if (hrefScheme != null) {
+            return href;
+        }
+
+        if (base == null || base.isBlank()) {
+            return href;
+        }
+
+        final String baseScheme = ResourceHelper.getScheme(base);
+        final String basePath = baseScheme != null ? StringHelper.after(base, baseScheme) : base;
+        final int slash = basePath.lastIndexOf('/');
+        final String dir = slash >= 0 ? basePath.substring(0, slash + 1) : "";
+        final String scheme = baseScheme != null ? baseScheme : "classpath:";
+        return scheme + dir + href;
     }
 
     private String toTransletName(final String compacted) {
