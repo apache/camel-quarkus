@@ -87,6 +87,7 @@ Applications that do not set `camel.main.jmxManagementNamePattern` are unaffecte
 The extension now drives the `camel-langchain4j-ingest` component instead of carrying its own implementation.
 The declaration surface is unchanged — the same `quarkus.camel.langchain4j.ingest.*` properties and the same `@Ingest` builder API — and grew new options (`parser`, `embedding-batch-size`, `document-splitter`, `max-document-size`).
 Java code reading the request-reply outcome as `IngestResult` now imports `org.apache.camel.component.langchain4j.ingest.IngestResult` — the extension's `org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult` is gone with the engine, so this surfaces at compile time.
+The same applies to the segment metadata keys `IngestService.METADATA_DOCUMENT_ID` and `IngestService.METADATA_PIPELINE`: use `org.apache.camel.component.langchain4j.ingest.LangChain4jIngest.METADATA_DOCUMENT_ID` and `METADATA_PIPELINE` instead; the values are unchanged.
 
 A pipeline's route id is now `langchain4j-ingest-<pipeline-name>` rather than `camel-quarkus-langchain4j-ingest-<pipeline-name>`.
 Tooling that addresses the routes by id — JMX, the management endpoints, `camel.main.*` route policies keyed on ids — must use the new names.

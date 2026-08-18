@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-mcp-server</artifactId>
     <name>Camel Quarkus :: MCP Server :: Runtime</name>
-    <description>Expose ai-tool routes as MCP tools over streamable HTTP</description>
+    <description>Expose ai-tool routes as MCP tools and ai-resource routes as MCP resources over streamable HTTP</description>
 
     <properties>
         <quarkus.metadata.status>preview</quarkus.metadata.status>
