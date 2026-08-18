@@ -20,30 +20,31 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
- * There is no service CA certificate, which is the plain Kubernetes case, so client authentication was never on
- * offer. The failure has to say that rather than report an enabled feature as broken, since the operator never
- * enabled anything.
+ * A `file:` policy that is not there fails startup like a `classpath:` one that is not packaged. Both are the
+ * same packaging error, and a ConfigMap that failed to mount is the likeliest way to arrive at it.
+ *
+ * Denying every request instead would start the application and answer with "No access from client [chain:
+ * 127.0.0.1] allowed", which points at the loopback control rather than at the missing file.
  */
-class JolokiaKubernetesTlsFailureTest {
+class CamelJolokiaRestrictorMissingFilePolicyTest {
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withEmptyApplication()
-            .overrideConfigKey("kubernetes.service.host", "fake-host")
-            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", "/non/existent/ca.crt")
-            .overrideConfigKey("quarkus.camel.jolokia.server.host", "0.0.0.0")
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
+                    "file:/etc/jolokia/not-mounted.xml")
             .assertException(t -> {
-                if (t.getMessage() == null
-                        || !t.getMessage().contains("not available on this cluster")
-                        || !t.getMessage().contains("/non/existent/ca.crt")
-                        || !t.getMessage().contains("0.0.0.0")) {
-                    throw new AssertionError(
-                            "Expected RuntimeException naming the absent service CA certificate, got: " + t, t);
-                }
+                assertTrue(t instanceof IllegalStateException, "Expected the pre-check to throw, got: " + t);
+                assertTrue(t.getMessage().contains("could not be resolved"), t.getMessage());
+                assertTrue(t.getMessage().contains("not-mounted.xml"), t.getMessage());
             });
 
     @Test
-    void applicationShouldFailToStart() {
-        // The application should not start — the assertException above validates the failure
+    void applicationShouldNotStart() {
+        fail("The application should not have started with a policy location that does not exist");
     }
 }

@@ -21,24 +21,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * There is no service CA certificate, which is the plain Kubernetes case, so client authentication was never on
- * offer. The failure has to say that rather than report an enabled feature as broken, since the operator never
- * enabled anything.
+ * The bind address is checked after `additional-properties` has been merged in. Setting Jolokia's own `host`
+ * option there overrides `quarkus.camel.jolokia.server.host`, so checking the latter would report a loopback
+ * bind while the agent listened on every interface.
  */
-class JolokiaKubernetesTlsFailureTest {
+class JolokiaKubernetesTlsHostOverrideFailureTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withEmptyApplication()
             .overrideConfigKey("kubernetes.service.host", "fake-host")
             .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", "/non/existent/ca.crt")
-            .overrideConfigKey("quarkus.camel.jolokia.server.host", "0.0.0.0")
+            // Deliberately left at its localhost default, so only the override below opens the agent up
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.host", "0.0.0.0")
             .assertException(t -> {
                 if (t.getMessage() == null
                         || !t.getMessage().contains("not available on this cluster")
-                        || !t.getMessage().contains("/non/existent/ca.crt")
                         || !t.getMessage().contains("0.0.0.0")) {
                     throw new AssertionError(
-                            "Expected RuntimeException naming the absent service CA certificate, got: " + t, t);
+                            "Expected startup to fail because the merged bind address is not loopback, got: " + t, t);
                 }
             });
 

@@ -33,6 +33,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationInfoBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
@@ -76,6 +77,11 @@ public class JolokiaProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem sslNativeSupport() {
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
     @BuildStep
@@ -198,6 +204,11 @@ public class JolokiaProcessor {
         // Include Jolokia static configuration defaults
         nativeImageResource.produce(new NativeImageResourceBuildItem("default-jolokia-agent.properties"));
         nativeImageResource.produce(new NativeImageResourceBuildItem("version.properties"));
+
+        // Include the access policy from the default location, so that it is not silently absent at runtime.
+        // A policy at a location configured via additional-properties."policyLocation" has to be registered by
+        // the application, and CamelJolokiaRestrictor fails startup if it does not resolve
+        nativeImageResource.produce(new NativeImageResourceBuildItem("jolokia-access.xml"));
     }
 
     private static void configureJolokiaServiceNativeSupport(

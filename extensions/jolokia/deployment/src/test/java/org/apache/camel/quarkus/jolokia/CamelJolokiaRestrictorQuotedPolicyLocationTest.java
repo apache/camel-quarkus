@@ -28,7 +28,11 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * The policy location is a key of the additional-properties map, so it may be written with or without quotes.
+ * Both forms must be honoured by the restrictor.
+ */
+class CamelJolokiaRestrictorQuotedPolicyLocationTest {
 
     private static final String JOLOKIA_ACCESS_XML = """
             <?xml version="1.0" encoding="UTF-8"?>
@@ -53,31 +57,13 @@ class CamelJolokiaRestrictorFilePolicyTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.\"policyLocation\"",
                     POLICY_FILE.toURI().toString());
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void quotedPolicyLocationIsLoaded() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
-    }
-
-    @Test
-    void filePolicyDeniesOtherAddresses() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
-    }
-
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
-    @Test
-    void loopbackDeniedByPolicy() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
     }
 }

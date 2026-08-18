@@ -44,6 +44,56 @@ class JolokiaRemoteAccessAllowedTest {
                 .body("status", equalTo(200));
     }
 
+    /**
+     * Remote access is a control over client addresses only, so an unlisted origin is still refused.
+     */
+    @Test
+    void unlistedOriginDenied() {
+        RestAssured.given()
+                .header("Origin", "http://domain.example.com")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
+
+    @Test
+    void listedOriginAllowed() {
+        RestAssured.given()
+                .header("Origin", "http://allowed.example.com")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(200));
+    }
+
+    /**
+     * Jolokia falls back to Referer when there is no Origin, and a Referer carries a path.
+     */
+    @Test
+    void listedOriginAllowedFromReferer() {
+        RestAssured.given()
+                .header("Referer", "http://allowed.example.com/console/index.html")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(200));
+    }
+
+    /**
+     * The origin is listed, so the restrictor permits it. Jolokia refuses it anyway, because answering a secure
+     * origin over a plain HTTP connection would downgrade it.
+     */
+    @Test
+    void httpsOriginRejectedByJolokiaOverPlainHttp() {
+        RestAssured.given()
+                .header("Origin", "https://secure.example.com")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
+
     @Test
     void mbeanAccessStillRestrictedByDomain() {
         RestAssured.given()
@@ -56,7 +106,10 @@ class JolokiaRemoteAccessAllowedTest {
     public static final class RemoteAccessAllowedProfile implements QuarkusTestProfile {
         @Override
         public Map<String, String> getConfigOverrides() {
-            return Map.of("quarkus.camel.jolokia.remote-access-allowed", "true");
+            return Map.of(
+                    "quarkus.camel.jolokia.remote-access-allowed", "true",
+                    "quarkus.camel.jolokia.allowed-origins",
+                    "http://allowed.example.com,https://secure.example.com");
         }
     }
 }

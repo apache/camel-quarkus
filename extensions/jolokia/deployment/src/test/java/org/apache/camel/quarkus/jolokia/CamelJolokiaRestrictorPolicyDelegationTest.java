@@ -56,15 +56,18 @@ class CamelJolokiaRestrictorPolicyDelegationTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.server.port", "0")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(new StringAsset(JOLOKIA_ACCESS_XML), "jolokia-access.xml"));
 
+    /**
+     * The policy restricts addresses to 10.0.0.0/8, which loopback is not in. The framework must not widen a
+     * restriction the operator asked for, so loopback is refused like any other address outside the subnet.
+     */
     @Test
-    void loopbackAlwaysAllowed() {
+    void loopbackDeniedByPolicySubnet() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("::1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
     }
 
     @Test
@@ -81,16 +84,40 @@ class CamelJolokiaRestrictorPolicyDelegationTest {
         assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
     }
 
+    /**
+     * The cors section of the policy is not consulted, so listing an origin there does not grant it access. It
+     * has to be listed in quarkus.camel.jolokia.allowed-origins.
+     */
     @Test
-    void policyAllowedCorsOriginAllowed() {
+    void policyAllowOriginDoesNotGrantAccess() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isOriginAllowed("http://example.host.com", false));
+        assertFalse(restrictor.isOriginAllowed("http://example.host.com", false));
+        assertFalse(restrictor.isOriginAllowed("http://example.host.com", true));
     }
 
     @Test
     void nonPolicyCorsOriginDenied() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isOriginAllowed("http://untrusted.example", false));
+    }
+
+    @Test
+    void nonPolicyCorsOriginDeniedWithStrictCheck() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isOriginAllowed("http://untrusted.example", true));
+    }
+
+    @Test
+    void userInfoOriginCannotBypassPolicyCors() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isOriginAllowed("http://untrusted.example@localhost", true));
+    }
+
+    @Test
+    void spoofedLoopbackInAddressChainDeniedByPolicy() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1", "192.168.1.1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1", "10.0.0.2"));
     }
 
     @Test
@@ -103,8 +130,9 @@ class CamelJolokiaRestrictorPolicyDelegationTest {
     @Test
     void loopbackOriginStillAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.isOriginAllowed("http://localhost:8080", true));
         assertTrue(restrictor.isOriginAllowed("http://localhost:8080", false));
-        assertTrue(restrictor.isOriginAllowed("http://127.0.0.1:9090", false));
+        assertTrue(restrictor.isOriginAllowed("http://127.0.0.1:9090", true));
     }
 
     @Test

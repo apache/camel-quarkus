@@ -4,37 +4,83 @@ The following guide outlines how to adapt your code to changes that were made in
 
 == Jolokia extension changes
 
-=== Default bind address changed to localhost
+Jolokia is now locked down by default. In `prod` mode the agent binds to `localhost`, accepts requests only from the local machine, and denies cross-origin requests. Previously it bound to all interfaces and accepted every client.
 
-The Jolokia agent HTTP server now binds to `localhost` by default in production mode (previously `0.0.0.0`). Dev and test modes already defaulted to `localhost`. Remote dev mode and WSL environments continue to default to `0.0.0.0`. This means Jolokia is only accessible from the local machine in production unless explicitly configured otherwise.
+Jolokia now honours `Sec-Fetch-*` headers, rejecting browser requests marked as anything other than an explicit top-level navigation, which affects neither command line clients such as `curl` nor the calls Hawtio makes.
 
-=== Remote access blocked by default
+Refer to the xref:reference/extensions/jolokia.adoc#extensions-jolokia-usage-security[Jolokia extension documentation] for details of the options below.
 
-The default Camel Jolokia restrictor now blocks connections from non-loopback (remote) addresses. This provides defense-in-depth: even if the server host is configured to bind to all interfaces, remote requests are rejected unless the `remote-access-allowed` property is explicitly set to `true`.
+=== Remote clients are refused
 
-=== Cross-origin requests (CORS) blocked by default
+To allow clients from other hosts again.
 
-The default Camel Jolokia restrictor now denies all cross-origin requests from non-loopback origins. If you rely on browser-based monitoring tools connecting cross-origin, configure a https://jolokia.org/reference/html/manual/security.html[Jolokia access policy] (`jolokia-access.xml`) with a `<cors>` section, or use a custom restrictor. See the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation] for details.
-
-=== CamelJolokiaRestrictor no longer extends AllowAllRestrictor
-
-`CamelJolokiaRestrictor` now implements `Restrictor` directly instead of extending Jolokia's `AllowAllRestrictor`. If you have a custom restrictor that extends `AllowAllRestrictor`, consider switching to `extends CamelJolokiaRestrictor` to inherit the secure defaults (remote access control, CORS blocking, MBean domain filtering, `jolokia-access.xml` policy delegation).
-
-=== Jolokia access policy (jolokia-access.xml) delegation
-
-The default Camel Jolokia restrictor now loads `jolokia-access.xml` from the classpath if present and delegates remote access, CORS, HTTP method, and request type checks to it for non-loopback requests. This allows fine-grained access control alongside the Camel MBean domain filtering. The policy location can be configured via `quarkus.camel.jolokia.additional-properties."policyLocation"`.
-
-=== Required configuration for Kubernetes remote management
-
-If you use tools such as https://hawt.io/[Hawtio] or https://github.com/hawtio/hawtio-online[hawtio-online] to connect to Jolokia running on Kubernetes or OpenShift, you must add the following configuration to `application.properties`.
-
-[source]
+[source,properties]
 ----
 quarkus.camel.jolokia.server.host=0.0.0.0
 quarkus.camel.jolokia.remote-access-allowed=true
 ----
 
-This is safe when combined with SSL client authentication (enabled by default in Kubernetes environments), which ensures only clients presenting a valid certificate can connect. Refer to the xref:reference/extensions/jolokia.adoc[Jolokia extension documentation] for full details.
+IMPORTANT: This exposes an agent that authenticates nobody. Confine it to a trusted network, or configure xref:reference/extensions/jolokia.adoc#extensions-jolokia-usage-authentication[authentication], which the extension has always been able to do through `additional-properties` and which is now documented.
+
+Where SSL client authentication is configured, which is the default on OpenShift, the agent still binds `0.0.0.0` and still accepts remote clients. Plain Kubernetes has no service CA certificate, so client authentication cannot be configured there and the agent binds `localhost`. Binding it elsewhere now fails startup rather than warning, unless you acknowledge that nothing authenticates the agent. Switching client authentication off through `additional-properties` does the same, since the agent still binds `0.0.0.0` there.
+
+[source,properties]
+----
+quarkus.camel.jolokia.server.host=0.0.0.0
+quarkus.camel.jolokia.kubernetes.client-authentication-enabled=false
+----
+
+=== Cross-origin requests are denied
+
+Requests with no `Origin` header and those from a loopback origin are still accepted. List any other origin.
+
+[source,properties]
+----
+quarkus.camel.jolokia.allowed-origins=https://hawtio.example.com
+----
+
+`*` is a wildcard, so `*://*.example.com` covers a domain and `*` accepts any origin. `remote-access-allowed` no longer affects origins.
+
+On OpenShift, setting a client principal restricts access to one service identity and also accepts the cross-origin requests that identity forwards, so `allowed-origins` does not have to list the console.
+
+[source,properties]
+----
+quarkus.camel.jolokia.kubernetes.client-principal=cn=hawtio-online.hawtio.svc
+----
+
+=== jolokia-access.xml is now applied
+
+A policy file was previously ignored whenever the Camel restrictor was registered, which is the default. Review yours before upgrading.
+
+* A `<remote>` section decides client addresses outright, so one that does not list `127.0.0.1` refuses local clients too. A policy without that section says nothing about addresses and leaves the loopback default and `quarkus.camel.jolokia.remote-access-allowed` to decide them.
+* The `<cors>` section is not used at all. Move `<allow-origin>` values to `quarkus.camel.jolokia.allowed-origins`, which takes the same wildcard syntax, and replace `<ignore-scheme/>` with `quarkus.camel.jolokia.ignore-origin-scheme=true`.
+* A `policyLocation` pointing at nothing now fails startup. A policy that cannot be parsed denies all access.
+
+=== Proxy headers are part of the client address chain
+
+Jolokia now adds any `Forwarded`, `X-Forwarded-For` and `X-Real-IP` values to the chain of client addresses passed to the restrictor, whatever `trustProxyHeaders` is set to, and every address in the chain has to be allowed. A request claiming to be forwarded on behalf of a remote client is therefore now refused even when it arrives over loopback.
+
+This affects a reverse proxy in front of the agent. The real client is now visible and subject to the same rules as any other, so allow it.
+
+[source,properties]
+----
+quarkus.camel.jolokia.remote-access-allowed=true
+----
+
+WARNING: Every address in the chain must also satisfy a `<remote>` section in an access policy. Hawtio adds the browser's address as `X-Forwarded-For` by default, so a policy restricting addresses to a cluster subnet rejects its requests unless the browser's address is allowed too.
+
+=== Native mode now refuses an HTTPS origin over a plain HTTP agent
+
+Jolokia refuses a request whose `Origin` uses `https` when the agent itself serves plain `http`, responding with a status of `403`, whatever `quarkus.camel.jolokia.allowed-origins` lists. That rule has always applied in JVM mode and now applies in native mode too, so a native application whose agent serves plain HTTP behind an HTTPS console starts returning `403` after upgrading. Either serve the agent over HTTPS, or turn the check off.
+
+[source,properties]
+----
+quarkus.camel.jolokia.ignore-origin-scheme=true
+----
+
+WARNING: Only do this where something in front of the agent terminates TLS. Otherwise, a page loaded over HTTPS ends up driving an agent that is not.
+
+This does not arise on Kubernetes or OpenShift where SSL client authentication is configured, since the agent then serves HTTPS.
 
 == CassandraQL extension changes
 

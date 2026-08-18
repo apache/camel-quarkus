@@ -28,24 +28,23 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * Kubernetes SSL client authentication authenticates every client at the transport, so the restrictor does not
+ * also confine them to loopback. Consoles reaching the agent on the pod IP are the reason client authentication
+ * is configured at all.
+ *
+ * A client principal is configured here, so the authenticated peer is a known identity rather than any holder of
+ * a service CA signed certificate. Origins would therefore be lifted too, except that `allowed-origins` is set
+ * and the explicit list wins.
+ */
+class JolokiaKubernetesClientAuthRemoteAccessTest {
 
-    private static final String JOLOKIA_ACCESS_XML = """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <restrict>
-                <remote>
-                    <host>10.0.0.0/8</host>
-                </remote>
-            </restrict>
-            """;
-
-    static final File POLICY_FILE;
+    static final File CA_CERT;
 
     static {
         try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
+            CA_CERT = Files.createTempFile("fake-ca", ".crt").toFile();
+            CA_CERT.deleteOnExit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,31 +52,29 @@ class CamelJolokiaRestrictorFilePolicyTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .withEmptyApplication()
+            .overrideConfigKey("kubernetes.service.host", "fake-host")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", CA_CERT.getAbsolutePath())
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.client-principal", "cn=hawtio-online.hawtio.svc")
+            .overrideConfigKey("quarkus.camel.jolokia.allowed-origins", "https://hawtio.example.com");
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void remoteAddressesAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
+        assertTrue(restrictor.isRemoteAccessAllowed("10.128.4.7"));
+        assertTrue(restrictor.isRemoteAccessAllowed("127.0.0.1"));
     }
 
     @Test
-    void filePolicyDeniesOtherAddresses() {
+    void originsStillRestricted() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
+        assertTrue(restrictor.isOriginAllowed("https://hawtio.example.com", true));
+        assertFalse(restrictor.isOriginAllowed("https://untrusted.example", true));
     }
 
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
     @Test
-    void loopbackDeniedByPolicy() {
+    void mbeanDomainsStillRestricted() throws Exception {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
+        assertTrue(restrictor.isObjectNameHidden(new javax.management.ObjectName("com.example:type=Test")));
     }
 }

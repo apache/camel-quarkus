@@ -16,29 +16,45 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import io.quarkus.test.QuarkusUnitTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * There is no service CA certificate, which is the plain Kubernetes case, so client authentication was never on
- * offer. The failure has to say that rather than report an enabled feature as broken, since the operator never
- * enabled anything.
+ * The service CA certificate exists, so client authentication would normally be configured, but
+ * `additional-properties` switches it back off. Since those properties win over everything the extension
+ * sets, the agent would otherwise serve plain HTTP to the pod network with no authentication.
  */
-class JolokiaKubernetesTlsFailureTest {
+class JolokiaKubernetesTlsDisabledByOverrideFailureTest {
+
+    static final File CA_CERT;
+
+    static {
+        try {
+            CA_CERT = Files.createTempFile("fake-ca", ".crt").toFile();
+            CA_CERT.deleteOnExit();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withEmptyApplication()
             .overrideConfigKey("kubernetes.service.host", "fake-host")
-            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", "/non/existent/ca.crt")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", CA_CERT.getAbsolutePath())
             .overrideConfigKey("quarkus.camel.jolokia.server.host", "0.0.0.0")
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.useSslClientAuthentication", "false")
             .assertException(t -> {
                 if (t.getMessage() == null
-                        || !t.getMessage().contains("not available on this cluster")
-                        || !t.getMessage().contains("/non/existent/ca.crt")
-                        || !t.getMessage().contains("0.0.0.0")) {
+                        || !t.getMessage().contains("Kubernetes SSL client authentication is enabled")
+                        || !t.getMessage().contains("additional-properties")) {
                     throw new AssertionError(
-                            "Expected RuntimeException naming the absent service CA certificate, got: " + t, t);
+                            "Expected startup to fail because client authentication was overridden off, got: " + t, t);
                 }
             });
 

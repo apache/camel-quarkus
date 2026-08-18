@@ -65,6 +65,46 @@ class CamelJolokiaRestrictorTest {
     }
 
     @Test
+    void loopbackOnlyAddressChainAllowed() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.isRemoteAccessAllowed("localhost", "127.0.0.1"));
+    }
+
+    @Test
+    void spoofedLoopbackInAddressChainRejected() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1", "192.168.1.1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1", "127.0.0.1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("localhost", "192.168.1.1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1", "::1"));
+    }
+
+    @Test
+    void ipv6LoopbackLiteralsAllowed() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.isRemoteAccessAllowed("::1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("0:0:0:0:0:0:0:1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("::ffff:127.0.0.1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("::1%lo0"));
+        assertTrue(restrictor.isRemoteAccessAllowed("::1%lo"));
+    }
+
+    /**
+     * A colon does not make a value an IPv6 literal. InetAddress.getByName falls back to the name service for
+     * anything it cannot read as a literal, so a client supplied host name carrying a colon must be rejected
+     * without a lookup rather than being handed to the resolver.
+     */
+    @Test
+    void hostNamesCarryingAColonRejectedWithoutResolving() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isRemoteAccessAllowed("untrusted.example:1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("localhost:80"));
+        assertFalse(restrictor.isRemoteAccessAllowed("::ffff:8.8.8.8"));
+        assertFalse(restrictor.isRemoteAccessAllowed(".::1"));
+        assertFalse(restrictor.isRemoteAccessAllowed(".0:0:0:0:0:0:0:1"));
+    }
+
+    @Test
     void nullArgsRejected() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isRemoteAccessAllowed((String[]) null));
@@ -113,6 +153,13 @@ class CamelJolokiaRestrictorTest {
     void remoteOriginRejectedWithStrictCheck() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isOriginAllowed("http://untrusted.example", true));
+    }
+
+    @Test
+    void originWithUserInfoRejected() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isOriginAllowed("http://untrusted.example@localhost", true));
+        assertFalse(restrictor.isOriginAllowed("http://untrusted.example@127.0.0.1", true));
     }
 
     @Test

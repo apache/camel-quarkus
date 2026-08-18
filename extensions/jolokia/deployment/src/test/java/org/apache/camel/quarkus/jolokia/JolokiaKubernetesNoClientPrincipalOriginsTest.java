@@ -28,24 +28,19 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * Without a client principal, any certificate the service CA signed is accepted, so the authenticated peer is
+ * not a known identity and cross-origin requests stay restricted. Addresses are still lifted, since the client
+ * has at least been authenticated.
+ */
+class JolokiaKubernetesNoClientPrincipalOriginsTest {
 
-    private static final String JOLOKIA_ACCESS_XML = """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <restrict>
-                <remote>
-                    <host>10.0.0.0/8</host>
-                </remote>
-            </restrict>
-            """;
-
-    static final File POLICY_FILE;
+    static final File CA_CERT;
 
     static {
         try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
+            CA_CERT = Files.createTempFile("fake-ca", ".crt").toFile();
+            CA_CERT.deleteOnExit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,31 +48,26 @@ class CamelJolokiaRestrictorFilePolicyTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .withEmptyApplication()
+            .overrideConfigKey("kubernetes.service.host", "fake-host")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", CA_CERT.getAbsolutePath());
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void unlistedOriginsDenied() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
+        assertFalse(restrictor.isOriginAllowed("https://hawtio-online.apps.example.com", true));
     }
 
     @Test
-    void filePolicyDeniesOtherAddresses() {
+    void loopbackOriginsAndNoOriginStillAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
+        assertTrue(restrictor.isOriginAllowed(null, true));
+        assertTrue(restrictor.isOriginAllowed("http://localhost:8080", true));
     }
 
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
     @Test
-    void loopbackDeniedByPolicy() {
+    void remoteAddressesStillAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("10.128.4.7"));
     }
 }

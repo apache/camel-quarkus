@@ -37,6 +37,35 @@ class JolokiaTest {
         RestAssured.port = 8778;
     }
 
+    /**
+     * Pins which client addresses Jolokia passes to the restrictor. Since Jolokia 2.6.1, Forwarded,
+     * X-Forwarded-For and X-Real-IP values join the address chain whatever trustProxyHeaders is set to, and
+     * CamelJolokiaRestrictor requires every address in the chain to be loopback. A client that claims to be
+     * forwarding for a remote address is therefore refused, even though it connected over loopback.
+     *
+     * If this test fails after a Jolokia upgrade, the address chain semantics have changed and the migration
+     * guide needs to describe it.
+     */
+    @Test
+    void spoofedProxyHeaderDeniesAccess() {
+        RestAssured.given()
+                .header("X-Forwarded-For", "10.1.2.3")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
+
+    @Test
+    void loopbackProxyHeaderAllowed() {
+        RestAssured.given()
+                .header("X-Forwarded-For", "127.0.0.1")
+                .get("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(200));
+    }
+
     @Test
     void defaultConfiguration() {
         // Read the configured discovery mode to determine expected discoveryEnabled value

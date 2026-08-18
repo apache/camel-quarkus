@@ -22,13 +22,23 @@ import java.nio.file.Files;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * An access policy governs client addresses and what a client may do. It says nothing about origins, since the
+ * `cors` section is not consulted, so bringing one must not withdraw the origins a client principal allows.
+ *
+ * The policy here restricts addresses, and that restriction is expected to take effect while origins stay lifted.
+ * The two controls are answered independently.
+ */
+class JolokiaKubernetesClientPrincipalWithPolicyOriginsTest {
 
     private static final String JOLOKIA_ACCESS_XML = """
             <?xml version="1.0" encoding="UTF-8"?>
@@ -39,13 +49,12 @@ class CamelJolokiaRestrictorFilePolicyTest {
             </restrict>
             """;
 
-    static final File POLICY_FILE;
+    static final File CA_CERT;
 
     static {
         try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
+            CA_CERT = Files.createTempFile("fake-ca", ".crt").toFile();
+            CA_CERT.deleteOnExit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,31 +62,23 @@ class CamelJolokiaRestrictorFilePolicyTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(new StringAsset(JOLOKIA_ACCESS_XML), "jolokia-access.xml"))
+            .overrideConfigKey("kubernetes.service.host", "fake-host")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", CA_CERT.getAbsolutePath())
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.client-principal", "cn=hawtio-online.hawtio.svc");
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void originLiftSurvivesAnAccessPolicy() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.isOriginAllowed("https://hawtio-online.apps.example.com", true));
+        assertTrue(restrictor.isOriginAllowed("https://anything.example", true));
+    }
+
+    @Test
+    void policyStillDecidesAddresses() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
-    }
-
-    @Test
-    void filePolicyDeniesOtherAddresses() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
-    }
-
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
-    @Test
-    void loopbackDeniedByPolicy() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
     }
 }
