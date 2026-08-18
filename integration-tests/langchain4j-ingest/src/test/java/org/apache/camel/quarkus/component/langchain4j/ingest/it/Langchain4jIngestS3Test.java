@@ -16,23 +16,24 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * The {@code s3} source against MinIO: an object put into the bucket is ingested, with its key as
- * the document id.
+ * the document id. The resource is restricted to this class because the file and endpoint tests
+ * of this module deliberately run without a container environment.
  */
 @QuarkusTest
 @QuarkusTestResource(value = MinioTestResource.class, restrictToAnnotatedClass = true)
@@ -43,9 +44,14 @@ class Langchain4jIngestS3Test {
         putObject("guides/widget.txt", "The WIDGET-MK1 requires a 12 volt supply.");
 
         Awaitility.await().atMost(60, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS)
-                .untilAsserted(() -> assertTrue(searchS3("What supply does the widget require?")
-                        .stream().anyMatch(text -> text.contains("WIDGET-MK1")),
-                        "the object must be ingested"));
+                .untilAsserted(() -> {
+                    Map<String, String> hit = Langchain4jIngestTest.hit(
+                            "What supply does the widget require?", "s3", "WIDGET-MK1");
+                    assertNotNull(hit, "the object must be ingested");
+                    assertEquals("s3docs", hit.get("pipeline"));
+                    // documentId("CamelAwsS3Key") resolves to the object key, verbatim
+                    assertEquals("guides/widget.txt", hit.get("documentId"));
+                });
     }
 
     static void putObject(String key, String content) {
@@ -54,15 +60,5 @@ class Langchain4jIngestS3Test {
                     .bucket(MinioTestResource.BUCKET).key(key).build(),
                     RequestBody.fromString(content));
         }
-    }
-
-    static List<String> searchS3(String query) {
-        return RestAssured.given()
-                .queryParam("q", query)
-                .queryParam("store", "s3")
-                .get("/langchain4j-ingest/search")
-                .then()
-                .statusCode(200)
-                .extract().jsonPath().getList("", String.class);
     }
 }

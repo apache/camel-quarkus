@@ -27,10 +27,10 @@ class IngestSourceConflictTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.embedding-store", "store")
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.embedding-model", "model")
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.source.uri", "file:target/feed-uri")
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.source.directory", "target/conflict")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.uri", "file:target/feed-uri")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/conflict")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "sets both source.uri", "A pipeline reads one source"));
 

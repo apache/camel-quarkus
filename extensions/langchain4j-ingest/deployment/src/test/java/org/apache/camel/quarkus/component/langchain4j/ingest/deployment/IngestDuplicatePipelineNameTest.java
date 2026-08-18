@@ -31,7 +31,7 @@ class IngestDuplicatePipelineNameTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
             .assertException(t -> ValidationTestSupport.assertFailure(t, "declared more than once"));
 
     @Test

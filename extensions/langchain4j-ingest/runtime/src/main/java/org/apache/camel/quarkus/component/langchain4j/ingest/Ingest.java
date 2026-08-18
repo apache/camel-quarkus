@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Declares an ingestion pipeline in Java, type-safe and IDE-assisted — the same model as the
- * {@code quarkus.camel.ai.ingest.*} configuration:
+ * {@code quarkus.camel.langchain4j.ingest.*} configuration:
  *
  * <pre>
  * &#64;Ingest("products")

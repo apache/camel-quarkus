@@ -33,7 +33,7 @@ public class IngestKafkaTestResource extends KafkaTestResource {
     public Map<String, String> start() {
         Map<String, String> properties = new HashMap<>(super.start());
         bootstrapServers = properties.get("camel.component.kafka.brokers");
-        properties.put("quarkus.camel.ai.ingest.events.enabled", "true");
+        properties.put("quarkus.camel.langchain4j.ingest.events.enabled", "true");
         return properties;
     }
 }

@@ -24,7 +24,7 @@ import org.apache.camel.builder.endpoint.EndpointBuilderFactory;
 
 /**
  * Where a builder-declared pipeline reads from: the typed twin of
- * {@code quarkus.camel.ai.ingest.<name>.source}.
+ * {@code quarkus.camel.langchain4j.ingest.<name>.source}.
  *
  * <p>
  * Reach for {@link #endpoint(Function)} and let the IDE do the finding — type {@code dsl.} and
@@ -79,8 +79,8 @@ public final class Source {
      * Nothing to import and nothing to look up, which is why this is the form to reach for. Note
      * the sharp edge it shares with the overload below: the DSL factories all ship in one
      * artifact, so the call compiles even when the connector extension is absent, and the missing
-     * component is reported at startup rather than at compile time — with the same
-     * add-extension hint the build gives for configured URIs.
+     * component is reported at startup rather than at compile time — with the same error naming
+     * the missing extension that the build gives for configured URIs.
      */
     public static Source endpoint(Function<EndpointBuilderFactory, EndpointConsumerBuilder> source) {
         return endpoint(source.apply(DSL));

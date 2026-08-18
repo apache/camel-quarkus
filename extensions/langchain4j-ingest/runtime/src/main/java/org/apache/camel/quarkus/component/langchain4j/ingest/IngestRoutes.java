@@ -17,22 +17,19 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Any;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestService;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
@@ -58,14 +55,6 @@ public class IngestRoutes extends RouteBuilder {
 
     @Inject
     IngestBuilderPipelines builderPipelines;
-
-    @Inject
-    @Any
-    Instance<EmbeddingStore<TextSegment>> storeCandidates;
-
-    @Inject
-    @Any
-    Instance<EmbeddingModel> modelCandidates;
 
     @Override
     public void configure() {
@@ -134,7 +123,7 @@ public class IngestRoutes extends RouteBuilder {
         if (external != null && (external.source().directory().isPresent()
                 || external.source().documentId().isPresent())) {
             throw new IllegalStateException("Ingestion pipeline '" + name + "' is declared in Java, so its source "
-                    + "comes from the @Ingest method. Remove quarkus.camel.ai.ingest." + name + ".source.* , or "
+                    + "comes from the @Ingest method. Remove quarkus.camel.langchain4j.ingest." + name + ".source.* , or "
                     + "declare the pipeline in configuration instead.");
         }
 
@@ -180,8 +169,16 @@ public class IngestRoutes extends RouteBuilder {
                 .readLock("changed")
                 .charset(StandardCharsets.UTF_8.name()))
                 .routeId(routeId(name))
-                .process(exchange -> service.ingest(documentId.evaluate(exchange, String.class),
-                        exchange.getIn().getBody(String.class)));
+                .process(exchange -> {
+                    IngestResult result = service.ingest(documentId.evaluate(exchange, String.class),
+                            exchange.getIn().getBody(String.class));
+                    // the file consumer discards the result, so an EMPTY outcome would
+                    // otherwise leave no trace at all
+                    if (result.outcome() == IngestResult.Outcome.EMPTY) {
+                        LOG.debugf("Ingestion pipeline '%s': document '%s' contained no text, nothing was written",
+                                name, result.documentId());
+                    }
+                });
     }
 
     /**
@@ -199,7 +196,7 @@ public class IngestRoutes extends RouteBuilder {
                     if (id == null) {
                         throw new IllegalArgumentException("Ingestion pipeline '" + name + "': no document id. "
                                 + "Set the " + IngestHeaders.DOCUMENT_ID + " header, or point "
-                                + "quarkus.camel.ai.ingest." + name + ".source.document-id at where the "
+                                + "quarkus.camel.langchain4j.ingest." + name + ".source.document-id at where the "
                                 + "consumer puts it.");
                     }
                     exchange.getIn().setBody(service.ingest(id, exchange.getIn().getBody(String.class)));
@@ -212,20 +209,26 @@ public class IngestRoutes extends RouteBuilder {
         if (configured == null) {
             return ExpressionBuilder.headerExpression(defaultHeader);
         }
-        // a bare header name is read as a header directly rather than parsed: a dotted name such
-        // as a dotted header name sends the simple parser into OGNL, and ${...} in a properties file is
-        // MicroProfile Config expansion, which would consume an expression before Camel saw it
-        return configured.contains("${") ? simple(configured) : ExpressionBuilder.headerExpression(configured);
+        // a bare header name is read as a header directly rather than parsed: a dotted header
+        // name would send the simple parser into OGNL. $simple{...} is the form for a properties
+        // file, where MicroProfile Config would consume a ${...} before Camel ever saw it; the
+        // ${...} form still serves the Java builder. The expression is initialised here, at
+        // route build time - left to reify lazily it would race on the first concurrent exchanges
+        Expression expression = configured.contains("${") || configured.startsWith("$simple{")
+                ? ExpressionBuilder.simpleExpression(configured)
+                : ExpressionBuilder.headerExpression(configured);
+        expression.init(getContext());
+        return expression;
     }
 
     private static String routeId(String name) {
-        return "camel-quarkus-ai-ingest-" + name;
+        return "camel-quarkus-langchain4j-ingest-" + name;
     }
 
     private static String required(String name, String value, String property) {
         if (value == null) {
             throw new IllegalStateException("Ingestion pipeline '" + name + "' has no " + property
-                    + ". Set quarkus.camel.ai.ingest." + name + "." + property);
+                    + ". Set quarkus.camel.langchain4j.ingest." + name + "." + property);
         }
         return value;
     }
@@ -240,7 +243,7 @@ public class IngestRoutes extends RouteBuilder {
             }
             return store;
         }
-        return single(name, storeCandidates, "embedding store", "embedding-store");
+        return single(name, EmbeddingStore.class, "embedding store", "embedding-store");
     }
 
     private EmbeddingModel resolveModel(String name, String configured) {
@@ -252,25 +255,25 @@ public class IngestRoutes extends RouteBuilder {
             }
             return model;
         }
-        return single(name, modelCandidates, "embedding model", "embedding-model");
+        return single(name, EmbeddingModel.class, "embedding model", "embedding-model");
     }
 
     /**
      * Picking one silently would bind a pipeline to whichever bean happened to be discovered
-     * first. Counting goes through handles, so candidates are not instantiated merely to be
-     * counted.
+     * first. The registry serves the named and the unnamed lookup alike, so a bean visible to
+     * one — CDI-produced or bound directly — is visible to the other.
      */
-    private <T> T single(String name, Instance<T> candidates, String what, String property) {
-        List<Instance.Handle<T>> handles = StreamSupport.stream(candidates.handles().spliterator(), false)
-                .collect(Collectors.toList());
-        if (handles.isEmpty()) {
+    private <T> T single(String name, Class<T> type, String what, String property) {
+        Set<T> candidates = getContext().getRegistry().findByType(type);
+        if (candidates.isEmpty()) {
             throw new IllegalStateException("Ingestion pipeline '" + name + "' needs an " + what
                     + ", but no bean of that type exists. Define one, for example with a @Produces method.");
         }
-        if (handles.size() > 1) {
-            throw new IllegalStateException("Ingestion pipeline '" + name + "' found " + handles.size() + " "
-                    + what + " beans. Name the one to use with quarkus.camel.ai.ingest." + name + "." + property);
+        if (candidates.size() > 1) {
+            throw new IllegalStateException("Ingestion pipeline '" + name + "' found " + candidates.size() + " "
+                    + what + " beans. Name the one to use with quarkus.camel.langchain4j.ingest." + name + "."
+                    + property);
         }
-        return handles.get(0).get();
+        return candidates.iterator().next();
     }
 }

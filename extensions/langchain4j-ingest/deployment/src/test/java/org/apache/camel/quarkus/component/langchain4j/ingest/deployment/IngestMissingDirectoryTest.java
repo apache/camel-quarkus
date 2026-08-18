@@ -27,10 +27,10 @@ class IngestMissingDirectoryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.embedding-store", "store")
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.embedding-model", "model")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
-                    "has no source.directory", "quarkus.camel.ai.ingest.docs.source.directory"));
+                    "has no source.directory", "quarkus.camel.langchain4j.ingest.docs.source.directory"));
 
     @Test
     void startMustFail() {

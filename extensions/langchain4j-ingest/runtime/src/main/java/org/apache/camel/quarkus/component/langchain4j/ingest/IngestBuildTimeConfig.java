@@ -30,7 +30,7 @@ import io.smallrye.config.WithParentName;
  * The shape of an ingestion pipeline: what it reads and where it writes. Locations that differ
  * per deployment are runtime configuration, see {@link IngestRunTimeConfig}.
  */
-@ConfigMapping(prefix = "quarkus.camel.ai.ingest")
+@ConfigMapping(prefix = "quarkus.camel.langchain4j.ingest")
 @ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public interface IngestBuildTimeConfig {
 

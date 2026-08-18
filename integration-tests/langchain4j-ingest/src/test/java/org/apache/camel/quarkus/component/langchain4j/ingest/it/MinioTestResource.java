@@ -59,7 +59,7 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
         }
 
         return Map.of(
-                "quarkus.camel.ai.ingest.s3docs.enabled", "true",
+                "quarkus.camel.langchain4j.ingest.s3docs.enabled", "true",
                 "minio.endpoint", endpoint,
                 "minio.user", USER,
                 "minio.password", PASSWORD);

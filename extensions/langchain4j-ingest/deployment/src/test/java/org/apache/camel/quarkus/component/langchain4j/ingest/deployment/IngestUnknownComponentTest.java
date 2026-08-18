@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * A consumer URI naming a component that is not on the classpath stops the build with the
- * add-extension command that fixes it.
+ * A consumer URI naming a component that is not on the classpath stops the build, naming the
+ * artifact that fixes it.
  */
 class IngestUnknownComponentTest {
 
@@ -31,10 +31,10 @@ class IngestUnknownComponentTest {
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> {
             })
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.source.uri", "nonexistent://feed")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.uri", "nonexistent://feed")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "component 'nonexistent' is not on the classpath",
-                    "quarkus:add-extension -Dextensions=camel-quarkus-nonexistent"));
+                    "org.apache.camel.quarkus:camel-quarkus-nonexistent"));
 
     @Test
     void buildMustFail() {

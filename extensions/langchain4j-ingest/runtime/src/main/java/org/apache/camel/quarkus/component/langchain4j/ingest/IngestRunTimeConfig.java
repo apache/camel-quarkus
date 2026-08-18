@@ -30,7 +30,7 @@ import io.smallrye.config.WithParentName;
  * Runtime configuration of ingestion pipelines: concrete locations and switches that may differ
  * per deployment. The pipeline topology is build-time, see {@link IngestBuildTimeConfig}.
  */
-@ConfigMapping(prefix = "quarkus.camel.ai.ingest")
+@ConfigMapping(prefix = "quarkus.camel.langchain4j.ingest")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 public interface IngestRunTimeConfig {
 
@@ -72,11 +72,11 @@ public interface IngestRunTimeConfig {
             /**
              * Where the document id lives in the exchange the consumer delivers: normally the
              * name of a header, such as `CamelAwsS3Key` for an S3 consumer or `CamelKafkaKey` for
-             * a Kafka one. A value containing a dollar-brace placeholder is taken as a
-             * simple-language expression instead, for ids that are not a plain header — though in
-             * a properties file MicroProfile Config expands such a value before Camel sees it, so
-             * the header name is the form to prefer there. When not set, a pipeline reading a
-             * directory uses the file name, and one consuming from a component uses the
+             * a Kafka one. For an id that is not a plain header, write a simple-language
+             * expression in the `+$simple{...}+` form — MicroProfile Config passes it through
+             * untouched, while a `+${...}+` in a properties file would be consumed as a config
+             * expansion before Camel ever saw it. When not set, a pipeline reading a directory
+             * uses the file name, and one consuming from a component uses the
              * `CamelIngestDocumentId` header.
              */
             Optional<String> documentId();

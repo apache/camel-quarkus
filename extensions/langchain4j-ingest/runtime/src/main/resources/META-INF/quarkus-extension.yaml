@@ -30,7 +30,7 @@ metadata:
   categories:
   - "integration"
   config:
-  - "quarkus.camel.ai.ingest"
+  - "quarkus.camel.langchain4j.ingest"
   status: "preview"
   integrates:
     - name: "Camel"

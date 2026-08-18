@@ -46,12 +46,12 @@ Point a pipeline at a folder and the files in it become a knowledge base. No rou
 
 [source,properties]
 ----
-quarkus.camel.ai.ingest.products.source.directory=/var/data/product-docs
-quarkus.camel.ai.ingest.products.embedding-store=products
-quarkus.camel.ai.ingest.products.embedding-model=my-model
+quarkus.camel.langchain4j.ingest.products.source.directory=/var/data/product-docs
+quarkus.camel.langchain4j.ingest.products.embedding-store=products
+quarkus.camel.langchain4j.ingest.products.embedding-model=my-model
 ----
 
-Each file is read as UTF-8 text — there is no format parsing, so convert a PDF or DOCX before it reaches the pipeline — split into overlapping segments (`max-segment-size`, `max-overlap-size`), embedded in batches and written to the store; a document is held in memory whole while it is split. `embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each. Every segment carries `camel_quarkus_pipeline` and `camel_quarkus_document_id` metadata, so retrieval can cite which document an answer came from. Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time.
+Each file is read as UTF-8 text — there is no format parsing, so convert a PDF or DOCX before it reaches the pipeline — split into overlapping segments (`max-segment-size`, `max-overlap-size`), embedded in batches and written to the store; a document is held in memory whole while it is split. `embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each. Every segment carries `camel_quarkus_pipeline` and `camel_quarkus_document_id` metadata, so retrieval can cite which document an answer came from. Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time. A pipeline declared through runtime properties alone — nothing but a `source.directory`, say — is invisible to build-time validation; its checks, including the clash with an equally named `@Ingest` pipeline, report at startup instead.
 
 [NOTE]
 ====
@@ -73,19 +73,19 @@ IngestPipeline events() {
 }
 ----
 
-Typing `dsl.` lists a factory for every component, each completing its own typed options. The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses. `enabled=false` in configuration switches a Java-declared pipeline off. A component missing from the classpath fails at startup with the `add-extension` command that fixes it — the DSL compiles regardless, since its factories all ship in one artifact.
+Typing `dsl.` lists a factory for every component, each completing its own typed options. The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses. `enabled=false` in configuration switches a Java-declared pipeline off. A component missing from the classpath fails at startup with an error naming the extension artifact that provides it — the DSL compiles regardless, since its factories all ship in one artifact.
 
 Ingestion needs a stable id per document, and where it lives is the consumer's business: `documentId` names the header — the record key `CamelKafkaKey` above, `CamelAwsS3Key` for S3 — or gives a simple-language expression. Without it, the pipeline expects the `CamelIngestDocumentId` header and fails the exchange when it is absent. Mind each component's own defaults, too: the `aws2-s3` consumer *deletes objects after reading them* unless `deleteAfterRead(false)` is set — a knowledge base reads its source, it does not consume it.
 
 After such a pipeline ingests a document, the exchange body is replaced with the `IngestResult`, so a request-reply caller receives the outcome of its call.
 
-The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name. The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration. Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
+The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name — or a simple-language expression written `+$simple{...}+`, the one form MicroProfile Config leaves untouched. The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration. Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
 
 [source,properties]
 ----
-quarkus.camel.ai.ingest.s3docs.source.uri=aws2-s3://product-docs?region=eu-west-1&deleteAfterRead=false
-quarkus.camel.ai.ingest.s3docs.source.document-id=CamelAwsS3Key
-quarkus.camel.ai.ingest.s3docs.embedding-store=products
+quarkus.camel.langchain4j.ingest.s3docs.source.uri=aws2-s3://product-docs?region=eu-west-1&deleteAfterRead=false
+quarkus.camel.langchain4j.ingest.s3docs.source.document-id=CamelAwsS3Key
+quarkus.camel.langchain4j.ingest.s3docs.embedding-store=products
 ----
 
 [id="extensions-langchain4j-ingest-usage-when-ingestion-fails"]
@@ -132,7 +132,7 @@ This extension is designed and tested to work together with the https://docs.qua
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-ai-ingest-pipeline-name-source-uri]]`link:#quarkus-camel-ai-ingest-pipeline-name-source-uri[quarkus.camel.ai.ingest."pipeline-name".source.uri]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-source-uri]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-uri[quarkus.camel.langchain4j.ingest."pipeline-name".source.uri]`
 
 The Camel consumer URI feeding this pipeline: any component, with its own options.
 Setting it is what makes the pipeline consume from that component; leaving it unset
@@ -143,40 +143,40 @@ resolve at startup, so credentials and endpoints remain runtime configuration.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-ai-ingest-pipeline-name-embedding-store]]`link:#quarkus-camel-ai-ingest-pipeline-name-embedding-store[quarkus.camel.ai.ingest."pipeline-name".embedding-store]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store[quarkus.camel.langchain4j.ingest."pipeline-name".embedding-store]`
 
 Name of the `EmbeddingStore` bean to write to. When not set, the only one present is
 used.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-ai-ingest-pipeline-name-embedding-model]]`link:#quarkus-camel-ai-ingest-pipeline-name-embedding-model[quarkus.camel.ai.ingest."pipeline-name".embedding-model]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-embedding-model]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-embedding-model[quarkus.camel.langchain4j.ingest."pipeline-name".embedding-model]`
 
 Name of the `EmbeddingModel` bean to embed with. When not set, the only one present is
 used.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-ai-ingest-pipeline-name-max-segment-size]]`link:#quarkus-camel-ai-ingest-pipeline-name-max-segment-size[quarkus.camel.ai.ingest."pipeline-name".max-segment-size]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-max-segment-size]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-max-segment-size[quarkus.camel.langchain4j.ingest."pipeline-name".max-segment-size]`
 
 Maximum size of one segment, in characters.
 | `int`
 | `500`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-ai-ingest-pipeline-name-max-overlap-size]]`link:#quarkus-camel-ai-ingest-pipeline-name-max-overlap-size[quarkus.camel.ai.ingest."pipeline-name".max-overlap-size]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-max-overlap-size]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-max-overlap-size[quarkus.camel.langchain4j.ingest."pipeline-name".max-overlap-size]`
 
 How much of the previous segment each segment repeats, in characters. Overlap keeps a
 sentence split across a boundary retrievable from either side.
 | `int`
 | `50`
 
-a| [[quarkus-camel-ai-ingest-pipeline-name-enabled]]`link:#quarkus-camel-ai-ingest-pipeline-name-enabled[quarkus.camel.ai.ingest."pipeline-name".enabled]`
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-enabled]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-enabled[quarkus.camel.langchain4j.ingest."pipeline-name".enabled]`
 
 Whether this pipeline starts. Useful to switch ingestion off in dev mode.
 | `boolean`
 | `true`
 
-a| [[quarkus-camel-ai-ingest-pipeline-name-source-directory]]`link:#quarkus-camel-ai-ingest-pipeline-name-source-directory[quarkus.camel.ai.ingest."pipeline-name".source.directory]`
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-directory]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-directory[quarkus.camel.langchain4j.ingest."pipeline-name".source.directory]`
 
 The directory to ingest documents from, for a pipeline that has no `source.uri`. A
 path is a deployment concern, so unlike the URI it stays runtime configuration.
@@ -184,21 +184,21 @@ Setting both is an error.
 | `string`
 | 
 
-a| [[quarkus-camel-ai-ingest-pipeline-name-source-recursive]]`link:#quarkus-camel-ai-ingest-pipeline-name-source-recursive[quarkus.camel.ai.ingest."pipeline-name".source.recursive]`
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-recursive]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-recursive[quarkus.camel.langchain4j.ingest."pipeline-name".source.recursive]`
 
 Whether subdirectories are ingested too, when reading a directory.
 | `boolean`
 | `true`
 
-a| [[quarkus-camel-ai-ingest-pipeline-name-source-document-id]]`link:#quarkus-camel-ai-ingest-pipeline-name-source-document-id[quarkus.camel.ai.ingest."pipeline-name".source.document-id]`
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-document-id]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-document-id[quarkus.camel.langchain4j.ingest."pipeline-name".source.document-id]`
 
 Where the document id lives in the exchange the consumer delivers: normally the
 name of a header, such as `CamelAwsS3Key` for an S3 consumer or `CamelKafkaKey` for
-a Kafka one. A value containing a dollar-brace placeholder is taken as a
-simple-language expression instead, for ids that are not a plain header — though in
-a properties file MicroProfile Config expands such a value before Camel sees it, so
-the header name is the form to prefer there. When not set, a pipeline reading a
-directory uses the file name, and one consuming from a component uses the
+a Kafka one. For an id that is not a plain header, write a simple-language
+expression in the `+$simple{...}+` form — MicroProfile Config passes it through
+untouched, while a `+${...}+` in a properties file would be consumed as a config
+expansion before Camel ever saw it. When not set, a pipeline reading a directory
+uses the file name, and one consuming from a component uses the
 `CamelIngestDocumentId` header.
 | `string`
 | 

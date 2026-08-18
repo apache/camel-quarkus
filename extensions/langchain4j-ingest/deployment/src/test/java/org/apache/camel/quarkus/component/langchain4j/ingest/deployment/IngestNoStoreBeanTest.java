@@ -32,7 +32,7 @@ class IngestNoStoreBeanTest {
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> {
             })
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.source.directory", "target/no-store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/no-store")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "Ingestion pipeline 'docs'", "no bean of that type exists"));
 

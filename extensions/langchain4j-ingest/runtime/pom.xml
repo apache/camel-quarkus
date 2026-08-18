@@ -47,10 +47,16 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-file</artifactId>
         </dependency>
+        <!-- no API of the support module is referenced: its deployment counterpart carries the
+             shared LangChain4j native-image support (Jandex indexing of the dev.langchain4j
+             artifacts, reflection and service-provider registrations) that every langchain4j
+             extension relies on -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-langchain4j</artifactId>
         </dependency>
+        <!-- also transitive through the support module, but compiled against directly
+             (EmbeddingStore, EmbeddingModel, DocumentSplitters), so declared -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-core</artifactId>

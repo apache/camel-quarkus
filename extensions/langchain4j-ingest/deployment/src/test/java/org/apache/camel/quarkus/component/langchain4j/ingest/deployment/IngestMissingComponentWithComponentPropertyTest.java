@@ -29,7 +29,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
  * The race this extension must win: a {@code camel.component.<scheme>.*} property referencing a
  * missing component makes Camel Main's property auto-configuration fail with its bare classpath
  * message before any route builder runs. The pre-start task gets there first, so the user reads
- * the add-extension hint, not the race's loser.
+ * the artifact hint, not the race's loser.
  */
 class IngestMissingComponentWithComponentPropertyTest {
 
@@ -39,7 +39,7 @@ class IngestMissingComponentWithComponentPropertyTest {
             .overrideConfigKey("camel.component.direct.block", "false")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "component 'direct' is not on the classpath",
-                    "quarkus:add-extension -Dextensions=camel-quarkus-direct"));
+                    "org.apache.camel.quarkus:camel-quarkus-direct"));
 
     @Test
     void startMustFail() {

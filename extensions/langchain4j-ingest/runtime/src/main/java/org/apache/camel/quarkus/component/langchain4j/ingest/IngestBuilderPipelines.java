@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.spi.CDI;
 
 /**
@@ -60,10 +62,18 @@ public class IngestBuilderPipelines {
         try {
             Class<?> declaringClass = Thread.currentThread().getContextClassLoader()
                     .loadClass(entry.className());
-            Object bean = CDI.current().select(declaringClass).get();
-            Method method = declaringClass.getDeclaredMethod(entry.methodName());
-            method.setAccessible(true);
-            return (IngestPipeline) method.invoke(bean);
+            Instance.Handle<?> bean = CDI.current().select(declaringClass).getHandle();
+            try {
+                Method method = declaringClass.getDeclaredMethod(entry.methodName());
+                method.setAccessible(true);
+                return (IngestPipeline) method.invoke(bean.get());
+            } finally {
+                // a @Dependent declaring bean exists only for this call and would otherwise
+                // never be destroyed; any other scope manages its own instance
+                if (Dependent.class.equals(bean.getBean().getScope())) {
+                    bean.destroy();
+                }
+            }
         } catch (ReflectiveOperationException e) {
             throw new IllegalStateException("Failed to invoke @Ingest method " + entry.className() + "#"
                     + entry.methodName() + " for pipeline '" + entry.name() + "'", e);

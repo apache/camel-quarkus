@@ -34,9 +34,9 @@ class IngestBuilderConfigSourceOverrideTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .overrideConfigKey("quarkus.camel.ai.ingest.docs.source.directory", "target/override")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/override")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
-                    "declared in Java", "Remove quarkus.camel.ai.ingest.docs.source.*"));
+                    "declared in Java", "Remove quarkus.camel.langchain4j.ingest.docs.source.*"));
 
     @Test
     void startMustFail() {

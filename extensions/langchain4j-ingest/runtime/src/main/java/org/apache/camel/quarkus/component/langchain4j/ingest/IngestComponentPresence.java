@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.langchain4j.ingest;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.util.URISupport;
+import org.jboss.logging.Logger;
 
 /**
  * Fails a pipeline whose consumer component is not on the classpath with the same add-extension
@@ -33,6 +34,8 @@ import org.apache.camel.util.URISupport;
  * property binding.
  */
 final class IngestComponentPresence {
+
+    private static final Logger LOG = Logger.getLogger(IngestComponentPresence.class);
 
     private IngestComponentPresence() {
     }
@@ -76,15 +79,19 @@ final class IngestComponentPresence {
             resolved = context.resolvePropertyPlaceholders(uri);
         } catch (Exception e) {
             // an unresolvable placeholder gets Camel's own diagnostics at route creation
+            LOG.debugf(e, "Ingestion pipeline '%s': component presence not checked, "
+                    + "a placeholder in the source URI did not resolve", name);
             return;
         }
         int colon = resolved.indexOf(':');
         String scheme = colon < 1 ? resolved : resolved.substring(0, colon);
         if (context.getComponent(scheme) == null) {
+            // the artifact hint is a heuristic - multi-scheme components (smtp ->
+            // camel-quarkus-mail) name their extension differently
             throw new IllegalStateException("Ingestion pipeline '" + name + "' consumes from '"
                     + URISupport.sanitizeUri(uri) + "', but the Camel component '" + scheme
-                    + "' is not on the classpath.\nAdd the extension that provides it, usually:"
-                    + "  ./mvnw quarkus:add-extension -Dextensions=camel-quarkus-" + scheme);
+                    + "' is not on the classpath. Add the extension that provides it, e.g. "
+                    + "org.apache.camel.quarkus:camel-quarkus-" + scheme);
         }
     }
 }

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * A builder-declared pipeline composes its URI at startup, out of reach of the build-time
- * connector check — so a missing component must fail there with the same add-extension hint,
+ * connector check — so a missing component must fail there with the same artifact hint,
  * not with Camel's bare NoSuchEndpointException.
  */
 class IngestBuilderMissingComponentTest {
@@ -37,7 +37,7 @@ class IngestBuilderMissingComponentTest {
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class, TestEmbeddingBeans.class))
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "component 'direct' is not on the classpath",
-                    "quarkus:add-extension -Dextensions=camel-quarkus-direct"));
+                    "org.apache.camel.quarkus:camel-quarkus-direct"));
 
     @Test
     void startMustFail() {

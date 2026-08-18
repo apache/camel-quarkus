@@ -28,7 +28,7 @@ import static org.apache.camel.builder.endpoint.StaticEndpointBuilders.kafka;
 /**
  * Pipelines declared in Java through the Camel Endpoint DSL: no URI strings anywhere, so every
  * connector option is typed and the compiler checks it. Each of these can still be switched off
- * through {@code quarkus.camel.ai.ingest.<name>.enabled}, which is how the tests that need no
+ * through {@code quarkus.camel.langchain4j.ingest.<name>.enabled}, which is how the tests that need no
  * broker or object store keep them out of the way.
  */
 @ApplicationScoped

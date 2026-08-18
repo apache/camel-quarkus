@@ -16,13 +16,12 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -30,7 +29,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * A Kafka consumer feeding a pipeline through the same {@code endpoint} source as any other
@@ -47,9 +47,14 @@ class Langchain4jIngestKafkaTest {
         send("orders/faq.txt", "Orders ship within THREE business days.");
 
         Awaitility.await().atMost(60, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS)
-                .untilAsserted(() -> assertTrue(searchEvents("How fast do orders ship?")
-                        .stream().anyMatch(text -> text.contains("THREE")),
-                        "the record must be ingested"));
+                .untilAsserted(() -> {
+                    Map<String, String> hit = Langchain4jIngestTest.hit(
+                            "How fast do orders ship?", "events", "THREE");
+                    assertNotNull(hit, "the record must be ingested");
+                    assertEquals("events", hit.get("pipeline"));
+                    // documentId("CamelKafkaKey") resolves to the record key, verbatim
+                    assertEquals("orders/faq.txt", hit.get("documentId"));
+                });
     }
 
     static void send(String key, String value) {
@@ -61,15 +66,5 @@ class Langchain4jIngestKafkaTest {
             producer.send(new ProducerRecord<>(TOPIC, key, value));
             producer.flush();
         }
-    }
-
-    static List<String> searchEvents(String query) {
-        return RestAssured.given()
-                .queryParam("q", query)
-                .queryParam("store", "events")
-                .get("/langchain4j-ingest/search")
-                .then()
-                .statusCode(200)
-                .extract().jsonPath().getList("", String.class);
     }
 }

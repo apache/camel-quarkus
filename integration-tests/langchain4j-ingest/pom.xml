@@ -117,6 +117,32 @@
             </build>
         </profile>
         <profile>
+            <!-- The Kafka and S3 tests need containers; the file, endpoint and builder tests do
+                 not, and file-path behaviour is exactly what an alternative platform should
+                 exercise - so only the container-backed classes are excluded, rather than the
+                 whole module -->
+            <id>skip-testcontainers-tests</id>
+            <activation>
+                <property>
+                    <name>skip-testcontainers-tests</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/Langchain4jIngestKafkaTest.java</exclude>
+                                <exclude>**/Langchain4jIngestS3Test.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>virtualDependencies</id>
             <activation>
                 <property>

@@ -4,12 +4,12 @@ Point a pipeline at a folder and the files in it become a knowledge base. No rou
 
 [source,properties]
 ----
-quarkus.camel.ai.ingest.products.source.directory=/var/data/product-docs
-quarkus.camel.ai.ingest.products.embedding-store=products
-quarkus.camel.ai.ingest.products.embedding-model=my-model
+quarkus.camel.langchain4j.ingest.products.source.directory=/var/data/product-docs
+quarkus.camel.langchain4j.ingest.products.embedding-store=products
+quarkus.camel.langchain4j.ingest.products.embedding-model=my-model
 ----
 
-Each file is read as UTF-8 text — there is no format parsing, so convert a PDF or DOCX before it reaches the pipeline — split into overlapping segments (`max-segment-size`, `max-overlap-size`), embedded in batches and written to the store; a document is held in memory whole while it is split. `embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each. Every segment carries `camel_quarkus_pipeline` and `camel_quarkus_document_id` metadata, so retrieval can cite which document an answer came from. Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time.
+Each file is read as UTF-8 text — there is no format parsing, so convert a PDF or DOCX before it reaches the pipeline — split into overlapping segments (`max-segment-size`, `max-overlap-size`), embedded in batches and written to the store; a document is held in memory whole while it is split. `embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each. Every segment carries `camel_quarkus_pipeline` and `camel_quarkus_document_id` metadata, so retrieval can cite which document an answer came from. Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time. A pipeline declared through runtime properties alone — nothing but a `source.directory`, say — is invisible to build-time validation; its checks, including the clash with an equally named `@Ingest` pipeline, report at startup instead.
 
 [NOTE]
 ====
@@ -30,19 +30,19 @@ IngestPipeline events() {
 }
 ----
 
-Typing `dsl.` lists a factory for every component, each completing its own typed options. The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses. `enabled=false` in configuration switches a Java-declared pipeline off. A component missing from the classpath fails at startup with the `add-extension` command that fixes it — the DSL compiles regardless, since its factories all ship in one artifact.
+Typing `dsl.` lists a factory for every component, each completing its own typed options. The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses. `enabled=false` in configuration switches a Java-declared pipeline off. A component missing from the classpath fails at startup with an error naming the extension artifact that provides it — the DSL compiles regardless, since its factories all ship in one artifact.
 
 Ingestion needs a stable id per document, and where it lives is the consumer's business: `documentId` names the header — the record key `CamelKafkaKey` above, `CamelAwsS3Key` for S3 — or gives a simple-language expression. Without it, the pipeline expects the `CamelIngestDocumentId` header and fails the exchange when it is absent. Mind each component's own defaults, too: the `aws2-s3` consumer *deletes objects after reading them* unless `deleteAfterRead(false)` is set — a knowledge base reads its source, it does not consume it.
 
 After such a pipeline ingests a document, the exchange body is replaced with the `IngestResult`, so a request-reply caller receives the outcome of its call.
 
-The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name. The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration. Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
+The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name — or a simple-language expression written `+$simple{...}+`, the one form MicroProfile Config leaves untouched. The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration. Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
 
 [source,properties]
 ----
-quarkus.camel.ai.ingest.s3docs.source.uri=aws2-s3://product-docs?region=eu-west-1&deleteAfterRead=false
-quarkus.camel.ai.ingest.s3docs.source.document-id=CamelAwsS3Key
-quarkus.camel.ai.ingest.s3docs.embedding-store=products
+quarkus.camel.langchain4j.ingest.s3docs.source.uri=aws2-s3://product-docs?region=eu-west-1&deleteAfterRead=false
+quarkus.camel.langchain4j.ingest.s3docs.source.document-id=CamelAwsS3Key
+quarkus.camel.langchain4j.ingest.s3docs.embedding-store=products
 ----
 
 === When ingestion fails

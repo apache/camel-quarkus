@@ -76,7 +76,9 @@ class Langchain4jIngestProcessor {
     /**
      * Discovers {@code @Ingest} builder methods: validated here (return type, no parameters,
      * unique names, no collision with configuration-declared pipelines), invoked reflectively once
-     * at startup.
+     * at startup. Violations are reported as {@link ValidationErrorBuildItem}s — the channel every
+     * build-time check of this extension uses, so dev and test mode see them too, and all of them
+     * at once.
      */
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
@@ -86,7 +88,8 @@ class Langchain4jIngestProcessor {
             Langchain4jIngestRecorder recorder,
             BuildProducer<AdditionalBeanBuildItem> beans,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
-            BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            BuildProducer<ValidationErrorBuildItem> validationErrors) {
 
         DotName ingestAnnotation = DotName.createSimple(Ingest.class.getName());
         DotName pipelineType = DotName.createSimple(IngestPipeline.class.getName());
@@ -104,23 +107,39 @@ class Langchain4jIngestProcessor {
             String location = method.declaringClass().name() + "#" + method.name();
 
             if (name.isBlank()) {
-                throw new ConfigurationException("@Ingest on " + location + " has a blank pipeline name");
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "@Ingest on " + location + " has a blank pipeline name")));
+                continue;
             }
             if (!method.returnType().name().equals(pipelineType)) {
-                throw new ConfigurationException("@Ingest method " + location + " must return "
-                        + IngestPipeline.class.getSimpleName());
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "@Ingest method " + location + " must return " + IngestPipeline.class.getSimpleName())));
+                continue;
             }
             if (!method.parameters().isEmpty()) {
-                throw new ConfigurationException("@Ingest method " + location + " must take no parameters");
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "@Ingest method " + location + " must take no parameters")));
+                continue;
             }
             // the method is invoked on a CDI bean instance, which a static method would bypass
             // and a private one would run against the client proxy, seeing null injected fields
             if (Modifier.isPrivate(method.flags()) || Modifier.isStatic(method.flags())) {
-                throw new ConfigurationException("@Ingest method " + location + " must not be private or static");
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "@Ingest method " + location + " must not be private or static")));
+                continue;
+            }
+            // a client proxy can neither override a final method nor extend a final class, so on
+            // a normal-scoped bean the call would silently run against the proxy's null fields
+            if (Modifier.isFinal(method.flags()) || Modifier.isFinal(method.declaringClass().flags())) {
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "@Ingest method " + location + " must not be final, nor declared on a final class")));
+                continue;
             }
             if (!names.add(name) || config.pipelines().containsKey(name)) {
-                throw new ConfigurationException("Ingestion pipeline '" + name + "' is declared more than once "
-                        + "(builder and/or configuration). Pipeline names must be unique.");
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "Ingestion pipeline '" + name + "' is declared more than once "
+                                + "(builder and/or configuration). Pipeline names must be unique.")));
+                continue;
             }
 
             flatEntries.add(name);
@@ -163,7 +182,7 @@ class Langchain4jIngestProcessor {
 
     /**
      * A pipeline whose consumer URI names a component that is not on the classpath stops the
-     * build, with the command that fixes it rather than a startup failure. Only configured URIs
+     * build, naming the artifact that fixes it rather than failing at startup. Only configured URIs
      * can be checked: a builder-declared pipeline composes its URI at startup, where the pre-start
      * task above applies the same hint. Component services are REGISTRY-destination, so they are
      * read from the application archives directly — they never appear among the DISCOVERY
@@ -197,8 +216,8 @@ class Langchain4jIngestProcessor {
                 validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
                         "Ingestion pipeline '" + entry.getKey() + "' consumes from '"
                                 + URISupport.sanitizeUri(uri) + "', but the Camel component '" + scheme
-                                + "' is not on the classpath.\nAdd the extension that provides it, usually:"
-                                + "  ./mvnw quarkus:add-extension -Dextensions=camel-quarkus-" + scheme)));
+                                + "' is not on the classpath. Add the extension that provides it, e.g. "
+                                + "org.apache.camel.quarkus:camel-quarkus-" + scheme)));
             }
         }
     }

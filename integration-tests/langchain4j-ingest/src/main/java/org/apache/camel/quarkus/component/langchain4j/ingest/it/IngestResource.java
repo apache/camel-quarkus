@@ -36,6 +36,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestHeaders;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult;
+import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @jakarta.ws.rs.Path("/langchain4j-ingest")
@@ -84,7 +85,7 @@ public class IngestResource {
     @GET
     @jakarta.ws.rs.Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> search(@QueryParam("q") String query, @QueryParam("store") String storeName) {
+    public List<SearchHit> search(@QueryParam("q") String query, @QueryParam("store") String storeName) {
         EmbeddingStore<TextSegment> store = switch (storeName == null ? "products" : storeName) {
         case "custom" -> customStore;
         case "built" -> builtStore;
@@ -92,12 +93,24 @@ public class IngestResource {
         case "events" -> eventsStore;
         default -> productsStore;
         };
+        // the deterministic test model gives a query no semantic pull towards any document, so
+        // with minScore 0 this returns the whole store: the tests assert what was ingested, not
+        // how it ranks. Sized far above anything the tests write so nothing is silently dropped
         var result = store.search(EmbeddingSearchRequest.builder()
                 .queryEmbedding(model.embed(query).content())
-                .maxResults(20)
+                .maxResults(1000)
                 .minScore(0.0)
                 .build());
-        return result.matches().stream().map(match -> match.embedded().text()).toList();
+        return result.matches().stream()
+                .map(match -> new SearchHit(
+                        match.embedded().text(),
+                        match.embedded().metadata().getString(IngestService.METADATA_PIPELINE),
+                        match.embedded().metadata().getString(IngestService.METADATA_DOCUMENT_ID)))
+                .toList();
+    }
+
+    /** One stored segment with the metadata the pipeline stamped on it. */
+    public record SearchHit(String text, String pipeline, String documentId) {
     }
 
     /** Feeds a push pipeline through its Camel consumer URI. */
