@@ -34,7 +34,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastDefaultComponent;
-import org.apache.camel.component.hazelcast.atomicnumber.HazelcastAtomicnumberComponent;
 import org.apache.camel.component.hazelcast.instance.HazelcastInstanceComponent;
 import org.apache.camel.component.hazelcast.list.HazelcastListComponent;
 import org.apache.camel.component.hazelcast.map.HazelcastMapComponent;
@@ -89,12 +88,6 @@ public class HazelcastRoutes extends RouteBuilder {
     @Named("hazelcast-instance")
     HazelcastDefaultComponent hazelcastInstance() {
         final HazelcastInstanceComponent hazelcastComponent = new HazelcastInstanceComponent();
-        return configureHazelcastComponent(hazelcastComponent);
-    }
-
-    @Named("hazelcast-atomicvalue")
-    HazelcastDefaultComponent hazelcastAtomicnumber() {
-        final HazelcastAtomicnumberComponent hazelcastComponent = new HazelcastAtomicnumberComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 

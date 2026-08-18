@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-hazelcast-parent</artifactId>
-    <name>Camel Quarkus :: Hazelcast Atomic Number</name>
+    <name>Camel Quarkus :: Hazelcast</name>
     <packaging>pom</packaging>
 
     <modules>

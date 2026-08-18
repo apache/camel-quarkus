@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Expose ai-tool routes as MCP tools over streamable HTTP
+:cq-description: Expose ai-tool routes as MCP tools and ai-resource routes as MCP resources over streamable HTTP
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
 :cq-native-since: 3.39.0

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jolt.deployment;
 
-import com.bazaarvoice.jolt.chainr.spec.ChainrEntry;
+import io.joltcommunity.jolt.chainr.spec.ChainrEntry;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
