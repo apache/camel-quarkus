@@ -143,6 +143,7 @@ group-07:
   - ldap
   - langchain4j-embeddings
   - langchain4j-rag-bridge-ql4j
+  - langchain4j-ingest
   - lumberjack
   - ognl
   - olingo4

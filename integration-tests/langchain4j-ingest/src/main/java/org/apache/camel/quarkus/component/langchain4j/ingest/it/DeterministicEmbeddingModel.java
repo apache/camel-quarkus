@@ -1,0 +1,79 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.quarkus.component.langchain4j.ingest.it;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import dev.langchain4j.data.embedding.Embedding;
+import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.model.output.Response;
+
+/**
+ * Deterministic fake: same text, same vector — no network, no model download, native-friendly.
+ */
+public class DeterministicEmbeddingModel implements EmbeddingModel {
+
+    private final int dimension;
+
+    public DeterministicEmbeddingModel(int dimension) {
+        this.dimension = dimension;
+    }
+
+    @Override
+    public Response<List<Embedding>> embedAll(List<TextSegment> segments) {
+        List<Embedding> embeddings = new ArrayList<>(segments.size());
+        for (TextSegment segment : segments) {
+            embeddings.add(embeddingFor(segment.text()));
+        }
+        return Response.from(embeddings);
+    }
+
+    @Override
+    public int dimension() {
+        return dimension;
+    }
+
+    public Embedding embeddingFor(String text) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256").digest(text.getBytes(StandardCharsets.UTF_8));
+            long seed = 0;
+            for (int i = 0; i < 8; i++) {
+                seed = (seed << 8) | (digest[i] & 0xff);
+            }
+            Random random = new Random(seed);
+            float[] vector = new float[dimension];
+            double norm = 0;
+            for (int i = 0; i < dimension; i++) {
+                vector[i] = (float) random.nextGaussian();
+                norm += vector[i] * vector[i];
+            }
+            norm = Math.sqrt(norm);
+            for (int i = 0; i < dimension; i++) {
+                vector[i] /= (float) norm;
+            }
+            return new Embedding(vector);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+}
