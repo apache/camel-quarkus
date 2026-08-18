@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-minio
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Store and retrieve objects from Minio Storage Service using Minio SDK.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.5.0
 :cq-native-since: 1.6.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.5.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
+[.badge-key]##JVM since##[.badge-supported]##1.5.0## [.badge-key]##Native since##[.badge-supported]##1.6.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Store and retrieve objects from Minio Storage Service using Minio SDK.

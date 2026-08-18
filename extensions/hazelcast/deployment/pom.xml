@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-hazelcast-deployment</artifactId>
-    <name>Camel Quarkus :: Hazelcast Atomic Number :: Deployment</name>
+    <name>Camel Quarkus :: Hazelcast :: Deployment</name>
 
     <dependencies>
         <dependency>

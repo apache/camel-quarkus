@@ -174,19 +174,22 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
         }
 
         private VariableBinding generateResponseBinding(int counter, int version, OID oid) {
-            //get next test
-            if (SnmpTest.GET_NEXT_OID.equals(oid)) {
-                //if counter < 2 return the same oid
-                if (counter < 3) {
-                    return new VariableBinding(SnmpTest.GET_NEXT_OID, new OctetString("" + counter));
+            //get next test: the producer walks the subtree, each request asks for the OID returned by the previous
+            //response, so the step is derived from the requested OID and the returned OIDs must increase
+            if (oid.startsWith(SnmpTest.GET_NEXT_OID)) {
+                int step = oid.size() > SnmpTest.GET_NEXT_OID.size() ? oid.last() : 0;
+                if (step < 2) {
+                    return new VariableBinding(new OID(SnmpTest.GET_NEXT_OID).append(step + 1),
+                            new OctetString("" + (step + 1)));
                 }
-                if (counter == 3) {
-                    //else return sysDescr
-                    return new VariableBinding(SnmpTest.GET_NEXT_OID,
-                            new OctetString("My GET_NEXT Printer - response #" + counter));
+                if (step == 2) {
+                    return new VariableBinding(new OID(SnmpTest.GET_NEXT_OID).append(3),
+                            new OctetString("My GET_NEXT Printer - response #3"));
                 }
-                //else do not send response
-                return null;
+                //an OID outside the walked subtree ends the walk
+                OID end = new OID(SnmpTest.GET_NEXT_OID);
+                end.set(end.size() - 1, end.last() + 1);
+                return new VariableBinding(end, new OctetString("end of the GET_NEXT subtree"));
             }
 
             if (SnmpTest.POLL_OID.equals(oid)) {

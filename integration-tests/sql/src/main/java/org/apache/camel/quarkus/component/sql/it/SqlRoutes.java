@@ -94,7 +94,7 @@ public class SqlRoutes extends RouteBuilder {
 
         from("direct:transacted")
                 .transacted("PROPAGATION_REQUIRED")
-                .to("sql:overriddenByTheHeader")
+                .to("sql:overriddenByTheHeader?allowQueryFromHeader=true")
                 .process(e -> {
                     if (e.getIn().getHeader("rollback", boolean.class)) {
                         throw new Exception("forced Exception");
