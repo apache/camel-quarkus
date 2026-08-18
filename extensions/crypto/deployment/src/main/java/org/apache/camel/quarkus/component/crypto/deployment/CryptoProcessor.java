@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.crypto.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.converter.crypto.CryptoDataFormat;
 import org.jboss.logging.Logger;
 
 class CryptoProcessor {
@@ -35,6 +37,12 @@ class CryptoProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activeNativeSSLSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        // CryptoDataFormat holds a static SecureRandom, which must not be created at build time
+        return new RuntimeInitializedClassBuildItem(CryptoDataFormat.class.getName());
     }
 
 }

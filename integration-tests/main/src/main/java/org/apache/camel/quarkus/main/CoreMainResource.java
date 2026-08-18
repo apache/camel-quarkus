@@ -46,8 +46,6 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
-import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
-import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.ContextReloadStrategy;
 import org.apache.camel.spi.DataFormat;
@@ -56,7 +54,6 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Resource;
-import org.apache.camel.spi.ThreadPoolFactory;
 import org.apache.camel.support.DefaultRegistry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.PluginHelper;
@@ -180,27 +177,6 @@ public class CoreMainResource {
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", executor.getClass().getName());
-
-        if (executor instanceof VertXReactiveExecutor) {
-            builder.add("configured", ((VertXReactiveExecutor) executor).getVertx() != null);
-
-        }
-
-        return builder.build();
-    }
-
-    @Path("/context/thread-pool-factory")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public JsonObject threadPoolFactory() {
-        ThreadPoolFactory threadPoolFactory = main.getCamelContext().getExecutorServiceManager().getThreadPoolFactory();
-
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("class", threadPoolFactory.getClass().getName());
-
-        if (threadPoolFactory instanceof VertXThreadPoolFactory) {
-            builder.add("configured", ((VertXThreadPoolFactory) threadPoolFactory).getVertx() != null);
-        }
 
         return builder.build();
     }

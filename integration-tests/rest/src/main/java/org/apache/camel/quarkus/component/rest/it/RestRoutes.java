@@ -37,7 +37,7 @@ public class RestRoutes extends RouteBuilder {
                 .enableCORS(true)
                 .corsAllowCredentials(true)
                 .corsHeaderProperty("Access-Control-Allow-Methods", "GET, POST")
-                .endpointProperty("fileNameExtWhitelist", ".txt");
+                .endpointProperty("fileNameExtWhitelist", "txt");
 
         rest("/rest")
                 .delete()
