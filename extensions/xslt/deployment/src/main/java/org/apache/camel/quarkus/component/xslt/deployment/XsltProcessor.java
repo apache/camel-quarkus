@@ -113,6 +113,7 @@ class XsltProcessor {
                     tf.setAttribute("package-name", config.packageName());
                     tf.setAttribute("destination-directory", destination.toString());
                     tf.setErrorListener(new CamelXsltErrorListener());
+                    tf.setURIResolver(resolver);
                     tf.newTemplates(resolvedUri.source);
                 } catch (TransformerException e) {
                     throw new RuntimeException("Could not compile XSLT " + uri, e);
