@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -37,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTSECRET", matches = ".+")
+@Disabled("https://github.com/apache/camel-quarkus/issues/9319")
 @QuarkusTest
 public class SalesforceIntegrationTest {
 

@@ -82,6 +82,7 @@
     </dependencies>
 
     <profiles>
+        <!-- https://github.com/apache/camel-quarkus/issues/9319
         <profile>
             <id>native</id>
             <activation>
@@ -109,6 +110,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>generate-salesforce-dtos</id>
             <build>

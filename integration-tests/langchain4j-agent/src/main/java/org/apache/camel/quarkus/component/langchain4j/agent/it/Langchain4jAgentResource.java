@@ -198,8 +198,8 @@ public class Langchain4jAgentResource {
                 .withBody(userMessage)
                 .request(String.class);
 
-        // Ensure tools were called
-        Object toolWasInvoked = consumerTemplate.receiveBody("seda:userDbTool", 10000L);
+        // Ensure tools were called: the tool route gets a clean message (arguments as headers, body null), so check the exchange
+        Exchange toolWasInvoked = consumerTemplate.receive("seda:userDbTool", 10000L);
         if (toolWasInvoked == null) {
             return Response.serverError().entity("userDb tool was not invoked").build();
         }

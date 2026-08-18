@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
 
@@ -30,6 +31,7 @@ import static org.hamcrest.Matchers.is;
  * the Pub / Sub API is tested against Salesforce in {@link SalesforceIntegrationTest} instead.
  */
 @EnabledIf("org.apache.camel.quarkus.component.salesforce.SalesforceTestResource#isMockBackend")
+@Disabled("https://github.com/apache/camel-quarkus/issues/9319")
 @QuarkusTest
 @QuarkusTestResource(SalesforceTestResource.class)
 class SalesforcePubSubTest {
