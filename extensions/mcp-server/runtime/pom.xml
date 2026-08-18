@@ -33,6 +33,7 @@
     <description>Expose ai-tool routes as MCP tools over streamable HTTP</description>
 
     <properties>
+        <quarkus.metadata.status>preview</quarkus.metadata.status>
         <camel.quarkus.jvmSince>3.39.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.39.0</camel.quarkus.nativeSince>
     </properties>

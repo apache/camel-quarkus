@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-ai-tool
 :cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Framework-agnostic consumer endpoint that registers a Camel route as an LLM tool in the shared AiToolRegistry.
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
