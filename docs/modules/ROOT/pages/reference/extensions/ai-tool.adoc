@@ -46,7 +46,7 @@ endif::[]
 
 [id="extensions-ai-tool-usage"]
 == Usage
-The `ai-tool` component is a framework-agnostic consumer endpoint that registers Camel routes as LLM-callable tools in a shared `AiToolRegistry`. Framework-specific extensions (such as `camel-quarkus-langchain4j-tools`, `camel-quarkus-openai`) discover and invoke these tools at runtime.
+The `ai-tool` component is a framework-agnostic consumer endpoint that registers Camel routes as LLM-callable tools in a shared `AiToolRegistry`. Framework-specific extensions (such as `camel-quarkus-langchain4j-agent`, `camel-quarkus-openai`) discover and invoke these tools at runtime.
 
 [id="extensions-ai-tool-usage-defining-a-tool"]
 === Defining a tool

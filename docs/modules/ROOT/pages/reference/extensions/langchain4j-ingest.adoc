@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Experimental
 :cq-status-deprecation: Experimental
-:cq-description: Declarative AI document ingestion: point a knowledge base at a folder via configuration; splitting, embedding and storing are handled under the hood
+:cq-description: Ingest documents into a LangChain4j EmbeddingStore: split, embed and store the message body.
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
 :cq-native-since: 3.39.0
@@ -18,6 +18,13 @@ ifeval::[{doc-show-badges} == true]
 endif::[]
 
 Ingest documents into a LangChain4j EmbeddingStore: split, embed and store the message body.
+
+[id="extensions-langchain4j-ingest-whats-inside"]
+== What's inside
+
+* xref:{cq-camel-components}::langchain4j-ingest-component.adoc[LangChain4j Ingest component], URI syntax: `langchain4j-ingest:pipelineName`
+
+Please refer to the above link for usage and configuration details.
 
 [id="extensions-langchain4j-ingest-maven-coordinates"]
 == Maven coordinates
@@ -181,7 +188,7 @@ The method runs once at startup; it must return `IngestPipeline`, take no parame
 A component missing from the classpath fails at startup with an error naming the extension artifact that provides it — the DSL compiles regardless, since its factories all ship in one artifact.
 
 Ingestion needs a stable id per document, and where it lives is the consumer's business: `documentId` names the header — the record key `CamelKafkaKey` above, `CamelAwsS3Key` for S3 — or gives a simple-language expression.
-Without it, the pipeline expects the `CamelIngestDocumentId` header and fails the exchange when it is absent.
+Without it, the pipeline expects the `CamelLangChain4jIngestDocumentId` header — the `camel-langchain4j-ingest` component's convention; the 3.39 name `CamelIngestDocumentId` is still read as a fallback, see the migration guide — and fails the exchange when both are absent.
 Mind each component's own defaults, too: the `aws2-s3` consumer *deletes objects after reading them* unless `deleteAfterRead(false)` is set — a knowledge base reads its source, it does not consume it.
 
 After such a pipeline ingests a document, the exchange body is replaced with the `IngestResult`, so a request-reply caller receives the outcome of its call.
@@ -232,8 +239,12 @@ Note that the import order is paramount when using maven `dependencyManagement`.
 As such, one might need to import the `langchain4j-bom` before other related Camel and Quarkus BOMs.
 
 === Quarkus LangChain4j support
+WARNING: At present, this extension is neither tested with nor intended to be used in conjunction with any Quarkus LangChain4j extensions.
+Consequently, both JVM and native modes may exhibit unexpected behaviour or fail to function correctly in such configurations.
 
-This extension is designed and tested to work together with the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j] extensions. The `EmbeddingStore` and `EmbeddingModel` beans a pipeline writes through are ordinary CDI beans shared by both stacks — including stores declared through Quarkus LangChain4j configuration — and with the RAG augmentor bridge an `@RegisterAiService` interface answers from the store a pipeline filled, without glue code. The integration tests run both stacks in one application.
+The `EmbeddingStore` and `EmbeddingModel` beans used by an ingestion pipeline are regular CDI beans, so they can be shared with Quarkus LangChain4j. This includes embedding stores configured through Quarkus LangChain4j.
+
+Combined with the xref:reference/extensions/langchain4j-embeddingstore.adoc#extensions-langchain4j-embeddingstore-usage-retrieval-augmentors-for-registeraiservice[RAG augmentor bridge], an `@RegisterAiService` interface can retrieve content from the embedding store populated by a pipeline.
 
 
 [id="extensions-langchain4j-ingest-additional-camel-quarkus-configuration"]
@@ -366,7 +377,8 @@ expression in the `+$simple{...}+` form — MicroProfile Config passes it throug
 untouched, while a `+${...}+` in a properties file would be consumed as a config
 expansion before Camel ever saw it. When not set, a pipeline reading a directory
 uses the file name, and one consuming from a component uses the
-`CamelIngestDocumentId` header.
+`CamelLangChain4jIngestDocumentId` header (the deprecated 3.39 name
+`CamelIngestDocumentId` is still read as a fallback).
 | `string`
 | 
 |===

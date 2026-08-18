@@ -21,8 +21,8 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Hazelcast Atomic Number"
-description: "Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number)"
+name: "Camel Hazelcast"
+description: "Perform operations on Hazelcast distributed data structures such as map, multimap, list, set, queue, topic and ringbuffer"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   sponsor: "Apache Software Foundation"
