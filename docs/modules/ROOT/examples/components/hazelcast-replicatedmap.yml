@@ -4,10 +4,10 @@ cqArtifactId: camel-quarkus-hazelcast
 cqArtifactIdBase: hazelcast
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: true
+cqDeprecated: false
 cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-replicatedmap
 cqCamelPartTitle: Hazelcast Replicated Map
 cqCamelPartDescription: Perform operations on Hazelcast replicated map.
-cqExtensionPageTitle: Hazelcast Atomic Number
+cqExtensionPageTitle: Hazelcast

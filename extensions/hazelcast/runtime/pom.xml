@@ -27,8 +27,8 @@
     </parent>
 
     <artifactId>camel-quarkus-hazelcast</artifactId>
-    <name>Camel Quarkus :: Hazelcast Atomic Number :: Runtime</name>
-    <description>Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).</description>
+    <name>Camel Quarkus :: Hazelcast :: Runtime</name>
+    <description>Perform operations on Hazelcast distributed data structures such as map, multimap, list, set, queue, topic and ringbuffer.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
