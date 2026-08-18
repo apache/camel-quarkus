@@ -17,6 +17,7 @@
  */
 package org.apache.camel.quarkus.component.milvus.it;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,8 @@ public class MilvusTestResource implements QuarkusTestResourceLifecycleManager {
         Map<String, String> properties = new HashMap<>();
         DockerImageName dockerImageName = DockerImageName.parse(MILVUS_IMAGE).asCompatibleSubstituteFor("milvusdb/milvus");
         milvus = new MilvusContainer(dockerImageName);
+        milvus.withStartupTimeout(Duration.ofMinutes(3L));
+        milvus.withEnv("DEPLOY_MODE", "STANDALONE");
         milvus.withLogConsumer(new Slf4jLogConsumer(LOGGER));
         milvus.start();
         properties.put("camel.component.milvus.host", milvus.getHost());
