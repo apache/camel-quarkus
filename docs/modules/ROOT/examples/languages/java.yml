@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-joor
 cqArtifactIdBase: joor
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: true
+cqDeprecated: false
 cqJvmSince: 2.0.0
 cqNativeSince: 3.2.0
 cqCamelPartName: java
