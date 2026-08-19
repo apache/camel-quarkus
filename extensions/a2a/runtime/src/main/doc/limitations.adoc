@@ -1,0 +1,8 @@
+=== `HTTP+JSON` protocol binding not supported
+
+The xref:{cq-camel-components}::a2a-component.adoc[A2A component] supports two protocol bindings: `JSONRPC` and `HTTP+JSON`.
+Only the `JSONRPC` binding works with the default Quarkus HTTP server (Vert.x / `platform-http`).
+
+The `HTTP+JSON` binding uses A2A custom-method paths that contain colons, such as `/message:send`.
+Vert.x Web does not support colon characters in URI path segments, causing these routes to fail.
+
