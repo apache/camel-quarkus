@@ -88,7 +88,7 @@ class MilvusTest {
                 // 2. Invalid Search
                 Arguments.of("search", config3d, List.of(0.1f, 0.2f), 400, "dimension mismatch"),
 
-                Arguments.of("search", ghostConfig, List.of(0.1f, 0.2f), 400, "collection not found"),
+                Arguments.of("search", ghostConfig, List.of(0.1f, 0.2f), 400, "find collection"),
                 // 3. Invalid delete
                 Arguments.of("delete", ghostConfig, List.of(1L), 400, "collection not found"));
 

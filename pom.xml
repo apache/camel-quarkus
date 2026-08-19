@@ -234,29 +234,29 @@
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
         <!-- Test container image properties -->
-        <arangodb.container.image>mirror.gcr.io/arangodb:3.12.0</arangodb.container.image>
-        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.35.0</azurite.container.image>
+        <arangodb.container.image>mirror.gcr.io/arangodb:3.12.5.2</arangodb.container.image>
+        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.36.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
-        <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
-        <consul.container.image>mirror.gcr.io/hashicorp/consul:1.21</consul.container.image>
+        <cassandra.container.image>mirror.gcr.io/cassandra:5.0.8</cassandra.container.image>
+        <consul.container.image>mirror.gcr.io/hashicorp/consul:2.0.2</consul.container.image>
         <couchbase.container.image>mirror.gcr.io/couchbase/server:8.0.0</couchbase.container.image>
-        <couchdb.container.image>mirror.gcr.io/couchdb:3.5.0</couchdb.container.image>
+        <couchdb.container.image>mirror.gcr.io/couchdb:3.5.1</couchdb.container.image>
         <cyberark-conjur.container.image>mirror.gcr.io/cyberark/conjur:1.24.0</cyberark-conjur.container.image>
         <cyberark-conjur-cli.container.image>mirror.gcr.io/cyberark/conjur-cli:9</cyberark-conjur-cli.container.image>
         <cyberark-nginx.container.image>mirror.gcr.io/nginx:1.30.3-alpine3.23-perl</cyberark-nginx.container.image>
         <db2.container.image>icr.io/db2_community/db2:12.1.5.0</db2.container.image>
-        <docling.container.image>quay.io/docling-project/docling-serve:v1.9.0</docling.container.image>
-        <eclipse-mosquitto.container.image>mirror.gcr.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>
+        <docling.container.image>quay.io/docling-project/docling-serve:v1.29.0</docling.container.image>
+        <eclipse-mosquitto.container.image>mirror.gcr.io/eclipse-mosquitto:2.0.22</eclipse-mosquitto.container.image>
         <elasticsearch.container.image>mirror.gcr.io/elastic/elasticsearch:9.1.0</elasticsearch.container.image>
         <eventhubs-emulator.container.image>mcr.microsoft.com/azure-messaging/eventhubs-emulator:latest</eventhubs-emulator.container.image>
         <fhir.container.image.base>mirror.gcr.io/hapiproject/hapi</fhir.container.image.base>
-        <fhir.container.image>${fhir.container.image.base}:v8.6.0-1</fhir.container.image>
+        <fhir.container.image>${fhir.container.image.base}:v8.10.0-3</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
         <floci.container.image>mirror.gcr.io/floci/floci:1.6.0</floci.container.image>
         <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:551.0.0-emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
         <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.1.8</greenmail.container.image>
-        <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:1.20.4</hashicorp-vault.container.image>
+        <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:2.0.3</hashicorp-vault.container.image>
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:10.0.0.0-r2</ibm-mq.container.image>
         <infinispan.container.image>quay.io/infinispan/server:latest</infinispan.container.image><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:infinispan.image -->
         <influxdb.container.image>mirror.gcr.io/influxdb:1.12.2-alpine</influxdb.container.image>
@@ -265,27 +265,27 @@
         <kudu.container.image>mirror.gcr.io/apache/kudu:1.18.0-ubuntu</kudu.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <mariadb.container.image>mirror.gcr.io/mariadb:12.2-ubi</mariadb.container.image>
-        <milvus.container.image>mirror.gcr.io/milvusdb/milvus:v2.3.9</milvus.container.image>
-        <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2025-07-23T15-54-02Z-cpuv1</minio.container.image>
+        <milvus.container.image>mirror.gcr.io/milvusdb/milvus:v2.6.21</milvus.container.image>
+        <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1</minio.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <mysql.container.image>mirror.gcr.io/mysql:9.5</mysql.container.image>
-        <nats.container.image>mirror.gcr.io/nats:2.11.6</nats.container.image>
-        <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:3.1.0</opensearch.container.image>
+        <nats.container.image>mirror.gcr.io/nats:2.14.2</nats.container.image>
+        <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:3.7.0</opensearch.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
         <oracle-debezium.container.image>mirror.gcr.io/gvenzl/oracle-free:23.26.1-slim-faststart</oracle-debezium.container.image>
         <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v1.0.0.rc0</pinecone.container.image>
         <postgres.container.image>mirror.gcr.io/postgres:17.5</postgres.container.image>
         <postgres-debezium.container.image>quay.io/debezium/postgres:17-alpine</postgres-debezium.container.image>
-        <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.16.0-unprivileged</qdrant.container.image>
-        <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.2.4-management-alpine</rabbitmq.container.image>
-        <redis.container.image>mirror.gcr.io/redis:7.4.0-alpine</redis.container.image>
-        <rocketmq.container.image>apache/rocketmq:5.3.2</rocketmq.container.image>
+        <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.18.3-unprivileged</qdrant.container.image>
+        <rabbitmq.container.image>mirror.gcr.io/rabbitmq:4.2.5-management-alpine</rabbitmq.container.image>
+        <redis.container.image>mirror.gcr.io/redis:7.4.10-alpine</redis.container.image>
+        <rocketmq.container.image>apache/rocketmq:5.3.3</rocketmq.container.image>
         <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:2.0.0</smb.container.image>
-        <solr.container.image>mirror.gcr.io/solr:9.9.0-slim</solr.container.image>
+        <solr.container.image>mirror.gcr.io/solr:9.10.1-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.4.7</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2025-latest</sql-server.container.image>
-        <weaviate.container.image>mirror.gcr.io/semitechnologies/weaviate:1.32.0</weaviate.container.image>
+        <weaviate.container.image>mirror.gcr.io/semitechnologies/weaviate:1.37.4</weaviate.container.image>
 
         <!-- Plugin configuration through properties  -->
 
