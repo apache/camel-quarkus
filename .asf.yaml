@@ -38,6 +38,8 @@ github:
     merge: false
     rebase: true
     squash: true
+  pull_requests:
+    allow_update_branch: true
   rulesets:
     - name: "Default Branch Protection"
       type: branch
