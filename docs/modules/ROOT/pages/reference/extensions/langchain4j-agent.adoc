@@ -44,6 +44,12 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-langchain4j-agent-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+The `sse` MCP transport type is not available. It is backed by `HttpMcpTransport`, which was removed in LangChain4j 1.19.0. Use the `streamableHttp` transport type instead.
+
+
 [id="extensions-langchain4j-agent-quarkus-langchain4j-bom"]
 == LangChain4j usage
 
