@@ -55,6 +55,16 @@ public interface IngestBuildTimeConfig {
         SourceBuildTimeConfig source();
 
         /**
+         * How a consumed payload becomes text before it is split: `tika` extracts plain text
+         * from PDF, office and similar formats in-process, `docling` converts to
+         * structure-preserving markdown through a Docling Serve instance (configure it with
+         * `camel.component.docling.*`). When not set, the payload is read as text as-is. Each
+         * value needs its extension on the classpath: `camel-quarkus-tika` or
+         * `camel-quarkus-docling`.
+         */
+        Optional<String> parser();
+
+        /**
          * Name of the `EmbeddingStore` bean to write to. When not set, the only one present is
          * used.
          */

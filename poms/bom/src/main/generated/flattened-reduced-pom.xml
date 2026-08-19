@@ -9041,6 +9041,17 @@
         <version>3.0.0</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-parser-pdf-module</artifactId>
+        <version>3.3.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.apache.velocity</groupId>
         <artifactId>velocity-engine-core</artifactId>
         <version>2.4.1</version>

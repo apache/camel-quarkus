@@ -8350,6 +8350,17 @@
                 <version>${shiro-version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-parser-pdf-module</artifactId>
+                <version>${tika.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.xmlgraphics</groupId>
                 <artifactId>xmlgraphics-commons</artifactId>
                 <version>${xmlgraphics-commons.version}</version>
@@ -8717,6 +8728,9 @@
                                 <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.sun.xml.fastinfoset:FastInfoset</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
+                                <!-- Tika parses only the formats whose parser modules are present; applications
+                                     using the langchain4j-ingest tika parser add the modules for their formats -->
+                                <resolutionEntryPointInclude>org.apache.tika:tika-parser-pdf-module</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <resolutionExcludes>
                                 <!-- Exclude artifacts that we do not want in the flattened BOM -->

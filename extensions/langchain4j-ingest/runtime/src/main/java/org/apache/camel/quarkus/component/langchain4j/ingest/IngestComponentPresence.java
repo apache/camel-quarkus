@@ -72,6 +72,14 @@ final class IngestComponentPresence {
             if ("endpoint".equals(definition.sourceType())) {
                 require(context, entry.name(), definition.sourceUri());
             }
+            // a builder-declared parser is out of reach of the build-time check, like the URI
+            String parser = definition.parser().orElse(null);
+            if (parser != null && context.getComponent(parser) == null) {
+                throw new IllegalStateException("Ingestion pipeline '" + entry.name() + "' parses with '" + parser
+                        + "', but the Camel component '" + parser + "' is not on the classpath. "
+                        + "Add the extension that provides it, e.g. org.apache.camel.quarkus:camel-quarkus-"
+                        + parser);
+            }
         }
     }
 
