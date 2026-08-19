@@ -1,0 +1,1 @@
+The `sse` MCP transport type is not available. It is backed by `HttpMcpTransport`, which was removed in LangChain4j 1.19.0. Use the `streamableHttp` transport type instead.

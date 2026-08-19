@@ -752,47 +752,47 @@
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j</artifactId>
-        <version>1.17.2</version>
+        <version>1.19.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-core</artifactId>
-        <version>1.17.2</version>
+        <version>1.19.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-embeddings</artifactId>
-        <version>1.17.2-beta27</version>
+        <version>1.19.0-beta29</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-guardrails</artifactId>
-        <version>1.17.2-beta27</version>
+        <version>1.19.0-beta29</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-http-client</artifactId>
-        <version>1.17.2</version>
+        <version>1.19.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-http-client-jdk</artifactId>
-        <version>1.17.2</version>
+        <version>1.19.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-hugging-face</artifactId>
-        <version>1.17.2-beta27</version>
+        <version>1.19.0-beta29</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-mcp</artifactId>
-        <version>1.17.2-beta27</version>
+        <version>1.19.0-beta29</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-open-ai</artifactId>
-        <version>1.17.2</version>
+        <version>1.19.0</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
@@ -1180,7 +1180,7 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>1.12.2</version>
+        <version>1.13.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mcp</groupId>
