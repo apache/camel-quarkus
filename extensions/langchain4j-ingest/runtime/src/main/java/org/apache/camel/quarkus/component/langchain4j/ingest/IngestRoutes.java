@@ -17,14 +17,19 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Any;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
@@ -55,6 +60,16 @@ public class IngestRoutes extends RouteBuilder {
 
     @Inject
     IngestBuilderPipelines builderPipelines;
+
+    // these injection points also keep an unnamed store or model bean from being removed as
+    // unused - nothing else in the application need inject it
+    @Inject
+    @Any
+    Instance<EmbeddingStore<TextSegment>> storeCandidates;
+
+    @Inject
+    @Any
+    Instance<EmbeddingModel> modelCandidates;
 
     @Override
     public void configure() {
@@ -212,9 +227,11 @@ public class IngestRoutes extends RouteBuilder {
         // a bare header name is read as a header directly rather than parsed: a dotted header
         // name would send the simple parser into OGNL. $simple{...} is the form for a properties
         // file, where MicroProfile Config would consume a ${...} before Camel ever saw it; the
-        // ${...} form still serves the Java builder. The expression is initialised here, at
-        // route build time - left to reify lazily it would race on the first concurrent exchanges
-        Expression expression = configured.contains("${") || configured.startsWith("$simple{")
+        // ${...} form still serves the Java builder. Both tokens are matched with contains, the
+        // same way Camel's own LanguageSupport detects a simple function. The expression is
+        // initialised here, at route build time - left to reify lazily it would race on the
+        // first concurrent exchanges
+        Expression expression = configured.contains("${") || configured.contains("$simple{")
                 ? ExpressionBuilder.simpleExpression(configured)
                 : ExpressionBuilder.headerExpression(configured);
         expression.init(getContext());
@@ -234,46 +251,40 @@ public class IngestRoutes extends RouteBuilder {
     }
 
     private EmbeddingStore<TextSegment> resolveStore(String name, String configured) {
-        if (configured != null) {
-            EmbeddingStore<TextSegment> store = getContext().getRegistry().lookupByNameAndType(configured,
-                    EmbeddingStore.class);
-            if (store == null) {
-                throw new IllegalStateException("Ingestion pipeline '" + name + "' references embedding store '"
-                        + configured + "' but no such bean exists");
-            }
-            return store;
-        }
-        return single(name, EmbeddingStore.class, "embedding store", "embedding-store");
+        return resolve(name, storeCandidates, configured, "embedding store", "embedding-store");
     }
 
     private EmbeddingModel resolveModel(String name, String configured) {
-        if (configured != null) {
-            EmbeddingModel model = getContext().getRegistry().lookupByNameAndType(configured, EmbeddingModel.class);
-            if (model == null) {
-                throw new IllegalStateException("Ingestion pipeline '" + name + "' references embedding model '"
-                        + configured + "' but no such bean exists");
-            }
-            return model;
-        }
-        return single(name, EmbeddingModel.class, "embedding model", "embedding-model");
+        return resolve(name, modelCandidates, configured, "embedding model", "embedding-model");
     }
 
     /**
-     * Picking one silently would bind a pipeline to whichever bean happened to be discovered
-     * first. The registry serves the named and the unnamed lookup alike, so a bean visible to
-     * one — CDI-produced or bound directly — is visible to the other.
+     * CDI is the one mechanism for both lookups: the named path selects on the qualifier, the
+     * unnamed path counts the candidates — through handles, so beans are not instantiated merely
+     * to be counted. Picking one silently would bind a pipeline to whichever bean happened to be
+     * discovered first. A raw-typed registry search cannot serve here: it never matches a bean
+     * typed {@code EmbeddingStore<TextSegment>}.
      */
-    private <T> T single(String name, Class<T> type, String what, String property) {
-        Set<T> candidates = getContext().getRegistry().findByType(type);
-        if (candidates.isEmpty()) {
+    private <T> T resolve(String name, Instance<T> candidates, String configured, String what, String property) {
+        if (configured != null) {
+            Instance<T> named = candidates.select(NamedLiteral.of(configured));
+            if (named.isUnsatisfied()) {
+                throw new IllegalStateException("Ingestion pipeline '" + name + "' references " + what + " '"
+                        + configured + "' but no such bean exists");
+            }
+            return named.get();
+        }
+        List<Instance.Handle<T>> handles = StreamSupport.stream(candidates.handles().spliterator(), false)
+                .collect(Collectors.toList());
+        if (handles.isEmpty()) {
             throw new IllegalStateException("Ingestion pipeline '" + name + "' needs an " + what
                     + ", but no bean of that type exists. Define one, for example with a @Produces method.");
         }
-        if (candidates.size() > 1) {
-            throw new IllegalStateException("Ingestion pipeline '" + name + "' found " + candidates.size() + " "
+        if (handles.size() > 1) {
+            throw new IllegalStateException("Ingestion pipeline '" + name + "' found " + handles.size() + " "
                     + what + " beans. Name the one to use with quarkus.camel.langchain4j.ingest." + name + "."
                     + property);
         }
-        return candidates.iterator().next();
+        return handles.get(0).get();
     }
 }

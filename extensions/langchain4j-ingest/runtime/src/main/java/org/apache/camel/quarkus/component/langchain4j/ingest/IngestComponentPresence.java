@@ -21,8 +21,8 @@ import org.apache.camel.util.URISupport;
 import org.jboss.logging.Logger;
 
 /**
- * Fails a pipeline whose consumer component is not on the classpath with the same add-extension
- * hint the build gives for configured URIs.
+ * Fails a pipeline whose consumer component is not on the classpath with the same artifact hint
+ * the build gives for configured URIs.
  *
  * <p>
  * The build-time check cannot see a builder-declared pipeline — its URI is composed at startup —
