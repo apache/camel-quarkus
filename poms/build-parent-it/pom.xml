@@ -70,6 +70,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Direct entry to win over the older protobuf-java managed by the quarkus-bom import above.
+                 camel-salesforce protobuf generated code requires runtime >= camel's protobuf-version.
+                 Remove when quarkus-bom manages protobuf-java >= ${protobuf.version} -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
