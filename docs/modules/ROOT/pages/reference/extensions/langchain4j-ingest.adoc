@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-langchain4j-ingest
 :cq-native-supported: true
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status: Experimental
+:cq-status-deprecation: Experimental
 :cq-description: Declarative AI document ingestion: point a knowledge base at a folder via configuration; splitting, embedding and storing are handled under the hood
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
@@ -14,7 +14,7 @@
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.39.0## [.badge-key]##Native since##[.badge-supported]##3.39.0##
+[.badge-key]##JVM since##[.badge-supported]##3.39.0## [.badge-key]##Native since##[.badge-supported]##3.39.0## [.badge-key]##🧪##[.badge-unsupported]##Experimental##
 endif::[]
 
 Declarative AI document ingestion: point a knowledge base at a folder via configuration; splitting, embedding and storing are handled under the hood
@@ -55,7 +55,7 @@ Each file is read as UTF-8 text — there is no format parsing, so convert a PDF
 
 [NOTE]
 ====
-This preview ingests what it is given and keeps no record of it: a document ingested twice leaves two copies in the store, a restart re-reads the whole directory (the duplicate register is in-memory, sized for 100,000 files), and a polled consumer re-reads its source on every poll. Keeping the store in step with a changing source — skipping unchanged documents, replacing edited ones, removing deleted ones — needs that record and arrives with the synchronising engine in a later release.
+This experimental extension ingests what it is given and keeps no record of it: a document ingested twice leaves two copies in the store, a restart re-reads the whole directory (the duplicate register is in-memory, sized for 100,000 files), and a polled consumer re-reads its source on every poll. Keeping the store in step with a changing source — skipping unchanged documents, replacing edited ones, removing deleted ones — needs that record and arrives with the synchronising engine in a later release.
 ====
 
 [id="extensions-langchain4j-ingest-usage-other-sources-declared-in-java"]

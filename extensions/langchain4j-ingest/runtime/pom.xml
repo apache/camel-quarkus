@@ -34,7 +34,7 @@
 
     <properties>
         <camel.quarkus.jvmSince>3.39.0</camel.quarkus.jvmSince>
-        <quarkus.metadata.status>preview</quarkus.metadata.status>
+        <quarkus.metadata.status>experimental</quarkus.metadata.status>
         <camel.quarkus.nativeSince>3.39.0</camel.quarkus.nativeSince>
     </properties>
 

@@ -13,7 +13,7 @@ Each file is read as UTF-8 text — there is no format parsing, so convert a PDF
 
 [NOTE]
 ====
-This preview ingests what it is given and keeps no record of it: a document ingested twice leaves two copies in the store, a restart re-reads the whole directory (the duplicate register is in-memory, sized for 100,000 files), and a polled consumer re-reads its source on every poll. Keeping the store in step with a changing source — skipping unchanged documents, replacing edited ones, removing deleted ones — needs that record and arrives with the synchronising engine in a later release.
+This experimental extension ingests what it is given and keeps no record of it: a document ingested twice leaves two copies in the store, a restart re-reads the whole directory (the duplicate register is in-memory, sized for 100,000 files), and a polled consumer re-reads its source on every poll. Keeping the store in step with a changing source — skipping unchanged documents, replacing edited ones, removing deleted ones — needs that record and arrives with the synchronising engine in a later release.
 ====
 
 === Other sources, declared in Java

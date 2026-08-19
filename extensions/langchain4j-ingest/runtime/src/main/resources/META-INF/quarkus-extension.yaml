@@ -31,7 +31,7 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.langchain4j.ingest"
-  status: "preview"
+  status: "experimental"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"
