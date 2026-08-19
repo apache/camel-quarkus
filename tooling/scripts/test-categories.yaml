@@ -142,6 +142,7 @@ group-07:
   - jslt
   - ldap
   - langchain4j-embeddings
+  - langchain4j-ingest
   - langchain4j-rag-bridge-ql4j
   - lumberjack
   - ognl

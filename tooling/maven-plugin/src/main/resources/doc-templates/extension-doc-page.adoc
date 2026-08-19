@@ -128,8 +128,12 @@ As such, one might need to import the `langchain4j-bom` before other related Cam
 
 === Quarkus LangChain4j support
 
+[#if quarkusLangChain4jSupport?? ]
+[=quarkusLangChain4jSupport]
+[#else]
 WARNING: At present, this extension is neither tested with nor intended to be used in conjunction with any Quarkus LangChain4j extensions.
 Consequently, both JVM and native modes may exhibit unexpected behaviour or fail to function correctly in such configurations.
+[/#if]
 [/#if]
 [#if configuration?? || configOptions?size != 0 ]
 
