@@ -107,6 +107,30 @@ public class OpenaiResource {
         return producerTemplate.requestBody("direct:chatStructuredOutputWithClass", chatMessageContent, String.class);
     }
 
+    @Path("/chat/toolCalls")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String chatToolCalls(String chatMessageContent) {
+        return producerTemplate.requestBody("direct:chatToolCalls", chatMessageContent, String.class);
+    }
+
+    @Path("/chat/agentic")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String chatAgentic(String chatMessageContent) {
+        return producerTemplate.requestBody("direct:chatAgentic", chatMessageContent, String.class);
+    }
+
+    @Path("/audio/transcription")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String audioTranscription(String audioFilePath) {
+        return producerTemplate.requestBody("direct:audioTranscription", new File(audioFilePath), String.class);
+    }
+
     @Path("/chat/results")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)

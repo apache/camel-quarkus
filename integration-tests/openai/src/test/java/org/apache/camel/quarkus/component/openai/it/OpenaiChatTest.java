@@ -231,4 +231,30 @@ class OpenaiChatTest {
                         "price", greaterThan(0.0F));
     }
 
+    @Test
+    void chatToolCalls() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("What is 2 + 3?")
+                .post("/openai/chat/toolCalls")
+                .then()
+                .statusCode(200)
+                .body(
+                        containsStringIgnoringCase("add"),
+                        containsStringIgnoringCase("call_abc123"));
+    }
+
+    @Test
+    void chatAgentic() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("What is 17 + 25?")
+                .post("/openai/chat/agentic")
+                .then()
+                .statusCode(200)
+                .body(
+                        containsStringIgnoringCase("42"),
+                        containsStringIgnoringCase("sum"));
+    }
+
 }

@@ -85,6 +85,21 @@ public class OpenaiRoutes extends RouteBuilder {
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 2: ${body}");
 
+        from("direct:chatToolCalls")
+                .to("openai:chat-completion")
+                .log("Tool calls response: ${body}");
+
+        from("direct:chatAgentic")
+                .to("openai:chat-completion?autoToolExecution=true"
+                        + "&mcpServer.tools.transportType=streamableHttp"
+                        + "&mcpServer.tools.url=http://localhost:{{quarkus.http.test-port:8081}}"
+                        + "&maxToolIterations=3")
+                .log("Agentic response: ${body}");
+
+        from("direct:audioTranscription")
+                .to("openai:audio-transcription?audioModel=whisper-1")
+                .log("Audio transcription response: ${body}");
+
         from("direct:embed")
                 .to("openai-embeddings:embeddings");
 

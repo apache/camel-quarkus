@@ -1,0 +1,23 @@
+{
+  "id" : "a1b2c3d4-0000-0000-0000-000000000001",
+  "name" : "chat_completions_tool_calls",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"What is 2 + 3?\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-tool-calls\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382622,\n  \"model\": \"gpt-4o-2025-08-07\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": null,\n        \"tool_calls\": [\n          {\n            \"id\": \"call_abc123\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": \"add\",\n              \"arguments\": \"{\\\"a\\\": 2, \\\"b\\\": 3}\"\n            }\n          }\n        ],\n        \"refusal\": null\n      },\n      \"finish_reason\": \"tool_calls\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 20,\n    \"completion_tokens\": 15,\n    \"total_tokens\": 35\n  }\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "a1b2c3d4-0000-0000-0000-000000000001",
+  "persistent" : true,
+  "insertionIndex" : 100
+}

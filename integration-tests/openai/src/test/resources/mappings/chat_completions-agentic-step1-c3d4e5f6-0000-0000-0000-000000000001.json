@@ -1,0 +1,26 @@
+{
+  "id" : "c3d4e5f6-0000-0000-0000-000000000001",
+  "name" : "chat_completions_agentic_step1",
+  "scenarioName" : "agentic-add-numbers",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "tool-executed",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"messages\":[{\"content\":\"What is 17 + 25?\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-agentic-1\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382622,\n  \"model\": \"gpt-5\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": null,\n        \"tool_calls\": [\n          {\n            \"id\": \"call_agentic_1\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": \"add_numbers\",\n              \"arguments\": \"{\\\"a\\\": 17, \\\"b\\\": 25}\"\n            }\n          }\n        ],\n        \"refusal\": null\n      },\n      \"finish_reason\": \"tool_calls\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 50,\n    \"completion_tokens\": 20,\n    \"total_tokens\": 70\n  }\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "c3d4e5f6-0000-0000-0000-000000000001",
+  "persistent" : true,
+  "insertionIndex" : 200
+}
