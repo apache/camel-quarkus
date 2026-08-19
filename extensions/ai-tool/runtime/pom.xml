@@ -33,6 +33,7 @@
     <description>Framework-agnostic consumer endpoint that registers a Camel route as an LLM tool in the shared AiToolRegistry.</description>
 
     <properties>
+        <quarkus.metadata.status>preview</quarkus.metadata.status>
         <camel.quarkus.jvmSince>3.39.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.39.0</camel.quarkus.nativeSince>
     </properties>
