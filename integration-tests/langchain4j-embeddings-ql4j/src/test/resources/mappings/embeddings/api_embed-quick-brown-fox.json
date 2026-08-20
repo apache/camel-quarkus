@@ -1,0 +1,22 @@
+{
+  "id" : "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
+  "name" : "api_embed",
+  "request" : {
+    "url" : "/api/embed",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"model\":\"nomic-embed-text\",\"input\":\"The quick brown fox jumps over the lazy dog\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"nomic-embed-text\",\"embeddings\":[[0.321,0.654,0.987,0.432,0.765]],\"prompt_eval_count\":10}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
+  "persistent" : true
+}
