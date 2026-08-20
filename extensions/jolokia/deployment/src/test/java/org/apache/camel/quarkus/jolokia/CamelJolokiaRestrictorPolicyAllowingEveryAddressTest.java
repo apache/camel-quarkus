@@ -16,68 +16,48 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * Pins the one case where a `remote` section is read as saying nothing.
+ *
+ * Whether a policy restricts addresses is settled by asking it about an address reserved for documentation, which
+ * a policy granting every address matches as readily as one with no `remote` section at all. The two are the same
+ * instruction written differently, and both leave `remote-access-allowed` to answer, which is the stricter
+ * reading. An operator who meant every address says so with the property.
+ *
+ * If Jolokia ever exposes its network checker, or whether the section is present, this becomes exact and the
+ * `10.0.0.1` assertion below flips.
+ */
+class CamelJolokiaRestrictorPolicyAllowingEveryAddressTest {
 
     private static final String JOLOKIA_ACCESS_XML = """
             <?xml version="1.0" encoding="UTF-8"?>
             <restrict>
                 <remote>
-                    <host>10.0.0.0/8</host>
+                    <host>0.0.0.0/0</host>
                 </remote>
             </restrict>
             """;
 
-    static final File POLICY_FILE;
-
-    static {
-        try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(new StringAsset(JOLOKIA_ACCESS_XML), "jolokia-access.xml"));
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void readAsSayingNothingSoTheLoopbackDefaultApplies() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
-    }
-
-    @Test
-    void filePolicyDeniesOtherAddresses() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
-    }
-
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
-    @Test
-    void loopbackDeniedByPolicy() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("127.0.0.1"));
+        assertFalse(restrictor.isRemoteAccessAllowed("10.0.0.1"));
     }
 }

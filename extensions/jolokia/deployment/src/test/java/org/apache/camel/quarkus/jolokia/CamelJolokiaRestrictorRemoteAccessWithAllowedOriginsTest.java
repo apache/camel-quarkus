@@ -27,52 +27,47 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorRemoteAccessEnabledTest {
+/**
+ * Remote access is a control over client addresses, so enabling it must not discard the origins an operator
+ * configured. Without a listed origin the two would otherwise be set together and only one of them take effect.
+ */
+class CamelJolokiaRestrictorRemoteAccessWithAllowedOriginsTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withEmptyApplication()
-            .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true");
+            .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true")
+            .overrideConfigKey("quarkus.camel.jolokia.allowed-origins", "https://domain.example.com");
 
     @Test
-    void allRemoteAddressesAllowed() {
+    void remoteAddressesStillAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isRemoteAccessAllowed("192.168.1.1"));
         assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("172.16.0.1"));
-    }
-
-    @Test
-    void loopbackStillAllowed() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("::1"));
-    }
-
-    /**
-     * Remote access is a control over client addresses. Lifting it must not also stop a browser on another site
-     * from driving the agent, which is a separate question answered by `allowed-origins`.
-     */
-    @Test
-    void originsStillRestricted() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isOriginAllowed("http://untrusted.example", false));
-        assertFalse(restrictor.isOriginAllowed("http://192.168.1.1:8080", false));
-        assertFalse(restrictor.isOriginAllowed("http://example.com", true));
+        // Remote access is not conditional on the chain being loopback, so a proxied chain passes too
+        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1", "127.0.0.1"));
     }
 
     @Test
-    void loopbackOriginsStillAllowed() {
+    void configuredOriginAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isOriginAllowed("http://localhost:8080", true));
-        assertTrue(restrictor.isOriginAllowed("http://127.0.0.1:9090", true));
+        assertTrue(restrictor.isOriginAllowed("https://domain.example.com", true));
+        assertTrue(restrictor.isOriginAllowed("https://domain.example.com", false));
     }
 
     @Test
-    void nullOriginAllowed() {
+    void unlistedOriginDenied() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isOriginAllowed(null, false));
+        assertFalse(restrictor.isOriginAllowed("https://untrusted.example", true));
+        assertFalse(restrictor.isOriginAllowed("http://192.168.1.1:8080", true));
+    }
+
+    @Test
+    void loopbackAndNullOriginsStillAllowed() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isOriginAllowed(null, true));
+        assertTrue(restrictor.isOriginAllowed("http://localhost:8080", true));
     }
 
     @Test

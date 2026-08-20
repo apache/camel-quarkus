@@ -16,19 +16,22 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * An explicit access policy takes precedence over remote-access-allowed, so that its remote and CORS
+ * rules are not silently discarded.
+ */
+class CamelJolokiaRestrictorPolicyOverridesRemoteAccessTest {
 
     private static final String JOLOKIA_ACCESS_XML = """
             <?xml version="1.0" encoding="UTF-8"?>
@@ -36,48 +39,46 @@ class CamelJolokiaRestrictorFilePolicyTest {
                 <remote>
                     <host>10.0.0.0/8</host>
                 </remote>
+                <cors>
+                    <allow-origin>https://domain.example.com</allow-origin>
+                </cors>
             </restrict>
             """;
 
-    static final File POLICY_FILE;
-
-    static {
-        try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true")
+            .overrideConfigKey("quarkus.camel.jolokia.allowed-origins", "https://domain.example.com")
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(new StringAsset(JOLOKIA_ACCESS_XML), "jolokia-access.xml"));
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void policyRemoteRulesApply() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
+        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
     }
 
     @Test
-    void filePolicyDeniesOtherAddresses() {
+    void configuredOriginAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
+        assertTrue(restrictor.isOriginAllowed("https://domain.example.com", true));
+        assertFalse(restrictor.isOriginAllowed("http://untrusted.example", true));
     }
 
     /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
+     * The policy decides addresses outright, and loopback is not among the ones it lists. Neither
+     * `remote-access-allowed` nor a loopback exemption reinstates it.
      */
     @Test
-    void loopbackDeniedByPolicy() {
+    void loopbackClientDeniedByPolicy() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
         assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
+    }
+
+    @Test
+    void loopbackOriginStillAllowed() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.isOriginAllowed("http://localhost:8080", true));
     }
 }

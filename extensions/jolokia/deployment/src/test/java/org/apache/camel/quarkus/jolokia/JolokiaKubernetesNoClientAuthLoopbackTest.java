@@ -16,35 +16,39 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import java.net.URI;
-
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.jolokia.util.JolokiaHostUtils;
+import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class JolokiaDefaultHostLocalhostTest {
+/**
+ * Turning SSL client authentication off on Kubernetes is an explicit opt-out, so nothing authenticates clients
+ * and the agent falls back to the same loopback defaults it uses everywhere else. It must not inherit the
+ * Kubernetes bind address or the lifted address restriction.
+ */
+class JolokiaKubernetesNoClientAuthLoopbackTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .withEmptyApplication();
+            .withEmptyApplication()
+            .overrideConfigKey("kubernetes.service.host", "fake-host")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.client-authentication-enabled", "false");
 
     @Test
-    void defaultHostIsLoopback() {
+    void remoteAddressesStillDenied() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertFalse(restrictor.isRemoteAccessAllowed("10.128.4.7"));
+    }
+
+    @Test
+    void agentStillServesPlainHttpOnLoopback() {
         RestAssured.port = 8778;
-        String url = RestAssured.get("/jolokia/")
+        RestAssured.get("/jolokia/")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath()
-                .getString("value.details.url");
-
-        // URI.getHost keeps the brackets of an IPv6 URL, which isLoopbackAddress strips
-        String host = URI.create(url).getHost();
-        assertTrue(JolokiaHostUtils.isLoopbackAddress(host),
-                "Default host should resolve to a loopback address, but got: " + host);
+                .body("status", equalTo(200));
     }
 }

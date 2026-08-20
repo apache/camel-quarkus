@@ -16,35 +16,33 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import java.net.URI;
+import java.util.logging.Level;
 
 import io.quarkus.test.QuarkusUnitTest;
-import io.restassured.RestAssured;
-import org.apache.camel.quarkus.jolokia.util.JolokiaHostUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class JolokiaDefaultHostLocalhostTest {
+/**
+ * The Fetch Metadata warning is about a browser reaching the agent, so there is nothing to warn about while the
+ * agent is bound to loopback. Without this the warning would fire on every local development setup that turns
+ * the headers off, and a warning that appears when there is no problem is one nobody reads.
+ */
+class JolokiaFetchMetadataDisabledOnLoopbackTest {
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .withEmptyApplication();
+            .withEmptyApplication()
+            .overrideConfigKey("quarkus.camel.jolokia.server.host", "localhost")
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.\"useFetchMetadata\"", "false")
+            .setLogRecordPredicate(record -> record.getLevel().equals(Level.WARNING))
+            .assertLogRecords(records -> assertTrue(
+                    records.stream().noneMatch(r -> r.getMessage().contains("Fetch Metadata handling is disabled")),
+                    "Expected no Fetch Metadata warning while the agent is bound to loopback"));
 
     @Test
-    void defaultHostIsLoopback() {
-        RestAssured.port = 8778;
-        String url = RestAssured.get("/jolokia/")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath()
-                .getString("value.details.url");
-
-        // URI.getHost keeps the brackets of an IPv6 URL, which isLoopbackAddress strips
-        String host = URI.create(url).getHost();
-        assertTrue(JolokiaHostUtils.isLoopbackAddress(host),
-                "Default host should resolve to a loopback address, but got: " + host);
+    void applicationStartsWithoutFetchMetadataWarning() {
+        // The assertLogRecords callback above verifies no warning was logged.
     }
 }

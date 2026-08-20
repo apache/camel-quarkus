@@ -25,27 +25,24 @@ import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CamelJolokiaRestrictorFilePolicyTest {
+/**
+ * Asking for remote clients must not withdraw the origins a client principal allows.
+ *
+ * `remote-access-allowed` is a control over client addresses and nothing else, so setting it on Kubernetes says
+ * nothing about origins. It is also a reasonable thing to set there, being what the documentation prescribes
+ * everywhere else, and a deployment that sets both must not find its console refused for having asked for
+ * something unrelated.
+ */
+class JolokiaKubernetesClientPrincipalWithRemoteAccessOriginsTest {
 
-    private static final String JOLOKIA_ACCESS_XML = """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <restrict>
-                <remote>
-                    <host>10.0.0.0/8</host>
-                </remote>
-            </restrict>
-            """;
-
-    static final File POLICY_FILE;
+    static final File CA_CERT;
 
     static {
         try {
-            POLICY_FILE = Files.createTempFile("jolokia-access", ".xml").toFile();
-            POLICY_FILE.deleteOnExit();
-            Files.writeString(POLICY_FILE.toPath(), JOLOKIA_ACCESS_XML);
+            CA_CERT = Files.createTempFile("fake-ca", ".crt").toFile();
+            CA_CERT.deleteOnExit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,31 +50,22 @@ class CamelJolokiaRestrictorFilePolicyTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
-                    POLICY_FILE.toURI().toString());
+            .withEmptyApplication()
+            .overrideConfigKey("kubernetes.service.host", "fake-host")
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.service-ca-cert", CA_CERT.getAbsolutePath())
+            .overrideConfigKey("quarkus.camel.jolokia.kubernetes.client-principal", "cn=hawtio-online.hawtio.svc")
+            .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true");
 
     @Test
-    void filePolicyAllowsConfiguredSubnet() {
+    void originLiftSurvivesRemoteAccessAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertTrue(restrictor.isRemoteAccessAllowed("10.0.0.1"));
-        assertTrue(restrictor.isRemoteAccessAllowed("10.255.255.255"));
+        assertTrue(restrictor.isOriginAllowed("https://hawtio-online.apps.example.com", true));
+        assertTrue(restrictor.isOriginAllowed("https://anything.example", true));
     }
 
     @Test
-    void filePolicyDeniesOtherAddresses() {
+    void remoteAddressesAllowed() {
         CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("192.168.1.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("172.16.0.1"));
-    }
-
-    /**
-     * Loopback is not in the subnet the policy allows, and the policy decides addresses outright, so it is
-     * refused like any other address outside it.
-     */
-    @Test
-    void loopbackDeniedByPolicy() {
-        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
-        assertFalse(restrictor.isRemoteAccessAllowed("127.0.0.1"));
-        assertFalse(restrictor.isRemoteAccessAllowed("::1"));
+        assertTrue(restrictor.isRemoteAccessAllowed("10.128.4.7"));
     }
 }

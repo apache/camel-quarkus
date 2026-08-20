@@ -16,35 +16,34 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import java.net.URI;
+import java.util.logging.Level;
 
 import io.quarkus.test.QuarkusUnitTest;
-import io.restassured.RestAssured;
-import org.apache.camel.quarkus.jolokia.util.JolokiaHostUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class JolokiaDefaultHostLocalhostTest {
+/**
+ * A request carrying neither an Origin nor a Referer header is accepted, and Jolokia's Sec-Fetch-* handling is
+ * what prevents a browser from making one. Turning it off on an agent that other hosts can reach therefore
+ * removes the only thing guarding that path, which is worth reporting at startup rather than only in the
+ * documentation.
+ */
+class JolokiaFetchMetadataDisabledWarningTest {
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .withEmptyApplication();
+            .withEmptyApplication()
+            .overrideConfigKey("quarkus.camel.jolokia.server.host", "0.0.0.0")
+            .overrideConfigKey("quarkus.camel.jolokia.additional-properties.\"useFetchMetadata\"", "false")
+            .setLogRecordPredicate(record -> record.getLevel().equals(Level.WARNING))
+            .assertLogRecords(records -> assertTrue(
+                    records.stream().anyMatch(r -> r.getMessage().contains("Fetch Metadata handling is disabled")),
+                    "Expected a warning that Fetch Metadata handling is disabled"));
 
     @Test
-    void defaultHostIsLoopback() {
-        RestAssured.port = 8778;
-        String url = RestAssured.get("/jolokia/")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath()
-                .getString("value.details.url");
-
-        // URI.getHost keeps the brackets of an IPv6 URL, which isLoopbackAddress strips
-        String host = URI.create(url).getHost();
-        assertTrue(JolokiaHostUtils.isLoopbackAddress(host),
-                "Default host should resolve to a loopback address, but got: " + host);
+    void applicationStartsWithFetchMetadataWarning() {
+        // The assertLogRecords callback above verifies the warning was logged.
     }
 }
