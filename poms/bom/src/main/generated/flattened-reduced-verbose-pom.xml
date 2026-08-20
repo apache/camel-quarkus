@@ -384,12 +384,12 @@
       <dependency>
         <groupId>com.google.api</groupId>
         <artifactId>api-common</artifactId>
-        <version>2.64.0</version>
+        <version>2.66.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.api</groupId>
         <artifactId>gax-httpjson</artifactId>
-        <version>2.81.0</version>
+        <version>2.83.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.api-client</groupId>
@@ -399,12 +399,12 @@
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
-        <version>1.48.0</version>
+        <version>1.50.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-oauth2-http</artifactId>
-        <version>1.48.0</version>
+        <version>1.50.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.auto.value</groupId>
@@ -419,7 +419,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquery</artifactId>
-        <version>2.67.0</version>
+        <version>2.69.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -458,7 +458,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.151.0</version>
+        <version>1.153.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -497,7 +497,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-storage</artifactId>
-        <version>2.69.0</version>
+        <version>2.71.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -9144,6 +9144,11 @@
         <groupId>org.codehaus.woodstox</groupId>
         <artifactId>stax2-api</artifactId>
         <version>4.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.conscrypt</groupId>
+        <artifactId>conscrypt-openjdk-uber</artifactId>
+        <version>2.6.0</version>
       </dependency>
       <dependency>
         <groupId>org.cryptacular</groupId>
