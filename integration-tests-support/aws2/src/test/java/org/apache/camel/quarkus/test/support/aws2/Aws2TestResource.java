@@ -79,6 +79,11 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .flatMap(Stream::of)
                     .anyMatch(s -> s == Service.LAMBDA);
 
+            boolean needsEksMock = customizers.stream()
+                    .map(Aws2TestEnvCustomizer::awsServices)
+                    .flatMap(Stream::of)
+                    .anyMatch(s -> s == Service.EKS);
+
             DockerImageName imageName = DockerImageName
                     .parse(ConfigProvider.getConfig().getValue("floci.container.image", String.class));
 
@@ -88,6 +93,11 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId") //has to be longer then `test`, to work on FIPS systems
                     .withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId")
                     .withLogConsumer(new Slf4jLogConsumer(LOG));
+
+            if (needsEksMock) {
+                // Camel EKS tests cover the control-plane API only; avoid starting a k3s cluster per CreateCluster
+                floci.withEnv("FLOCI_SERVICES_EKS_MOCK", "true");
+            }
 
             if (needsDockerSocket) {
                 Path dockerSocket = Path.of("/var/run/docker.sock");
