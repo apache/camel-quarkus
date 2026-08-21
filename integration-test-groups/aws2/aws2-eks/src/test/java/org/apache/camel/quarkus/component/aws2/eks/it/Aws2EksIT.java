@@ -14,40 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.support.aws2;
+package org.apache.camel.quarkus.component.aws2.eks.it;
 
-public enum Service {
-    API_GATEWAY("apigateway"),
-    EC2("ec2"),
-    EKS("eks"),
-    KINESIS("kinesis"),
-    DYNAMODB("dynamodb"),
-    DYNAMODB_STREAMS("dynamodbstreams"),
-    S3("s3"),
-    FIREHOSE("firehose"),
-    LAMBDA("lambda"),
-    SNS("sns"),
-    SQS("sqs"),
-    REDSHIFT("redshift"),
-    SES("ses"),
-    ROUTE53("route53"),
-    CLOUDFORMATION("cloudformation"),
-    CLOUDWATCH("cloudwatch"),
-    SSM("ssm"),
-    SECRETSMANAGER("secretsmanager"),
-    STEPFUNCTIONS("stepfunctions"),
-    CLOUDWATCHLOGS("logs"),
-    STS("sts"),
-    IAM("iam"),
-    KMS("kms");
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-    private final String serviceName;
-
-    Service(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getName() {
-        return serviceName;
-    }
+@QuarkusIntegrationTest
+class Aws2EksIT extends Aws2EksTest {
 }
