@@ -17,31 +17,28 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
 import io.quarkus.test.QuarkusExtensionTest;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-/** An {@code @Ingest} method that does not return {@code IngestPipeline} fails the build. */
-class IngestBuilderMethodShapeTest {
+/**
+ * The idempotent repository is resolved by name when the route starts — after Camel Main has
+ * bound {@code camel.beans.*} definitions — and a missing bean fails the start naming it.
+ */
+class IngestMissingIdempotentRepositoryTest {
 
     @RegisterExtension
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
-            .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .assertException(t -> ValidationTestSupport.assertFailure(t, "must return IngestPipeline"));
+            .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/idem-docs")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.idempotent-repository", "no-such-repo")
+            .assertException(t -> ValidationTestSupport.assertFailure(t,
+                    "references idempotent repository 'no-such-repo'", "no such bean exists"));
 
     @Test
-    void buildMustFail() {
-        Assertions.fail("The build was expected to fail");
-    }
-
-    @ApplicationScoped
-    public static class Pipelines {
-
-        @Ingest("bad-return")
-        String badReturn() {
-            return "not a pipeline";
-        }
+    void startMustFail() {
+        Assertions.fail("The application start was expected to fail");
     }
 }

@@ -17,31 +17,27 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
 import io.quarkus.test.QuarkusExtensionTest;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-/** An {@code @Ingest} method that does not return {@code IngestPipeline} fails the build. */
-class IngestBuilderMethodShapeTest {
+/** Auto-create without a repository name to create it under fails the start. */
+class IngestAutoCreateWithoutNameTest {
 
     @RegisterExtension
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
-            .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .assertException(t -> ValidationTestSupport.assertFailure(t, "must return IngestPipeline"));
+            .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/auto-docs")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.idempotent-repository-auto-create",
+                    "true")
+            .assertException(t -> ValidationTestSupport.assertFailure(t,
+                    "sets source.idempotent-repository-auto-create",
+                    "no source.idempotent-repository name"));
 
     @Test
-    void buildMustFail() {
-        Assertions.fail("The build was expected to fail");
-    }
-
-    @ApplicationScoped
-    public static class Pipelines {
-
-        @Ingest("bad-return")
-        String badReturn() {
-            return "not a pipeline";
-        }
+    void startMustFail() {
+        Assertions.fail("The application start was expected to fail");
     }
 }

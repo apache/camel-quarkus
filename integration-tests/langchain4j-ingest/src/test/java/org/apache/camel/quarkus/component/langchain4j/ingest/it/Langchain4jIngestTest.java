@@ -86,10 +86,10 @@ class Langchain4jIngestTest {
     void builderDeclaredPipelineIngests() {
         RestAssured.given().contentType(ContentType.TEXT)
                 .body("The builder-declared pipeline handles the SIGMA-3 datasheet.")
-                .post("/langchain4j-ingest/feed/built/datasheets/sigma.txt")
+                .post("/langchain4j-ingest/feed/datasheets/datasheets/sigma.txt")
                 .then().statusCode(200).body(org.hamcrest.Matchers.is("ingested"));
 
-        Map<String, String> hit = hit("Which datasheet is handled?", "built", "SIGMA-3");
+        Map<String, String> hit = hit("Which datasheet is handled?", "datasheets", "SIGMA-3");
         assertNotNull(hit, "the fed document must be ingested");
         // the metadata names the pipeline (@Ingest("datasheets")), not the store it writes to
         assertEquals("datasheets", hit.get("pipeline"));

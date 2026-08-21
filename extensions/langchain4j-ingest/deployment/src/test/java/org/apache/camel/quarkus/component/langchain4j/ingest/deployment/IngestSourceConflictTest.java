@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -25,7 +25,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class IngestSourceConflictTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")

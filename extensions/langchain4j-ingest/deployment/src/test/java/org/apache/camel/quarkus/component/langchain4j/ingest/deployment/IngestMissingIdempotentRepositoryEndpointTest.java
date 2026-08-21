@@ -17,31 +17,28 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
 import io.quarkus.test.QuarkusExtensionTest;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-/** An {@code @Ingest} method that does not return {@code IngestPipeline} fails the build. */
-class IngestBuilderMethodShapeTest {
+/**
+ * The missing-repository failure on the consumer-fed path: resolution happens while the route is
+ * built, so both source kinds fail the start with the same message naming the bean.
+ */
+class IngestMissingIdempotentRepositoryEndpointTest {
 
     @RegisterExtension
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
-            .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .assertException(t -> ValidationTestSupport.assertFailure(t, "must return IngestPipeline"));
+            .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class))
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-model", "model")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.uri", "file:target/endpoint-repo-missing")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.idempotent-repository", "no-such-repo")
+            .assertException(t -> ValidationTestSupport.assertFailure(t,
+                    "references idempotent repository 'no-such-repo'", "no such bean exists"));
 
     @Test
-    void buildMustFail() {
-        Assertions.fail("The build was expected to fail");
-    }
-
-    @ApplicationScoped
-    public static class Pipelines {
-
-        @Ingest("bad-return")
-        String badReturn() {
-            return "not a pipeline";
-        }
+    void startMustFail() {
+        Assertions.fail("The application start was expected to fail");
     }
 }

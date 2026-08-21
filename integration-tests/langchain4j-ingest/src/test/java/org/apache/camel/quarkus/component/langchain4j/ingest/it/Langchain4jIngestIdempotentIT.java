@@ -14,26 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.langchain4j.ingest.core;
+package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
-import java.util.Locale;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-/**
- * Outcome of one ingestion.
- */
-public record IngestResult(String pipeline, String documentId, int segmentsWritten, Outcome outcome) {
-
-    public enum Outcome {
-        /** Segments written. */
-        INGESTED,
-        /** Blank document, nothing written. */
-        EMPTY,
-        /** Already ingested under the same key, nothing written. */
-        SKIPPED;
-
-        /** The stable wire/log form. */
-        public String label() {
-            return name().toLowerCase(Locale.ROOT);
-        }
-    }
+@QuarkusIntegrationTest
+class Langchain4jIngestIdempotentIT extends Langchain4jIngestIdempotentTest {
 }

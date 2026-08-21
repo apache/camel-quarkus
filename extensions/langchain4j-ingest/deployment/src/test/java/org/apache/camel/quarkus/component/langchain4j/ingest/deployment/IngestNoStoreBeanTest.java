@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class IngestNoStoreBeanTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withApplicationRoot(jar -> {
             })
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.directory", "target/no-store")

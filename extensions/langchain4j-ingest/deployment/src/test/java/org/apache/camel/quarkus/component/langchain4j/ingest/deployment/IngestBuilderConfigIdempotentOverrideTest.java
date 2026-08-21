@@ -19,29 +19,36 @@ package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
+import org.apache.camel.quarkus.component.langchain4j.ingest.IngestPipeline;
+import org.apache.camel.quarkus.component.langchain4j.ingest.Source;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-/** An {@code @Ingest} method that does not return {@code IngestPipeline} fails the build. */
-class IngestBuilderMethodShapeTest {
+/**
+ * {@code source.idempotent-repository} is owned by a builder-declared pipeline; configuring it
+ * externally fails at startup like the rest of {@code source.*}.
+ */
+class IngestBuilderConfigIdempotentOverrideTest {
 
     @RegisterExtension
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
-            .assertException(t -> ValidationTestSupport.assertFailure(t, "must return IngestPipeline"));
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.idempotent-repository", "external-repo")
+            .assertException(t -> ValidationTestSupport.assertFailure(t,
+                    "declared in Java", "Remove quarkus.camel.langchain4j.ingest.docs.source.*"));
 
     @Test
-    void buildMustFail() {
-        Assertions.fail("The build was expected to fail");
+    void startMustFail() {
+        Assertions.fail("The application start was expected to fail");
     }
 
     @ApplicationScoped
     public static class Pipelines {
 
-        @Ingest("bad-return")
-        String badReturn() {
-            return "not a pipeline";
+        @Ingest("docs")
+        IngestPipeline docs() {
+            return IngestPipeline.from(Source.file("target/docs"));
         }
     }
 }
