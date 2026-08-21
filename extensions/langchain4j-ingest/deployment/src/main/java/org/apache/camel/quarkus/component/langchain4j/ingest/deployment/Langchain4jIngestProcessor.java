@@ -74,6 +74,29 @@ class Langchain4jIngestProcessor {
     }
 
     /**
+     * {@code #class:} beans are instantiated reflectively, which native mode allows only for
+     * registered classes: the two camel-core repositories the documentation recommends, plus
+     * every {@code IdempotentRepository} implementation the Jandex index knows — application
+     * classes always, third-party ones when their jar carries an index.
+     */
+    @BuildStep
+    void repositoryReflection(CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        Set<String> repositories = new HashSet<>(Set.of(
+                "org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository",
+                "org.apache.camel.support.processor.idempotent.FileIdempotentRepository"));
+        combinedIndex.getIndex()
+                .getAllKnownImplementations(DotName.createSimple("org.apache.camel.spi.IdempotentRepository"))
+                .stream()
+                .filter(repository -> !Modifier.isAbstract(repository.flags()))
+                .map(repository -> repository.name().toString())
+                .forEach(repositories::add);
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(repositories.toArray(new String[0]))
+                .methods()
+                .build());
+    }
+
+    /**
      * Discovers {@code @Ingest} builder methods: validated here (return type, no parameters,
      * unique names, no collision with configuration-declared pipelines), invoked reflectively once
      * at startup. Violations are reported as {@link ValidationErrorBuildItem}s — the channel every
