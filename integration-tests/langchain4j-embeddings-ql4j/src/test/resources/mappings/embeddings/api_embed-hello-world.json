@@ -1,0 +1,22 @@
+{
+  "id" : "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
+  "name" : "api_embed",
+  "request" : {
+    "url" : "/api/embed",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"model\":\"nomic-embed-text\",\"input\":\"Hello World\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"nomic-embed-text\",\"embeddings\":[[0.123,0.456,0.789,0.234,0.567]],\"prompt_eval_count\":2}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
+  "persistent" : true
+}
