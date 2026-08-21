@@ -523,3 +523,19 @@ git config --global credential.helper store
 ssh-add -l
 mvn help:evaluate -Dexpression=env.SSH_AUTH_SOCK -q -DforceStdout
 ----
+
+=== GPG signing failure caused by a stale lock file
+If GPG signing fails during the release with output such as:
+----
+[INFO] [INFO] Signer 'gpg' is signing 4 files with key default
+[INFO] gpg: Note: database_open 134217901 waiting for lock (held by 5376) ...
+[INFO] gpg: keydb_search failed: Connection timed out
+[INFO] gpg: no default secret key: Connection timed out
+[INFO] gpg: signing failed: Connection timed out
+----
+the cause may be a stale lock file in the GnuPG keybox database. The lock
+references the process ID that created it (`held by 5376`). If no such process
+is running, remove the lock file:
+----
+sudo rm ~/.gnupg/public-keys.d/pubring.db.lock
+----
