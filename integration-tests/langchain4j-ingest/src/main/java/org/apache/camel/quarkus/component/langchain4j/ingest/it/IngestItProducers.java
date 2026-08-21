@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
+import javax.sql.DataSource;
+
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
@@ -24,6 +26,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.apache.camel.processor.idempotent.jdbc.JdbcMessageIdRepository;
+import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 
 @ApplicationScoped
 public class IngestItProducers {
@@ -45,8 +50,8 @@ public class IngestItProducers {
 
     @Produces
     @Singleton
-    @Named("built-store")
-    EmbeddingStore<TextSegment> builtStore() {
+    @Named("datasheets-store")
+    EmbeddingStore<TextSegment> datasheetsStore() {
         return new InMemoryEmbeddingStore<>();
     }
 
@@ -66,8 +71,31 @@ public class IngestItProducers {
 
     @Produces
     @Singleton
+    @Named("jdbc-store")
+    EmbeddingStore<TextSegment> jdbcStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    @Produces
+    @Singleton
     @Named("test-model")
     EmbeddingModel embeddingModel() {
         return new DeterministicEmbeddingModel(64);
+    }
+
+    // the custom pipeline's register; auto-create is also set, so this existing bean must win
+    @Produces
+    @Singleton
+    @Named("test-register")
+    IdempotentRepository testRegister() {
+        return MemoryIdempotentRepository.memoryIdempotentRepository(1000);
+    }
+
+    // the JDBC register from the documentation's CDI example, over the Dev Services H2 datasource
+    @Produces
+    @Singleton
+    @Named("jdbcRegister")
+    IdempotentRepository jdbcRegister(DataSource dataSource) {
+        return new JdbcMessageIdRepository(dataSource, "ingest-jdbc");
     }
 }

@@ -70,6 +70,22 @@ public interface IngestRunTimeConfig {
             boolean recursive();
 
             /**
+             * Name of the `IdempotentRepository` bean remembering already ingested documents,
+             * instead of the built-in in-memory one (100 000 keys, lost on restart). Looked up
+             * by name only. On a pipeline consuming from a component it deduplicates deliveries
+             * by document id, first write wins.
+             */
+            Optional<String> idempotentRepository();
+
+            /**
+             * When `true`, an in-memory register (100 000 keys) is created and bound under the
+             * `idempotent-repository` name, unless a bean with that name exists — the existing
+             * bean wins.
+             */
+            @WithDefault("false")
+            boolean idempotentRepositoryAutoCreate();
+
+            /**
              * Where the document id lives in the exchange the consumer delivers: normally the
              * name of a header, such as `CamelAwsS3Key` for an S3 consumer or `CamelKafkaKey` for
              * a Kafka one. For an id that is not a plain header, write a simple-language

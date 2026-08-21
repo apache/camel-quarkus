@@ -55,8 +55,59 @@ Each file is read as UTF-8 text — there is no format parsing, so convert a PDF
 
 [NOTE]
 ====
-This experimental extension ingests what it is given and keeps no record of it: a document ingested twice leaves two copies in the store, a restart re-reads the whole directory (the duplicate register is in-memory, sized for 100,000 files), and a polled consumer re-reads its source on every poll. Keeping the store in step with a changing source — skipping unchanged documents, replacing edited ones, removing deleted ones — needs that record and arrives with the synchronising engine in a later release.
+This experimental extension keeps no record of what it wrote: an edited document re-ingests on top of its old segments, and removing a document from the source removes nothing from the store. Replace and delete arrive with the synchronising engine in a later release. What is remembered is which documents were already ingested — the idempotent repository below.
 ====
+
+[id="extensions-langchain4j-ingest-usage-the-idempotent-repository"]
+=== The idempotent repository
+
+A directory pipeline registers what it ingested, keyed on the file's path, modification time and size: unchanged files are skipped, edited files re-ingest (their previous segments remain, see the note above). The default register is in-memory (100,000 keys) and is there for the poll loop, not for restarts: the consumer re-scans the directory on every poll, so without a register a running application would re-embed the whole directory every few seconds. A restart loses it and re-ingests the directory once; a persistent repository makes restarts free. `source.idempotent-repository` names an `IdempotentRepository` bean to use instead:
+
+[source,properties]
+----
+quarkus.camel.langchain4j.ingest.products.source.idempotent-repository=productsRegister
+----
+
+The bean can be provided three ways.
+
+*Auto-created*: an in-memory register (100,000 keys) is created and bound under the configured name — no bean definition needed, still lost on restart. If a bean with the name already exists, the existing bean wins:
+
+[source,properties]
+----
+quarkus.camel.langchain4j.ingest.products.source.idempotent-repository=productsRegister
+quarkus.camel.langchain4j.ingest.products.source.idempotent-repository-auto-create=true
+----
+
+*Defined in properties* through Camel's `camel.beans.` syntax — here a file-backed register that survives restarts (camel-core, no extra dependency). Use a name without dashes; Camel normalises dashed `camel.beans.` keys to camelCase:
+
+[source,properties]
+----
+camel.beans.productsRegister=#class:org.apache.camel.support.processor.idempotent.FileIdempotentRepository
+camel.beans.productsRegister.fileStore=/var/data/ingest/register.dat
+camel.beans.productsRegister.cacheSize=100000
+# keys beyond this size are dropped oldest-first and their files re-ingest (32 MB here)
+camel.beans.productsRegister.maxFileStoreSize=33554432
+----
+
+`#class:` beans are created reflectively. For native mode the extension registers the camel-core repositories shown here and every `IdempotentRepository` implementation found in the Jandex index — application classes always, component-provided ones through their jar's index. A class from a jar without an index needs `@RegisterForReflection(targets = ...)` or a `quarkus.index-dependency.*` entry.
+
+*Defined as a CDI producer* — needed when construction takes other beans. A JDBC register also deduplicates across instances: reliably for consumer-fed pipelines keyed on the document id, for directory pipelines only when all instances see identical paths and modification times:
+
+[source,java]
+----
+@Produces @Singleton @Named("productsRegister")
+IdempotentRepository productsRegister(DataSource dataSource) {
+    return new JdbcMessageIdRepository(dataSource, "ingest-products"); // camel-quarkus-sql
+}
+----
+
+More repository types — Caffeine, Infinispan, MongoDB, Cassandra, Hazelcast, Kafka and others, each provided by its component's extension — along with the pattern's details are covered in the xref:{cq-camel-components}:eips:idempotentConsumer-eip.adoc[Idempotent Consumer EIP guide].
+
+Sizing. An in-memory register smaller than the directory evicts keys and re-ingests those files during normal operation — hence the 100,000 default. `FileIdempotentRepository` falls back to its file store on a cache miss, so `cacheSize` is a performance setting; the correctness limit is `maxFileStoreSize`: the default of about 1 MB holds roughly 10–17 thousand of these keys, beyond it the oldest 1000 are dropped with a warning. A JDBC register has no size limit. Every edit adds a new key and old keys are never removed, so a persistent register grows under churn until the synchronising engine arrives. There is no size option; size the bean. Use one register per pipeline — keys are source-derived, and pipelines sharing a register over the same directory skip each other's work.
+
+The register cannot be switched off: the consumer leaves files in place (`noop`), so without a register every poll would re-ingest the directory. To force a full re-ingest, restart (default register) or clear the persistent one. A pipeline that should consume its source — move or delete files after ingestion — uses `source.uri` (for example `file:/inbox?delete=true&idempotent=false` with `source.document-id=CamelFileName`), where all consumer options are available.
+
+On a consumer-fed pipeline (`source.uri` or `@Ingest`), a configured register deduplicates deliveries by document id: a redelivered record or re-listed object ingests once, and a request-reply caller receives `skipped` instead of `ingested`. First write wins per id — an update with the same id is skipped, not replaced; streams that carry updates need a version-aware `source.document-id`. With eager idempotency, a duplicate racing an in-flight first delivery is answered `skipped` even if that delivery then fails and releases the key.
 
 [id="extensions-langchain4j-ingest-usage-other-sources-declared-in-java"]
 === Other sources, declared in Java
@@ -189,6 +240,23 @@ a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-recursive]]`link:#qua
 Whether subdirectories are ingested too, when reading a directory.
 | `boolean`
 | `true`
+
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-idempotent-repository]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-idempotent-repository[quarkus.camel.langchain4j.ingest."pipeline-name".source.idempotent-repository]`
+
+Name of the `IdempotentRepository` bean remembering already ingested documents,
+instead of the built-in in-memory one (100 000 keys, lost on restart). Looked up
+by name only. On a pipeline consuming from a component it deduplicates deliveries
+by document id, first write wins.
+| `string`
+| 
+
+a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-idempotent-repository-auto-create]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-idempotent-repository-auto-create[quarkus.camel.langchain4j.ingest."pipeline-name".source.idempotent-repository-auto-create]`
+
+When `true`, an in-memory register (100 000 keys) is created and bound under the
+`idempotent-repository` name, unless a bean with that name exists — the existing
+bean wins.
+| `boolean`
+| `false`
 
 a| [[quarkus-camel-langchain4j-ingest-pipeline-name-source-document-id]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-source-document-id[quarkus.camel.langchain4j.ingest."pipeline-name".source.document-id]`
 

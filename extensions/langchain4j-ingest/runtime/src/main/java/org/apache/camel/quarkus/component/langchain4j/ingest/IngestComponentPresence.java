@@ -61,7 +61,9 @@ final class IngestComponentPresence {
                 continue;
             }
             if (external != null && (external.source().directory().isPresent()
-                    || external.source().documentId().isPresent())) {
+                    || external.source().documentId().isPresent()
+                    || external.source().idempotentRepository().isPresent()
+                    || external.source().idempotentRepositoryAutoCreate())) {
                 // the route builder refuses this conflict with its own error; invoking the
                 // method here first would change which failure the user sees
                 continue;
