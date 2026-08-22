@@ -114,6 +114,8 @@
                         <removeUnused>true</removeUnused>
                         <staticAfter>true</staticAfter>
                         <staticGroups>java.,javax.,org.w3c.,org.xml.,junit.</staticGroups>
+                        <!-- Plugin default is ${maven.compiler.release}. An empty override maps to JavaParser POPULAR (JAVA_11) and rejects instanceof pattern matching. -->
+                        <compliance>${maven.compiler.source}</compliance>
                         <skip>${format.skip}</skip>
                     </configuration>
                 </plugin>
