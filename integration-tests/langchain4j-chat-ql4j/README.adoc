@@ -1,0 +1,30 @@
+== Camel Quarkus LangChain4j Chat with Quarkus LangChain4j Integration Tests
+
+Tests for `camel-quarkus-langchain4j-chat` where the `ChatModel` instances are created and configured by Quarkus LangChain4j (`quarkus-langchain4j-ollama`),
+instead of being built manually.
+
+The following scenarios are covered:
+
+* Simple chat message using the default Quarkus LangChain4j provided `ChatModel` (autowired by the Camel `langchain4j-chat` component)
+* Prompt template chat with the default Quarkus LangChain4j provided `ChatModel`
+* Multi-turn conversation with the default Quarkus LangChain4j provided `ChatModel`
+* Multiple Quarkus LangChain4j models configured (`@ModelName("custom")` vs default) where the WireMock stubs verify each Camel route resolved the expected model
+
+By default, the integration tests use WireMock to stub the Ollama API interactions.
+
+To run the integration tests against a real Ollama instance, you need the `orca-mini` and `granite4:3b` models downloaded.
+
+When Ollama is running, set the following environment variables:
+
+[source,shell]
+----
+export LANGCHAIN4J_OLLAMA_BASE_URL=your-ollama-api-url
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
