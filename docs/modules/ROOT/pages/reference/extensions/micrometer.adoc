@@ -64,12 +64,6 @@ If no dependency is declared, the Micrometer extension creates a `SimpleMeterReg
 [id="extensions-micrometer-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
-[id="extensions-micrometer-limitations-exposing-micrometer-statistics-in-jmx"]
-=== Exposing Micrometer statistics in JMX
-
-Exposing Micrometer statistics in JMX is not available in native mode as `quarkus-micrometer-registry-jmx` does not
-have native support at present.
-
 [id="extensions-micrometer-limitations-decrement-header-for-counter-is-ignored-by-prometheus"]
 === Decrement header for Counter is ignored by Prometheus
 
