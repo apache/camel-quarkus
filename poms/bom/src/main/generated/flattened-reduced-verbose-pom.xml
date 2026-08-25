@@ -174,32 +174,32 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.10.1</version>
+        <version>6.10.2</version>
       </dependency>
       <dependency>
         <groupId>com.atlassian.jira</groupId>
@@ -8977,6 +8977,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.apache.mina</groupId>
+        <artifactId>mina-core</artifactId>
+        <version>2.2.9</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.neethi</groupId>
         <artifactId>neethi</artifactId>
         <version>3.2.2</version>
@@ -9698,7 +9703,7 @@
       <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
-        <version>7.5.3</version>
+        <version>8.0.0</version>
       </dependency>
       <dependency>
         <groupId>run.endive</groupId>
