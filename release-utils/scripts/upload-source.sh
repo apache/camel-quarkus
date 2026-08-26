@@ -28,25 +28,38 @@ version=$1
 stagingRepoId=$2
 sourcesUrl=https://repository.apache.org/content/repositories/orgapachecamel-${stagingRepoId}/org/apache/camel/quarkus/camel-quarkus/${version}
 
-if [[ "$(curl -k -L -s -o /dev/null -w "%{http_code}" ${sourcesUrl})" != "200" ]]; then
+if [[ "$(curl -L -s -o /dev/null -w "%{http_code}" ${sourcesUrl})" != "200" ]]; then
   echo "Failed to access ${sourcesUrl}. Is the ${version} staging repository closed?"
   exit 1
 fi
 
+# Import the release keys into a throwaway keyring, so the verification below is
+# answered by the project KEYS file rather than by whatever the release manager
+# happens to have in their own keyring
+gpgHome=$(mktemp -d)
+chmod 700 ${gpgHome}
+trap 'rm -rf ${gpgHome}' EXIT
+gpg --homedir ${gpgHome} --quiet --import ${location}/../../KEYS
+
+# Download an artifact with its detached signature, verify the signature, and only
+# then generate the checksum that gets published alongside it. set -e aborts the
+# release if any verification fails.
+fetch_verify_checksum() {
+  remoteName=$1
+  localName=$2
+
+  wget ${sourcesUrl}/${remoteName} -O ${localName}
+  wget ${sourcesUrl}/${remoteName}.asc -O ${localName}.asc
+  gpg --homedir ${gpgHome} --verify ${localName}.asc ${localName}
+  sha512sum -b ${localName} > ${localName}.sha512
+}
+
 mkdir ${version}/
 cd ${version}/
 
-wget ${sourcesUrl}/camel-quarkus-${version}-src.zip -O apache-camel-quarkus-${version}-src.zip
-wget ${sourcesUrl}/camel-quarkus-${version}-src.zip.asc -O apache-camel-quarkus-${version}-src.zip.asc
-sha512sum -b apache-camel-quarkus-${version}-src.zip > apache-camel-quarkus-${version}-src.zip.sha512
-
-wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.json -O apache-camel-quarkus-${version}-sbom.json
-wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.json.asc -O apache-camel-quarkus-${version}-sbom.json.asc
-sha512sum -b apache-camel-quarkus-${version}-sbom.json > apache-camel-quarkus-${version}-sbom.json.sha512
-
-wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.xml -O apache-camel-quarkus-${version}-sbom.xml
-wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.xml.asc -O apache-camel-quarkus-${version}-sbom.xml.asc
-sha512sum -b apache-camel-quarkus-${version}-sbom.xml > apache-camel-quarkus-${version}-sbom.xml.sha512
+fetch_verify_checksum camel-quarkus-${version}-src.zip apache-camel-quarkus-${version}-src.zip
+fetch_verify_checksum camel-quarkus-${version}-cyclonedx.json apache-camel-quarkus-${version}-sbom.json
+fetch_verify_checksum camel-quarkus-${version}-cyclonedx.xml apache-camel-quarkus-${version}-sbom.xml
 
 cd ../
 
