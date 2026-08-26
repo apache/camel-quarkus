@@ -53,6 +53,14 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-cli-enabled]]`link:#quark
 Sets whether to enable Camel CLI Connector support.
 | `boolean`
 | `true`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cli-exposure-mode]]`link:#quarkus-camel-cli-exposure-mode[quarkus.camel.cli.exposure-mode]`
+
+The modes in which the Camel CLI connector is available. The default `dev-test` enables the connector only in
+dev and test modes. A value of `all` enables it in dev, test and prod modes. Setting the value to `none` never
+enables it.
+| `all`, `dev-test`, `none`
+| `dev-test`
 |===
 
 [.configuration-legend]

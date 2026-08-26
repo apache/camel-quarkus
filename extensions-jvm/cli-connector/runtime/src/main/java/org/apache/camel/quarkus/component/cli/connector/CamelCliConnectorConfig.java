@@ -31,4 +31,20 @@ public interface CamelCliConnectorConfig {
      */
     @WithDefault("true")
     boolean enabled();
+
+    /**
+     * The modes in which the Camel CLI connector is available. The default `dev-test` enables the connector only in
+     * dev and test modes. A value of `all` enables it in dev, test and prod modes. Setting the value to `none` never
+     * enables it.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("DEV_TEST")
+    ExposureMode exposureMode();
+
+    enum ExposureMode {
+        ALL,
+        DEV_TEST,
+        NONE,
+    }
 }

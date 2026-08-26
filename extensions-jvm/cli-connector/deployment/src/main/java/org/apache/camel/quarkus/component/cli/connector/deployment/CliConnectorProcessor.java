@@ -25,7 +25,9 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.runtime.LaunchMode;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig;
+import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig.ExposureMode;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
@@ -63,9 +65,17 @@ class CliConnectorProcessor {
 
     static class CliConnectorEnabled implements BooleanSupplier {
         CamelCliConnectorConfig config;
+        LaunchMode launchMode;
 
         public boolean getAsBoolean() {
-            return config.enabled();
+            if (!config.enabled()) {
+                return false;
+            }
+            // The connector's action file IPC authenticates nobody, so it is a dev and test facility unless the
+            // deployer asks for it in prod
+            ExposureMode exposureMode = config.exposureMode();
+            return exposureMode == ExposureMode.ALL
+                    || (exposureMode == ExposureMode.DEV_TEST && launchMode.isDevOrTest());
         }
     }
 }

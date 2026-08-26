@@ -18,3 +18,20 @@ To keep the previous behaviour for a context that relied on the default, set it 
 ----
 quarkus.camel.ldap.dir-contexts."my-context".security-authentication=none
 ----
+
+== CLI connector extension changes
+
+=== The connector is no longer active in prod mode by default
+
+`quarkus.camel.cli.enabled` defaults to `true` and had no launch mode condition, so the Camel CLI connector's action file IPC was active in production builds as well as in dev and test.
+
+A `quarkus.camel.cli.exposure-mode` option is added, following the same shape as `quarkus.camel.console.exposure-mode`. It defaults to `dev-test`, which enables the connector only in dev and test modes. Dev and test behaviour is unchanged.
+
+To keep the connector active in prod mode, ask for it explicitly.
+
+[source,properties]
+----
+quarkus.camel.cli.exposure-mode=all
+----
+
+`none` never enables the connector, and `quarkus.camel.cli.enabled=false` still turns it off in every mode.
