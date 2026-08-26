@@ -23,6 +23,8 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
@@ -80,6 +82,16 @@ class DiagramTest {
     @Test
     void nonExistentConsole() {
         RestAssured.get("/q/camel/diagram/nonexistent")
+                .then()
+                .statusCode(404);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "context", "jvm", "health", "java-security" })
+    void nonDiagramConsoleIsNotReachable(String consoleId) {
+        // These consoles are registered and were previously rendered by this route, which exists only to serve
+        // the diagram consoles
+        RestAssured.get("/q/camel/diagram/" + consoleId)
                 .then()
                 .statusCode(404);
     }
