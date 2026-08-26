@@ -42,7 +42,7 @@ public class CamelLdapRecorder {
                     Hashtable<String, Object> env = new Hashtable<>();
                     dirConfig.initialContextFactory().ifPresent(v -> env.put(Context.INITIAL_CONTEXT_FACTORY, v));
                     dirConfig.providerUrl().ifPresent(v -> env.put(Context.PROVIDER_URL, v));
-                    env.put(Context.SECURITY_AUTHENTICATION, dirConfig.securityAuthentication());
+                    dirConfig.securityAuthentication().ifPresent(v -> env.put(Context.SECURITY_AUTHENTICATION, v));
                     dirConfig.securityProtocol().ifPresent(v -> env.put(Context.SECURITY_PROTOCOL, v));
                     dirConfig.socketFactory().ifPresent(v -> env.put("java.naming.ldap.factory.socket", v));
 
