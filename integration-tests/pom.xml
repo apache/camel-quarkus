@@ -173,7 +173,6 @@
         <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
         <module>ldap</module>
-        <module>leveldb</module>
         <module>lra</module>
         <module>lumberjack</module>
         <module>mail</module>

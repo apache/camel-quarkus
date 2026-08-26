@@ -195,7 +195,6 @@
         <module>langchain4j-web-search</module>
         <module>language</module>
         <module>ldap</module>
-        <module>leveldb</module>
         <module>log</module>
         <module>lra</module>
         <module>lumberjack</module>
