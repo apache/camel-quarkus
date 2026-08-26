@@ -1941,6 +1941,10 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>

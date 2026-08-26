@@ -146,7 +146,7 @@
         <langchain4j.version>1.19.0</langchain4j.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j.version -->
         <langchain4j-beta.version>1.19.0-beta29</langchain4j-beta.version><!-- @sync dev.langchain4j:langchain4j-bom:${langchain4j.version} prop:langchain4j.beta.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
-        <mbassador.version>1.3.0</mbassador.version><!-- @sync com.hierynomus:smbj:${smbj-version} dep:net.engio:mbassador -->
+        <mbassador.version>1.3.2</mbassador.version><!-- @sync com.hierynomus:smbj:${smbj-version} dep:net.engio:mbassador -->
         <micrometer-tracing.version>1.7.0</micrometer-tracing.version><!-- Not in quarkus-bom yet, align with micrometer version in io.quarkus:quarkus-bom:${quarkus.version} - tracing 1.6.x matches core 1.16.x https://repo1.maven.org/maven2/io/micrometer/micrometer-tracing-bom/ -->
         <mina.version>${mina-version}</mina.version>
         <minio.version>9.0.3</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
@@ -154,7 +154,7 @@
         <murmur.version>1.0.0</murmur.version>
         <mvel2.version>2.5.2.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.19</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
-        <oak-jackrabbit-api.version>1.88.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
+        <oak-jackrabbit-api.version>2.2.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
         <okhttp.version>4.12.0</okhttp.version>
         <okhttp-jvm.version>5.2.1</okhttp-jvm.version>
         <okio.version>3.16.1</okio.version><!-- @sync com.squareup.okhttp3:okhttp-jvm:${okhttp-jvm.version} dep:com.squareup.okio:okio-jvm-->

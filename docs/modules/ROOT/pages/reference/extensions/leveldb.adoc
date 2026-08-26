@@ -6,25 +6,18 @@
 :cq-artifact-id: camel-quarkus-leveldb
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable Deprecated
+:cq-status-deprecation: Stable
 :cq-description: Using LevelDB as persistent EIP store
-:cq-deprecated: true
+:cq-deprecated: false
 :cq-jvm-since: 1.2.0
 :cq-native-since: 1.2.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native since##[.badge-supported]##1.2.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
+[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native since##[.badge-supported]##1.2.0##
 endif::[]
 
 Using LevelDB as persistent EIP store
-
-[id="extensions-leveldb-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}:others:leveldb.adoc[LevelDB]
-
-Please refer to the above link for usage and configuration details.
 
 [id="extensions-leveldb-maven-coordinates"]
 == Maven coordinates
