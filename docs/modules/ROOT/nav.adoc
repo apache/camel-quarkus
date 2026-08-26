@@ -223,7 +223,6 @@
 *** xref:reference/extensions/langchain4j-tools.adoc[LangChain4j Tools]
 *** xref:reference/extensions/langchain4j-web-search.adoc[LangChain4j Web Search]
 *** xref:reference/extensions/language.adoc[Language]
-*** xref:reference/extensions/leveldb.adoc[LevelDB]
 *** xref:reference/extensions/log.adoc[Log]
 *** xref:reference/extensions/lucene.adoc[Lucene]
 *** xref:reference/extensions/lumberjack.adoc[Lumberjack]

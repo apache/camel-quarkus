@@ -6,26 +6,18 @@
 :cq-artifact-id: camel-quarkus-iec60870
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview Deprecated
+:cq-status-deprecation: Preview
 :cq-description: IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
-:cq-deprecated: true
+:cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
 IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
-
-[id="extensions-iec60870-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}::iec60870-client-component.adoc[IEC 60870 Client component], URI syntax: `iec60870-client:uriPath`
-* xref:{cq-camel-components}::iec60870-server-component.adoc[IEC 60870 Server component], URI syntax: `iec60870-server:uriPath`
-
-Please refer to the above links for usage and configuration details.
 
 [id="extensions-iec60870-maven-coordinates"]
 == Maven coordinates

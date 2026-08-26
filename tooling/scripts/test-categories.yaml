@@ -89,7 +89,6 @@ group-04:
   - jpa
   - jta
   - kudu
-  - leveldb
   - mdc
   - micrometer
   - micrometer-observability
