@@ -30,8 +30,14 @@ env:
   ISSUE_ID: 2927
   DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
+permissions:
+  contents: read
+
 jobs:
   initial-mvn-install:
+    permissions:
+      contents: read
+      issues: write
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     outputs:
@@ -138,6 +144,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   native-tests:
+    permissions:
+      contents: read
+      issues: write
     name: Native Tests - ${{matrix.category}}
     needs: initial-mvn-install
     runs-on: ubuntu-latest
@@ -220,6 +229,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   functional-extension-tests:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     env:
@@ -311,6 +323,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   integration-tests-jvm:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     env:
@@ -355,6 +370,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   integration-tests-alternative-platform:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ${{ matrix.os }}
     needs: initial-mvn-install
     strategy:
@@ -405,6 +423,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   examples-tests:
+    permissions:
+      contents: read
+      issues: write
     name: Examples Tests - ${{matrix.name}}
     needs: initial-mvn-install
     runs-on: ubuntu-latest
@@ -487,6 +508,9 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   handle-build-status:
+    permissions:
+      contents: write
+      issues: write
     needs: native-tests
     runs-on: ubuntu-latest
     steps:
