@@ -21,6 +21,7 @@ import java.util.function.BooleanSupplier;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.builditem.AllowJNDIBuildItem;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 /**
@@ -38,11 +39,18 @@ public class CamelDebugProcessor {
     static final class CamelDebugEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            // Resolve the value rather than testing whether any camel.debug.* key is present, so that
-            // pinning debugging off with camel.debug.enabled=false does not still allow JNDI
-            return ConfigProvider.getConfig()
-                    .getOptionalValue("camel.debug.enabled", boolean.class)
-                    .orElse(false);
+            return isDebugEnabled(ConfigProvider.getConfig());
+        }
+
+        /**
+         * Resolves the value rather than testing whether any {@code camel.debug.*} key is present, so that pinning
+         * debugging off with {@code camel.debug.enabled=false} does not still allow JNDI.
+         *
+         * Takes the {@link Config} so that it can be exercised without touching the configuration registered for the
+         * class loader, which is shared with every other test in the JVM.
+         */
+        static boolean isDebugEnabled(Config config) {
+            return config.getOptionalValue("camel.debug.enabled", boolean.class).orElse(false);
         }
     }
 }
