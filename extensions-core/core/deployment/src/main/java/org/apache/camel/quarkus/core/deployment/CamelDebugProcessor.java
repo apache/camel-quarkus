@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.function.BooleanSupplier;
-import java.util.stream.StreamSupport;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -29,18 +28,21 @@ import org.eclipse.microprofile.config.ConfigProvider;
  * having the capability to enable debugging features that live in the Camel core such as the
  * DebuggerJmxConnectorService
  */
-@BuildSteps(onlyIf = CamelDebugProcessor.CamelDebugConfigurationPresent.class)
+@BuildSteps(onlyIf = CamelDebugProcessor.CamelDebugEnabled.class)
 public class CamelDebugProcessor {
     @BuildStep
     AllowJNDIBuildItem allowJNDI() {
         return new AllowJNDIBuildItem();
     }
 
-    static final class CamelDebugConfigurationPresent implements BooleanSupplier {
+    static final class CamelDebugEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return StreamSupport.stream(ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
-                    .anyMatch(key -> key.startsWith("camel.debug"));
+            // Resolve the value rather than testing whether any camel.debug.* key is present, so that
+            // pinning debugging off with camel.debug.enabled=false does not still allow JNDI
+            return ConfigProvider.getConfig()
+                    .getOptionalValue("camel.debug.enabled", boolean.class)
+                    .orElse(false);
         }
     }
 }
