@@ -61,7 +61,6 @@
         <module>google-functions</module>
         <module>huaweicloud-smn</module>
         <module>ibm-secrets-manager</module>
-        <module>iec60870</module>
         <module>ignite</module>
         <module>irc</module>
         <module>javascript</module>
@@ -69,7 +68,6 @@
         <module>jgroups</module>
         <module>jgroups-raft</module>
         <module>jooq</module>
-        <module>json-patch</module>
         <module>jsonapi</module>
         <module>junit-test-framework</module>
         <module>ldif</module>
