@@ -1,6 +1,0 @@
-=== Splunk Web UI
-
-The Splunk UI is helpful for the testing as you can see (and search) for data inside Splunk. The URL to the Splunk UI
-is output to the console after the test container starts. Watch for the text 'Splunk UI running on'.
-
-You may want to delay the Splunk container shutdown either by adding a `Thread.sleep` into `SplunkTestResource.stop()` or commenting out `container.stop()`.

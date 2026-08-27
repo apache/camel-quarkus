@@ -1333,7 +1333,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.14.3</version>
+        <version>2.10.1</version>
       </dependency>
       <dependency>
         <groupId>net.engio</groupId>
@@ -2388,17 +2388,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-digitalocean</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-direct</artifactId>
         <version>4.23.0-SNAPSHOT</version>
       </dependency>
@@ -2992,17 +2981,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-headersmap</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
-        <exclusions>
-          <exclusion>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-health</artifactId>
         <version>4.23.0-SNAPSHOT</version>
       </dependency>
@@ -3086,17 +3064,6 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-iec60870</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -3323,11 +3290,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jslt</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-json-patch</artifactId>
         <version>4.23.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -4317,11 +4279,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-splunk</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-splunk-hec</artifactId>
         <version>4.23.0-SNAPSHOT</version>
         <exclusions>
@@ -4443,11 +4400,6 @@
             <artifactId>camel-directvm</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-threadpoolfactory-vertx</artifactId>
-        <version>4.23.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -5653,16 +5605,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-digitalocean</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-digitalocean-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-direct</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
@@ -6088,16 +6030,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-headersmap</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-headersmap-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hl7</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
@@ -6184,16 +6116,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ical-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-iec60870</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-iec60870-deployment</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -6494,16 +6416,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jslt-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-json-patch</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-json-patch-deployment</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -7728,16 +7640,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-splunk</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-splunk-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-splunk-hec</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
@@ -8189,16 +8091,6 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-telemetry-dev-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-threadpoolfactory-vertx</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-threadpoolfactory-vertx-deployment</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
       <dependency>

@@ -30,7 +30,6 @@ import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.quarkus.test.DisabledOnQuarkusPlatform;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
-import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
@@ -157,19 +156,6 @@ public class CoreMainTest {
                 .jsonPath();
 
         assertThat(executor.getString("class")).isEqualTo(VertXReactiveExecutor.class.getName());
-        assertThat(executor.getBoolean("configured")).isTrue();
-    }
-
-    @Test
-    public void testThreadPoolFactory() {
-        JsonPath executor = RestAssured.when().get("/test/context/thread-pool-factory")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
-
-        assertThat(executor.getString("class")).isEqualTo(VertXThreadPoolFactory.class.getName());
         assertThat(executor.getBoolean("configured")).isTrue();
     }
 

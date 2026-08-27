@@ -104,7 +104,6 @@
         <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
         <module>debug</module>
-        <module>digitalocean</module>
         <module>direct</module>
         <module>disruptor</module>
         <module>docling</module>
@@ -139,7 +138,6 @@
         <module>gson</module>
         <module>hashicorp-vault</module>
         <module>hazelcast</module>
-        <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
         <module>ibm-cos</module>
@@ -273,7 +271,6 @@
         <module>snakeyaml</module>
         <module>soap</module>
         <module>solr</module>
-        <module>splunk</module>
         <module>splunk-hec</module>
         <module>spring-rabbitmq</module>
         <module>sql</module>
