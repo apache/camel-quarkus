@@ -133,7 +133,7 @@ jobs:
             echo "run-checks=false" >> $GITHUB_OUTPUT
           fi
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         if: steps.init.outputs.run-checks == 'true'
         with:
           distribution: 'temurin'
@@ -212,7 +212,7 @@ jobs:
         run: |
           df -h /
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -458,7 +458,7 @@ jobs:
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -552,7 +552,7 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -654,7 +654,7 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -706,7 +706,7 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -759,7 +759,7 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
