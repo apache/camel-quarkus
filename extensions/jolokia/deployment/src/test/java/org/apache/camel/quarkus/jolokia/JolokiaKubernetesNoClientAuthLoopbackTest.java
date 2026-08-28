@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  */
 class JolokiaKubernetesNoClientAuthLoopbackTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("kubernetes.service.host", "fake-host")
             .overrideConfigKey("quarkus.camel.jolokia.kubernetes.client-authentication-enabled", "false");

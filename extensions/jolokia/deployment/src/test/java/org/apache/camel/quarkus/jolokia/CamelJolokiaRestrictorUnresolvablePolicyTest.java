@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class CamelJolokiaRestrictorUnresolvablePolicyTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",
                     "classpath:/jolokia-access-not-packaged.xml")
             .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true")

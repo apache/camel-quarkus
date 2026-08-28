@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.core.deployment;
 
 import java.io.IOException;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.FastCamelContext;
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CamelContextJsonSchemaTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest().withEmptyApplication();
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest().withEmptyApplication();
 
     @Inject
     CamelContext context;

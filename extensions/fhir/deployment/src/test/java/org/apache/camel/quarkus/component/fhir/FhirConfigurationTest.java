@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.fhir;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class FhirConfigurationTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.fhir.enable-dstu2", "true")
             .overrideConfigKey("quarkus.camel.fhir.enable-dstu2_hl7org", "true")
             .overrideConfigKey("quarkus.camel.fhir.enable-dstu2_1", "true")

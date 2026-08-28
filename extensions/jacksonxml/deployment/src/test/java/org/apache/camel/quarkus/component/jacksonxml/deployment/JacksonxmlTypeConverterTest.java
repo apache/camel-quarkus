@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jacksonxml.deployment;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JacksonxmlTypeConverterTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(Routes.class)
                     .addClass(TestPojo.class));

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,7 +30,7 @@ public class JasyptPasswordSysPrefixTest {
     private static final String PASSWORD_PROPERTY_NAME = "jasyptDecryptSecret";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jasypt.password", "sys:" + PASSWORD_PROPERTY_NAME)
             .overrideConfigKey("secure.config", "ENC(GKJfy64eBDzxUuQCfArd6OjnAaW/oM9e)")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClass(JasyptRoutes.class));

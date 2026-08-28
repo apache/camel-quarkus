@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.core.runtime;
 
 import java.util.Set;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -43,7 +43,7 @@ public class CamelBeansUnremovableTest {
             + CamelBeansUnremovableTest.class.getSimpleName();
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource("custom-component.json", RESOURCE_PATH + "/custom-component.json")
                     .addAsResource("custom-dataformat.json", RESOURCE_PATH + "/custom-dataformat.json")

@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.jolokia;
 
 import java.net.URI;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.jolokia.util.JolokiaHostUtils;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JolokiaDefaultHostLocalhostTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication();
 
     @Test

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 class JolokiaRemoteAccessEnabledTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true");
 

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.quartz.deployment;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
@@ -30,7 +30,7 @@ import org.quartz.impl.StdSchedulerFactory;
 public class QuartzQuarkusSchedulerAmbiguousAutowiredTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withConfigurationResource("application-configuration-quartz-scheduler.properties")
             .setExpectedException(RuntimeException.class)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));

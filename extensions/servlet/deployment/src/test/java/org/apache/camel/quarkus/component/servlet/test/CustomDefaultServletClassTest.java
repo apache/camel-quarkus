@@ -21,7 +21,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
 import org.hamcrest.core.IsEqual;
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CustomDefaultServletClassTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(Routes.class)
                     .addClass(CustomServlet.class)

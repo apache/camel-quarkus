@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class CamelJolokiaRestrictorSubclassUnresolvablePolicyTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClasses(SubclassedRestrictor.class))
             .overrideConfigKey("quarkus.camel.jolokia.additional-properties.restrictorClass",
                     SubclassedRestrictor.class.getName())

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jasypt.JasyptPropertiesParser;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -29,7 +29,7 @@ public class JasyptPasswordSysEnvValueMissingTest {
     private static final String PASSWORD_VAR_NAME = "JASYPT_BAD_DECRYPT_SECRET";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("greeting.secret", "ENC(GKJfy64eBDzxUuQCfArd6OjnAaW/oM9e)")
             .overrideConfigKey("quarkus.camel.jasypt.password", "sysenv:" + PASSWORD_VAR_NAME)
             .setExpectedException(IllegalStateException.class)

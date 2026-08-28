@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CamelJolokiaRestrictorDefaultPortOriginsTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jolokia.allowed-origins",
                     "https://secure.example.com:443,http://plain.example.com:80,*://*.wild.example.com:443");
 

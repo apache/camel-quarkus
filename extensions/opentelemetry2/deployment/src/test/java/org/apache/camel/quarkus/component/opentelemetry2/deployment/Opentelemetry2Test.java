@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.opentelemetry2.deployment;
 
 import java.util.Set;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.opentelemetry2.OpenTelemetryTracer;
@@ -38,7 +38,7 @@ public class Opentelemetry2Test {
     private static final String EXCLUDE_PATTERNS = "platform-http:*,platform-http:/prefix/.*";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.opentelemetry2.include-patterns", INCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.opentelemetry2.exclude-patterns", EXCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.opentelemetry2.trace-processors", "true")

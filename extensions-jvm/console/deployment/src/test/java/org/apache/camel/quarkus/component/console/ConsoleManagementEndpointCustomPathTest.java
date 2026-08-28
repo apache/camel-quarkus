@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.console;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 class ConsoleManagementEndpointCustomPathTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("quarkus.camel.console.enabled", "true")
             .overrideConfigKey("quarkus.camel.console.path", "camel/other");

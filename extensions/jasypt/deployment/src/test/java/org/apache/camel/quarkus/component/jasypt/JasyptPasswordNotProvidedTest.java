@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jasypt.JasyptPropertiesParser;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -27,7 +27,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class JasyptPasswordNotProvidedTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("greeting.secret", "ENC(GKJfy64eBDzxUuQCfArd6OjnAaW/oM9e)")
             .setExpectedException(IllegalStateException.class)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClass(JasyptRoutes.class));

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestPipeline;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class IngestDuplicatePipelineNameTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class))
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.embedding-store", "store")
             .assertException(t -> ValidationTestSupport.assertFailure(t, "declared more than once"));

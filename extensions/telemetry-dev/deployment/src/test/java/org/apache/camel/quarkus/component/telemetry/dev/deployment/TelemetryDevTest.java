@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.telemetry.dev.deployment;
 
 import java.util.Set;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.telemetrydev.TelemetryDevTracer;
@@ -36,7 +36,7 @@ public class TelemetryDevTest {
     private static final String EXCLUDE_PATTERNS = "platform-http:*,platform-http:/prefix/.*";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.telemetryDev.trace-format", "tree")
             .overrideConfigKey("quarkus.camel.telemetryDev.exclude-patterns", EXCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.telemetryDev.trace-processors", "true")

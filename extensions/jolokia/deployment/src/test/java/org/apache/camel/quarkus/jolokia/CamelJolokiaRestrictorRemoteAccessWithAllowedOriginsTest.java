@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.jolokia;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CamelJolokiaRestrictorRemoteAccessWithAllowedOriginsTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("quarkus.camel.jolokia.remote-access-allowed", "true")
             .overrideConfigKey("quarkus.camel.jolokia.allowed-origins", "https://domain.example.com");

@@ -23,7 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.jolokia.server.core.restrictor.policy.CorsChecker;
 import org.junit.jupiter.api.Test;
@@ -74,7 +74,7 @@ class CamelJolokiaRestrictorAllowOriginParityTest {
             "http://fixed.example.net");
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jolokia.allowed-origins", String.join(",", ALLOW_ORIGINS));
 
     @Test

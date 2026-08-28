@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestPipeline;
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class IngestMissingComponentWithComponentPropertyTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withApplicationRoot(jar -> jar.addClasses(Pipelines.class, TestEmbeddingBeans.class))
             .overrideConfigKey("camel.component.direct.block", "false")
             .assertException(t -> ValidationTestSupport.assertFailure(t,

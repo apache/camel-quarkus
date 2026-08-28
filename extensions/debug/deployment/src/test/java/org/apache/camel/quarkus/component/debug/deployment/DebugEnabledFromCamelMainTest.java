@@ -22,7 +22,7 @@ import java.io.Writer;
 import java.net.Socket;
 import java.util.Properties;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.is;
 public class DebugEnabledFromCamelMainTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(DebugResource.class)
                     .addAsResource(applicationProperties(), "application.properties"));

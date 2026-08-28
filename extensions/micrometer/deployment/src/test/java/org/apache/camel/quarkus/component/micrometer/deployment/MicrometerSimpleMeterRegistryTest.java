@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.micrometer.deployment;
 
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.micrometer.MicrometerComponent;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 public class MicrometerSimpleMeterRegistryTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
     @Inject
     CamelContext context;

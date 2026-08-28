@@ -19,14 +19,14 @@ package org.apache.camel.quarkus.jolokia;
 import java.net.ConnectException;
 import java.net.URI;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 class JolokiaDisabledTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("quarkus.camel.jolokia.enabled", "false");
 

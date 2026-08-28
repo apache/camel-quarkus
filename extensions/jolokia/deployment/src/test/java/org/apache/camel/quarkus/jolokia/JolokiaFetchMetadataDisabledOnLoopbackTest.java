@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.jolokia;
 
 import java.util.logging.Level;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class JolokiaFetchMetadataDisabledOnLoopbackTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .withEmptyApplication()
             .overrideConfigKey("quarkus.camel.jolokia.server.host", "localhost")
             .overrideConfigKey("quarkus.camel.jolokia.additional-properties.\"useFetchMetadata\"", "false")

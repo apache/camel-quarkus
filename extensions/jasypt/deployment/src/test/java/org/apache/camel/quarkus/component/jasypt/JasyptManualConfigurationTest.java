@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class JasyptManualConfigurationTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jasypt.enabled", "false")
             .overrideConfigKey("greeting.secret", "ENC(GKJfy64eBDzxUuQCfArd6OjnAaW/oM9e)")
             .overrideConfigKey("greeting.expression.secret", "${greeting.secret} From Expression")
