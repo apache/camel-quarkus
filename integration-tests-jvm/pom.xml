@@ -62,7 +62,6 @@
         <module>huaweicloud-smn</module>
         <module>ibm-secrets-manager</module>
         <module>ignite</module>
-        <module>irc</module>
         <module>javascript</module>
         <module>jcr</module>
         <module>jgroups</module>

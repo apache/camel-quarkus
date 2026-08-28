@@ -168,7 +168,6 @@
         <module>langchain4j-ingest</module>
         <module>langchain4j-rag-bridge-ql4j</module>
         <module>langchain4j-tokenizer</module>
-        <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
         <module>ldap</module>
         <module>lra</module>
