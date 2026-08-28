@@ -22,7 +22,7 @@ import java.io.Writer;
 import java.util.Map;
 import java.util.Properties;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class CamelBeanLookupWithIdentifierTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 

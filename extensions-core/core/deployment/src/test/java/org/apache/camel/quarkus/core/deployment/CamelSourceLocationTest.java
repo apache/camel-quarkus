@@ -21,7 +21,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -39,7 +39,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CamelSourceLocationTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(applicationProperties(), "application.properties")
                     .addClasses(MyProcessor.class));

@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.mdc.deployment;
 
 import java.util.Set;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.mdc.MDCService;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 public class MdcTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.mdc.enabled", "true")
             .overrideConfigKey("quarkus.camel.mdc.custom-exchange-headers", "head1,head2")
             .overrideConfigKey("quarkus.camel.mdc.custom-exchange-properties", "*")

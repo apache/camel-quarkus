@@ -29,7 +29,7 @@ import io.quarkus.builder.BuildStep;
 import io.quarkus.deployment.builditem.StaticBytecodeRecorderBuildItem;
 import io.quarkus.deployment.recording.BytecodeRecorderImpl;
 import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.util.AnnotationLiteral;
@@ -54,7 +54,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class CamelRegistryBeanQualifierResolutionTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .addBuildChainCustomizer(new Consumer<>() {
                 @Override
                 public void accept(BuildChainBuilder buildChainBuilder) {

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,7 +31,7 @@ public class JasyptDisabledTest {
     private static final String SECURE_CONFIG_VALUE = "ENC(SomeSecureContent)";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .overrideConfigKey("quarkus.camel.jasypt.enabled", "false")
             .overrideConfigKey("secure.config.property", "ENC(SomeSecureContent)")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClass(JasyptRoutes.class));

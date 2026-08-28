@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import io.quarkus.builder.BuildChainBuilder;
 import io.quarkus.builder.BuildContext;
 import io.quarkus.builder.BuildStep;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CamelPackageScanClassResolverTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .addBuildChainCustomizer(new Consumer<>() {
                 @Override
                 public void accept(BuildChainBuilder buildChainBuilder) {

@@ -23,7 +23,7 @@ import java.util.Properties;
 import java.util.function.Consumer;
 
 import io.quarkus.builder.BuildChainBuilder;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PropertiesToSetTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .addBuildChainCustomizer(new Consumer<>() {
                 @Override
                 public void accept(BuildChainBuilder buildChainBuilder) {

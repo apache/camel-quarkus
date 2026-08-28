@@ -21,7 +21,7 @@ import java.util.List;
 
 import io.quarkus.builder.Version;
 import io.quarkus.maven.dependency.Dependency;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.containsString;
 
 public class SwaggerCamelUrlTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setForcedDependencies(List.of(
                     Dependency.of("io.quarkus", "quarkus-swagger-ui", Version.getVersion())))
             .overrideConfigKey("camel.rest.apiContextPath", "/camel/openapi")

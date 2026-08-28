@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.servlet.test;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -45,7 +45,7 @@ public class WebXmlServletTest {
     static final String MESSAGE = "This servlet was configured from web.xml";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(new StringAsset(WEB_XML), "META-INF/web.xml"));
 

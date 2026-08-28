@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.core.runtime;
 
 import io.quarkus.arc.DefaultBean;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.annotation.Priority;
 import jakarta.enterprise.inject.Produces;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CamelBeanPrecedenceTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject

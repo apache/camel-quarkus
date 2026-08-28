@@ -24,7 +24,7 @@ import io.quarkus.builder.BuildStep;
 import io.quarkus.deployment.builditem.StaticBytecodeRecorderBuildItem;
 import io.quarkus.deployment.recording.BytecodeRecorderImpl;
 import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
@@ -37,7 +37,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 class CamelRoutesCollectorTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .addBuildChainCustomizer(buildCustomizer())
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(CustomRoutesCollector.class));

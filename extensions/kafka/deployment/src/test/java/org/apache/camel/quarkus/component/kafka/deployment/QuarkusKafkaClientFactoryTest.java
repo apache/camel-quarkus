@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import io.quarkus.builder.Version;
 import io.quarkus.maven.dependency.Dependency;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.apache.camel.component.kafka.KafkaConfiguration;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class QuarkusKafkaClientFactoryTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setForcedDependencies(List.of(
                     Dependency.of("io.quarkus", "quarkus-kubernetes-service-binding", Version.getVersion())))
             .withConfigurationResource("application-configuration-merging.properties")

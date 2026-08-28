@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.console;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import io.restassured.RestAssured;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ConsoleDisabledTest {
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest().withEmptyApplication();
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest().withEmptyApplication();
 
     @Inject
     CamelContext context;

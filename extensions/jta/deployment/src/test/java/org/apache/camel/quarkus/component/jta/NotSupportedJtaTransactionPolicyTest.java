@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jta;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.TransactionManager;
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.when;
 public class NotSupportedJtaTransactionPolicyTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(MockTransactionManagerProducer.class, MockTransaction.class));
 

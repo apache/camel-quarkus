@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.jolokia;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -48,7 +48,7 @@ class CamelJolokiaRestrictorPolicyLoadFailureTest {
             """;
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(new StringAsset(MALFORMED_JOLOKIA_ACCESS_XML), "jolokia-access.xml"))
             .overrideConfigKey("quarkus.camel.jolokia.additional-properties.policyLocation",

@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.opentelemetry.deployment;
 
 import java.util.Set;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
@@ -33,7 +33,7 @@ class OpenTelemetryCustomTracerTest {
     private static final String TRACER_NAME = "my-custom-tracer";
 
     @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest().withEmptyApplication();
+    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest().withEmptyApplication();
 
     @Inject
     CamelContext context;

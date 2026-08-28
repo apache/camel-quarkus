@@ -101,7 +101,7 @@ In any case, both consumer and producer of the component (if the component suppo
 == Lightweight functional tests
 
 Especially when testing various configuration setups, having a separate integration test module for each configuration set would be an overkill.
-`io.quarkus.test.QuarkusUnitTest` may suit well for such situations.
+`io.quarkus.test.QuarkusExtensionTest` may suit well for such situations.
 
 A big advantage of this kind of tests is that they are very lightweight and fast.
 But on the other hand, they are executed only in JVM mode.
