@@ -6,25 +6,18 @@
 :cq-artifact-id: camel-quarkus-langchain4j-tools
 :cq-native-supported: true
 :cq-status: Preview
-:cq-status-deprecation: Preview Deprecated
+:cq-status-deprecation: Preview
 :cq-description: LangChain4j Tools and Function Calling Features
-:cq-deprecated: true
+:cq-deprecated: false
 :cq-jvm-since: 3.15.0
 :cq-native-since: 3.24.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.15.0## [.badge-key]##Native since##[.badge-supported]##3.24.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
+[.badge-key]##JVM since##[.badge-supported]##3.15.0## [.badge-key]##Native since##[.badge-supported]##3.24.0##
 endif::[]
 
 LangChain4j Tools and Function Calling Features
-
-[id="extensions-langchain4j-tools-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}::langchain4j-tools-component.adoc[LangChain4j Tools component], URI syntax: `langchain4j-tools:toolId`
-
-Please refer to the above link for usage and configuration details.
 
 [id="extensions-langchain4j-tools-maven-coordinates"]
 == Maven coordinates
