@@ -189,7 +189,6 @@
         <module>langchain4j-embeddingstore</module>
         <module>langchain4j-ingest</module>
         <module>langchain4j-tokenizer</module>
-        <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
         <module>language</module>
         <module>ldap</module>

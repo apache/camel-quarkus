@@ -238,7 +238,6 @@ group-12:
   - quartz-clustered
   - knative
   - langchain4j-web-search
-  - langchain4j-tools
   - mcp-server
   - openapi-java
   - openapi-validator
