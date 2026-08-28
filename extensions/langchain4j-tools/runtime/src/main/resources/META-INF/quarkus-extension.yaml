@@ -29,7 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/langchain4j-tools.html"
   categories:
   - "integration"
-  status: "deprecated"
+  status: "preview"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"
