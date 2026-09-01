@@ -38,3 +38,12 @@ quarkus.camel.console.exposure-mode=ALL
 ----
 
 See the configuration overview below for further details about `exposure-mode`.
+
+IMPORTANT: The console authenticates nobody. Anyone who can reach it can read what the consoles expose, which includes route and endpoint configuration, in-flight and recent exchange data, JVM and environment details, and the application's own configuration values. Confine it to a trusted network, or put authentication in front of it, before enabling `ALL` in prod.
+
+The route is registered as a Quarkus non-application endpoint. Those are served on the *main* HTTP port under `/q/` unless a separate management interface is enabled, so by default the console shares the socket that serves application traffic rather than sitting on a port you can firewall separately. To move it to its own port, enable the management interface.
+
+[source,properties]
+----
+quarkus.management.enabled=true
+----
