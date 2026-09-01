@@ -75,7 +75,6 @@
         <module>couchdb</module>
         <module>crypto</module>
         <module>crypto-pgp</module>
-        <module>csimple</module>
         <module>csv</module>
         <module>cxf-soap-grouped</module>
         <module>cyberark-vault</module>
