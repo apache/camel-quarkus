@@ -1,8 +1,3 @@
-=== Exposing Micrometer statistics in JMX
-
-Exposing Micrometer statistics in JMX is not available in native mode as `quarkus-micrometer-registry-jmx` does not
-have native support at present.
-
 === Decrement header for Counter is ignored by Prometheus
 
 Prometheus backend ignores negative values during increment of Counter metrics.

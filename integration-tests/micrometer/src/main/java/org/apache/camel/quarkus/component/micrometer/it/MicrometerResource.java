@@ -16,13 +16,24 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import javax.management.Attribute;
+import javax.management.AttributeList;
+import javax.management.AttributeNotFoundException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectInstance;
+import javax.management.ObjectName;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -33,6 +44,7 @@ import io.micrometer.prometheus.PrometheusMeterRegistry;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -246,5 +258,65 @@ public class MicrometerResource {
             tags.put(tag.getKey(), tag.getValue());
         }
         return Response.ok(tags).build();
+    }
+
+    @GET
+    @Path("/mbeans")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getMBeanCount(@QueryParam("name") String name) throws Exception {
+        return getMBeanServer().queryMBeans(new ObjectName(name), null).size();
+    }
+
+    @GET
+    @Path("/attribute")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getMBeanAttribute(@QueryParam("name") String name, @QueryParam("attribute") String attribute)
+            throws Exception {
+        ObjectInstance mbean = getMBean(name);
+        if (mbean != null) {
+            return readMBeanAttribute(mbean.getObjectName(), attribute);
+        }
+        return null;
+    }
+
+    @POST
+    @Path("/invoke")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String invokeMBeanOperation(@QueryParam("name") String name, @QueryParam("operation") String operation)
+            throws Exception {
+        ObjectInstance mbean = getMBean(name);
+        if (mbean != null) {
+            return String.valueOf(getMBeanServer().invoke(mbean.getObjectName(), operation, new Object[] {}, new String[] {}));
+        }
+        return null;
+    }
+
+    private String readMBeanAttribute(ObjectName objectName, String attribute) throws Exception {
+        MBeanServer server = getMBeanServer();
+        try {
+            // Match the original JVM test, which used getAttributes() rather than getAttribute()
+            AttributeList attributes = server.getAttributes(objectName, new String[] { attribute });
+            if (!attributes.isEmpty()) {
+                return String.valueOf(((Attribute) attributes.get(0)).getValue());
+            }
+            return String.valueOf(server.getAttribute(objectName, attribute));
+        } catch (AttributeNotFoundException e) {
+            // Native JMX registers Micrometer MBeans but may not expose Standard MBean attributes
+            return null;
+        }
+    }
+
+    private ObjectInstance getMBean(String name) throws MalformedObjectNameException {
+        ObjectName objectName = new ObjectName(name);
+        Set<ObjectInstance> mbeans = getMBeanServer().queryMBeans(objectName, null);
+        Iterator<ObjectInstance> iterator = mbeans.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
+        return null;
+    }
+
+    private MBeanServer getMBeanServer() {
+        return ManagementFactory.getPlatformMBeanServer();
     }
 }

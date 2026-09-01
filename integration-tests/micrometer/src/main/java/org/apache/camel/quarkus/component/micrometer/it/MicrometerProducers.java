@@ -27,7 +27,6 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.micrometer.core.instrument.util.HierarchicalNameMapper;
 import io.micrometer.jmx.JmxMeterRegistry;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
-import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.micrometer.runtime.MeterFilterConstraint;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
@@ -39,7 +38,6 @@ public class MicrometerProducers {
 
     @Produces
     @Singleton
-    @IfBuildProfile("test")
     public MeterRegistry registry() {
         return new JmxMeterRegistry(CamelJmxConfig.DEFAULT, Clock.SYSTEM, HierarchicalNameMapper.DEFAULT);
     }

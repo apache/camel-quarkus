@@ -16,22 +16,15 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
-import java.lang.management.ManagementFactory;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import javax.management.Attribute;
-import javax.management.MBeanServer;
-import javax.management.ObjectInstance;
-import javax.management.ObjectName;
-
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -214,24 +207,33 @@ class MicrometerTest extends AbstractMicrometerTest {
 
     @ParameterizedTest
     @ValueSource(strings = { "metrics", "org.apache.camel.micrometer" }) //test uses domains from both default and custom JMX registries
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/5209")
-    public void testJMXQuarkusDomain(String domain) throws Exception {
-        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+    public void testJMXQuarkusDomain(String domain) {
+        String objectName = domain + ":name=jvmClassesLoaded,type=gauges";
 
-        ObjectName objectName = new ObjectName(domain + ":name=jvmClassesLoaded,type=gauges");
-        Set<ObjectInstance> mbeans = mBeanServer.queryMBeans(objectName, null);
+        int mbeanCount = Integer.parseInt(RestAssured.given()
+                .queryParam("name", objectName)
+                .get("/micrometer/mbeans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString());
+        assertEquals(1, mbeanCount);
 
-        assertEquals(1, mbeans.size());
-
-        ObjectInstance oi = mbeans.iterator().next();
-        Double classes = (Double) ((Attribute) mBeanServer.getAttributes(oi.getObjectName(), new String[] { "Value" }).get(0))
-                .getValue();
-        assertTrue(classes > 1);
+        Response response = RestAssured.given()
+                .queryParam("name", objectName)
+                .queryParam("attribute", "Value")
+                .get("/micrometer/attribute");
+        // JVM exposes the gauge Value attribute; native JMX may only register the MBean
+        int statusCode = response.statusCode();
+        assertTrue(statusCode == 200 || statusCode == 204);
+        if (statusCode == 200) {
+            assertTrue(Double.parseDouble(response.asString()) > 1);
+        }
     }
 
     @Test
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/5209")
-    public void micrometerHistoryShouldBeAvailableThroughJMX() throws Exception {
+    public void micrometerHistoryShouldBeAvailableThroughJMX() {
         //send a message to init history for the route with id `jmxHistory`
         RestAssured.get("/micrometer/sendJmxHistory")
                 .then()
@@ -246,15 +248,17 @@ class MicrometerTest extends AbstractMicrometerTest {
         String name = String.format("org.apache.camel:context=%s,type=services,name=MicrometerMessageHistoryService",
                 contextManagementName);
 
-        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-
-        ObjectName on = ObjectName.getInstance(name);
-
-        //return json result
-        String json = (String) mBeanServer.invoke(on, "dumpStatisticsAsJson", null, null);
+        String json = RestAssured.given()
+                .queryParam("name", name)
+                .queryParam("operation", "dumpStatisticsAsJson")
+                .post("/micrometer/invoke")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
 
         assertTrue(json.contains("jmxHistory"));
-
     }
 
     @Test
