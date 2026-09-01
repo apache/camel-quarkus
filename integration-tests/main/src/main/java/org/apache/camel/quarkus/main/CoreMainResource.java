@@ -46,7 +46,6 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
-import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.ContextReloadStrategy;
 import org.apache.camel.spi.DataFormat;
@@ -178,11 +177,6 @@ public class CoreMainResource {
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", executor.getClass().getName());
-
-        if (executor instanceof VertXReactiveExecutor) {
-            builder.add("configured", ((VertXReactiveExecutor) executor).getVertx() != null);
-
-        }
 
         return builder.build();
     }

@@ -26,10 +26,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.quarkus.test.DisabledOnQuarkusPlatform;
-import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
@@ -155,8 +155,7 @@ public class CoreMainTest {
                 .body()
                 .jsonPath();
 
-        assertThat(executor.getString("class")).isEqualTo(VertXReactiveExecutor.class.getName());
-        assertThat(executor.getBoolean("configured")).isTrue();
+        assertThat(executor.getString("class")).isEqualTo(DefaultReactiveExecutor.class.getName());
     }
 
     @Test
