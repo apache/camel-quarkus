@@ -63,6 +63,7 @@ quarkus.default-locale=en-US
 
 See also xref:user-guide/native-mode.adoc#locale[Locale in native mode].
 
+
 [id="extensions-twitter-ssl-in-native-mode"]
 == SSL in native mode
 
