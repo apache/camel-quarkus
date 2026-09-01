@@ -18,3 +18,18 @@ To keep the previous behaviour for a context that relied on the default, set it 
 ----
 quarkus.camel.ldap.dir-contexts."my-context".security-authentication=none
 ----
+
+== JTA extension changes
+
+=== Rollback and resume failures are no longer swallowed
+
+`TransactionalJtaTransactionPolicy`, the base class of all six `PROPAGATION_*` policies, logged a warning and carried on when `rollback()`, `setRollbackOnly()` or `resume()` failed. A route that handled the original exception could therefore continue as though the transaction had been marked for rollback when it had not, and work after a failed resume ran outside the transaction the policy was expected to restore.
+
+These failures are now raised:
+
+* A failure to roll back, or to mark an outer transaction for rollback, is attached to the exception that made the rollback necessary as a suppressed exception. That exception still propagates unchanged, so the failure is visible without hiding its cause.
+* A failure to resume a suspended transaction, in `PROPAGATION_REQUIRES_NEW` and `PROPAGATION_NOT_SUPPORTED`, is attached to the in-flight failure in the same way, or raised on its own when the body succeeded.
+
+An application that inspected only the top-level exception sees no difference. One that handles exceptions and continues may now see a failure it previously never learned about. Check `Throwable.getSuppressed()` when diagnosing.
+
+No method signatures changed. `resumeTransaction(Transaction)` is unchanged and now wraps a resume failure in a `RuntimeCamelException`; a new `resumeTransaction(Transaction, Throwable)` overload is what the policies use so that a resume failure cannot replace a failure already on its way out.
