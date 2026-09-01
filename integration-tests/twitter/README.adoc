@@ -17,3 +17,6 @@ export TWITTER_USER_NAME=my-twitter-username
 ----
 
 
+
+Native tests need `Locale.ENGLISH` and timezone UTC, otherwise Twitter API date parsing fails.
+The test `application.properties` already sets `quarkus.default-locale=en-US` and UTC for the native image.
