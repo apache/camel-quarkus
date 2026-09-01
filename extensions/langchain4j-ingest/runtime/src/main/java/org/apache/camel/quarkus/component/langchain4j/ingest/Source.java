@@ -49,6 +49,8 @@ public final class Source {
     private String directory;
     private String uri;
     private String documentId;
+    private String idempotentRepository;
+    private boolean idempotentRepositoryAutoCreate;
     private boolean recursive = true;
 
     private Source(String type) {
@@ -109,6 +111,18 @@ public final class Source {
         return this;
     }
 
+    /** Name of the {@code IdempotentRepository} bean; twin of {@code source.idempotent-repository}. */
+    public Source idempotentRepository(String beanName) {
+        this.idempotentRepository = requireText(beanName, "idempotentRepository");
+        return this;
+    }
+
+    /** Twin of {@code source.idempotent-repository-auto-create}. */
+    public Source idempotentRepositoryAutoCreate(boolean autoCreate) {
+        this.idempotentRepositoryAutoCreate = autoCreate;
+        return this;
+    }
+
     /** A null or blank value here would surface much later as an obscure Camel error. */
     private static String requireText(String value, String what) {
         if (value == null || value.isBlank()) {
@@ -142,6 +156,16 @@ public final class Source {
             @Override
             public Optional<String> documentId() {
                 return Optional.ofNullable(documentId);
+            }
+
+            @Override
+            public Optional<String> idempotentRepository() {
+                return Optional.ofNullable(idempotentRepository);
+            }
+
+            @Override
+            public boolean idempotentRepositoryAutoCreate() {
+                return idempotentRepositoryAutoCreate;
             }
         };
     }

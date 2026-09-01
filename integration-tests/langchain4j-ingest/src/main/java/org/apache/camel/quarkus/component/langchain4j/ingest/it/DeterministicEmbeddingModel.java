@@ -33,6 +33,9 @@ import dev.langchain4j.model.output.Response;
  */
 public class DeterministicEmbeddingModel implements EmbeddingModel {
 
+    /** Test hook: a segment carrying this marker fails the embedding, so the exchange fails. */
+    public static final String POISON = "POISON-PILL";
+
     private final int dimension;
 
     public DeterministicEmbeddingModel(int dimension) {
@@ -43,6 +46,9 @@ public class DeterministicEmbeddingModel implements EmbeddingModel {
     public Response<List<Embedding>> embedAll(List<TextSegment> segments) {
         List<Embedding> embeddings = new ArrayList<>(segments.size());
         for (TextSegment segment : segments) {
+            if (segment.text().contains(POISON)) {
+                throw new IllegalStateException("test-induced embedding failure: " + POISON);
+            }
             embeddings.add(embeddingFor(segment.text()));
         }
         return Response.from(embeddings);

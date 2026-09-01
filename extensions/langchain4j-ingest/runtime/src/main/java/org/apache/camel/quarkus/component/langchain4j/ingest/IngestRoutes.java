@@ -31,11 +31,13 @@ import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.inject.Inject;
+import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestService;
+import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.util.URISupport;
@@ -70,6 +72,9 @@ public class IngestRoutes extends RouteBuilder {
     @Inject
     @Any
     Instance<EmbeddingModel> modelCandidates;
+
+    /** Exchange property carrying the resolved document id. */
+    private static final String DOCUMENT_ID_PROPERTY = "CamelQuarkusIngestDocumentId";
 
     @Override
     public void configure() {
@@ -136,7 +141,9 @@ public class IngestRoutes extends RouteBuilder {
         // (source.recursive cannot be told apart from its default, so it alone goes undetected -
         // Source.recursive() is its builder twin)
         if (external != null && (external.source().directory().isPresent()
-                || external.source().documentId().isPresent())) {
+                || external.source().documentId().isPresent()
+                || external.source().idempotentRepository().isPresent()
+                || external.source().idempotentRepositoryAutoCreate())) {
             throw new IllegalStateException("Ingestion pipeline '" + name + "' is declared in Java, so its source "
                     + "comes from the @Ingest method. Remove quarkus.camel.langchain4j.ingest." + name + ".source.* , or "
                     + "declare the pipeline in configuration instead.");
@@ -171,15 +178,24 @@ public class IngestRoutes extends RouteBuilder {
         // is honoured ahead of noop and would delete the user's documents after reading them.
         // noop leaves the documents where they are (a knowledge base reads its source, it does
         // not consume it), idempotent keeps the same file from being ingested twice, and the
-        // changed read lock waits for a file still being copied in rather than embedding half of
-        // it - the truncation would be permanent, since idempotent keys on the path. The register
-        // is sized explicitly: Camel's default caps at 1000 entries, and beyond that eviction
-        // would re-ingest a large directory steadily during normal operation, not just on restart
+        // changed read lock waits for a file still being copied in rather than embedding half
+        // of it
         Expression documentId = documentIdExpression(runtime, Exchange.FILE_NAME);
-        from(file(directory)
+        maybeAutoCreateRepository(name, runtime);
+        String repositoryName = runtime == null ? null : runtime.source().idempotentRepository().orElse(null);
+        var endpoint = file(directory)
                 .noop(true)
-                .idempotent(true)
-                .idempotentRepository(MemoryIdempotentRepository.memoryIdempotentRepository(100_000))
+                .idempotent(true);
+        if (repositoryName != null) {
+            endpoint.idempotentRepository(resolveRepository(name, repositoryName));
+        } else {
+            // in-memory default, sized above Camel's 1000-entry cap so eviction does not
+            // re-ingest large directories; lost on restart
+            endpoint.idempotentRepository(MemoryIdempotentRepository.memoryIdempotentRepository(100_000));
+        }
+        from(endpoint
+                // an edited file gets a new key and re-ingests; old segments remain (append)
+                .idempotentKey("${file:absolute.path}:${file:modified}:${file:size}")
                 .recursive(runtime.source().recursive())
                 .readLock("changed")
                 .charset(StandardCharsets.UTF_8.name()))
@@ -204,18 +220,56 @@ public class IngestRoutes extends RouteBuilder {
     private void configureEndpointSource(String name, String uri,
             IngestRunTimeConfig.PipelineRunTimeConfig runtime, IngestService service) {
         Expression documentId = documentIdExpression(runtime, IngestHeaders.DOCUMENT_ID);
+        maybeAutoCreateRepository(name, runtime);
+        String repositoryName = runtime == null ? null : runtime.source().idempotentRepository().orElse(null);
+        if (repositoryName == null) {
+            from(uri)
+                    .routeId(routeId(name))
+                    .process(exchange -> {
+                        String id = requireDocumentId(name, documentId, exchange);
+                        exchange.getIn().setBody(service.ingest(id, exchange.getIn().getBody(String.class)));
+                    });
+            return;
+        }
+        // duplicates skip the block and the tail processor answers SKIPPED; first write wins
+        // per id. The EIP keys on the validated id property, evaluating the expression once
+        IdempotentRepository repository = resolveRepository(name, repositoryName);
         from(uri)
                 .routeId(routeId(name))
+                .process(exchange -> exchange.setProperty(DOCUMENT_ID_PROPERTY,
+                        requireDocumentId(name, documentId, exchange)))
+                .idempotentConsumer(exchangeProperty(DOCUMENT_ID_PROPERTY), repository)
                 .process(exchange -> {
-                    String id = documentId.evaluate(exchange, String.class);
-                    if (id == null) {
-                        throw new IllegalArgumentException("Ingestion pipeline '" + name + "': no document id. "
-                                + "Set the " + IngestHeaders.DOCUMENT_ID + " header, or point "
-                                + "quarkus.camel.langchain4j.ingest." + name + ".source.document-id at where the "
-                                + "consumer puts it.");
+                    String id = (String) exchange.getProperty(DOCUMENT_ID_PROPERTY);
+                    IngestResult result = service.ingest(id, exchange.getIn().getBody(String.class));
+                    if (result.outcome() == IngestResult.Outcome.EMPTY) {
+                        // a blank document wrote nothing, so it must not keep the eager claim
+                        // on the id - a later, populated delivery under the same id would be
+                        // answered SKIPPED. The completion-time confirm() of the removed key
+                        // is a no-op in the memory, file and JDBC repositories alike
+                        repository.remove(id);
                     }
-                    exchange.getIn().setBody(service.ingest(id, exchange.getIn().getBody(String.class)));
+                    exchange.getIn().setBody(result);
+                })
+                .end()
+                .process(exchange -> {
+                    if (exchange.getProperty(Exchange.DUPLICATE_MESSAGE, false, Boolean.class)) {
+                        exchange.getIn().setBody(new IngestResult(name,
+                                (String) exchange.getProperty(DOCUMENT_ID_PROPERTY), 0,
+                                IngestResult.Outcome.SKIPPED));
+                    }
                 });
+    }
+
+    private static String requireDocumentId(String name, Expression documentId, Exchange exchange) {
+        String id = documentId.evaluate(exchange, String.class);
+        if (id == null) {
+            throw new IllegalArgumentException("Ingestion pipeline '" + name + "': no document id. "
+                    + "Set the " + IngestHeaders.DOCUMENT_ID + " header, or point "
+                    + "quarkus.camel.langchain4j.ingest." + name + ".source.document-id at where the "
+                    + "consumer puts it.");
+        }
+        return id;
     }
 
     private Expression documentIdExpression(IngestRunTimeConfig.PipelineRunTimeConfig runtime,
@@ -265,6 +319,48 @@ public class IngestRoutes extends RouteBuilder {
      * discovered first. A raw-typed registry search cannot serve here: it never matches a bean
      * typed {@code EmbeddingStore<TextSegment>}.
      */
+    /**
+     * Binds an in-memory register under the configured name, unless a bean with that name
+     * already exists — {@code camel.beans.*} beans are bound before route builders run, so both
+     * they and CDI beans are visible here and win.
+     */
+    private void maybeAutoCreateRepository(String name, IngestRunTimeConfig.PipelineRunTimeConfig runtime) {
+        if (runtime == null || !runtime.source().idempotentRepositoryAutoCreate()) {
+            return;
+        }
+        String repositoryName = runtime.source().idempotentRepository().orElse(null);
+        if (repositoryName == null) {
+            throw new IllegalStateException("Ingestion pipeline '" + name
+                    + "' sets source.idempotent-repository-auto-create but no "
+                    + "source.idempotent-repository name to create the register under.");
+        }
+        if (getContext().getRegistry().lookupByNameAndType(repositoryName, IdempotentRepository.class) != null) {
+            LOG.infof("Ingestion pipeline '%s': idempotent repository '%s' already exists, auto-create skipped",
+                    name, repositoryName);
+            return;
+        }
+        getContext().getRegistry().bind(repositoryName,
+                MemoryIdempotentRepository.memoryIdempotentRepository(100_000));
+    }
+
+    /**
+     * Resolves the configured register from the Camel registry: CDI producers, camel.beans
+     * definitions and auto-created registers alike. By name only — the application may hold
+     * unrelated idempotent repositories.
+     */
+    private IdempotentRepository resolveRepository(String name, String repositoryName) {
+        IdempotentRepository repository = getContext().getRegistry().lookupByNameAndType(repositoryName,
+                IdempotentRepository.class);
+        if (repository == null) {
+            throw new IllegalStateException("Ingestion pipeline '" + name + "' references idempotent repository '"
+                    + repositoryName + "' but no such bean exists");
+        }
+        // a CDI-produced repository does not pass through the registry's bind hook, so a
+        // CamelContextAware implementation would otherwise run contextless
+        CamelContextAware.trySetCamelContext(repository, getContext());
+        return repository;
+    }
+
     private <T> T resolve(String name, Instance<T> candidates, String configured, String what, String property) {
         if (configured != null) {
             Instance<T> named = candidates.select(NamedLiteral.of(configured));
