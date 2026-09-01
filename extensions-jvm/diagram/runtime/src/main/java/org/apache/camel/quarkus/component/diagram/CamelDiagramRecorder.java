@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.diagram;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import io.quarkus.runtime.RuntimeValue;
@@ -49,6 +50,13 @@ public class CamelDiagramRecorder {
     }
 
     static final class CamelDiagramHandler implements Handler<RoutingContext> {
+        /**
+         * The consoles this route exists to serve. The id is resolved against the registry, which holds every
+         * registered console, so without this an unrelated console could be rendered through the diagram route.
+         */
+        private static final Set<String> DIAGRAM_CONSOLE_IDS = Set.of("route-diagram", "route-structure",
+                "route-topology");
+
         private final DevConsoleRegistry devConsoleRegistry;
 
         CamelDiagramHandler(DevConsoleRegistry devConsoleRegistry) {
@@ -63,7 +71,7 @@ public class CamelDiagramRecorder {
             }
 
             String id = ctx.pathParam("id");
-            if (id == null || id.isEmpty()) {
+            if (id == null || !DIAGRAM_CONSOLE_IDS.contains(id)) {
                 ctx.response().setStatusCode(404).end();
                 return;
             }
