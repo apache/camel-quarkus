@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestCertificates(certificates = {
@@ -46,6 +47,27 @@ class LdapTest {
      *
      * @throws Exception
      */
+    /**
+     * security-authentication must only reach the JNDI environment when it was configured, so that credentials
+     * passed through additional-options are not silently overridden by a default.
+     */
+    @Test
+    public void securityAuthenticationOnlySetWhenConfigured() {
+        String key = "java.naming.security.authentication";
+
+        // httpserver sets it explicitly
+        RestAssured.get("/ldap/dirContextEnv/httpserver/" + key)
+                .then()
+                .statusCode(200)
+                .body(is("none"));
+
+        // sslserver does not, so the service provider decides rather than the extension
+        RestAssured.get("/ldap/dirContextEnv/sslserver/" + key)
+                .then()
+                .statusCode(200)
+                .body(is("<absent>"));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = { "http", "ssl", "originalConfig", "additionalOptions" })
     public void ldapSearchTest(String direct) throws Exception {
