@@ -25,16 +25,13 @@ import jakarta.transaction.SystemException;
 import jakarta.transaction.Transaction;
 import jakarta.transaction.TransactionManager;
 import org.apache.camel.CamelException;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.jta.JtaTransactionPolicy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Helper methods for transaction handling
  */
 public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPolicy {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TransactionalJtaTransactionPolicy.class);
 
     @Inject
     TransactionManager transactionManager;
@@ -46,7 +43,7 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         try {
             runnable.run();
         } catch (Throwable e) {
-            rollback(isNew);
+            rollbackSuppressing(e, isNew);
             throw e;
         }
         if (isNew) {
@@ -64,11 +61,18 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         } catch (HeuristicMixedException | HeuristicRollbackException | RollbackException | SystemException e) {
             throw new CamelException("Unable to commit transaction", e);
         } catch (Exception | Error e) {
-            rollback(true);
+            rollbackSuppressing(e, true);
             throw e;
         }
     }
 
+    /**
+     * Rolls the transaction back, or marks it for rollback when it belongs to an outer policy.
+     *
+     * A failure here is raised rather than logged and discarded. Callers that already have an exception on its way
+     * out attach this one to it through {@link #rollbackSuppressing(Throwable, boolean)}, so the original cause is
+     * never replaced.
+     */
     final protected void rollback(boolean isNew) throws Exception {
         try {
             if (isNew) {
@@ -77,7 +81,20 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
                 transactionManager.setRollbackOnly();
             }
         } catch (Throwable e) {
-            LOG.warn("Could not rollback transaction!", e);
+            throw new CamelException(
+                    isNew ? "Unable to rollback transaction" : "Unable to mark the transaction for rollback", e);
+        }
+    }
+
+    /**
+     * Rolls back while an exception is already on its way out, attaching a rollback failure to it as a suppressed
+     * exception. Replacing the original would hide why the rollback was needed in the first place.
+     */
+    private void rollbackSuppressing(Throwable primary, boolean isNew) {
+        try {
+            rollback(isNew);
+        } catch (Throwable rollbackFailure) {
+            primary.addSuppressed(rollbackFailure);
         }
     }
 
@@ -85,7 +102,25 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         return transactionManager.suspend();
     }
 
+    /**
+     * Resumes the suspended transaction, raising a failure rather than logging and discarding it, so that work after
+     * this point does not silently continue outside the transaction the caller expects to be restored.
+     */
     final protected void resumeTransaction(final Transaction suspendedTransaction) {
+        try {
+            resumeTransaction(suspendedTransaction, null);
+        } catch (Exception e) {
+            throw RuntimeCamelException.wrapRuntimeCamelException(e);
+        }
+    }
+
+    /**
+     * Resumes the suspended transaction while {@code primary} may already be on its way out, which is the case in the
+     * `finally` block of a policy that suspends. A resume failure is attached to {@code primary} when there is one and
+     * raised on its own otherwise, so it is neither lost nor allowed to replace the original failure.
+     */
+    final protected void resumeTransaction(final Transaction suspendedTransaction, final Throwable primary)
+            throws Exception {
         if (suspendedTransaction == null) {
             return;
         }
@@ -93,7 +128,12 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         try {
             transactionManager.resume(suspendedTransaction);
         } catch (Throwable e) {
-            LOG.warn("Could not resume transaction!", e);
+            CamelException failure = new CamelException("Unable to resume transaction", e);
+            if (primary != null) {
+                primary.addSuppressed(failure);
+            } else {
+                throw failure;
+            }
         }
     }
 
