@@ -280,7 +280,6 @@
 *** xref:reference/extensions/qute.adoc[Qute]
 *** xref:reference/extensions/rest-openapi.adoc[REST OpenApi]
 *** xref:reference/extensions/rss.adoc[RSS]
-*** xref:reference/extensions/reactive-executor.adoc[Reactive Executor]
 *** xref:reference/extensions/reactive-streams.adoc[Reactive Streams]
 *** xref:reference/extensions/redis.adoc[Redis]
 *** xref:reference/extensions/ref.adoc[Ref]

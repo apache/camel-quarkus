@@ -132,8 +132,6 @@ public class CqCatalog {
     public static String toCamelComponentArtifactIdBase(String cqArtifactIdBase) {
         if ("core".equals(cqArtifactIdBase)) {
             return "base";
-        } else if ("reactive-executor".equals(cqArtifactIdBase)) {
-            return "reactive-executor-vertx";
         } else {
             return cqArtifactIdBase;
         }
@@ -146,8 +144,6 @@ public class CqCatalog {
             if ("core".equals(cqArtifactIdBase)) {
                 filter = model -> "camel-base".equals(model.getArtifactId())
                         || "camel-core-languages".equals(model.getArtifactId());
-            } else if ("reactive-executor".equals(cqArtifactIdBase)) {
-                filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
             } else if ("qute".equals(cqArtifactIdBase)) {
                 filter = model -> "camel-quarkus-qute-component".equals(model.getArtifactId());
             } else {

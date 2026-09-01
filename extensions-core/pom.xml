@@ -35,7 +35,6 @@
     <modules>
         <module>core</module>
         <module>http-common</module>
-        <module>reactive-executor</module>
         <module>xml-io-dsl</module>
         <module>xml-jaxb</module>
         <module>xml-jaxp</module>
