@@ -47,17 +47,10 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
-[id="extensions-twitter-ssl-in-native-mode"]
-== SSL in native mode
-
-This extension auto-enables SSL support in native mode. Hence you do not need to add
-`quarkus.ssl.native=true` to your `application.properties` yourself. See also
-https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
-
 [id="extensions-twitter-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
-The Twitter Java client parses timestamps with `Locale.ENGLISH` and expects timezone UTC.
+The Twitter Java client parses timestamps with `Locale.US`.
 In native mode, GraalVM includes only the build machine locale by default. A non-English locale
 (for example French) then fails to parse Twitter API responses.
 
@@ -68,19 +61,11 @@ Set the default locale to `en-US` in `application.properties`:
 quarkus.default-locale=en-US
 ----
 
-You can also pin language and country on the native image:
-
-[source,properties]
-----
-quarkus.native.user-language=en
-quarkus.native.user-country=US
-----
-
-Pin the timezone to UTC for the native build:
-
-[source,properties]
-----
-quarkus.native.additional-build-args=-J-Duser.timezone=UTC
-----
-
 See also xref:user-guide/native-mode.adoc#locale[Locale in native mode].
+
+[id="extensions-twitter-ssl-in-native-mode"]
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
