@@ -144,10 +144,8 @@ public class CqCatalog {
         switch (flavor) {
         case camel:
             if ("core".equals(cqArtifactIdBase)) {
-                filter = model -> ("camel-base".equals(model.getArtifactId())
-                        || "camel-core-languages".equals(model.getArtifactId())) && !"csimple".equals(model.getName());
-            } else if ("csimple".equals(cqArtifactIdBase)) {
-                filter = model -> "camel-core-languages".equals(model.getArtifactId()) && "csimple".equals(model.getName());
+                filter = model -> "camel-base".equals(model.getArtifactId())
+                        || "camel-core-languages".equals(model.getArtifactId());
             } else if ("reactive-executor".equals(cqArtifactIdBase)) {
                 filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
             } else if ("qute".equals(cqArtifactIdBase)) {

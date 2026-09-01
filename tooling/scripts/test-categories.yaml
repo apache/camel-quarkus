@@ -233,7 +233,6 @@ group-11:
 group-12:
   - ai-tool
   - aws2-grouped
-  - csimple
   - github2
   - quartz-clustered
   - knative

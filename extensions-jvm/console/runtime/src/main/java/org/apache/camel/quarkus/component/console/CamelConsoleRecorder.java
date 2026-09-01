@@ -53,7 +53,6 @@ public class CamelConsoleRecorder {
         DevConsoleRegistry registry = camelContextRuntimeValue.getValue()
                 .getCamelContextExtension()
                 .getContextPlugin(DevConsoleRegistry.class);
-        registry.register(new QuarkusPropertiesDevConsole());
         registry.loadDevConsoles();
     }
 

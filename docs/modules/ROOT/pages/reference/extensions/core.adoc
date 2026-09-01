@@ -387,12 +387,6 @@ Enable automatic discovery of routes during static initialization.
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-analysis-failure]]`link:#quarkus-camel-csimple-on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
-
-What to do if it is not possible to extract CSimple expressions from a route definition at build time.
-| `fail`, `warn`, `ignore`
-| `warn`
-
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-enabled]]`link:#quarkus-camel-trace-enabled[quarkus.camel.trace.enabled]`
 
 Enables tracer in your Camel application.

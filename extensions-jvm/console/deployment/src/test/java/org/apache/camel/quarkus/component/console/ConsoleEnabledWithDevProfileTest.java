@@ -20,6 +20,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.console.DevConsoleRegistry;
+import org.apache.camel.impl.console.PropertiesDevConsole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -43,8 +44,8 @@ class ConsoleEnabledWithDevProfileTest {
     }
 
     @Test
-    void propertiesConsoleIsQuarkusOverride() {
+    void propertiesConsoleIsCamelDefault() {
         DevConsoleRegistry registry = context.getCamelContextExtension().getContextPlugin(DevConsoleRegistry.class);
-        assertTrue(registry.getConsole("properties").get() instanceof QuarkusPropertiesDevConsole);
+        assertTrue(registry.getConsole("properties").get() instanceof PropertiesDevConsole);
     }
 }

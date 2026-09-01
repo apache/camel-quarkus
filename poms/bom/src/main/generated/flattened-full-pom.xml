@@ -69,6 +69,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ai-resource</artifactId>
+        <version>4.23.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-ai-tool</artifactId>
         <version>4.23.0-SNAPSHOT</version>
       </dependency>
@@ -4097,16 +4102,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-csimple</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-csimple-deployment</artifactId>
-        <version>3.40.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csv</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
@@ -7113,7 +7108,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -7132,12 +7127,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -7152,17 +7147,17 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.glassfish</groupId>
@@ -7177,37 +7172,37 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>8.10.1</version>
+        <version>8.12.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.10.2</version>
+        <version>6.10.3</version>
       </dependency>
       <dependency>
         <groupId>com.atlassian.jira</groupId>
@@ -8079,7 +8074,7 @@
       <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-core</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
@@ -8185,7 +8180,7 @@
       <dependency>
         <groupId>org.mvel</groupId>
         <artifactId>mvel2</artifactId>
-        <version>2.5.2.Final</version>
+        <version>2.5.3.Final</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>
@@ -8362,7 +8357,7 @@
       <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
-        <version>8.0.0</version>
+        <version>8.0.1</version>
       </dependency>
       <dependency>
         <groupId>run.endive</groupId>

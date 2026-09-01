@@ -63,14 +63,6 @@ public interface CamelConfig {
     NativeConfig native_();
 
     /**
-     * Build time configuration options for the Camel CSimple language.
-     *
-     * @asciidoclet
-     */
-    @Deprecated(forRemoval = true)
-    CSimpleConfig csimple();
-
-    /**
      * Build time configuration options for the extraction of Camel expressions.
      *
      * @asciidoclet
@@ -378,20 +370,6 @@ public interface CamelConfig {
          */
         @WithDefault("true")
         boolean transformers();
-    }
-
-    /**
-     * @deprecated use {@link ExpressionConfig} instead
-     */
-    @Deprecated(forRemoval = true)
-    interface CSimpleConfig {
-        /**
-         * What to do if it is not possible to extract CSimple expressions from a route definition at build time.
-         *
-         * @asciidoclet
-         */
-        @WithDefault("warn")
-        FailureRemedy onBuildTimeAnalysisFailure();
     }
 
     interface ExpressionConfig {

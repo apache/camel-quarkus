@@ -88,7 +88,6 @@
 *** xref:reference/extensions/cli-debug.adoc[CLI Debug]
 *** xref:reference/extensions/cm-sms.adoc[CM SMS Gateway]
 *** xref:reference/extensions/csv.adoc[CSV]
-*** xref:reference/extensions/csimple.adoc[CSimple]
 *** xref:reference/extensions/cxf-soap.adoc[CXF]
 *** xref:reference/extensions/caffeine.adoc[Caffeine Cache]
 *** xref:reference/extensions/cassandraql.adoc[Cassandra CQL]
