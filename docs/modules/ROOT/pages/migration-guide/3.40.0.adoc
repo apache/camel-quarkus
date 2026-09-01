@@ -1,0 +1,20 @@
+= Camel Quarkus 3.40.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.40.0.
+
+== LDAP extension changes
+
+=== security-authentication is no longer defaulted to none
+
+`quarkus.camel.ldap.dir-contexts."name".security-authentication` previously defaulted to `none`, which was put into the JNDI environment for every directory context whether or not it had been configured. Its documentation has always said that the behaviour is determined by the service provider when the property is unspecified, and it is now the only option in that configuration group without a default, matching `initial-context-factory`, `provider-url`, `security-protocol` and `socket-factory`.
+
+The property is now only placed into the JNDI environment when it is configured, so the service provider decides otherwise.
+
+This matters where credentials are supplied through `additional-options`, which is the only way to pass them. Previously `none` was already in the environment, and supplying only a principal and credentials left the bind anonymous with the credentials ignored. They now take effect.
+
+To keep the previous behaviour for a context that relied on the default, set it explicitly.
+
+[source,properties]
+----
+quarkus.camel.ldap.dir-contexts."my-context".security-authentication=none
+----
