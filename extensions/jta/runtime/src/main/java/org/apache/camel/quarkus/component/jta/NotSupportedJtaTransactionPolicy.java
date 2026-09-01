@@ -25,11 +25,16 @@ public final class NotSupportedJtaTransactionPolicy extends TransactionalJtaTran
     @Override
     public void run(final Runnable runnable) throws Throwable {
         Transaction suspendedTransaction = null;
+        Throwable primary = null;
         try {
             suspendedTransaction = suspendTransaction();
             runnable.run();
+        } catch (Throwable e) {
+            primary = e;
+            throw e;
         } finally {
-            resumeTransaction(suspendedTransaction);
+            // Passing the failure already on its way out keeps a resume failure from replacing it
+            resumeTransaction(suspendedTransaction, primary);
         }
     }
 }
