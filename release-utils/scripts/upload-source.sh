@@ -38,12 +38,26 @@ fi
 # happens to have in their own keyring
 gpgHome=$(mktemp -d)
 chmod 700 ${gpgHome}
-trap 'rm -rf ${gpgHome}' EXIT
+
+# Absolute, so that the trap still resolves it after the cd below
+stagingDir=$(pwd)/${version}
+
+# Clear the staging directory on the way out, whether or not the run succeeded.
+# Without this a failed verification leaves a partly downloaded ${version}/
+# behind and the next attempt stops at mkdir with "File exists".
+trap 'rm -rf "${gpgHome}" "${stagingDir}"' EXIT
+
 gpg --homedir ${gpgHome} --quiet --import ${location}/../../KEYS
 
 # Download an artifact with its detached signature, verify the signature, and only
 # then generate the checksum that gets published alongside it. set -e aborts the
 # release if any verification fails.
+#
+# NOTE: gpg --verify exits 0 for a good signature made by a revoked or expired
+# key, reporting it only as a warning. KEYS holds expired keys by design, since
+# ASF keeps the keys that signed past releases, so a release manager whose key
+# expired mid-cycle would still pass here. Reject EXPKEYSIG and REVKEYSIG from
+# --status-fd if that needs closing.
 fetch_verify_checksum() {
   remoteName=$1
   localName=$2
@@ -65,4 +79,3 @@ cd ../
 
 svn import ${version}/ https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/${version}/ -m "Import camel-quarkus ${version} release"
 
-rm -rf ${version}/
