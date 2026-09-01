@@ -23,7 +23,6 @@ import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
-import io.smallrye.config.WithDefault;
 
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 @ConfigMapping(prefix = "quarkus.camel.ldap")
@@ -64,8 +63,7 @@ public interface CamelLdapConfig {
          * If this property is unspecified,
          * the behaviour is determined by the service provider.
          */
-        @WithDefault("none")
-        String securityAuthentication();
+        Optional<String> securityAuthentication();
 
         /**
          * The custom socket factory to use. The value of the property should be the fully qualified class name

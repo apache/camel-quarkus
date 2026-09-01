@@ -136,7 +136,7 @@ Its value is one of the following strings:
 If this property is unspecified,
 the behaviour is determined by the service provider.
 | `string`
-| `none`
+| 
 
 a| [[quarkus-camel-ldap-dir-contexts-dir-contexts-socket-factory]]`link:#quarkus-camel-ldap-dir-contexts-dir-contexts-socket-factory[quarkus.camel.ldap.dir-contexts."dir-contexts".socket-factory]`
 

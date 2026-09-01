@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.ldap.it;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,22 @@ public class LdapResource {
     public Response search(@PathParam("direct") String directName,
             @QueryParam("ldapQuery") String ldapQuery) throws Exception {
         return Response.ok(searchByUid(directName, ldapQuery)).build();
+    }
+
+    /**
+     * Reports a single entry of the JNDI environment bound for the named dir context, so that a test can assert
+     * which properties the extension actually put there. Answers {@code <absent>} when the key was not set.
+     */
+    @Path("/dirContextEnv/{name}/{key}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response dirContextEnv(@PathParam("name") String name, @PathParam("key") String key) {
+        Hashtable<?, ?> env = camelContext.getRegistry().lookupByNameAndType(name, Hashtable.class);
+        if (env == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        Object value = env.get(key);
+        return Response.ok(value == null ? "<absent>" : value.toString()).build();
     }
 
     @Path("/safeSearch")
