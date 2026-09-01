@@ -109,14 +109,16 @@ class ServletProcessor {
             builder.addInitParam("executorRef", executorRef);
         });
 
+        // Unlike the options above, multipart handling is applied to every Camel servlet rather than only where it
+        // was configured, so that a route can consume a multipart request without the deployer opting in. The nested
+        // config group is never null under @ConfigMapping - it is always materialised with its defaults - so the
+        // null check this used to carry could never fail.
         MultipartConfig multipartConfig = servletConfig.multipart();
-        if (multipartConfig != null) {
-            builder.setMultipartConfig(new MultipartConfigElement(
-                    multipartConfig.location().orElse(null),
-                    multipartConfig.maxFileSize(),
-                    multipartConfig.maxRequestSize(),
-                    multipartConfig.fileSizeThreshold()));
-        }
+        builder.setMultipartConfig(new MultipartConfigElement(
+                multipartConfig.location().orElse(null),
+                multipartConfig.maxFileSize(),
+                multipartConfig.maxRequestSize(),
+                multipartConfig.fileSizeThreshold()));
 
         return builder.build();
     }
