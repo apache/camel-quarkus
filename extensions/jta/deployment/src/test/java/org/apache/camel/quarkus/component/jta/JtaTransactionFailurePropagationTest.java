@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.jta;
 
 import java.util.Arrays;
 
-import io.quarkus.test.QuarkusExtensionTest;
+import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Status;
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.when;
 public class JtaTransactionFailurePropagationTest {
 
     @RegisterExtension
-    static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(MockTransactionManagerProducer.class, MockTransaction.class));
 
