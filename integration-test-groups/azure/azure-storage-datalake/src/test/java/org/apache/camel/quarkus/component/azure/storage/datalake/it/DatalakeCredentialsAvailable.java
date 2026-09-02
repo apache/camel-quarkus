@@ -14,13 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.azure.storage.datalake.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.apache.camel.quarkus.test.EnabledIf;
+import java.util.function.BooleanSupplier;
 
-@QuarkusIntegrationTest
-@EnabledIf(DatalakeCredentialsAvailable.class)
-class AzureStorageDatalakeIT extends AzureStorageDatalakeTest {
-
+/**
+ * Azurite does not emulate Data Lake, so the tests need a real account. The condition cannot be expressed with
+ * {@code EnabledIfEnvironmentVariable} because either the Data Lake specific or the generic storage env vars can
+ * supply the credentials (see README.adoc).
+ */
+public class DatalakeCredentialsAvailable implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return AzureStorageDatalakeUtil.isRalAccountProvided();
+    }
 }

@@ -34,11 +34,11 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class AzureStorageDatalakeProducers {
 
-    @ConfigProperty(name = "azure.storage.account-name")
-    Optional<String> azureStorageAccountName;
+    @ConfigProperty(name = "azure.datalake.account-name")
+    Optional<String> azureDatalakeAccountName;
 
-    @ConfigProperty(name = "azure.storage.account-key")
-    Optional<String> azureStorageAccountKey;
+    @ConfigProperty(name = "azure.datalake.account-key")
+    Optional<String> azureDatalakeAccountKey;
 
     @ConfigProperty(name = "azure.datalake.service.url")
     Optional<String> serviceUrl;
@@ -46,8 +46,8 @@ public class AzureStorageDatalakeProducers {
     @jakarta.enterprise.inject.Produces
     @Named("azureDatalakeServiceClient")
     public DataLakeServiceClient createDatalakeServiceClient() throws Exception {
-        StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureStorageAccountName.get(),
-                azureStorageAccountKey.get());
+        StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureDatalakeAccountName.get(),
+                azureDatalakeAccountKey.get());
         return new DataLakeServiceClientBuilder()
                 .endpoint(serviceUrl.get())
                 .credential(credentials)

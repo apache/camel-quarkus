@@ -19,8 +19,7 @@ package org.apache.camel.quarkus.component.azure.eventhubs.it;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.ResourceArg;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,9 +34,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
-@WithTestResource(value = AzureStorageTestResource.class, initArgs = {
-        @ResourceArg(name = "eventHubs", value = "true")
-})
+@QuarkusTestResource(AzureStorageTestResource.class)
 class AzureEventhubsMockedTest {
     @EnabledIf({ MockBackendEnabled.class })
     @Test

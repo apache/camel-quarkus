@@ -29,10 +29,10 @@ import java.util.function.Supplier;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.azure.storage.datalake.DataLakeConstants;
+import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -40,27 +40,14 @@ import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//Disable tests dynamically in beforeEach method, to reflect preferred env name in case they are used (see README.adoc)
 @QuarkusTest
 @QuarkusTestResource(AzureStorageDatalakeTestResource.class)
-@TestProfile(AzureStorageDatalakeTestProfile.class)
+@EnabledIf(DatalakeCredentialsAvailable.class)
 class AzureStorageDatalakeTest {
 
     private static final Logger LOG = Logger.getLogger(AzureStorageDatalakeTest.class);
-
-    /**
-     * It is not possible to express condition, when test is disabled by using `EnabledIfEnvironmentVariable`.
-     * Condition has to be evaluated dynamicly.
-     */
-    @BeforeEach
-    public void beforeEach() {
-        Assumptions.assumeTrue(AzureStorageDatalakeUtil.isRalAccountProvided(),
-                "Azure Data Lake credentials were not provided");
-
-    }
 
     @Test
     public void crud() {
@@ -310,7 +297,7 @@ class AzureStorageDatalakeTest {
                     .then()
                     .statusCode(200)
                     .body(Matchers.startsWith(
-                            "https://" + ConfigProvider.getConfig().getValue("azure.storage.account-name", String.class)));
+                            "https://" + ConfigProvider.getConfig().getValue("azure.datalake.account-name", String.class)));
 
             LOG.info("step - appendToFile");
             RestAssured.given()

@@ -59,8 +59,8 @@ public class AzureStorageDatalakeResource {
     @Inject
     CamelContext camelContext;
 
-    @ConfigProperty(name = "azure.storage.account-name")
-    Optional<String> azureStorageAccountName;
+    @ConfigProperty(name = "azure.datalake.account-name")
+    Optional<String> azureDatalakeAccountName;
 
     @Path("/filesystem/{filesystem}")
     @POST
@@ -149,7 +149,7 @@ public class AzureStorageDatalakeResource {
     public String consumer(@PathParam("filesystem") String filesystem,
             @PathParam("filename") String filename) throws Exception {
         return consumerTemplate.receiveBody(
-                "azure-storage-datalake://" + azureStorageAccountName + "/" + filesystem
+                "azure-storage-datalake://" + azureDatalakeAccountName + "/" + filesystem
                         + "?serviceClient=#azureDatalakeServiceClient&fileName=" + filename,
                 10000, String.class);
     }
@@ -170,7 +170,7 @@ public class AzureStorageDatalakeResource {
 
         }
         _headers.put("filesystemName", filesystem);
-        _headers.put("accountName", azureStorageAccountName.get());
+        _headers.put("accountName", azureDatalakeAccountName.get());
 
         Exchange exchange = producerTemplate.request(
                 "direct:" + routeName,
@@ -204,7 +204,7 @@ public class AzureStorageDatalakeResource {
 
     private String componentUri(final String filesystem, final DataLakeOperationsDefinition operation) {
         return String.format("azure-storage-datalake://%s%s?serviceClient=#azureDatalakeServiceClient&operation=%s",
-                azureStorageAccountName,
+                azureDatalakeAccountName,
                 filesystem == null ? "" : ("/" + filesystem),
                 operation.name());
     }
