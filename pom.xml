@@ -253,7 +253,7 @@
         <fhir.container.image>${fhir.container.image.base}:v8.10.0-3</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
         <floci.container.image>mirror.gcr.io/floci/floci:1.6.0</floci.container.image>
-        <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:551.0.0-emulators</google-cloud-sdk.container.image>
+        <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.52.3</google-storage.container.image>
         <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.1.8</greenmail.container.image>
         <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:2.0.3</hashicorp-vault.container.image>
