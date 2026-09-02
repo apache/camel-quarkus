@@ -46,6 +46,10 @@ public class Aws2StsResource {
                 null,
                 GetSessionTokenResponse.class);
 
+        if (response == null || response.credentials() == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
         Credentials credentials = response.credentials();
         return Response.ok(Map.of(
                 "accessKeyId", credentials.accessKeyId(),
