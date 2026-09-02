@@ -26,49 +26,49 @@ public class DoclingRoutes extends RouteBuilder {
     public void configure() throws Exception {
         // Route to convert document to Markdown
         from("direct:convertToMarkdown")
-                .to("docling:convert?operation=CONVERT_TO_MARKDOWN&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_MARKDOWN&contentInBody=true")
                 .log("Converted to Markdown: ${body}");
 
         // Route to convert document to HTML
         from("direct:convertToHtml")
-                .to("docling:convert?operation=CONVERT_TO_HTML&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_HTML&contentInBody=true")
                 .log("Converted to HTML: ${body}");
 
         // Route to extract text from document
         from("direct:extractText")
-                .to("docling:convert?operation=EXTRACT_TEXT&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=EXTRACT_TEXT&contentInBody=true")
                 .log("Extracted text: ${body}");
 
         // Route to extract metadata from document
         from("direct:extractMetadata")
-                .to("docling:convert?operation=EXTRACT_METADATA&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=EXTRACT_METADATA&contentInBody=true")
                 .log("Extracted metadata: ${body}");
 
         // Route to convert document to JSON
         from("direct:convertToJson")
-                .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_JSON&contentInBody=true")
                 .log("Converted to JSON: ${body}");
 
         // Async route to convert document to Markdown
         from("direct:convertToMarkdownAsync")
-                .to("docling:convert?operation=CONVERT_TO_MARKDOWN&contentInBody=true&useAsyncMode=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_MARKDOWN&contentInBody=true&useAsyncMode=true")
                 .log("Converted to Markdown (async): ${body}");
 
         // Async route to convert document to HTML
         from("direct:convertToHtmlAsync")
-                .to("docling:convert?operation=CONVERT_TO_HTML&contentInBody=true&useAsyncMode=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_HTML&contentInBody=true&useAsyncMode=true")
                 .log("Converted to HTML (async): ${body}");
 
         // Async route to convert document to JSON
         from("direct:convertToJsonAsync")
-                .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true&useAsyncMode=true")
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_JSON&contentInBody=true&useAsyncMode=true")
                 .log("Converted to JSON (async): ${body}");
 
         from("direct:convertToJsonWithCLI")
-                .to("docling:convert?operation=CONVERT_TO_JSON&contentInBody=true&useDoclingServe=false");
+                .to("docling:convert?allowFilePathSource=true&operation=CONVERT_TO_JSON&contentInBody=true&useDoclingServe=false");
 
         from("direct:batch-markdown")
-                .to("docling:convert?operation=BATCH_CONVERT_TO_MARKDOWN&batchSize=10&batchParallelism=4&contentInBody=true")
+                .to("docling:convert?allowFilePathSource=true&operation=BATCH_CONVERT_TO_MARKDOWN&batchSize=10&batchParallelism=4&contentInBody=true")
                 .log("Converted in batch to Markdown: ${body}");
     }
 }
