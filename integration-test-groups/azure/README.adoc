@@ -1,14 +1,18 @@
 == Azure isolated integration tests
 
-=== Azurite
+=== Test containers
 
-By default the integration tests are run against the Azurite test container,
-or skipped, if the given service is not supported by Azurite.
+By default the integration tests are run against local containers:
 
-Unsupported by Azurite:
+* `azure-storage-blob` and `azure-storage-queue` against Azurite
+* `azure-eventhubs` against the Azure Event Hubs emulator, started by `AzureStorageTestResource` for modules
+  setting `azure.eventhubs.emulator.enabled = true` in their `application.properties`
+* `azure-servicebus` against the Azure Service Bus emulator and the SQL Server container it requires
 
-* `azure-eventhubs`
+The following have no local emulator and are skipped unless real credentials are exported:
+
 * `azure-key-vault`
+* `azure-storage-datalake` (https://github.com/Azure/Azurite/issues/553[not supported by Azurite])
 
 === Real Azure API
 

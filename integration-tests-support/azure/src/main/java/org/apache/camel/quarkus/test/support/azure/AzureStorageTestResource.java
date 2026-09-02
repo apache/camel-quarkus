@@ -43,7 +43,10 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
     private static final String EVENTHUBS_EMULATOR_IMAGE = ConfigProvider.getConfig()
             .getValue("eventhubs-emulator.container.image", String.class);
     private static final int EVENTHUBS_EMULATOR_PORT = 5672;
-    private Map<String, String> initArgs = new LinkedHashMap<>();
+    /**
+     * Set to {@code true} in the {@code application.properties} of test modules that need the Event Hubs emulator.
+     */
+    private static final String EVENTHUBS_EMULATOR_ENABLED = "azure.eventhubs.emulator.enabled";
     private GenericContainer<?> container;
     private GenericContainer<?> eventHubsEmulatorContainer;
     private Network network = Network.newNetwork();
@@ -83,11 +86,6 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
     }
 
     @Override
-    public void init(Map<String, String> initArgs) {
-        this.initArgs = initArgs;
-    }
-
-    @Override
     public Map<String, String> start() {
         final SmallRyeConfig config = ConfigProvider.getConfig().unwrap(SmallRyeConfig.class);
 
@@ -123,9 +121,9 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
                                             + azureStorageAccountName);
                         });
 
-                String eventHubs = initArgs.get("eventHubs");
-                if (eventHubs != null && eventHubs.equals("true")) {
-                    result.put("azure.event.hubs.blob.container.name", azureBlobContainername);
+                if (config.getOptionalValue(EVENTHUBS_EMULATOR_ENABLED, Boolean.class).orElse(false)) {
+                    // A dedicated container, so that the checkpoint store does not clash with the blob tests sharing this Azurite instance
+                    result.put("azure.event.hubs.blob.container.name", "camel-quarkus-eventhubs-" + UUID.randomUUID());
 
                     eventHubsEmulatorContainer = new GenericContainer<>(
                             EVENTHUBS_EMULATOR_IMAGE)
