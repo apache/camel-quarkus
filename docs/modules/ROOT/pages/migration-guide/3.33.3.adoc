@@ -1,6 +1,6 @@
-= Camel Quarkus 3.40.0 Migration Guide
+= Camel Quarkus 3.33.3 Migration Guide
 
-The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.40.0.
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.33.3.
 
 == LDAP extension changes
 
