@@ -46,3 +46,15 @@ final class SubstituteBrotliDecompressingEntity {
         return false;
     }
 }
+
+/*
+ * Cuts the reachability chain from ContentCompressionAsyncExec and ContentCodecRegistry to
+ * InflatingBrotliDataConsumer and BrotliCodecFactory, which reference brotli4j types directly.
+ */
+@TargetClass(className = "org.apache.hc.client5.http.impl.Brotli4jRuntime", onlyWith = { BrotliAbsentBooleanSupplier.class })
+final class SubstituteBrotli4jRuntime {
+    @Substitute
+    public static boolean available() {
+        return false;
+    }
+}
