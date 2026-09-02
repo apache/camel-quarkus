@@ -17,3 +17,6 @@ export TWITTER_USER_NAME=my-twitter-username
 ----
 
 
+
+Native tests need `Locale.US`, otherwise Twitter API date parsing fails.
+The test `application.properties` already sets `quarkus.default-locale=en-US`.

@@ -1,0 +1,12 @@
+The Twitter Java client parses timestamps with `Locale.US`.
+In native mode, GraalVM includes only the build machine locale by default. A non-English locale
+(for example French) then fails to parse Twitter API responses.
+
+Set the default locale to `en-US` in `application.properties`:
+
+[source,properties]
+----
+quarkus.default-locale=en-US
+----
+
+See also xref:user-guide/native-mode.adoc#locale[Locale in native mode].
