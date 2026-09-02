@@ -7801,7 +7801,7 @@
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
         <artifactId>quarkus-fory</artifactId>
-        <version>1.4.0</version>
+        <version>1.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -7812,7 +7812,7 @@
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
         <artifactId>quarkus-fory-deployment</artifactId>
-        <version>1.4.0</version>
+        <version>1.6.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
