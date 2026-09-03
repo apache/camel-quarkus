@@ -1,0 +1,182 @@
+= Camel Quarkus build items
+
+Quarkus extensions communicate through https://quarkus.io/guides/all-builditems[build items] produced and consumed by `@BuildStep` methods.
+This page lists the Camel Quarkus items you typically need when writing a Camel component extension.
+
+The classes live in `camel-quarkus-core-deployment`:
+
+* `org.apache.camel.quarkus.core.deployment.spi`
+* `org.apache.camel.quarkus.core.deployment.main.spi` (Camel Main)
+
+Kind:
+
+* *Simple* — at most one instance (`SimpleBuildItem`)
+* *Multi* — zero or more instances (`MultiBuildItem`)
+* *Empty* — a marker with no payload (`EmptyBuildItem`)
+
+Quarkus core items such as `FeatureBuildItem`, `ReflectiveClassBuildItem` and `NativeImageResourceBuildItem` are documented on the https://quarkus.io/guides/all-builditems[Quarkus build items] page.
+Some Camel component extensions also define their own items in their deployment modules.
+
+== Core SPI
+
+[cols="2,1,3", options="header"]
+|===
+|Build item |Kind |Description
+
+|`BuildTimeCamelCatalogBuildItem`
+|Simple
+|Holds the build-time Camel catalog.
+
+|`CamelBeanBuildItem`
+|Multi
+|Beans to bind into the Camel `Registry` during `STATIC_INIT`. Prefer this over `CamelRuntimeBeanBuildItem` when the bean can be created at static init. Use the most specialized type (see https://issues.apache.org/jira/browse/CAMEL-13948[CAMEL-13948]).
+
+|`CamelBeanQualifierResolverBuildItem`
+|Multi
+|A `CamelBeanQualifierResolver` for a given bean type.
+
+|`CamelBootClockBuildItem`
+|Simple
+|Holds the Camel boot `Clock` `RuntimeValue`.
+
+|`CamelBootstrapCompletedBuildItem`
+|Empty
+|Signals that all bootstrap steps have finished.
+
+|`CamelComponentNameResolverBuildItem`
+|Simple
+|Holds the `ComponentNameResolver` `RuntimeValue`.
+
+|`CamelContextBuildItem`
+|Simple
+|Holds the `CamelContext` `RuntimeValue`.
+
+|`CamelContextCustomizerBuildItem`
+|Multi
+|A `CamelContextCustomizer` applied before `CamelContextBuildItem` is produced.
+
+|`CamelFactoryFinderResolverBuildItem`
+|Simple
+|Holds the `FactoryFinderResolver` `RuntimeValue`.
+
+|`CamelModelJAXBContextFactoryBuildItem`
+|Simple
+|Holds the `ModelJAXBContextFactory` instance.
+
+|`CamelModelReifierFactoryBuildItem`
+|Simple
+|Holds the `ModelReifierFactory` `RuntimeValue`.
+
+|`CamelModelToXMLDumperBuildItem`
+|Simple
+|Holds the `ModelToXMLDumper` `RuntimeValue`.
+
+|`CamelModelToYAMLDumperBuildItem`
+|Simple
+|Holds the `ModelToYAMLDumper` `RuntimeValue`.
+
+|`CamelPackageScanClassBuildItem`
+|Multi
+|Type names that the Camel `PackageScanClassResolver` should scan.
+
+|`CamelPackageScanClassResolverBuildItem`
+|Simple
+|Holds the `PackageScanClassResolver` `RuntimeValue`.
+
+|`CamelRegistryBuildItem`
+|Simple
+|Holds the Camel `Registry` after `CamelBeanBuildItem` beans have been registered.
+
+|`CamelRouteResourceBuildItem`
+|Multi
+|A discovered Camel DSL route resource from the route inclusion patterns.
+
+|`CamelRoutesBuilderClassBuildItem`
+|Multi
+|Class names of `RoutesBuilder` implementations. Gathered from Jandex by `camel-quarkus-core`; extensions may add more.
+
+|`CamelRoutesLoaderBuildItems.Registry`
+|Simple
+|Holds the `RegistryRoutesLoader`. Deprecated since 3.26.0 and scheduled for removal.
+
+|`CamelRuntimeBeanBuildItem`
+|Multi
+|Beans to bind into the Camel `Registry` during `RUNTIME_INIT`. Use `CamelBeanBuildItem` when static init is enough.
+
+|`CamelRuntimeBuildItem`
+|Simple
+|Holds the `CamelRuntime` and whether auto-startup is enabled.
+
+|`CamelRuntimeTaskBuildItem`
+|Multi
+|Marker so runtime-init work finishes before `CamelRuntime` is assembled.
+
+|`CamelSerializationBuildItem`
+|Multi
+|Requests registration of the base Camel serialization classes.
+
+|`CamelServiceBuildItem`
+|Multi
+|A Camel service defined under `META-INF/services/org/apache/camel`.
+
+|`CamelServiceFilterBuildItem`
+|Multi
+|A predicate that filters discovered Camel services.
+
+|`CamelServicePatternBuildItem`
+|Multi
+|Include or exclude path patterns for Camel service discovery under `META-INF/services/org/apache/camel`.
+
+|`CamelTypeConverterLoaderBuildItem`
+|Multi
+|Holds a `TypeConverterLoader` `RuntimeValue`.
+
+|`CamelTypeConverterRegistryBuildItem`
+|Simple
+|Holds the `TypeConverterRegistry` `RuntimeValue`.
+
+|`CompiledCSimpleExpressionBuildItem`
+|Multi
+|Info about a compiled CSimple language expression.
+
+|`ContainerBeansBuildItem`
+|Simple
+|Beans known to the ArC container.
+
+|`RoutesBuilderClassExcludeBuildItem`
+|Multi
+|Class-name patterns to exclude from route instantiation (programmatic equivalent of `RoutesDiscoveryConfig#excludePatterns`).
+
+|`RuntimeCamelContextCustomizerBuildItem`
+|Multi
+|A `CamelContextCustomizer` applied before the context is started.
+
+|===
+
+== Camel Main SPI
+
+Used when the application runs with Camel Main (`camel-quarkus-main`).
+
+[cols="2,1,3", options="header"]
+|===
+|Build item |Kind |Description
+
+|`CamelMainBuildItem`
+|Simple
+|Holds the `CamelMain` `RuntimeValue`.
+
+|`CamelMainListenerBuildItem`
+|Multi
+|`MainListener` instances to add to `CamelMain`.
+
+|`CamelRoutesCollectorBuildItem`
+|Simple
+|Holds the `RoutesCollector` `RuntimeValue`.
+
+|===
+
+== Related guides
+
+* xref:user-guide/custom-components.adoc[Using custom Camel components] — when to produce `CamelServicePatternBuildItem` and Quarkus native items.
+* xref:contributor-guide/create-new-extension.adoc[Create a new extension]
+* https://quarkus.io/guides/all-builditems[Quarkus build items]
