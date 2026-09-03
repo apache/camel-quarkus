@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.core.tls.it;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.net.ssl.SSLEngine;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -66,6 +69,27 @@ public class TlsRegistryResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean hasGlobalSSL() {
         return context.getSSLContextParameters() != null;
+    }
+
+    /**
+     * Exposes the protocol and cipher suite policy actually enforced on an SSLEngine derived from a registered
+     * SSLContextParameters bean. Without the SSLContext decoration applied by TlsConfigurationConverter these
+     * would be the JVM defaults rather than the quarkus.tls.* policy.
+     */
+    @Path("/ssl-policy/{beanName}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, List<String>> sslPolicy(@PathParam("beanName") String beanName) throws Exception {
+        SSLContextParameters parameters = context.getRegistry().lookupByNameAndType(beanName, SSLContextParameters.class);
+        SSLEngine engine = parameters.createSSLContext(context).createSSLEngine();
+        // Named groups are read from the parameters rather than the engine: SSLParameters.getNamedGroups is Java 20+
+        // and this project compiles against 17. Camel applies them through the same engine configurers as the
+        // protocols and cipher suites asserted above.
+        return Map.of(
+                "protocols", List.of(engine.getEnabledProtocols()),
+                "cipherSuites", List.of(engine.getEnabledCipherSuites()),
+                "namedGroups", parameters.getNamedGroups() == null
+                        ? List.of() : parameters.getNamedGroups().getNamedGroup());
     }
 
     @Path("/ping")
