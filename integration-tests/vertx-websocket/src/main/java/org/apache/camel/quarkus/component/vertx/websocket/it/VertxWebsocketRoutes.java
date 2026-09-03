@@ -54,6 +54,10 @@ public class VertxWebsocketRoutes extends RouteBuilder {
                 .setBody().simple("${header.paramA} ${header.paramB}")
                 .to("seda:queryParamsResult");
 
+        from("vertx-websocket:/origin/restricted?allowedOriginPattern=https://allowed\\.example\\.com")
+                .setBody().simple("Hello ${body}")
+                .to("vertx-websocket:/origin/restricted");
+
         from("vertx-websocket:/events?fireWebSocketConnectionEvents=true")
                 .setBody().header(VertxWebsocketConstants.EVENT)
                 .to("seda:eventsResult");

@@ -65,6 +65,9 @@ class VertxWebsocketTest {
     @TestHTTPResource("/events")
     URI events;
 
+    @TestHTTPResource("/origin/restricted")
+    URI originRestricted;
+
     @Test
     public void testEchoWithShortFormUri() throws Exception {
         String message = "From Short From URI";
@@ -323,6 +326,17 @@ class VertxWebsocketTest {
                 return eventsReceived.containsAll(expectedEvents);
             });
         }
+    }
+
+    @Test
+    void allowedOriginPatternAcceptsMatchingOrigin() {
+        assertEquals(WebSocketHandshakes.SWITCHING_PROTOCOLS,
+                WebSocketHandshakes.upgradeStatus(originRestricted, "https://allowed.example.com"));
+    }
+
+    @Test
+    void allowedOriginPatternRejectsNonMatchingOrigin() {
+        assertEquals(403, WebSocketHandshakes.upgradeStatus(originRestricted, "https://attacker.example.com"));
     }
 
     static String[] getHosts() {
