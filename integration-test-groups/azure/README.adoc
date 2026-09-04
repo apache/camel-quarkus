@@ -68,6 +68,13 @@ To clean up, run
 $ ./azure-resources.sh delete
 ----
 
+To run blob versioning tests, https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-enable?tabs=portal[enable blob versioning] on your storage account and set:
+
+[source,shell]
+----
+export AZURE_BLOB_VERSIONING_ENABLED=true
+----
+
 You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting the local Azurite container and make sure that you test against the real remote Azure API.
 
 You may want to disable identity tests except key-vault (which is mandatory)  `export CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT=true` to avoid starting test using identity with other extension then key-vault. This option might be helpful in case of testing with client without permissions for eventhubs.

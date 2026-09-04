@@ -122,7 +122,8 @@ public class AzureStorageBlobResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String readBlob(
             @QueryParam("containerName") String containerName,
-            @QueryParam("uri") String uri) {
+            @QueryParam("uri") String uri,
+            @QueryParam("blobName") String blobName) {
         if (containerName == null) {
             containerName = azureBlobContainerName;
         }
@@ -134,16 +135,24 @@ public class AzureStorageBlobResource {
         Map<String, Object> headers = new HashMap<>();
         headers.put(Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name());
         headers.put(BlobConstants.BLOB_CONTAINER_NAME, containerName);
+        if (blobName != null) {
+            headers.put(BlobConstants.BLOB_NAME, blobName);
+        }
         return producerTemplate.requestBodyAndHeaders(uri, null, headers, String.class);
     }
 
     @Path("/blob/read/bytes")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public byte[] readBlobBytes() {
-        return producerTemplate.requestBodyAndHeader(
+    public byte[] readBlobBytes(@QueryParam("blobName") String blobName) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name());
+        if (blobName != null) {
+            headers.put(BlobConstants.BLOB_NAME, blobName);
+        }
+        return producerTemplate.requestBodyAndHeaders(
                 "direct:read",
-                null, Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name(), byte[].class);
+                null, headers, byte[].class);
     }
 
     @Path("/blob/list")
@@ -174,11 +183,15 @@ public class AzureStorageBlobResource {
 
     @Path("/blob/delete")
     @DELETE
-    public Response deleteBlob(@QueryParam("deleteSnapshots") String deleteSnapshots) {
+    public Response deleteBlob(@QueryParam("deleteSnapshots") String deleteSnapshots,
+            @QueryParam("blobName") String blobName) {
         try {
             Map<String, Object> headers = new HashMap<>();
             if (deleteSnapshots != null) {
                 headers.put(BlobConstants.DELETE_SNAPSHOT_OPTION_TYPE, DeleteSnapshotsOptionType.fromString(deleteSnapshots));
+            }
+            if (blobName != null) {
+                headers.put(BlobConstants.BLOB_NAME, blobName);
             }
             producerTemplate.sendBodyAndHeaders("direct:delete", null, headers);
         } catch (CamelExecutionException e) {

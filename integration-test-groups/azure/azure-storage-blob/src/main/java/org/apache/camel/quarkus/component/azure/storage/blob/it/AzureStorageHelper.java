@@ -47,6 +47,14 @@ public class AzureStorageHelper {
         }
     }
 
+    public static class BlobVersioningEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return !MockBackendUtils.startMockBackend() &&
+                    isAzureConfigValueEquals("AZURE_BLOB_VERSIONING_ENABLED", String.class, "true");
+        }
+    }
+
     private AzureStorageHelper() {
         // Utility class
     }
