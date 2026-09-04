@@ -62,6 +62,7 @@
         <module>kafka</module>
         <module>messaging</module>
         <module>mongodb</module>
+        <module>pqc-certificate-generator</module>
         <module>process-executor-support</module>
         <module>sftp</module>
         <module>splunk</module>
