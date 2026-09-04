@@ -8232,6 +8232,17 @@
         <version>3.0.0</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-parser-pdf-module</artifactId>
+        <version>3.3.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>xmlgraphics-commons</artifactId>
         <version>2.11</version>

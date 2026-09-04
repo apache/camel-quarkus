@@ -194,6 +194,7 @@
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.19.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
+        <tika.version>${tika-version}</tika.version>
         <unboundid-ldapsdk.version>7.0.5</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
         <xmlunit.version>2.13.0</xmlunit.version>

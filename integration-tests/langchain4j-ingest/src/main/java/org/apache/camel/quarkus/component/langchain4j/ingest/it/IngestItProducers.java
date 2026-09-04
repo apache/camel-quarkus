@@ -50,6 +50,13 @@ public class IngestItProducers {
 
     @Produces
     @Singleton
+    @Named("htmlfeed-store")
+    EmbeddingStore<TextSegment> htmlfeedStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    @Produces
+    @Singleton
     @Named("datasheets-store")
     EmbeddingStore<TextSegment> datasheetsStore() {
         return new InMemoryEmbeddingStore<>();
@@ -73,6 +80,20 @@ public class IngestItProducers {
     @Singleton
     @Named("jdbc-store")
     EmbeddingStore<TextSegment> jdbcStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    @Produces
+    @Singleton
+    @Named("reports-store")
+    EmbeddingStore<TextSegment> reportsStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    @Produces
+    @Singleton
+    @Named("scans-store")
+    EmbeddingStore<TextSegment> scansStore() {
         return new InMemoryEmbeddingStore<>();
     }
 

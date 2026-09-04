@@ -28,6 +28,7 @@ import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem.ValidationErrorBuildItem;
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
@@ -36,10 +37,15 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ExcludeConfigBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
 import io.quarkus.runtime.configuration.ConfigurationException;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.langchain4j.ingest.Ingest;
+import org.apache.camel.quarkus.component.langchain4j.ingest.IngestBeanResolver;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestBuildTimeConfig;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestBuilderPipelines;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestPipeline;
@@ -68,9 +74,71 @@ class Langchain4jIngestProcessor {
     @BuildStep
     AdditionalBeanBuildItem beans() {
         return AdditionalBeanBuildItem.builder()
-                .addBeanClasses(IngestRoutes.class)
+                .addBeanClasses(IngestRoutes.class, IngestBeanResolver.class)
                 .setUnremovable()
                 .build();
+    }
+
+    /**
+     * The documented PDF recipe adds {@code tika-parser-pdf-module}, which drags
+     * {@code jaxb-runtime} → {@code angus-activation} into the image. Angus' own GraalVM
+     * feature then reflects over every registered data-content handler and crashes on
+     * BouncyCastle's S/MIME handlers ({@code bcjmail}'s mailcap references
+     * {@code jakarta.mail.Part}, and jakarta.mail is not on the classpath). The feature only
+     * registers mailcap handlers, which nothing on the ingest path uses, so its registration
+     * is excluded — but only in the constellation that crashes: PDFBox present (the recipe) and
+     * jakarta.mail absent. An application that uses mail and angus for real keeps its feature.
+     */
+    @BuildStep
+    void excludeAngusActivationFeature(BuildProducer<ExcludeConfigBuildItem> excludeConfig) {
+        if (!QuarkusClassLoader.isClassPresentAtRuntime("org.apache.pdfbox.pdmodel.PDDocument")
+                || QuarkusClassLoader.isClassPresentAtRuntime("jakarta.mail.Part")) {
+            return;
+        }
+        excludeConfig.produce(new ExcludeConfigBuildItem("org\\.eclipse\\.angus\\.angus-activation-.*\\.jar",
+                "/META-INF/native-image/org.eclipse.angus/angus-activation/native-image.properties"));
+    }
+
+    /**
+     * The same recipe brings PDFBox itself. Native image needs its AWT-touching classes
+     * initialized at run time and its resource tree — font metrics, glyph lists, ICC profile —
+     * embedded. The camel-quarkus-pdf extension embeds the same files as a hand-listed constant;
+     * this registers the {@code org/apache/pdfbox/resources} directory wholesale instead, so the
+     * set cannot drift when a PDFBox upgrade adds or renames a resource. The runtime-init side is
+     * widened past camel-pdf to the rendering and graphics packages Tika's text extraction
+     * reaches. Produced only when PDFBox is on the classpath.
+     */
+    @BuildStep
+    void pdfboxInNative(
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitialized,
+            BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackages,
+            BuildProducer<NativeImageResourceDirectoryBuildItem> nativeResourceDirectories,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        if (!QuarkusClassLoader.isClassPresentAtRuntime("org.apache.pdfbox.pdmodel.PDDocument")) {
+            return;
+        }
+        for (String className : new String[] {
+                "org.apache.pdfbox.pdmodel.font.PDType1Font",
+                "org.apache.pdfbox.pdmodel.PDDocument",
+                "org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler" }) {
+            runtimeInitialized.produce(new RuntimeInitializedClassBuildItem(className));
+        }
+        // text extraction reaches AWT-holding statics across the rendering and graphics trees
+        // (SoftMask's DirectColorModel, the CIE color spaces' ICC_ColorSpace), and Tika's own
+        // PDF classes embed them in enum constants (PDFParserConfig$TikaImageType wraps
+        // rendering.ImageType), so the packages are deferred wholesale rather than chasing one
+        // class at a time
+        for (String packageName : new String[] {
+                "org.apache.pdfbox.rendering",
+                "org.apache.pdfbox.pdmodel.graphics",
+                "org.apache.tika.parser.pdf" }) {
+            runtimeInitializedPackages.produce(new RuntimeInitializedPackageBuildItem(packageName));
+        }
+        reflectiveClasses.produce(ReflectiveClassBuildItem
+                .builder("org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler",
+                        "org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDParentTreeValue")
+                .constructors().methods().build());
+        nativeResourceDirectories.produce(new NativeImageResourceDirectoryBuildItem("org/apache/pdfbox/resources"));
     }
 
     /**
@@ -205,8 +273,9 @@ class Langchain4jIngestProcessor {
 
     /**
      * A pipeline whose consumer URI names a component that is not on the classpath stops the
-     * build, naming the artifact that fixes it rather than failing at startup. Only configured URIs
-     * can be checked: a builder-declared pipeline composes its URI at startup, where the pre-start
+     * build, naming the artifact that fixes it rather than failing at startup. The same goes for
+     * the {@code parser} value and its component. Only configured pipelines can be checked: a
+     * builder-declared pipeline composes its URI and parser at startup, where the pre-start
      * task above applies the same hint. Component services are REGISTRY-destination, so they are
      * read from the application archives directly — they never appear among the DISCOVERY
      * {@code CamelServiceBuildItem}s.
@@ -222,6 +291,22 @@ class Langchain4jIngestProcessor {
                 .collect(Collectors.toSet());
 
         for (Map.Entry<String, IngestBuildTimeConfig.PipelineBuildTimeConfig> entry : config.pipelines().entrySet()) {
+            String parser = entry.getValue().parser().orElse(null);
+            if (parser != null) {
+                if (!IngestPipeline.SUPPORTED_PARSERS.contains(parser)) {
+                    validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                            "Ingestion pipeline '" + entry.getKey() + "' sets parser '" + parser
+                                    + "'. Supported parsers: "
+                                    + IngestPipeline.SUPPORTED_PARSERS.stream().sorted()
+                                            .collect(Collectors.joining(", ")))));
+                } else if (!components.contains(parser)) {
+                    validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                            "Ingestion pipeline '" + entry.getKey() + "' parses with '" + parser
+                                    + "', but the Camel component '" + parser + "' is not on the classpath. "
+                                    + "Add the extension that provides it, e.g. org.apache.camel.quarkus:camel-quarkus-"
+                                    + parser)));
+                }
+            }
             String uri = entry.getValue().source().uri().orElse(null);
             if (uri == null) {
                 continue;
