@@ -28,6 +28,11 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      # Read the changeset artifact produced by the unprivileged CI run
+      actions: read
+      # Push the regenerated files back to the dependabot branch
+      contents: write
     outputs:
       branch-ref: ${{ steps.setup-dependabot-patches.outputs.branch-ref }}
       pr-number: ${{ steps.setup-dependabot-patches.outputs.pr-number }}
@@ -67,6 +72,8 @@ jobs:
       - name: Set up dependabot patches
         id: setup-dependabot-patches
         if: steps.download-pr-changes.outputs.result == 'true'
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
           if [[ -f /home/runner/work/dependabot-pr.zip ]]; then
             mkdir -p /home/runner/work/dependabot-pr
@@ -87,7 +94,19 @@ jobs:
               exit 1
             fi
 
-            echo "branch-ref=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)" >> $GITHUB_OUTPUT
+            BRANCH_REF=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)
+            if [[ ! "${BRANCH_REF}" =~ ^dependabot/[A-Za-z0-9._/-]+$ ]]; then
+              exit 1
+            fi
+
+            # The push target comes from the workflow_run event rather than
+            # from the artifact. The two must agree.
+            if [[ "${BRANCH_REF}" != "${HEAD_BRANCH}" ]]; then
+              echo "::error::BRANCH_REF '${BRANCH_REF}' does not match workflow_run head_branch '${HEAD_BRANCH}'"
+              exit 1
+            fi
+
+            echo "branch-ref=${HEAD_BRANCH}" >> $GITHUB_OUTPUT
             echo "pr-head-sha=${PR_HEAD_SHA}" >> $GITHUB_OUTPUT
             echo "pr-number=${PR_NUMBER}" >> $GITHUB_OUTPUT
           fi
@@ -100,6 +119,8 @@ jobs:
       - name: Push changes to dependabot/maven branch
         id: push-changes
         if: steps.setup-dependabot-patches.outputs.branch-ref != ''
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
           git config --local user.email "49699333+dependabot[bot]@users.noreply.github.com"
           git config --local user.name "dependabot[bot]"
@@ -108,9 +129,36 @@ jobs:
           if [[ -f "${CHANGES_PATH}" ]]; then
             COMMIT_MESSAGE="Auto generated changes for dependabot commit $(git log -1 --pretty=%H)"
 
-            git apply ${CHANGES_PATH}
+            # pre-build-checks only regenerates version properties (root
+            # pom.xml), the flattened BOM (poms/) and the Antora config
+            # (docs/), and never renames or copies, so check the patch matches
+            # that shape before applying it.
+            #
+            # Renames are excluded because git reports only a rename's
+            # destination path, which would not reflect the source.
+            if grep -qE '^(rename|copy) (from|to) ' "${CHANGES_PATH}"; then
+              echo "::error::Unexpected rename or copy in dependabot patch"
+              exit 1
+            fi
+
+            while IFS= read -r CHANGED_PATH; do
+              case "${CHANGED_PATH}" in
+                *..*)
+                  echo "::error::Unexpected path in dependabot patch: ${CHANGED_PATH}"
+                  exit 1
+                  ;;
+                pom.xml|poms/*|docs/*)
+                  ;;
+                *)
+                  echo "::error::Unexpected path in dependabot patch: ${CHANGED_PATH}"
+                  exit 1
+                  ;;
+              esac
+            done < <(git apply --numstat "${CHANGES_PATH}" | cut -f3)
+
+            git apply "${CHANGES_PATH}"
             git commit -am"${COMMIT_MESSAGE}"
-            git push origin HEAD:${{ steps.setup-dependabot-patches.outputs.branch-ref }}
+            git push origin "HEAD:${HEAD_BRANCH}"
 
             echo "updated=true" >> $GITHUB_OUTPUT
           else
