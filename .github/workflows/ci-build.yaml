@@ -126,8 +126,11 @@ jobs:
     steps:
       - name: Initialize
         id: init
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]] && [[ "${{ github.event.pull_request.user.login }}" == "dependabot[bot]" ]]; then
+          if [[ "${EVENT_NAME}" == "pull_request" ]] && [[ "${PR_AUTHOR}" == "dependabot[bot]" ]]; then
             echo "run-checks=true" >> $GITHUB_OUTPUT
           else
             echo "run-checks=false" >> $GITHUB_OUTPUT
@@ -153,8 +156,13 @@ jobs:
             quarkiverse-cxf.version
       - name: Pre build checks
         id: pre-build-checks
+        env:
+          RUN_CHECKS: ${{ steps.init.outputs.run-checks }}
+          HEAD_REF: ${{ github.head_ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
-          if [[ "${{ steps.init.outputs.run-checks }}" == "true" ]]; then
+          if [[ "${RUN_CHECKS}" == "true" ]]; then
             ./mvnw cq:sync-versions -N ${CQ_MAVEN_ARGS}
             ./mvnw clean install -pl poms/bom -am -Dcq.flatten-bom.format --fail-never ${CQ_MAVEN_ARGS}
             ./mvnw clean install -f poms/bom ${CQ_MAVEN_ARGS}
@@ -164,10 +172,10 @@ jobs:
               echo "continue-build=true" >> $GITHUB_OUTPUT
             else
               mkdir ./dependabot-pr
-              echo ${{ github.head_ref }} > ./dependabot-pr/BRANCH_REF
-              echo ${{ github.event.pull_request.head.sha }} > ./dependabot-pr/PR_HEAD_SHA
+              printf '%s\n' "${HEAD_REF}" > ./dependabot-pr/BRANCH_REF
+              printf '%s\n' "${PR_HEAD_SHA}" > ./dependabot-pr/PR_HEAD_SHA
               echo "$GITHUB_REF" | awk -F / '{print $3}' >  ./dependabot-pr/PR_NUMBER
-              echo ${{ github.event.pull_request.user.login }} > ./dependabot-pr/PR_AUTHOR
+              printf '%s\n' "${PR_AUTHOR}" > ./dependabot-pr/PR_AUTHOR
               git diff -p --binary > ./dependabot-pr/changes.patch
 
               echo "continue-build=false" >> $GITHUB_OUTPUT
@@ -280,15 +288,19 @@ jobs:
       - name: Detect Changed Container Properties
         id: detect-container-props
         if: steps.detect-incremental.outputs.incremental-build == 'true' && steps.scalpel-analysis.outcome != 'failure'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
         run: |
           # NOTE: We do this manual checking since the container image properties are not linked to any other pom.xml in the project.
           # They are queried dynamically via Java code. This logic enables pom.xml to be removed from Scalpel full build triggers.
 
           CHANGED_CONTAINER_PROPS=""
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          if [ "${EVENT_NAME}" == "pull_request" ]; then
+            BASE_SHA="${PR_BASE_SHA}"
           else
-            BASE_SHA="${{ github.event.before }}"
+            BASE_SHA="${PUSH_BEFORE_SHA}"
           fi
           if [ -n "$BASE_SHA" ] && git diff "$BASE_SHA" -- pom.xml | grep -qE '[+-].*\.container\.image>'; then
             CHANGED_CONTAINER_PROPS=$(git diff "$BASE_SHA" -- pom.xml \
