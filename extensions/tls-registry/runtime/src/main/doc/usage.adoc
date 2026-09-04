@@ -80,6 +80,49 @@ from("timer:tick")
     .to("https://api.example.com?useGlobalSslContextParameters=true");
 ----
 
+=== Protocols And Cipher Suites
+
+The protocols, cipher suites and key exchange groups set on a Quarkus TLS configuration are carried over to the `SSLContextParameters` bean and enforced on every `SSLEngine` and socket factory Camel derives from it:
+
+[source,properties]
+----
+quarkus.tls.protocols=TLSv1.3,TLSv1.2
+quarkus.tls.cipher-suites=TLS_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+quarkus.tls.key-exchange-groups=x25519,secp384r1
+----
+
+IMPORTANT: `quarkus.tls.protocols` defaults to `TLSv1.3`. Camel components consuming a bridged bean therefore negotiate TLSv1.3 only unless you widen the property, matching the behaviour of every other consumer of the same Quarkus TLS configuration. Set `quarkus.tls.protocols=TLSv1.3,TLSv1.2` if you need to talk to endpoints that do not support TLSv1.3.
+
+WARNING: Camel applies a configured list verbatim, in preference to its own default exclusion filters. Because `quarkus.tls.protocols` always carries a value, those filters never exclude the SSLv2 and SSLv3 protocols from a bridged configuration, and they exclude the `NULL`, `anon`, `EXPORT`, `DES`, `MD5` and `RC4` cipher suites only while `quarkus.tls.cipher-suites` is unset. A weak protocol or cipher suite that you configure explicitly is used as configured.
+
+A value that the JVM does not recognise is rejected rather than ignored, failing the creation of the SSL context. This includes OpenSSL style cipher suite names such as `ECDHE-RSA-AES128-GCM-SHA256`, which Vert.x accepts when `quarkus.tls.<name>.ssl-engine` is set to `openssl`. Use the JSSE names, for example `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`, for a configuration that Camel components consume.
+
+==== Options That Cannot Be Bridged
+
+Some `quarkus.tls.*` options have no equivalent in `SSLContextParameters`, because they are applied by Vert.x rather than by the JSSE `SSLContext`:
+
+[cols="1,3"]
+|===
+|Option |Notes
+
+|`certificate-revocation-list`
+|Not carried over. Camel components using a bridged bean do not check certificate revocation and accept a revoked certificate that the rest of the application rejects. A warning is logged at startup when this option is set.
+
+|`hostname-verification-algorithm`
+|Not carried over. Configure hostname verification on the consuming Camel component or endpoint instead. A warning is logged at startup when this option is set.
+
+|`key-store.sni`
+|Not carried over. Server name indication is a Vert.x transport concern.
+
+|`alpn`
+|Not carried over. Protocol negotiation is handled by the consuming component.
+
+|`pqc-enforcement-policy`
+|Not carried over. Use `quarkus.tls.<name>.key-exchange-groups`, which is, to constrain the groups Camel offers.
+|===
+
+These options continue to apply to Quarkus's own TLS consumers as normal. Only the Camel bridge is affected.
+
 === Certificate Reload
 
 The extension automatically observes certificate reload events from Quarkus TLS registry.

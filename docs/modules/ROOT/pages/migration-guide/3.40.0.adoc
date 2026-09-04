@@ -49,3 +49,50 @@ The option is now unset by default and has three states:
 Setting the option to `false` therefore now bounds what the native image is able to deserialize, at the cost of breaking any component that depends on Java serialization. A build that requests the veto while extensions ask for serialization logs a warning.
 
 Applications that set the option to `false` while relying on one of the extensions above must remove the setting to keep working. Applications that set it to `true`, or that never set it, are unaffected.
+
+== TLS Registry extension changes
+
+=== quarkus.tls transport policy is now enforced
+
+Converting a Quarkus TLS configuration to `SSLContextParameters` previously carried over only the key and trust material. `quarkus.tls.protocols`, `quarkus.tls.cipher-suites` and `quarkus.tls.key-exchange-groups` were dropped, so Camel components using a registered bean negotiated with the JVM defaults rather than the policy that had been configured for them. Quarkus keeps those alongside the Vert.x transport options and never applies them to the `SSLContext` itself, so nothing carried them across and nothing warned that they had been lost.
+
+All three are now applied to every `SSLEngine` and socket factory Camel derives from a registered bean.
+
+`quarkus.tls.protocols` defaults to `TLSv1.3`, so a bean that previously offered whatever the JVM enabled now offers TLSv1.3 alone, matching every other consumer of the same TLS configuration. Where a route talks to an endpoint that does not support TLSv1.3, widen the property.
+
+[source,properties]
+----
+quarkus.tls.protocols=TLSv1.3,TLSv1.2
+----
+
+Note that this applies to the whole TLS configuration, not only to Camel. Define a named configuration for the endpoint that needs it if the rest of the application should stay on TLSv1.3.
+
+[source,properties]
+----
+quarkus.tls.legacy-endpoint.protocols=TLSv1.3,TLSv1.2
+quarkus.tls.legacy-endpoint.trust-store.p12.path=/etc/ssl/truststore.p12
+quarkus.tls.legacy-endpoint.trust-store.p12.password=changeit
+----
+
+=== Unrecognised protocol and cipher suite names now fail
+
+Camel applies a configured list verbatim rather than reducing it to what the JVM supports, so a name the JVM does not recognise now fails the creation of the SSL context instead of being ignored. Disabled but known names, such as `SSLv3`, are still accepted.
+
+This affects a configuration that sets `quarkus.tls.<name>.ssl-engine` to `openssl` and names cipher suites in OpenSSL style, which Vert.x accepts. Use the JSSE names for a configuration that Camel components consume.
+
+[source,properties]
+----
+# Rejected by the JVM
+# quarkus.tls.cipher-suites=ECDHE-RSA-AES128-GCM-SHA256
+quarkus.tls.cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+----
+
+Note also that a configured list takes precedence over Camel's own default exclusion filters. Because `quarkus.tls.protocols` always carries a value, those filters do not exclude the SSLv2 and SSLv3 protocols from a bridged configuration, and they exclude the `NULL`, `anon`, `EXPORT`, `DES`, `MD5` and `RC4` cipher suites only while `quarkus.tls.cipher-suites` is unset.
+
+=== Options that cannot be bridged are now reported
+
+`certificate-revocation-list`, `hostname-verification-algorithm`, `key-store.sni`, `alpn` and `pqc-enforcement-policy` have no equivalent in `SSLContextParameters` and are still not carried over. They remain the responsibility of the consuming Camel component or endpoint, and continue to apply to Quarkus's own TLS consumers as before.
+
+A warning is now logged at startup for the two that weaken verification if the operator assumes otherwise, instead of them being dropped silently. In particular, a Camel component using a bridged bean does not check certificate revocation, and so accepts a revoked certificate that the rest of the application rejects.
+
+Refer to the xref:reference/extensions/tls-registry.adoc#extensions-tls-registry-usage-protocols-and-cipher-suites[TLS Registry extension documentation] for details.
