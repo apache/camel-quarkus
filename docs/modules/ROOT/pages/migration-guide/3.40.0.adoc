@@ -33,3 +33,19 @@ These failures are now raised:
 An application that inspected only the top-level exception sees no difference. One that handles exceptions and continues may now see a failure it previously never learned about. Check `Throwable.getSuppressed()` when diagnosing.
 
 No method signatures changed. `resumeTransaction(Transaction)` is unchanged and now wraps a resume failure in a `RuntimeCamelException`; a new `resumeTransaction(Transaction, Throwable)` overload is what the policies use so that a resume failure cannot replace a failure already on its way out.
+
+== Core extension changes
+
+=== serialization-enabled can now veto extension serialization registrations
+
+`quarkus.camel.native.reflection.serialization-enabled` previously defaulted to `false`, but a `false` value carried no meaning of its own. Extensions that require Java serialization to work, such as `camel-quarkus-jms`, `camel-quarkus-jolt`, `camel-quarkus-management`, `camel-quarkus-netty`, `camel-quarkus-sjms`, `camel-quarkus-sjms2` and `camel-quarkus-sql`, registered the base set of classes for serialization on being present on the classpath, and there was no way to prevent it.
+
+The option is now unset by default and has three states:
+
+* When it is not set, classes are registered for serialization only if an extension on the classpath requires it. This matches the previous behaviour.
+* When it is `true`, the base set of classes is always registered. This is unchanged.
+* When it is `false`, nothing is registered for serialization, even if extensions on the classpath require it. This is new.
+
+Setting the option to `false` therefore now bounds what the native image is able to deserialize, at the cost of breaking any component that depends on Java serialization. A build that requests the veto while extensions ask for serialization logs a warning.
+
+Applications that set the option to `false` while relying on one of the extensions above must remove the setting to keep working. Applications that set it to `true`, or that never set it, are unaffected.

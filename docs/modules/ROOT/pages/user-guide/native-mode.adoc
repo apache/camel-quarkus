@@ -129,6 +129,24 @@ quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
 [[serialization]]
 == Registering classes for serialization
 
-If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, the classes listed in https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/CamelSerializationProcessor.java[CamelSerializationProcessor.BASE_SERIALIZATION_CLASSES] are automatically registered for serialization.
+Some extensions require Java serialization support in order to work. For example, `camel-quarkus-netty` installs a codec
+based on Java serialization by default, `camel-quarkus-management` needs it for JMX, and `camel-quarkus-jms` needs it to
+handle `ObjectMessage` payloads or routes configured with `transferExchange=true`. Such extensions automatically register the
+classes listed in https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/CamelSerializationProcessor.java[CamelSerializationProcessor.BASE_SERIALIZATION_CLASSES]
+for serialization.
+
+The `quarkus.camel.native.reflection.serialization-enabled` option controls this behavior:
+
+* When the option is not set, classes are registered for serialization only if an extension on the classpath requires it.
+This is the default.
+* When set to `true`, the base set of classes is always registered for serialization. This is needed for functionality that
+relies on serialization but is not tied to an extension that enables it automatically, such as the Cassandra and Infinispan
+aggregation repositories.
+* When set to `false`, nothing is registered for serialization, even if extensions on the classpath require it. This bounds
+what the native image is able to deserialize, at the cost of breaking any component that depends on Java serialization.
+
+Note that this option governs only the base set of classes and any additional classes that extensions register alongside
+it. Classes registered individually with `@io.quarkus.runtime.annotations.RegisterForReflection(serialization = true)` are
+not affected.
 
 Users can register more classes using `@io.quarkus.runtime.annotations.RegisterForReflection(serialization = true)`.

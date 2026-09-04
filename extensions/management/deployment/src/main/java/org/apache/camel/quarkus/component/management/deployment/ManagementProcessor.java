@@ -143,11 +143,8 @@ class ManagementProcessor {
                 ReflectiveClassBuildItem.builder(managedBeanClasses.toArray(String[]::new))
                         .fields().methods().build());
 
-        // Various javax.management classes require serialization
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(SERIALIZATION_CLASSES).serialization().build());
-
-        // Add serialization support for some core JDK & Camel classes
-        camelSerialization.produce(new CamelSerializationBuildItem());
+        // Add serialization support for some core JDK & Camel classes, plus the javax.management classes that JMX requires
+        camelSerialization.produce(new CamelSerializationBuildItem(SERIALIZATION_CLASSES));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
