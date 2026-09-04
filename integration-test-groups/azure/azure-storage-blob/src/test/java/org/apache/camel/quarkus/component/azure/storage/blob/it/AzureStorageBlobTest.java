@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.component.azure.storage.blob.it.AzureStorageHelper.BlobVersioningEnabled;
 import org.apache.camel.quarkus.component.azure.storage.blob.it.AzureStorageHelper.ClientCertificateAuthEnabled;
 import org.apache.camel.quarkus.component.azure.storage.blob.it.AzureStorageHelper.ClientSecretAuthEnabled;
 import org.apache.camel.quarkus.test.EnabledIf;
@@ -253,13 +255,17 @@ class AzureStorageBlobTest {
                     .body(is("true"));
 
             // Read
-            RestAssured.get("/azure-storage-blob/blob/read")
+            RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.APPEND_BLOB_NAME)
+                    .get("/azure-storage-blob/blob/read")
                     .then()
                     .statusCode(200)
                     .body(is(appendedContent));
         } finally {
             // Delete
-            RestAssured.delete("/azure-storage-blob/blob/delete")
+            RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.APPEND_BLOB_NAME)
+                    .delete("/azure-storage-blob/blob/delete")
                     .then()
                     .statusCode(anyOf(is(204), is(404)));
         }
@@ -283,7 +289,9 @@ class AzureStorageBlobTest {
                     .statusCode(200)
                     .body(is("true"));
 
-            byte[] pageData = RestAssured.get("/azure-storage-blob/blob/read/bytes")
+            byte[] pageData = RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.PAGE_BLOB_NAME)
+                    .get("/azure-storage-blob/blob/read/bytes")
                     .then()
                     .statusCode(200)
                     .extract()
@@ -312,7 +320,9 @@ class AzureStorageBlobTest {
                     .body(is("true"));
 
             // Read after resize
-            pageData = RestAssured.get("/azure-storage-blob/blob/read/bytes")
+            pageData = RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.PAGE_BLOB_NAME)
+                    .get("/azure-storage-blob/blob/read/bytes")
                     .then()
                     .statusCode(200)
                     .extract()
@@ -338,7 +348,9 @@ class AzureStorageBlobTest {
                     .body(is("true"));
 
             // Read after clear
-            pageData = RestAssured.get("/azure-storage-blob/blob/read/bytes")
+            pageData = RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.PAGE_BLOB_NAME)
+                    .get("/azure-storage-blob/blob/read/bytes")
                     .then()
                     .statusCode(200)
                     .extract()
@@ -353,7 +365,9 @@ class AzureStorageBlobTest {
             }
         } finally {
             // Delete
-            RestAssured.delete("/azure-storage-blob/blob/delete")
+            RestAssured.given()
+                    .queryParam("blobName", AzureStorageBlobRoutes.PAGE_BLOB_NAME)
+                    .delete("/azure-storage-blob/blob/delete")
                     .then()
                     .statusCode(anyOf(is(204), is(404)));
         }
@@ -756,8 +770,8 @@ class AzureStorageBlobTest {
         }
     }
 
-    // Blob versioning is not fully supported in Azurite
-    @EnabledIf({ MockBackendDisabled.class })
+    // Blob versioning requires the Azure Storage account to have versioning enabled
+    @EnabledIf({ BlobVersioningEnabled.class })
     @Test
     public void blobVersions() {
         try {
@@ -788,17 +802,19 @@ class AzureStorageBlobTest {
                     .jsonPath()
                     .getList("versions");
 
-            // Verify we have at least 2 versions
-            assertEquals(2, versions.size(), "Should have 2 versions (original and updated)");
-
-            // Find the current version and an older version
+            // Find the current version and an older version, scoped to the blob under test
+            String blobName = AzureStorageBlobRoutes.BLOB_NAME;
             Map<String, Object> currentVersion = versions.stream()
+                    .filter(v -> blobName.equals(v.get("name")))
                     .filter(v -> (Boolean) v.get("isCurrentVersion"))
                     .findFirst()
                     .orElse(null);
 
             Map<String, Object> oldVersion = versions.stream()
+                    .filter(v -> blobName.equals(v.get("name")))
                     .filter(v -> !(Boolean) v.get("isCurrentVersion"))
+                    .filter(v -> v.get("versionId") != null)
+                    .sorted(Comparator.comparing((Map<String, Object> v) -> (String) v.get("versionId")).reversed())
                     .findFirst()
                     .orElse(null);
 
