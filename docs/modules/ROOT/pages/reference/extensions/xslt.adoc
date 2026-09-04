@@ -85,6 +85,36 @@ TransformerFactory features can be configured using following property:
 ----
 quarkus.camel.xslt.features."http\://javax.xml.XMLConstants/feature/secure-processing"=false
 ----
+
+Features are applied to every template the component transforms with, whether it was compiled to a translet at
+build time or loaded at runtime. A feature the `TransformerFactory` does not support fails endpoint creation.
+
+WARNING: Disabling secure-processing permits templates to call Xalan extension functions, and is logged as a
+warning on startup. Only do this where every template the application transforms with is trusted.
+
+[id="extensions-xslt-configuration-external-access"]
+=== External access
+The extension transforms with Xalan-J rather than the XSLT implementation built into the JDK, because translets
+have to be compiled ahead of time to work in native mode. Xalan-J 2.7.x predates JAXP 1.5 and cannot honour
+`javax.xml.XMLConstants.ACCESS_EXTERNAL_DTD` or `ACCESS_EXTERNAL_STYLESHEET`, so `setAttribute` throws for both,
+and its secure-processing feature restricts extension functions without implying the external access
+restrictions the JDK applies under the same feature. The extension applies those restrictions itself:
+
+* Documents being transformed are parsed with an `XMLReader` that does not resolve external general entities, so
+a `SYSTEM` entity in a `DOCTYPE` declaration does not expand into the result. A `SAXSource` carrying an
+`XMLReader` the caller configured is used as it is.
+* Resources fetched at transform time by the `document()` function are denied unless a
+`javax.xml.transform.URIResolver` resolves them. This applies to every entry point that hands out something to
+transform with, so a `TransformerHandler` or an `XMLFilter` is restricted just as a `Transformer` is. The
+component installs a resolver on every transformer it uses, so routes resolve `document()` as they do on plain
+Camel.
+
+`<xsl:import>` and `<xsl:include>` are not restricted. Xalan dereferences those hrefs itself while compiling a
+stylesheet, ignoring the resolver it consulted first. Stylesheets are deployment owned rather than attacker
+controlled, and the component resolves includes through its own unrestricted resolver in any case.
+
+NOTE: This factory is registered as the JAXP default, so the restrictions above also apply to code in the
+application that obtains a `TransformerFactory` through `TransformerFactory.newInstance()`.
 [id="extensions-xslt-configuration-extension-functions-support"]
 === Extension functions support
 https://xml.apache.org/xalan-j/extensions.html[Xalan's extension functions]
