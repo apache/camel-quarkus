@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.sql.deployment;
 
 import java.sql.Types;
-import java.util.LinkedHashMap;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -44,6 +43,5 @@ class SqlProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
                 ReflectiveClassBuildItem.builder(Types.class, DefaultExchangeHolder.class).fields().build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.serializationClass(LinkedHashMap.class.getName()));
     }
 }

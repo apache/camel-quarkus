@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -71,23 +72,33 @@ public class CamelSerializationProcessor {
     };
 
     @BuildStep
-    void produceSerializationBuildItem(CamelConfig config, BuildProducer<CamelSerializationBuildItem> serializationBuildItems) {
-        final CamelConfig.ReflectionConfig reflectionConfig = config.native_().reflection();
-        if (reflectionConfig.serializationEnabled()) {
-            LOGGER.debug(
-                    "Registration of basic types for serialization is enabled via quarkus.camel.native.reflection.serialization-enabled");
-            serializationBuildItems.produce(new CamelSerializationBuildItem());
-        }
-    }
-
-    @BuildStep
-    void baseSerializationClasses(List<CamelSerializationBuildItem> serializationRequests,
+    void baseSerializationClasses(CamelConfig config, List<CamelSerializationBuildItem> serializationRequests,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
-        if (!serializationRequests.isEmpty()) {
-            //required for serialization of BigInteger
-            reflectiveClasses.produce(ReflectiveClassBuildItem.builder(byte[].class).build());
-            reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(BASE_SERIALIZATION_CLASSES));
+        Optional<Boolean> serializationEnabled = config.native_().reflection().serializationEnabled();
+        if (serializationEnabled.isPresent() && !serializationEnabled.get()) {
+            if (!serializationRequests.isEmpty()) {
+                LOGGER.warn(
+                        "Serialization registration requested by extensions on the classpath was vetoed by quarkus.camel.native.reflection.serialization-enabled=false. Components relying on Java serialization may fail at runtime.");
+            }
+            return;
+        }
+
+        if (serializationEnabled.isEmpty() && serializationRequests.isEmpty()) {
+            return;
+        }
+
+        //required for serialization of BigInteger
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(byte[].class).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(BASE_SERIALIZATION_CLASSES));
+
+        String[] additionalClasses = serializationRequests.stream()
+                .map(CamelSerializationBuildItem::getClassNames)
+                .flatMap(List::stream)
+                .distinct()
+                .toArray(String[]::new);
+        if (additionalClasses.length > 0) {
+            reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(additionalClasses));
         }
     }
 }
