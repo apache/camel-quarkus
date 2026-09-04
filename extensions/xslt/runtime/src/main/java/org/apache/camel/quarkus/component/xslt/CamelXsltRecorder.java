@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.xslt;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
@@ -30,9 +32,16 @@ import org.apache.camel.component.xslt.TransformerFactoryConfigurationStrategy;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltEndpoint;
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Recorder
 public class CamelXsltRecorder {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CamelXsltRecorder.class);
+
+    /** Guards the secure-processing warning so that it is logged once instead of per endpoint */
+    private static final AtomicBoolean SECURE_PROCESSING_WARNED = new AtomicBoolean();
 
     public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config,
             RuntimeValue<RuntimeUriResolver.Builder> uriResolverBuilder) {
@@ -91,17 +100,25 @@ public class CamelXsltRecorder {
 
         @Override
         public void configure(TransformerFactory tf, XsltEndpoint endpoint) {
+            // The features are applied whether or not the template was compiled to a translet at build time,
+            // otherwise quarkus.camel.xslt.features would silently have no effect on runtime loaded templates.
+            for (Map.Entry<String, Boolean> entry : features.entrySet()) {
+                if (XMLConstants.FEATURE_SECURE_PROCESSING.equals(entry.getKey()) && !entry.getValue()
+                        && SECURE_PROCESSING_WARNED.compareAndSet(false, true)) {
+                    LOG.warn("Disabling {} via quarkus.camel.xslt.features allows XSLT templates to call"
+                            + " extension functions. Only do this if every template the application transforms with"
+                            + " is trusted.", XMLConstants.FEATURE_SECURE_PROCESSING);
+                }
+                try {
+                    tf.setFeature(entry.getKey(), entry.getValue());
+                } catch (TransformerException e) {
+                    throw new RuntimeException("Could not set TransformerFactory feature '"
+                            + entry.getKey() + "' = " + entry.getValue(), e);
+                }
+            }
+
             final String className = uriResolver.getTransletClassName(endpoint.getResourceUri());
             if (className != null) {
-                for (Map.Entry<String, Boolean> entry : features.entrySet()) {
-                    try {
-                        tf.setFeature(entry.getKey(), entry.getValue());
-                    } catch (TransformerException e) {
-                        throw new RuntimeException("Could not set TransformerFactory feature '"
-                                + entry.getKey() + "' = " + entry.getValue(), e);
-                    }
-                }
-
                 tf.setAttribute("use-classpath", true);
                 tf.setAttribute("translet-name", className);
                 tf.setAttribute("package-name", packageName);
