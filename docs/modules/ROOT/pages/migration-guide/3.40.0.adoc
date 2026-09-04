@@ -49,3 +49,58 @@ The option is now unset by default and has three states:
 Setting the option to `false` therefore now bounds what the native image is able to deserialize, at the cost of breaking any component that depends on Java serialization. A build that requests the veto while extensions ask for serialization logs a warning.
 
 Applications that set the option to `false` while relying on one of the extensions above must remove the setting to keep working. Applications that set it to `true`, or that never set it, are unaffected.
+
+== XSLT extension changes
+
+The `camel-quarkus-xslt` extension transforms with Xalan-J rather than the XSLT implementation built into the JDK, because translets have to be compiled ahead of time to work in native mode. Xalan-J 2.7.x predates JAXP 1.5 and cannot honour `javax.xml.XMLConstants.ACCESS_EXTERNAL_DTD` or `ACCESS_EXTERNAL_STYLESHEET`, and its secure processing feature restricts extension functions only, without implying the external access restrictions the JDK applies under the same feature. Those restrictions are now applied by the extension instead, so that an application gets the same protection it would get from plain Camel on the JDK.
+
+This affects more than the `xslt:` endpoints. The extension registers its factory as the JAXP default, so any code in the application that obtains a `TransformerFactory` through `TransformerFactory.newInstance()` is transforming with it, including code reached through `camel-quarkus-tika` and `camel-quarkus-xmlsecurity`, which depend on the same support extension without using XSLT themselves. Refer to the xref:reference/extensions/xslt.adoc#extensions-xslt-configuration-external-access[XSLT extension documentation] for the steady state behaviour.
+
+=== External entities in input documents are no longer resolved
+
+Documents being transformed are now parsed with an `XMLReader` that does not resolve external general entities, so a `SYSTEM` entity in a `DOCTYPE` declaration no longer expands into the transformation result.
+
+Most routes see no change, because camel-xslt already converts `String`, `byte[]` and `InputStream` bodies through Camel's own hardened parser before the transformer sees them. The change matters where the body reaches the transformer already shaped as a `Source`, for example after `convertBodyTo(Source.class)` or from a component that produces one, and for code calling the factory directly.
+
+A `SAXSource` carrying an `XMLReader` the caller configured is passed through untouched, so an application that needs different parsing rules can supply its own reader.
+
+[source,java]
+----
+SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+parserFactory.setNamespaceAware(true);
+// Configure the parser as required, then hand the transformer a reader of your own
+Source source = new SAXSource(parserFactory.newSAXParser().getXMLReader(), inputSource);
+----
+
+`DOMSource` and `StAXSource` bodies are parsed before they reach the transformer and are unaffected.
+
+=== document() is denied unless a URIResolver resolves it
+
+Resources fetched at transform time by the XSLT `document()` function are now denied unless the application's own `javax.xml.transform.URIResolver` resolves them, which is what the JDK does when secure processing is enabled.
+
+Routes are unaffected. camel-xslt installs a `URIResolver` on every transformer it uses, so `document()` continues to resolve exactly as it did, and as it does on plain Camel. The change affects code that uses the JAXP default factory directly and relies on `document()` without setting a resolver.
+
+The restriction applies to every entry point that hands out something to transform with, so code driving the SAX push API through `newTransformerHandler()` or `newXMLFilter()` is restricted in the same way, and sets a resolver on the `Transformer` reached through `TransformerHandler.getTransformer()`.
+
+[source,java]
+----
+Transformer transformer = TransformerFactory.newInstance().newTransformer(stylesheet);
+transformer.setURIResolver(myResolver);
+----
+
+`xsl:import` and `xsl:include` are unchanged. Xalan dereferences those hrefs itself while compiling a stylesheet, ignoring the resolver it consulted first, so they cannot be restricted here. Stylesheets are deployment owned rather than attacker controlled, and camel-xslt resolves includes through its own unrestricted resolver in any case.
+
+=== quarkus.camel.xslt.features applies to every template
+
+`quarkus.camel.xslt.features` was only applied to templates that were compiled to a translet at build time, which is `classpath:` templates. It was silently ignored for templates loaded at runtime, which is the remaining schemes in JVM mode. It is now applied to every template the component transforms with.
+
+A feature that previously had no effect on those endpoints now takes effect, and one the `TransformerFactory` does not support now fails endpoint creation rather than passing unnoticed. Review the property if it is set for an application that transforms with templates loaded at runtime.
+
+Disabling secure processing also now logs a warning on startup, since it permits templates to call Xalan extension functions.
+
+[source,properties]
+----
+quarkus.camel.xslt.features."http\://javax.xml.XMLConstants/feature/secure-processing"=false
+----
+
+IMPORTANT: Only disable it where every template the application transforms with is trusted.
