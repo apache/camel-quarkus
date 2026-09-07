@@ -21,9 +21,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 @QuarkusTestResource(Langchain4jEmbeddingsQl4jTestResource.class)
 @QuarkusTest
@@ -38,8 +36,8 @@ class Langchain4jEmbeddingsQl4jTest {
                 .statusCode(200)
                 // WireMock stub returns a 5-element vector
                 .body("vectorLength", is(5))
-                // Token count not available from Quarkus LangChain4j embedding model
-                .body("$", not(hasKey("inputTokenLength")));
+                // WireMock stub returns a prompt_eval_count of 2
+                .body("inputTokenLength", is(2));
     }
 
     @Test
@@ -51,6 +49,7 @@ class Langchain4jEmbeddingsQl4jTest {
                 .statusCode(200)
                 // WireMock stub returns a 5-element vector
                 .body("vectorLength", is(5))
-                .body("$", not(hasKey("inputTokenLength")));
+                // WireMock stub returns a prompt_eval_count of 10
+                .body("inputTokenLength", is(10));
     }
 }
