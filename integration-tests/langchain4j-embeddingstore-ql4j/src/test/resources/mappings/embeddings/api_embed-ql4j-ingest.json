@@ -1,0 +1,22 @@
+{
+  "id" : "b1c2d3e4-f5a6-7890-abcd-ef1234567802",
+  "name" : "api_embed_ql4j_ingest",
+  "request" : {
+    "url" : "/api/embed",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"model\":\"nomic-embed-text\",\"input\":\"Hello from Quarkus LangChain4j direct ingest\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"nomic-embed-text\",\"embeddings\":[[0.2,0.7,0.4,0.1,0.9]]}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "b1c2d3e4-f5a6-7890-abcd-ef1234567802",
+  "persistent" : true
+}

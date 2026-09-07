@@ -262,6 +262,7 @@ group-13:
   - jdbc-grouped
   - kubernetes
   - langchain4j-embeddingstore
+  - langchain4j-embeddingstore-ql4j
   - milvus
   - salesforce
   - sap-netweaver
