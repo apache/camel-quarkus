@@ -43,11 +43,6 @@
             <artifactId>camel-quarkus-support-langchain4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-ai-tool</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit-internal</artifactId>
             <scope>test</scope>

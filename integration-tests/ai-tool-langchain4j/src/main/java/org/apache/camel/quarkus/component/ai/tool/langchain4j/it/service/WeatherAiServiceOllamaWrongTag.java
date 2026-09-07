@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.support.langchain4j.CamelAiTools;
+import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
 
 @ApplicationScoped
 @RegisterAiService

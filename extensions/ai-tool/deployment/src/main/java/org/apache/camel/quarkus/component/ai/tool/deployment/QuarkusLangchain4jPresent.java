@@ -14,20 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.ai.tool.deployment;
 
 import java.util.function.BooleanSupplier;
 
-public class AiToolPresent implements BooleanSupplier {
-    private static final String AI_TOOL_REGISTRY_CLASS = "org.apache.camel.component.ai.tool.AiToolRegistry";
-    private static final String AI_TOOL_SPEC_CONVERTER_CLASS = "org.apache.camel.component.langchain4j.agent.AiToolSpecToLangChain4j";
+public class QuarkusLangchain4jPresent implements BooleanSupplier {
+    private static final String REGISTER_AI_SERVICE_CLASS = "io.quarkiverse.langchain4j.RegisterAiService";
 
     @Override
     public boolean getAsBoolean() {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try {
-            cl.loadClass(AI_TOOL_REGISTRY_CLASS);
-            cl.loadClass(AI_TOOL_SPEC_CONVERTER_CLASS);
+            Thread.currentThread().getContextClassLoader().loadClass(REGISTER_AI_SERVICE_CLASS);
             return true;
         } catch (ClassNotFoundException e) {
             return false;

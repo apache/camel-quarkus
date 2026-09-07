@@ -19,6 +19,22 @@ To keep the previous behaviour for a context that relied on the default, set it 
 quarkus.camel.ldap.dir-contexts."my-context".security-authentication=none
 ----
 
+== AI Tool extension changes
+
+=== The LangChain4j tool bridge moved to the AI Tool extension
+
+The bridge that exposes `ai-tool:` routes to LangChain4j AI services was part of `camel-quarkus-support-langchain4j`, an internal artifact that applications had to declare by hand alongside `camel-quarkus-ai-tool`. It is now part of `camel-quarkus-ai-tool` itself, and that dependency can be removed.
+
+The `@CamelAiTools` annotation moved with it. Update the import.
+
+[source,java]
+----
+// Was: import org.apache.camel.quarkus.component.support.langchain4j.CamelAiTools;
+import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
+----
+
+It is still registered only when Quarkus LangChain4j and `camel-langchain4j-agent` are on the classpath, and its behaviour is unchanged.
+
 == JTA extension changes
 
 === Rollback and resume failures are no longer swallowed

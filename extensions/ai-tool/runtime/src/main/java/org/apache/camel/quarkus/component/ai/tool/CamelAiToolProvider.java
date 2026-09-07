@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.ai.tool;
 
 import java.util.Map;
 import java.util.Set;
@@ -39,10 +39,10 @@ import org.apache.camel.support.DefaultExchange;
 import org.jboss.logging.Logger;
 
 /**
- * Bridges Camel's {@link AiToolRegistry} to langchain4j's {@link ToolProvider} SPI. When registered as a CDI bean (done
- * automatically by the deployment processor when both {@code camel-ai-tool} and quarkus-langchain4j are on the
- * classpath), all Camel routes registered via {@code ai-tool:} endpoints become available to
- * {@code @RegisterAiService} AI services without explicit configuration.
+ * Bridges Camel's {@link AiToolRegistry} to langchain4j's {@link ToolProvider} SPI. The deployment processor registers
+ * it as a CDI bean when Quarkus LangChain4j and {@code camel-langchain4j-agent} are on the classpath, at which point
+ * all Camel routes registered via {@code ai-tool:} endpoints become available to {@code @RegisterAiService} AI
+ * services without explicit configuration.
  */
 public class CamelAiToolProvider implements ToolProvider {
 

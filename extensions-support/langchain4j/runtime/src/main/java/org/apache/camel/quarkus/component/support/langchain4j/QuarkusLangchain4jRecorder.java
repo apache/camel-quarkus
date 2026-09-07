@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.support.langchain4j;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.langchain4j.data.segment.TextSegment;
@@ -44,10 +43,6 @@ public class QuarkusLangchain4jRecorder {
     @SuppressWarnings("serial")
     private static final TypeLiteral<EmbeddingStore<TextSegment>> EMBEDDING_STORE_TYPE = new TypeLiteral<>() {
     };
-
-    public void setCamelAiToolTagMap(Map<String, String> tagMap) {
-        CamelAiToolProvider.TAG_MAP.putAll(tagMap);
-    }
 
     public void registerNamedEmbeddingStores(RuntimeValue<Registry> camelRegistry) {
         List<InstanceHandle<EmbeddingStore<TextSegment>>> handles = Arc.container()
