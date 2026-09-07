@@ -92,6 +92,13 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
     void purgeQueueAndWait() {
         String qName = getPredefinedQueueName();
         purgeQueue(qName);
+
+        String selectorQueueName = ConfigProvider.getConfig()
+                .getOptionalValue("aws-sqs.selector-name", String.class).orElse(null);
+        if (selectorQueueName != null) {
+            purgeQueue(selectorQueueName);
+        }
+
         // purge takes up to 60 seconds
         // all messages delivered within those 60 seconds might get deleted
         try {
@@ -324,7 +331,6 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
 
         // clean previously collected messages
         RestAssured.delete("/aws2-sqs/selector/messages").then().statusCode(200);
-        purgeQueue(selectorQueueName);
 
         final String selectedMsg = "selected-" + UUID.randomUUID().toString().replace("-", "");
         final String rejectedMsg = "rejected-" + UUID.randomUUID().toString().replace("-", "");
@@ -359,9 +365,6 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
                 .then().statusCode(200).extract().body().as(List.class);
         Assertions.assertTrue(collected.contains(selectedMsg), "Selected message should have been collected");
         Assertions.assertFalse(collected.contains(rejectedMsg), "Rejected message should not have been collected");
-
-        // purge rejected messages remaining in queue
-        purgeQueue(selectorQueueName);
     }
 
     @Override
