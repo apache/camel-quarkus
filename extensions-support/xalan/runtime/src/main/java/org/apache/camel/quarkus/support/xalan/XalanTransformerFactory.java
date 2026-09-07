@@ -24,6 +24,7 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.ErrorListener;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -37,10 +38,13 @@ import javax.xml.transform.sax.TemplatesHandler;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DeclHandler;
 
 import org.apache.xalan.xsltc.trax.TrAXFilter;
 import org.slf4j.Logger;
@@ -198,12 +202,13 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
 
     @Override
     public XMLFilter newXMLFilter(Source source) throws TransformerConfigurationException {
-        return secure(delegate.newXMLFilter(source));
+        final Templates templates = delegate.newTemplates(source);
+        return templates == null ? null : newXMLFilter(templates);
     }
 
     @Override
     public XMLFilter newXMLFilter(Templates templates) throws TransformerConfigurationException {
-        return secure(delegate.newXMLFilter(unwrap(templates)));
+        return new SecuredTrAXFilter(unwrap(templates), restrictingUriResolver);
     }
 
     /**
@@ -212,26 +217,15 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
      * restricted here for the same reason it is in {@link #secure(Transformer)}. The document being
      * transformed is parsed by the {@link XMLReader} the caller drives the handler with, which is the
      * caller's own choice just as a {@link SAXSource} carrying a reader is.
+     * <p>
+     * The handler is wrapped so that {@link TransformerHandler#getTransformer()} hands out a
+     * {@link SecuredTransformer}. Xalan hands out the transformer it goes on to use itself, so an
+     * unwrapped one would let {@code reset()} or a cleared resolver drop the restriction from underneath
+     * the handler. The JDK is unaffected by either because it does not depend on a {@link URIResolver} to
+     * enforce {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET}.
      */
     private TransformerHandler secure(TransformerHandler handler) {
-        handler.getTransformer().setURIResolver(restrictingUriResolver);
-        return handler;
-    }
-
-    /**
-     * {@link XMLFilter} has no accessor for the {@link Transformer} behind it, so the restriction can only be
-     * installed on Xalan's own implementation. Guarded rather than cast blindly so that a Xalan upgrade
-     * returning something else is reported instead of silently dropping the restriction.
-     */
-    private XMLFilter secure(XMLFilter filter) {
-        if (filter instanceof TrAXFilter) {
-            ((TrAXFilter) filter).getTransformer().setURIResolver(restrictingUriResolver);
-        } else {
-            LOGGER.warn("Expected an {} from the Xalan TransformerFactory but got {}. The document() function"
-                    + " may resolve external resources when transforming through this XMLFilter.",
-                    TrAXFilter.class.getName(), filter == null ? null : filter.getClass().getName());
-        }
-        return filter;
+        return new SecuredTransformerHandler(handler, secure(handler.getTransformer()));
     }
 
     /**
@@ -320,6 +314,193 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
             throw new TransformerException(
                     "Access to the external resource '" + href + "' (base '" + base + "') is not allowed."
                             + " Resolve it through a javax.xml.transform.URIResolver if it is required.");
+        }
+    }
+
+    /**
+     * A {@link TrAXFilter} handing out a {@link SecuredTransformer} rather than the transformer it filters
+     * with, so that the restriction cannot be taken off the one it uses. Xalan reads its own transformer
+     * from a field and never calls {@link #getTransformer()} itself, so overriding it is safe.
+     */
+    private static final class SecuredTrAXFilter extends TrAXFilter {
+        private final Transformer securedTransformer;
+
+        SecuredTrAXFilter(Templates templates, URIResolver restrictingUriResolver)
+                throws TransformerConfigurationException {
+            super(templates);
+            final Transformer transformer = super.getTransformer();
+            transformer.setURIResolver(restrictingUriResolver);
+            this.securedTransformer = new SecuredTransformer(transformer, restrictingUriResolver);
+        }
+
+        @Override
+        public Transformer getTransformer() {
+            return securedTransformer;
+        }
+    }
+
+    /**
+     * Delegates the SAX events straight through, and exists only so that
+     * {@link TransformerHandler#getTransformer()} hands out a {@link SecuredTransformer}. Implements
+     * {@link DeclHandler} because Xalan's own handler does, and a caller may install it as one.
+     */
+    private static final class SecuredTransformerHandler implements TransformerHandler, DeclHandler {
+        private final TransformerHandler delegate;
+        private final Transformer securedTransformer;
+
+        SecuredTransformerHandler(TransformerHandler delegate, Transformer securedTransformer) {
+            this.delegate = delegate;
+            this.securedTransformer = securedTransformer;
+        }
+
+        @Override
+        public Transformer getTransformer() {
+            return securedTransformer;
+        }
+
+        @Override
+        public void setResult(Result result) {
+            delegate.setResult(result);
+        }
+
+        @Override
+        public void setSystemId(String systemId) {
+            delegate.setSystemId(systemId);
+        }
+
+        @Override
+        public String getSystemId() {
+            return delegate.getSystemId();
+        }
+
+        @Override
+        public void setDocumentLocator(Locator locator) {
+            delegate.setDocumentLocator(locator);
+        }
+
+        @Override
+        public void startDocument() throws SAXException {
+            delegate.startDocument();
+        }
+
+        @Override
+        public void endDocument() throws SAXException {
+            delegate.endDocument();
+        }
+
+        @Override
+        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+            delegate.startPrefixMapping(prefix, uri);
+        }
+
+        @Override
+        public void endPrefixMapping(String prefix) throws SAXException {
+            delegate.endPrefixMapping(prefix);
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+            delegate.startElement(uri, localName, qName, atts);
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            delegate.endElement(uri, localName, qName);
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            delegate.characters(ch, start, length);
+        }
+
+        @Override
+        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+            delegate.ignorableWhitespace(ch, start, length);
+        }
+
+        @Override
+        public void processingInstruction(String target, String data) throws SAXException {
+            delegate.processingInstruction(target, data);
+        }
+
+        @Override
+        public void skippedEntity(String name) throws SAXException {
+            delegate.skippedEntity(name);
+        }
+
+        @Override
+        public void startDTD(String name, String publicId, String systemId) throws SAXException {
+            delegate.startDTD(name, publicId, systemId);
+        }
+
+        @Override
+        public void endDTD() throws SAXException {
+            delegate.endDTD();
+        }
+
+        @Override
+        public void startEntity(String name) throws SAXException {
+            delegate.startEntity(name);
+        }
+
+        @Override
+        public void endEntity(String name) throws SAXException {
+            delegate.endEntity(name);
+        }
+
+        @Override
+        public void startCDATA() throws SAXException {
+            delegate.startCDATA();
+        }
+
+        @Override
+        public void endCDATA() throws SAXException {
+            delegate.endCDATA();
+        }
+
+        @Override
+        public void comment(char[] ch, int start, int length) throws SAXException {
+            delegate.comment(ch, start, length);
+        }
+
+        @Override
+        public void notationDecl(String name, String publicId, String systemId) throws SAXException {
+            delegate.notationDecl(name, publicId, systemId);
+        }
+
+        @Override
+        public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName)
+                throws SAXException {
+            delegate.unparsedEntityDecl(name, publicId, systemId, notationName);
+        }
+
+        @Override
+        public void elementDecl(String name, String model) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).elementDecl(name, model);
+            }
+        }
+
+        @Override
+        public void attributeDecl(String eName, String aName, String type, String mode, String value)
+                throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).attributeDecl(eName, aName, type, mode, value);
+            }
+        }
+
+        @Override
+        public void internalEntityDecl(String name, String value) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).internalEntityDecl(name, value);
+            }
+        }
+
+        @Override
+        public void externalEntityDecl(String name, String publicId, String systemId) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).externalEntityDecl(name, publicId, systemId);
+            }
         }
     }
 

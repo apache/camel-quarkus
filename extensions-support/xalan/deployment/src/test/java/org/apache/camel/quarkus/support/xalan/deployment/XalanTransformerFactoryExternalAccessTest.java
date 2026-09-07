@@ -39,6 +39,7 @@ import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
 
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
+import org.apache.xalan.xsltc.trax.TrAXFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -116,6 +117,9 @@ class XalanTransformerFactoryExternalAccessTest {
         return result.toString();
     }
 
+    /** Carries a value so that a push through the SAX wrappers can be asserted on, not only denied */
+    private static final String PUSHED_DOCUMENT = "<r><data>HELLO</data></r>";
+
     private static Source stylesheetSource() {
         return new StreamSource(new StringReader(documentFunctionXsl()));
     }
@@ -148,7 +152,7 @@ class XalanTransformerFactoryExternalAccessTest {
 
         final XMLReader reader = namespaceAwareReader();
         reader.setContentHandler(handler);
-        reader.parse(new InputSource(new StringReader("<r/>")));
+        reader.parse(new InputSource(new StringReader(PUSHED_DOCUMENT)));
         return result.toString();
     }
 
@@ -168,7 +172,7 @@ class XalanTransformerFactoryExternalAccessTest {
 
         filter.setParent(namespaceAwareReader());
         filter.setContentHandler(output);
-        filter.parse(new InputSource(new StringReader("<r/>")));
+        filter.parse(new InputSource(new StringReader(PUSHED_DOCUMENT)));
         return result.toString();
     }
 
@@ -322,6 +326,58 @@ class XalanTransformerFactoryExternalAccessTest {
     void documentFunctionIsDeniedInXmlFilterFromTemplates() {
         assertDenied(() -> pushThroughFilter(
                 factory -> factory.newXMLFilter(factory.newTemplates(stylesheetSource()))));
+    }
+
+    /**
+     * Xalan hands out the very transformer the handler goes on to use, so a caller that resets it, or clears
+     * its resolver, would otherwise take the restriction off the handler from underneath it. The JDK is
+     * immune to both because it does not need a {@link URIResolver} to enforce external access.
+     */
+    @Test
+    void documentFunctionStaysDeniedAfterResettingTheHandlersTransformer() {
+        assertDenied(() -> pushThroughHandler(factory -> {
+            final TransformerHandler handler = factory.newTransformerHandler(stylesheetSource());
+            handler.getTransformer().reset();
+            return handler;
+        }));
+    }
+
+    @Test
+    void documentFunctionStaysDeniedWhenTheHandlersResolverIsCleared() {
+        assertDenied(() -> pushThroughHandler(factory -> {
+            final TransformerHandler handler = factory.newTransformerHandler(stylesheetSource());
+            handler.getTransformer().setURIResolver(null);
+            return handler;
+        }));
+    }
+
+    @Test
+    void documentFunctionStaysDeniedAfterResettingTheFiltersTransformer() {
+        assertDenied(() -> pushThroughFilter(factory -> {
+            final XMLFilter filter = factory.newXMLFilter(stylesheetSource());
+            ((TrAXFilter) filter).getTransformer().reset();
+            return filter;
+        }));
+    }
+
+    /**
+     * The wrappers that make the above possible sit on the SAX event path, so an ordinary push through each
+     * of them has to keep producing the same output it did before.
+     */
+    @Test
+    void transformerHandlerStillTransforms() throws Exception {
+        final String result = pushThroughHandler(
+                factory -> factory.newTransformerHandler(new StreamSource(new StringReader(COPY_DATA_XSL))));
+
+        assertEquals("HELLO", result.trim());
+    }
+
+    @Test
+    void xmlFilterStillTransforms() throws Exception {
+        final String result = pushThroughFilter(
+                factory -> factory.newXMLFilter(new StreamSource(new StringReader(COPY_DATA_XSL))));
+
+        assertTrue(result.contains("HELLO"), "The XMLFilter did not transform the document: " + result);
     }
 
     /**

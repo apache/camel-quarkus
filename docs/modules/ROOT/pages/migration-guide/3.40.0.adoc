@@ -127,7 +127,9 @@ Resources fetched at transform time by the XSLT `document()` function are now de
 
 Routes are unaffected. camel-xslt installs a `URIResolver` on every transformer it uses, so `document()` continues to resolve exactly as it did, and as it does on plain Camel. The change affects code that uses the JAXP default factory directly and relies on `document()` without setting a resolver.
 
-The restriction applies to every entry point that hands out something to transform with, so code driving the SAX push API through `newTransformerHandler()` or `newXMLFilter()` is restricted in the same way, and sets a resolver on the `Transformer` reached through `TransformerHandler.getTransformer()`.
+The restriction applies to every entry point that hands out something to transform with, so code driving the SAX push API through `newTransformerHandler()` or `newXMLFilter()` is restricted in the same way, including the `Transformer` reached through `TransformerHandler.getTransformer()`.
+
+Because the restriction is carried by a `URIResolver` rather than by a factory attribute Xalan cannot honour, it survives the two things that would otherwise remove it: `Transformer.reset()` keeps it, and `setURIResolver(null)` falls back to it rather than lifting it. An application that needs `document()` to resolve sets a resolver of its own, as before.
 
 [source,java]
 ----
