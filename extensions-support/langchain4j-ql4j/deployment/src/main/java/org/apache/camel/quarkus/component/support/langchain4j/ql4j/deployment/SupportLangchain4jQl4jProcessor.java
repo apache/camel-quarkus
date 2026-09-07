@@ -23,8 +23,11 @@ import java.util.stream.Collectors;
 import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
+import dev.langchain4j.model.chat.ChatModel;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.deployment.ExcludeFromImpliedAiServiceBuildItem;
+import io.quarkiverse.langchain4j.deployment.items.SelectedChatModelProviderBuildItem;
+import io.quarkiverse.langchain4j.runtime.NamedConfigUtil;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -37,6 +40,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.ql4j.QuarkusLangchain4jRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -137,6 +141,20 @@ class SupportLangchain4jQl4jProcessor {
         if (combinedIndex.getIndex().getClassByName(AI_AGENT_WITHOUT_MEMORY_SERVICE) != null) {
             excludedFromImplied.produce(new ExcludeFromImpliedAiServiceBuildItem(AI_AGENT_WITHOUT_MEMORY_SERVICE.toString()));
         }
+    }
+
+    @BuildStep
+    @Record(ExecutionTime.STATIC_INIT)
+    void chatModelBeanQualifiers(
+            List<SelectedChatModelProviderBuildItem> chatModels,
+            BuildProducer<CamelBeanQualifierResolverBuildItem> beanQualifierResolver,
+            QuarkusLangchain4jRecorder recorder) {
+        chatModels.stream()
+                .map(SelectedChatModelProviderBuildItem::getConfigName)
+                .filter(configName -> !NamedConfigUtil.isDefault(configName))
+                .forEach(configName -> beanQualifierResolver.produce(
+                        new CamelBeanQualifierResolverBuildItem(ChatModel.class, configName,
+                                recorder.chatModelBeanQualifierResolver(configName))));
     }
 
     @BuildStep
