@@ -20,10 +20,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import org.apache.camel.quarkus.component.langchain4j.agent.Langchain4jAgentRecorder;
+import org.apache.camel.quarkus.component.support.langchain4j.deployment.QuarkusLangchain4jPresent;
+import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -50,5 +55,13 @@ class Langchain4jAgentProcessor {
                 .fields(true)
                 .methods(true)
                 .build();
+    }
+
+    // The bridge that exposes registry tools to Quarkus LangChain4j AI services ships with camel-quarkus-ai-tool.
+    // Without that extension the tools are registered but silently unreachable, so flag it at startup.
+    @BuildStep(onlyIf = { QuarkusLangchain4jPresent.class, CamelAiToolBridgeAbsent.class })
+    @Record(ExecutionTime.RUNTIME_INIT)
+    RuntimeCamelContextCustomizerBuildItem warnAboutMissingAiToolBridge(Langchain4jAgentRecorder recorder) {
+        return new RuntimeCamelContextCustomizerBuildItem(recorder.createMissingAiToolBridgeWarning());
     }
 }

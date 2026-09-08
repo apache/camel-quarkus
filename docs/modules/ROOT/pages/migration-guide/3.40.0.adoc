@@ -33,7 +33,10 @@ The `@CamelAiTools` annotation moved with it. Update the import.
 import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
 ----
 
-It is still registered only when Quarkus LangChain4j and `camel-langchain4j-agent` are on the classpath, and its behaviour is unchanged.
+The bridge is registered when `camel-quarkus-ai-tool` is a dependency and Quarkus LangChain4j and
+`camel-langchain4j-agent` are on the classpath. Applications that used `ai-tool:` routes without
+declaring `camel-quarkus-ai-tool` must now add it. A warning naming the affected tools is logged at
+startup when they are registered without it. Its behaviour is otherwise unchanged.
 
 == JTA extension changes
 
