@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -58,6 +59,10 @@ class KameletProcessor {
     private static final String FILE_PREFIX = "file";
     private static final String KAMELET_FILE_EXTENSION = ".kamelet.yaml";
     private static final String FEATURE = "camel-kamelet";
+    private static final String DELEGATING_SCHEMA_RESOLVER = "org.apache.camel.component.kamelet.utils.format.schema.DelegatingSchemaResolver";
+    private static final String JSON_SCHEMA_RESOLVER = "org.apache.camel.component.jackson.transform.JsonSchemaResolver";
+    private static final String AVRO_SCHEMA_RESOLVER = "org.apache.camel.component.jackson.avro.transform.AvroSchemaResolver";
+    private static final String PROTOBUF_SCHEMA_RESOLVER = "org.apache.camel.component.jackson.protobuf.transform.ProtobufSchemaResolver";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -144,6 +149,14 @@ class KameletProcessor {
         // Automatically register kamelet beans for reflection
         if (!kameletResources.isEmpty()) {
             Set<String> kameletBeanClasses = resolveKameletBeanClasses(kameletResources);
+            // DelegatingSchemaResolver hard-references the schema resolvers of the optional camel-jackson,
+            // camel-jackson-avro and camel-jackson-protobuf dependencies; if any of them is missing,
+            // registering it for reflection would make the native-image analysis fail parsing it
+            if (!QuarkusClassLoader.isClassPresentAtRuntime(JSON_SCHEMA_RESOLVER)
+                    || !QuarkusClassLoader.isClassPresentAtRuntime(AVRO_SCHEMA_RESOLVER)
+                    || !QuarkusClassLoader.isClassPresentAtRuntime(PROTOBUF_SCHEMA_RESOLVER)) {
+                kameletBeanClasses.remove(DELEGATING_SCHEMA_RESOLVER);
+            }
             if (!kameletBeanClasses.isEmpty()) {
                 reflectiveClass.produce(ReflectiveClassBuildItem.builder(kameletBeanClasses.toArray(new String[0]))
                         .fields()
