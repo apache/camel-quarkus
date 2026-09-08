@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.test.support.aws2;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +38,6 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.core.SdkClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3ClientBuilder;
 
 /**
  * A context passed to {@link Aws2TestEnvCustomizer#customize(Aws2TestEnvContext)}.
@@ -196,8 +196,14 @@ public class Aws2TestEnvContext {
                     .region(Region.of(region));
 
             // S3 requires path-style access with Floci to avoid virtual-host DNS issues
-            if (builder instanceof S3ClientBuilder s3Builder) {
-                s3Builder.forcePathStyle(true);
+            if (service == Service.S3) {
+                try {
+                    Method m = builder.getClass().getMethod("forcePathStyle", Boolean.class);
+                    m.setAccessible(true);
+                    m.invoke(builder, Boolean.TRUE);
+                } catch (ReflectiveOperationException e) {
+                    throw new RuntimeException("Could not set forcePathStyle on S3 client builder", e);
+                }
             }
         } else if (service == Service.IAM) {
             /* Avoid UnknownHostException: iam.eu-central-1.amazonaws.com */
