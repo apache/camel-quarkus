@@ -26,6 +26,29 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class KameletTest {
 
+    /**
+     * A file-backed source kamelet. Note the module also embeds the catalog's
+     * {@code resolve-pojo-schema-action} kamelet (see {@code quarkus.camel.kamelet.identifiers}):
+     * its {@code #class:} template bean is the kamelet component's
+     * {@code DelegatingSchemaResolver}, whose reflective registration made native builds fail
+     * without camel-jackson on the classpath — the native image building at all is the
+     * regression assertion of #9153.
+     */
+    @Test
+    public void testFileSourceKamelet() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Hello From File Source Kamelet")
+                .post("/kamelet/file/greeting.txt")
+                .then()
+                .statusCode(204);
+
+        RestAssured.get("/kamelet/file-content")
+                .then()
+                .statusCode(200)
+                .body(is("Hello From File Source Kamelet"));
+    }
+
     @Test
     public void testKameletProducing() {
         String message = "Camel Quarkus Kamelet";

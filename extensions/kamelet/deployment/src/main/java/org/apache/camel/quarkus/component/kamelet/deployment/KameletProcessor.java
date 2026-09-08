@@ -33,14 +33,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourcePatternsBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathFilter;
 import io.quarkus.paths.PathVisitor;
@@ -62,6 +65,24 @@ class KameletProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void removeDelegatingSchemaResolver(BuildProducer<RemovedResourceBuildItem> removedResources) {
+        // DelegatingSchemaResolver hard-references the schema resolvers of the optional camel-jackson,
+        // camel-jackson-avro and camel-jackson-protobuf dependencies; if any of them is missing, the
+        // class cannot be parsed by the native-image analysis once it becomes reachable
+        if (!QuarkusClassLoader.isClassPresentAtRuntime("org.apache.camel.component.jackson.transform.JsonSchemaResolver")
+                || !QuarkusClassLoader
+                        .isClassPresentAtRuntime("org.apache.camel.component.jackson.avro.transform.AvroSchemaResolver")
+                || !QuarkusClassLoader
+                        .isClassPresentAtRuntime(
+                                "org.apache.camel.component.jackson.protobuf.transform.ProtobufSchemaResolver")) {
+            removedResources.produce(new RemovedResourceBuildItem(
+                    ArtifactKey.fromString("org.apache.camel:camel-kamelet"),
+                    Set.of("org/apache/camel/component/kamelet/utils/format/schema/DelegatingSchemaResolver.class",
+                            "org/apache/camel/component/kamelet/utils/format/schema/DelegatingSchemaResolver$1.class")));
+        }
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
