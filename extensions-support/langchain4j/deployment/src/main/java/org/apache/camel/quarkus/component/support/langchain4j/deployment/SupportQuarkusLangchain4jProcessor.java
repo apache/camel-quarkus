@@ -31,6 +31,7 @@ import dev.langchain4j.guardrail.OutputGuardrail;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.store.embedding.EmbeddingStore;
+import io.quarkiverse.langchain4j.deployment.ExcludeFromImpliedAiServiceBuildItem;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanDiscoveryFinishedBuildItem;
 import io.quarkus.arc.deployment.GeneratedBeanBuildItem;
@@ -251,6 +252,16 @@ class SupportQuarkusLangchain4jProcessor {
                 .addBeanClasses(CamelAiToolsInterceptor.class)
                 .setUnremovable()
                 .build());
+    }
+
+    @BuildStep
+    void excludeCamelAgentInterfacesFromImpliedRegistration(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ExcludeFromImpliedAiServiceBuildItem> excludedFromImplied) {
+        String agentWithoutMemory = "org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService";
+        if (combinedIndex.getIndex().getClassByName(DotName.createSimple(agentWithoutMemory)) != null) {
+            excludedFromImplied.produce(new ExcludeFromImpliedAiServiceBuildItem(agentWithoutMemory));
+        }
     }
 
     // The retrieval filter supplier is only resolved programmatically at augmentor creation
