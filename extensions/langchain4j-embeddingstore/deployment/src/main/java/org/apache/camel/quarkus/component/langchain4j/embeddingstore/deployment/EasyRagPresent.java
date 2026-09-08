@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.langchain4j.embeddingstore.deployment;
 
 import java.util.function.BooleanSupplier;
 

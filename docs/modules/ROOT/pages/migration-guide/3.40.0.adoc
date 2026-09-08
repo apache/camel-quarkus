@@ -49,6 +49,38 @@ Nothing else about the metadata changed: the values and the segment text are wri
 Newly ingested segments carry the new keys, while segments already in a store keep the old ones — retrieval that filters or cites by these keys sees the mismatch.
 Either re-ingest the affected documents (with the default in-memory register a restart re-ingests the directory; clear a persistent register first) so everything carries the new keys, or make retrieval read both key pairs during the transition.
 
+== LangChain4j EmbeddingStore extension changes
+
+=== The RAG augmentor bridge moved to the EmbeddingStore extension
+
+The bridge that produces `RetrievalAugmentor` beans from Camel ingestion routes, and binds
+`@EmbeddingStoreName`-qualified CDI beans into the Camel registry, was part of
+`camel-quarkus-support-langchain4j`. It is now part of `camel-quarkus-langchain4j-embeddingstore`.
+
+It was previously active for any application depending on `camel-quarkus-langchain4j-agent`,
+`-chat`, `-embeddings`, `-ingest`, `-tools` or `-web-search`. It is now active only when
+`camel-quarkus-langchain4j-embeddingstore` is a dependency. Applications that relied on the bridge
+without it must add it.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-langchain4j-embeddingstore</artifactId>
+</dependency>
+----
+
+This includes applications configuring `quarkus.camel.langchain4j.rag.augmentors.*`. Without the
+dependency those properties are not recognised and no augmentor is produced.
+
+The `RagRetrievalFilterSupplier` interface moved with it. Update the import.
+
+[source,java]
+----
+// Was: import org.apache.camel.quarkus.component.support.langchain4j.RagRetrievalFilterSupplier;
+import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagRetrievalFilterSupplier;
+----
+
 == JTA extension changes
 
 === Rollback and resume failures are no longer swallowed

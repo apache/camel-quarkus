@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.langchain4j.embeddingstore.deployment;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.quarkus.runtime.configuration.ConfigurationException;
-import org.apache.camel.quarkus.component.support.langchain4j.deployment.SupportQuarkusLangchain4jProcessor.AugmentorDefinition;
+import org.apache.camel.quarkus.component.langchain4j.embeddingstore.deployment.Langchain4jEmbeddingstoreRagProcessor.AugmentorDefinition;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.component.support.langchain4j.deployment.SupportQuarkusLangchain4jProcessor.resolveDesignatedDefault;
+import static org.apache.camel.quarkus.component.langchain4j.embeddingstore.deployment.Langchain4jEmbeddingstoreRagProcessor.resolveDesignatedDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
