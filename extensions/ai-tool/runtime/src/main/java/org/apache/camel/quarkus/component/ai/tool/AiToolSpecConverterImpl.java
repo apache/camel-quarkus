@@ -14,17 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
+package org.apache.camel.quarkus.component.ai.tool;
 
-import dev.langchain4j.service.UserMessage;
-import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
+import dev.langchain4j.agent.tool.ToolSpecification;
+import jakarta.inject.Singleton;
+import org.apache.camel.component.ai.tool.AiToolSpec;
+import org.apache.camel.component.langchain4j.agent.AiToolSpecToLangChain4j;
 
-@ApplicationScoped
-@RegisterAiService
-@CamelAiTools("weatherTag")
-public interface WeatherAiServiceOllama {
+/**
+ * Resolves {@code camel-langchain4j-agent} types, so it is only registered as a bean when that optional dependency is
+ * present. See {@code AiToolProcessor}.
+ */
+@Singleton
+public class AiToolSpecConverterImpl implements AiToolSpecConverter {
 
-    String chat(@UserMessage String message);
+    @Override
+    public ToolSpecification toToolSpecification(AiToolSpec spec) {
+        return AiToolSpecToLangChain4j.toToolSpecification(spec);
+    }
 }

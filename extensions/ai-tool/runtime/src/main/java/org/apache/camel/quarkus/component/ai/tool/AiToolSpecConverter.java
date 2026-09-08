@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
+package org.apache.camel.quarkus.component.ai.tool;
 
-import dev.langchain4j.service.UserMessage;
-import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
+import dev.langchain4j.agent.tool.ToolSpecification;
+import org.apache.camel.component.ai.tool.AiToolSpec;
 
-@ApplicationScoped
-@RegisterAiService
-@CamelAiTools("weatherTag")
-public interface WeatherAiServiceOllama {
-
-    String chat(@UserMessage String message);
+/**
+ * Converts a Camel {@link AiToolSpec} to a langchain4j {@link ToolSpecification}.
+ * The implementation is generated at build time via Gizmo to avoid a compile-time
+ * dependency on {@code camel-langchain4j-agent}.
+ */
+public interface AiToolSpecConverter {
+    ToolSpecification toToolSpecification(AiToolSpec spec);
 }

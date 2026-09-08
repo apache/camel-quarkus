@@ -14,17 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
+package org.apache.camel.quarkus.component.ai.tool.deployment;
 
-import dev.langchain4j.service.UserMessage;
-import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
+import java.util.function.BooleanSupplier;
 
-@ApplicationScoped
-@RegisterAiService
-@CamelAiTools("weatherTag")
-public interface WeatherAiServiceOllama {
+/**
+ * Whether {@code camel-langchain4j-agent} is on the classpath, providing the
+ * {@code AiToolSpec} to {@code ToolSpecification} conversion the bridge is generated against.
+ */
+public class AiToolPresent implements BooleanSupplier {
+    private static final String AI_TOOL_SPEC_CONVERTER_CLASS = "org.apache.camel.component.langchain4j.agent.AiToolSpecToLangChain4j";
 
-    String chat(@UserMessage String message);
+    @Override
+    public boolean getAsBoolean() {
+        try {
+            Thread.currentThread().getContextClassLoader().loadClass(AI_TOOL_SPEC_CONVERTER_CLASS);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
 }

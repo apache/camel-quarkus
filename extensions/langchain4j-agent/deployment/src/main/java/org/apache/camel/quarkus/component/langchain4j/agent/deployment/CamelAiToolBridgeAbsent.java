@@ -14,16 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.langchain4j.agent.deployment;
 
-import dev.langchain4j.agent.tool.ToolSpecification;
-import org.apache.camel.component.ai.tool.AiToolSpec;
+import java.util.function.BooleanSupplier;
 
 /**
- * Converts a Camel {@link AiToolSpec} to a langchain4j {@link ToolSpecification}.
- * The implementation is generated at build time via Gizmo to avoid a compile-time
- * dependency on {@code camel-langchain4j-agent}.
+ * Whether the LangChain4j tool bridge from {@code camel-quarkus-ai-tool} is missing. Without it, tools registered in
+ * the {@code AiToolRegistry} are not exposed to Quarkus LangChain4j AI services.
  */
-public interface AiToolSpecConverter {
-    ToolSpecification toToolSpecification(AiToolSpec spec);
+public class CamelAiToolBridgeAbsent implements BooleanSupplier {
+    private static final String CAMEL_AI_TOOL_PROVIDER_CLASS = "org.apache.camel.quarkus.component.ai.tool.CamelAiToolProvider";
+
+    @Override
+    public boolean getAsBoolean() {
+        try {
+            Thread.currentThread().getContextClassLoader().loadClass(CAMEL_AI_TOOL_PROVIDER_CLASS);
+            return false;
+        } catch (ClassNotFoundException e) {
+            return true;
+        }
+    }
 }

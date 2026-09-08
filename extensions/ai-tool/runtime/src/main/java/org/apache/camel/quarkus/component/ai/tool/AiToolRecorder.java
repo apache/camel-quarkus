@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
+package org.apache.camel.quarkus.component.ai.tool;
 
-import dev.langchain4j.service.UserMessage;
-import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
+import java.util.Map;
 
-@ApplicationScoped
-@RegisterAiService
-@CamelAiTools("weatherTag")
-public interface WeatherAiServiceOllama {
+import io.quarkus.runtime.annotations.Recorder;
 
-    String chat(@UserMessage String message);
+@Recorder
+public class AiToolRecorder {
+
+    public void setCamelAiToolTagMap(Map<String, String> tagMap) {
+        CamelAiToolProvider.TAG_MAP.putAll(tagMap);
+    }
 }

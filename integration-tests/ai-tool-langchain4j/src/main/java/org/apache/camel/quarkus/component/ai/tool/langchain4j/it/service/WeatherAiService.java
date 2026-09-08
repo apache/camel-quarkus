@@ -19,8 +19,8 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.quarkus.component.ai.tool.CamelAiTools;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.model.WeatherToolCallingChatModel;
-import org.apache.camel.quarkus.component.support.langchain4j.CamelAiTools;
 
 @ApplicationScoped
 @RegisterAiService(chatLanguageModelSupplier = WeatherToolCallingChatModel.class)
