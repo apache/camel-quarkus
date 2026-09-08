@@ -16,7 +16,15 @@
  */
 package org.apache.camel.quarkus.support.xalan;
 
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.Properties;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.ErrorListener;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -24,23 +32,66 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TemplatesHandler;
 import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stream.StreamSource;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
 import org.xml.sax.XMLFilter;
+import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DeclHandler;
 
+import org.apache.xalan.xsltc.trax.TrAXFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * A {@link TransformerFactory} delegating to a {@link TransformerFactory} created via
  * {@code TransformerFactory.newInstance("org.apache.xalan.xsltc.trax.TransformerFactoryImpl", Thread.currentThread().getContextClassLoader())}
+ * <p>
+ * Xalan-J 2.7.x predates JAXP 1.5, so it cannot honour {@link XMLConstants#ACCESS_EXTERNAL_DTD} and
+ * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} - {@code setAttribute()} throws
+ * {@link IllegalArgumentException} for both. Its {@link XMLConstants#FEATURE_SECURE_PROCESSING} limits
+ * extension functions only, and does not imply the external access restrictions the JDK applies under the
+ * same feature. Because callers commonly harden a factory with
+ * {@code try { setAttribute(ACCESS_EXTERNAL_DTD, "") } catch (Exception ignored) {}}, that hardening would
+ * be lost silently. This factory therefore applies the deny-by-default part itself:
+ * <ul>
+ * <li>input documents passed to {@link Transformer#transform(Source, javax.xml.transform.Result)} are
+ * parsed with an {@link XMLReader} that does not resolve external general entities, which is what upstream
+ * Camel's {@code XmlConverter} does for the bodies it converts to a {@link SAXSource} itself,</li>
+ * <li>resources fetched at transform time by the {@code document()} function are denied unless the
+ * application's own {@link URIResolver} resolves them, on every entry point that hands out something to
+ * transform with - {@link Transformer}, {@link Templates}, {@link TransformerHandler} and
+ * {@link XMLFilter}.</li>
+ * </ul>
+ * <p>
+ * One restriction cannot be reinstated here: Xalan resolves {@code xsl:import}/{@code xsl:include} directly
+ * whenever the href is one it can dereference, ignoring both a refusal and a {@code null} from the
+ * {@link URIResolver} it consulted first. Stylesheets are deployment owned rather than attacker controlled,
+ * and camel-xslt resolves includes through its own unrestricted {@code XsltUriResolver} anyway, so this
+ * matches what plain Camel does on the component path.
  */
 public final class XalanTransformerFactory extends SAXTransformerFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(XalanTransformerFactory.class);
 
+    private static final String EXTERNAL_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+
     private final SAXTransformerFactory delegate;
+
+    /**
+     * The {@link URIResolver} set by the application, if any. The delegate factory keeps
+     * {@link RestrictingUriResolver} installed at all times so that the restriction cannot be dropped by
+     * an application calling {@link #setURIResolver(URIResolver)}.
+     */
+    private volatile URIResolver applicationUriResolver;
+
+    private final RestrictingUriResolver restrictingUriResolver = new RestrictingUriResolver();
 
     public XalanTransformerFactory() {
         final SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance(
@@ -53,21 +104,33 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
         }
 
         this.delegate = factory;
+        this.delegate.setURIResolver(restrictingUriResolver);
     }
 
     @Override
     public Transformer newTransformer(Source source) throws TransformerConfigurationException {
-        return delegate.newTransformer(source);
+        return secure(delegate.newTransformer(source));
     }
 
     @Override
     public Transformer newTransformer() throws TransformerConfigurationException {
-        return delegate.newTransformer();
+        return secure(delegate.newTransformer());
     }
 
     @Override
     public Templates newTemplates(Source source) throws TransformerConfigurationException {
-        return delegate.newTemplates(source);
+        return new SecuredTemplates(delegate.newTemplates(source), this);
+    }
+
+    /**
+     * Xalan does not propagate the factory's {@link URIResolver} onto the transformers it produces, so
+     * {@code document()} would be resolved unrestricted at transform time. Installing the resolver here is
+     * what makes {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} effective. Applications that set their own
+     * resolver on the transformer - camel-xslt does so on every exchange - keep overriding it as before.
+     */
+    private Transformer secure(Transformer transformer) {
+        transformer.setURIResolver(restrictingUriResolver);
+        return new SecuredTransformer(transformer, restrictingUriResolver);
     }
 
     @Override
@@ -78,12 +141,13 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
 
     @Override
     public void setURIResolver(URIResolver resolver) {
-        delegate.setURIResolver(resolver);
+        // Keep RestrictingUriResolver on the delegate; it consults this resolver first.
+        this.applicationUriResolver = resolver;
     }
 
     @Override
     public URIResolver getURIResolver() {
-        return delegate.getURIResolver();
+        return applicationUriResolver;
     }
 
     @Override
@@ -118,17 +182,17 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
 
     @Override
     public TransformerHandler newTransformerHandler(Source source) throws TransformerConfigurationException {
-        return delegate.newTransformerHandler(source);
+        return secure(delegate.newTransformerHandler(source));
     }
 
     @Override
     public TransformerHandler newTransformerHandler(Templates templates) throws TransformerConfigurationException {
-        return delegate.newTransformerHandler(templates);
+        return secure(delegate.newTransformerHandler(unwrap(templates)));
     }
 
     @Override
     public TransformerHandler newTransformerHandler() throws TransformerConfigurationException {
-        return delegate.newTransformerHandler();
+        return secure(delegate.newTransformerHandler());
     }
 
     @Override
@@ -138,12 +202,418 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
 
     @Override
     public XMLFilter newXMLFilter(Source source) throws TransformerConfigurationException {
-        return delegate.newXMLFilter(source);
+        final Templates templates = delegate.newTemplates(source);
+        return templates == null ? null : newXMLFilter(templates);
     }
 
     @Override
     public XMLFilter newXMLFilter(Templates templates) throws TransformerConfigurationException {
-        return delegate.newXMLFilter(templates);
+        return new SecuredTrAXFilter(unwrap(templates), restrictingUriResolver);
     }
 
+    /**
+     * The SAX push entry points hand the caller a {@link Transformer} to configure rather than one to call,
+     * and Xalan only copies the factory's {@link URIResolver} onto some of them, so {@code document()} is
+     * restricted here for the same reason it is in {@link #secure(Transformer)}. The document being
+     * transformed is parsed by the {@link XMLReader} the caller drives the handler with, which is the
+     * caller's own choice just as a {@link SAXSource} carrying a reader is.
+     * <p>
+     * The handler is wrapped so that {@link TransformerHandler#getTransformer()} hands out a
+     * {@link SecuredTransformer}. Xalan hands out the transformer it goes on to use itself, so an
+     * unwrapped one would let {@code reset()} or a cleared resolver drop the restriction from underneath
+     * the handler. The JDK is unaffected by either because it does not depend on a {@link URIResolver} to
+     * enforce {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET}.
+     */
+    private TransformerHandler secure(TransformerHandler handler) {
+        return new SecuredTransformerHandler(handler, secure(handler.getTransformer()));
+    }
+
+    /**
+     * Xalan casts {@link Templates} to its own {@code TemplatesImpl} internally, so the wrapper has to be
+     * peeled off before handing one back to the delegate.
+     */
+    private static Templates unwrap(Templates templates) {
+        return templates instanceof SecuredTemplates ? ((SecuredTemplates) templates).delegate : templates;
+    }
+
+    /**
+     * Parses {@code source} with a hardened {@link XMLReader} unless it has already been parsed, or the
+     * caller supplied its own reader. Mirrors what {@code XmlConverter.createSAXParserFactory()} does for
+     * the bodies camel-xslt converts itself, so that {@link Source}-shaped bodies get the same treatment.
+     */
+    private static Source secureInputSource(Source source) throws TransformerException {
+        if (source instanceof StreamSource) {
+            final StreamSource streamSource = (StreamSource) source;
+            final InputStream inputStream = streamSource.getInputStream();
+            final Reader reader = streamSource.getReader();
+            final String systemId = streamSource.getSystemId();
+            if (inputStream == null && reader == null && systemId == null) {
+                // Nothing to parse; let the delegate report it as it did before
+                return source;
+            }
+            final InputSource inputSource = new InputSource();
+            // Carried in every case so that relative references keep resolving against the document
+            inputSource.setSystemId(systemId);
+            if (inputStream != null) {
+                inputSource.setByteStream(inputStream);
+            } else if (reader != null) {
+                inputSource.setCharacterStream(reader);
+            }
+            // A source with nothing but a systemId is parsed by the secured reader rather than opened by
+            // the delegate, which would otherwise parse the document it fetches with its own parser
+            return new SAXSource(createSecureXmlReader(), inputSource);
+        }
+        if (source instanceof SAXSource) {
+            final SAXSource saxSource = (SAXSource) source;
+            if (saxSource.getXMLReader() == null) {
+                return new SAXSource(createSecureXmlReader(), saxSource.getInputSource());
+            }
+        }
+        // DOMSource and StAXSource are already parsed; a caller supplied XMLReader is the caller's own choice
+        return source;
+    }
+
+    private static XMLReader createSecureXmlReader() throws TransformerException {
+        final SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setNamespaceAware(true);
+        setFeature(factory, javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        setFeature(factory, EXTERNAL_GENERAL_ENTITIES, false);
+        try {
+            return factory.newSAXParser().getXMLReader();
+        } catch (ParserConfigurationException | SAXException e) {
+            throw new TransformerException("Could not create a secure XMLReader for the input document", e);
+        }
+    }
+
+    private static void setFeature(SAXParserFactory factory, String name, boolean value) {
+        try {
+            factory.setFeature(name, value);
+        } catch (ParserConfigurationException | SAXException e) {
+            LOGGER.warn("SAXParserFactory does not support the feature {} with value {}, due to {}."
+                    + " External entities in XSLT input documents may be resolved.", name, value, e.getMessage());
+        }
+    }
+
+    /**
+     * Denies external references that the application's own {@link URIResolver} did not resolve. This is the
+     * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} behaviour the JDK applies when
+     * {@link XMLConstants#FEATURE_SECURE_PROCESSING} is enabled, which Xalan does not implement. It takes
+     * effect for {@code document()} at transform time; see the class javadoc for why compile time
+     * {@code xsl:import}/{@code xsl:include} cannot be covered.
+     */
+    private final class RestrictingUriResolver implements URIResolver {
+        @Override
+        public Source resolve(String href, String base) throws TransformerException {
+            final URIResolver resolver = applicationUriResolver;
+            if (resolver != null) {
+                final Source source = resolver.resolve(href, base);
+                if (source != null) {
+                    return source;
+                }
+            }
+            throw new TransformerException(
+                    "Access to the external resource '" + href + "' (base '" + base + "') is not allowed."
+                            + " Resolve it through a javax.xml.transform.URIResolver if it is required.");
+        }
+    }
+
+    /**
+     * A {@link TrAXFilter} handing out a {@link SecuredTransformer} rather than the transformer it filters
+     * with, so that the restriction cannot be taken off the one it uses. Xalan reads its own transformer
+     * from a field and never calls {@link #getTransformer()} itself, so overriding it is safe.
+     */
+    private static final class SecuredTrAXFilter extends TrAXFilter {
+        private final Transformer securedTransformer;
+
+        SecuredTrAXFilter(Templates templates, URIResolver restrictingUriResolver)
+                throws TransformerConfigurationException {
+            super(templates);
+            final Transformer transformer = super.getTransformer();
+            transformer.setURIResolver(restrictingUriResolver);
+            this.securedTransformer = new SecuredTransformer(transformer, restrictingUriResolver);
+        }
+
+        @Override
+        public Transformer getTransformer() {
+            return securedTransformer;
+        }
+    }
+
+    /**
+     * Delegates the SAX events straight through, and exists only so that
+     * {@link TransformerHandler#getTransformer()} hands out a {@link SecuredTransformer}. Implements
+     * {@link DeclHandler} because Xalan's own handler does, and a caller may install it as one.
+     */
+    private static final class SecuredTransformerHandler implements TransformerHandler, DeclHandler {
+        private final TransformerHandler delegate;
+        private final Transformer securedTransformer;
+
+        SecuredTransformerHandler(TransformerHandler delegate, Transformer securedTransformer) {
+            this.delegate = delegate;
+            this.securedTransformer = securedTransformer;
+        }
+
+        @Override
+        public Transformer getTransformer() {
+            return securedTransformer;
+        }
+
+        @Override
+        public void setResult(Result result) {
+            delegate.setResult(result);
+        }
+
+        @Override
+        public void setSystemId(String systemId) {
+            delegate.setSystemId(systemId);
+        }
+
+        @Override
+        public String getSystemId() {
+            return delegate.getSystemId();
+        }
+
+        @Override
+        public void setDocumentLocator(Locator locator) {
+            delegate.setDocumentLocator(locator);
+        }
+
+        @Override
+        public void startDocument() throws SAXException {
+            delegate.startDocument();
+        }
+
+        @Override
+        public void endDocument() throws SAXException {
+            delegate.endDocument();
+        }
+
+        @Override
+        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+            delegate.startPrefixMapping(prefix, uri);
+        }
+
+        @Override
+        public void endPrefixMapping(String prefix) throws SAXException {
+            delegate.endPrefixMapping(prefix);
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+            delegate.startElement(uri, localName, qName, atts);
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            delegate.endElement(uri, localName, qName);
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            delegate.characters(ch, start, length);
+        }
+
+        @Override
+        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+            delegate.ignorableWhitespace(ch, start, length);
+        }
+
+        @Override
+        public void processingInstruction(String target, String data) throws SAXException {
+            delegate.processingInstruction(target, data);
+        }
+
+        @Override
+        public void skippedEntity(String name) throws SAXException {
+            delegate.skippedEntity(name);
+        }
+
+        @Override
+        public void startDTD(String name, String publicId, String systemId) throws SAXException {
+            delegate.startDTD(name, publicId, systemId);
+        }
+
+        @Override
+        public void endDTD() throws SAXException {
+            delegate.endDTD();
+        }
+
+        @Override
+        public void startEntity(String name) throws SAXException {
+            delegate.startEntity(name);
+        }
+
+        @Override
+        public void endEntity(String name) throws SAXException {
+            delegate.endEntity(name);
+        }
+
+        @Override
+        public void startCDATA() throws SAXException {
+            delegate.startCDATA();
+        }
+
+        @Override
+        public void endCDATA() throws SAXException {
+            delegate.endCDATA();
+        }
+
+        @Override
+        public void comment(char[] ch, int start, int length) throws SAXException {
+            delegate.comment(ch, start, length);
+        }
+
+        @Override
+        public void notationDecl(String name, String publicId, String systemId) throws SAXException {
+            delegate.notationDecl(name, publicId, systemId);
+        }
+
+        @Override
+        public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName)
+                throws SAXException {
+            delegate.unparsedEntityDecl(name, publicId, systemId, notationName);
+        }
+
+        @Override
+        public void elementDecl(String name, String model) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).elementDecl(name, model);
+            }
+        }
+
+        @Override
+        public void attributeDecl(String eName, String aName, String type, String mode, String value)
+                throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).attributeDecl(eName, aName, type, mode, value);
+            }
+        }
+
+        @Override
+        public void internalEntityDecl(String name, String value) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).internalEntityDecl(name, value);
+            }
+        }
+
+        @Override
+        public void externalEntityDecl(String name, String publicId, String systemId) throws SAXException {
+            if (delegate instanceof DeclHandler) {
+                ((DeclHandler) delegate).externalEntityDecl(name, publicId, systemId);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@link SecuredTransformer} is used for transformers obtained from compiled templates, which is
+     * how camel-xslt gets hold of them.
+     */
+    private static final class SecuredTemplates implements Templates {
+        private final Templates delegate;
+        private final XalanTransformerFactory factory;
+
+        SecuredTemplates(Templates delegate, XalanTransformerFactory factory) {
+            this.delegate = delegate;
+            this.factory = factory;
+        }
+
+        @Override
+        public Transformer newTransformer() throws TransformerConfigurationException {
+            return factory.secure(delegate.newTransformer());
+        }
+
+        @Override
+        public Properties getOutputProperties() {
+            return delegate.getOutputProperties();
+        }
+    }
+
+    /**
+     * Applies {@link XalanTransformerFactory#secureInputSource(Source)} to the document being transformed.
+     */
+    private static final class SecuredTransformer extends Transformer {
+        private final Transformer delegate;
+        private final URIResolver restrictingUriResolver;
+
+        SecuredTransformer(Transformer delegate, URIResolver restrictingUriResolver) {
+            this.delegate = delegate;
+            this.restrictingUriResolver = restrictingUriResolver;
+        }
+
+        @Override
+        public void transform(Source xmlSource, javax.xml.transform.Result outputTarget) throws TransformerException {
+            delegate.transform(secureInputSource(xmlSource), outputTarget);
+        }
+
+        @Override
+        public void setParameter(String name, Object value) {
+            delegate.setParameter(name, value);
+        }
+
+        @Override
+        public Object getParameter(String name) {
+            return delegate.getParameter(name);
+        }
+
+        @Override
+        public void clearParameters() {
+            delegate.clearParameters();
+        }
+
+        /**
+         * Clearing the resolver leaves the JDK restricted, because it enforces
+         * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} independently of one. Here the resolver is the
+         * only means of enforcement, so a null falls back to the restriction rather than removing it.
+         */
+        @Override
+        public void setURIResolver(URIResolver resolver) {
+            delegate.setURIResolver(resolver == null ? restrictingUriResolver : resolver);
+        }
+
+        @Override
+        public URIResolver getURIResolver() {
+            return delegate.getURIResolver();
+        }
+
+        @Override
+        public void setOutputProperties(Properties oformat) {
+            delegate.setOutputProperties(oformat);
+        }
+
+        @Override
+        public Properties getOutputProperties() {
+            return delegate.getOutputProperties();
+        }
+
+        @Override
+        public void setOutputProperty(String name, String value) {
+            delegate.setOutputProperty(name, value);
+        }
+
+        @Override
+        public String getOutputProperty(String name) {
+            return delegate.getOutputProperty(name);
+        }
+
+        @Override
+        public void setErrorListener(ErrorListener listener) {
+            delegate.setErrorListener(listener);
+        }
+
+        @Override
+        public ErrorListener getErrorListener() {
+            return delegate.getErrorListener();
+        }
+
+        /**
+         * {@link Transformer#reset()} restores the configuration the transformer was created with, which
+         * for Xalan means dropping the {@link URIResolver} {@link #secure(Transformer)} installed. The
+         * restriction is not part of what a caller is resetting, so it is put back.
+         */
+        @Override
+        public void reset() {
+            delegate.reset();
+            delegate.setURIResolver(restrictingUriResolver);
+        }
+    }
 }
