@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.aws2;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws2.cw.Cw2Constants;
 import org.apache.camel.component.aws2.translate.Translate2Constants;
 import org.apache.camel.component.aws2.translate.Translate2LanguageEnum;
 
@@ -30,49 +29,8 @@ public class CamelRoute extends RouteBuilder {
         //                .to("aws2-athena://cluster?operation=listQueryExecutions")
         //                .to("log:sf?showAll=true");
 
-        from("timer:quarkus-cw?repeatCount=1")
-                .setBody(constant("Quarkus is great!"))
-                .setHeader(Cw2Constants.METRIC_NAME, constant("ExchangesCompleted"))
-                .setHeader(Cw2Constants.METRIC_VALUE, constant("2.0"))
-                .setHeader(Cw2Constants.METRIC_UNIT, constant("Count"))
-                .to("aws2-cw://test")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-ec2?repeatCount=1")
-                .to("aws2-ec2://instance?operation=describeInstances")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-ecs?repeatCount=1")
-                .to("aws2-ecs://cluster?operation=listClusters")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-eks?repeatCount=1")
-                .setHeader("CamelAwsEKSOperation", constant("listClusters"))
-                .to("aws2-eks://cluster")
-                .to("log:sf?showAll=true");
-
         from("timer:quarkus-eventbridge?repeatCount=1")
                 .to("aws2-eventbridge://default?operation=listRules")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-iam?repeatCount=1")
-                .to("aws2-iam://cluster?operation=listAccessKeys")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-kms?repeatCount=1")
-                .setHeader("CamelAwsKMSOperation", constant("listKeys"))
-                .to("aws2-kms://cluster");
-
-        from("timer:quarkus-mq?repeatCount=1")
-                .to("aws2-mq://test?operation=listBrokers")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-msk?repeatCount=1")
-                .to("aws2-msk://cluster?operation=listClusters")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-sts?repeatCount=1")
-                .to("aws2-sts://myaccount?operation=getSessionToken")
                 .to("log:sf?showAll=true");
 
         // TODO: Restore these - https://github.com/apache/camel-quarkus/issues/8912
