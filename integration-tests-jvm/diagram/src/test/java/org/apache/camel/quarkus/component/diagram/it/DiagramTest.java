@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.diagram.it;
 import io.quarkus.test.QuarkusDevModeTest;
 import io.restassured.RestAssured;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -35,23 +34,7 @@ class DiagramTest {
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(DiagramRoutes.class)
-                    .addAsResource(new StringAsset("quarkus.camel.console.enabled=true\n"), "application.properties"));
-
-    @Test
-    void routeDiagramHtml() {
-        RestAssured.given()
-                .accept("text/html")
-                .queryParam("format", "html")
-                .queryParam("mode", "route")
-                .when()
-                .get("/q/camel/diagram/route-diagram")
-                .then()
-                .statusCode(200)
-                .contentType("text/html")
-                .body(containsString("<html"),
-                        containsString("camel-route-diagram"));
-    }
+                    .addClass(DiagramRoutes.class));
 
     @Test
     void routeStructureJson() {
@@ -62,6 +45,7 @@ class DiagramTest {
                 .then()
                 .statusCode(200)
                 .contentType("application/json")
+                .header("X-Content-Type-Options", "nosniff")
                 .body(containsString("routes"),
                         containsString("diagram-test-route"));
     }
@@ -75,8 +59,74 @@ class DiagramTest {
                 .then()
                 .statusCode(200)
                 .contentType("application/json")
+                .header("X-Content-Type-Options", "nosniff")
                 .body(containsString("nodes"),
                         not(emptyString()));
+    }
+
+    @Test
+    void allowedConsoleOptionsAreForwarded() {
+        // The Dev UI web components pass filter & metric to route-structure, and external & metric to route-topology
+        RestAssured.given()
+                .accept("application/json")
+                .queryParam("filter", "diagram-test-route")
+                .queryParam("metric", "true")
+                .when()
+                .get("/q/camel/diagram/route-structure")
+                .then()
+                .statusCode(200)
+                .body(containsString("diagram-test-route"));
+
+        RestAssured.given()
+                .accept("application/json")
+                .queryParam("filter", "no-such-route")
+                .when()
+                .get("/q/camel/diagram/route-structure")
+                .then()
+                .statusCode(200)
+                .body(not(containsString("diagram-test-route")));
+
+        RestAssured.given()
+                .accept("application/json")
+                .queryParam("external", "true")
+                .queryParam("metric", "true")
+                .when()
+                .get("/q/camel/diagram/route-topology")
+                .then()
+                .statusCode(200)
+                .body(containsString("nodes"));
+    }
+
+    @Test
+    void disallowedConsoleOptionsAreStripped() {
+        // The filter is applied when it reaches the console, so the route being listed shows that it did not
+        RestAssured.given()
+                .accept("application/json")
+                .queryParam("filter", "<script>alert(1)</script>")
+                .queryParam("limit", "1")
+                .when()
+                .get("/q/camel/diagram/route-structure")
+                .then()
+                .statusCode(200)
+                .body(containsString("diagram-test-route"),
+                        not(containsString("<script")));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "text/html",
+            // What a browser sends when the URL is opened as a top level navigation
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "*/*" })
+    void onlyJsonIsAcceptable(String accept) {
+        // Console text output is markup meant for a browser to run, and this route serves JSON only
+        RestAssured.given()
+                .accept(accept)
+                .when()
+                .get("/q/camel/diagram/route-structure")
+                .then()
+                .statusCode(406)
+                .body(emptyString());
     }
 
     @Test
@@ -87,10 +137,10 @@ class DiagramTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "context", "jvm", "health", "java-security" })
+    @ValueSource(strings = { "route-diagram", "context", "jvm", "health", "java-security" })
     void nonDiagramConsoleIsNotReachable(String consoleId) {
-        // These consoles are registered and were previously rendered by this route, which exists only to serve
-        // the diagram consoles
+        // These consoles are registered and were previously rendered by this route, which exists to serve the two
+        // consoles the Dev UI diagram page reads
         RestAssured.get("/q/camel/diagram/" + consoleId)
                 .then()
                 .statusCode(404);
