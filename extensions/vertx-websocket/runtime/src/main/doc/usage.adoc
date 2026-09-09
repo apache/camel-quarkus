@@ -50,8 +50,6 @@ from("vertx-websocket:/my-websocket-path?allowedOriginPattern=https://app\\.exam
     .setBody().constant("Hello World");
 ----
 
-See the xref:user-guide/security-model.adoc[Security model] for more about the Camel Quarkus security model.
-
 === Vert.x WebSocket producers
 
 Similar to above, if you want to produce messages to the internal Vert.x WebSocket consumer, then you can omit the host and port from the endpoint URI.

@@ -103,8 +103,6 @@ from("vertx-websocket:/my-websocket-path?allowedOriginPattern=https://app\\.exam
     .setBody().constant("Hello World");
 ----
 
-See the xref:user-guide/security-model.adoc[Security model] for more about the Camel Quarkus security model.
-
 [id="extensions-vertx-websocket-usage-vert-x-websocket-producers"]
 === Vert.x WebSocket producers
 
