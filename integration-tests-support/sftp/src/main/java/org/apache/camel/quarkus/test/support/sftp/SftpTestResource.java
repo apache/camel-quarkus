@@ -77,10 +77,6 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(trustedCaPath),
                             "/config/.ssh/trusted_user_cas.pub")
-                    // Copy authorized_keys with all public keys
-                    .withCopyFileToContainer(
-                            MountableFile.forHostPath(authorizedKeysPath),
-                            "/config/.ssh/authorized_keys")
                     // Copy custom sshd_config
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(sshdConfigPath),
@@ -88,6 +84,15 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
                     .waitingFor(Wait.forLogMessage(".*done.*", 1));
 
             container.start();
+
+            // Copy authorized_keys AFTER container start. The container init process
+            // creates an empty authorized_keys, overwriting any file copied before start.
+            // This is observed with Podman where the init overwrites the pre-copied file.
+            container.copyFileToContainer(
+                    MountableFile.forHostPath(authorizedKeysPath),
+                    "/config/.ssh/authorized_keys");
+            container.execInContainer("chown", "admin:admin", "/config/.ssh/authorized_keys");
+            container.execInContainer("chmod", "600", "/config/.ssh/authorized_keys");
 
             Map<String, String> result = new HashMap<>();
             result.put("camel.sftp.test-port", container.getMappedPort(SFTP_PORT).toString());
