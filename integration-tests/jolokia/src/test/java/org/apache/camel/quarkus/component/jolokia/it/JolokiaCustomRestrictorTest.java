@@ -60,6 +60,23 @@ class JolokiaCustomRestrictorTest {
                 .body("status", equalTo(403));
     }
 
+    /**
+     * The custom restrictor narrows the inherited check rather than replacing it, so the MBean domain
+     * restriction still applies to an operation whose name it would otherwise permit.
+     */
+    @Test
+    void customRestrictorKeepsMbeanDomainFiltering() {
+        String payload = "{\"type\":\"exec\",\"mbean\":\"java.util.logging:type=Logging\","
+                + "\"operation\":\"sendStringBody\",\"arguments\":[]}";
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(payload)
+                .post("/jolokia/")
+                .then()
+                .statusCode(200)
+                .body("status", equalTo(403));
+    }
+
     public static final class JolokiaCustomRestrictorProfile implements QuarkusTestProfile {
         @Override
         public Map<String, String> getConfigOverrides() {

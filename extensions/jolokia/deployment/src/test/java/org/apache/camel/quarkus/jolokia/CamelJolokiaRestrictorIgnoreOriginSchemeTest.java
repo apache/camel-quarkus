@@ -14,20 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jolokia.it;
+package org.apache.camel.quarkus.jolokia;
 
-import javax.management.ObjectName;
-
+import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Only allows MBean operation sendStringBody, on top of everything CamelJolokiaRestrictor already enforces.
+ * Replaces the `ignore-scheme` element of an access policy, so that turning off the rule against answering a
+ * secure origin over plain HTTP does not require introducing a policy file for one flag.
  */
-public class CustomRestrictor extends CamelJolokiaRestrictor {
-    @Override
-    protected boolean allowsOperation(ObjectName pName, String pOperation) {
-        // Asked only once the inherited checks have allowed the operation, so the MBean domain restriction
-        // still applies whatever this returns
-        return pOperation.startsWith("sendStringBody");
+class CamelJolokiaRestrictorIgnoreOriginSchemeTest {
+
+    @RegisterExtension
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .withEmptyApplication()
+            .overrideConfigKey("quarkus.camel.jolokia.ignore-origin-scheme", "true");
+
+    @Test
+    void schemeCheckDisabled() {
+        CamelJolokiaRestrictor restrictor = new CamelJolokiaRestrictor();
+        assertTrue(restrictor.ignoreScheme());
     }
 }

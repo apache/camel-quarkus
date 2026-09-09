@@ -16,18 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jolokia.it;
 
-import javax.management.ObjectName;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
-
-/**
- * Only allows MBean operation sendStringBody, on top of everything CamelJolokiaRestrictor already enforces.
- */
-public class CustomRestrictor extends CamelJolokiaRestrictor {
-    @Override
-    protected boolean allowsOperation(ObjectName pName, String pOperation) {
-        // Asked only once the inherited checks have allowed the operation, so the MBean domain restriction
-        // still applies whatever this returns
-        return pOperation.startsWith("sendStringBody");
-    }
+@QuarkusIntegrationTest
+class JolokiaIgnoreOriginSchemeIT extends JolokiaIgnoreOriginSchemeTest {
 }
