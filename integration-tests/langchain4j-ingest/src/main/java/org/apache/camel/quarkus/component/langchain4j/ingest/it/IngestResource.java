@@ -35,9 +35,9 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.langchain4j.ingest.IngestResult;
+import org.apache.camel.component.langchain4j.ingest.LangChain4jIngest;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestHeaders;
-import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult;
-import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestService;
 import org.apache.camel.spi.IdempotentRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -57,6 +57,10 @@ public class IngestResource {
     EmbeddingStore<TextSegment> customStore;
 
     @Inject
+    @Named("htmlfeed-store")
+    EmbeddingStore<TextSegment> htmlfeedStore;
+
+    @Inject
     @Named("datasheets-store")
     EmbeddingStore<TextSegment> datasheetsStore;
 
@@ -69,6 +73,18 @@ public class IngestResource {
     EmbeddingStore<TextSegment> eventsStore;
 
     @Inject
+    @Named("reports-store")
+    EmbeddingStore<TextSegment> reportsStore;
+
+    @Inject
+    @Named("scans-store")
+    EmbeddingStore<TextSegment> scansStore;
+
+    @Inject
+    @Named("capped-store")
+    EmbeddingStore<TextSegment> cappedStore;
+
+    @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
@@ -76,6 +92,15 @@ public class IngestResource {
 
     @ConfigProperty(name = "ingest.test.directory")
     String directory;
+
+    @ConfigProperty(name = "ingest.reports.directory")
+    String reportsDirectory;
+
+    @ConfigProperty(name = "ingest.scans.directory")
+    String scansDirectory;
+
+    @ConfigProperty(name = "ingest.capped.directory")
+    String cappedDirectory;
 
     /** Asserts a key was committed; registry lookup by name, the same way the pipelines resolve. */
     @GET
@@ -97,15 +122,34 @@ public class IngestResource {
         Files.writeString(dir.resolve(name), content);
     }
 
+    /** Writes a binary document into a parser pipeline's watched directory. */
+    @POST
+    @jakarta.ws.rs.Path("/binary/{pipeline}/{name}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public void writeBinary(@PathParam("pipeline") String pipeline, @PathParam("name") String name,
+            byte[] content) throws Exception {
+        Path dir = Path.of(switch (pipeline) {
+        case "scans" -> scansDirectory;
+        case "capped" -> cappedDirectory;
+        default -> reportsDirectory;
+        });
+        Files.createDirectories(dir);
+        Files.write(dir.resolve(name), content);
+    }
+
     @GET
     @jakarta.ws.rs.Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
     public List<SearchHit> search(@QueryParam("q") String query, @QueryParam("store") String storeName) {
         EmbeddingStore<TextSegment> store = switch (storeName == null ? "products" : storeName) {
         case "custom" -> customStore;
+        case "htmlfeed" -> htmlfeedStore;
         case "datasheets" -> datasheetsStore;
         case "s3" -> s3Store;
         case "events" -> eventsStore;
+        case "reports" -> reportsStore;
+        case "capped" -> cappedStore;
+        case "scans" -> scansStore;
         default -> productsStore;
         };
         // the deterministic test model gives a query no semantic pull towards any document, so
@@ -119,8 +163,8 @@ public class IngestResource {
         return result.matches().stream()
                 .map(match -> new SearchHit(
                         match.embedded().text(),
-                        match.embedded().metadata().getString(IngestService.METADATA_PIPELINE),
-                        match.embedded().metadata().getString(IngestService.METADATA_DOCUMENT_ID)))
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_PIPELINE),
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_DOCUMENT_ID)))
                 .toList();
     }
 
