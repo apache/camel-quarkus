@@ -1,0 +1,20 @@
+= Camel Quarkus 4.0.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 4.0.0.
+
+== LangChain4j Ingest extension changes
+
+=== The ingestion engine moved to the camel-langchain4j-ingest component
+
+The extension now drives the `camel-langchain4j-ingest` component instead of carrying its own implementation.
+The declaration surface is unchanged — the same `quarkus.camel.langchain4j.ingest.*` properties and the same `@Ingest` builder API — and grew new options (`parser`, `embedding-batch-size`, `document-splitter`, `max-document-size`).
+Java code reading the request-reply outcome as `IngestResult` now imports `org.apache.camel.component.langchain4j.ingest.IngestResult` — the extension's `org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult` is gone with the engine, so this surfaces at compile time.
+
+A pipeline's route id is now `langchain4j-ingest-<pipeline-name>` rather than `camel-quarkus-langchain4j-ingest-<pipeline-name>`.
+Tooling that addresses the routes by id — JMX, the management endpoints, `camel.main.*` route policies keyed on ids — must use the new names.
+The prefix is the component's scheme name, so it follows the component.
+
+A consumer-fed delivery whose document id resolves to nothing still fails the exchange, but the message now comes from the component and names its `documentIdHeader` endpoint option instead of the `quarkus.camel.langchain4j.ingest.<name>.source.document-id` property.
+Code matching on the message text must be adjusted; matching on the exception type is unaffected.
+
+The default document-id header on consumer-fed pipelines remains `CamelIngestDocumentId` as released — the extension pins it over the component's own `CamelLangChain4jIngestDocumentId` default — so routes that set the header keep working unchanged.
