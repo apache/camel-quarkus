@@ -55,7 +55,7 @@ class IngestUnnamedBeansTest {
 
     @Test
     void unnamedStoreAndModelResolve() {
-        Assertions.assertNotNull(context.getRoute("camel-quarkus-langchain4j-ingest-docs"),
+        Assertions.assertNotNull(context.getRoute("langchain4j-ingest-docs"),
                 "the pipeline must start with the only store and model beans, unnamed");
     }
 
