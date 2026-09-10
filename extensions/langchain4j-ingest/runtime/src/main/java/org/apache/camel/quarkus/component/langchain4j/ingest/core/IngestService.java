@@ -42,8 +42,10 @@ public class IngestService {
 
     private static final Logger LOG = Logger.getLogger(IngestService.class);
 
-    public static final String METADATA_PIPELINE = "camel_quarkus_pipeline";
-    public static final String METADATA_DOCUMENT_ID = "camel_quarkus_document_id";
+    // the runtime-neutral names of the camel-langchain4j-ingest component (Camel 4.23), which
+    // this engine will delegate to - stores written from 3.40.0 on are compatible with it as-is
+    public static final String METADATA_PIPELINE = "camel_ingest_pipeline";
+    public static final String METADATA_DOCUMENT_ID = "camel_ingest_document_id";
 
     private static final int EMBEDDING_BATCH_SIZE = 32;
 
