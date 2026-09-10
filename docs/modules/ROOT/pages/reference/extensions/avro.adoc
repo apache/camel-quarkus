@@ -74,3 +74,23 @@ The approach to generate Avro classes from Avro schema files is the one coined b
 
 Please see a working configuration in link:https://github.com/apache/camel-quarkus/tree/main/integration-tests/avro[Camel Quarkus Avro integration test] and link:https://github.com/quarkusio/quarkus/tree/main/integration-tests/avro-reload/src/test/avro[Quarkus Avro integration test].
 
+[id="extensions-avro-configuration-trusted-classes"]
+=== Trusted classes
+
+Since Avro 1.12.2, `SpecificData` refuses to load classes that are not explicitly trusted, failing with:
+
+[source,text]
+----
+java.lang.SecurityException: Forbidden com.acme.MyRecord! This class is not trusted to be included in Avro schemas.
+----
+
+Classes annotated with `@org.apache.avro.specific.AvroGenerated` are trusted automatically, which covers everything
+produced by the `generate-code` goal described above. Specific records that predate that annotation, or that were
+written by hand, have to be trusted explicitly:
+
+[source,properties]
+----
+quarkus.avro.trusted-classes=com.acme.MyRecord
+quarkus.avro.trusted-packages=com.acme.avro
+----
+

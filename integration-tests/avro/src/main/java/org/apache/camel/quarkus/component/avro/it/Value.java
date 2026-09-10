@@ -27,6 +27,7 @@ import org.apache.avro.Schema;
 
 @SuppressWarnings("all")
 @RegisterForReflection
+@org.apache.avro.specific.AvroGenerated
 public class Value extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   public static final org.apache.avro.Schema SCHEMA$ = new Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"org.apache.camel.quarkus.component.avro.it\",\"fields\":[{\"name\":\"value\",\"type\":\"string\"}]}");
   @Deprecated public java.lang.CharSequence value;
@@ -80,6 +81,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
   /**
    * RecordBuilder for Value instances.
    */
+  @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Value>
     implements org.apache.avro.data.RecordBuilder<Value> {
 

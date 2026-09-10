@@ -172,3 +172,30 @@ quarkus.camel.xslt.features."http\://javax.xml.XMLConstants/feature/secure-proce
 ----
 
 IMPORTANT: Only disable it where every template the application transforms with is trusted.
+
+== Avro extension changes
+
+=== Avro no longer trusts application classes by default
+
+Avro 1.12.2 validates every class it resolves from a schema and trusts only a small set of JDK types by default. Applications that use Avro specific records, reflected POJOs, or schemas carrying Java class names now fail with:
+
+[source,text]
+----
+java.lang.SecurityException: Forbidden com.acme.orders.avro.Order! This class is not trusted to be included in Avro schemas.
+----
+
+Classes annotated with `@org.apache.avro.specific.AvroGenerated` are trusted automatically, which covers everything produced by the `generate-code` goal of `quarkus-maven-plugin` from `src/main/avro`. Nothing needs to be done for those.
+
+Specific records that predate that annotation, which Avro added in 1.9.0, or that were written by hand, have to be trusted explicitly. Prefer the Quarkus configuration properties, which are resolved at build time and so apply in both JVM and native mode:
+
+[source,properties]
+----
+quarkus.avro.trusted-packages=com.acme.orders.avro
+quarkus.avro.trusted-classes=com.acme.LegacyOrder
+----
+
+Camel's upgrade guide additionally asks `camel-avro-rpc` users to trust the `org.apache.avro` package. That is not needed here. `camel-quarkus-avro-rpc` indexes `avro-ipc`, and the handshake types Avro resolves from its own protocol are annotated, so they are trusted automatically.
+
+Avro's own `org.apache.avro.SERIALIZABLE_PACKAGES` and `org.apache.avro.SERIALIZABLE_CLASSES` system properties still work as an addendum, since Quarkus adds its trusted classes on top of them rather than replacing them. They are read once, when Avro initializes, so they have to be set on the command line. Note that `*` in `org.apache.avro.SERIALIZABLE_PACKAGES` disables the class loading protection entirely.
+
+Whichever route is used, list only the packages holding your own Avro model classes.
