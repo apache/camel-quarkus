@@ -46,9 +46,9 @@ have to be compiled ahead of time to work in native mode. Xalan-J 2.7.x predates
 and its secure-processing feature restricts extension functions without implying the external access
 restrictions the JDK applies under the same feature. The extension applies those restrictions itself:
 
-* Documents being transformed are parsed with an `XMLReader` that does not resolve external general entities, so
-a `SYSTEM` entity in a `DOCTYPE` declaration does not expand into the result. A `SAXSource` carrying an
-`XMLReader` the caller configured is used as it is.
+* Documents being transformed are parsed with an `XMLReader` that does not resolve external entities or load
+external DTDs, so a `SYSTEM` entity in a `DOCTYPE` declaration does not expand into the result, and an external
+DTD or parameter entity is skipped. A `SAXSource` carrying an `XMLReader` the caller configured is used as it is.
 * Resources fetched at transform time by the `document()` function are denied unless a
 `javax.xml.transform.URIResolver` resolves them. This applies to every entry point that hands out something to
 transform with, so a `TransformerHandler` or an `XMLFilter` is restricted just as a `Transformer` is. The
