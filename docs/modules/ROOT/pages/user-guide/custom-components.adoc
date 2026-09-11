@@ -80,6 +80,8 @@ Creating a Quarkus extension provides the most control and allows you to:
 
 See the https://quarkus.io/guides/writing-extensions[Quarkus Writing Extensions Guide] for detailed instructions.
 
+The Camel-specific build items you can produce or consume are listed in xref:contributor-guide/build-items.adoc[Camel Quarkus build items].
+
 == Additional considerations
 
 === Camel service discovery
