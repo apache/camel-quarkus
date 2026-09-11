@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Experimental
 :cq-status-deprecation: Experimental
-:cq-description: Declarative AI document ingestion: point a knowledge base at a folder via configuration; splitting, embedding and storing are handled under the hood
+:cq-description: Ingest documents into a LangChain4j EmbeddingStore: split, embed and store the message body.
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
 :cq-native-since: 3.39.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.39.0## [.badge-key]##Native since##[.badge-supported]##3.39.0## [.badge-key]##🧪##[.badge-unsupported]##Experimental##
 endif::[]
 
-Declarative AI document ingestion: point a knowledge base at a folder via configuration; splitting, embedding and storing are handled under the hood
+Ingest documents into a LangChain4j EmbeddingStore: split, embed and store the message body.
 
 [id="extensions-langchain4j-ingest-whats-inside"]
 == What's inside

@@ -7162,32 +7162,32 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.10.3</version>
+        <version>6.10.4</version>
       </dependency>
       <dependency>
         <groupId>com.atlassian.jira</groupId>
@@ -8342,7 +8342,7 @@
       <dependency>
         <groupId>run.endive</groupId>
         <artifactId>runtime</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
