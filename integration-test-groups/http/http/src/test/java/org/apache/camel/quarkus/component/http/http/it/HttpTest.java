@@ -27,6 +27,12 @@ import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
+import org.apache.camel.quarkus.test.support.pqc.certificate.CertificateFormat;
+import org.apache.camel.quarkus.test.support.pqc.certificate.HybridMode;
+import org.apache.camel.quarkus.test.support.pqc.certificate.PQCAlgorithm;
+import org.apache.camel.quarkus.test.support.pqc.certificate.PQCCertificate;
+import org.apache.camel.quarkus.test.support.pqc.certificate.PQCCertificates;
+import org.apache.camel.quarkus.test.support.pqc.certificate.PrimaryAlgorithm;
 import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,9 +49,15 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestCertificates(certificates = {
         @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
                 Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
+@PQCCertificates(certificates = {
+        @PQCCertificate(name = PqcNginxTestResource.CERT_NAME, hybridMode = HybridMode.CHIMERA, primaryAlgorithm = PrimaryAlgorithm.RSA_2048, pqcAlgorithm = PQCAlgorithm.MLDSA65, formats = {
+                CertificateFormat.PEM, CertificateFormat.PKCS12 }, password = PqcNginxTestResource.TRUSTSTORE_PASSWORD)
+})
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
+@QuarkusTestResource(PqcNginxTestResource.class)
 public class HttpTest extends AbstractHttpTest {
+
     @Override
     public String component() {
         return "http";
@@ -135,6 +147,20 @@ public class HttpTest extends AbstractHttpTest {
                 arguments("example.com", actualPort, host, 200, expectedGroupId, true),
                 arguments("localhost", fakePort, host, 200, expectedGroupId, false),
                 arguments("*local*", actualPort, host, 200, expectedGroupId, false));
+    }
+
+    @Test
+    public void testPqcNginxTls() {
+        // Test BCTLS integration with hybrid RSA+Dilithium certificate
+        // Certificate contains both RSA (for TLS handshake) and Dilithium2 (alternative signature)
+        // Following BC Almanac Chimera-style composite certificate recommendations
+        // Note: Dilithium is the legacy name; ML-DSA is the NIST standardized name
+        RestAssured
+                .when()
+                .get("/test/client/http/pqc/nginx/tls")
+                .then()
+                .statusCode(200)
+                .body(is("Hybrid RSA+Dilithium(ML-DSA) certificate validated"));
     }
 
 }
