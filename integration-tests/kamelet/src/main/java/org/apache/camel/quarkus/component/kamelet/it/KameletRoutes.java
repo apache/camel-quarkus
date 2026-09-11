@@ -76,6 +76,9 @@ public class KameletRoutes extends RouteBuilder {
 
         from("kamelet:timer-source?repeatCount=1&message=Hello From Timer Source Kamelet")
                 .to("seda:timer-source");
+
+        from("kamelet:file-source-test?directory=target/kamelet-file-source-test")
+                .to("seda:file-source-test");
     }
 
     @RegisterForReflection
