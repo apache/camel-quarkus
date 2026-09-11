@@ -172,7 +172,7 @@ As such, one might need to import the `langchain4j-bom` before other related Cam
 
 === Quarkus LangChain4j support
 
-This extension is designed and tested to work together with the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j] extensions. The `EmbeddingStore` and `EmbeddingModel` beans a pipeline writes through are ordinary CDI beans shared by both stacks — including stores declared through Quarkus LangChain4j configuration — and with the RAG augmentor bridge an `@RegisterAiService` interface answers from the store a pipeline filled, without glue code. The integration tests run both stacks in one application.
+This extension is designed and tested to work together with the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j] extensions. The `EmbeddingStore` and `EmbeddingModel` beans a pipeline writes through are ordinary CDI beans shared by both stacks — including stores declared through Quarkus LangChain4j configuration — and with the xref:reference/extensions/langchain4j-embeddingstore.adoc#extensions-langchain4j-embeddingstore-usage-retrieval-augmentors-for-registeraiservice[RAG augmentor bridge] an `@RegisterAiService` interface answers from the store a pipeline filled, without glue code. The integration tests run both stacks in one application.
 
 
 [id="extensions-langchain4j-ingest-additional-camel-quarkus-configuration"]

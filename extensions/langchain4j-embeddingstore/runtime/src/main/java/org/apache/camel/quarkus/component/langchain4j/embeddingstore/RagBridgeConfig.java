@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.langchain4j.embeddingstore;
 
 import java.util.Map;
 import java.util.Optional;
@@ -46,22 +46,28 @@ public interface RagBridgeConfig {
     interface AugmentorConfig {
 
         /**
-         * CDI bean name of the {@code EmbeddingStore} to use.
-         * Matches beans annotated with {@code @Named("name")} or {@code @EmbeddingStoreName("name")}.
+         * CDI bean name of the `EmbeddingStore` to use.
+         * Matches beans annotated with `@Named("name")` or `@EmbeddingStoreName("name")`.
+         *
+         * @asciidoclet
          */
         String embeddingStoreName();
 
         /**
-         * CDI bean name of the {@code EmbeddingModel} to use.
-         * When not set, the default (unnamed) EmbeddingModel is used.
+         * CDI bean name of the `EmbeddingModel` to use.
+         * When not set, the default (unnamed) `EmbeddingModel` is used.
+         *
+         * @asciidoclet
          */
         Optional<String> embeddingModelName();
 
         /**
-         * Marks this augmentor as the one {@code @RegisterAiService} AI services use when they
+         * Marks this augmentor as the one `@RegisterAiService` AI services use when they
          * do not select an augmentor explicitly. Exactly one augmentor must be marked when more
          * than one is configured — otherwise the build fails, because an unmarked ambiguity
          * would silently disable RAG for every AI service in the application.
+         *
+         * @asciidoclet
          */
         @WithName("default")
         @WithDefault("false")

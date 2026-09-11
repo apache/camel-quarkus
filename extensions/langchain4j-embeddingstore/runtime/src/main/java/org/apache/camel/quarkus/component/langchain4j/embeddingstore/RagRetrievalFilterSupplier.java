@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.langchain4j.embeddingstore;
 
 import dev.langchain4j.rag.query.Query;
 import dev.langchain4j.store.embedding.filter.Filter;

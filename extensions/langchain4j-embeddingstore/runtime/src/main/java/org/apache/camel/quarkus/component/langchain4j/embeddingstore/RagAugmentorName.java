@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.langchain4j.embeddingstore;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -29,7 +29,7 @@ import jakarta.inject.Qualifier;
  *
  * <p>
  * Used only internally to mark RagAugmentors, which are not default. See
- * SupportQuarkusLangchain4jProcessor.registerDefaultRetrievalAugmentor
+ * Langchain4jEmbeddingstoreRagProcessor.registerDefaultRetrievalAugmentor
  * Named annotation cannot be used, as it makes beans default.
  */
 @Qualifier
