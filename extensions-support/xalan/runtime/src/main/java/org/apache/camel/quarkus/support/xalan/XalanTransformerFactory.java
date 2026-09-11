@@ -63,8 +63,8 @@ import org.slf4j.LoggerFactory;
  * be lost silently. This factory therefore applies the deny-by-default part itself:
  * <ul>
  * <li>input documents passed to {@link Transformer#transform(Source, javax.xml.transform.Result)} are
- * parsed with an {@link XMLReader} that does not resolve external general entities, which is what upstream
- * Camel's {@code XmlConverter} does for the bodies it converts to a {@link SAXSource} itself,</li>
+ * parsed with an {@link XMLReader} that does not resolve external entities or load external DTDs, which is
+ * what upstream Camel's {@code XmlConverter} does for the bodies it converts to a {@link SAXSource} itself,</li>
  * <li>resources fetched at transform time by the {@code document()} function are denied unless the
  * application's own {@link URIResolver} resolves them, on every entry point that hands out something to
  * transform with - {@link Transformer}, {@link Templates}, {@link TransformerHandler} and
@@ -81,6 +81,8 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(XalanTransformerFactory.class);
 
     private static final String EXTERNAL_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+    private static final String EXTERNAL_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
+    private static final String LOAD_EXTERNAL_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
 
     private final SAXTransformerFactory delegate;
 
@@ -276,9 +278,12 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
     private static XMLReader createSecureXmlReader() throws TransformerException {
         final SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
-        setFeature(factory, javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
         setFeature(factory, EXTERNAL_GENERAL_ENTITIES, false);
+        setFeature(factory, EXTERNAL_PARAMETER_ENTITIES, false);
+        setFeature(factory, LOAD_EXTERNAL_DTD, false);
         try {
+            // Every JAXP implementation must support secure processing, so a failure is not swallowed
+            factory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
             return factory.newSAXParser().getXMLReader();
         } catch (ParserConfigurationException | SAXException e) {
             throw new TransformerException("Could not create a secure XMLReader for the input document", e);

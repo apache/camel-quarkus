@@ -69,6 +69,7 @@ class XalanTransformerFactoryExternalAccessTest {
 
     private static String secretUri;
     private static String secretXmlUri;
+    private static String secretDtdUri;
     private static String includedUri;
 
     @BeforeAll
@@ -83,6 +84,12 @@ class XalanTransformerFactoryExternalAccessTest {
         Files.writeString(secretXml, "<s>" + SECRET + "</s>");
         secretXmlUri = secretXml.toUri().toString();
 
+        // An attribute default rather than an entity, so that the document stays well formed whether or not the
+        // DTD is read, and reading it shows up in the result
+        final Path secretDtd = tempDir.resolve("secret.dtd");
+        Files.writeString(secretDtd, "<!ATTLIST data leak CDATA '" + SECRET + "'>");
+        secretDtdUri = secretDtd.toUri().toString();
+
         final Path included = tempDir.resolve("included.xsl");
         Files.writeString(included, INCLUDED_XSL);
         includedUri = included.toUri().toString();
@@ -92,6 +99,12 @@ class XalanTransformerFactoryExternalAccessTest {
     private static final String COPY_DATA_XSL = "<xsl:stylesheet version='1.0'"
             + " xmlns:xsl='http://www.w3.org/1999/XSL/Transform'><xsl:output method='text'/>"
             + "<xsl:template match='/'><xsl:value-of select='//data'/></xsl:template></xsl:stylesheet>";
+
+    /** Copies {@code //data} and its {@code leak} attribute, which only a DTD that was read can default */
+    private static final String COPY_DATA_AND_DEFAULTED_ATTRIBUTE_XSL = "<xsl:stylesheet version='1.0'"
+            + " xmlns:xsl='http://www.w3.org/1999/XSL/Transform'><xsl:output method='text'/>"
+            + "<xsl:template match='/'><xsl:value-of select='//data'/><xsl:value-of select='//data/@leak'/>"
+            + "</xsl:template></xsl:stylesheet>";
 
     private static String externalEntityDocument() {
         return "<?xml version='1.0'?><!DOCTYPE r [<!ENTITY xxe SYSTEM '" + secretUri + "'>]>"
@@ -232,6 +245,29 @@ class XalanTransformerFactoryExternalAccessTest {
                 new StreamSource(document.toUri().toString()));
 
         assertFalse(result.contains(SECRET), "The external entity was resolved into the transformation result");
+    }
+
+    /**
+     * An external DTD is skipped rather than fetched. Refusing it would leave the protection to the JDK's
+     * {@code accessExternalDTD}, which a system property can lift and which a third-party parser on the
+     * classpath does not apply at all.
+     */
+    @Test
+    void externalDtdInSourceShapedInputIsNotLoaded() throws Exception {
+        final String result = transform(new XalanTransformerFactory(), COPY_DATA_AND_DEFAULTED_ATTRIBUTE_XSL,
+                new StreamSource(new StringReader("<?xml version='1.0'?><!DOCTYPE r SYSTEM '" + secretDtdUri + "'>"
+                        + "<r><data>HELLO</data></r>")));
+
+        assertEquals("HELLO", result.trim());
+    }
+
+    @Test
+    void externalParameterEntityInSourceShapedInputIsNotLoaded() throws Exception {
+        final String result = transform(new XalanTransformerFactory(), COPY_DATA_AND_DEFAULTED_ATTRIBUTE_XSL,
+                new StreamSource(new StringReader("<?xml version='1.0'?><!DOCTYPE r [<!ENTITY % p SYSTEM '"
+                        + secretDtdUri + "'> %p;]><r><data>HELLO</data></r>")));
+
+        assertEquals("HELLO", result.trim());
     }
 
     /** Loading a document by system id has to keep working, entities aside */

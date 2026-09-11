@@ -135,7 +135,7 @@ This affects more than the `xslt:` endpoints. The extension registers its factor
 
 === External entities in input documents are no longer resolved
 
-Documents being transformed are now parsed with an `XMLReader` that does not resolve external general entities, so a `SYSTEM` entity in a `DOCTYPE` declaration no longer expands into the transformation result.
+Documents being transformed are now parsed with an `XMLReader` that does not resolve external entities or load external DTDs, so a `SYSTEM` entity in a `DOCTYPE` declaration no longer expands into the transformation result, and an external DTD or parameter entity is skipped.
 
 Most routes see no change, because camel-xslt already converts `String`, `byte[]` and `InputStream` bodies through Camel's own hardened parser before the transformer sees them. The change matters where the body reaches the transformer already shaped as a `Source`, for example after `convertBodyTo(Source.class)` or from a component that produces one, and for code calling the factory directly.
 
