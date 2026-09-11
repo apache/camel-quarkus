@@ -38,6 +38,17 @@ The bridge is registered when `camel-quarkus-ai-tool` is a dependency and Quarku
 declaring `camel-quarkus-ai-tool` must now add it. A warning naming the affected tools is logged at
 startup when they are registered without it. Its behaviour is otherwise unchanged.
 
+== LangChain4j Ingest extension changes
+
+=== Segment metadata keys are now camel_ingest_*
+
+Segments were written with `camel_quarkus_pipeline` and `camel_quarkus_document_id` metadata; the extension writes the runtime-neutral `camel_ingest_pipeline` and `camel_ingest_document_id` instead.
+These are the key names of the `camel-langchain4j-ingest` component introduced in Camel 4.23.0, which this extension will delegate its engine to — stores written from 3.40.0 on are compatible with that engine as-is, so users of this LTS stream will not face a second key change.
+Nothing else about the metadata changed: the values and the segment text are written exactly as before.
+
+Newly ingested segments carry the new keys, while segments already in a store keep the old ones — retrieval that filters or cites by these keys sees the mismatch.
+Either re-ingest the affected documents (with the default in-memory register a restart re-ingests the directory; clear a persistent register first) so everything carries the new keys, or make retrieval read both key pairs during the transition.
+
 == JTA extension changes
 
 === Rollback and resume failures are no longer swallowed
