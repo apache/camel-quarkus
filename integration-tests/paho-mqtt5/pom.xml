@@ -74,6 +74,11 @@
             <artifactId>camel-quarkus-integration-tests-support-certificate-generator</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
