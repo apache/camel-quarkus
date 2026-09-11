@@ -30,7 +30,7 @@ jobs:
     if: github.repository == 'apache/camel-quarkus' &&
         github.event_name == 'issues' &&
         github.event.issue.milestone.number != 4 && (contains(github.event.issue.labels.*.name, 'wontfix') || github.event.issue.state_reason == 'not_planned')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     concurrency:
       group: assign-wont-fix-issue-milestone-${{ github.event.issue.number }}
       cancel-in-progress: true

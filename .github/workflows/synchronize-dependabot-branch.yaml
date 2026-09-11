@@ -27,7 +27,7 @@ on:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       # Read the changeset artifact produced by the unprivileged CI run
       actions: read
@@ -64,7 +64,7 @@ jobs:
               });
 
               const fs = require('fs');
-              fs.writeFileSync('/home/runner/work/dependabot-pr.zip', Buffer.from(download.data));
+              fs.writeFileSync(`${process.env.RUNNER_TEMP}/dependabot-pr.zip`, Buffer.from(download.data));
               return true;
             }
 
@@ -75,26 +75,28 @@ jobs:
         env:
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
-          if [[ -f /home/runner/work/dependabot-pr.zip ]]; then
-            mkdir -p /home/runner/work/dependabot-pr
-            unzip -o /home/runner/work/dependabot-pr.zip -d /home/runner/work/dependabot-pr
+          PR_ZIP="${RUNNER_TEMP:?}/dependabot-pr.zip"
+          PR_DIR="${RUNNER_TEMP:?}/dependabot-pr"
+          if [[ -f "${PR_ZIP}" ]]; then
+            mkdir -p "${PR_DIR}"
+            unzip -o "${PR_ZIP}" -d "${PR_DIR}"
 
-            PR_HEAD_SHA=$(cat /home/runner/work/dependabot-pr/PR_HEAD_SHA)
+            PR_HEAD_SHA=$(cat "${PR_DIR}/PR_HEAD_SHA")
             if [[ ! "${PR_HEAD_SHA}" =~ ^[0-9a-f]{40}$ ]]; then
               exit 1
             fi
 
-            PR_NUMBER=$(cat /home/runner/work/dependabot-pr/PR_NUMBER)
+            PR_NUMBER=$(cat "${PR_DIR}/PR_NUMBER")
             if [[ ! "${PR_NUMBER}" =~ ^[0-9]+$ ]]; then
               exit 1
             fi
 
-            PR_AUTHOR=$(cat /home/runner/work/dependabot-pr/PR_AUTHOR)
+            PR_AUTHOR=$(cat "${PR_DIR}/PR_AUTHOR")
             if [[ "${PR_AUTHOR}" != "dependabot[bot]" ]]; then
               exit 1
             fi
 
-            BRANCH_REF=$(cat /home/runner/work/dependabot-pr/BRANCH_REF)
+            BRANCH_REF=$(cat "${PR_DIR}/BRANCH_REF")
             if [[ ! "${BRANCH_REF}" =~ ^dependabot/[A-Za-z0-9._/-]+$ ]]; then
               exit 1
             fi
@@ -125,7 +127,7 @@ jobs:
           git config --local user.email "49699333+dependabot[bot]@users.noreply.github.com"
           git config --local user.name "dependabot[bot]"
 
-          CHANGES_PATH=/home/runner/work/dependabot-pr/changes.patch
+          CHANGES_PATH="${RUNNER_TEMP:?}/dependabot-pr/changes.patch"
           if [[ -f "${CHANGES_PATH}" ]]; then
             COMMIT_MESSAGE="Auto generated changes for dependabot commit $(git log -1 --pretty=%H)"
 
@@ -167,7 +169,7 @@ jobs:
 
   rerun-pr-workflow:
     needs: update
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: needs.update.outputs.pr-updated == 'true'
     permissions:
       actions: write

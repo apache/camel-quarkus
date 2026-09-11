@@ -36,8 +36,11 @@ permissions:
 jobs:
   check-doc:
     if: github.repository == 'apache/camel-quarkus'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
+      # ubuntu-slim does not provide yarn, so install the same version that ubuntu-latest does
+      - name: Install yarn
+        run: npm install -g yarn@1.22.22
       - name: Checkout camel-quarkus repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
