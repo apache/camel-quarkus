@@ -38,7 +38,7 @@ jobs:
          !contains(github.event.issue.labels.*.name, 'autolabel/ignore') &&
          !contains(github.event.issue.labels.*.name, 'build/camel-main') &&
          !contains(github.event.issue.labels.*.name, 'build/quarkus-main')"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout Code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
