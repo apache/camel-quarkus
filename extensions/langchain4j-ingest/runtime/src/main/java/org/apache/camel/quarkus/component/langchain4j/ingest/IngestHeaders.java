@@ -25,6 +25,13 @@ public final class IngestHeaders {
      * The stable document id, when {@code source.document-id} does not name another header.
      * Identity is what future update and delete semantics will be built on, so a generated
      * fallback would silently break replacement — an absent id is an error.
+     *
+     * <p>
+     * Deliberately not the {@code camel-langchain4j-ingest} component's own default
+     * ({@code LangChain4jIngestHeaders.DOCUMENT_ID}, {@code CamelLangChain4jIngestDocumentId}):
+     * this name is the contract this extension released in 3.39.0, and it stays pinned on
+     * consumer pipelines so existing routes keep working — the compatibility burden lives
+     * downstream, where it was created.
      */
     public static final String DOCUMENT_ID = "CamelIngestDocumentId";
 

@@ -19,13 +19,6 @@ endif::[]
 
 Ingest documents into a LangChain4j EmbeddingStore: split, embed and store the message body.
 
-[id="extensions-langchain4j-ingest-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}::langchain4j-ingest-component.adoc[LangChain4j Ingest component], URI syntax: `langchain4j-ingest:pipelineName`
-
-Please refer to the above link for usage and configuration details.
-
 [id="extensions-langchain4j-ingest-maven-coordinates"]
 == Maven coordinates
 
@@ -49,7 +42,8 @@ endif::[]
 [id="extensions-langchain4j-ingest-usage-ingesting-a-directory"]
 === Ingesting a directory
 
-Point a pipeline at a folder and the files in it become a knowledge base. No route, no ingestion code:
+Point a pipeline at a folder and the files in it become a knowledge base.
+No route, no ingestion code:
 
 [source,properties]
 ----
@@ -58,17 +52,26 @@ quarkus.camel.langchain4j.ingest.products.embedding-store=products
 quarkus.camel.langchain4j.ingest.products.embedding-model=my-model
 ----
 
-Each file is read as UTF-8 text — there is no format parsing, so convert a PDF or DOCX before it reaches the pipeline — split into overlapping segments (`max-segment-size`, `max-overlap-size`), embedded in batches and written to the store; a document is held in memory whole while it is split. `embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each. Every segment carries `camel_ingest_pipeline` and `camel_ingest_document_id` metadata, so retrieval can cite which document an answer came from (up to 3.39.x the keys were `camel_quarkus_pipeline` and `camel_quarkus_document_id` — see the migration guide). Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time. A pipeline declared through runtime properties alone — nothing but a `source.directory`, say — is invisible to build-time validation; its checks, including the clash with an equally named `@Ingest` pipeline, report at startup instead.
+Each file is read as UTF-8 text — unless a `parser` turns binary formats into text first, see below — split into overlapping segments (`max-segment-size`, `max-overlap-size`; or a `DocumentSplitter` CDI bean named by `document-splitter`, which then replaces the sizes), embedded in batches (`embedding-batch-size`, 32 by default) and written to the store; a document is held in memory whole while it is split, so `max-document-size` can cap it in characters — 0, the default, means no limit, and an oversized document fails the exchange cleanly.
+`embedding-store` and `embedding-model` name CDI beans and may be omitted when the application has exactly one of each.
+Every segment carries `camel_ingest_pipeline` and `camel_ingest_document_id` metadata, so retrieval can cite which document an answer came from (up to 3.39.x the keys were `camel_quarkus_pipeline` and `camel_quarkus_document_id` — see the migration guide).
+Apart from `enabled` and the `source.*` settings shown here, properties are fixed at build time.
+A pipeline declared through runtime properties alone — nothing but a `source.directory`, say — is invisible to build-time validation; its checks, including the clash with an equally named `@Ingest` pipeline, report at startup instead.
 
 [NOTE]
 ====
-This experimental extension keeps no record of what it wrote: an edited document re-ingests on top of its old segments, and removing a document from the source removes nothing from the store. Replace and delete arrive with the synchronising engine in a later release. What is remembered is which documents were already ingested — the idempotent repository below.
+This experimental extension keeps no record of what it wrote: an edited document re-ingests on top of its old segments, and removing a document from the source removes nothing from the store.
+Replace and delete arrive with the synchronising engine in a later release.
+What is remembered is which documents were already ingested — the idempotent repository below.
 ====
 
 [id="extensions-langchain4j-ingest-usage-the-idempotent-repository"]
 === The idempotent repository
 
-A directory pipeline registers what it ingested, keyed on the file's path, modification time and size: unchanged files are skipped, edited files re-ingest (their previous segments remain, see the note above). The default register is in-memory (100,000 keys) and is there for the poll loop, not for restarts: the consumer re-scans the directory on every poll, so without a register a running application would re-embed the whole directory every few seconds. A restart loses it and re-ingests the directory once; a persistent repository makes restarts free. `source.idempotent-repository` names an `IdempotentRepository` bean to use instead:
+A directory pipeline registers what it ingested, keyed on the file's path, modification time and size: unchanged files are skipped, edited files re-ingest (their previous segments remain, see the note above).
+The default register is in-memory (100,000 keys) and is there for the poll loop, not for restarts: the consumer re-scans the directory on every poll, so without a register a running application would re-embed the whole directory every few seconds.
+A restart loses it and re-ingests the directory once; a persistent repository makes restarts free.
+`source.idempotent-repository` names an `IdempotentRepository` bean to use instead:
 
 [source,properties]
 ----
@@ -77,7 +80,8 @@ quarkus.camel.langchain4j.ingest.products.source.idempotent-repository=productsR
 
 The bean can be provided three ways.
 
-*Auto-created*: an in-memory register (100,000 keys) is created and bound under the configured name — no bean definition needed, still lost on restart. If a bean with the name already exists, the existing bean wins:
+*Auto-created*: an in-memory register (100,000 keys) is created and bound under the configured name — no bean definition needed, still lost on restart.
+If a bean with the name already exists, the existing bean wins:
 
 [source,properties]
 ----
@@ -85,7 +89,8 @@ quarkus.camel.langchain4j.ingest.products.source.idempotent-repository=productsR
 quarkus.camel.langchain4j.ingest.products.source.idempotent-repository-auto-create=true
 ----
 
-*Defined in properties* through Camel's `camel.beans.` syntax — here a file-backed register that survives restarts (camel-core, no extra dependency). Use a name without dashes; Camel normalises dashed `camel.beans.` keys to camelCase:
+*Defined in properties* through Camel's `camel.beans.` syntax — here a file-backed register that survives restarts (camel-core, no extra dependency).
+Use a name without dashes; Camel normalises dashed `camel.beans.` keys to camelCase:
 
 [source,properties]
 ----
@@ -96,9 +101,12 @@ camel.beans.productsRegister.cacheSize=100000
 camel.beans.productsRegister.maxFileStoreSize=33554432
 ----
 
-`#class:` beans are created reflectively. For native mode the extension registers the camel-core repositories shown here and every `IdempotentRepository` implementation found in the Jandex index — application classes always, component-provided ones through their jar's index. A class from a jar without an index needs `@RegisterForReflection(targets = ...)` or a `quarkus.index-dependency.*` entry.
+`#class:` beans are created reflectively.
+For native mode the extension registers the camel-core repositories shown here and every `IdempotentRepository` implementation found in the Jandex index — application classes always, component-provided ones through their jar's index.
+A class from a jar without an index needs `@RegisterForReflection(targets = ...)` or a `quarkus.index-dependency.*` entry.
 
-*Defined as a CDI producer* — needed when construction takes other beans. A JDBC register also deduplicates across instances: reliably for consumer-fed pipelines keyed on the document id, for directory pipelines only when all instances see identical paths and modification times:
+*Defined as a CDI producer* — needed when construction takes other beans.
+A JDBC register also deduplicates across instances: reliably for consumer-fed pipelines keyed on the document id, for directory pipelines only when all instances see identical paths and modification times:
 
 [source,java]
 ----
@@ -110,16 +118,52 @@ IdempotentRepository productsRegister(DataSource dataSource) {
 
 More repository types — Caffeine, Infinispan, MongoDB, Cassandra, Hazelcast, Kafka and others, each provided by its component's extension — along with the pattern's details are covered in the xref:{cq-camel-components}:eips:idempotentConsumer-eip.adoc[Idempotent Consumer EIP guide].
 
-Sizing. An in-memory register smaller than the directory evicts keys and re-ingests those files during normal operation — hence the 100,000 default. `FileIdempotentRepository` falls back to its file store on a cache miss, so `cacheSize` is a performance setting; the correctness limit is `maxFileStoreSize`: the default of about 1 MB holds roughly 10–17 thousand of these keys, beyond it the oldest 1000 are dropped with a warning. A JDBC register has no size limit. Every edit adds a new key and old keys are never removed, so a persistent register grows under churn until the synchronising engine arrives. There is no size option; size the bean. Use one register per pipeline — keys are source-derived, and pipelines sharing a register over the same directory skip each other's work.
+Sizing.
+An in-memory register smaller than the directory evicts keys and re-ingests those files during normal operation — hence the 100,000 default.
+`FileIdempotentRepository` falls back to its file store on a cache miss, so `cacheSize` is a performance setting; the correctness limit is `maxFileStoreSize`: the default of about 1 MB holds roughly 10–17 thousand of these keys, beyond it the oldest 1000 are dropped with a warning.
+A JDBC register has no size limit.
+Every edit adds a new key and old keys are never removed, so a persistent register grows under churn until the synchronising engine arrives.
+There is no size option; size the bean.
+Use one register per pipeline — keys are source-derived, and pipelines sharing a register over the same directory skip each other's work.
 
-The register cannot be switched off: the consumer leaves files in place (`noop`), so without a register every poll would re-ingest the directory. To force a full re-ingest, restart (default register) or clear the persistent one. A pipeline that should consume its source — move or delete files after ingestion — uses `source.uri` (for example `file:/inbox?delete=true&idempotent=false` with `source.document-id=CamelFileName`), where all consumer options are available.
+The register cannot be switched off: the consumer leaves files in place (`noop`), so without a register every poll would re-ingest the directory.
+To force a full re-ingest, restart (default register) or clear the persistent one.
+A pipeline that should consume its source — move or delete files after ingestion — uses `source.uri` (for example `file:/inbox?delete=true&idempotent=false` with `source.document-id=CamelFileName`), where all consumer options are available.
 
-On a consumer-fed pipeline (`source.uri` or `@Ingest`), a configured register deduplicates deliveries by document id: a redelivered record or re-listed object ingests once, and a request-reply caller receives `skipped` instead of `ingested`. First write wins per id — an update with the same id is skipped, not replaced; streams that carry updates need a version-aware `source.document-id`. Only a delivery that wrote segments claims its id: a blank document answers `empty` and releases the claim, so an object created empty and populated later under the same id still ingests the content. With eager idempotency, a duplicate racing an in-flight first delivery is answered `skipped` even if that delivery then fails and releases the key.
+On a consumer-fed pipeline (`source.uri` or `@Ingest`), a configured register deduplicates deliveries by document id: a redelivered record or re-listed object ingests once, and a request-reply caller receives `skipped` instead of `ingested`.
+First write wins per id — an update with the same id is skipped, not replaced; streams that carry updates need a version-aware `source.document-id`.
+Only a delivery that wrote segments claims its id: a blank document answers `empty` and releases the claim, so an object created empty and populated later under the same id still ingests the content.
+With eager idempotency, a duplicate racing an in-flight first delivery is answered `skipped` even if that delivery then fails and releases the key.
+
+[id="extensions-langchain4j-ingest-usage-parsing-pdfs-and-office-documents"]
+=== Parsing PDFs and office documents
+
+Setting `parser` puts a document parser between the consumer and the splitter:
+
+[source,properties]
+----
+quarkus.camel.langchain4j.ingest.reports.source.directory=/var/data/reports
+quarkus.camel.langchain4j.ingest.reports.parser=tika
+----
+
+`tika` extracts plain text in-process with Apache Tika.
+It needs the `camel-quarkus-tika` extension, plus the Tika parser module for each format the pipeline should read — `org.apache.tika:tika-parser-pdf-module` for PDF, say.
+A format without its module parses to nothing and the document is skipped as empty (logged as a warning); so is a scanned, image-only PDF, since Tika does no OCR here.
+On a directory pipeline an empty parse still commits the file's key in the duplicate register, so the file is not retried until it changes — after adding a missing parser module, force a re-ingest (restart with the default register, or clear the persistent one).
+A consumer-fed pipeline releases the claim of an empty delivery instead.
+
+`docling` converts documents to structure-preserving markdown through a https://github.com/docling-project/docling-serve[Docling Serve] instance, OCR included.
+It needs the `camel-quarkus-docling` extension and the instance's address in `camel.component.docling.docling-serve-url`.
+
+A missing parser extension fails the build naming the artifact, the same way a missing consumer component does.
+The Java twin is `IngestPipeline.parser("tika")`, and a consumer-fed pipeline parses the same way — the payload the consumer delivers goes to the parser first.
+With a parser, `max-document-size` also rejects a raw payload larger than the cap (in bytes) before it reaches the parser, on top of capping the extracted text (in characters).
 
 [id="extensions-langchain4j-ingest-usage-other-sources-declared-in-java"]
 === Other sources, declared in Java
 
-Any Camel consumer can feed a pipeline — the roughly 300 components, each with its own options and its own documentation. Such a pipeline is declared in Java with `@Ingest` and the Camel Endpoint DSL:
+Any Camel consumer can feed a pipeline — the roughly 300 components, each with its own options and its own documentation.
+Such a pipeline is declared in Java with `@Ingest` and the Camel Endpoint DSL:
 
 [source,java]
 ----
@@ -131,13 +175,20 @@ IngestPipeline events() {
 }
 ----
 
-Typing `dsl.` lists a factory for every component, each completing its own typed options. The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses. `enabled=false` in configuration switches a Java-declared pipeline off. A component missing from the classpath fails at startup with an error naming the extension artifact that provides it — the DSL compiles regardless, since its factories all ship in one artifact.
+Typing `dsl.` lists a factory for every component, each completing its own typed options.
+The method runs once at startup; it must return `IngestPipeline`, take no parameters and use a name no configured pipeline uses.
+`enabled=false` in configuration switches a Java-declared pipeline off.
+A component missing from the classpath fails at startup with an error naming the extension artifact that provides it — the DSL compiles regardless, since its factories all ship in one artifact.
 
-Ingestion needs a stable id per document, and where it lives is the consumer's business: `documentId` names the header — the record key `CamelKafkaKey` above, `CamelAwsS3Key` for S3 — or gives a simple-language expression. Without it, the pipeline expects the `CamelIngestDocumentId` header and fails the exchange when it is absent. Mind each component's own defaults, too: the `aws2-s3` consumer *deletes objects after reading them* unless `deleteAfterRead(false)` is set — a knowledge base reads its source, it does not consume it.
+Ingestion needs a stable id per document, and where it lives is the consumer's business: `documentId` names the header — the record key `CamelKafkaKey` above, `CamelAwsS3Key` for S3 — or gives a simple-language expression.
+Without it, the pipeline expects the `CamelIngestDocumentId` header and fails the exchange when it is absent.
+Mind each component's own defaults, too: the `aws2-s3` consumer *deletes objects after reading them* unless `deleteAfterRead(false)` is set — a knowledge base reads its source, it does not consume it.
 
 After such a pipeline ingests a document, the exchange body is replaced with the `IngestResult`, so a request-reply caller receives the outcome of its call.
 
-The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name — or a simple-language expression written `+$simple{...}+`, the one form MicroProfile Config leaves untouched. The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration. Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
+The same pipeline can be declared purely in properties: `source.uri` takes the consumer URI as written, `source.document-id` the header name — or a simple-language expression written `+$simple{...}+`, the one form MicroProfile Config leaves untouched.
+The URI is fixed at build time by design — a runtime-overridable consumer URI would be arbitrary component invocation — while property placeholders inside it still resolve at startup, keeping credentials and endpoints runtime configuration.
+Treat runtime configuration as the trust boundary it is: the directory and the id expression decide what the process reads into an often external store.
 
 [source,properties]
 ----
@@ -149,7 +200,10 @@ quarkus.camel.langchain4j.ingest.s3docs.embedding-store=products
 [id="extensions-langchain4j-ingest-usage-when-ingestion-fails"]
 === When ingestion fails
 
-A failure while splitting, embedding or storing — a rate-limited model, an unreachable store — propagates to the consumer; there is no dead-letter channel in this increment. For a directory pipeline the file stays where it is and is retried on the next poll, because the duplicate-protection key is only committed on success — which also means a permanently failing file is retried forever, loudly. For a consumer-fed pipeline the component's own error handling applies: a request-reply caller receives the exception, while a Kafka consumer with default settings logs the failure and commits the offset, so the record is *dropped* — and since this engine keeps no record either, nothing remembers it. A record whose configured `document-id` resolves to nothing (a Kafka record without a key, say) fails the same way, one exchange at a time.
+A failure while parsing, splitting, embedding or storing — an encrypted or corrupt document, an unreachable docling-serve, a rate-limited model, an unreachable store — propagates to the consumer; there is no dead-letter channel in this increment.
+For a directory pipeline the file stays where it is and is retried on the next poll, because the duplicate-protection key is only committed on success — which also means a permanently failing file is retried forever, loudly, on every poll: with a parser that includes a document the parser cannot read, so remove or fix such a file, or declare the pipeline with `source.uri` and the file consumer's `moveFailed` option to quarantine failures instead.
+For a consumer-fed pipeline the component's own error handling applies: a request-reply caller receives the exception, while a Kafka consumer with default settings logs the failure and commits the offset, so the record is *dropped* — and since this engine keeps no record either, nothing remembers it.
+A record whose configured `document-id` resolves to nothing (a Kafka record without a key, say) fails the same way, one exchange at a time.
 
 
 [id="extensions-langchain4j-ingest-quarkus-langchain4j-bom"]
@@ -201,6 +255,17 @@ resolve at startup, so credentials and endpoints remain runtime configuration.
 | `string`
 | 
 
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-parser]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-parser[quarkus.camel.langchain4j.ingest."pipeline-name".parser]`
+
+How a consumed payload becomes text before it is split: `tika` extracts plain text
+from PDF, office and similar formats in-process, `docling` converts to
+structure-preserving markdown through a Docling Serve instance (configure it with
+`camel.component.docling.*`). When not set, the payload is read as text as-is. Each
+value needs its extension on the classpath: `camel-quarkus-tika` or
+`camel-quarkus-docling`.
+| `string`
+| 
+
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store[quarkus.camel.langchain4j.ingest."pipeline-name".embedding-store]`
 
 Name of the `EmbeddingStore` bean to write to. When not set, the only one present is
@@ -227,6 +292,33 @@ How much of the previous segment each segment repeats, in characters. Overlap ke
 sentence split across a boundary retrievable from either side.
 | `int`
 | `50`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-embedding-batch-size]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-embedding-batch-size[quarkus.camel.langchain4j.ingest."pipeline-name".embedding-batch-size]`
+
+How many segments are embedded per request to the embedding model. Providers with
+generous per-request limits ingest large documents faster with a bigger batch; a batch
+carries at most `embedding-batch-size` × `max-segment-size` characters, so tune the two
+together against the provider's token limits.
+| `int`
+| `32`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-max-document-size]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-max-document-size[quarkus.camel.langchain4j.ingest."pipeline-name".max-document-size]`
+
+Maximum size of one document in characters, applied to the text about to be split;
+0, the default, means no limit. The pipeline holds a document in memory whole, so the
+cap is the protection against oversized — on a consumer-fed pipeline, attacker-sized —
+payloads. An oversized document fails the exchange cleanly.
+| `int`
+| `0`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-document-splitter]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-document-splitter[quarkus.camel.langchain4j.ingest."pipeline-name".document-splitter]`
+
+Name of the `DocumentSplitter` bean replacing the default recursive splitting;
+`max-segment-size` and `max-overlap-size` are then ignored. Looked up by name only —
+an application may hold unrelated splitters. Segments returned without the identity
+metadata are re-stamped, so a custom splitter cannot break citation.
+| `string`
+| 
 
 a| [[quarkus-camel-langchain4j-ingest-pipeline-name-enabled]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-enabled[quarkus.camel.langchain4j.ingest."pipeline-name".enabled]`
 
