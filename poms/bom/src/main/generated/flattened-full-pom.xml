@@ -8278,6 +8278,11 @@
         <version>3.32.0-GA</version>
       </dependency>
       <dependency>
+        <groupId>org.jgroups</groupId>
+        <artifactId>jgroups</artifactId>
+        <version>5.5.6.Final</version>
+      </dependency>
+      <dependency>
         <groupId>org.jolokia</groupId>
         <artifactId>jolokia-agent-jvm</artifactId>
         <version>2.6.2</version>
