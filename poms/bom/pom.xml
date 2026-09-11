@@ -8693,7 +8693,11 @@
                                     <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
                                     <ignoredOverlaps>
                                         <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
-                                        <ignoredOverlap>io.projectreactor:reactor-core</ignoredOverlap><!-- See https://github.com/apache/camel-quarkus/issues/9139 -->
+                                        <!-- TODO: https://github.com/apache/camel-quarkus/issues/9139 -->
+                                        <ignoredOverlap>io.projectreactor:reactor-core</ignoredOverlap>
+                                        <ignoredOverlap>org.apache.httpcomponents.client5:*</ignoredOverlap>
+                                        <ignoredOverlap>org.apache.httpcomponents.core5:*</ignoredOverlap>
+                                        <ignoredOverlap>com.github.luben:zstd-jni</ignoredOverlap>
                                     </ignoredOverlaps>
                                 </configuration>
                             </execution>
