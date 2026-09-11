@@ -65,7 +65,7 @@ A store only referenced from routes does not need to be injected anywhere in Jav
 [id="extensions-langchain4j-embeddingstore-usage-retrieval-augmentors-for-registeraiservice"]
 === Retrieval augmentors for `@RegisterAiService`
 
-With Quarkus LangChain4j present, a `RetrievalAugmentor` is produced automatically from the `@Default` `EmbeddingStore` and `EmbeddingModel` beans, so an `@RegisterAiService` interface answers from the same store a Camel route ingests into. Nothing is produced when the application declares its own `RetrievalAugmentor`.
+With Quarkus LangChain4j present, a `RetrievalAugmentor` is produced automatically from the `@Default` `EmbeddingStore` and `EmbeddingModel` beans, so an `@RegisterAiService` interface answers from the same store a Camel route ingests into. Nothing is produced when the application declares its own `RetrievalAugmentor`. An AI service that should not answer from the store opts out with `@RegisterAiService(retrievalAugmentor = RegisterAiService.NoRetrievalAugmentorSupplier.class)`.
 
 Augmentors can also be declared explicitly, one per store:
 

@@ -58,9 +58,9 @@ The bridge that produces `RetrievalAugmentor` beans from Camel ingestion routes,
 `camel-quarkus-support-langchain4j`. It is now part of `camel-quarkus-langchain4j-embeddingstore`.
 
 It was previously active for any application depending on `camel-quarkus-langchain4j-agent`,
-`-chat`, `-embeddings`, `-ingest`, `-tools` or `-web-search`. It is now active only when
-`camel-quarkus-langchain4j-embeddingstore` is a dependency. Applications that relied on the bridge
-without it must add it.
+`-chat`, `-embeddings`, `-ingest`, `-tools` or `-web-search`. It is now active when
+`camel-quarkus-langchain4j-embeddingstore` is a dependency, which `camel-quarkus-langchain4j-ingest`
+depends on. Applications using the other extensions that relied on the bridge must add it.
 
 [source,xml]
 ----
@@ -70,8 +70,11 @@ without it must add it.
 </dependency>
 ----
 
-This includes applications configuring `quarkus.camel.langchain4j.rag.augmentors.*`. Without the
-dependency those properties are not recognised and no augmentor is produced.
+This includes applications configuring `quarkus.camel.langchain4j.rag.augmentors.*`, whose
+properties are otherwise not recognised, applications relying on the default augmentor produced
+from an `EmbeddingStore` and an `EmbeddingModel` bean, and applications passing a produced
+augmentor to `AgentConfiguration.withRetrievalAugmentor`. Without the dependency no augmentor is
+produced.
 
 The `RagRetrievalFilterSupplier` interface moved with it. Update the import.
 
