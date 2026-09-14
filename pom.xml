@@ -265,7 +265,7 @@
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <mariadb.container.image>mirror.gcr.io/mariadb:12.2-ubi</mariadb.container.image>
         <milvus.container.image>mirror.gcr.io/milvusdb/milvus:v2.6.21</milvus.container.image>
-        <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1</minio.container.image>
+        <minio.container.image>quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1</minio.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <mysql.container.image>mirror.gcr.io/mysql:9.5</mysql.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.14.2</nats.container.image>
