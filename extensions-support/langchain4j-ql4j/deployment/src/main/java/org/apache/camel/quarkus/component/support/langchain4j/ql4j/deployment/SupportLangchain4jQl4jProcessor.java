@@ -24,6 +24,7 @@ import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import io.quarkiverse.langchain4j.deployment.ExcludeFromImpliedAiServiceBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -49,6 +50,8 @@ class SupportLangchain4jQl4jProcessor {
     private static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName.createSimple(RegisterAiService.class);
     private static final DotName JSON_EXTRACTOR_OUTPUT_GUARDRAIL = DotName
             .createSimple("dev.langchain4j.guardrails.JsonExtractorOutputGuardrail");
+    private static final DotName AI_AGENT_WITHOUT_MEMORY_SERVICE = DotName
+            .createSimple("org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService");
     private static final Logger LOG = Logger.getLogger(SupportLangchain4jQl4jProcessor.class);
 
     @BuildStep
@@ -125,6 +128,15 @@ class SupportLangchain4jQl4jProcessor {
                 .fields()
                 .constructors()
                 .build());
+    }
+
+    @BuildStep
+    void excludeCamelAgentInterfacesFromImpliedRegistration(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ExcludeFromImpliedAiServiceBuildItem> excludedFromImplied) {
+        if (combinedIndex.getIndex().getClassByName(AI_AGENT_WITHOUT_MEMORY_SERVICE) != null) {
+            excludedFromImplied.produce(new ExcludeFromImpliedAiServiceBuildItem(AI_AGENT_WITHOUT_MEMORY_SERVICE.toString()));
+        }
     }
 
     @BuildStep
