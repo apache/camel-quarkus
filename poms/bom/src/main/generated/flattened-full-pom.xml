@@ -6702,6 +6702,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-langchain4j-ql4j</artifactId>
+        <version>3.40.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-langchain4j-ql4j-deployment</artifactId>
+        <version>3.40.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-language</artifactId>
         <version>3.40.0-SNAPSHOT</version>
       </dependency>
@@ -7852,6 +7862,11 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
+        <version>1.13.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.langchain4j</groupId>
+        <artifactId>quarkus-langchain4j-core-deployment</artifactId>
         <version>1.13.1</version>
       </dependency>
       <dependency>

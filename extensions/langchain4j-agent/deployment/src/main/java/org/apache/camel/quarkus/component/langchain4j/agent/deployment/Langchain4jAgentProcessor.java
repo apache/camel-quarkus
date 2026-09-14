@@ -27,7 +27,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.quarkus.component.langchain4j.agent.Langchain4jAgentRecorder;
-import org.apache.camel.quarkus.component.support.langchain4j.deployment.QuarkusLangchain4jPresent;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
