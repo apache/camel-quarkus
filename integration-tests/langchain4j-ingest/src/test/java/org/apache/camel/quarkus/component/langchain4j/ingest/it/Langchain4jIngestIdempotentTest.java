@@ -178,4 +178,37 @@ class Langchain4jIngestIdempotentTest {
                 .then().statusCode(200).extract().asString();
         assertEquals("true", contains);
     }
+
+    /** When both headers are set, the current one wins. */
+    @Test
+    void currentDocumentIdHeaderWinsOverLegacy() {
+        String outcome = RestAssured.given().contentType(ContentType.TEXT)
+                .body("The SIGMA-8 relay carries two ids.")
+                .post("/langchain4j-ingest/feed-both/jdbcdocs/current-sigma.txt/legacy-sigma.txt")
+                .then().statusCode(200).extract().asString();
+        assertEquals("ingested", outcome);
+
+        assertEquals("current-sigma.txt",
+                Langchain4jIngestTest.hit("Which relay carries two ids?", "jdbc", "SIGMA-8").get("documentId"));
+    }
+
+    /**
+     * The deprecated 3.39 header still works and addresses the same identity: a legacy delivery
+     * is deduplicated against a current-header one.
+     */
+    @Test
+    void legacyDocumentIdHeaderStillWorks() {
+        String first = RestAssured.given().contentType(ContentType.TEXT)
+                .body("The LAMBDA-6 valve arrives under the legacy header.")
+                .post("/langchain4j-ingest/feed-legacy/jdbcdocs/legacy/lambda.txt")
+                .then().statusCode(200).extract().asString();
+        assertEquals("ingested", first);
+
+        // the same id through the current header: one identity, so the register answers skipped
+        String second = RestAssured.given().contentType(ContentType.TEXT)
+                .body("The LAMBDA-6 valve tries again under the current header.")
+                .post("/langchain4j-ingest/feed/jdbcdocs/legacy/lambda.txt")
+                .then().statusCode(200).extract().asString();
+        assertEquals("skipped", second);
+    }
 }

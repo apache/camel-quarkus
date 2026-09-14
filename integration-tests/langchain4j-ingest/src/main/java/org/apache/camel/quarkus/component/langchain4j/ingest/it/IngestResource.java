@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
@@ -69,6 +70,10 @@ public class IngestResource {
     EmbeddingStore<TextSegment> eventsStore;
 
     @Inject
+    @Named("jdbc-store")
+    EmbeddingStore<TextSegment> jdbcStore;
+
+    @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
@@ -106,6 +111,7 @@ public class IngestResource {
         case "datasheets" -> datasheetsStore;
         case "s3" -> s3Store;
         case "events" -> eventsStore;
+        case "jdbc" -> jdbcStore;
         default -> productsStore;
         };
         // the deterministic test model gives a query no semantic pull towards any document, so
@@ -139,6 +145,33 @@ public class IngestResource {
         String uri = "direct:" + pipeline + "-feed";
         IngestResult result = producerTemplate.requestBodyAndHeader(uri, content, IngestHeaders.DOCUMENT_ID,
                 documentId, IngestResult.class);
+        return result.outcome().label();
+    }
+
+    /** Feeds a pipeline carrying different ids in the current and the deprecated header, so tests can assert precedence. */
+    @POST
+    @jakarta.ws.rs.Path("/feed-both/{pipeline}/{documentId}/{legacyDocumentId}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @SuppressWarnings("deprecation")
+    public String feedBoth(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
+            @PathParam("legacyDocumentId") String legacyDocumentId, String content) {
+        IngestResult result = producerTemplate.requestBodyAndHeaders("direct:" + pipeline + "-feed", content,
+                Map.of(IngestHeaders.DOCUMENT_ID, documentId, IngestHeaders.LEGACY_DOCUMENT_ID, legacyDocumentId),
+                IngestResult.class);
+        return result.outcome().label();
+    }
+
+    /** Feeds a pipeline carrying the id in the deprecated 3.39 header, so tests can assert the fallback. */
+    @POST
+    @jakarta.ws.rs.Path("/feed-legacy/{pipeline}/{documentId:.+}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @SuppressWarnings("deprecation")
+    public String feedLegacy(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
+            String content) {
+        IngestResult result = producerTemplate.requestBodyAndHeader("direct:" + pipeline + "-feed", content,
+                IngestHeaders.LEGACY_DOCUMENT_ID, documentId, IngestResult.class);
         return result.outcome().label();
     }
 

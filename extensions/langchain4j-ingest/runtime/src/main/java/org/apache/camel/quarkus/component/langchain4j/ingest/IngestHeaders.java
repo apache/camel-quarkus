@@ -25,8 +25,20 @@ public final class IngestHeaders {
      * The stable document id, when {@code source.document-id} does not name another header.
      * Identity is what future update and delete semantics will be built on, so a generated
      * fallback would silently break replacement — an absent id is an error.
+     *
+     * <p>
+     * The {@code camel-langchain4j-ingest} component's name; the 3.39 name is still read, see
+     * {@link #LEGACY_DOCUMENT_ID}.
      */
-    public static final String DOCUMENT_ID = "CamelIngestDocumentId";
+    public static final String DOCUMENT_ID = "CamelLangChain4jIngestDocumentId";
+
+    /**
+     * The 3.39 name, read as a fallback when {@link #DOCUMENT_ID} is absent.
+     *
+     * @deprecated set {@link #DOCUMENT_ID} instead
+     */
+    @Deprecated(since = "3.40.0", forRemoval = true)
+    public static final String LEGACY_DOCUMENT_ID = "CamelIngestDocumentId";
 
     private IngestHeaders() {
     }
