@@ -54,6 +54,7 @@
         <module>jdbc</module>
         <module>jetty</module>
         <module>langchain4j</module>
+        <module>langchain4j-ql4j</module>
         <module>language</module>
         <module>mail</module>
         <module>mongodb</module>

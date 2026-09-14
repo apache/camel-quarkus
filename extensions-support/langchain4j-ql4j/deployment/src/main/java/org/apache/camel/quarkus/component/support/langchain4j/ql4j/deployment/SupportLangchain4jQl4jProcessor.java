@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j.deployment;
+package org.apache.camel.quarkus.component.support.langchain4j.ql4j.deployment;
 
 import java.util.List;
 import java.util.Set;
@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
+import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -35,7 +35,7 @@ import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import jakarta.inject.Singleton;
-import org.apache.camel.quarkus.component.support.langchain4j.QuarkusLangchain4jRecorder;
+import org.apache.camel.quarkus.component.support.langchain4j.ql4j.QuarkusLangchain4jRecorder;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -45,16 +45,11 @@ import org.jboss.logging.Logger;
 
 import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
 
-/**
- * Build steps required only when Quarkus LangChain4j is detected.
- */
-@BuildSteps(onlyIf = QuarkusLangchain4jPresent.class)
-class SupportQuarkusLangchain4jProcessor {
-
-    public static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName
-            .createSimple("io.quarkiverse.langchain4j.RegisterAiService");
-
-    private static final Logger LOG = Logger.getLogger(SupportQuarkusLangchain4jProcessor.class);
+class SupportLangchain4jQl4jProcessor {
+    private static final DotName REGISTER_AI_SERVICES_DOTNAME = DotName.createSimple(RegisterAiService.class);
+    private static final DotName JSON_EXTRACTOR_OUTPUT_GUARDRAIL = DotName
+            .createSimple("dev.langchain4j.guardrails.JsonExtractorOutputGuardrail");
+    private static final Logger LOG = Logger.getLogger(SupportLangchain4jQl4jProcessor.class);
 
     @BuildStep
     SystemPropertyBuildItem enforceJaxRsHttpClient() {
@@ -82,13 +77,13 @@ class SupportQuarkusLangchain4jProcessor {
                 .map(ClassInfo::name)
                 .forEach(guardrailTypes::add);
 
-        index.getAllKnownSubclasses(SupportLangchain4jProcessor.JSON_EXTRACTOR_OUTPUT_GUARDRAIL)
+        index.getAllKnownSubclasses(JSON_EXTRACTOR_OUTPUT_GUARDRAIL)
                 .stream()
                 .map(ClassInfo::name)
                 .forEach(guardrailTypes::add);
 
         guardrailTypes.stream()
-                .filter(s -> !s.equals(SupportLangchain4jProcessor.JSON_EXTRACTOR_OUTPUT_GUARDRAIL))
+                .filter(s -> !s.equals(JSON_EXTRACTOR_OUTPUT_GUARDRAIL))
                 .forEach(s -> {
                     try {
                         Class<Guardrail<?, ?>> guardrailClass;

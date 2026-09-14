@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.support.langchain4j.ql4j;
 
 import java.lang.reflect.InvocationTargetException;
 
