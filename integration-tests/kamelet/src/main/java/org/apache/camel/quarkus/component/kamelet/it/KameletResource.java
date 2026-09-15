@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
+import java.nio.file.Files;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -53,6 +55,23 @@ public class KameletResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Integer consumeFromKamelet() throws Exception {
         return consumerTemplate.receiveBody("kamelet:tick", 10000, Integer.class);
+    }
+
+    /** Writes a document into the file-source-test kamelet's directory — app-side, so native mode shares the path. */
+    @Path("/file/{name}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void writeFile(@PathParam("name") String name, String content) throws Exception {
+        java.nio.file.Path dir = java.nio.file.Path.of("target/kamelet-file-source-test");
+        Files.createDirectories(dir);
+        Files.writeString(dir.resolve(name), content);
+    }
+
+    @Path("/file-content")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String fileContent() {
+        return consumerTemplate.receiveBody("seda:file-source-test", 10000, String.class);
     }
 
     @Path("/property")
