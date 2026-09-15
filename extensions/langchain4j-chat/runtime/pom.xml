@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-langchain4j-chat</artifactId>
-    <name>Camel Quarkus :: langChain4j Chat :: Runtime</name>
+    <name>Camel Quarkus :: LangChain4j Chat :: Runtime</name>
     <description>LangChain4j Chat component</description>
 
     <properties>

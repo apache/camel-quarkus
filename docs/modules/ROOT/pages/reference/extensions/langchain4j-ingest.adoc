@@ -171,8 +171,11 @@ Note that the import order is paramount when using maven `dependencyManagement`.
 As such, one might need to import the `langchain4j-bom` before other related Camel and Quarkus BOMs.
 
 === Quarkus LangChain4j support
+WARNING: At present, this extension is neither tested with nor intended to be used in conjunction with any Quarkus LangChain4j extensions.
+Consequently, both JVM and native modes may exhibit unexpected behaviour or fail to function correctly in such configurations.
+The `EmbeddingStore` and `EmbeddingModel` beans used by an ingestion pipeline are regular CDI beans, so they can be shared with Quarkus LangChain4j. This includes embedding stores configured through Quarkus LangChain4j.
 
-This extension is designed and tested to work together with the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j] extensions. The `EmbeddingStore` and `EmbeddingModel` beans a pipeline writes through are ordinary CDI beans shared by both stacks — including stores declared through Quarkus LangChain4j configuration — and with the xref:reference/extensions/langchain4j-embeddingstore.adoc#extensions-langchain4j-embeddingstore-usage-retrieval-augmentors-for-registeraiservice[RAG augmentor bridge] an `@RegisterAiService` interface answers from the store a pipeline filled, without glue code. The integration tests run both stacks in one application.
+Combined with the xref:reference/extensions/langchain4j-embeddingstore.adoc#extensions-langchain4j-embeddingstore-usage-retrieval-augmentors-for-registeraiservice[RAG augmentor bridge], an `@RegisterAiService` interface can retrieve content from the embedding store populated by a pipeline.
 
 
 [id="extensions-langchain4j-ingest-additional-camel-quarkus-configuration"]

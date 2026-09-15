@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-langchain4j-chat-parent</artifactId>
-    <name>Camel Quarkus :: langChain4j Chat</name>
+    <name>Camel Quarkus :: LangChain4j Chat</name>
     <packaging>pom</packaging>
 
     <modules>
