@@ -127,12 +127,15 @@ Note that the import order is paramount when using maven `dependencyManagement`.
 As such, one might need to import the `langchain4j-bom` before other related Camel and Quarkus BOMs.
 
 === Quarkus LangChain4j support
-
-[#if quarkusLangChain4jSupport?? ]
-[=quarkusLangChain4jSupport]
+[#if quarkusLangChain4jTested]
+This extension is designed and tested to work together with https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus LangChain4j].
 [#else]
 WARNING: At present, this extension is neither tested with nor intended to be used in conjunction with any Quarkus LangChain4j extensions.
 Consequently, both JVM and native modes may exhibit unexpected behaviour or fail to function correctly in such configurations.
+[/#if]
+[#if quarkusLangChain4jSupport?? ]
+
+[=quarkusLangChain4jSupport]
 [/#if]
 [/#if]
 [#if configuration?? || configOptions?size != 0 ]

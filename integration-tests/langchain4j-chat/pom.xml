@@ -27,8 +27,8 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-langchain4j-chat</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: langChain4j Chat</name>
-    <description>Integration tests for Camel Quarkus langChain4j Chat extension</description>
+    <name>Camel Quarkus :: Integration Tests :: LangChain4j Chat</name>
+    <description>Integration tests for Camel Quarkus LangChain4j Chat extension</description>
 
     <dependencies>
         <dependency>
