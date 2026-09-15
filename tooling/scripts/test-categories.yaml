@@ -125,6 +125,7 @@ group-06:
   - headersmap
   - jsonpath
   - kamelet
+  - langchain4j-chat-ql4j
   - lra
   - master-openshift
   - openstack

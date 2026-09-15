@@ -16,11 +16,14 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j.ql4j;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 
 import dev.langchain4j.guardrail.Guardrail;
+import io.quarkiverse.langchain4j.ModelName;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 import org.jboss.logging.Logger;
 
 @Recorder
@@ -35,5 +38,15 @@ public class QuarkusLangchain4jRecorder {
                     "Can not instantiate guardrail of class %s", guardrailClass.getName());
             return null;
         }
+    }
+
+    public RuntimeValue<CamelBeanQualifierResolver> chatModelBeanQualifierResolver(String modelName) {
+        final ModelName.Literal modelNameLiteral = ModelName.Literal.of(modelName);
+        return new RuntimeValue<>(new CamelBeanQualifierResolver() {
+            @Override
+            public Annotation[] resolveQualifiers() {
+                return new Annotation[] { modelNameLiteral };
+            }
+        });
     }
 }
