@@ -193,6 +193,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 ext.isNativeSupported()
                         && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "transferException"));
         model.put("activatesQuarkusLangChain4jBom", ext.getRuntimeArtifactId().contains("langchain4j"));
+        model.put("quarkusLangChain4jTested", Files.isDirectory(multiModuleProjectDirectoryPath
+                .resolve("integration-tests")
+                .resolve(ext.getRuntimeArtifactIdBase() + "-ql4j")));
         // an extension tested with Quarkus LangChain4j states so in this file, replacing the
         // default warning of the "Quarkus LangChain4j support" section
         model.put("quarkusLangChain4jSupport", loadSection(runtimeModuleDir, "quarkus-langchain4j.adoc", charset, null, ext));
