@@ -7557,6 +7557,11 @@
         <version>1.19.0-beta29</version>
       </dependency>
       <dependency>
+        <groupId>io.atlassian.fugue</groupId>
+        <artifactId>fugue</artifactId>
+        <version>6.1.5</version>
+      </dependency>
+      <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>4.2.40</version>
@@ -8095,7 +8100,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js-language</artifactId>
-        <version>23.1.2</version>
+        <version>25.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>

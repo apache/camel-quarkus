@@ -795,6 +795,11 @@
         <version>1.19.0</version>
       </dependency>
       <dependency>
+        <groupId>io.atlassian.fugue</groupId>
+        <artifactId>fugue</artifactId>
+        <version>6.1.5</version>
+      </dependency>
+      <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
         <version>3.6.2.Final</version>
@@ -9105,7 +9110,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js-language</artifactId>
-        <version>23.1.2</version>
+        <version>25.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>

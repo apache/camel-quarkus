@@ -78,6 +78,7 @@
         <awssdk.version>2.49.1</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
         <awscrt.version>0.48.0</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
         <assertj.version>3.27.7</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
+        <atlassian-fugue.version>6.1.5</atlassian-fugue.version><!-- Keep 6.x: fugue 7.0.1 (camel main) ships Java 25 bytecode, Camel Quarkus baseline is Java 17 -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <azure-core.version>1.57.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
@@ -113,6 +114,7 @@
         <google-oauth-client.version>1.39.0</google-oauth-client.version><!-- @sync com.google.cloud:google-cloud-bigquery:${google-cloud-bigquery.version} dep:com.google.oauth-client:google-oauth-client -->
         <graalvm.version>23.1.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:nativeimage -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
+        <graal-js.version>${graalvm-version}</graal-js.version>
         <groovy.version>5.0.8</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
@@ -269,6 +271,7 @@
         <milvus.container.image>mirror.gcr.io/milvusdb/milvus:v2.6.21</milvus.container.image>
         <minio.container.image>quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1</minio.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
+        <mssql.container.image>mcr.microsoft.com/mssql/server:2025-CU8-ubuntu-24.04</mssql.container.image>
         <mysql.container.image>mirror.gcr.io/mysql:9.5</mysql.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.14.2</nats.container.image>
         <opensearch.container.image>mirror.gcr.io/opensearchproject/opensearch:3.7.0</opensearch.container.image>
