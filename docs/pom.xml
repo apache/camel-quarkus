@@ -33,6 +33,20 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>update-build-items-doc</id>
+                        <goals>
+                            <goal>update-build-items-doc</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <executions>
