@@ -34,12 +34,21 @@ public class PahoMqtt5Route extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        SupervisingRouteController supervising = getCamelContext().getRouteController().supervising();
-        supervising.setBackOffDelay(200);
-        supervising.setIncludeRoutes("paho-mqtt5:*");
+        boolean enableSupervising = ConfigProvider.getConfig()
+                .getOptionalValue("paho5.route-controller.supervising", Boolean.class)
+                .orElse(true);
+        if (enableSupervising) {
+            SupervisingRouteController supervising = getCamelContext().getRouteController().supervising();
+            supervising.setBackOffDelay(200);
+            supervising.setIncludeRoutes("paho-mqtt5:*");
+        }
 
-        from("direct:test").to("paho-mqtt5:queue?lazyStartProducer=true&brokerUrl=" + brokerUrl("tcp"));
-        from("paho-mqtt5:queue?brokerUrl=" + brokerUrl("tcp"))
+        String keepAliveOpt = ConfigProvider.getConfig()
+                .getOptionalValue("paho5.keep-alive-interval", String.class)
+                .map(v -> "&keepAliveInterval=" + v)
+                .orElse("");
+        from("direct:test").to("paho-mqtt5:queue?lazyStartProducer=true&brokerUrl=" + brokerUrl("tcp") + keepAliveOpt);
+        from("paho-mqtt5:queue?brokerUrl=" + brokerUrl("tcp") + keepAliveOpt)
                 .id(TESTING_ROUTE_ID)
                 .routePolicy(new RoutePolicySupport() {
                     @Override

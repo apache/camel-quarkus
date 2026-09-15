@@ -49,7 +49,12 @@ public class SagaRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        CamelSagaService sagaService = new InMemorySagaService();
+        CamelSagaService sagaService = new InMemorySagaService() {
+            @Override
+            public boolean isLongRunningActionHeaderSupported() {
+                return true;
+            }
+        };
         getContext().addService(sagaService);
 
         from("direct:saga").saga().propagation(SagaPropagation.REQUIRES_NEW).log("Creating a new order")
