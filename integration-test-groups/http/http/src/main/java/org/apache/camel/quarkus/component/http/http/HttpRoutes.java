@@ -32,5 +32,10 @@ public class HttpRoutes extends RouteBuilder {
                 .to("seda:dlq")
                 .end()
                 .to("http://localhost:{{quarkus.http.test-port}}/service/common/error");
+
+        from("direct:pqc-nginx-tls")
+                .toF("https://{{pqc.nginx.host}}:{{pqc.nginx.port}}/test?httpClientConfigurer=#pqcNginxHttpClientConfigurer");
+
+        // Pure PQC route can not exist - TLS protocol doesn't support pure ML-DSA cipher suites YET
     }
 }
