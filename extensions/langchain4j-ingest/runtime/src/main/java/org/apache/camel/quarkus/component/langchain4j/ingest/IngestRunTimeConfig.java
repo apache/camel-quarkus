@@ -93,7 +93,8 @@ public interface IngestRunTimeConfig {
              * untouched, while a `+${...}+` in a properties file would be consumed as a config
              * expansion before Camel ever saw it. When not set, a pipeline reading a directory
              * uses the file name, and one consuming from a component uses the
-             * `CamelIngestDocumentId` header.
+             * `CamelLangChain4jIngestDocumentId` header (the deprecated 3.39 name
+             * `CamelIngestDocumentId` is still read as a fallback).
              */
             Optional<String> documentId();
         }

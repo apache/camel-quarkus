@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -38,6 +39,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestResult;
 import org.apache.camel.quarkus.component.langchain4j.ingest.core.IngestService;
 import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.support.ExpressionAdapter;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.util.URISupport;
@@ -180,7 +182,7 @@ public class IngestRoutes extends RouteBuilder {
         // not consume it), idempotent keeps the same file from being ingested twice, and the
         // changed read lock waits for a file still being copied in rather than embedding half
         // of it
-        Expression documentId = documentIdExpression(runtime, Exchange.FILE_NAME);
+        Expression documentId = documentIdExpression(name, runtime, Exchange.FILE_NAME);
         maybeAutoCreateRepository(name, runtime);
         String repositoryName = runtime == null ? null : runtime.source().idempotentRepository().orElse(null);
         var endpoint = file(directory)
@@ -219,7 +221,7 @@ public class IngestRoutes extends RouteBuilder {
      */
     private void configureEndpointSource(String name, String uri,
             IngestRunTimeConfig.PipelineRunTimeConfig runtime, IngestService service) {
-        Expression documentId = documentIdExpression(runtime, IngestHeaders.DOCUMENT_ID);
+        Expression documentId = documentIdExpression(name, runtime, IngestHeaders.DOCUMENT_ID);
         maybeAutoCreateRepository(name, runtime);
         String repositoryName = runtime == null ? null : runtime.source().idempotentRepository().orElse(null);
         if (repositoryName == null) {
@@ -272,10 +274,38 @@ public class IngestRoutes extends RouteBuilder {
         return id;
     }
 
-    private Expression documentIdExpression(IngestRunTimeConfig.PipelineRunTimeConfig runtime,
+    @SuppressWarnings("deprecation")
+    private Expression documentIdExpression(String name, IngestRunTimeConfig.PipelineRunTimeConfig runtime,
             String defaultHeader) {
         String configured = runtime == null ? null : runtime.source().documentId().orElse(null);
         if (configured == null) {
+            if (IngestHeaders.DOCUMENT_ID.equals(defaultHeader)) {
+                // the current name first, the 3.39 name as fallback; each name keeps Camel's
+                // header-then-exchange-property lookup. The deprecation is warned once per
+                // pipeline - literal-setting producers get no compiler signal
+                Expression current = ExpressionBuilder.headerExpression(IngestHeaders.DOCUMENT_ID);
+                Expression legacy = ExpressionBuilder.headerExpression(IngestHeaders.LEGACY_DOCUMENT_ID);
+                current.init(getContext());
+                legacy.init(getContext());
+                return new ExpressionAdapter() {
+                    private final AtomicBoolean warned = new AtomicBoolean();
+
+                    @Override
+                    public Object evaluate(Exchange exchange) {
+                        Object id = current.evaluate(exchange, Object.class);
+                        if (id != null) {
+                            return id;
+                        }
+                        id = legacy.evaluate(exchange, Object.class);
+                        if (id != null && warned.compareAndSet(false, true)) {
+                            LOG.warnf("Ingestion pipeline '%s': document id read from the deprecated %s name"
+                                    + " - switch the producer to %s",
+                                    name, IngestHeaders.LEGACY_DOCUMENT_ID, IngestHeaders.DOCUMENT_ID);
+                        }
+                        return id;
+                    }
+                };
+            }
             return ExpressionBuilder.headerExpression(defaultHeader);
         }
         // a bare header name is read as a header directly rather than parsed: a dotted header
