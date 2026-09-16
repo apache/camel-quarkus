@@ -33,11 +33,14 @@ import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
  * S3-compatible store for the {@code s3docs} pipeline. Enables the pipeline (disabled by
  * default) and provides the endpoint/credentials as runtime configuration.
  */
-public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
+public class S3TestResource implements QuarkusTestResourceLifecycleManager {
 
     static final String BUCKET = "ingest-docs";
-    static final String USER = "minioadmin";
-    static final String PASSWORD = "minioadmin";
+    // longer than `test`, so that it also works on FIPS systems
+    static final String ACCESS_KEY = "testAccessKeyId";
+    static final String SECRET_KEY = "testSecretKeyId";
+
+    private static final int PORT = 4566;
 
     static volatile String endpoint;
 
@@ -45,14 +48,13 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        container = new GenericContainer<>(ConfigProvider.getConfig().getValue("minio.container.image", String.class))
-                .withEnv("MINIO_ROOT_USER", USER)
-                .withEnv("MINIO_ROOT_PASSWORD", PASSWORD)
-                .withCommand("server", "/data")
-                .withExposedPorts(9000)
-                .waitingFor(Wait.forHttp("/minio/health/live").forPort(9000));
+        container = new GenericContainer<>(ConfigProvider.getConfig().getValue("floci.container.image", String.class))
+                .withEnv("AWS_ACCESS_KEY_ID", ACCESS_KEY)
+                .withEnv("AWS_SECRET_ACCESS_KEY", SECRET_KEY)
+                .withExposedPorts(PORT)
+                .waitingFor(Wait.forHttp("/_floci/health").forPort(PORT));
         container.start();
-        endpoint = "http://" + container.getHost() + ":" + container.getMappedPort(9000);
+        endpoint = "http://" + container.getHost() + ":" + container.getMappedPort(PORT);
 
         try (S3Client client = s3Client()) {
             client.createBucket(CreateBucketRequest.builder().bucket(BUCKET).build());
@@ -60,9 +62,9 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
         return Map.of(
                 "quarkus.camel.langchain4j.ingest.s3docs.enabled", "true",
-                "minio.endpoint", endpoint,
-                "minio.user", USER,
-                "minio.password", PASSWORD);
+                "s3.endpoint", endpoint,
+                "s3.access-key", ACCESS_KEY,
+                "s3.secret-key", SECRET_KEY);
     }
 
     /** For seeding and mutating the bucket from tests. */
@@ -70,7 +72,8 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
         return S3Client.builder()
                 .endpointOverride(URI.create(endpoint))
                 .region(Region.US_EAST_1)
-                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(USER, PASSWORD)))
+                .credentialsProvider(
+                        StaticCredentialsProvider.create(AwsBasicCredentials.create(ACCESS_KEY, SECRET_KEY)))
                 .forcePathStyle(true)
                 .build();
     }
