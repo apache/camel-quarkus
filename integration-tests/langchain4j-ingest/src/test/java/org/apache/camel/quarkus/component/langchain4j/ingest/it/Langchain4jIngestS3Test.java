@@ -31,12 +31,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * The {@code s3} source against MinIO: an object put into the bucket is ingested, with its key as
- * the document id. The resource is restricted to this class because the file and endpoint tests
- * of this module deliberately run without a container environment.
+ * The {@code s3} source against an S3-compatible store: an object put into the bucket is ingested,
+ * with its key as the document id. The resource is restricted to this class because the file and
+ * endpoint tests of this module deliberately run without a container environment.
  */
 @QuarkusTest
-@QuarkusTestResource(value = MinioTestResource.class, restrictToAnnotatedClass = true)
+@QuarkusTestResource(value = S3TestResource.class, restrictToAnnotatedClass = true)
 class Langchain4jIngestS3Test {
 
     @Test
@@ -55,9 +55,9 @@ class Langchain4jIngestS3Test {
     }
 
     static void putObject(String key, String content) {
-        try (S3Client client = MinioTestResource.s3Client()) {
+        try (S3Client client = S3TestResource.s3Client()) {
             client.putObject(PutObjectRequest.builder()
-                    .bucket(MinioTestResource.BUCKET).key(key).build(),
+                    .bucket(S3TestResource.BUCKET).key(key).build(),
                     RequestBody.fromString(content));
         }
     }

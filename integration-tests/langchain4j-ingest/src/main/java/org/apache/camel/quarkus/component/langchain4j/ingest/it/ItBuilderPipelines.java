@@ -34,14 +34,14 @@ import static org.apache.camel.builder.endpoint.StaticEndpointBuilders.kafka;
 @ApplicationScoped
 public class ItBuilderPipelines {
 
-    @ConfigProperty(name = "minio.endpoint", defaultValue = "http://localhost:9000")
-    String minioEndpoint;
+    @ConfigProperty(name = "s3.endpoint", defaultValue = "http://localhost:4566")
+    String s3Endpoint;
 
-    @ConfigProperty(name = "minio.user", defaultValue = "minioadmin")
-    String minioUser;
+    @ConfigProperty(name = "s3.access-key", defaultValue = "testAccessKeyId")
+    String s3AccessKey;
 
-    @ConfigProperty(name = "minio.password", defaultValue = "minioadmin")
-    String minioPassword;
+    @ConfigProperty(name = "s3.secret-key", defaultValue = "testSecretKeyId")
+    String s3SecretKey;
 
     @ConfigProperty(name = "camel.component.kafka.brokers", defaultValue = "localhost:9092")
     String kafkaBrokers;
@@ -59,7 +59,8 @@ public class ItBuilderPipelines {
 
     /**
      * The lambda form of the Endpoint DSL — nothing imported, the IDE lists every component off
-     * {@code dsl.}. The object key identifies the document, and MinIO addresses buckets by path.
+     * {@code dsl.}. The object key identifies the document, and the store addresses buckets by
+     * path.
      */
     @Ingest("s3docs")
     IngestPipeline s3docs() {
@@ -69,9 +70,9 @@ public class ItBuilderPipelines {
                 .region("us-east-1")
                 .forcePathStyle(true)
                 .overrideEndpoint(true)
-                .uriEndpointOverride(minioEndpoint)
-                .accessKey(minioUser)
-                .secretKey(minioPassword))
+                .uriEndpointOverride(s3Endpoint)
+                .accessKey(s3AccessKey)
+                .secretKey(s3SecretKey))
                 .documentId("CamelAwsS3Key"))
                 .embeddingStore("s3-store")
                 .embeddingModel("test-model")
