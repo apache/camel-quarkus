@@ -275,7 +275,7 @@ structure-preserving markdown through a Docling Serve instance (configure it wit
 value needs its extension on the classpath: `camel-quarkus-tika` or
 `camel-quarkus-docling`.
 | `string`
-|
+| 
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-embedding-store[quarkus.camel.langchain4j.ingest."pipeline-name".embedding-store]`
 
@@ -329,7 +329,7 @@ Name of the `DocumentSplitter` bean replacing the default recursive splitting;
 an application may hold unrelated splitters. Segments returned without the identity
 metadata are re-stamped, so a custom splitter cannot break citation.
 | `string`
-|
+| 
 
 a| [[quarkus-camel-langchain4j-ingest-pipeline-name-enabled]]`link:#quarkus-camel-langchain4j-ingest-pipeline-name-enabled[quarkus.camel.langchain4j.ingest."pipeline-name".enabled]`
 
