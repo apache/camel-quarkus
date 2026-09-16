@@ -7537,11 +7537,6 @@
                 <version>${jnr-ffi.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.luben</groupId>
-                <artifactId>zstd-jni</artifactId>
-                <version>${zstd-jni.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.mwiede</groupId>
                 <artifactId>jsch</artifactId>
                 <version>${jsch.version}</version>
@@ -8730,6 +8725,7 @@
                             </resolutionEntryPointIncludes>
                             <resolutionExcludes>
                                 <!-- Exclude artifacts that we do not want in the flattened BOM -->
+                                <resolutionExclude>com.github.luben:zstd-jni:*:*:*:*</resolutionExclude><!-- Comes from debezium-bom, managed by quarkus-bom -->
                                 <resolutionExclude>*:*:*:*:*:test</resolutionExclude>
                                 <resolutionExclude>*:*:*:test-jar:*:*</resolutionExclude>
                                 <resolutionExclude>*:*:*:*:tests:*</resolutionExclude>
