@@ -372,11 +372,6 @@
         <version>2.2.13</version>
       </dependency>
       <dependency>
-        <groupId>com.github.luben</groupId>
-        <artifactId>zstd-jni</artifactId>
-        <version>1.5.6-10</version>
-      </dependency>
-      <dependency>
         <groupId>com.github.mwiede</groupId>
         <artifactId>jsch</artifactId>
         <version>2.28.6</version>
@@ -9285,7 +9280,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js-language</artifactId>
-        <version>23.1.2</version>
+        <version>25.0.4.1</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
