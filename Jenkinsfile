@@ -54,7 +54,7 @@ pipeline {
                 MAVEN_OPTS = "-Xmx4600m"
             }
             steps {
-                sh "./mvnw ${MAVEN_PARAMS} -Ddeploy -Dquickly clean deploy"
+                sh "./mvnw ${MAVEN_PARAMS} -Ddeploy -Dquickly -Dmaven.install.skip=true clean deploy"
             }
         }
     }
