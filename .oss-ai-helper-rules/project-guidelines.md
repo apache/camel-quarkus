@@ -12,14 +12,11 @@ This rule file contains branching, commit, PR, and task-finding conventions for 
 - **CI-issue branch:** `ci-issue/<short-slug>`
 - **Commit format (ci-issue):** `ci: <brief description>`
 - **PR creation:** always
-- **Backport targets:** `main`, plus the **LTS lines only** — currently `3.33.x` and `3.27.x`. `3.40.x` becomes the next LTS. Camel Quarkus follows the **Quarkus LTS cadence**, so each LTS line pairs with a Quarkus LTS version (3.33.x ↔ Quarkus 3.33.x, 3.27.x ↔ Quarkus 3.27.x). Non-LTS release lines are **not** backport targets, however recently they were released: a backport to `3.39.x` was declined for exactly this reason (#9084). `3.20.x` and `3.15.x` are older LTS lines that are no longer routinely maintained — do not open backport PRs against them without checking first. **Neither a branch's presence in `git branch -r` nor how recently it was committed to tells you whether it is a backport target** — every `3.N.x` branch ever released is still present, and the newest active branch is usually the current non-LTS release line. Confirm LTS status against this list, and use the command below only to tell a live branch from a dormant one:
+- **Backport targets:** `main`, plus the **active LTS lines only**. Camel Quarkus follows the **Quarkus LTS cadence**, so each release branch pairs with the Quarkus stream of the same version. Non-LTS release lines are **not** backport targets. **Neither a branch's presence in `git branch -r` nor how recently it was committed to tells you whether it is a backport target.** List the active LTS branches from the Quarkus registry:
 
   ```sh
-  # %cd (committer date), not %ad: a cherry-picked backport keeps the original
-  # author date, so %ad makes an actively maintained line look stale.
-  for b in $(git branch -r | grep -oE 'origin/3\.[0-9]+\.x' | sort -u); do
-    printf "%-16s %s\n" "${b#origin/}" "$(git log -1 --format='%cd %s' --date=short "$b")"
-  done | sort -k2 -r
+  curl -s https://registry.quarkus.io/client/platforms \
+    | jq -r '.platforms[] | select(."platform-key"=="io.quarkus.platform") | .streams[] | select(.lts) | .id + ".x"'
   ```
 
 - **Backport method:** cherry-pick, preserving the original author and commit message. The backport lands as a new SHA on the target branch.
