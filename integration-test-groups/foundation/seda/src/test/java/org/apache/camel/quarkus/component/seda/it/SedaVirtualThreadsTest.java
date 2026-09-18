@@ -23,7 +23,6 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.condition.JRE;
@@ -32,7 +31,6 @@ import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTestResource(value = SedaVirtualThreadsTest.VirtualThreadsResource.class, restrictToAnnotatedClass = true)
 @QuarkusTest
-@Disabled //https://github.com/apache/camel-quarkus/issues/8687
 class SedaVirtualThreadsTest {
     @EnabledForJreRange(min = JRE.JAVA_21)
     @Test
@@ -57,6 +55,8 @@ class SedaVirtualThreadsTest {
 
         @Override
         public void stop() {
+            // Clears internal camel virtual thread property that may persist across tests
+            System.clearProperty("camel.threads.virtual.enabled");
         }
     }
 }
