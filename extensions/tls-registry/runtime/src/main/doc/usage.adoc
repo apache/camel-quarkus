@@ -123,6 +123,32 @@ Some `quarkus.tls.*` options have no equivalent in `SSLContextParameters`, becau
 
 These options continue to apply to Quarkus's own TLS consumers as normal. Only the Camel bridge is affected.
 
+=== Component Compatibility
+
+Most components should work as per the usage instructions defined in this guide.
+
+The Camel Kafka component cannot use an `SSLContextParameters` bean bridged from a Quarkus TLS configuration, because it requires a keystore location and password, which a bridged bean does not provide.
+
+To secure a Kafka endpoint with a `quarkus.tls.*` configuration, configure the Kafka client to resolve that configuration itself:
+
+[source,java]
+----
+from("kafka:my-topic"
+        + "?securityProtocol=SSL"
+        + "&additionalProperties.ssl.engine.factory.class=io.quarkus.kafka.client.tls.QuarkusKafkaSslEngineFactory"
+        + "&additionalProperties.tls-configuration-name=kafka-tls")
+----
+
+[source,properties]
+----
+quarkus.tls.kafka-tls.key-store.p12.path=/path/to/keystore.p12
+quarkus.tls.kafka-tls.key-store.p12.password=changeit
+quarkus.tls.kafka-tls.trust-store.p12.path=/path/to/truststore.p12
+quarkus.tls.kafka-tls.trust-store.p12.password=changeit
+----
+
+Do not set `sslContextParameters` on the endpoint as well. When `tls-configuration-name` is set, the Kafka client ignores the SSL properties derived from it.
+
 === Certificate Reload
 
 The extension automatically observes certificate reload events from Quarkus TLS registry.
