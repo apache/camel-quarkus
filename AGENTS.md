@@ -26,7 +26,6 @@ Apache Camel Quarkus provides Quarkus extensions for Apache Camel components, en
 - Do NOT directly modify generated files under `docs/modules` or `src/main/generated` as they are automatically updated by maven
 - Do NOT use dynamic class loading or reflection (impacts native compilation)
 - Do NOT introduce Spring Boot or Spring unless explicitly required
-- Do NOT run `./mvnw process-resources -Pformat -T1C` speculatively — it is needed only for certain changes, and only immediately before committing (see "Code Formatting")
 
 ## Technology Stack
 - Java 17+
@@ -66,7 +65,7 @@ examples/            # Example projects (separate repo: camel-quarkus-examples)
 ./mvnw clean install                           # full build with JVM tests
 ./mvnw clean install -pl integration-tests/kafka -Dnative  # native tests for a specific module (only for integration-tests/ or integration-test-groups/ modules)
 ./mvnw clean install -pl extensions/kafka -am  # single extension
-./mvnw process-resources -Pformat -T1C         # format code & update metadata (commit-time only, see "Code Formatting")
+./mvnw process-resources -Pformat -pl :camel-quarkus,<changed modules>  # format changed modules & update metadata (commit-time only, see "Code Formatting")
 ```
 
 **Tip:** Use `mvnd` (Maven Daemon) for faster builds. Use `-T1C` for parallel builds (1 thread per CPU core).
@@ -82,15 +81,20 @@ examples/            # Example projects (separate repo: camel-quarkus-examples)
 
 ## Code Formatting
 
-`./mvnw process-resources -Pformat -T1C` — run it once, immediately before committing, and only when the change actually needs it. For many changes it is a no-op. Never run it after individual edits.
+Run it once, immediately before committing, only for the modules you changed, and only when the change actually needs it. Never run it after individual edits, and never across the whole reactor.
 
-**Run** when you added files (license headers) or edited a `pom.xml` containing a `mvn process-resources` comment reference (for sorting or virtual dependencies).
+**Run** when you added files (license headers) or edited a `pom.xml` containing a `mvn process-resources` comment reference (for sorting or virtual dependencies):
+```bash
+./mvnw process-resources -Pformat -pl :camel-quarkus,<changed modules>  # e.g. -pl :camel-quarkus,extensions/kafka/runtime,integration-tests/kafka
+./mvnw process-resources -Pformat -N                       # pom sorting, virtual dependencies & extension metadata only
+```
+Always include `:camel-quarkus` (the root project) in `-pl`: it runs the root-only goals (pom sorting, virtual dependencies, extension metadata), which cover the whole source tree. Without it they are silently skipped and the build still succeeds. Each listed module gets license headers.
 
 **Skip** for Java-only or docs-only edits: the default build already formats Java and sorts imports at `process-sources` (unless `-Dquickly`).
 
 To regenerate one extension's docs on its own: `./mvnw -pl extensions/kafka/deployment process-classes`.
 
-It rewrites files in place, so run it **before `git add`**, or re-stage after. Always run it from the project root and pass `-T1C`.
+It rewrites files in place, so run it **before `git add`**, or re-stage after. Always run it from the project root.
 
 ## Extension Structure
 ```
@@ -184,7 +188,7 @@ After making changes, run the following from the project root to sync and regene
 ### 6. Format & style
 Deferred to commit time — do not run this after each edit. See "Code Formatting".
 ```bash
-./mvnw process-resources -Pformat -T1C
+./mvnw process-resources -Pformat -pl :camel-quarkus,extensions/kafka/runtime,extensions/kafka/deployment,integration-tests/kafka
 ```
 
 ## Integration Tests
