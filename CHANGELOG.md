@@ -18,6 +18,22 @@
 -->
 # Changelog
 
+## 3.33.3
+
+* [3.33.x] Check for parent SocketException instead of ConnectException to make it work on different systems with different network settings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8853
+* [3.33] fix: use x509 certificates for ftp extensions sftp tests by @gansheer in https://github.com/apache/camel-quarkus/pull/8892
+* Fix it tests 3 33 by @llowinge in https://github.com/apache/camel-quarkus/pull/8925
+* [backport 3.33.x] upgrade libthrift verison in upstream 3.33.x by @JinyuChen97 in https://github.com/apache/camel-quarkus/pull/8933
+* [3.33.x] Upgrade Quarkus to 3.33.3.1 + backports & Quarkus Platform dependency alignment by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8982
+* [3.33.x] Upgrade Camel to 4.18.4 + backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9021
+* Backport #9066 and #9072 to 3.33.x by @oscerd in https://github.com/apache/camel-quarkus/pull/9085
+* [3.33.x] Upgrade Quarkus to 3.33.3.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9121
+* [3.33.x] Bump Reactor-core to 3.8.7 and disable sync by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9140
+* [3.33.x] Backports + Quarkus CXF 3.33.10 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9151
+* [3.33.x] Pull MinIO container image from quay.io by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9156
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.33.2...3.33.3
+
 ## 3.39.0
 
 * Restrict Dev UI JSON-RPC bridge to declared console IDs, allowed options and values by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/8913
@@ -100,6 +116,8 @@
 * Upgrade Quarkus Qpid JMS to 2.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9032
 * Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.21.1 to 3.21.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/9033
 * Upgrade Quarkus CXF to 3.39.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9035
+
+**Full Changelog**: http://github.com/apache/camel-quarkus/compare/3.38.0...3.39.0
 
 ## 3.38.0
 
