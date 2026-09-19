@@ -14,23 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson;
+package org.apache.camel.quarkus.component.jackson.deployment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.component.jackson.JacksonRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 
-public class JacksonProcessor {
+class JacksonProcessor {
 
     private static final String FEATURE = "camel-jackson";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextCustomizerBuildItem customizeCamelContext(JacksonRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.newCamelContextCustomizer());
     }
 
     @BuildStep
