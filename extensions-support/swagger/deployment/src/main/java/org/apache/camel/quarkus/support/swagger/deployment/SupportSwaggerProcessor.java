@@ -19,11 +19,14 @@ package org.apache.camel.quarkus.support.swagger.deployment;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.BeanDescription;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
+import io.swagger.v3.core.jackson.ModelResolver;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jboss.jandex.ClassInfo;
 
@@ -60,5 +63,15 @@ class SupportSwaggerProcessor {
                 .fields()
                 .methods()
                 .build());
+    }
+
+    @BuildStep
+    ReflectiveMethodBuildItem jsonValueAccessorMethod() {
+        // ModelResolver.findJsonValueType looks the method up with a method name that the image builder cannot fold
+        return new ReflectiveMethodBuildItem(
+                ModelResolver.class.getName() + " requires reflective access to it",
+                BeanDescription.class.getName(),
+                "findJsonValueAccessor",
+                new String[0]);
     }
 }
