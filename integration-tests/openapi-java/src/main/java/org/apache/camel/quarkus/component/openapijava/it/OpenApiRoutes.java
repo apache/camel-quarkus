@@ -29,6 +29,7 @@ import org.apache.camel.model.rest.RestParamType;
 import org.apache.camel.quarkus.component.openapijava.it.model.AllOfFormWrapper;
 import org.apache.camel.quarkus.component.openapijava.it.model.AnyOfFormWrapper;
 import org.apache.camel.quarkus.component.openapijava.it.model.Fruit;
+import org.apache.camel.quarkus.component.openapijava.it.model.JsonValueFormWrapper;
 import org.apache.camel.quarkus.component.openapijava.it.model.OneOfFormWrapper;
 
 @ApplicationScoped
@@ -255,6 +256,21 @@ public class OpenApiRoutes extends RouteBuilder {
                 .to("seda:res");
 
         rest("/form")
+                .post("/jsonValue")
+                .tag("JsonValue")
+                .bindingMode(RestBindingMode.json)
+                .description("JsonValue rest service")
+
+                .consumes("application/json")
+                .produces("application/json")
+                .type(JsonValueFormWrapper.class)
+                .responseMessage()
+                .code(200).message("Ok")
+                .endResponseMessage()
+
+                .to("direct:jsonValueForm");
+
+        rest("/form")
                 .post("/anyOf")
                 .tag("AnyOf")
                 .bindingMode(RestBindingMode.json)
@@ -268,6 +284,9 @@ public class OpenApiRoutes extends RouteBuilder {
                 .endResponseMessage()
 
                 .to("seda:res");
+
+        from("direct:jsonValueForm")
+                .setBody(constant("{\"result\": \"Ok\"}"));
 
         from("direct:fruits")
                 .setBody().constant(getFruits())

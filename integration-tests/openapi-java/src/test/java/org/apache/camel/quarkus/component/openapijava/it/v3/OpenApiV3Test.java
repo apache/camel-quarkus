@@ -358,6 +358,22 @@ public class OpenApiV3Test {
 
     @ParameterizedTest
     @EnumSource(OpenApiContentType.class)
+    public void openApiJsonValue(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.schemas.JsonValueFormWrapper.type", is("object"),
+                        // The @JsonValue accessor determines the schema, so the remaining bean properties must not leak
+                        "components.schemas.JsonValueFormWrapper.properties.form.type", is("string"),
+                        "components.schemas", not(hasKey("JsonValueForm")));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
     public void arrayTypes(OpenApiContentType contentType) {
         RestAssured.given()
                 .header("Accept", contentType.getMimeType())
