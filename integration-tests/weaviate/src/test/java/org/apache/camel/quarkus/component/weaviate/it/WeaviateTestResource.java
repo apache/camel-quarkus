@@ -19,16 +19,18 @@ package org.apache.camel.quarkus.component.weaviate.it;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.weaviate.WeaviateContainer;
 
 public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager {
 
+    private static final Logger LOG = Logger.getLogger(WeaviateTestResource.class);
     private static final int GRPC_PORT = 50051;
 
     private static final DockerImageName WEAVIATE_IMAGE = DockerImageName
@@ -40,32 +42,22 @@ public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        Optional<String> apiKey = ConfigProvider.getConfig().getOptionalValue(WeaviateResource.WEAVIATE_API_KEY_ENV,
-                String.class);
-        Optional<String> hostKey = ConfigProvider.getConfig().getOptionalValue(WeaviateResource.WEAVIATE_HOST_ENV,
-                String.class);
-
-        final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
-        final boolean realApiProvided = apiKey.isPresent() && hostKey.isPresent();
-        final boolean usingMockBackend = startMockBackend && !realApiProvided;
-
-        if (usingMockBackend) {
-            MockBackendUtils.logMockBackendUsed();
-            container.start();
-
-            return Map.of(
-                    WeaviateResource.WEAVIATE_CONTAINER_ADDRESS, container.getHttpHostAddress(),
-                    WeaviateResource.WEAVIATE_CONTAINER_GRPC_HOST, container.getHost(),
-                    WeaviateResource.WEAVIATE_CONTAINER_GRPC_PORT, String.valueOf(container.getMappedPort(GRPC_PORT)));
-        } else if (!startMockBackend && !realApiProvided) {
-            throw new IllegalStateException(
-                    "Set %s and %s env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false"
-                            .formatted(WeaviateResource.WEAVIATE_API_KEY_ENV, WeaviateResource.WEAVIATE_HOST_ENV));
-        } else {
+        if (isRealBackendEnabled()) {
             MockBackendUtils.logRealBackendUsed();
+            return Collections.emptyMap();
         }
 
-        return Collections.emptyMap();
+        if (!MockBackendUtils.startMockBackend()) {
+            LOG.warnf("Mock backend is disabled but %s and/or %s are not set, falling back to the Weaviate container",
+                    WeaviateResource.WEAVIATE_API_KEY_ENV, WeaviateResource.WEAVIATE_HOST_ENV);
+        }
+        MockBackendUtils.logMockBackendUsed();
+        container.start();
+
+        return Map.of(
+                WeaviateResource.WEAVIATE_CONTAINER_ADDRESS, container.getHttpHostAddress(),
+                WeaviateResource.WEAVIATE_CONTAINER_GRPC_HOST, container.getHost(),
+                WeaviateResource.WEAVIATE_CONTAINER_GRPC_PORT, String.valueOf(container.getMappedPort(GRPC_PORT)));
     }
 
     @Override
@@ -73,5 +65,16 @@ public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager
         if (container.isRunning()) {
             container.stop();
         }
+    }
+
+    /**
+     * The real backend is used only when the mock backend is disabled and the real API credentials are provided.
+     * Otherwise, the test falls back to the mock backend (container).
+     */
+    private static boolean isRealBackendEnabled() {
+        Config config = ConfigProvider.getConfig();
+        return !MockBackendUtils.startMockBackend()
+                && config.getOptionalValue(WeaviateResource.WEAVIATE_API_KEY_ENV, String.class).isPresent()
+                && config.getOptionalValue(WeaviateResource.WEAVIATE_HOST_ENV, String.class).isPresent();
     }
 }
