@@ -34,6 +34,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.apache.camel.quarkus.test.EnabledIf;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendEnabled;
 import org.apache.camel.quarkus.test.support.aws2.Aws2MockBackend;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
@@ -43,7 +45,6 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -299,10 +300,9 @@ class Aws2SqsTest extends BaseAWs2TestSupport {
         Assertions.assertTrue(received.containsAll(messages));
     }
 
+    @EnabledIf(MockBackendEnabled.class)
     @Test
     void sqsKmsEncryption() {
-        Assumptions.assumeTrue(mockBackend, "KMS test only runs on mock backend");
-
         final String kmsQueueName = "camel-quarkus-kms-"
                 + RandomStringUtils.secure().nextAlphanumeric(10).toLowerCase(Locale.ROOT);
         final String msg = "kms-msg-" + UUID.randomUUID().toString().replace("-", "");
