@@ -162,6 +162,12 @@ a| [[quarkus-camel-opentelemetry2-trace-headers-inclusion]]`link:#quarkus-camel-
 If set to `true`, adds the generated telemetry `CAMEL_TRACE_ID` and `CAMEL_SPAN_ID` Exchange headers.
 | `boolean`
 | `false`
+
+a| [[quarkus-camel-opentelemetry2-trace-custom-id-only]]`link:#quarkus-camel-opentelemetry2-trace-custom-id-only[quarkus.camel.opentelemetry2.trace-custom-id-only]`
+
+If set to `true`, only creates trace spans for routes and nodes that have a custom id assigned.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]

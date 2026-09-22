@@ -35,6 +35,11 @@ public class OpenTelemetry2RouteBuilder extends RouteBuilder {
                 .routeId("tracedRoute")
                 .setBody().constant("Traced direct:start");
 
+        // Route and node both have a custom id assigned, so both are traced when trace-custom-id-only is enabled
+        from("direct:customIdOnly")
+                .routeId("customIdOnlyRoute")
+                .setBody().constant("Traced direct:customIdOnly").id("customIdOnlySetBody");
+
         // NOTE: when we call the bean in this way, the resulting inner span will depends directly on the
         // "to" processor node
         from("direct:greet")

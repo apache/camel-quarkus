@@ -43,6 +43,13 @@ public class OpenTelemetry2Resource {
         return producerTemplate.requestBody("direct:start", null, String.class);
     }
 
+    @Path("/trace/customIdOnly")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceCustomIdOnlyRoute() {
+        return producerTemplate.requestBody("direct:customIdOnly", null, String.class);
+    }
+
     @Path("/greet/{name}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

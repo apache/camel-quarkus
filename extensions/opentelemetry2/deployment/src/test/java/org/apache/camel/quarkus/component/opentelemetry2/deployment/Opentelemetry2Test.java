@@ -43,6 +43,7 @@ public class Opentelemetry2Test {
             .overrideConfigKey("quarkus.camel.opentelemetry2.exclude-patterns", EXCLUDE_PATTERNS)
             .overrideConfigKey("quarkus.camel.opentelemetry2.trace-processors", "true")
             .overrideConfigKey("quarkus.camel.opentelemetry2.trace-headers-inclusion", "true")
+            .overrideConfigKey("quarkus.camel.opentelemetry2.trace-custom-id-only", "true")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
@@ -59,5 +60,6 @@ public class Opentelemetry2Test {
         assertEquals(EXCLUDE_PATTERNS, tracer.getExcludePatterns());
         assertTrue(tracer.isTraceProcessors());
         assertTrue(tracer.isTraceHeadersInclusion());
+        assertTrue(tracer.isTraceCustomIdOnly());
     }
 }
