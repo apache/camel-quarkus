@@ -57,14 +57,14 @@ class Aws2KmsTest extends BaseAWs2TestSupport {
                 .asString();
 
         try {
-            // describeKey via the Camel route — newly created keys start enabled
+            // describeKey via the Camel route - newly created keys start enabled
             given()
                     .get("/aws2-kms/keys/" + keyId)
                     .then()
                     .statusCode(200)
                     .body(matchesPattern(KeyState.ENABLED.toString()));
 
-            // listKeys — the new key must be visible
+            // listKeys - the new key must be visible
             given()
                     .get("/aws2-kms/keys")
                     .then()
