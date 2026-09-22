@@ -19,23 +19,23 @@
 # To periodically rebalance groups run: mvn org.apache.camel.quarkus:camel-quarkus-maven-plugin:rebalance-test-groups -Dcq.ciRunId=<GitHub Workflow Run ID> -N
 group-01:
   - caffeine
-  - qdrant
   - git
   - google-storage
   - hazelcast
   - http-grouped
   - infinispan
   - infinispan-quarkus-client
-  - master-infinispan
   - jcache
   - jms-artemis-client
   - jms-artemis-ra
   - jms-ibmmq-client
   - jsch
-  - microprofile-fault-tolerance
   - kafka
   - kafka-sasl
+  - master-infinispan
+  - microprofile-fault-tolerance
   - mllp
+  - qdrant
 group-02:
   - aws2
   - beanio
@@ -53,8 +53,8 @@ group-02:
   - langchain4j-agent-ql4j
   - oaipmh
   - ocsf
-  - pubnub
   - protobuf
+  - pubnub
   - smallrye-reactive-messaging
   - sql
   - telemetry-dev
@@ -77,13 +77,10 @@ group-03:
   - main-yaml
   - microprofile-health
   - shiro
-  - twitter
-  - validator
-  - vertx
 group-04:
   - arangodb
-  - debezium-grouped
   - couchdb
+  - debezium-grouped
   - influxdb
   - jms-qpid-amqp-client
   - jpa
@@ -95,9 +92,6 @@ group-04:
   - micrometer-observability
   - minio
   - mongodb-grouped
-  - mybatis
-  - observability-services
-  - sjms-artemis-client
 group-05:
   - a2a
   - avro
@@ -111,13 +105,13 @@ group-05:
   - fory
   - hl7
   - jaxb
+  - mapstruct
   - oauth
   - once
-  - mapstruct
-  - ssh
   - soap
-  - xmlsecurity
+  - ssh
   - syslog
+  - xmlsecurity
 group-06:
   - exec
   - file
@@ -128,12 +122,15 @@ group-06:
   - langchain4j-chat-ql4j
   - lra
   - master-openshift
+  - observability-services
   - openstack
   - opentelemetry
   - quartz
   - saga
   - sjms-qpid-amqp-client
   - splunk
+  - stax
+  - validator
   - wasm
 group-07:
   - cassandraql
@@ -141,22 +138,19 @@ group-07:
   - dropbox
   - geocoder
   - jslt
-  - ldap
   - langchain4j-embeddings
   - langchain4j-embeddings-ql4j
   - langchain4j-ingest
   - langchain4j-rag-bridge-ql4j
+  - ldap
   - lumberjack
   - ognl
   - olingo4
   - openai
   - optaplanner
   - pg-replication-slot
-  - splunk-hec
   - sjms2-artemis-client
-  - sjms2-qpid-amqp-client
-  - stax
-  - weather
+  - splunk-hec
 group-08:
   - azure-grouped
   - crypto
@@ -170,9 +164,12 @@ group-08:
   - pinecone
   - pqc
   - saxon
+  - sjms-artemis-client
   - syndication
   - telegram
   - tika
+  - vertx
+  - weather
   - xml-jaxp
   - zendesk
 group-09:
@@ -186,14 +183,15 @@ group-09:
   - jt400-mocked
   - kafka-sasl-ssl
   - kafka-ssl
-  - mina-sftp
-  - paho
   - management
+  - mina-sftp
   - nats
+  - paho
   - spring-rabbitmq
   - xchange
   - xpath
 group-10:
+  - ai-tool-langchain4j
   - as2
   - braintree
   - consul
@@ -204,7 +202,6 @@ group-10:
   - ibm-cos
   - ibm-watson-discovery
   - ibm-watson-language
-  - ai-tool-langchain4j
   - mail
   - platform-http-proxy
   - platform-http-proxy-ssl
@@ -219,17 +216,20 @@ group-11:
   - google-secret-manager
   - grok
   - jolt
-  - jsoup
   - jsonata
+  - jsoup
   - langchain4j-tokenizer
   - milo
   - mustache
+  - mybatis
   - netty
   - qute
   - servlet
+  - sjms2-qpid-amqp-client
   - smb
   - stringtemplate
   - tarfile
+  - twitter
   - univocity-parsers
   - velocity
   - xj
@@ -240,35 +240,35 @@ group-12:
   - aws2-grouped
   - csimple
   - github2
-  - quartz-clustered
   - knative
-  - langchain4j-web-search
   - langchain4j-tools
+  - langchain4j-web-search
   - mcp-server
   - openapi-java
   - openapi-validator
+  - opentelemetry2
   - paho-mqtt5
   - platform-http
+  - quartz-clustered
   - reactive-streams
   - rest
   - rest-openapi
   - vertx-websocket
-  - opentelemetry2
 group-13:
   - fhir
   - google-bigquery
   - jasypt
-  - jira
   - java-joor-dsl
   - jdbc-grouped
+  - jira
   - kubernetes
   - langchain4j-embeddingstore
   - langchain4j-embeddingstore-ql4j
   - milvus
+  - pgevent
+  - rocketmq
   - salesforce
   - sap-netweaver
   - servicenow
   - slack
   - twilio
-  - pgevent
-  - rocketmq
