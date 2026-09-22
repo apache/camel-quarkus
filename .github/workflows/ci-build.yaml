@@ -247,11 +247,25 @@ jobs:
       - name: Setup Maven Cache
         id: maven-cache
         uses: ./.github/actions/setup-maven-cache
+      - name: Set up JDK 25 for the Camel build
+        # Camel compiles its Java 21/25 multi-release sources (e.g. the virtual thread aware CamelThreadFactory)
+        # only when built on JDK 21+, so build it like the Camel releases are built (JDK 25)
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: '25'
       - name: Build Camel
         if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           cd ../camel
           ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -T1C
+      - name: Restore JDK 17 after the Camel build
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Detect PR Incremental Build
         id: detect-incremental
         if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'ci/disable-incremental')
