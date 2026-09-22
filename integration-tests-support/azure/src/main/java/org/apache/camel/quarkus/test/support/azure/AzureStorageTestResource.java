@@ -50,6 +50,7 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
     private GenericContainer<?> container;
     private GenericContainer<?> eventHubsEmulatorContainer;
     private Network network = Network.newNetwork();
+    private static final String azureBlobContainername = "camel-quarkus-" + UUID.randomUUID();
 
     public enum AzuriteService {
         blob(10000),
@@ -92,8 +93,6 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
         final String realAzureStorageAccountName = System.getenv("AZURE_STORAGE_ACCOUNT_NAME");
         final boolean realCredentialsProvided = realAzureStorageAccountName != null
                 && System.getenv("AZURE_STORAGE_ACCOUNT_KEY") != null;
-
-        final String azureBlobContainername = "camel-quarkus-" + UUID.randomUUID();
 
         final String azureStorageAccountName = config
                 .getValue("azure.storage.account-name", String.class);
