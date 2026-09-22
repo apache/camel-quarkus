@@ -5,6 +5,8 @@ rs.initiate( {
         'host' : 'mongodb_private:27017',
         'priority': 2}]
     });
+for (var i = 0; i < 600 && !db.hello().isWritablePrimary; i++) { sleep(100); }
+if (!db.hello().isWritablePrimary) { throw new Error('Replica set member did not become primary within 60 seconds'); }
 
 db.getSiblingDB('admin').runCommand( {
     createRole: 'listDatabases',
