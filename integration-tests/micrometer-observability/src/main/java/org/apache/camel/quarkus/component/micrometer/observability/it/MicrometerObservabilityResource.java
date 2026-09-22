@@ -51,6 +51,20 @@ public class MicrometerObservabilityResource {
         return producerTemplate.requestBody("direct:excluded", "test", String.class);
     }
 
+    @Path("/trace-custom-id")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceCustomId() {
+        return producerTemplate.requestBody("direct:customId", "test", String.class);
+    }
+
+    @Path("/trace-no-custom-id")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceNoCustomId() {
+        return producerTemplate.requestBody("direct:noCustomId", "test", String.class);
+    }
+
     @Path("/trace-upstream")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

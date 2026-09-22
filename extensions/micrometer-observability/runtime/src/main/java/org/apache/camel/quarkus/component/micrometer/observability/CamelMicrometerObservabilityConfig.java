@@ -30,9 +30,9 @@ public interface CamelMicrometerObservabilityConfig {
      * Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns.
      * The pattern can take the following forms:
      *
-     * 1. An exact match on the endpoint URI, e.g., {@code platform-http:/some/path}
-     * 2. A wildcard match, e.g., {@code platform-http:*}
-     * 3. A regular expression matching the endpoint URI, e.g., {@code platform-http:/prefix/.*}
+     * 1. An exact match on the endpoint URI, e.g., `platform-http:/some/path`
+     * 2. A wildcard match, e.g., `platform-http:*`
+     * 3. A regular expression matching the endpoint URI, e.g., `platform-http:/prefix/.*`
      *
      * @asciidoclet
      */
@@ -47,7 +47,7 @@ public interface CamelMicrometerObservabilityConfig {
     Optional<String> includePatterns();
 
     /**
-     * Sets whether to create new spans for each Camel Processor. Use the {@code excludePatterns} property to filter
+     * Sets whether to create new spans for each Camel Processor. Use the `excludePatterns` property to filter
      * out specific processors.
      *
      * When enabled, this generates much more detailed traces but also increases overhead.
@@ -59,7 +59,7 @@ public interface CamelMicrometerObservabilityConfig {
 
     /**
      * Disable tracing of inner core processors (any core DSL processor provided in the route, for example
-     * {@code bean}, {@code log}, ...).
+     * `bean`, `log`, ...).
      *
      * @asciidoclet
      */
@@ -67,11 +67,19 @@ public interface CamelMicrometerObservabilityConfig {
     boolean disableCoreProcessors();
 
     /**
-     * If set to {@code true}, adds the generated telemetry {@code CAMEL_TRACE_ID} and {@code CAMEL_SPAN_ID}
+     * If set to `true`, adds the generated telemetry `CAMEL_TRACE_ID` and `CAMEL_SPAN_ID`
      * Exchange headers.
      *
      * @asciidoclet
      */
     @WithDefault("false")
     boolean traceHeadersInclusion();
+
+    /**
+     * If set to `true`, only creates trace spans for routes and nodes that have a custom id assigned.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("false")
+    boolean traceCustomIdOnly();
 }
