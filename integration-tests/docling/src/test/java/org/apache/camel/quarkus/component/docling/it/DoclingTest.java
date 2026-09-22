@@ -27,6 +27,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
@@ -40,6 +41,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(DoclingTestResource.class)
+@DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/9212
 class DoclingTest {
 
     @Test
