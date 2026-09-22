@@ -23,7 +23,7 @@ def makeTestClassNamesUnique(File sourceDir, String classNamePrefix) {
                 String className = originalName.replace(".java", "")
                 String newClassName = "${classNamePrefix}${className}"
 
-                String content = file.text
+                String content = file.getText('UTF-8')
 
                 // Save @QuarkusTestResource annotations
                 def annotations = []
@@ -46,7 +46,7 @@ def makeTestClassNamesUnique(File sourceDir, String classNamePrefix) {
                     content = content.replace("___PLACEHOLDER_${i}___", annotation)
                 }
 
-                file.write(content)
+                file.write(content, 'UTF-8')
 
                 String path = file.absolutePath.replace(originalName, "${classNamePrefix}${originalName}")
                 file.renameTo(path)
