@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Map;
 
+import org.apache.camel.quarkus.test.FipsModeUtil;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -53,12 +54,20 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
         // This generally means that you are trying to use an image that Testcontainers has not been designed to use.
         DockerImageName mySqlImage = DockerImageName.parse(MYSQL_IMAGE).asCompatibleSubstituteFor("mysql");
 
-        return new MySQLContainer(mySqlImage)
+        MySQLContainer container = new MySQLContainer(mySqlImage)
                 .withUsername(DB_USERNAME)
                 .withPassword(DB_PASSWORD)
                 .withDatabaseName(DB_NAME)
                 .withLogConsumer(new Slf4jLogConsumer(log))
                 .withInitScript("initMysql.sql");
+
+        if (FipsModeUtil.isFipsMode()) {
+            // TLS for the Testcontainers readiness check and init script. Without TLS Connector/J needs RSA-OAEP with
+            // SHA-1, which FIPS JVMs do not provide.
+            container.withUrlParam("useSSL", "true");
+        }
+
+        return container;
     }
 
     @Override
