@@ -2,10 +2,13 @@ The Weaviate integration tests use docker test container by default.
 
 To run the `camel-quarkus-weaviate` integration tests against the real API, you must first create a Weaviate account and cluster (https://weaviate.io/).
 
-Set the following environment variables:
+Disable the mock backend and set the following environment variables:
 
 [source,shell]
 ----
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
 export WEAVIATE_API_KEY=#your-weaviate-apikey
 export WEAVIATE_HOST=#your-weaviate-host
 ----
+
+If the mock backend is disabled but the Weaviate variables are missing, the tests fall back to the docker test container.
