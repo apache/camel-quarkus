@@ -67,7 +67,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 .withEnv("JAVA_ARGS_APPEND", "-Dbrokerconfig.maxDiskUsage=-1 " + String.join(" ", javaArgs))
                 .waitingFor(Wait.forLogMessage(".*AMQ241001.*", 1))
                 .withCreateContainerCmdModifier(
-                        cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 2048L, 2048L) }));
+                        cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 8192L, 8192L) }));
 
         container.start();
 
