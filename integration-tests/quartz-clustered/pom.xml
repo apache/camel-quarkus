@@ -201,6 +201,37 @@
                 <skipTests>true</skipTests>
             </properties>
         </profile>
+        <profile>
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <!-- TLS for the MySQL dev service readiness check. Without TLS Connector/J needs RSA-OAEP with SHA-1, which FIPS JVMs do not provide. -->
+                                <quarkus.datasource.devservices.properties.useSSL>true</quarkus.datasource.devservices.properties.useSSL>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <quarkus.datasource.devservices.properties.useSSL>true</quarkus.datasource.devservices.properties.useSSL>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>
