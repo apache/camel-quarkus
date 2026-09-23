@@ -87,21 +87,23 @@ public class Langchain4jEmbeddingstoreRecorder {
 
     /**
      * The auto-produced default augmentor resolves the {@code @Default} store and model on first use. The
-     * build detected at least one bean of each type, but a bean it detected may be named rather than default,
-     * which would fail that late; so the beans are verified at startup, once the synthetic ones exist.
+     * build detected at least one bean of each type, but a store it detected may be named rather than
+     * default, which would fail that late; so the beans are checked at startup, once the synthetic ones
+     * exist. The check resolves without creating an instance, and it warns rather than fails: an
+     * application that never uses the augmentor must keep starting.
      */
     public void verifyDefaultRetrievalAugmentorBeans() {
-        boolean store = Arc.container().instance(EMBEDDING_STORE_TYPE).isAvailable();
-        boolean model = Arc.container().instance(EmbeddingModel.class).isAvailable();
+        boolean store = Arc.container().select(EMBEDDING_STORE_TYPE).isResolvable();
+        boolean model = Arc.container().select(EmbeddingModel.class).isResolvable();
         if (store && model) {
             return;
         }
-        throw new IllegalStateException("The default RetrievalAugmentor was produced because an EmbeddingStore and"
-                + " an EmbeddingModel bean were detected, but no unambiguous @Default "
-                + (store ? "EmbeddingModel" : "EmbeddingStore")
-                + " bean resolves at runtime. If the beans are named, select them with"
-                + " quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name and"
-                + " .embedding-model-name; otherwise provide default beans, or opt the AI service out with"
-                + " @RegisterAiService(retrievalAugmentor = RegisterAiService.NoRetrievalAugmentorSupplier.class)");
+        LOG.warnf("The default RetrievalAugmentor was produced because an EmbeddingStore and an EmbeddingModel bean"
+                + " were detected, but no unambiguous @Default %s bean resolves, so an AI service using the augmentor"
+                + " will fail. If the beans are named, select them with"
+                + " quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name and .embedding-model-name;"
+                + " otherwise provide default beans, or opt the AI service out with"
+                + " @RegisterAiService(retrievalAugmentor = RegisterAiService.NoRetrievalAugmentorSupplier.class)",
+                store ? "EmbeddingModel" : "EmbeddingStore");
     }
 }

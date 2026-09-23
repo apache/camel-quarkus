@@ -108,10 +108,14 @@ An AI service that must not answer from the store opts out:
 A store shared by several tenants needs a `RagRetrievalFilterSupplier` before the upgrade,
 otherwise retrieval serves every tenant's documents.
 
-A store or model that exists only under a name, for example with
-`quarkus.langchain4j.pgvector.default-store-enabled=false`, cannot serve the default augmentor.
-Such an application fails at startup with a message pointing at
-`quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name`.
+The default augmentor is backed by the `@Default` store and model. A store that exists only under
+a name does not produce it: a class-based bean qualified with `@EmbeddingStoreName` no longer
+counts, and an application that wants retrieval over such a store selects it with
+`quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name`. A Quarkus LangChain4j
+store that exists only under a name, for example with
+`quarkus.langchain4j.pgvector.default-store-enabled=false`, cannot be told apart at build time, so
+the default augmentor is produced; startup logs a warning naming that configuration, and an AI
+service using the augmentor fails on its first call.
 
 == JTA extension changes
 

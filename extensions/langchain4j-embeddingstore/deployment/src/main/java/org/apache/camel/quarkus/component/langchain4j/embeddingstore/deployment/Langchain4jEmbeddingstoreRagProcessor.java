@@ -34,6 +34,7 @@ import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem.ValidationErrorBuildItem;
 import io.quarkus.arc.processor.BeanInfo;
+import io.quarkus.arc.processor.DotNames;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
@@ -165,12 +166,13 @@ class Langchain4jEmbeddingstoreRagProcessor {
      * produces a {@code @Named("<name>")} RetrievalAugmentor backed by the configured store. The entry
      * marked {@code default=true} also serves the unqualified lookup; with a single entry that marking
      * is optional, with several it is required.</li>
-     * <li><b>Auto-detection</b> — when no config entries exist, at least one EmbeddingStore and one
-     * EmbeddingModel are present, and no RetrievalAugmentor exists yet, a default one is produced
-     * backed by the {@code @Default} CDI bean. Beans other extensions register synthetically, the
-     * stores and models of Quarkus LangChain4j among them, are invisible to bean discovery and are
-     * counted through {@link AnnouncedSyntheticBeanBuildItem}; only the default ones count, a named
-     * bean cannot back the default augmentor.</li>
+     * <li><b>Auto-detection</b> — when no config entries exist, at least one {@code @Default}
+     * EmbeddingStore and one {@code @Default} EmbeddingModel are present, and no RetrievalAugmentor
+     * exists yet, a default one is produced backed by those beans. A bean qualified by a name, such
+     * as {@code @EmbeddingStoreName}, cannot back the default augmentor and does not count. Beans
+     * other extensions register synthetically, the stores and models of Quarkus LangChain4j among
+     * them, are invisible to bean discovery and are counted through
+     * {@link AnnouncedSyntheticBeanBuildItem}.</li>
      * </ul>
      */
     @BuildStep(onlyIfNot = EasyRagPresent.class)
@@ -249,8 +251,9 @@ class Langchain4jEmbeddingstoreRagProcessor {
      * The auto-detected augmentor resolves its {@code @Default} store and model on first use. An
      * announced store carries no name, so a named-only store, such as pgvector with
      * {@code default-store-enabled=false}, is counted like a default one. The beans are therefore
-     * verified at startup, once the synthetic ones are initialised, and a missing default bean fails
-     * fast naming the configuration that selects the named beans instead.
+     * checked at startup, once the synthetic ones are initialised: a missing default bean is
+     * reported with the configuration that selects the named beans, as a warning, since an
+     * application that never uses the augmentor must keep starting.
      */
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
@@ -331,12 +334,16 @@ class Langchain4jEmbeddingstoreRagProcessor {
             List<BeanInfo> filterSuppliers = new ArrayList<>();
 
             for (BeanInfo bean : beanDiscovery.beanStream().collect(Collectors.toList())) {
+                // a store or model qualified by a name does not carry @Default and cannot back
+                // the default augmentor; it is reachable through the explicit configuration
+                boolean defaultBean = bean.getQualifiers().stream()
+                        .anyMatch(qualifier -> qualifier.name().equals(DotNames.DEFAULT));
                 for (Type type : bean.getTypes()) {
                     DotName typeName = type.name();
                     if (typeName.equals(embeddingStoreDN)) {
-                        embeddingStores++;
+                        embeddingStores += defaultBean ? 1 : 0;
                     } else if (typeName.equals(embeddingModelDN)) {
-                        embeddingModels++;
+                        embeddingModels += defaultBean ? 1 : 0;
                     } else if (typeName.equals(retrievalAugmentorDN)) {
                         retrievalAugmentor = true;
                     } else if (typeName.equals(RAG_RETRIEVAL_FILTER_SUPPLIER_DOTNAME)) {
