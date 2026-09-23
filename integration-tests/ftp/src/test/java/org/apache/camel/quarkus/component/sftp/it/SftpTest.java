@@ -22,7 +22,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
-import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.sftp.SftpTestResource;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,6 @@ import static org.hamcrest.CoreMatchers.is;
 class SftpTest {
 
     @Test
-    @DisabledIfFipsMode
     public void testSftpComponent() {
         // Create a new file on the SFTP server
         RestAssured.given()
@@ -83,7 +81,6 @@ class SftpTest {
     }
 
     @Test
-    @DisabledIfFipsMode
     void testCertificateAuthentication() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -103,7 +100,6 @@ class SftpTest {
     }
 
     @Test
-    @DisabledIfFipsMode
     void testCertificateAuthenticationWithFile() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -123,7 +119,6 @@ class SftpTest {
     }
 
     @Test
-    @DisabledIfFipsMode
     void testCertificateAuthenticationWithBytes() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -143,7 +138,6 @@ class SftpTest {
     }
 
     @Test
-    @DisabledIfFipsMode
     void testCertificateAuthenticationWithCaSignatureAlgorithms() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)

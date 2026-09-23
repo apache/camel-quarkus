@@ -104,6 +104,7 @@ class MinaSftpTest {
     }
 
     @Test
+    @DisabledIfFipsMode
     void testEncryptedPrivateKeyAuthentication() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)

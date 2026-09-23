@@ -29,6 +29,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
 
+import org.apache.camel.quarkus.test.FipsModeUtil;
 import org.apache.sshd.certificate.OpenSshCertificateBuilder;
 import org.apache.sshd.common.config.keys.OpenSshCertificate;
 import org.apache.sshd.common.config.keys.writer.openssh.OpenSSHKeyEncryptionContext;
@@ -172,7 +173,9 @@ public class SftpCertificates {
         LOGGER.debug("Generated ftp SSH key pair");
 
         ftpEncryptedKeyPair = generateRsaKeyPair(2048);
-        writeKeyPair(ftpEncryptedKeyPair, ftpEncryptedKeyPath, ftpEncryptedPubKeyPath, "ftp-encrypted-test", "password");
+        String encryptedKeyPassword = FipsModeUtil.isFipsMode() ? null : "password";
+        writeKeyPair(ftpEncryptedKeyPair, ftpEncryptedKeyPath, ftpEncryptedPubKeyPath, "ftp-encrypted-test",
+                encryptedKeyPassword);
         LOGGER.debug("Generated ftp-encrypted SSH key pair");
     }
 
