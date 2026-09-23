@@ -23,6 +23,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.component.pqc.crypto.PQCDefaultPicnicMaterial;
+import org.apache.camel.component.pqc.crypto.kem.PQCDefaultCMCEMaterial;
+import org.apache.camel.component.pqc.crypto.kem.PQCDefaultFRODOMaterial;
 import org.apache.camel.quarkus.support.bouncycastle.BouncyCastleRecorder;
 import org.apache.camel.quarkus.support.bouncycastle.deployment.BouncyCastleAdditionalProviderBuildItem;
 import org.jboss.jandex.IndexView;
@@ -78,4 +82,14 @@ class PqcProcessor {
         return new BouncyCastleAdditionalProviderBuildItem(BouncyCastleRecorder.BOUNCYCASTLE_PCQ_PROVIDER_NAME);
     }
 
+    // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/9231
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass.produce(
+                new RuntimeInitializedClassBuildItem(PQCDefaultPicnicMaterial.class.getName()));
+        runtimeInitializedClass.produce(
+                new RuntimeInitializedClassBuildItem(PQCDefaultFRODOMaterial.class.getName()));
+        runtimeInitializedClass.produce(
+                new RuntimeInitializedClassBuildItem(PQCDefaultCMCEMaterial.class.getName()));
+    }
 }
