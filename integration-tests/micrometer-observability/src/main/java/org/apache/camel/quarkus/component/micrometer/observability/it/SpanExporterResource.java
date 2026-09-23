@@ -73,7 +73,7 @@ public class SpanExporterResource {
 
     /**
      * Returns the live configuration values of the {@link MicrometerObservabilityTracer} registered
-     * in the Camel registry. Used by {@code testConfigPropertiesAreWired} to verify that all five
+     * in the Camel registry. Used by {@code testConfigPropertiesAreWired} to verify that all
      * {@code quarkus.camel.micrometer-observability.*} properties are correctly passed through
      * {@code CamelMicrometerObservabilityConfig} → {@code MicrometerObservabilityTracerProducer}
      * → the tracer instance.
@@ -91,6 +91,7 @@ public class SpanExporterResource {
             builder.add("traceProcessors", tracer.isTraceProcessors());
             builder.add("disableCoreProcessors", tracer.isDisableCoreProcessors());
             builder.add("traceHeadersInclusion", tracer.isTraceHeadersInclusion());
+            builder.add("traceCustomIdOnly", tracer.isTraceCustomIdOnly());
         }
         return builder.build();
     }

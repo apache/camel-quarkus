@@ -74,6 +74,7 @@ public class MicrometerObservabilityTracerProducer {
         tracer.setTraceProcessors(config.traceProcessors());
         tracer.setDisableCoreProcessors(config.disableCoreProcessors());
         tracer.setTraceHeadersInclusion(config.traceHeadersInclusion());
+        tracer.setTraceCustomIdOnly(config.traceCustomIdOnly());
 
         tracer.init(camelContext);
         return tracer;

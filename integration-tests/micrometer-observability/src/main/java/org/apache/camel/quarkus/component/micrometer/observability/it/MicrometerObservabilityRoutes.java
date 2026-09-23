@@ -32,5 +32,14 @@ public class MicrometerObservabilityRoutes extends RouteBuilder {
         from("direct:excluded")
                 .routeId("excluded-route")
                 .setBody(constant("excluded-response"));
+
+        // Route and node both have a custom id assigned, so both are traced when trace-custom-id-only is enabled
+        from("direct:customId")
+                .routeId("custom-id-route")
+                .setBody(constant("custom-id-response")).id("custom-id-set-body");
+
+        // No custom route id, so nothing is traced when trace-custom-id-only is enabled
+        from("direct:noCustomId")
+                .setBody(constant("no-custom-id-response"));
     }
 }
