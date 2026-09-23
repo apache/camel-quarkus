@@ -43,6 +43,11 @@
             <artifactId>camel-quarkus-langchain4j-embeddingstore</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-langchain4j-ql4j-deployment</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit-internal</artifactId>
             <scope>test</scope>

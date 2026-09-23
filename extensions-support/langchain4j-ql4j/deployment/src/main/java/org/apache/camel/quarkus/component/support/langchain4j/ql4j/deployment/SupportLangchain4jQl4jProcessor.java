@@ -24,9 +24,14 @@ import dev.langchain4j.guardrail.Guardrail;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import io.quarkiverse.langchain4j.deployment.EmbeddingStoreBuildItem;
 import io.quarkiverse.langchain4j.deployment.ExcludeFromImpliedAiServiceBuildItem;
+import io.quarkiverse.langchain4j.deployment.items.InProcessEmbeddingBuildItem;
 import io.quarkiverse.langchain4j.deployment.items.SelectedChatModelProviderBuildItem;
+import io.quarkiverse.langchain4j.deployment.items.SelectedEmbeddingModelCandidateBuildItem;
 import io.quarkiverse.langchain4j.runtime.NamedConfigUtil;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
@@ -40,6 +45,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.support.langchain4j.ql4j.QuarkusLangchain4jRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.AnnouncedSyntheticBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
@@ -63,6 +69,34 @@ class SupportLangchain4jQl4jProcessor {
         LOG.infof("Quarkus LangChain4j detected - enforcing JAX-RS HTTP client factory");
         return new SystemPropertyBuildItem("langchain4j.http.clientBuilderFactory",
                 "io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory");
+    }
+
+    /**
+     * Quarkus LangChain4j registers its embedding stores and models as synthetic beans, which bean
+     * discovery does not list. They are announced through {@link AnnouncedSyntheticBeanBuildItem} for
+     * the build steps counting such beans, the RAG bridge of camel-quarkus-langchain4j-embeddingstore
+     * among them.
+     *
+     * <p>
+     * A store extension produces one {@link EmbeddingStoreBuildItem} per store bean, without its name:
+     * a named-only store, for example pgvector with {@code default-store-enabled=false}, is announced
+     * as a default one and can only be told apart at runtime. A selected provider registers the model
+     * it was selected for, qualified with {@code @ModelName} unless it serves the default configuration,
+     * and an in-process model becomes a default bean only when no provider was selected at all.
+     */
+    @BuildStep
+    void announceQuarkusLangchain4jBeans(
+            List<EmbeddingStoreBuildItem> embeddingStores,
+            List<SelectedEmbeddingModelCandidateBuildItem> selectedEmbeddingModels,
+            List<InProcessEmbeddingBuildItem> inProcessEmbeddingModels,
+            BuildProducer<AnnouncedSyntheticBeanBuildItem> syntheticBeans) {
+        embeddingStores.forEach(store -> syntheticBeans.produce(new AnnouncedSyntheticBeanBuildItem(EmbeddingStore.class)));
+        selectedEmbeddingModels.forEach(model -> syntheticBeans.produce(new AnnouncedSyntheticBeanBuildItem(
+                EmbeddingModel.class, NamedConfigUtil.isDefault(model.getConfigName()) ? null : model.getConfigName())));
+        if (selectedEmbeddingModels.isEmpty()) {
+            inProcessEmbeddingModels
+                    .forEach(model -> syntheticBeans.produce(new AnnouncedSyntheticBeanBuildItem(EmbeddingModel.class)));
+        }
     }
 
     @BuildStep

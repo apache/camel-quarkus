@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.quarkus.arc.Arc;
@@ -82,5 +83,25 @@ public class Langchain4jEmbeddingstoreRecorder {
     public Supplier<RetrievalAugmentor> createRetrievalAugmentorSupplier(
             String embeddingStoreName, String embeddingModelName, String augmentorName) {
         return new DefaultRetrievalAugmentorSupplier(embeddingStoreName, embeddingModelName, augmentorName);
+    }
+
+    /**
+     * The auto-produced default augmentor resolves the {@code @Default} store and model on first use. The
+     * build detected at least one bean of each type, but a bean it detected may be named rather than default,
+     * which would fail that late; so the beans are verified at startup, once the synthetic ones exist.
+     */
+    public void verifyDefaultRetrievalAugmentorBeans() {
+        boolean store = Arc.container().instance(EMBEDDING_STORE_TYPE).isAvailable();
+        boolean model = Arc.container().instance(EmbeddingModel.class).isAvailable();
+        if (store && model) {
+            return;
+        }
+        throw new IllegalStateException("The default RetrievalAugmentor was produced because an EmbeddingStore and"
+                + " an EmbeddingModel bean were detected, but no unambiguous @Default "
+                + (store ? "EmbeddingModel" : "EmbeddingStore")
+                + " bean resolves at runtime. If the beans are named, select them with"
+                + " quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name and"
+                + " .embedding-model-name; otherwise provide default beans, or opt the AI service out with"
+                + " @RegisterAiService(retrievalAugmentor = RegisterAiService.NoRetrievalAugmentorSupplier.class)");
     }
 }

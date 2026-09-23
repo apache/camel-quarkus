@@ -90,6 +90,29 @@ The `RagRetrievalFilterSupplier` interface moved with it. Update the import.
 import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagRetrievalFilterSupplier;
 ----
 
+=== The default RAG augmentor now sees Quarkus LangChain4j stores and models
+
+The default `RetrievalAugmentor` is produced when an `EmbeddingStore` and an `EmbeddingModel` bean
+exist. In 3.39.0 the detection missed the stores and models Quarkus LangChain4j registers, such as
+a `quarkus-langchain4j-pgvector` store, so an application with such a store, a model and an
+`@RegisterAiService` interface ran without retrieval. It now gets retrieval without any
+configuration change: content from the store flows into the prompts of every AI service.
+
+An AI service that must not answer from the store opts out:
+
+[source,java]
+----
+@RegisterAiService(retrievalAugmentor = RegisterAiService.NoRetrievalAugmentorSupplier.class)
+----
+
+A store shared by several tenants needs a `RagRetrievalFilterSupplier` before the upgrade,
+otherwise retrieval serves every tenant's documents.
+
+A store or model that exists only under a name, for example with
+`quarkus.langchain4j.pgvector.default-store-enabled=false`, cannot serve the default augmentor.
+Such an application fails at startup with a message pointing at
+`quarkus.camel.langchain4j.rag.augmentors.<name>.embedding-store-name`.
+
 == JTA extension changes
 
 === Rollback and resume failures are no longer swallowed

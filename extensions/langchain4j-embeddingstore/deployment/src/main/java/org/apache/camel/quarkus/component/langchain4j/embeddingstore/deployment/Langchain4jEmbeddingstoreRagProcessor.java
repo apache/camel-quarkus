@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.langchain4j.embeddingstore.deployment
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -48,6 +49,7 @@ import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagAugmento
 import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagBridgeConfig;
 import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagBridgeConfig.AugmentorConfig;
 import org.apache.camel.quarkus.component.langchain4j.embeddingstore.RagRetrievalFilterSupplier;
+import org.apache.camel.quarkus.core.deployment.spi.AnnouncedSyntheticBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.jboss.jandex.DotName;
@@ -84,9 +86,10 @@ class Langchain4jEmbeddingstoreRagProcessor {
      */
     @BuildStep
     void validateRagRetrievalFilterSupplier(BeanDiscoveryFinishedBuildItem beanDiscovery,
+            List<AnnouncedSyntheticBeanBuildItem> announcedSyntheticBeans,
             RagBridgeConfig ragBridgeConfig,
             BuildProducer<ValidationErrorBuildItem> validationErrors) {
-        BeanCensus census = BeanCensus.of(beanDiscovery);
+        BeanCensus census = BeanCensus.of(beanDiscovery, announcedSyntheticBeans);
         if (census.filterSuppliers().isEmpty()) {
             return;
         }
@@ -164,18 +167,23 @@ class Langchain4jEmbeddingstoreRagProcessor {
      * is optional, with several it is required.</li>
      * <li><b>Auto-detection</b> — when no config entries exist, at least one EmbeddingStore and one
      * EmbeddingModel are present, and no RetrievalAugmentor exists yet, a default one is produced
-     * backed by the {@code @Default} CDI bean.</li>
+     * backed by the {@code @Default} CDI bean. Beans other extensions register synthetically, the
+     * stores and models of Quarkus LangChain4j among them, are invisible to bean discovery and are
+     * counted through {@link AnnouncedSyntheticBeanBuildItem}; only the default ones count, a named
+     * bean cannot back the default augmentor.</li>
      * </ul>
      */
     @BuildStep(onlyIfNot = EasyRagPresent.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerDefaultRetrievalAugmentor(
             BeanDiscoveryFinishedBuildItem beanDiscovery,
+            List<AnnouncedSyntheticBeanBuildItem> announcedSyntheticBeans,
             RagBridgeConfig ragBridgeConfig,
             Langchain4jEmbeddingstoreRecorder recorder,
-            BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            BuildProducer<DefaultRetrievalAugmentorBuildItem> defaultAugmentor) {
 
-        BeanCensus census = BeanCensus.of(beanDiscovery);
+        BeanCensus census = BeanCensus.of(beanDiscovery, announcedSyntheticBeans);
 
         // Effective augmentors: one per explicit config entry. Sorted, so that a message naming
         // them reads the same on every build - SmallRye's map is not declaration-ordered.
@@ -233,7 +241,29 @@ class Langchain4jEmbeddingstoreRagProcessor {
                     .setRuntimeInit()
                     .supplier(recorder.createRetrievalAugmentorSupplier(null, null, null))
                     .done());
+            defaultAugmentor.produce(new DefaultRetrievalAugmentorBuildItem());
         }
+    }
+
+    /**
+     * The auto-detected augmentor resolves its {@code @Default} store and model on first use. An
+     * announced store carries no name, so a named-only store, such as pgvector with
+     * {@code default-store-enabled=false}, is counted like a default one. The beans are therefore
+     * verified at startup, once the synthetic ones are initialised, and a missing default bean fails
+     * fast naming the configuration that selects the named beans instead.
+     */
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @Consume(SyntheticBeansRuntimeInitBuildItem.class)
+    void verifyDefaultRetrievalAugmentorBeans(
+            Optional<DefaultRetrievalAugmentorBuildItem> defaultAugmentor,
+            Langchain4jEmbeddingstoreRecorder recorder,
+            BuildProducer<CamelRuntimeTaskBuildItem> runtimeTasks) {
+        if (defaultAugmentor.isEmpty()) {
+            return;
+        }
+        recorder.verifyDefaultRetrievalAugmentorBeans();
+        runtimeTasks.produce(new CamelRuntimeTaskBuildItem("rag-default-augmentor-beans"));
     }
 
     /**
@@ -282,11 +312,15 @@ class Langchain4jEmbeddingstoreRagProcessor {
     record AugmentorDefinition(String embeddingStoreName, String embeddingModelName, boolean markedDefault) {
     }
 
-    /** One pass over the discovered beans, answering everything the RAG bridge decides on. */
+    /**
+     * One pass over the discovered beans and the announced synthetic ones, answering everything
+     * the RAG bridge decides on.
+     */
     record BeanCensus(int embeddingStores, int embeddingModels, boolean retrievalAugmentor,
             List<BeanInfo> filterSuppliers) {
 
-        static BeanCensus of(BeanDiscoveryFinishedBuildItem beanDiscovery) {
+        static BeanCensus of(BeanDiscoveryFinishedBuildItem beanDiscovery,
+                List<AnnouncedSyntheticBeanBuildItem> announcedSyntheticBeans) {
             DotName embeddingStoreDN = DotName.createSimple(EmbeddingStore.class.getName());
             DotName embeddingModelDN = DotName.createSimple(EmbeddingModel.class.getName());
             DotName retrievalAugmentorDN = DotName.createSimple(RetrievalAugmentor.class.getName());
@@ -308,6 +342,20 @@ class Langchain4jEmbeddingstoreRagProcessor {
                     } else if (typeName.equals(RAG_RETRIEVAL_FILTER_SUPPLIER_DOTNAME)) {
                         filterSuppliers.add(bean);
                     }
+                }
+            }
+            // synthetic beans are not part of bean discovery; the extensions registering them
+            // announce them instead. A named bean does not carry @Default, so it cannot back the
+            // default augmentor and is not counted
+            for (AnnouncedSyntheticBeanBuildItem bean : announcedSyntheticBeans) {
+                if (!bean.isDefault()) {
+                    continue;
+                }
+                DotName typeName = bean.getBeanType();
+                if (typeName.equals(embeddingStoreDN)) {
+                    embeddingStores++;
+                } else if (typeName.equals(embeddingModelDN)) {
+                    embeddingModels++;
                 }
             }
             return new BeanCensus(embeddingStores, embeddingModels, retrievalAugmentor, filterSuppliers);
