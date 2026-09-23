@@ -73,4 +73,12 @@ public interface CamelOpenTelemetry2Config {
      */
     @WithDefault("false")
     boolean traceHeadersInclusion();
+
+    /**
+     * If set to `true`, only creates trace spans for routes and nodes that have a custom id assigned.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("false")
+    boolean traceCustomIdOnly();
 }
