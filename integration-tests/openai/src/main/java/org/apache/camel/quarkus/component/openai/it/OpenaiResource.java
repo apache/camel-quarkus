@@ -123,6 +123,26 @@ public class OpenaiResource {
         return producerTemplate.requestBody("direct:chatAgentic", chatMessageContent, String.class);
     }
 
+    @Path("/chat/routeTools")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> chatRouteTools(@QueryParam("returnDirect") boolean returnDirect, String chatMessageContent) {
+        String endpointUri = returnDirect ? "direct:chatRouteToolsReturnDirect" : "direct:chatRouteTools";
+        Exchange exchange = producerTemplate.request(endpointUri,
+                e -> e.getMessage().setBody(chatMessageContent));
+        if (exchange.getException() != null) {
+            throw new RuntimeException(exchange.getException());
+        }
+
+        Message message = exchange.getMessage();
+        Map<String, Object> result = new HashMap<>();
+        result.put("body", message.getBody(String.class));
+        result.put("toolCalls", message.getHeader(OpenAIConstants.MCP_TOOL_CALLS, List.class));
+        result.put("returnDirect", message.getHeader(OpenAIConstants.MCP_RETURN_DIRECT, false, Boolean.class));
+        return result;
+    }
+
     @Path("/audio/transcription")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)

@@ -43,7 +43,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -257,4 +259,32 @@ class OpenaiChatTest {
                         containsStringIgnoringCase("sum"));
     }
 
+    @Test
+    void chatWithRouteTools() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("What is the weather in London? Use the get_weather tool.")
+                .post("/openai/chat/routeTools")
+                .then()
+                .statusCode(200)
+                .body(
+                        "body", containsStringIgnoringCase("sunny"),
+                        "toolCalls", contains("get_weather"),
+                        "returnDirect", equalTo(false));
+    }
+
+    @Test
+    void chatWithRouteToolsReturnDirect() {
+        RestAssured.given()
+                .queryParam("returnDirect", true)
+                .contentType(ContentType.TEXT)
+                .body("What is the status of order 12345? Use the get_order_status tool.")
+                .post("/openai/chat/routeTools")
+                .then()
+                .statusCode(200)
+                .body(
+                        "body", equalTo("Order 12345 has been shipped"),
+                        "toolCalls", contains("get_order_status"),
+                        "returnDirect", equalTo(true));
+    }
 }
