@@ -7186,11 +7186,6 @@
         <version>2.2.13</version>
       </dependency>
       <dependency>
-        <groupId>com.github.luben</groupId>
-        <artifactId>zstd-jni</artifactId>
-        <version>1.5.6-10</version>
-      </dependency>
-      <dependency>
         <groupId>com.github.mwiede</groupId>
         <artifactId>jsch</artifactId>
         <version>2.28.2</version>
@@ -7528,11 +7523,6 @@
         <groupId>io.opentelemetry</groupId>
         <artifactId>opentelemetry-semconv</artifactId>
         <version>1.29.0-alpha</version>
-      </dependency>
-      <dependency>
-        <groupId>io.projectreactor</groupId>
-        <artifactId>reactor-core</artifactId>
-        <version>3.8.7</version>
       </dependency>
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
