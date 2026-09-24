@@ -63,7 +63,7 @@
         <quarkiverse-minio.version>3.8.6</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>2.4.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.10.0</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
-        <quarkus.version>3.33.3.2</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>3.33.4</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>4.1.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>2.12.0</quarkus-qpid-jms.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -81,7 +81,7 @@
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <azure-core.version>1.57.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
         <azure-identity.version>1.18.1</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
-        <caffeine.version>3.2.3</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
+        <caffeine.version>3.2.4</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <chicory.version>${chicory-version}</chicory.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.8.0</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
@@ -160,7 +160,6 @@
         <opentelemetry-semconv-legacy.version>1.29.0-alpha</opentelemetry-semconv-legacy.version><!-- Alignment for camel-opentelemetry and google-pubsub -->
         <org.json.version>20240303</org.json.version><!-- Used by amazon-kinesis-client, google-cloud-bigquery and com.ibm.mq.jakarta.client -->
         <re2j.version>1.7</re2j.version><!-- Used by google-cloud-pubsub and amazon-kinesis-client -->
-        <reactor-core.version>3.8.7</reactor-core.version><!-- temporary disabled sync, see https://github.com/apache/camel-quarkus/issues/9139 sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>3.0.0</retrofit.version><!-- @sync org.kiwiproject:consul-client:${consul-client-version} prop:retrofit.version -->
         <rhino.version>1.7.15.1</rhino.version><!-- Used by Apache FOP, to sync with transitive dependencies -->
@@ -185,7 +184,6 @@
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
         <wire-runtime.version>6.4.7</wire-runtime.version><!-- TODO: Remove when fixed: https://github.com/awslabs/aws-glue-schema-registry/issues/522 -->
         <zookeeper.version>${zookeeper-version}</zookeeper.version>
-        <zstd-jni.version>1.5.6-10</zstd-jni.version><!-- @sync org.apache.kafka:kafka-clients:${kafka.version} dep:com.github.luben:zstd-jni -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <consul-client.version>${consul-client-version}</consul-client.version>
@@ -195,7 +193,7 @@
         <microsoft.graph.version>6.62.0</microsoft.graph.version>
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
-        <sshd.version>2.17.1</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
+        <sshd.version>2.19.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>7.0.4</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
         <xmlunit.version>2.11.0</xmlunit.version>
