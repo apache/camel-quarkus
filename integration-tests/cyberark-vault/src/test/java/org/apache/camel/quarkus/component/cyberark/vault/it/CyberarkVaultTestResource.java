@@ -128,7 +128,7 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
             throw new RuntimeException("Failed to start Conjur test environment", e);
         }
 
-        String conjurUrl = "http://localhost:" + conjurContainer.getMappedPort(80);
+        String conjurUrl = getConjurUrl();
 
         result.put("conjur.account", CONJUR_ACCOUNT);
         result.put("conjur.url", conjurUrl);
@@ -139,6 +139,10 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
         result.put("camel.vault.cyberark.apiKey", result.get("conjur.reader.apiKey"));
 
         return result;
+    }
+
+    private String getConjurUrl() {
+        return "http://" + conjurContainer.getHost() + ":" + conjurContainer.getMappedPort(CONJUR_PORT);
     }
 
     private void startPostgresContainer() {
@@ -291,7 +295,7 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
         result.put("conjur.writer.password", writeApiKey);
 
         // Obtain a pre-authenticated token for token-based auth testing
-        String conjurUrl = "http://localhost:" + conjurContainer.getMappedPort(80);
+        String conjurUrl = getConjurUrl();
         String encodedLogin = URLEncoder.encode(result.get("conjur.reader.username"), StandardCharsets.UTF_8);
         String authUrl = String.format("%s/authn/%s/%s/authenticate", conjurUrl, CONJUR_ACCOUNT, encodedLogin);
         HttpClient httpClient = HttpClient.newHttpClient();
