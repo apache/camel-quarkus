@@ -1,0 +1,31 @@
+{
+  "id" : "d4e5f6a7-0000-0000-0000-000000000002",
+  "name" : "chat_completions_route_tools_step2",
+  "scenarioName" : "route-tools-weather",
+  "requiredScenarioState" : "tool-executed",
+  "newScenarioState" : "Started",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [
+      {
+        "equalToJson" : "{\"messages\":[{\"content\":\"What is the weather in London? Use the get_weather tool.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+        "ignoreArrayOrder" : true,
+        "ignoreExtraElements" : true
+      },
+      {
+        "matchesJsonPath" : "$.messages[?(@.content == 'Sunny, 22 degrees celsius in London')]"
+      }
+    ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-route-tools-2\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382701,\n  \"model\": \"gpt-5\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"The weather in London is sunny with a temperature of 22 degrees celsius.\",\n        \"refusal\": null\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 60,\n    \"completion_tokens\": 20,\n    \"total_tokens\": 80\n  }\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "d4e5f6a7-0000-0000-0000-000000000002",
+  "persistent" : true,
+  "insertionIndex" : 301
+}

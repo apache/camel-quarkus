@@ -1,0 +1,37 @@
+{
+  "id" : "d4e5f6a7-0000-0000-0000-000000000001",
+  "name" : "chat_completions_route_tools_step1",
+  "scenarioName" : "route-tools-weather",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "tool-executed",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [
+      {
+        "equalToJson" : "{\"messages\":[{\"content\":\"What is the weather in London? Use the get_weather tool.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+        "ignoreArrayOrder" : true,
+        "ignoreExtraElements" : true
+      },
+      {
+        "matchesJsonPath" : "$.tools[?(@.function.name == 'get_weather')]"
+      },
+      {
+        "matchesJsonPath" : {
+          "expression" : "$.tools[?(@.function.name == 'get_order_status')]",
+          "absent" : true
+        }
+      }
+    ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-route-tools-1\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382700,\n  \"model\": \"gpt-5\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": null,\n        \"tool_calls\": [\n          {\n            \"id\": \"call_route-tools-1\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": \"get_weather\",\n              \"arguments\": \"{\\\"city\\\": \\\"London\\\"}\"\n            }\n          }\n        ],\n        \"refusal\": null\n      },\n      \"finish_reason\": \"tool_calls\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 60,\n    \"completion_tokens\": 20,\n    \"total_tokens\": 80\n  }\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "d4e5f6a7-0000-0000-0000-000000000001",
+  "persistent" : true,
+  "insertionIndex" : 300
+}

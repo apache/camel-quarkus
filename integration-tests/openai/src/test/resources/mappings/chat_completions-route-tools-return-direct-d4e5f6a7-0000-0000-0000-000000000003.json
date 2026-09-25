@@ -1,0 +1,34 @@
+{
+  "id" : "d4e5f6a7-0000-0000-0000-000000000003",
+  "name" : "chat_completions_route_tools_return_direct",
+  "request" : {
+    "url" : "/chat/completions",
+    "method" : "POST",
+    "bodyPatterns" : [
+      {
+        "equalToJson" : "{\"messages\":[{\"content\":\"What is the status of order 12345? Use the get_order_status tool.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+        "ignoreArrayOrder" : true,
+        "ignoreExtraElements" : true
+      },
+      {
+        "matchesJsonPath" : "$.tools[?(@.function.name == 'get_order_status')]"
+      },
+      {
+        "matchesJsonPath" : {
+          "expression" : "$.tools[?(@.function.name == 'get_weather')]",
+          "absent" : true
+        }
+      }
+    ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"id\": \"chatcmpl-route-tools-3\",\n  \"object\": \"chat.completion\",\n  \"created\": 1770382702,\n  \"model\": \"gpt-5\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": null,\n        \"tool_calls\": [\n          {\n            \"id\": \"call_route-tools-3\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": \"get_order_status\",\n              \"arguments\": \"{\\\"orderId\\\": \\\"12345\\\"}\"\n            }\n          }\n        ],\n        \"refusal\": null\n      },\n      \"finish_reason\": \"tool_calls\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 60,\n    \"completion_tokens\": 20,\n    \"total_tokens\": 80\n  }\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "d4e5f6a7-0000-0000-0000-000000000003",
+  "persistent" : true,
+  "insertionIndex" : 302
+}

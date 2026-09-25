@@ -96,6 +96,29 @@ public class OpenaiRoutes extends RouteBuilder {
                         + "&maxToolIterations=3")
                 .log("Agentic response: ${body}");
 
+        from("direct:chatRouteTools")
+                .to("openai:chat-completion?autoToolExecution=true&tags=weather&maxToolIterations=3")
+                .log("Route tools response: ${body}");
+
+        from("direct:chatRouteToolsReturnDirect")
+                .to("openai:chat-completion?autoToolExecution=true&tags=orders&maxToolIterations=3")
+                .log("Route tools return direct response: ${body}");
+
+        from("ai-tool:get_weather?tags=weather"
+                + "&description=Get the current weather for a city"
+                + "&parameter.city=string"
+                + "&parameter.city.description=The city name"
+                + "&parameter.city.required=true")
+                .setBody(simple("Sunny, 22 degrees celsius in ${header.city}"));
+
+        from("ai-tool:get_order_status?tags=orders"
+                + "&description=Get the status of an order"
+                + "&parameter.orderId=string"
+                + "&parameter.orderId.description=The order identifier"
+                + "&parameter.orderId.required=true"
+                + "&returnDirect=true")
+                .setBody(simple("Order ${header.orderId} has been shipped"));
+
         from("direct:audioTranscription")
                 .to("openai:audio-transcription?audioModel=whisper-1")
                 .log("Audio transcription response: ${body}");
