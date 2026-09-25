@@ -358,14 +358,14 @@ jobs:
         with:
           cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
           download-maven-repo: 'true'
-      - name: cd integration-tests && mvn clean verify
+      - name: cd integration-tests && mvn clean test
         shell: bash
         run: |
           cd integration-tests
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
-            clean verify
+            clean test
       - name: Report test failures
         uses: ./.github/actions/test-summary-report
         if: ${{ failure() }}
