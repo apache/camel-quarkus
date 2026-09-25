@@ -124,6 +124,7 @@
         <ibm.mq.client.version>10.0.0.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
+        <jackson3.version>${jackson3-version}</jackson3.version>
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-driver-query-builder.version>4.19.2</java-driver-query-builder.version><!-- @sync com.datastax.oss.quarkus:cassandra-quarkus-parent:${cassandra-quarkus.version} prop:java-driver.version -->
         <java-json-tools.json-patch.version>1.13</java-json-tools.json-patch.version><!-- openstack4j transitive dep, replaces com.github.fge:json-patch -->

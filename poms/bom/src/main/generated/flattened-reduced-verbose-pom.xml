@@ -10,9 +10,9 @@
   <url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-bom</url>
   <licenses>
     <license>
-      <name>Apache-2.0</name><!-- org.apache:apache:39 -->
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:39 -->
-      <distribution>repo</distribution><!-- org.apache:apache:39 -->
+      <name>Apache-2.0</name><!-- org.apache:apache:40 -->
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:40 -->
+      <distribution>repo</distribution><!-- org.apache:apache:40 -->
     </license>
   </licenses>
   <developers>
@@ -35,14 +35,14 @@
   </issueManagement>
   <distributionManagement>
     <repository>
-      <id>apache.releases.https</id><!-- org.apache:apache:39 -->
-      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:39 -->
-      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:39 -->
+      <id>apache.releases.https</id><!-- org.apache:apache:40 -->
+      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:40 -->
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:40 -->
     </repository>
     <snapshotRepository>
-      <id>apache.snapshots.https</id><!-- org.apache:apache:39 -->
-      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:39 -->
-      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:39 -->
+      <id>apache.snapshots.https</id><!-- org.apache:apache:40 -->
+      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:40 -->
+      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:40 -->
     </snapshotRepository>
   </distributionManagement>
   <dependencyManagement>
@@ -802,87 +802,87 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-config</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connect-plugins</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-common</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-oracle</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-openlineage-api</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-sink</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-file</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-kafka</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-util</artifactId>
-        <version>3.6.2.Final</version>
+        <version>3.6.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
@@ -969,147 +969,147 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-bc-stub</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-test-util</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId>
-        <version>3.40.0.CR1</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
@@ -1130,12 +1130,12 @@
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker-deployment</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
@@ -4726,7 +4726,7 @@
       <dependency>
         <groupId>org.apache.camel.kamelets</groupId>
         <artifactId>camel-kamelets</artifactId>
-        <version>4.22.0</version>
+        <version>4.22.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
@@ -9159,6 +9159,11 @@
         <version>3.33.0-GA</version>
       </dependency>
       <dependency>
+        <groupId>org.jgroups</groupId>
+        <artifactId>jgroups</artifactId>
+        <version>5.5.7.Final</version>
+      </dependency>
+      <dependency>
         <groupId>org.jolokia</groupId>
         <artifactId>jolokia-agent-jvm</artifactId>
         <version>2.6.2</version>
@@ -9886,6 +9891,16 @@
         <groupId>software.amazon.awssdk.crt</groupId>
         <artifactId>aws-crt</artifactId>
         <version>0.48.4</version>
+      </dependency>
+      <dependency>
+        <groupId>tools.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>3.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>tools.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>3.2.2</version>
       </dependency>
       <dependency>
         <groupId>wsdl4j</groupId>
