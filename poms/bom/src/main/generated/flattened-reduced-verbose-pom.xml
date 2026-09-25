@@ -9895,12 +9895,12 @@
       <dependency>
         <groupId>tools.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
       </dependency>
       <dependency>
         <groupId>tools.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
       </dependency>
       <dependency>
         <groupId>wsdl4j</groupId>
