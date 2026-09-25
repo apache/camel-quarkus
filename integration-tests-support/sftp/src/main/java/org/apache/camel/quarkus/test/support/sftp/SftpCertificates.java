@@ -28,6 +28,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.camel.quarkus.test.FipsModeUtil;
 import org.apache.sshd.certificate.OpenSshCertificateBuilder;
@@ -100,12 +101,19 @@ public class SftpCertificates {
      * Generate all required SSH certificates using Apache SSHD.
      */
     public static SftpCertificates generate(Path sshDir) throws Exception {
+        return generate(sshDir, Collections.singletonList("localhost"));
+    }
+
+    /**
+     * Generate all required SSH certificates with custom host certificate principals.
+     */
+    public static SftpCertificates generate(Path sshDir, List<String> hostPrincipals) throws Exception {
         SftpCertificates certs = new SftpCertificates(sshDir);
-        certs.generateAll();
+        certs.generateAll(hostPrincipals);
         return certs;
     }
 
-    private void generateAll() throws Exception {
+    private void generateAll(List<String> hostPrincipals) throws Exception {
         // Register BouncyCastle provider for Ed25519 support
         java.security.Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
@@ -161,7 +169,7 @@ public class SftpCertificates {
                 .serial(random.nextLong() & Long.MAX_VALUE)
                 .publicKey(hostKeyPair.getPublic())
                 .id("sftp-server")
-                .principals(Collections.singletonList("localhost"))
+                .principals(hostPrincipals)
                 .validAfter(Instant.now().minus(Duration.ofMinutes(1)))
                 .validBefore(Instant.now().plus(Duration.ofDays(365)))
                 .sign(hostCaKeyPair);

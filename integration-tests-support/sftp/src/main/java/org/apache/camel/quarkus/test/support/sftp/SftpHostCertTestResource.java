@@ -19,7 +19,9 @@ package org.apache.camel.quarkus.test.support.sftp;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -52,39 +54,43 @@ public class SftpHostCertTestResource implements QuarkusTestResourceLifecycleMan
             Path sshDir = tempDir.resolve("ssh");
             Files.createDirectories(sshDir);
 
-            SftpCertificates certificates = SftpCertificates.generate(sshDir);
-            LOGGER.info("Generated SSH certificates with host cert in: " + sshDir);
-
-            // Create custom sshd_config that uses host certificate and trusts user CA
-            Path sshdConfigPath = createSshdConfig(sshDir);
-
-            // Start OpenSSH container with host certificate configuration
             container = new GenericContainer<>(opensshImage)
                     .withExposedPorts(SFTP_PORT)
                     .withEnv("PASSWORD_ACCESS", "true")
                     .withEnv("USER_NAME", USERNAME)
                     .withEnv("USER_PASSWORD", PASSWORD)
                     .withEnv("SUDO_ACCESS", "false")
-                    // Copy host certificate and key
-                    .withCopyFileToContainer(
-                            MountableFile.forHostPath(certificates.getHostPrivateKeyPath()),
-                            "/config/ssh_host_ed25519_key")
+                    .waitingFor(Wait.forLogMessage(".*done.*", 1));
+
+            // Determine Docker host before generating certificates so the host cert
+            // principal matches the actual connection target (supports remote Docker)
+            String dockerHost = container.getHost();
+            List<String> hostPrincipals = "localhost".equals(dockerHost)
+                    ? List.of("localhost")
+                    : Arrays.asList(dockerHost, "localhost");
+
+            SftpCertificates certificates = SftpCertificates.generate(sshDir, hostPrincipals);
+            LOGGER.info("Generated SSH certificates with host cert in: " + sshDir);
+
+            Path sshdConfigPath = createSshdConfig(sshDir);
+
+            container.withCopyFileToContainer(
+                    MountableFile.forHostPath(certificates.getHostPrivateKeyPath()),
+                    "/config/ssh_host_ed25519_key")
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(certificates.getHostCertificatePath()),
                             "/config/ssh_host_ed25519_key-cert.pub")
-                    // Copy user CA public key for user cert verification
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(certificates.getUserCaPubKeyPath()),
                             "/config/user_ca.pub")
-                    // Copy custom sshd_config
                     .withCopyFileToContainer(
                             MountableFile.forHostPath(sshdConfigPath),
-                            "/etc/ssh/sshd_config")
-                    .waitingFor(Wait.forLogMessage(".*done.*", 1));
+                            "/etc/ssh/sshd_config");
 
             container.start();
 
             Map<String, String> result = new HashMap<>();
+            result.put("camel.sftp.hostcert.test-host", container.getHost());
             result.put("camel.sftp.hostcert.test-port", container.getMappedPort(SFTP_PORT).toString());
 
             // Set system property for JVM mode AND return in map for native mode command-line args
