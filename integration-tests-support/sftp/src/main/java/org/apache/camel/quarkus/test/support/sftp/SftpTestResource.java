@@ -95,6 +95,7 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
             container.execInContainer("chmod", "600", "/config/.ssh/authorized_keys");
 
             Map<String, String> result = new HashMap<>();
+            result.put("camel.sftp.test-host", container.getHost());
             result.put("camel.sftp.test-port", container.getMappedPort(SFTP_PORT).toString());
 
             // Set system properties for JVM mode AND return in map for native mode command-line args
