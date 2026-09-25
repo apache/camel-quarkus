@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.minio.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.EnabledIfProperty;
 
 @QuarkusIntegrationTest
+@EnabledIfProperty(named = "minio.container.image", matches = ".+")
 class MinioIT extends MinioTest {
 
 }

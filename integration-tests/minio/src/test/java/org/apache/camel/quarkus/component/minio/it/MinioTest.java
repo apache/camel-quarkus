@@ -37,6 +37,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.minio.MinioConstants;
 import org.apache.camel.component.minio.MinioOperations;
+import org.apache.camel.quarkus.test.EnabledIfProperty;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.both;
@@ -48,6 +49,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
+@EnabledIfProperty(named = "minio.container.image", matches = ".+")
 @QuarkusTestResource(MinioTestResource.class)
 class MinioTest {
     private static final long PART_SIZE = 50 * 1024 * 1024;
