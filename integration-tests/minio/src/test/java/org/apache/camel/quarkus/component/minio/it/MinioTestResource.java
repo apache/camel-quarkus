@@ -29,22 +29,23 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final String CONTAINER_ACCESS_KEY = "MINIO_ROOT_USER";
     public static final String CONTAINER_SECRET_KEY = "MINIO_ROOT_PASSWORD";
-    private static final String CONTAINER_IMAGE = ConfigProvider.getConfig().getValue("minio.container.image", String.class);
     private static final int BROKER_PORT = 9000;
     private String endpoint;
 
-    private GenericContainer minioServer = new GenericContainer(CONTAINER_IMAGE)
-            .withEnv(CONTAINER_ACCESS_KEY, MinioResource.SERVER_ACCESS_KEY)
-            .withEnv(CONTAINER_SECRET_KEY, MinioResource.SERVER_SECRET_KEY)
-            .withCommand("server /data")
-            .withExposedPorts(BROKER_PORT)
-            .waitingFor(new HttpWaitStrategy()
-                    .forPath("/minio/health/ready")
-                    .forPort(BROKER_PORT)
-                    .withStartupTimeout(Duration.ofSeconds(10)));
+    private GenericContainer minioServer;
 
     @Override
     public Map<String, String> start() {
+        String imageName = ConfigProvider.getConfig().getValue("minio.container.image", String.class);
+        minioServer = new GenericContainer(imageName)
+                .withEnv(CONTAINER_ACCESS_KEY, MinioResource.SERVER_ACCESS_KEY)
+                .withEnv(CONTAINER_SECRET_KEY, MinioResource.SERVER_SECRET_KEY)
+                .withCommand("server /data")
+                .withExposedPorts(BROKER_PORT)
+                .waitingFor(new HttpWaitStrategy()
+                        .forPath("/minio/health/ready")
+                        .forPort(BROKER_PORT)
+                        .withStartupTimeout(Duration.ofSeconds(10)));
         minioServer.start();
 
         String port = minioServer.getMappedPort(BROKER_PORT) + "";
@@ -57,7 +58,7 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        if (minioServer.isRunning()) {
+        if (minioServer != null && minioServer.isRunning()) {
             minioServer.stop();
         }
     }
