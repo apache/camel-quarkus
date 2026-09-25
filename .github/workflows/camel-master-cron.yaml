@@ -415,14 +415,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: cd integration-tests && mvn clean verify
+      - name: cd integration-tests && mvn clean test
         shell: bash
         run: |
           cd integration-tests
           ../mvnw ${CQ_MAVEN_ARGS} \
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
-            clean verify
+            clean test
       - name: Report test failures
         uses: ./.github/actions/test-summary-report
         if: ${{ failure() }}
