@@ -86,7 +86,6 @@ group-04:
   - jpa
   - jta
   - kudu
-  - leveldb
   - mdc
   - micrometer
   - micrometer-observability
@@ -116,7 +115,6 @@ group-06:
   - exec
   - file
   - hashicorp-vault
-  - headersmap
   - jsonpath
   - kamelet
   - langchain4j-chat-ql4j
@@ -128,7 +126,6 @@ group-06:
   - quartz
   - saga
   - sjms-qpid-amqp-client
-  - splunk
   - stax
   - validator
   - wasm
@@ -195,7 +192,6 @@ group-10:
   - as2
   - braintree
   - consul
-  - digitalocean
   - docling
   - fop
   - groovy
@@ -238,10 +234,8 @@ group-11:
 group-12:
   - ai-tool
   - aws2-grouped
-  - csimple
   - github2
   - knative
-  - langchain4j-tools
   - langchain4j-web-search
   - mcp-server
   - openapi-java
