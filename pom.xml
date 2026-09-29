@@ -1735,6 +1735,18 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <properties>
+                <!-- SQL Server 2025 images do not start on FIPS enabled hosts, see https://github.com/microsoft/mssql-docker/issues/958 -->
+                <sql-server.container.image>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image>
+            </properties>
+        </profile>
     </profiles>
 
 </project>
