@@ -18,30 +18,44 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseResult;
+import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.comments.JavadocComment;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Scans deployment modules for {@code *BuildItem} classes and writes
+ * Scans the deployment modules of the current source tree for {@code *BuildItem.java} classes and regenerates
  * {@code docs/modules/ROOT/pages/contributor-guide/build-items.adoc}.
- * Intended to run from the docs module so the main reactor is not affected.
+ * <p>
+ * Modelled on the {@code io.quarkus.docs.generation.QuarkusBuildItemDoc} generator of Quarkus, so that the Camel
+ * Quarkus page stays consistent with the
+ * <a href="https://quarkus.io/guides/all-builditems">Quarkus build items</a> page: build items are grouped by the
+ * Maven module declaring them, documented with their Javadoc and their fields, and abstract ones are flagged rather
+ * than omitted.
  */
 @Mojo(name = "update-build-items-doc", threadSafe = true)
-public class UpdateBuildItemsDocMojo extends AbstractDocGeneratorMojo {
+public class UpdateBuildItemsDocMojo extends AbstractExtensionListMojo {
 
     private static final String[] SOURCE_ROOTS = {
             "extensions-core",
@@ -49,251 +63,284 @@ public class UpdateBuildItemsDocMojo extends AbstractDocGeneratorMojo {
             "extensions",
             "extensions-jvm"
     };
-    private static final Pattern CLASS_PATTERN = Pattern.compile(
-            "(?:public\\s+)?(?:static\\s+)?(?:final\\s+)?(?:abstract\\s+)?class\\s+(\\w+)\\s+extends\\s+(\\w+)");
-    private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+([\\w.]+)\\s*;");
-    private static final Pattern JAVADOC_PATTERN = Pattern.compile("/\\*\\*(.*?)\\*/", Pattern.DOTALL);
+    /** Printed before all other sections, like {@code Core} on the Quarkus page */
+    private static final String CORE_SECTION = "Core";
+    private static final String MODULE_NAME_PREFIX = "Camel Quarkus :: ";
+    private static final String MODULE_NAME_SUFFIX = " :: Deployment";
+    private static final String GITHUB_SOURCE_BASE = "https://github.com/apache/camel-quarkus/blob/";
+    private static final String NO_JAVADOC = "_No Javadoc found_";
+    private static final Pattern ANCHOR_PATTERN = Pattern.compile("(?s)<a\\s+href=\\s*\"([^\"]*?)\"\\s*>(.*?)</a>");
 
+    /**
+     * Skip the execution of this mojo.
+     */
     @Parameter(defaultValue = "false", property = "camel-quarkus.update-build-items-doc.skip")
     boolean skip;
 
     /**
-     * The path to the docs module base directory.
+     * The page to generate.
      */
-    @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}/docs")
-    File docsBaseDir;
+    @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}/docs/modules/ROOT/pages/contributor-guide/build-items.adoc", property = "camel-quarkus.buildItemsDocFile")
+    File outputFile;
+
+    /**
+     * Used to select the git ref the generated source links point at. Snapshot versions link to {@code main}.
+     */
+    @Parameter(defaultValue = "${project.version}", readonly = true)
+    String projectVersion;
+
+    private final JavaParser javaParser = new JavaParser(
+            new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17));
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         if (skip) {
             getLog().info("Skipping per user request");
             return;
         }
+
         final Path root = getRootModuleDirectory();
-        final List<BuildItemDoc> items = new ArrayList<>();
+        final Map<String, List<BuildItem>> sections = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (String sourceRoot : SOURCE_ROOTS) {
             final Path dir = root.resolve(sourceRoot);
             if (Files.isDirectory(dir)) {
-                scanTree(dir, sourceRoot, items);
+                collect(dir, root, sections);
             }
         }
-        items.sort(Comparator.comparing(BuildItemDoc::sectionOrder)
-                .thenComparing(BuildItemDoc::section)
-                .thenComparing(BuildItemDoc::name));
-        final Path out = docsBaseDir.toPath().resolve("modules/ROOT/pages/contributor-guide/build-items.adoc");
-        final String page = render(items);
+        sections.values().forEach(items -> items.sort(Comparator.comparing(item -> item.className)));
+
+        final Path out = outputFile.toPath();
+        final String page = render(sections);
         try {
-            Files.createDirectories(out.getParent());
-            final Charset charset = getCharset();
-            if (Files.isRegularFile(out)) {
-                final String old = Files.readString(out, charset);
-                if (old.equals(page)) {
-                    getLog().info("Build items doc is up to date: " + out);
-                    return;
-                }
+            if (Files.isRegularFile(out) && page.equals(Files.readString(out, getCharset()))) {
+                getLog().info("Build items doc is up to date: " + out);
+                return;
             }
-            Files.writeString(out, page, charset);
-            getLog().info("Wrote " + items.size() + " build items to " + out);
+            Files.createDirectories(out.getParent());
+            Files.writeString(out, page, getCharset());
+            getLog().info("Wrote " + sections.values().stream().mapToInt(List::size).sum() + " build items to " + out);
         } catch (IOException e) {
             throw new MojoExecutionException("Could not write " + out, e);
         }
     }
 
-    void scanTree(Path dir, String sourceRoot, List<BuildItemDoc> items) {
-        try (Stream<Path> stream = Files.walk(dir)) {
-            stream.filter(p -> p.toString().replace('\\', '/').contains("/src/main/java/"))
-                    .filter(p -> p.getFileName().toString().endsWith(".java"))
-                    .filter(p -> p.getFileName().toString().contains("BuildItem"))
-                    .forEach(p -> parseFile(p, sourceRoot, items));
+    void collect(Path dir, Path root, Map<String, List<BuildItem>> sections) throws MojoExecutionException {
+        try (Stream<Path> files = Files.walk(dir)) {
+            final List<Path> buildItemFiles = files
+                    .filter(Files::isRegularFile)
+                    .filter(file -> file.getFileName().toString().endsWith("BuildItem.java"))
+                    .filter(file -> relativize(root, file).contains("/src/main/java/"))
+                    .toList();
+            for (Path file : buildItemFiles) {
+                parse(file, root, sections);
+            }
         } catch (IOException e) {
-            throw new RuntimeException("Could not walk " + dir, e);
+            throw new MojoExecutionException("Could not walk " + dir, e);
         }
     }
 
-    void parseFile(Path file, String sourceRoot, List<BuildItemDoc> items) {
-        final String text;
+    void parse(Path file, Path root, Map<String, List<BuildItem>> sections) throws MojoExecutionException {
+        final ParseResult<CompilationUnit> result;
         try {
-            text = Files.readString(file, getCharset());
+            result = javaParser.parse(file);
         } catch (IOException e) {
-            throw new RuntimeException("Could not read " + file, e);
+            throw new MojoExecutionException("Could not read " + file, e);
         }
-        final Matcher pkgMatcher = PACKAGE_PATTERN.matcher(text);
-        final String pkg = pkgMatcher.find() ? pkgMatcher.group(1) : "";
-        final String fileClass = file.getFileName().toString().replace(".java", "");
-        final Matcher classMatcher = CLASS_PATTERN.matcher(text);
-        while (classMatcher.find()) {
-            final String simpleName = classMatcher.group(1);
-            final String parent = classMatcher.group(2);
-            if (!simpleName.contains("BuildItem") && !parent.contains("BuildItem")) {
-                continue;
-            }
-            final int classStart = classMatcher.start();
-            if (classMatcher.group().contains("abstract")) {
-                continue;
-            }
-            final String name = simpleName.equals(fileClass) ? simpleName : fileClass + "." + simpleName;
-            final String kind = kindOf(parent);
-            final String description = javadocBefore(text, classStart);
-            items.add(new BuildItemDoc(sectionOf(sourceRoot, pkg, file), name, pkg, kind, description));
+        final Optional<CompilationUnit> compilationUnit = result.getResult();
+        if (compilationUnit.isEmpty()) {
+            throw new MojoExecutionException("Could not parse " + file + ": " + result.getProblems());
         }
+        final Optional<ClassOrInterfaceDeclaration> primaryType = compilationUnit.get()
+                .findFirst(ClassOrInterfaceDeclaration.class);
+        if (primaryType.isEmpty()) {
+            return;
+        }
+        final ClassOrInterfaceDeclaration declaration = primaryType.get();
+        /* Ignore non-public and deprecated build items */
+        if (!declaration.isPublic() || declaration.getAnnotationByClass(Deprecated.class).isPresent()) {
+            return;
+        }
+        sections.computeIfAbsent(sectionOf(file), k -> new ArrayList<>())
+                .add(new BuildItem(relativize(root, file), declaration));
     }
 
-    static String kindOf(String parent) {
-        if (parent.contains("Empty")) {
-            return "Empty";
+    /**
+     * @return the section the given build item belongs to, derived from the {@code <name>} of the Maven module
+     *         declaring it
+     */
+    String sectionOf(Path file) throws MojoExecutionException {
+        final Path pom = findPom(file);
+        if (pom == null) {
+            return file.getParent().getFileName().toString();
         }
-        if (parent.contains("Multi")) {
-            return "Multi";
+        final String name;
+        try (Reader reader = Files.newBufferedReader(pom, getCharset())) {
+            name = new MavenXpp3Reader().read(reader).getName();
+        } catch (Exception e) {
+            throw new MojoExecutionException("Could not read " + pom, e);
         }
-        return "Simple";
+        return name == null || name.isEmpty()
+                ? pom.getParent().getFileName().toString()
+                : sanitizeModuleName(name);
     }
 
-    static String sectionOf(String sourceRoot, String pkg, Path file) {
-        if (pkg.contains(".core.deployment.main.spi")) {
-            return "Camel Main";
+    static String sanitizeModuleName(String name) {
+        String result = name.trim();
+        if (result.startsWith(MODULE_NAME_PREFIX)) {
+            result = result.substring(MODULE_NAME_PREFIX.length());
         }
-        if (pkg.contains(".core.deployment.spi")
-                || ("extensions-core".equals(sourceRoot) && pkg.contains(".core.deployment"))) {
-            return "Core";
+        if (result.endsWith(MODULE_NAME_SUFFIX)) {
+            result = result.substring(0, result.length() - MODULE_NAME_SUFFIX.length());
         }
-        Path p = file.toAbsolutePath().normalize();
-        for (int i = 0; i < p.getNameCount(); i++) {
-            final String n = p.getName(i).toString();
-            if (n.startsWith("extensions") && i + 1 < p.getNameCount()) {
-                final String ext = p.getName(i + 1).toString();
-                if ("core".equals(ext)) {
-                    continue;
-                }
-                if ("extensions-support".equals(n)) {
-                    return "support-" + ext;
-                }
-                return ext;
-            }
-        }
-        return sourceRoot;
+        return result.trim();
     }
 
-    static String javadocBefore(String text, int classStart) {
-        final String prefix = text.substring(0, classStart);
-        final Matcher m = JAVADOC_PATTERN.matcher(prefix);
-        String last = "";
-        while (m.find()) {
-            last = m.group(1);
-        }
-        if (last.isEmpty()) {
-            return "";
-        }
-        final StringBuilder paragraph = new StringBuilder();
-        for (String rawLine : last.split("\n")) {
-            String line = rawLine.replaceFirst("^\\s*\\*", "").trim();
-            if (line.startsWith("@")) {
-                break;
+    static Path findPom(Path file) {
+        Path parent = file;
+        while ((parent = parent.getParent()) != null) {
+            final Path pom = parent.resolve("pom.xml");
+            if (Files.isRegularFile(pom)) {
+                return pom;
             }
-            if (line.isEmpty()) {
-                if (paragraph.length() > 0) {
-                    break;
-                }
-                continue;
-            }
-            if (paragraph.length() > 0) {
-                paragraph.append(' ');
-            }
-            paragraph.append(line);
         }
-        return cleanJavadoc(paragraph.toString());
+        return null;
     }
 
-    static String cleanJavadoc(String value) {
-        String s = value;
-        s = s.replaceAll("\\{@link\\s+([^}]+)\\}", "$1");
-        s = s.replaceAll("\\{@code\\s+([^}]+)\\}", "`$1`");
-        s = s.replaceAll("\\{@literal\\s+([^}]+)\\}", "$1");
-        s = s.replaceAll("<[^>]+>", "");
-        s = s.replace("|", "\\|");
-        s = s.replaceAll("\\s+", " ").trim();
-        return s;
+    static String relativize(Path root, Path file) {
+        return root.relativize(file.toAbsolutePath().normalize()).toString().replace(File.separatorChar, '/');
     }
 
-    static String render(List<BuildItemDoc> items) {
+    String render(Map<String, List<BuildItem>> sections) {
         final StringBuilder sb = new StringBuilder();
         sb.append("// Do not edit directly!\n");
         sb.append("// This file was generated by camel-quarkus-maven-plugin:update-build-items-doc\n");
-        sb.append("= Camel Quarkus build items\n\n");
-        sb.append("Quarkus extensions communicate through https://quarkus.io/guides/all-builditems[build items]\n");
-        sb.append("produced and consumed by `@BuildStep` methods. This page is generated from the `*BuildItem`\n");
-        sb.append("classes in Camel Quarkus deployment modules.\n\n");
-        sb.append("Kind:\n\n");
-        sb.append("* *Simple* — at most one instance (`SimpleBuildItem`)\n");
-        sb.append("* *Multi* — zero or more instances (`MultiBuildItem`)\n");
-        sb.append("* *Empty* — a marker with no payload (`EmptyBuildItem`)\n\n");
-        sb.append("Quarkus core items such as `FeatureBuildItem` and `ReflectiveClassBuildItem` are documented on the\n");
-        sb.append("https://quarkus.io/guides/all-builditems[Quarkus build items] page.\n\n");
-        sb.append("Regenerate from the source tree after changing a build item:\n\n");
-        sb.append("----\n");
-        sb.append("./mvnw -pl tooling/maven-plugin -am install -DskipTests\n");
-        sb.append("./mvnw -f docs/pom.xml camel-quarkus:update-build-items-doc\n");
-        sb.append("----\n");
+        sb.append("= Camel Quarkus build items\n");
+        sb.append(":linkattrs:\n\n");
+        sb.append("Quarkus extensions pass information to each other at build time through build items produced and\n");
+        sb.append("consumed by `@BuildStep` methods.\n");
+        sb.append("This page lists the build items declared by the Camel Quarkus deployment modules.\n");
+        sb.append("The build items provided by Quarkus itself are listed on the\n");
+        sb.append("https://quarkus.io/guides/all-builditems[Quarkus build items] page.\n");
 
-        final Map<String, List<BuildItemDoc>> grouped = new LinkedHashMap<>();
-        for (BuildItemDoc item : items) {
-            grouped.computeIfAbsent(item.section, k -> new ArrayList<>()).add(item);
+        /* Note that TreeMap(Map) would not retain the case insensitive comparator */
+        final Map<String, List<BuildItem>> remaining = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        remaining.putAll(sections);
+        final List<BuildItem> core = remaining.remove(CORE_SECTION);
+        if (core != null) {
+            renderSection(sb, CORE_SECTION, core);
         }
-        for (Map.Entry<String, List<BuildItemDoc>> entry : grouped.entrySet()) {
-            sb.append("\n== ").append(entry.getKey()).append("\n\n");
-            if ("Core".equals(entry.getKey()) || "Camel Main".equals(entry.getKey())) {
-                final String pkg = entry.getValue().get(0).pkg;
-                if (!pkg.isEmpty()) {
-                    sb.append("Package: `").append(pkg).append("`\n\n");
-                }
-            }
-            sb.append("[cols=\"2,1,3\", options=\"header\"]\n");
-            sb.append("|===\n");
-            sb.append("|Build item |Kind |Description\n");
-            for (BuildItemDoc item : entry.getValue()) {
-                sb.append('\n');
-                sb.append("|`").append(item.name).append("`\n");
-                sb.append('|').append(item.kind).append('\n');
-                sb.append('|').append(item.description.isEmpty() ? "-" : item.description).append('\n');
-            }
-            sb.append("|===\n");
-        }
+        remaining.forEach((section, items) -> renderSection(sb, section, items));
         return sb.toString();
     }
 
-    static final class BuildItemDoc {
-        final String section;
-        final String name;
-        final String pkg;
-        final String kind;
-        final String description;
+    void renderSection(StringBuilder sb, String section, List<BuildItem> items) {
+        sb.append("\n== ").append(section).append("\n\n");
+        sb.append("[width=\"100%\",cols=\"50,50\",options=\"header\"]\n");
+        sb.append("|===\n");
+        sb.append("| Class name | Attributes\n");
+        for (BuildItem item : items) {
+            sb.append('\n');
+            sb.append("a|");
+            if (item.declaration.isAbstract()) {
+                sb.append("icon:building[title=Non-instantiatable Build Item (can be inherited from)] ");
+            }
+            sb.append(GITHUB_SOURCE_BASE).append(gitRef()).append('/').append(item.path)
+                    .append("[`").append(item.className).append("`,window=_blank]\n\n");
+            sb.append(item.description()).append('\n');
+            sb.append("a|").append(item.attributes()).append('\n');
+        }
+        sb.append("|===\n");
+    }
 
-        BuildItemDoc(String section, String name, String pkg, String kind, String description) {
-            this.section = section;
-            this.name = name;
-            this.pkg = pkg;
-            this.kind = kind;
-            this.description = description;
+    String gitRef() {
+        return projectVersion == null || projectVersion.endsWith("-SNAPSHOT") ? "main" : projectVersion;
+    }
+
+    static String javadocOf(Optional<JavadocComment> javadocComment) {
+        if (javadocComment.isEmpty()) {
+            return NO_JAVADOC;
+        }
+        return javadocToAsciidoc(cleanJavadocComment(javadocComment.get().getContent()));
+    }
+
+    static String cleanJavadocComment(String rawContent) {
+        return rawContent.lines()
+                .map(line -> line.replaceFirst("^\\s*\\*\\s?", ""))
+                .filter(line -> !line.trim().startsWith("@"))
+                .reduce((a, b) -> a + "\n" + b)
+                .orElse("")
+                .strip();
+    }
+
+    static String javadocToAsciidoc(String content) {
+        final String result = content
+                .replaceAll("<p> *", "\n")
+                .replaceAll("</p> *", "\n")
+                .replaceAll("<br> *", "\n")
+                .replaceAll("\\{?@(link|linkplain|see|code|literal|value) ([^}]*)}", "`$2`")
+                .replaceAll("(?m)^@see ", "See ")
+                .replaceAll("<pre>", "\n[source]\n----\n")
+                .replaceAll("</pre>", "\n----\n")
+                .replaceAll("<h2>", "\n[discrete]\n== ")
+                .replaceAll("</h2> *", "\n\n")
+                .replaceAll("</?i>", "_")
+                .replaceAll("</?em>", "_")
+                .replaceAll("</?b>", "*")
+                .replaceAll("</?ul> *", "\n")
+                .replaceAll("<li>", "\n* ")
+                .replaceAll("</li> *", "\n\n")
+                .replaceAll("</?tt>", "`")
+                .replace("|", "\\|");
+        final String asciidoc = convertAnchors(result).strip();
+        /* Collapse the blank line runs left behind by the replacements above, unless they are part of a listing */
+        return asciidoc.contains("----") ? asciidoc : asciidoc.replaceAll("\n{3,}", "\n\n");
+    }
+
+    static String convertAnchors(String content) {
+        final Matcher matcher = ANCHOR_PATTERN.matcher(content);
+        final StringBuilder sb = new StringBuilder();
+        while (matcher.find()) {
+            final String url = matcher.group(1).strip();
+            final String text = matcher.group(2).replaceAll("\\s+", " ").strip();
+            matcher.appendReplacement(sb, Matcher.quoteReplacement(url + "[" + text + ",window=_blank]"));
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    static final class BuildItem {
+        private final String path;
+        private final String className;
+        private final ClassOrInterfaceDeclaration declaration;
+
+        BuildItem(String path, ClassOrInterfaceDeclaration declaration) {
+            this.path = path;
+            this.className = declaration.getFullyQualifiedName().orElseGet(declaration::getNameAsString);
+            this.declaration = declaration;
         }
 
-        String section() {
-            return section;
+        String description() {
+            return javadocOf(declaration.getJavadocComment());
         }
 
-        String name() {
-            return name;
-        }
-
-        int sectionOrder() {
-            if ("Core".equals(section)) {
-                return 0;
+        String attributes() {
+            final StringBuilder sb = new StringBuilder();
+            for (FieldDeclaration field : declaration.getFields()) {
+                if (field.isStatic()) {
+                    continue;
+                }
+                for (VariableDeclarator variable : field.getVariables()) {
+                    if (sb.length() > 0) {
+                        sb.append("\n\n");
+                    }
+                    sb.append('`').append(variable.getType().asString().replace("|", "\\|"))
+                            .append(' ').append(variable.getNameAsString()).append('`');
+                    field.getJavadocComment()
+                            .ifPresent(javadoc -> sb.append("\n\n")
+                                    .append(javadocToAsciidoc(cleanJavadocComment(javadoc.getContent()))));
+                }
             }
-            if ("Camel Main".equals(section)) {
-                return 1;
-            }
-            if (section.startsWith("support-")) {
-                return 2;
-            }
-            return 3;
+            return sb.length() == 0 ? "None" : sb.toString();
         }
     }
 }
