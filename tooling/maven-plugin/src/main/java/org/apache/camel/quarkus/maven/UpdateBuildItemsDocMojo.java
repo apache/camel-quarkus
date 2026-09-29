@@ -67,6 +67,7 @@ public class UpdateBuildItemsDocMojo extends AbstractExtensionListMojo {
     private static final String CORE_SECTION = "Core";
     private static final String MODULE_NAME_PREFIX = "Camel Quarkus :: ";
     private static final String MODULE_NAME_SUFFIX = " :: Deployment";
+    private static final Pattern MODULE_NAME_SEPARATOR = Pattern.compile("\\s*::\\s*");
     private static final String GITHUB_SOURCE_BASE = "https://github.com/apache/camel-quarkus/blob/";
     private static final String NO_JAVADOC = "_No Javadoc found_";
     private static final Pattern ANCHOR_PATTERN = Pattern.compile("(?s)<a\\s+href=\\s*\"([^\"]*?)\"\\s*>(.*?)</a>");
@@ -192,7 +193,8 @@ public class UpdateBuildItemsDocMojo extends AbstractExtensionListMojo {
         if (result.endsWith(MODULE_NAME_SUFFIX)) {
             result = result.substring(0, result.length() - MODULE_NAME_SUFFIX.length());
         }
-        return result.trim();
+        /* Nested modules, such as Camel Quarkus :: Support :: DSL :: Deployment, keep a separator */
+        return MODULE_NAME_SEPARATOR.matcher(result).replaceAll(" ").trim();
     }
 
     static Path findPom(Path file) {

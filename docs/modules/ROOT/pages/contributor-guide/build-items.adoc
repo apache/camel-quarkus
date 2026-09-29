@@ -448,7 +448,7 @@ Holds the `PlatformHttpEngine` `RuntimeValue`.
 a|`RuntimeValue<PlatformHttpEngine> instance`
 |===
 
-== Support :: Bouncy Castle
+== Support Bouncy Castle
 
 [width="100%",cols="50,50",options="header"]
 |===
@@ -469,7 +469,7 @@ at bootstrap so that graal can proceed with security services automatic registra
 a|`List<String> cipherTransformations`
 |===
 
-== Support :: DSL
+== Support DSL
 
 [width="100%",cols="50,50",options="header"]
 |===
@@ -485,7 +485,7 @@ a|`String name`
 `boolean instantiateWithCamelContext`
 |===
 
-== Support :: Language
+== Support Language
 
 [width="100%",cols="50,50",options="header"]
 |===
