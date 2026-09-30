@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.azure.servicebus.it;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -119,7 +121,7 @@ public class AzureServiceBusResource {
             offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(scheduledEnqueueTime), ZoneId.systemDefault());
         }
 
-        fluentProducerTemplate.to(directEndpointUri)
+        Exchange result = fluentProducerTemplate.to(directEndpointUri)
                 .withHeader("serviceBusType", serviceBusType)
                 .withHeader("destination", destination)
                 .withHeader("transportType", transportType)
@@ -127,6 +129,13 @@ public class AzureServiceBusResource {
                 .withHeader(ServiceBusConstants.SCHEDULED_ENQUEUE_TIME, offsetDateTime)
                 .withBody(payload)
                 .send();
+
+        // send() does not throw, the failure is stored on the exchange. Report it instead of answering 201
+        if (result.getException() != null) {
+            StringWriter stackTrace = new StringWriter();
+            result.getException().printStackTrace(new PrintWriter(stackTrace));
+            return Response.serverError().entity(stackTrace.toString()).build();
+        }
 
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
