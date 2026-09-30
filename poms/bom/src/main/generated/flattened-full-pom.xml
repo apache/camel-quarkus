@@ -8094,7 +8094,7 @@
       <dependency>
         <groupId>org.apache.tika</groupId>
         <artifactId>tika-parser-pdf-module</artifactId>
-        <version>4.0.0</version>
+        <version>4.1.0</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
