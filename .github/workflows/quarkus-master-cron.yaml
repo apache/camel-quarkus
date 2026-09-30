@@ -50,11 +50,11 @@ jobs:
       - name: Check free space on disk
         run: |
           df -h /
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Set Workflow Build ID
         run: |
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
@@ -174,11 +174,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
@@ -255,11 +255,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -349,11 +349,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
@@ -400,11 +400,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
@@ -445,11 +445,11 @@ jobs:
         with:
           cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
           download-maven-repo: 'true'
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Rebase branch main onto quarkus-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -516,11 +516,11 @@ jobs:
     needs: native-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

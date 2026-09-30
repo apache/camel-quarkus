@@ -24,15 +24,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledForJreRange;
-import org.junit.jupiter.api.condition.JRE;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTestResource(value = SedaVirtualThreadsTest.VirtualThreadsResource.class, restrictToAnnotatedClass = true)
 @QuarkusTest
 class SedaVirtualThreadsTest {
-    @EnabledForJreRange(min = JRE.JAVA_21)
     @Test
     void sedaExecutesOnVirtualThread() {
         RestAssured.given()
@@ -43,7 +40,7 @@ class SedaVirtualThreadsTest {
 
         RestAssured.get("/seda/virtualThreadedResults")
                 .then()
-                .body(containsString("java.lang.VirtualThread"))
+                .body(is("true"))
                 .statusCode(200);
     }
 

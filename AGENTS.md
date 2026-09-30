@@ -28,7 +28,7 @@ Apache Camel Quarkus provides Quarkus extensions for Apache Camel components, en
 - Do NOT introduce Spring Boot or Spring unless explicitly required
 
 ## Technology Stack
-- Java 17+
+- Java 21+
 - GraalVM 25+ / Mandrel 25+
 - Maven 3.9.11+ (For convenience the maven wrapper is provided in the root directory and can be invoked as `./mvnw` or `./mvnw.cmd`)
 - Apache Camel 4.x, Quarkus 3.x. Check `pom.xml` for the current Camel, and Quarkus versions used.

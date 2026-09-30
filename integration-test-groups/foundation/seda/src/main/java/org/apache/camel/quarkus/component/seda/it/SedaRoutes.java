@@ -16,20 +16,13 @@
  */
 package org.apache.camel.quarkus.component.seda.it;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class SedaRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("seda:virtualThreaded")
-                .process(new Processor() {
-                    public void process(Exchange exchange) throws Exception {
-                        // Avoid Thread.isVirtual to maintain JDK 17 compatibility
-                        exchange.getMessage().setBody(Thread.currentThread().getClass().getName());
-                    }
-                })
+                .process(exchange -> exchange.getMessage().setBody(Thread.currentThread().isVirtual()))
                 .to("seda:virtualThreadedResults");
     }
 }
