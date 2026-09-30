@@ -284,6 +284,8 @@
         <solr.container.image>mirror.gcr.io/solr:9.10.1-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.4.7</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2025-latest</sql-server.container.image>
+        <!-- SQL Server 2025 does not start on FIPS hosts, see https://github.com/microsoft/mssql-docker/issues/958. The fips profile switches to this image. -->
+        <sql-server.container.image.fips>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image.fips>
         <weaviate.container.image>mirror.gcr.io/semitechnologies/weaviate:1.37.4</weaviate.container.image>
 
         <!-- Plugin configuration through properties  -->
@@ -1734,6 +1736,18 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <!-- FIPS host support: switch test container images that do not start on FIPS-enabled kernels. Activate with -Dfips -->
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <properties>
+                <sql-server.container.image>${sql-server.container.image.fips}</sql-server.container.image>
+            </properties>
         </profile>
     </profiles>
 
