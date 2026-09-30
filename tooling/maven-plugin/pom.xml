@@ -86,6 +86,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-extension-processor</artifactId>
         </dependency>

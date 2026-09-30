@@ -94,6 +94,12 @@ Always include `:camel-quarkus` (the root project) in `-pl`: it runs the root-on
 
 To regenerate one extension's docs on its own: `./mvnw -pl extensions/kafka/deployment process-classes`.
 
+After adding or removing a `*BuildItem` class, or changing its Javadoc or fields, regenerate the build items page:
+```bash
+./mvnw -pl docs process-classes            # docs/modules/ROOT/pages/contributor-guide/build-items.adoc
+```
+A full build does this already, but `-Dquickly` builds skip it, so a stale page otherwise surfaces only as a CI failure.
+
 It rewrites files in place, so run it **before `git add`**, or re-stage after. Always run it from the project root.
 
 ## Extension Structure
