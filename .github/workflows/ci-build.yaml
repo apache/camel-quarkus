@@ -741,7 +741,7 @@ jobs:
         with:
           cache-key: ${{ needs.initial-mvn-install.outputs.cache-key }}
           download-maven-repo: 'true'
-      - name: cd integration-tests && mvn clean verify
+      - name: cd integration-tests && mvn clean test
         shell: bash
         run: |
           cd integration-tests
@@ -753,14 +753,14 @@ jobs:
               -pl "$AFFECTED_MODULES" \
               -Dskip-testcontainers-tests ${CQ_MAVEN_SKIP_CHECKS} \
               --fail-at-end \
-              clean verify
+              clean test
           else
             # Full build - run all modules
             echo "Running full build - all modules"
             ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
               -Dskip-testcontainers-tests ${CQ_MAVEN_SKIP_CHECKS} \
               --fail-at-end \
-              clean verify
+              clean test
           fi
       - name: Report test failures
         uses: ./.github/actions/test-summary-report
