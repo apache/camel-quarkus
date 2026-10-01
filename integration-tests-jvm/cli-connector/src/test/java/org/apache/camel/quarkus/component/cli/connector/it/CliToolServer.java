@@ -30,6 +30,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.http.ServerWebSocket;
+import io.vertx.core.http.WebSocketFrame;
 import org.apache.camel.util.json.JsonObject;
 import org.apache.camel.util.json.Jsoner;
 
@@ -50,6 +51,8 @@ public class CliToolServer implements QuarkusTestResourceLifecycleManager {
     static final List<String> REQUEST_URIS = new CopyOnWriteArrayList<>();
     static final AtomicInteger REJECTED = new AtomicInteger();
     static final AtomicInteger CONNECTIONS = new AtomicInteger();
+    static final AtomicInteger UNANSWERED = new AtomicInteger();
+    static volatile boolean silent;
     static final AtomicInteger LARGEST_TRACE_SNAPSHOT = new AtomicInteger();
     static volatile boolean reject;
 
@@ -64,6 +67,11 @@ public class CliToolServer implements QuarkusTestResourceLifecycleManager {
                     .setMaxWebSocketMessageSize(MAX_MESSAGE_SIZE))
                     .webSocketHandshakeHandler(handshake -> {
                         REQUEST_URIS.add(handshake.uri());
+                        if (silent) {
+                            // never answers the upgrade
+                            UNANSWERED.incrementAndGet();
+                            return;
+                        }
                         if (reject || !("Bearer " + TOKEN).equals(handshake.headers().get("Authorization"))) {
                             REJECTED.incrementAndGet();
                             handshake.reject(401);
@@ -117,7 +125,14 @@ public class CliToolServer implements QuarkusTestResourceLifecycleManager {
 
     static void send(JsonObject frame) {
         await().atMost(10, TimeUnit.SECONDS).until(() -> !SOCKETS.isEmpty());
+        // in frames of 64 KB at most, as Vert.x and Quarkus servers
         SOCKETS.get(SOCKETS.size() - 1).writeTextMessage(frame.toJson());
+    }
+
+    static void sendInASingleFrame(JsonObject frame) {
+        await().atMost(10, TimeUnit.SECONDS).until(() -> !SOCKETS.isEmpty());
+        // as tools that never split messages, whatever the size
+        SOCKETS.get(SOCKETS.size() - 1).writeFrame(WebSocketFrame.textFrame(frame.toJson(), true));
     }
 
     static JsonObject action(String requestId, String name, String... keyValues) {

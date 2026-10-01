@@ -53,8 +53,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-websockets-next</artifactId>
-            <optional>true</optional>
+            <artifactId>quarkus-vertx-http</artifactId>
         </dependency>
     </dependencies>
 

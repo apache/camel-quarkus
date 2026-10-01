@@ -35,20 +35,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 /**
- * Shared with cli-connector-websockets-next, which has quarkus-websockets-next: only the expected client differs.
+ * The Vert.x client, the default on Camel Quarkus.
  */
 @QuarkusTest
 @QuarkusTestResource(CliToolServer.class)
 class CliConnectorTest {
 
     private static final Path LOG = Paths.get("target/quarkus.log");
-    private static final String EXPECTED_CLIENT = System.getProperty("cli-connector.expected-client", "jdk");
 
     @Test
     void connectsWithTheExpectedClient() throws Exception {
         JsonObject hello = reconnect();
 
-        assertThat(hello.getString("transport")).isEqualTo(EXPECTED_CLIENT);
+        assertThat(hello.getString("transport")).isEqualTo("vertx");
         assertThat(hello.getString("camelVersion")).isNotBlank();
         // the url is used as given, encoded characters included
         assertThat(CliToolServer.REQUEST_URIS).isNotEmpty().allSatisfy(uri -> assertThat(uri)
@@ -112,6 +111,46 @@ class CliConnectorTest {
             CliToolServer.reject = false;
         }
         // connected again once the token is accepted
+        assertThat(CliToolServer.awaitFrame(f -> "hello".equals(f.getString("type")))).isNotNull();
+    }
+
+    @Test
+    void receivesLargeActionsInASingleFrame() throws Exception {
+        reconnect();
+        // over the 64 KB frames that Vert.x accepts by default
+        String body = "x".repeat(1024 * 1024);
+
+        CliToolServer.sendInASingleFrame(
+                action("r1", "send", "endpoint", "direct:length", "body", body, "exchangePattern", "InOut"));
+        JsonObject result = awaitResult("r1");
+        assertThat(result.getBoolean("ok")).isTrue();
+        assertThat(resultJson(result)).contains("length=" + body.length());
+    }
+
+    @Test
+    void staysConnected() throws Exception {
+        reconnect();
+        int connections = CliToolServer.CONNECTIONS.get();
+
+        // longer than the connect and handshake timeouts (10 s), which must not apply once connected
+        await().during(15, TimeUnit.SECONDS).atMost(20, TimeUnit.SECONDS)
+                .untilAsserted(() -> assertThat(CliToolServer.CONNECTIONS).hasValue(connections));
+    }
+
+    @Test
+    void reconnectsWhenTheToolDoesNotAnswerTheHandshake() throws Exception {
+        reconnect();
+        int unanswered = CliToolServer.UNANSWERED.get();
+        try {
+            CliToolServer.silent = true;
+            CliToolServer.SOCKETS.forEach(ServerWebSocket::close);
+
+            // the handshake times out after 10 s, and the connector tries again
+            await().atMost(40, TimeUnit.SECONDS)
+                    .untilAsserted(() -> assertThat(CliToolServer.UNANSWERED).hasValueGreaterThan(unanswered + 1));
+        } finally {
+            CliToolServer.silent = false;
+        }
         assertThat(CliToolServer.awaitFrame(f -> "hello".equals(f.getString("type")))).isNotNull();
     }
 

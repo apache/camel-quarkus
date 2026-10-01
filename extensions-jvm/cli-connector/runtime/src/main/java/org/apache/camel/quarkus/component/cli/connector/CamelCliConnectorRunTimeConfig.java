@@ -26,8 +26,8 @@ import io.smallrye.config.ConfigMapping;
 @ConfigMapping(prefix = "quarkus.camel.cli")
 public interface CamelCliConnectorRunTimeConfig {
     /**
-     * Options of the WebSocket transport (`camel.cli.transport=websocket`) when the Quarkus WebSockets Next client is
-     * used.
+     * Options of the WebSocket transport (`camel.cli.transport=websocket`) when the Vert.x client is used (the
+     * default).
      *
      * @asciidoclet
      */
@@ -35,8 +35,8 @@ public interface CamelCliConnectorRunTimeConfig {
 
     interface WebSocketConfig {
         /**
-         * The name of the TLS configuration (from the Quarkus TLS registry) the WebSockets Next client uses to connect
-         * to a `wss://` tool. When not set, `quarkus.websockets-next.client.tls-configuration-name` applies.
+         * The name of the TLS configuration (from the Quarkus TLS registry) used to connect to a `wss://` tool. When
+         * not set, the JVM default trust store is used.
          *
          * @asciidoclet
          */

@@ -51,37 +51,23 @@ xref:{cq-camel-components}:others:cli-connector.adoc[CLI Connector] documentatio
 
 [source,properties]
 ----
-camel.cli.transport = websocket
-camel.cli.websocket.url = ws://127.0.0.1:8000/connect?executionId=run-1
+%dev.camel.cli.transport = websocket
+%dev.camel.cli.websocket.url = ws://127.0.0.1:8000/connect?executionId=run-1
 ----
 
-The tool gets full control of the application: the transport refuses to start with the `prod` profile
-(`camel.main.profile=prod`).
+The tool gets full control of the application: the transport refuses to start with the Quarkus `prod` profile (the
+default profile of a packaged application), as with the Camel `prod` profile (`camel.main.profile=prod`). To use it
+from a packaged application, for example on a remote development cluster, run it with another profile.
 
 [id="extensions-cli-connector-usage-websocket-client"]
 ==== WebSocket client
 
-* When the application has the `quarkus-websockets-next` extension, its client is used: Vert.x event loop, TLS
-  configuration from the https://quarkus.io/guides/tls-registry-reference[Quarkus TLS registry] (see
-  `quarkus.camel.cli.websocket.tls-configuration-name` below), Quarkus WebSockets Next client options.
-* Otherwise, the JDK WebSocket client is used. No dependency is added to the application for this.
+The connector uses the Vert.x WebSocket client of the application. The client in use is logged at startup
+(`Camel CLI connector uses the vertx WebSocket client`) and reported to the tool. Set
+`camel.cli.websocket.client=jdk` to use the JDK WebSocket client instead.
 
-The client in use is logged at startup (`Camel CLI connector uses the quarkus-websockets-next WebSocket client`) and
-reported to the tool. Set `camel.cli.websocket.client=jdk` to always use the JDK client.
-
-The connector accepts actions of up to 16 MB from the tool. If the application sets
-`quarkus.websockets-next.client.max-message-size` to a lower value, that value applies to the connector too, and a
-warning is logged at startup.
-
-The WebSockets Next client sends and accepts frames of up to 64 KB (the Vert.x default, also accepted by most
-WebSocket servers): larger messages are split into several frames, and the tool must split the messages it sends
-the same way (most WebSocket libraries do). `quarkus.websockets-next.client.max-frame-size` changes the size in both
-directions.
-
-NOTE: When `quarkus-websockets-next` is present, this extension sets the default of
-`quarkus.websockets-next.client.max-pending-messages` to `0` (no back-pressure, as before Quarkus 3.40): with
-back-pressure, the WebSockets Next client stops reading a connection after receiving many messages split in several
-frames. This applies to the other WebSockets Next clients of the application too, unless the property is set.
+For a `wss://` tool, `quarkus.camel.cli.websocket.tls-configuration-name` selects a TLS configuration of the
+https://quarkus.io/guides/tls-registry-reference[Quarkus TLS registry]; otherwise the JVM default trust store is used.
 
 
 [id="extensions-cli-connector-additional-camel-quarkus-configuration"]
@@ -100,8 +86,8 @@ Sets whether to enable Camel CLI Connector support.
 
 a| [[quarkus-camel-cli-websocket-tls-configuration-name]]`link:#quarkus-camel-cli-websocket-tls-configuration-name[quarkus.camel.cli.websocket.tls-configuration-name]`
 
-The name of the TLS configuration (from the Quarkus TLS registry) the WebSockets Next client uses to connect
-to a `wss://` tool. When not set, `quarkus.websockets-next.client.tls-configuration-name` applies.
+The name of the TLS configuration (from the Quarkus TLS registry) used to connect to a `wss://` tool. When
+not set, the JVM default trust store is used.
 | `string`
 | 
 |===
