@@ -46,7 +46,7 @@ class SedaTest {
 
         RestAssured.get("/seda/virtualThreadedResults")
                 .then()
-                .body(is(Thread.class.getName()))
+                .body(is("false"))
                 .statusCode(200);
     }
 }

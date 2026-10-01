@@ -91,7 +91,7 @@ public class UpdateBuildItemsDocMojo extends AbstractExtensionListMojo {
     String projectVersion;
 
     private final JavaParser javaParser = new JavaParser(
-            new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17));
+            new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21));
 
     @Override
     public void execute() throws MojoExecutionException {

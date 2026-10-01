@@ -17,16 +17,8 @@
 package org.apache.camel.quarkus.component.seda.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Test;
 
 @QuarkusIntegrationTest
 class SedaVirtualThreadsIT extends SedaVirtualThreadsTest {
-    /**
-     * Overridden to remove JDK version restrictions as the JDK used in native mode should be >= 25
-     */
-    @Override
-    @Test
-    void sedaExecutesOnVirtualThread() {
-        super.sedaExecutesOnVirtualThread();
-    }
+
 }
