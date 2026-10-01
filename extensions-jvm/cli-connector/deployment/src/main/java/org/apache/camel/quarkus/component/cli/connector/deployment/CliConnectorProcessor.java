@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.cli.connector.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.processor.DotNames;
 import io.quarkus.builder.Version;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -26,6 +28,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorRecorder;
+import org.apache.camel.quarkus.component.cli.connector.VertxCliWebSocketClient;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -57,6 +60,18 @@ class CliConnectorProcessor {
         return new CamelBeanBuildItem("quarkusCliConnectorFactory",
                 CliConnectorFactory.class.getName(),
                 recorder.createCliConnectorFactory(Version.getVersion()));
+    }
+
+    /**
+     * The WebSocket transport uses the Vert.x client, unless camel.cli.websocket.client=jdk.
+     */
+    @BuildStep(onlyIf = CliConnectorEnabled.class)
+    AdditionalBeanBuildItem webSocketClient() {
+        return AdditionalBeanBuildItem.builder()
+                .addBeanClasses(VertxCliWebSocketClient.class)
+                .setDefaultScope(DotNames.SINGLETON)
+                .setUnremovable()
+                .build();
     }
 
     /**
