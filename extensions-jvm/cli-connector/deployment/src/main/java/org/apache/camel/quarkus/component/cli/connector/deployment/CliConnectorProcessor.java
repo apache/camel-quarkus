@@ -18,12 +18,18 @@ package org.apache.camel.quarkus.component.cli.connector.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.processor.DotNames;
 import io.quarkus.builder.Version;
+import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.Capability;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorRecorder;
@@ -37,6 +43,8 @@ class CliConnectorProcessor {
 
     private static final Logger LOG = Logger.getLogger(CliConnectorProcessor.class);
     private static final String FEATURE = "camel-cli-connector";
+    // a name, not the class: it needs quarkus-websockets-next, an optional dependency
+    private static final String WEBSOCKET_CLIENT = "org.apache.camel.quarkus.component.cli.connector.QuarkusCliWebSocketClient";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -49,6 +57,29 @@ class CliConnectorProcessor {
         return new CamelBeanBuildItem("quarkusCliConnectorFactory",
                 CliConnectorFactory.class.getName(),
                 recorder.createCliConnectorFactory(Version.getVersion()));
+    }
+
+    /**
+     * The WebSocket transport uses the WebSockets Next client when the application has it, the JDK client otherwise.
+     */
+    @BuildStep
+    void webSocketClient(
+            Capabilities capabilities,
+            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
+            BuildProducer<RunTimeConfigurationDefaultBuildItem> configDefaults) {
+        if (capabilities.isPresent(Capability.WEBSOCKETS_NEXT)) {
+            // the back-pressure of the WebSockets Next client (since Quarkus 3.40) fetches one frame per message
+            // received, so every message received in several frames (over 64 KB) leaves fewer frames to fetch, until
+            // the connection stops reading: no back-pressure by default, as before Quarkus 3.40
+            // TODO: Remove when https://github.com/quarkusio/quarkus/issues/57079 is fixed
+            configDefaults.produce(new RunTimeConfigurationDefaultBuildItem(
+                    "quarkus.websockets-next.client.max-pending-messages", "0"));
+            additionalBeans.produce(AdditionalBeanBuildItem.builder()
+                    .addBeanClasses(WEBSOCKET_CLIENT)
+                    .setDefaultScope(DotNames.SINGLETON)
+                    .setUnremovable()
+                    .build());
+        }
     }
 
     /**
