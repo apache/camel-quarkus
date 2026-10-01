@@ -35,7 +35,8 @@ public class CliConnectorWebSocketProdProfileTest {
             .setRun(true)
             .setExpectExit(true)
             .setRuntimeProperties(Map.of(
-                    "camel.cli.transport", "websocket",
+                    // any case, as Camel matches it
+                    "camel.cli.transport", "WebSocket",
                     "camel.cli.websocket.url", "ws://127.0.0.1:9/connect"));
 
     @Test

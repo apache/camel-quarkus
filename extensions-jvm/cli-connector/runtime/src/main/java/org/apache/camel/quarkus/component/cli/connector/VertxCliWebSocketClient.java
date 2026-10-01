@@ -26,6 +26,7 @@ import java.util.concurrent.TimeoutException;
 
 import io.quarkus.tls.TlsConfiguration;
 import io.quarkus.tls.TlsConfigurationRegistry;
+import io.quarkus.tls.runtime.config.TlsConfigUtils;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
@@ -95,7 +96,7 @@ public class VertxCliWebSocketClient implements CliWebSocketClient {
                 .setMaxFrameSize(MAX_MESSAGE_BYTES)
                 .setMaxMessageSize(MAX_MESSAGE_BYTES);
         if (ssl && tls != null) {
-            configure(options, tls);
+            TlsConfigUtils.configure(options, tls);
         }
         String path = url.getRawPath() == null || url.getRawPath().isEmpty() ? "/" : url.getRawPath();
         WebSocketConnectOptions connect = new WebSocketConnectOptions()
@@ -147,20 +148,6 @@ public class VertxCliWebSocketClient implements CliWebSocketClient {
             answer.complete(new VertxChannel(ws, client));
         });
         return answer;
-    }
-
-    private static void configure(WebSocketClientOptions options, TlsConfiguration tls) {
-        options.setSsl(true);
-        if (tls.getTrustStoreOptions() != null) {
-            options.setTrustOptions(tls.getTrustStoreOptions());
-        }
-        if (tls.getKeyStoreOptions() != null) {
-            options.setKeyCertOptions(tls.getKeyStoreOptions());
-        }
-        options.setTrustAll(tls.isTrustAll());
-        if ("NONE".equals(tls.getHostnameVerificationAlgorithm().orElse(null))) {
-            options.setVerifyHost(false);
-        }
     }
 
     private static Throwable translate(Throwable e) {

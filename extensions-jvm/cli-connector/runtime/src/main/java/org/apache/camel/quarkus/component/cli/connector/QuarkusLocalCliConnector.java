@@ -31,7 +31,8 @@ public class QuarkusLocalCliConnector extends LocalCliConnector {
     @Override
     protected CliConnectorTransport createTransport(String name) {
         // Camel refuses it with the Camel prod profile, which Camel Quarkus does not set outside dev mode
-        if ("websocket".equals(name) && ConfigUtils.isProfileActive("prod")) {
+        // matched as Camel does (any case)
+        if ("websocket".equalsIgnoreCase(name) && ConfigUtils.isProfileActive("prod")) {
             throw new IllegalStateException(
                     "The Camel CLI connector websocket transport gives the connected tool full control of this"
                             + " application and cannot be used with the Quarkus prod profile."
