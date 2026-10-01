@@ -40,6 +40,36 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-cli-connector-usage"]
+== Usage
+[id="extensions-cli-connector-usage-websocket-transport"]
+=== WebSocket transport
+
+With `camel.cli.transport=websocket`, the application dials out to a developer tool over a WebSocket instead of
+exchanging files with the Camel CLI (see the
+xref:{cq-camel-components}:others:cli-connector.adoc[CLI Connector] documentation for the protocol and the options).
+
+[source,properties]
+----
+%dev.camel.cli.transport = websocket
+%dev.camel.cli.websocket.url = ws://127.0.0.1:8000/connect?executionId=run-1
+----
+
+The tool gets full control of the application: the transport refuses to start with the Quarkus `prod` profile (the
+default profile of a packaged application), as with the Camel `prod` profile (`camel.main.profile=prod`). To use it
+from a packaged application, for example on a remote development cluster, run it with another profile.
+
+[id="extensions-cli-connector-usage-websocket-client"]
+==== WebSocket client
+
+The connector uses the Vert.x WebSocket client of the application. The client in use is logged at startup
+(`Camel CLI connector uses the vertx WebSocket client`) and reported to the tool. Set
+`camel.cli.websocket.client=jdk` to use the JDK WebSocket client instead.
+
+For a `wss://` tool, `quarkus.camel.cli.websocket.tls-configuration-name` selects a TLS configuration of the
+https://quarkus.io/guides/tls-registry-reference[Quarkus TLS registry]; otherwise the JVM default trust store is used.
+
+
 [id="extensions-cli-connector-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
@@ -53,6 +83,13 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-cli-enabled]]`link:#quark
 Sets whether to enable Camel CLI Connector support.
 | `boolean`
 | `true`
+
+a| [[quarkus-camel-cli-websocket-tls-configuration-name]]`link:#quarkus-camel-cli-websocket-tls-configuration-name[quarkus.camel.cli.websocket.tls-configuration-name]`
+
+The name of the TLS configuration (from the Quarkus TLS registry) used to connect to a `wss://` tool. When
+not set, the JVM default trust store is used.
+| `string`
+| 
 |===
 
 [.configuration-legend]
