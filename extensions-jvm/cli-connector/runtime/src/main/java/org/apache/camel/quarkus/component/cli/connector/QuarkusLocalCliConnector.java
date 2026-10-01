@@ -18,12 +18,27 @@ package org.apache.camel.quarkus.component.cli.connector;
 
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.configuration.ConfigUtils;
+import org.apache.camel.cli.connector.CliConnectorTransport;
 import org.apache.camel.cli.connector.LocalCliConnector;
 import org.apache.camel.spi.CliConnectorFactory;
 
 public class QuarkusLocalCliConnector extends LocalCliConnector {
     public QuarkusLocalCliConnector(CliConnectorFactory cliConnectorFactory) {
         super(cliConnectorFactory);
+    }
+
+    @Override
+    protected CliConnectorTransport createTransport(String name) {
+        // Camel refuses it with the Camel prod profile, which Camel Quarkus does not set outside dev mode
+        // matched as Camel does (any case)
+        if ("websocket".equalsIgnoreCase(name) && ConfigUtils.isProfileActive("prod")) {
+            throw new IllegalStateException(
+                    "The Camel CLI connector websocket transport gives the connected tool full control of this"
+                            + " application and cannot be used with the Quarkus prod profile."
+                            + " Remove camel.cli.transport=websocket, or use another profile.");
+        }
+        return super.createTransport(name);
     }
 
     @Override
