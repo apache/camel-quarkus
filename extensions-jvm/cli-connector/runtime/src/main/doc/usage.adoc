@@ -1,0 +1,24 @@
+=== WebSocket transport
+
+With `camel.cli.transport=websocket`, the application dials out to a developer tool over a WebSocket instead of
+exchanging files with the Camel CLI (see the
+xref:{cq-camel-components}:others:cli-connector.adoc[CLI Connector] documentation for the protocol and the options).
+
+[source,properties]
+----
+%dev.camel.cli.transport = websocket
+%dev.camel.cli.websocket.url = ws://127.0.0.1:8000/connect?executionId=run-1
+----
+
+The tool gets full control of the application: the transport refuses to start with the Quarkus `prod` profile (the
+default profile of a packaged application), as with the Camel `prod` profile (`camel.main.profile=prod`). To use it
+from a packaged application, for example on a remote development cluster, run it with another profile.
+
+==== WebSocket client
+
+The connector uses the Vert.x WebSocket client of the application. The client in use is logged at startup
+(`Camel CLI connector uses the vertx WebSocket client`) and reported to the tool. Set
+`camel.cli.websocket.client=jdk` to use the JDK WebSocket client instead.
+
+For a `wss://` tool, `quarkus.camel.cli.websocket.tls-configuration-name` selects a TLS configuration of the
+https://quarkus.io/guides/tls-registry-reference[Quarkus TLS registry]; otherwise the JVM default trust store is used.
