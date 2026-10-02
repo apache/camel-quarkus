@@ -797,92 +797,102 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-config</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connect-plugins</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-common</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-oracle</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-kafka-adapters</artifactId>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-openlineage-api</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-sink</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-storage-api</artifactId>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-file</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-kafka</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-util</artifactId>
-        <version>3.6.3.Final</version>
+        <version>3.7.0.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>mysql-binlog-connector-java</artifactId>
-        <version>0.41.2</version>
+        <version>0.41.5</version>
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
@@ -892,17 +902,17 @@
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-healthchecks</artifactId>
-        <version>4.0.1</version>
+        <version>4.2.39</version>
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-jakarta-servlets</artifactId>
+        <version>4.2.39</version>
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-jmx</artifactId>
         <version>4.2.39</version>
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId>
-        <artifactId>metrics-servlets</artifactId>
-        <version>4.0.1</version>
       </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
@@ -8913,7 +8923,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-file</artifactId>
-        <version>4.3.0</version>
+        <version>4.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
@@ -9218,6 +9228,11 @@
       <dependency>
         <groupId>org.eclipse.jetty.compression</groupId>
         <artifactId>jetty-compression-gzip</artifactId>
+        <version>12.1.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.ee10</groupId>
+        <artifactId>jetty-ee10-servlet</artifactId>
         <version>12.1.11</version>
       </dependency>
       <dependency>
