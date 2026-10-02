@@ -7768,6 +7768,11 @@
                 <version>${json-schema-validator.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>${rabbitmq-amqp-client.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.sangupta</groupId>
                 <artifactId>murmur</artifactId>
                 <version>${murmur.version}</version>
