@@ -30,8 +30,7 @@
     </parent>
     <artifactId>cq-perf-regression-sample</artifactId>
     <properties>
-        <!-- Let's not upgrade hyperfoil-maven-plugin beyond 0.27.x as long as camel-quarkus supports JDK17: https://github.com/apache/camel-quarkus/issues/8027 -->
-        <hyperfoil-maven-plugin.version>0.27.2</hyperfoil-maven-plugin.version>
+        <hyperfoil-maven-plugin.version>0.29.3</hyperfoil-maven-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
