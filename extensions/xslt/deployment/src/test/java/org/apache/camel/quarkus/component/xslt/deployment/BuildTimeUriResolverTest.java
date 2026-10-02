@@ -20,7 +20,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerFactory;
 
-import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
+import org.apache.camel.quarkus.component.xslt.CamelXsltTransformerFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,7 +49,7 @@ class BuildTimeUriResolverTest {
         BuildTimeUriResolver resolver = new BuildTimeUriResolver();
         BuildTimeUriResolver.ResolutionResult resolved = resolver.resolve("xslt/nested-include.xsl");
 
-        TransformerFactory tf = new XalanTransformerFactory();
+        TransformerFactory tf = new CamelXsltTransformerFactory();
         tf.setURIResolver(resolver);
         Templates templates = tf.newTemplates(resolved.source);
 

@@ -23,19 +23,36 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.nativeimage.JPMSExportBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
+import org.apache.camel.quarkus.component.xslt.CamelXsltTransformerFactory;
 import org.apache.camel.support.ResourceHelper;
 
 class XsltNativeImageProcessor {
     public static final String CLASSPATH_SCHEME = "classpath:";
 
+    /** The packages of the JDK's XSLT implementation that translets compiled at build time depend on */
+    private static final List<String> TRANSLET_DEPENDENCY_PACKAGES = List.of(
+            "com.sun.org.apache.xalan.internal.xsltc",
+            "com.sun.org.apache.xalan.internal.xsltc.dom",
+            "com.sun.org.apache.xalan.internal.xsltc.runtime",
+            "com.sun.org.apache.xml.internal.dtm",
+            "com.sun.org.apache.xml.internal.serializer");
+
     @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder("org.apache.camel.component.xslt.XsltBuilder").methods()
-                .build();
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.camel.component.xslt.XsltBuilder").methods()
+                .build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(CamelXsltTransformerFactory.class).build());
+    }
+
+    @BuildStep
+    List<JPMSExportBuildItem> transletDependencyExports() {
+        return TRANSLET_DEPENDENCY_PACKAGES.stream()
+                .map(packageName -> new JPMSExportBuildItem("java.xml", packageName))
+                .collect(Collectors.toList());
     }
 
     @BuildStep
@@ -49,14 +66,13 @@ class XsltNativeImageProcessor {
     @BuildStep
     void xsltResources(
             CamelXsltConfig config,
-            BuildProducer<NativeImageResourceBuildItem> nativeResources,
-            BuildProducer<NativeImageResourceBundleBuildItem> nativeResourceBundles) {
+            BuildProducer<NativeImageResourceBuildItem> nativeResources) {
         if (config.sources().isEmpty()) {
             return;
         }
 
         final List<String> sources = config.sources().get();
-        List<String> paths = new ArrayList<>(sources.size() + 5);
+        List<String> paths = new ArrayList<>(sources.size());
         for (String source : sources) {
             String scheme = ResourceHelper.getScheme(source);
 
@@ -67,15 +83,7 @@ class XsltNativeImageProcessor {
                 paths.add(source);
             }
         }
-        paths.add("org/apache/xml/serializer/Encodings.properties");
-        paths.add("org/apache/xml/serializer/output_html.properties");
-        paths.add("org/apache/xml/serializer/output_text.properties");
-        paths.add("org/apache/xml/serializer/output_unknown.properties");
-        paths.add("org/apache/xml/serializer/output_xml.properties");
         nativeResources.produce(new NativeImageResourceBuildItem(paths));
-
-        nativeResourceBundles.produce(new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.HTMLEntities"));
-        nativeResourceBundles.produce(new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.XMLEntities"));
     }
 
 }
