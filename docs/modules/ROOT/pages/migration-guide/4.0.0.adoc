@@ -1,0 +1,47 @@
+= Camel Quarkus 4.0.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 4.0.0.
+
+== XSLT extension changes
+
+=== Xalan was replaced by the XSLT implementation built into the JDK
+
+The `camel-quarkus-xslt` extension no longer depends on `xalan:xalan` and transforms with the XSLT implementation built into the JDK. The internal `camel-quarkus-support-xalan` artifact was removed.
+
+`camel-quarkus-tika` and `camel-quarkus-xmlsecurity` no longer bring in `xalan:xalan` either.
+
+An application that uses Xalan classes directly, such as `org.apache.xpath.XPathAPI`, must switch to the JDK equivalents in `javax.xml.xpath` and `javax.xml.transform`, or declare its own dependency on `xalan:xalan`.
+
+=== Templates are compiled at build time in native mode only
+
+`quarkus.camel.xslt.sources` now only takes effect in native mode. In JVM mode templates are compiled at runtime, so the XSLT source files must be available to the application.
+
+Building a native executable with more than one template in `quarkus.camel.xslt.sources` requires the build to run on JDK 21.0.8 or newer. On an older JDK 21 release the build fails with a translet name clash, see https://bugs.openjdk.org/browse/JDK-8344925[JDK-8344925].
+
+=== External DTDs and entities in Source bodies fail the transformation
+
+A document that reaches the transformer as a `javax.xml.transform.Source` and references an external DTD or an external entity now fails the transformation. Previously the reference was skipped.
+
+`String`, `byte[]` and `InputStream` bodies are unaffected, as camel-xslt converts those itself.
+
+=== External xsl:import and xsl:include are denied unless a URIResolver resolves them
+
+Resources referenced by `xsl:import` and `xsl:include` are now denied unless a `javax.xml.transform.URIResolver` resolves them, as was already the case for the `document()` function. Routes are unaffected where the component's own resolver resolves the reference, as on plain Camel.
+
+=== The JAXP default TransformerFactory is no longer replaced
+
+The extension no longer registers a `TransformerFactory` as the JAXP default. Code that obtains a factory through `TransformerFactory.newInstance()` gets a factory with the defaults of its implementation, without the external access restrictions Camel Quarkus 3.40.0 applied to it. This includes application code in applications that depend on `camel-quarkus-tika` or `camel-quarkus-xmlsecurity`.
+
+The `tika` and `xmlsecurity` components are unaffected. Camel and Apache Santuario enable secure processing on the factories they create for them.
+
+Code that transforms with a factory of its own can apply the restrictions itself.
+
+[source,java]
+----
+TransformerFactory factory = TransformerFactory.newInstance();
+factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+----
+
+Refer to the xref:reference/extensions/xslt.adoc#extensions-xslt-configuration-external-access[XSLT extension documentation] for details.

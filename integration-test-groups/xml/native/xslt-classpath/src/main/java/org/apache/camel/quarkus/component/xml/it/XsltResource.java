@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.xml.it;
 
+import java.io.StringReader;
 import java.util.StringJoiner;
+
+import javax.xml.transform.stream.StreamSource;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -85,6 +88,15 @@ public class XsltResource {
             return ((XPathException) error).getErrorObject().head().getStringValue();
         }
         return "";
+    }
+
+    @Path("/xslt-source-body")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String sourceBody(String body) {
+        // A body that is already a Source is handed to the transformer as it is
+        return producerTemplate.requestBody("xslt:xslt/classpath-transform.xsl", new StreamSource(new StringReader(body)),
+                String.class);
     }
 
     @Path("/xslt-extension-function")

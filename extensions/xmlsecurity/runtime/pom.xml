@@ -58,10 +58,6 @@
             <artifactId>camel-quarkus-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-xalan</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xmlsecurity</artifactId>
         </dependency>
