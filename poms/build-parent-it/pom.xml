@@ -78,6 +78,14 @@
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
             </dependency>
+            <!-- Direct entry to win over the older jackson-annotations managed by the quarkus-bom import above.
+                 Jackson 3 (tools.jackson, used by camel-jolt) requires jackson-annotations >= ${jackson-annotations.version}.
+                 Remove when quarkus-bom manages jackson-annotations >= ${jackson-annotations.version} -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson-annotations.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
