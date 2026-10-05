@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.component.langchain4j.embeddingstore.ql4j.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class Langchain4jQdrantEmbeddingstoreQl4jIT extends Langchain4jQdrantEmbeddingstoreQl4jTest {
+class Langchain4jInfinispanEmbeddingstoreQl4jIT extends Langchain4jInfinispanEmbeddingstoreQl4jTest {
 }
