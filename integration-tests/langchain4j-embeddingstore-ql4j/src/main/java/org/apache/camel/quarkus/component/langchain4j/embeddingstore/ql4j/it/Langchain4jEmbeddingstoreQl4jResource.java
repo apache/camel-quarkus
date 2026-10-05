@@ -110,7 +110,7 @@ public class Langchain4jEmbeddingstoreQl4jResource {
                 .request();
     }
 
-    @Path("/qdrant/retrieve")
+    @Path("/infinispan/retrieve")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -119,7 +119,7 @@ public class Langchain4jEmbeddingstoreQl4jResource {
         return results.stream().map(c -> c.textSegment().text()).toList();
     }
 
-    @Path("/qdrant/ingest")
+    @Path("/infinispan/ingest")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)

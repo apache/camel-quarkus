@@ -31,18 +31,17 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTestResource(OllamaWireMockTestResource.class)
-@QuarkusTestResource(QdrantTestResource.class)
 @QuarkusTest
-class Langchain4jQdrantEmbeddingstoreQl4jTest {
+class Langchain4jInfinispanEmbeddingstoreQl4jTest {
     static final String CAMEL_MESSAGE = "Hello Camel Quarkus LangChain4j Embedding Store";
     static final String QL4J_MESSAGE = "Hello from Quarkus LangChain4j direct ingest";
 
     @Test
-    void qdrantEmbeddingstoreQl4jInterop() {
+    void infinispanEmbeddingstoreQl4jInterop() {
         // 1. Camel ADD
         String id = RestAssured.given()
                 .body(CAMEL_MESSAGE)
-                .post("/langchain4j-embeddingstore/qdrant/add")
+                .post("/langchain4j-embeddingstore/infinispan/add")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -53,7 +52,7 @@ class Langchain4jQdrantEmbeddingstoreQl4jTest {
         // 2. Camel SEARCH
         RestAssured.given()
                 .body(CAMEL_MESSAGE)
-                .post("/langchain4j-embeddingstore/qdrant/search")
+                .post("/langchain4j-embeddingstore/infinispan/search")
                 .then()
                 .statusCode(200)
                 .body(
@@ -64,7 +63,7 @@ class Langchain4jQdrantEmbeddingstoreQl4jTest {
         // 3. QL4J retrieves Camel-written data
         RestAssured.given()
                 .body(CAMEL_MESSAGE)
-                .post("/langchain4j-embeddingstore/qdrant/retrieve")
+                .post("/langchain4j-embeddingstore/infinispan/retrieve")
                 .then()
                 .statusCode(200)
                 .body(
@@ -74,7 +73,7 @@ class Langchain4jQdrantEmbeddingstoreQl4jTest {
         // 4. QL4J ingests directly (bypassing Camel)
         String ql4jId = RestAssured.given()
                 .body(QL4J_MESSAGE)
-                .post("/langchain4j-embeddingstore/qdrant/ingest")
+                .post("/langchain4j-embeddingstore/infinispan/ingest")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -86,7 +85,7 @@ class Langchain4jQdrantEmbeddingstoreQl4jTest {
         Awaitility.await().pollInterval(250, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             RestAssured.given()
                     .body(QL4J_MESSAGE)
-                    .post("/langchain4j-embeddingstore/qdrant/search")
+                    .post("/langchain4j-embeddingstore/infinispan/search")
                     .then()
                     .statusCode(200)
                     .body(
@@ -97,20 +96,20 @@ class Langchain4jQdrantEmbeddingstoreQl4jTest {
         // 6. Camel REMOVE both embeddings with confirmation
         RestAssured.given()
                 .queryParam("embeddingId", id)
-                .delete("/langchain4j-embeddingstore/qdrant/remove")
+                .delete("/langchain4j-embeddingstore/infinispan/remove")
                 .then()
                 .statusCode(204);
 
         RestAssured.given()
                 .queryParam("embeddingId", ql4jId)
-                .delete("/langchain4j-embeddingstore/qdrant/remove")
+                .delete("/langchain4j-embeddingstore/infinispan/remove")
                 .then()
                 .statusCode(204);
 
         Awaitility.await().pollInterval(250, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             RestAssured.given()
                     .body(CAMEL_MESSAGE)
-                    .post("/langchain4j-embeddingstore/qdrant/search")
+                    .post("/langchain4j-embeddingstore/infinispan/search")
                     .then()
                     .statusCode(200)
                     .body(
