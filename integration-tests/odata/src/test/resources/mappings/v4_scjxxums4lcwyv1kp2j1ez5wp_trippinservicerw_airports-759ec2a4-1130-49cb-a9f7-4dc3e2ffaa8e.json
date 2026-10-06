@@ -1,0 +1,38 @@
+{
+  "id" : "759ec2a4-1130-49cb-a9f7-4dc3e2ffaa8e",
+  "name" : "v4_scjxxums4lcwyv1kp2j1ez5wp_trippinservicerw_airports",
+  "request" : {
+    "urlPath" : "/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports",
+    "method" : "GET",
+    "queryParameters" : {
+      "$select" : {
+        "hasExactly" : [ {
+          "equalTo" : "IcaoCode,Name"
+        } ]
+      },
+      "$count" : {
+        "hasExactly" : [ {
+          "equalTo" : "true"
+        } ]
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"@odata.context\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/$metadata#Airports(IcaoCode,Name)\",\"@odata.count\":15,\"@odata.nextLink\":\"https://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports?%24select=IcaoCode%2cName&%24count=true&%24skiptoken=8\",\"value\":[{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KSFO')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KSFO')\",\"IcaoCode\":\"KSFO\",\"Name\":\"San Francisco International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KLAX')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KLAX')\",\"IcaoCode\":\"KLAX\",\"Name\":\"Los Angeles International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('ZSSS')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('ZSSS')\",\"IcaoCode\":\"ZSSS\",\"Name\":\"Shanghai Hongqiao International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('ZBAA')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('ZBAA')\",\"IcaoCode\":\"ZBAA\",\"Name\":\"Beijing Capital International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KJFK')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('KJFK')\",\"IcaoCode\":\"KJFK\",\"Name\":\"John F. Kennedy International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('LIRA')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('LIRA')\",\"IcaoCode\":\"LIRA\",\"Name\":\"Rome Ciampino Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('CYYZ')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('CYYZ')\",\"IcaoCode\":\"CYYZ\",\"Name\":\"Toronto Pearson International Airport\"},{\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('YSSY')\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/Airports('YSSY')\",\"IcaoCode\":\"YSSY\",\"Name\":\"Sydney Airport\"}]}",
+    "headers" : {
+      "Cache-Control" : "no-cache",
+      "Server" : "Microsoft-IIS/10.0",
+      "Access-Control-Allow-Origin" : "*",
+      "X-AspNet-Version" : "4.0.30319",
+      "OData-Version" : "4.0",
+      "Vary" : "Accept-Encoding",
+      "Date" : "Thu, 08 Oct 2026 14:10:14 GMT",
+      "X-Powered-By" : "ASP.NET",
+      "Content-Type" : "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8"
+    }
+  },
+  "uuid" : "759ec2a4-1130-49cb-a9f7-4dc3e2ffaa8e",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

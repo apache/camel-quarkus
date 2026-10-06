@@ -29,6 +29,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ClasspathFileSource;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.recording.RecordSpecBuilder;
 import com.github.tomakehurst.wiremock.recording.RecordingStatus;
 import com.github.tomakehurst.wiremock.recording.SnapshotRecordResult;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
@@ -65,9 +66,11 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
 
                 if (recordTargetBaseUrl != null) {
                     LOG.infof("Enabling WireMock recording for %s", recordTargetBaseUrl);
-                    server.startRecording(recordSpec()
+                    RecordSpecBuilder recordSpec = recordSpec()
                             .forTarget(recordTargetBaseUrl)
-                            .allowNonProxied(false));
+                            .allowNonProxied(false);
+                    customizeRecordSpec(recordSpec);
+                    server.startRecording(recordSpec);
                 } else {
                     throw new IllegalStateException(
                             "Must return a non-null value from getRecordTargetBaseUrl() in order to support WireMock recording");
@@ -82,6 +85,8 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
             if (server.getOptions().httpsSettings().enabled()) {
                 properties.put("wiremock.url.ssl", "https://localhost:" + server.httpsPort());
             }
+        } else {
+            MockBackendUtils.logRealBackendUsed();
         }
 
         return properties;
@@ -221,6 +226,12 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
      * Customizes the {@link WireMockConfiguration} that will be used to create the next {@Link WireMockServer}.
      */
     protected void customizeWiremockConfiguration(WireMockConfiguration config) {
+    }
+
+    /**
+     * Customizes the {@link RecordSpecBuilder} used in record mode. E.g. to capture request headers in the recorded stubs.
+     */
+    protected void customizeRecordSpec(RecordSpecBuilder recordSpec) {
     }
 
     /**
