@@ -57,6 +57,13 @@ public class IngestItProducers {
 
     @Produces
     @Singleton
+    @Named("dottedfeed-store")
+    EmbeddingStore<TextSegment> dottedfeedStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    @Produces
+    @Singleton
     @Named("reports-store")
     EmbeddingStore<TextSegment> reportsStore() {
         return new InMemoryEmbeddingStore<>();
