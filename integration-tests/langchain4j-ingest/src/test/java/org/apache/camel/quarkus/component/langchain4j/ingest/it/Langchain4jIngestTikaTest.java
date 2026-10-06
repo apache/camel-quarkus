@@ -138,10 +138,18 @@ class Langchain4jIngestTikaTest {
                 .post("/langchain4j-ingest/binary/capped/pump.pdf")
                 .then().statusCode(204);
 
+        // a comment carries the bytes, not the text: parsed, it fits the cap, so only the raw-byte
+        // cap keeps it out
+        RestAssured.given().contentType(ContentType.BINARY)
+                .body(("<html><body><!-- " + "x".repeat(300) + " --><p>LAMBDA-7 hides in markup.</p></body></html>")
+                        .getBytes(java.nio.charset.StandardCharsets.UTF_8))
+                .post("/langchain4j-ingest/binary/capped/markup.html")
+                .then().statusCode(204);
+
         // the absence must hold across several poll cycles, not just at one instant
         Awaitility.await().during(3, TimeUnit.SECONDS).atMost(10, TimeUnit.SECONDS)
                 .until(() -> Langchain4jIngestTest.hits("What does the pump tolerate?", "capped").stream()
-                        .noneMatch(hit -> hit.get("text").contains("DELTA-5")));
+                        .noneMatch(hit -> hit.get("text").contains("DELTA-5") || hit.get("text").contains("LAMBDA-7")));
     }
 
     /**

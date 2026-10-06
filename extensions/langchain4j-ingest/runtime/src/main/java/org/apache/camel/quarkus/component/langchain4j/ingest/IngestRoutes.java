@@ -49,6 +49,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
+import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.URISupport;
 import org.jboss.logging.Logger;
 
@@ -141,7 +142,9 @@ public class IngestRoutes extends RouteBuilder {
                     pipeline == null ? IngestBuildTimeConfig.DEFAULT_EMBEDDING_BATCH_SIZE : pipeline.embeddingBatchSize(),
                     pipeline == null ? IngestBuildTimeConfig.DEFAULT_MAX_DOCUMENT_SIZE : pipeline.maxDocumentSize(),
                     pipeline == null ? null : pipeline.documentSplitter().orElse(null),
-                    pipeline == null ? null : pipeline.parser().orElse(null));
+                    pipeline == null ? null : pipeline.parser().orElse(null),
+                    pipeline == null ? IngestBuildTimeConfig.DEFAULT_MODALITY : pipeline.modality(),
+                    pipeline == null ? null : pipeline.contentType().orElse(null));
         }
 
         for (IngestBuilderPipelines.Entry entry : builderPipelines.entries()) {
@@ -183,7 +186,7 @@ public class IngestRoutes extends RouteBuilder {
             LOG.infof("Ingestion pipeline '%s' (builder) is disabled", name);
             return;
         }
-        // enabled is the one thing configuration may say about a builder pipeline; anything about
+        // enabled and filter.* are what configuration may say about a builder pipeline; anything about
         // its source would be quietly overruled by the @Ingest method, so it is an error instead
         // (source.recursive cannot be told apart from its default, so it alone goes undetected -
         // Source.recursive() is its builder twin)
@@ -206,7 +209,9 @@ public class IngestRoutes extends RouteBuilder {
                 definition.embeddingBatchSize(),
                 definition.maxDocumentSize(),
                 definition.documentSplitterName().orElse(null),
-                definition.parser().orElse(null));
+                definition.parser().orElse(null),
+                definition.modality(),
+                definition.contentType().orElse(null));
     }
 
     /**
@@ -217,7 +222,7 @@ public class IngestRoutes extends RouteBuilder {
             IngestRunTimeConfig.PipelineRunTimeConfig runtime,
             EmbeddingStore<TextSegment> store, EmbeddingModel model,
             int maxSegmentSize, int maxOverlapSize, int embeddingBatchSize, int maxDocumentSize,
-            String documentSplitterName, String parser) {
+            String documentSplitterName, String parser, String modality, String contentType) {
 
         // the name is substituted into Kamelet URIs and registry references, so both declaration
         // styles are held to one charset; @Ingest names are already checked at build time
@@ -225,24 +230,52 @@ public class IngestRoutes extends RouteBuilder {
             throw new IllegalStateException(
                     "Ingestion pipeline name '" + name + "' may only contain letters, digits, '.', '_' and '-'");
         }
+        // the component validates modality and content type; that a media document is never
+        // parsed is a rule of this composition, where the parser action sits before the sink.
+        // A configured pipeline fails the build on both already
+        boolean media = "media".equalsIgnoreCase(modality);
+        if (media && parser != null) {
+            throw new IllegalStateException("Ingestion pipeline '" + name
+                    + "' sets modality 'media' together with a parser. A media document is embedded whole and"
+                    + " never parsed; remove one of them.");
+        }
         String storeRef = bindInstance(name, "store", store);
         String modelRef = bindInstance(name, "model", model);
         String documentId = runtime == null ? null : runtime.source().documentId().orElse(null);
         String repositoryRef = repositoryRef(name, runtime, uri == null);
 
         // options at their defaults are passed all the same, here and in the other steps: an
-        // application-wide camel.kamelet.<kamelet>.* property would otherwise fill them in too
+        // application-wide camel.kamelet.<kamelet>.* property would otherwise fill them in too.
+        // An unset string option goes as "", which the component reads as unset. An unset bean
+        // option (documentFilter, documentSplitter, idempotentRepository) is left out on purpose:
+        // "" converts to no bean and fails the start, so such a property still reaches it, as
+        // usage.adoc warns
         Map<String, Object> sink = new LinkedHashMap<>();
         sink.put("pipelineName", name);
         sink.put("documentIdHeader", LangChain4jIngestHeaders.DOCUMENT_ID);
         sink.put("maxSegmentSize", String.valueOf(maxSegmentSize));
         sink.put("maxOverlapSize", String.valueOf(maxOverlapSize));
         sink.put("embeddingBatchSize", String.valueOf(embeddingBatchSize));
+        sink.put("modality", modality);
+        sink.put("contentType", contentType == null ? "" : contentType);
         // 0, no limit, is the endpoint's default too
         sink.put("maxDocumentSize", String.valueOf(maxDocumentSize));
         sink.put("minDocumentSize", "0");
         if (documentSplitterName != null) {
             sink.put("documentSplitter", "#bean:" + documentSplitterName);
+        }
+        // filter.* comes from configuration for both declaration styles, the builder having no
+        // filter API, and the component enforces it
+        IngestRunTimeConfig.PipelineRunTimeConfig configured = runTimeConfig.pipelines().get(name);
+        String includeId = configured == null ? "" : configured.filter().includeId().orElse("");
+        String excludeId = configured == null ? "" : configured.filter().excludeId().orElse("");
+        sink.put("includeId", includeId);
+        sink.put("excludeId", excludeId);
+        if (configured != null) {
+            if (configured.filter().minDocumentSize() != 0) {
+                sink.put("minDocumentSize", String.valueOf(configured.filter().minDocumentSize()));
+            }
+            configured.filter().documentFilter().ifPresent(bean -> sink.put("documentFilter", "#bean:" + bean));
         }
         sink.put("embeddingStore", "#bean:" + storeRef);
         sink.put("embeddingModel", "#bean:" + modelRef);
@@ -261,9 +294,9 @@ public class IngestRoutes extends RouteBuilder {
             source.put("recursive", String.valueOf(runtime.source().recursive()));
             // the file consumer's own default poll delay
             source.put("delay", "500");
-            if (parser == null) {
-                // text is read as UTF-8; a parser receives the raw bytes instead - the format is
-                // its business, and a charset conversion would corrupt a binary document
+            if (parser == null && !media) {
+                // text is read as UTF-8; a parser or a media model receives the raw bytes instead -
+                // the format is its business, and a charset conversion would corrupt a binary document
                 source.put("charset", "UTF-8");
             }
             source.put("idempotentRepository", "#bean:" + repositoryRef);
@@ -275,14 +308,18 @@ public class IngestRoutes extends RouteBuilder {
                 route = route.setHeader(LangChain4jIngestHeaders.DOCUMENT_ID, documentIdExpression(documentId));
             }
             // no duplicate pre-check: the source register already filtered duplicates out
-            route = parseSteps(route, name, parser, maxDocumentSize, true, null);
+            route = parseSteps(route, name, parser, maxDocumentSize, true, null, includeId, excludeId);
             // the file consumer discards the reply and the source register already keeps the
             // same file version from being ingested twice, so no repository goes to the sink.
             // The discarded reply would hide an empty outcome, so it is logged: warned with a
             // parser, since a parse to nothing typically means a missing Tika parser module or an
-            // image-only document, and the file's register key is committed
+            // image-only document, and the file's register key is committed. A filtered one is
+            // logged at DEBUG
             route.to(kameletUri(name, SINK_KAMELET, "sink", sink)).process(exchange -> {
                 IngestResult result = exchange.getMessage().getBody(IngestResult.class);
+                if (result != null && result.outcome() == IngestResult.Outcome.FILTERED) {
+                    logFiltered(name, result.documentId());
+                }
                 if (result == null || result.outcome() != IngestResult.Outcome.EMPTY) {
                     return;
                 }
@@ -324,7 +361,7 @@ public class IngestRoutes extends RouteBuilder {
             IdempotentRepository register = repositoryRef == null
                     ? null
                     : getContext().getRegistry().lookupByNameAndType(repositoryRef, IdempotentRepository.class);
-            route = parseSteps(route, name, parser, maxDocumentSize, false, register);
+            route = parseSteps(route, name, parser, maxDocumentSize, false, register, includeId, excludeId);
             if (repositoryRef != null) {
                 // deduplication by document id happens inside the sink's producer: a duplicate
                 // is answered SKIPPED, a blank delivery releases its claim
@@ -336,13 +373,13 @@ public class IngestRoutes extends RouteBuilder {
     }
 
     /**
-     * The optional parse stage: the id guard, the advisory duplicate check and the raw-size
-     * guard, then the parser action Kamelet, which captures the document id from the canonical
-     * header into the exchange property before the parse. The route is returned unchanged when
-     * the pipeline has no parser.
+     * The optional parse stage: the id guard, the advisory id-pattern and duplicate checks and the
+     * raw-size guard, then the parser action Kamelet, which captures the document id from the
+     * canonical header into the exchange property before the parse. The route is returned
+     * unchanged when the pipeline has no parser.
      */
     private static ProcessorDefinition<?> parseSteps(ProcessorDefinition<?> route, String name, String parser,
-            int maxDocumentSize, boolean directory, IdempotentRepository register) {
+            int maxDocumentSize, boolean directory, IdempotentRepository register, String includeId, String excludeId) {
         if (parser == null) {
             return route;
         }
@@ -358,6 +395,27 @@ public class IngestRoutes extends RouteBuilder {
                         + " the parse - a parsed document must not supply its own identity");
             }
         });
+        String[] include = patterns(includeId);
+        String[] exclude = patterns(excludeId);
+        if (include != null || exclude != null) {
+            // advisory too: the sink's id patterns, applied before the parse so an excluded
+            // document is never parsed, nor fails the parse or the size guard on every poll
+            route = route.choice()
+                    .when(exchange -> {
+                        String id = exchange.getMessage().getHeader(documentIdHeader, String.class);
+                        return AntPathMatcher.INSTANCE.anyMatch(exclude, id)
+                                || (include != null && !AntPathMatcher.INSTANCE.anyMatch(include, id));
+                    })
+                    .process(exchange -> {
+                        String id = exchange.getMessage().getHeader(documentIdHeader, String.class);
+                        if (directory) {
+                            logFiltered(name, id);
+                        }
+                        exchange.getMessage().setBody(new IngestResult(name, id, 0, IngestResult.Outcome.FILTERED));
+                    })
+                    .stop()
+                    .end();
+        }
         if (register != null) {
             // advisory: a known duplicate is answered SKIPPED before the (possibly remote) parse
             // is paid for; the sink producer's eager claim stays authoritative, so a duplicate
@@ -378,6 +436,9 @@ public class IngestRoutes extends RouteBuilder {
         }
         Map<String, Object> action = new LinkedHashMap<>();
         action.put("documentIdHeader", documentIdHeader);
+        // the guard above caps the raw payload; the action's own cap would read each file whole
+        // to measure it again, so it is pinned off
+        action.put("maxDocumentSize", "0");
         return route.to(kameletUri(name, Parser.valueOf(parser.toUpperCase(Locale.ROOT)).actionKamelet, "parser", action));
     }
 
@@ -421,6 +482,21 @@ public class IngestRoutes extends RouteBuilder {
                 exchange.getMessage().setBody(bounded);
             }
         };
+    }
+
+    /** Comma-separated id patterns, parsed as the component parses them; null when none remain. */
+    private static String[] patterns(String value) {
+        String[] patterns = Arrays.stream(value.split(","))
+                .map(String::trim)
+                .filter(pattern -> !pattern.isEmpty())
+                .toArray(String[]::new);
+        return patterns.length == 0 ? null : patterns;
+    }
+
+    /** A directory pipeline discards the reply, so a filtered document is logged instead. */
+    private static void logFiltered(String name, String documentId) {
+        LOG.debugf("Ingestion pipeline '%s': document '%s' was filtered out; its key is committed, so it is not"
+                + " read again until the file changes", name, documentId);
     }
 
     /**
