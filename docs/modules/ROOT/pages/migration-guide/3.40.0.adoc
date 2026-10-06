@@ -273,8 +273,6 @@ quarkus.avro.trusted-packages=com.acme.orders.avro
 quarkus.avro.trusted-classes=com.acme.LegacyOrder
 ----
 
-Camel's upgrade guide additionally asks `camel-avro-rpc` users to trust the `org.apache.avro` package. That is not needed here. `camel-quarkus-avro-rpc` indexes `avro-ipc`, and the handshake types Avro resolves from its own protocol are annotated, so they are trusted automatically.
-
 Avro's own `org.apache.avro.SERIALIZABLE_PACKAGES` and `org.apache.avro.SERIALIZABLE_CLASSES` system properties still work as an addendum, since Quarkus adds its trusted classes on top of them rather than replacing them. They are read once, when Avro initializes, so they have to be set on the command line. Note that `*` in `org.apache.avro.SERIALIZABLE_PACKAGES` disables the class loading protection entirely.
 
 Whichever route is used, list only the packages holding your own Avro model classes.

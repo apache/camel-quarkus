@@ -224,16 +224,6 @@
                 <artifactId>camel-avro</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-avro-rpc</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-avro-rpc-spi</artifactId>
-                <version>${camel.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-bedrock</artifactId>
@@ -3655,16 +3645,6 @@
                 <artifactId>camel-quarkus-avro-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-avro-rpc</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-avro-rpc-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-aws-bedrock</artifactId>
