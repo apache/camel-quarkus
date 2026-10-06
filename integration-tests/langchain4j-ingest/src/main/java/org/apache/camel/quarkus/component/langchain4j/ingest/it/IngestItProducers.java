@@ -113,9 +113,39 @@ public class IngestItProducers {
 
     @Produces
     @Singleton
+    @Named("filtered-store")
+    EmbeddingStore<TextSegment> filteredStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    /** The documentFilter predicate of the filtered pipeline: content marked confidential stays out. */
+    @Produces
+    @Singleton
+    @Named("confidentialFilter")
+    org.apache.camel.Predicate confidentialFilter() {
+        return exchange -> !exchange.getMessage().getBody(String.class).contains("CONFIDENTIAL");
+    }
+
+    @Produces
+    @Singleton
     @Named("test-model")
     EmbeddingModel embeddingModel() {
         return new DeterministicEmbeddingModel(64);
+    }
+
+    @Produces
+    @Singleton
+    @Named("audio-store")
+    EmbeddingStore<TextSegment> audioStore() {
+        return new InMemoryEmbeddingStore<>();
+    }
+
+    // the concrete type, so the REST resource can embed a query clip with it
+    @Produces
+    @Singleton
+    @Named("audio-model")
+    DeterministicAudioEmbeddingModel audioModel() {
+        return new DeterministicAudioEmbeddingModel(64);
     }
 
     // the custom pipeline's register; auto-create is also set, so this existing bean must win
