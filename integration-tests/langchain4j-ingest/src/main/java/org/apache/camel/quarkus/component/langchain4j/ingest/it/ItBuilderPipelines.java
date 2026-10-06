@@ -57,6 +57,16 @@ public class ItBuilderPipelines {
                 .splitter(120, 20);
     }
 
+    /** Media with a fixed content type: the ids it is fed carry no extension to derive one from. */
+    @Ingest("clips")
+    IngestPipeline clips() {
+        return IngestPipeline.from(Source.endpoint(direct("clips-feed")))
+                .modality("media")
+                .contentType("audio/wav")
+                .embeddingStore("audio-store")
+                .embeddingModel("audio-model");
+    }
+
     /**
      * The lambda form of the Endpoint DSL — nothing imported, the IDE lists every component off
      * {@code dsl.}. The object key identifies the document, and the store addresses buckets by
