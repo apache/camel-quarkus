@@ -244,6 +244,7 @@ group-12:
   - langchain4j-tools
   - langchain4j-web-search
   - mcp-server
+  - odata
   - openapi-java
   - openapi-validator
   - opentelemetry2

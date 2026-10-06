@@ -1,0 +1,23 @@
+{
+  "id" : "94a37fd4-2e39-497c-88e0-00de259ac10b",
+  "name" : "v4_trippinservicerw",
+  "request" : {
+    "url" : "/V4/TripPinServiceRW/",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 302,
+    "body" : "<html><head><title>Object moved</title></head><body>\r\n<h2>Object moved to <a href=\"/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/\">here</a>.</h2>\r\n</body></html>\r\n",
+    "headers" : {
+      "Server" : "Microsoft-IIS/10.0",
+      "Access-Control-Allow-Origin" : "*",
+      "Date" : "Thu, 08 Oct 2026 14:10:06 GMT",
+      "X-Powered-By" : "ASP.NET",
+      "Location" : "/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/",
+      "Content-Type" : "text/html; charset=utf-8"
+    }
+  },
+  "uuid" : "94a37fd4-2e39-497c-88e0-00de259ac10b",
+  "persistent" : true,
+  "insertionIndex" : 10
+}
