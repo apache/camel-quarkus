@@ -9382,7 +9382,7 @@
       <dependency>
         <groupId>org.opensearch.client</groupId>
         <artifactId>opensearch-rest-client</artifactId>
-        <version>3.8.0</version>
+        <version>3.9.0</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>
