@@ -1,0 +1,32 @@
+{
+  "id" : "700f2ba3-4d9a-4b55-ac9d-10a7795175bc",
+  "name" : "v4_scjxxums4lcwyv1kp2j1ez5wp_trippinservicerw_people",
+  "request" : {
+    "url" : "/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"UserName\":\"lewisblack\",\"FirstName\":\"Lewis\",\"LastName\":\"Black\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"@odata.context\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/$metadata#People/$entity\",\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('lewisblack')\",\"@odata.etag\":\"W/\\\"08DF2545DD9C4EF9\\\"\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('lewisblack')\",\"UserName\":\"lewisblack\",\"FirstName\":\"Lewis\",\"LastName\":\"Black\",\"Emails\":[],\"AddressInfo\":[],\"Gender\":\"Male\",\"Concurrency\":639270654110879481}",
+    "headers" : {
+      "Cache-Control" : "no-cache",
+      "Server" : "Microsoft-IIS/10.0",
+      "ETag" : "W/\"08DF2545DD9C4EF9\"",
+      "Access-Control-Allow-Origin" : "*",
+      "X-AspNet-Version" : "4.0.30319",
+      "OData-Version" : "4.0",
+      "Date" : "Thu, 08 Oct 2026 14:10:10 GMT",
+      "X-Powered-By" : "ASP.NET",
+      "Location" : "http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('lewisblack')",
+      "Content-Type" : "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8"
+    }
+  },
+  "uuid" : "700f2ba3-4d9a-4b55-ac9d-10a7795175bc",
+  "persistent" : true,
+  "insertionIndex" : 9
+}

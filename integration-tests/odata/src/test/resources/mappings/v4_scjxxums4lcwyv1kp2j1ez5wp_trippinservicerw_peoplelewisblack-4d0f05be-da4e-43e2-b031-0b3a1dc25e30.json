@@ -1,0 +1,28 @@
+{
+  "id" : "4d0f05be-da4e-43e2-b031-0b3a1dc25e30",
+  "name" : "v4_scjxxums4lcwyv1kp2j1ez5wp_trippinservicerw_peoplelewisblack",
+  "request" : {
+    "url" : "/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('lewisblack')",
+    "method" : "DELETE",
+    "headers" : {
+      "If-Match" : {
+        "equalTo" : "W/\"08DF2545DF1878C1\""
+      }
+    }
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "Cache-Control" : "no-cache",
+      "Server" : "Microsoft-IIS/10.0",
+      "Access-Control-Allow-Origin" : "*",
+      "X-AspNet-Version" : "4.0.30319",
+      "OData-Version" : "4.0",
+      "Date" : "Thu, 08 Oct 2026 14:10:14 GMT",
+      "X-Powered-By" : "ASP.NET"
+    }
+  },
+  "uuid" : "4d0f05be-da4e-43e2-b031-0b3a1dc25e30",
+  "persistent" : true,
+  "insertionIndex" : 4
+}

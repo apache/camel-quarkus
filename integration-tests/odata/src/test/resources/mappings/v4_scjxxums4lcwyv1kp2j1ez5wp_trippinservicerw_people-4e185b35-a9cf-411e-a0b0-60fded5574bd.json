@@ -1,0 +1,32 @@
+{
+  "id" : "4e185b35-a9cf-411e-a0b0-60fded5574bd",
+  "name" : "v4_scjxxums4lcwyv1kp2j1ez5wp_trippinservicerw_people",
+  "request" : {
+    "url" : "/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"LastName\":\"Doe\",\"UserName\":\"janedoe\",\"FirstName\":\"Jane\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"@odata.context\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/$metadata#People/$entity\",\"@odata.id\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('janedoe')\",\"@odata.etag\":\"W/\\\"08DF2545E114A41E\\\"\",\"@odata.editLink\":\"http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('janedoe')\",\"UserName\":\"janedoe\",\"FirstName\":\"Jane\",\"LastName\":\"Doe\",\"Emails\":[],\"AddressInfo\":[],\"Gender\":\"Male\",\"Concurrency\":639270654169097246}",
+    "headers" : {
+      "Cache-Control" : "no-cache",
+      "Server" : "Microsoft-IIS/10.0",
+      "ETag" : "W/\"08DF2545E114A41E\"",
+      "Access-Control-Allow-Origin" : "*",
+      "X-AspNet-Version" : "4.0.30319",
+      "OData-Version" : "4.0",
+      "Date" : "Thu, 08 Oct 2026 14:10:16 GMT",
+      "X-Powered-By" : "ASP.NET",
+      "Location" : "http://services.odata.org/V4/(S(cjxxums4lcwyv1kp2j1ez5wp))/TripPinServiceRW/People('janedoe')",
+      "Content-Type" : "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8"
+    }
+  },
+  "uuid" : "4e185b35-a9cf-411e-a0b0-60fded5574bd",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

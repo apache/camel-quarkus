@@ -238,6 +238,7 @@ group-12:
   - knative
   - langchain4j-web-search
   - mcp-server
+  - odata
   - openapi-java
   - openapi-validator
   - opentelemetry2
