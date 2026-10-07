@@ -30,7 +30,7 @@ import org.apache.camel.util.StringHelper;
 
 /**
  * Resolves classpath XSLT sources at build time, including nested {@code <xsl:include>}
- * hrefs, so they can be compiled into Xalan translets.
+ * hrefs, so they can be compiled into translets.
  */
 public class BuildTimeUriResolver implements URIResolver {
 
@@ -123,10 +123,6 @@ public class BuildTimeUriResolver implements URIResolver {
             this.templateUri = templateUri;
             this.transletClassName = transletClassName;
             this.source = source;
-        }
-
-        public UriResolverEntryBuildItem toBuildItem() {
-            return new UriResolverEntryBuildItem(templateUri, transletClassName);
         }
 
     }

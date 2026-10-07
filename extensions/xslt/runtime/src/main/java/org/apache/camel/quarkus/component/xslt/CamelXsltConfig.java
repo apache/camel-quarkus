@@ -29,7 +29,7 @@ import io.smallrye.config.WithDefault;
 @ConfigMapping(prefix = "quarkus.camel.xslt")
 public interface CamelXsltConfig {
     /**
-     * A comma separated list of templates to compile.
+     * A comma separated list of templates to compile at build time in native mode.
      *
      * @asciidoclet
      */

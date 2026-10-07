@@ -63,7 +63,6 @@
         <module>spring</module>
         <module>swagger</module>
         <module>webhook</module>
-        <module>xalan</module>
     </modules>
 
     <dependencyManagement>

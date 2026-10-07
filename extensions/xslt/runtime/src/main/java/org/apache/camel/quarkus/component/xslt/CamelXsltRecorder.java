@@ -31,7 +31,6 @@ import org.apache.camel.component.xslt.DefaultXsltUriResolverFactory;
 import org.apache.camel.component.xslt.TransformerFactoryConfigurationStrategy;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltEndpoint;
-import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +50,7 @@ public class CamelXsltRecorder {
         final XsltComponent component = new XsltComponent();
         component.setUriResolverFactory(new QuarkusXsltUriResolverFactory(uriResolver));
         component.setTransformerFactoryConfigurationStrategy(strategy);
-        component.setTransformerFactoryClass(XalanTransformerFactory.class.getName());
+        component.setTransformerFactoryClass(CamelXsltTransformerFactory.class.getName());
         return new RuntimeValue<>(component);
     }
 
@@ -74,7 +73,7 @@ public class CamelXsltRecorder {
         @Override
         public URIResolver createUriResolver(CamelContext camelContext, String resourceUri) {
             // It is supposed to catch cases where we compile the translet at build time which is for classpath: XSLT
-            // resources in both JVM and native mode.
+            // resources in native mode.
             // Otherwise, all other cases will be handled by the default XsltUriResolver which is able to load a resource
             // at runtime. So it is only supported in JVM mode.
             if (uriResolver.getTransletClassName(resourceUri) != null) {
@@ -100,7 +99,7 @@ public class CamelXsltRecorder {
 
         @Override
         public void configure(TransformerFactory tf, XsltEndpoint endpoint) {
-            // The features are applied whether or not the template was compiled to a translet at build time,
+            // The features are applied whether the template was compiled to a translet at build time,
             // otherwise quarkus.camel.xslt.features would silently have no effect on runtime loaded templates.
             for (Map.Entry<String, Boolean> entry : features.entrySet()) {
                 if (XMLConstants.FEATURE_SECURE_PROCESSING.equals(entry.getKey()) && !entry.getValue()

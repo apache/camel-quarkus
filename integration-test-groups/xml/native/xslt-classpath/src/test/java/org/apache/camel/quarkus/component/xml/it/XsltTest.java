@@ -94,6 +94,40 @@ public class XsltTest {
     }
 
     @Test
+    public void xsltSourceBody() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/xslt-source-body")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                actual);
+    }
+
+    @Test
+    public void xsltExternalEntityInSourceBodyIsNotResolved() throws Exception {
+        final String secret = "TOP-SECRET-CONTENT";
+        final Path secretFile = Files.createTempFile("xslt-secret", ".txt");
+        try {
+            Files.writeString(secretFile, secret);
+
+            final String actual = RestAssured.given()
+                    .body("<?xml version='1.0'?><!DOCTYPE mail [<!ENTITY xxe SYSTEM '" + secretFile.toUri() + "'>]>"
+                            + "<mail><subject>&xxe;</subject><body>Hello world!</body></mail>")
+                    .post("/xml/xslt-source-body")
+                    .then()
+                    .extract().body().asString();
+
+            Assertions.assertFalse(actual.contains(secret), "The external entity was resolved into the transformation result");
+        } finally {
+            Files.deleteIfExists(secretFile);
+        }
+    }
+
+    @Test
     public void xsltExtensionFunction() {
         final String actual = RestAssured.given()
                 .body(BODY)
