@@ -82,7 +82,6 @@ public class QuarkusRuntimeProviderTest {
                 .collect(Collectors.toSet());
 
         final Set<String> ignoredModules = Set.of(
-                "avro-rpc", // can be removed after fixing https://github.com/apache/camel-quarkus/issues/4462
                 "http-common",
                 "optaplanner" // can be removed after fixing https://github.com/apache/camel-quarkus/issues/4463
         );

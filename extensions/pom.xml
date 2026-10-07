@@ -44,7 +44,6 @@
         <module>atom</module>
         <module>attachments</module>
         <module>avro</module>
-        <!--<module>avro-rpc</module> https://github.com/apache/camel-quarkus/issues/4462 -->
         <module>aws-bedrock</module>
         <module>aws-cloudtrail</module>
         <module>aws-secrets-manager</module>
