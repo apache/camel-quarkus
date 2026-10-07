@@ -282,7 +282,8 @@
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:2.0.0</smb.container.image>
         <solr.container.image>mirror.gcr.io/solr:9.10.1-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.4.7</splunk.container.image>
-        <sql-server.container.image>mcr.microsoft.com/mssql/server:2025-latest</sql-server.container.image>
+        <!-- The ubuntu-24.04 based SQL Server 2025 images (incl. 2025-latest) crash randomly on startup, see https://github.com/microsoft/mssql-docker/issues/974 -->
+        <sql-server.container.image>mcr.microsoft.com/mssql/server:2025-CU9-ubuntu-22.04</sql-server.container.image>
         <!-- SQL Server 2025 does not start on FIPS hosts, see https://github.com/microsoft/mssql-docker/issues/958. The fips profile switches to this image. -->
         <sql-server.container.image.fips>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image.fips>
         <weaviate.container.image>mirror.gcr.io/semitechnologies/weaviate:1.37.4</weaviate.container.image>
