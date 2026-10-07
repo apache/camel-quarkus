@@ -105,8 +105,8 @@ env:
   TESTCONTAINERS_RYUK_DISABLED: true
   CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]' && github.head_ref || '' }}
   # Scalpel configuration (defaults for all jobs; initial-mvn-install overrides SCALPEL_FULL_BUILD_TRIGGERS).
-  # Broad extensions-core/** trigger here is intentional: functional-extension-tests uses trim mode,
-  # which actively excludes modules from the build, so any extensions-core change should run full tests.
+  # Broad extensions-core/** trigger here is intentional: functional-extension-tests falls back to trim mode
+  # when an extensions-core change is detected, so any extensions-core change should run full tests.
   SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/**,.mvn/**,.github/workflows/ci-build.yaml"
   SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=**.adoc,**.md,docs/**,Jenkinsfile*,LICENSE.txt,NOTICE.txt,KEYS,camel-quarkus-sbom/**,.github/*.sh"
   CQ_MAVEN_SKIP_CHECKS: "-Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip"
@@ -196,12 +196,14 @@ jobs:
       cache-key: ${{ steps.maven-cache.outputs.cache-key }}
       # Incremental build job outputs. Keep sorted alphabetically.
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
+      functional-test-modules: ${{ steps.process-incremental.outputs.functional-test-modules || '{}' }}
       integration-tests-jvm-modules: ${{ steps.process-incremental.outputs.integration-tests-jvm-modules || '' }}
       integration-tests-matrix: ${{ steps.process-incremental.outputs.use-incremental == 'true' && steps.process-incremental.outputs.integration-tests-matrix || steps.set-native-matrix-full.outputs.matrix || '{"include":[]}' }}
       integration-tests-modules: ${{ steps.incremental-build.outputs.integration-tests-modules }}
       run-catalog-tests: ${{ steps.process-incremental.outputs.run-catalog-tests }}
       run-examples: ${{ steps.process-incremental.outputs.run-examples }}
       run-extensions-core-tests: ${{ steps.process-incremental.outputs.run-extensions-core-tests }}
+      run-extensions-support-tests: ${{ steps.process-incremental.outputs.run-extensions-support-tests }}
       run-extensions-tests: ${{ steps.process-incremental.outputs.run-extensions-tests }}
       run-integration-tests-jvm: ${{ steps.process-incremental.outputs.run-integration-tests-jvm }}
       run-test-framework-tests: ${{ steps.process-incremental.outputs.run-test-framework-tests }}
@@ -263,6 +265,9 @@ jobs:
         id: scalpel-analysis
         if: steps.detect-incremental.outputs.incremental-build == 'true'
         continue-on-error: true
+        env:
+          # Comparing the effective models of the whole reactor needs a much larger heap than the build itself
+          MAVEN_OPTS: -Xmx10g
         run: |
           ./mvnw validate -Dquickly \
             ${SCALPEL_ENABLED} \
@@ -281,31 +286,6 @@ jobs:
       - name: Warn on Scalpel failure
         if: steps.scalpel-analysis.outcome == 'failure'
         run: echo "::warning::Scalpel analysis failed, falling back to full build"
-      - name: Detect Changed Container Properties
-        id: detect-container-props
-        if: steps.detect-incremental.outputs.incremental-build == 'true' && steps.scalpel-analysis.outcome != 'failure'
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PUSH_BEFORE_SHA: ${{ github.event.before }}
-        run: |
-          # NOTE: We do this manual checking since the container image properties are not linked to any other pom.xml in the project.
-          # They are queried dynamically via Java code. This logic enables pom.xml to be removed from Scalpel full build triggers.
-
-          CHANGED_CONTAINER_PROPS=""
-          if [ "${EVENT_NAME}" == "pull_request" ]; then
-            BASE_SHA="${PR_BASE_SHA}"
-          else
-            BASE_SHA="${PUSH_BEFORE_SHA}"
-          fi
-          if [ -n "$BASE_SHA" ] && git diff "$BASE_SHA" -- pom.xml | grep -qE '[+-].*\.container\.image>'; then
-            CHANGED_CONTAINER_PROPS=$(git diff "$BASE_SHA" -- pom.xml \
-              | grep -E '^\+.*\.container\.image>' \
-              | sed -E 's/.*<([^<\/]+\.container\.image)>.*/\1/' \
-              | paste -sd,)
-            echo "Changed container properties: $CHANGED_CONTAINER_PROPS"
-          fi
-          echo "props=$CHANGED_CONTAINER_PROPS" >> $GITHUB_OUTPUT
       - name: Incremental Build Analysis
         id: incremental-build
         if: steps.detect-incremental.outputs.incremental-build == 'true' && steps.scalpel-analysis.outcome != 'failure'
@@ -317,18 +297,14 @@ jobs:
           PROJECT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)
           echo "Using camel-quarkus-maven-plugin version: $PROJECT_VERSION"
 
-          CONTAINER_PROPS="${{ steps.detect-container-props.outputs.props }}"
-
           ./mvnw org.apache.camel.quarkus:camel-quarkus-maven-plugin:${PROJECT_VERSION}:incremental-build \
-            -Dcq.action=analyze \
             -Dcq.useIncrementalBuild=true \
             -Dcq.extensionDirs="extensions/,extensions-jvm/,extensions-core/" \
             -Dcq.integrationTestDirs="integration-tests/,integration-tests-jvm/" \
             -Dcq.nativeTestsPrefix="integration-tests/" \
             -Dcq.jvmTestsPrefix="integration-tests-jvm/" \
             -Dcq.integrationTestGroupsPrefix="integration-test-groups/" \
-            -Dcq.functionalScopeDirs="extensions-core/:runExtensionsCoreTests,extensions/:runExtensionsTests,test-framework/:runTestFrameworkTests,tooling/:runToolingTests,catalog/:runCatalogTests" \
-            ${CONTAINER_PROPS:+-Dcq.changedContainerProperties="$CONTAINER_PROPS"} \
+            -Dcq.functionalScopeDirs="extensions-core/:runExtensionsCoreTests,extensions/:runExtensionsTests,extensions-support/:runExtensionsSupportTests,test-framework/:runTestFrameworkTests,tooling/:runToolingTests,catalog/:runCatalogTests" \
             -N ${CQ_MAVEN_ARGS}
 
           if [ -f target/incremental-build.json ]; then
@@ -370,10 +346,18 @@ jobs:
             echo "integration-tests-jvm-modules=$(echo "$DATA" | jq -r '.integrationTestsJvm.modules')" >> $GITHUB_OUTPUT
             echo "run-extensions-core-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runExtensionsCoreTests')" >> $GITHUB_OUTPUT
             echo "run-extensions-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runExtensionsTests')" >> $GITHUB_OUTPUT
+            echo "run-extensions-support-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runExtensionsSupportTests')" >> $GITHUB_OUTPUT
             echo "run-examples=$(echo "$DATA" | jq -r '.runExamples')" >> $GITHUB_OUTPUT
             echo "run-test-framework-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runTestFrameworkTests')" >> $GITHUB_OUTPUT
             echo "run-tooling-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runToolingTests')" >> $GITHUB_OUTPUT
             echo "run-catalog-tests=$(echo "$DATA" | jq -r '.functionalTestScope.runCatalogTests')" >> $GITHUB_OUTPUT
+
+            # Any extensions-core change runs the functional tests with Scalpel trim mode instead of only the affected modules
+            if [ "$(echo "$DATA" | jq -r '.functionalTestScope.runExtensionsCoreTests')" == "true" ]; then
+              echo "functional-test-modules={}" >> $GITHUB_OUTPUT
+            else
+              echo "functional-test-modules=$(echo "$DATA" | jq -c '.functionalTestModules // {}')" >> $GITHUB_OUTPUT
+            fi
 
             {
               echo "### Incremental Native Test Matrix"
@@ -385,6 +369,7 @@ jobs:
             echo "run-integration-tests-jvm=true" >> $GITHUB_OUTPUT
             echo "run-extensions-core-tests=true" >> $GITHUB_OUTPUT
             echo "run-extensions-tests=true" >> $GITHUB_OUTPUT
+            echo "run-extensions-support-tests=true" >> $GITHUB_OUTPUT
             echo "run-examples=true" >> $GITHUB_OUTPUT
             echo "run-test-framework-tests=true" >> $GITHUB_OUTPUT
             echo "run-tooling-tests=true" >> $GITHUB_OUTPUT
@@ -547,6 +532,7 @@ jobs:
       (github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM'))
       && (needs.initial-mvn-install.outputs.run-extensions-core-tests == 'true'
       || needs.initial-mvn-install.outputs.run-extensions-tests == 'true'
+      || needs.initial-mvn-install.outputs.run-extensions-support-tests == 'true'
       || needs.initial-mvn-install.outputs.run-test-framework-tests == 'true'
       || needs.initial-mvn-install.outputs.run-tooling-tests == 'true'
       || needs.initial-mvn-install.outputs.run-catalog-tests == 'true')
@@ -571,13 +557,14 @@ jobs:
           download-maven-repo: 'true'
       - name: cd extensions-core && mvn test
         if: needs.initial-mvn-install.outputs.run-extensions-core-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['extensions-core'] }}
         run: |
           cd extensions-core
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
-            ${SCALPEL_TRIM_ARGS} \
-            ${SCALPEL_FULL_BUILD_TRIGGERS} \
-            ${SCALPEL_EXCLUDE_PATHS} \
+            ${MODULE_ARGS} \
             --fail-at-end \
             test
       - name: Report test failures
@@ -587,13 +574,14 @@ jobs:
           test-report-xml-base-dir: extensions-core
       - name: cd extensions && mvn test
         if: needs.initial-mvn-install.outputs.run-extensions-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['extensions'] }}
         run: |
           cd extensions
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
-            ${SCALPEL_TRIM_ARGS} \
-            ${SCALPEL_FULL_BUILD_TRIGGERS} \
-            ${SCALPEL_EXCLUDE_PATHS} \
+            ${MODULE_ARGS} \
             --fail-at-end \
             test
       - name: Report test failures
@@ -601,15 +589,34 @@ jobs:
         if: ${{ failure() }}
         with:
           test-report-xml-base-dir: extensions
-      - name: cd test-framework && mvn test
-        if: needs.initial-mvn-install.outputs.run-test-framework-tests == 'true'
+      - name: cd extensions-support && mvn package
+        if: needs.initial-mvn-install.outputs.run-extensions-support-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['extensions-support'] }}
         run: |
-          cd test-framework
+          cd extensions-support
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
+          # package rather than test, so that shaded modules such as spring/shade provide their jar to the reactor
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
-            ${SCALPEL_TRIM_ARGS} \
-            ${SCALPEL_FULL_BUILD_TRIGGERS} \
-            ${SCALPEL_EXCLUDE_PATHS} \
+            ${MODULE_ARGS} \
+            --fail-at-end \
+            package
+      - name: Report test failures
+        uses: ./.github/actions/test-summary-report
+        if: ${{ failure() }}
+        with:
+          test-report-xml-base-dir: extensions-support
+      - name: cd test-framework && mvn test
+        if: needs.initial-mvn-install.outputs.run-test-framework-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['test-framework'] }}
+        run: |
+          cd test-framework
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            ${CQ_MAVEN_SKIP_CHECKS} \
+            ${MODULE_ARGS} \
             --fail-at-end \
             test
       - name: Report test failures
@@ -619,13 +626,14 @@ jobs:
           test-report-xml-base-dir: test-framework
       - name: cd tooling && mvn verify
         if: needs.initial-mvn-install.outputs.run-tooling-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['tooling'] }}
         run: |
           cd tooling
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
-            ${SCALPEL_TRIM_ARGS} \
-            ${SCALPEL_FULL_BUILD_TRIGGERS} \
-            ${SCALPEL_EXCLUDE_PATHS} \
+            ${MODULE_ARGS} \
             --fail-at-end \
             verify
       - name: Report test failures
@@ -635,13 +643,14 @@ jobs:
           test-report-xml-base-dir: tooling
       - name: cd catalog && mvn test
         if: needs.initial-mvn-install.outputs.run-catalog-tests == 'true'
+        env:
+          MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['catalog'] }}
         run: |
           cd catalog
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
-            ${SCALPEL_TRIM_ARGS} \
-            ${SCALPEL_FULL_BUILD_TRIGGERS} \
-            ${SCALPEL_EXCLUDE_PATHS} \
+            ${MODULE_ARGS} \
             test
       - name: Report test failures
         uses: ./.github/actions/test-summary-report
