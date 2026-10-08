@@ -96,14 +96,9 @@ class Aws2KinesisFirehoseTest extends BaseAWs2TestSupport {
                         LOG.info("Checking object " + obj.key() + " of size " + obj.size());
                         try (ResponseInputStream<GetObjectResponse> o = client
                                 .getObject(GetObjectRequest.builder().bucket(bucketName).key(obj.key()).build())) {
-                            final StringBuilder sb = new StringBuilder(msg.length());
-                            final byte[] buf = new byte[1024];
-                            int len;
-                            while ((len = o.read(buf)) >= 0 && sb.length() < msgPrefix.length()) {
-                                sb.append(new String(buf, 0, len, StandardCharsets.UTF_8));
-                            }
-                            final String foundContent = sb.toString();
-                            if (foundContent.startsWith(msgPrefix)) {
+                            // Firehose may batch other records sent to the stream into the same object
+                            final String foundContent = new String(o.readAllBytes(), StandardCharsets.UTF_8);
+                            if (foundContent.contains(msgPrefix)) {
                                 /* Yes, this is what we have sent */
                                 LOG.info("Found the expected content in object " + obj.key());
                                 return true;

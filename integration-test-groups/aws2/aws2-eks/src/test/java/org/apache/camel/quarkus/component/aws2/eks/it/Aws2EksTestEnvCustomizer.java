@@ -29,5 +29,11 @@ public class Aws2EksTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public void customize(Aws2TestEnvContext envContext) {
+        if (envContext.isMockBackend()) {
+            // Floci validates that subnets exist, so use those from its default VPC
+            String region = envContext.getRegion();
+            envContext.property("aws.eks.subnets",
+                    String.format("subnet-default-%s-a,subnet-default-%s-b", region, region));
+        }
     }
 }

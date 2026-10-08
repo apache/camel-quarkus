@@ -74,10 +74,11 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .distinct()
                     .toArray(Service[]::new);
 
+            // EKS CreateCluster attaches to the VPC Docker network and stalls on retries without the socket
             boolean needsDockerSocket = customizers.stream()
                     .map(Aws2TestEnvCustomizer::awsServices)
                     .flatMap(Stream::of)
-                    .anyMatch(s -> s == Service.LAMBDA);
+                    .anyMatch(s -> s == Service.LAMBDA || s == Service.EKS);
 
             boolean needsEksMock = customizers.stream()
                     .map(Aws2TestEnvCustomizer::awsServices)
@@ -105,7 +106,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     floci.withFileSystemBind(dockerSocket.toString(), "/var/run/docker.sock", BindMode.READ_WRITE)
                             .withPrivilegedMode(true);
                 } else {
-                    LOG.warn("Docker socket not found at {}. Lambda container execution will not be available.",
+                    LOG.warn("Docker socket not found at {}. Lambda and EKS tests may fail or time out.",
                             dockerSocket);
                 }
             }
