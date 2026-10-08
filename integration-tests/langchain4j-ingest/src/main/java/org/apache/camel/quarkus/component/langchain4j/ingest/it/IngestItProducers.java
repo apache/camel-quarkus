@@ -126,6 +126,14 @@ public class IngestItProducers {
         return exchange -> !exchange.getMessage().getBody(String.class).contains("CONFIDENTIAL");
     }
 
+    /** Named only by the application-wide documentFilter property the pipelines must not pick up. */
+    @Produces
+    @Singleton
+    @Named("rejectAll")
+    org.apache.camel.Predicate rejectAll() {
+        return exchange -> false;
+    }
+
     @Produces
     @Singleton
     @Named("test-model")

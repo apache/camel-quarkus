@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.langchain4j.ingest;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.camel.quarkus.component.langchain4j.ingest.IngestRunTimeConfig.PipelineRunTimeConfig.FilterRunTimeConfig;
+
 /**
  * A pipeline declared in Java rather than in configuration, returned from an {@link Ingest}
  * method. Every property has a configuration twin, and both paths share the same runtime.
@@ -27,6 +29,30 @@ public final class IngestPipeline {
 
     /** The values {@link #parser(String)} and the {@code parser} configuration property accept. */
     public static final Set<String> SUPPORTED_PARSERS = IngestRoutes.SUPPORTED_PARSERS;
+
+    /** The filters of a pipeline configuration says nothing about: every delivery is accepted. */
+    static final FilterRunTimeConfig NO_FILTER = new FilterRunTimeConfig() {
+
+        @Override
+        public Optional<String> includeId() {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<String> excludeId() {
+            return Optional.empty();
+        }
+
+        @Override
+        public int minDocumentSize() {
+            return 0;
+        }
+
+        @Override
+        public Optional<String> documentFilter() {
+            return Optional.empty();
+        }
+    };
 
     private final Source source;
     private String embeddingStoreName;
@@ -145,8 +171,11 @@ public final class IngestPipeline {
      * document id's file extension. The twin of the {@code content-type} configuration property.
      */
     public IngestPipeline contentType(String contentType) {
-        if (contentType == null || contentType.isBlank()) {
-            throw new IllegalArgumentException("content-type must not be blank (got '" + contentType + "')");
+        // the same rule the configuration path is held to at build time: the component drops the
+        // parameters after ';', so a value with nothing before them would silently be unset
+        if (contentType == null || contentType.split(";", 2)[0].isBlank()) {
+            throw new IllegalArgumentException(
+                    "content-type must not be blank or only parameters (got '" + contentType + "')");
         }
         this.contentType = contentType;
         return this;
@@ -201,11 +230,10 @@ public final class IngestPipeline {
     }
 
     /**
-     * The configuration view, so a builder pipeline reuses the source configuration paths
-     * verbatim. Its {@code filter()} is null: filters come from configuration, which IngestRoutes
-     * reads directly.
+     * The configuration view, so a builder pipeline reuses the configuration paths verbatim. Its
+     * filter is the configured one, or none: the builder has no filter API.
      */
-    IngestRunTimeConfig.PipelineRunTimeConfig asRunTimeConfig() {
+    IngestRunTimeConfig.PipelineRunTimeConfig asRunTimeConfig(IngestRunTimeConfig.PipelineRunTimeConfig configured) {
         IngestRunTimeConfig.PipelineRunTimeConfig.SourceRunTimeConfig sourceConfig = source.asRunTimeConfig();
         return new IngestRunTimeConfig.PipelineRunTimeConfig() {
 
@@ -221,8 +249,7 @@ public final class IngestPipeline {
 
             @Override
             public FilterRunTimeConfig filter() {
-                // the builder has no filter API: IngestRoutes reads filter.* from configuration
-                return null;
+                return configured == null ? NO_FILTER : configured.filter();
             }
         };
     }

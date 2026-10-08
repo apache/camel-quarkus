@@ -405,6 +405,12 @@ class Langchain4jIngestProcessor {
                         "Ingestion pipeline '" + entry.getKey() + "': content-type only applies to modality 'media' "
                                 + "(got '" + pipeline.contentType().get() + "'). Set modality=media, or remove it.")));
             }
+            // the component drops the parameters after ';', so a value with nothing before them would silently be unset
+            if (pipeline.contentType().isPresent() && pipeline.contentType().get().split(";", 2)[0].isBlank()) {
+                validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
+                        "Ingestion pipeline '" + entry.getKey() + "': content-type must not be blank or only parameters "
+                                + "(got '" + pipeline.contentType().get() + "')")));
+            }
         }
     }
 }

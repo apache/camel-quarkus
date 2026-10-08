@@ -38,10 +38,11 @@ class IngestPipelineModalityValidationTest {
 
     @Test
     void blankContentTypeRejected() {
-        for (String contentType : new String[] { " ", null }) {
+        // parameters alone would be dropped by the component, leaving the content type unset
+        for (String contentType : new String[] { " ", null, "; codecs=opus" }) {
             IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                     () -> IngestPipeline.from(Source.file("target/x")).contentType(contentType));
-            assertTrue(e.getMessage().contains("content-type must not be blank"), e.getMessage());
+            assertTrue(e.getMessage().contains("content-type must not be blank or only parameters"), e.getMessage());
         }
     }
 
