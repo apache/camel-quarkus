@@ -17,49 +17,58 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>4.0.0-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-aws2</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: AWS2</name>
-    <description>The camel integration tests</description>
+    <artifactId>camel-quarkus-integration-test-aws2-athena</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS 2 Athena</name>
+    <description>Integration tests for Camel Quarkus AWS 2 Athena extension</description>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws-bedrock</artifactId>
+            <artifactId>camel-quarkus-aws2-athena</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-log</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-timer</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
-
-        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 
     <profiles>
         <profile>
             <id>native</id>
             <activation>
-                <property>
-                    <name>native</name>
-                </property>
+                <property><name>native</name></property>
             </activation>
             <properties>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
@@ -81,6 +90,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>virtualDependencies</id>
             <activation>
@@ -92,33 +102,7 @@
                 <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-aws-bedrock-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-log-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-timer-deployment</artifactId>
+                    <artifactId>camel-quarkus-aws2-athena-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>
@@ -131,6 +115,7 @@
                 </dependency>
             </dependencies>
         </profile>
+
         <profile>
             <id>skip-testcontainers-tests</id>
             <activation>
@@ -143,5 +128,4 @@
             </properties>
         </profile>
     </profiles>
-
 </project>

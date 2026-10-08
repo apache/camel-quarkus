@@ -39,7 +39,10 @@ public enum Service {
     CLOUDWATCHLOGS("logs"),
     STS("sts"),
     IAM("iam"),
-    KMS("kms");
+    KMS("kms"),
+    EVENTBRIDGE("eventbridge"),
+    ATHENA("athena"),
+    TRANSLATE("translate");
 
     private final String serviceName;
 

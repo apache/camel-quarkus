@@ -14,19 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2;
 
-import org.apache.camel.builder.RouteBuilder;
+package org.apache.camel.quarkus.component.aws2.eventbridge.it;
 
-public class CamelRoute extends RouteBuilder {
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.junit.jupiter.api.Test;
 
-    @Override
-    public void configure() {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
-        from("timer:quarkus-bedrock?repeatCount=1")
-                .to("aws-bedrock://myaccount?operation=invokeTextModel")
-                .to("log:sf?showAll=true");
+@QuarkusTest
+@QuarkusTestResource(Aws2TestResource.class)
+class Aws2EventbridgeTest {
 
+    @Test
+    public void testEventbridge() {
+        given()
+                .when().get("/aws2-eventbridge")
+                .then()
+                .statusCode(200)
+                .body(containsString("Rules"));
     }
-
 }

@@ -14,19 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2;
+package org.apache.camel.quarkus.component.aws2.athena.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.junit.jupiter.api.Test;
 
-public class CamelRoute extends RouteBuilder {
+import static org.hamcrest.Matchers.containsString;
 
-    @Override
-    public void configure() {
+@QuarkusTest
+@QuarkusTestResource(Aws2TestResource.class)
+class Aws2AthenaTest {
 
-        from("timer:quarkus-bedrock?repeatCount=1")
-                .to("aws-bedrock://myaccount?operation=invokeTextModel")
-                .to("log:sf?showAll=true");
-
+    @Test
+    void testAthena() {
+        RestAssured.given()
+                .get("/athena")
+                .then()
+                .statusCode(200)
+                .body(containsString("QueryExecutionIds"));
     }
-
 }

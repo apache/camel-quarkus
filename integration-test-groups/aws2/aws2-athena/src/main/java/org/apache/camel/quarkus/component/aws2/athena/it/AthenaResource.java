@@ -14,19 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2;
 
-import org.apache.camel.builder.RouteBuilder;
+package org.apache.camel.quarkus.component.aws2.athena.it;
 
-public class CamelRoute extends RouteBuilder {
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.ProducerTemplate;
 
-    @Override
-    public void configure() {
+@Path("/athena")
+public class AthenaResource {
 
-        from("timer:quarkus-bedrock?repeatCount=1")
-                .to("aws-bedrock://myaccount?operation=invokeTextModel")
-                .to("log:sf?showAll=true");
+    @Inject
+    ProducerTemplate producerTemplate;
 
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String athena() {
+        return producerTemplate.requestBody(
+                "aws2-athena://default?operation=listQueryExecutions",
+                null,
+                String.class);
     }
-
 }
