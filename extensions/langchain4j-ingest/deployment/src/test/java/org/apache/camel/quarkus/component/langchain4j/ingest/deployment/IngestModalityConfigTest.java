@@ -34,11 +34,14 @@ class IngestModalityConfigTest {
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.split.modality", "MEDIA")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.split.document-splitter", "splitter")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.typed.content-type", "audio/wav")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.params.modality", "media")
+            .overrideConfigKey("quarkus.camel.langchain4j.ingest.params.content-type", "; codecs=opus")
             .assertException(t -> ValidationTestSupport.assertFailure(t,
                     "'unknown': modality must be 'text' or 'media' (got 'sound')",
                     "'parsed' sets modality 'media' together with a parser",
                     "'split' sets modality 'media' together with a document-splitter",
-                    "'typed': content-type only applies to modality 'media' (got 'audio/wav')"));
+                    "'typed': content-type only applies to modality 'media' (got 'audio/wav')",
+                    "'params': content-type must not be blank or only parameters (got '; codecs=opus')"));
 
     @Test
     void buildMustFail() {

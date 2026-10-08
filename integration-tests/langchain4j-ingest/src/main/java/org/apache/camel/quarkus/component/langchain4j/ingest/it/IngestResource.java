@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -237,16 +238,26 @@ public class IngestResource {
         return result.outcome().label();
     }
 
-    /** Feeds a media pipeline the raw bytes; the reply carries the outcome. */
+    /**
+     * Feeds a media pipeline the raw bytes as a stream, as a streaming consumer would, optionally announcing a (forged)
+     * CamelFileLength; answers the outcome or the failure message.
+     */
     @POST
     @jakarta.ws.rs.Path("/feed-binary/{pipeline}/{documentId:.+}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
     public String feedBinary(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
-            byte[] content) {
-        IngestResult result = producerTemplate.requestBodyAndHeader("direct:" + pipeline + "-feed", content,
-                IngestHeaders.DOCUMENT_ID, documentId, IngestResult.class);
-        return result.outcome().label();
+            @QueryParam("fileLength") Long fileLength, byte[] content) {
+        Exchange exchange = producerTemplate.request("direct:" + pipeline + "-feed", e -> {
+            e.getMessage().setHeader(IngestHeaders.DOCUMENT_ID, documentId);
+            if (fileLength != null) {
+                e.getMessage().setHeader(Exchange.FILE_LENGTH, fileLength);
+            }
+            e.getMessage().setBody(new ByteArrayInputStream(content));
+        });
+        return exchange.getException() != null
+                ? exchange.getException().getMessage()
+                : exchange.getMessage().getBody(IngestResult.class).outcome().label();
     }
 
     /** Feeds a pipeline carrying different ids in the current and the deprecated header, so tests can assert precedence. */
