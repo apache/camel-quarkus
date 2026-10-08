@@ -20,9 +20,7 @@ import io.debezium.connector.base.DefaultQueueProvider;
 import io.debezium.connector.common.BaseSourceTask;
 import io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory;
 import io.debezium.engine.DebeziumEngine;
-import io.debezium.pipeline.notification.channels.LogNotificationChannel;
-import io.debezium.pipeline.notification.channels.SinkNotificationChannel;
-import io.debezium.pipeline.notification.channels.jmx.JmxNotificationChannel;
+import io.debezium.pipeline.notification.channels.NotificationChannel;
 import io.debezium.pipeline.signal.actions.SignalActionProvider;
 import io.debezium.pipeline.signal.actions.StandardActionProvider;
 import io.debezium.pipeline.signal.channels.FileSignalChannel;
@@ -42,6 +40,7 @@ import io.debezium.snapshot.mode.RecoverySnapshotter;
 import io.debezium.snapshot.mode.WhenNeededNoDataSnapshotter;
 import io.debezium.snapshot.mode.WhenNeededSnapshotter;
 import io.debezium.snapshot.spi.SnapshotLock;
+import io.debezium.spi.storage.OffsetStoreProvider;
 import io.debezium.storage.file.history.FileSchemaHistory;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -106,9 +105,6 @@ public class DebeziumSupportProcessor {
                 DefaultTransactionMetadataFactory.class,
                 SchemaTopicNamingStrategy.class,
                 BaseSourceTask.class,
-                SinkNotificationChannel.class,
-                LogNotificationChannel.class,
-                JmxNotificationChannel.class,
                 SnapshotLock.class,
                 NoLockingSupport.class,
                 AlwaysSnapshotter.class,
@@ -143,6 +139,16 @@ public class DebeziumSupportProcessor {
     }
 
     @BuildStep
+    ServiceProviderBuildItem registerNotificationChannelProviders() {
+        return ServiceProviderBuildItem.allProvidersFromClassPath(NotificationChannel.class.getName());
+    }
+
+    @BuildStep
+    ServiceProviderBuildItem registerOffsetStoreProviders() {
+        return ServiceProviderBuildItem.allProvidersFromClassPath(OffsetStoreProvider.class.getName());
+    }
+
+    @BuildStep
     void registerNativeImageResources(BuildProducer<NativeImageResourceBuildItem> resources) {
         resources.produce(new NativeImageResourceBuildItem(
                 "META-INF/services/io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory"));
@@ -151,8 +157,6 @@ public class DebeziumSupportProcessor {
         resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.spi.snapshot.Snapshotter"));
         resources.produce(
                 new NativeImageResourceBuildItem("META-INF/services/io.debezium.pipeline.signal.channels.SignalChannelReader"));
-        resources.produce(new NativeImageResourceBuildItem(
-                "META-INF/services/io.debezium.pipeline.notification.channels.NotificationChannel"));
         resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.processors.PostProcessorProducer"));
 
         resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.snapshot.spi.SnapshotLock"));
