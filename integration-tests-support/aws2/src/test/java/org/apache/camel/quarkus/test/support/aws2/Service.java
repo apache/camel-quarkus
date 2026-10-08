@@ -41,7 +41,8 @@ public enum Service {
     IAM("iam"),
     KMS("kms"),
     EVENTBRIDGE("eventbridge"),
-    ATHENA("athena");
+    ATHENA("athena"),
+    TRANSLATE("translate");
 
     private final String serviceName;
 

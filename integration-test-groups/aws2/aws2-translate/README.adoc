@@ -1,3 +1,7 @@
+== Camel Quarkus AWS 2 Translate Integration Tests
+
+integration tests for Camel Quarkus AWS 2 Translate extension.
+
 === Credential Configuration
 
 You can configure AWS credentials via environment variables:

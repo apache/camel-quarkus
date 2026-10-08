@@ -18,8 +18,11 @@ package org.apache.camel.quarkus.component.aws2.athena.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -27,5 +30,10 @@ class Aws2AthenaTest {
 
     @Test
     void testAthena() {
+        RestAssured.given()
+                .get("/athena")
+                .then()
+                .statusCode(200)
+                .body(containsString("QueryExecutionIds"));
     }
 }

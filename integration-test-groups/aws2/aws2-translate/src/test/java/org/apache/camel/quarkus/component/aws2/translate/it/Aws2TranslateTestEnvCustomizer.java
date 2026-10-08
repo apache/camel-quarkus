@@ -24,7 +24,7 @@ public class Aws2TranslateTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] awsServices() {
-        throw new UnsupportedOperationException("Determine the supported AWS2 Service value for Translate");
+        return new Service[] { Service.TRANSLATE };
     }
 
     @Override

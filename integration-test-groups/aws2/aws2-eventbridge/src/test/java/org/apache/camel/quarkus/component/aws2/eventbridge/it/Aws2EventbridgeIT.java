@@ -17,24 +17,8 @@
 
 package org.apache.camel.quarkus.component.aws2.eventbridge.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
-import org.junit.jupiter.api.Test;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
-
-@QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
-class Aws2EventbridgeTest {
-
-    @Test
-    public void testEventbridge() {
-        given()
-                .when().get("/aws2-eventbridge")
-                .then()
-                .statusCode(200)
-                .body(containsString("Rules"));
-    }
+@QuarkusIntegrationTest
+class Aws2EventbridgeIT extends Aws2EventbridgeTest {
 }
