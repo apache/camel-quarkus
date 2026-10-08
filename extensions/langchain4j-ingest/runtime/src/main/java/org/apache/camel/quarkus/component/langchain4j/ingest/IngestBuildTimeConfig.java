@@ -46,6 +46,9 @@ public interface IngestBuildTimeConfig {
     /** Mirrors the {@code @WithDefault} below, which can only carry a literal; 0 means no limit. */
     int DEFAULT_MAX_DOCUMENT_SIZE = 0;
 
+    /** Mirrors the {@code @WithDefault} below, which can only carry a literal. */
+    String DEFAULT_MODALITY = "text";
+
     /**
      * Ingestion pipelines by name.
      */
@@ -69,6 +72,27 @@ public interface IngestBuildTimeConfig {
          * `camel-quarkus-docling`.
          */
         Optional<String> parser();
+
+        /**
+         * What the consumed payload is. `text`, the default, is read as a String, split into
+         * segments and embedded segment by segment. `media` is read as bytes and embedded whole,
+         * as one vector: audio, an image, video or a PDF, told apart by the MIME type, each
+         * needing an embedding model that declares the matching content type — the pipeline
+         * fails to start with a text-only model. In media mode `parser` and `document-splitter`
+         * must not be set, the splitter sizes and `embedding-batch-size` do not apply, and
+         * `max-document-size` and `filter.min-document-size` count bytes.
+         */
+        @WithDefault("text")
+        String modality();
+
+        /**
+         * MIME type of a media payload, such as `audio/wav` or `image/png`, handed to the
+         * embedding model. When not set, it is derived from the document id's file extension
+         * through Camel's MIME table; a document whose type cannot be determined, or whose
+         * medium the model does not declare, fails the exchange. Only valid with
+         * `modality=media`: set without it, the pipeline is rejected.
+         */
+        Optional<String> contentType();
 
         /**
          * Name of the `EmbeddingStore` bean to write to. When not set, the only one present is
@@ -105,10 +129,11 @@ public interface IngestBuildTimeConfig {
         int embeddingBatchSize();
 
         /**
-         * Maximum size of one document in characters, applied to the text about to be split;
-         * 0, the default, means no limit. The pipeline holds a document in memory whole, so the
-         * cap is the protection against oversized — on a consumer-fed pipeline, attacker-sized —
-         * payloads. An oversized document fails the exchange cleanly.
+         * Maximum size of one document in characters, applied to the text about to be split, or
+         * in bytes with `modality=media`; 0, the default, means no limit. The pipeline holds a
+         * document in memory whole, so the cap is the protection against oversized — on a
+         * consumer-fed pipeline, attacker-sized — payloads. An oversized document fails the
+         * exchange cleanly.
          */
         @WithDefault("0")
         int maxDocumentSize();

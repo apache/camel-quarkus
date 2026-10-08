@@ -138,10 +138,18 @@ class Langchain4jIngestTikaTest {
                 .post("/langchain4j-ingest/binary/capped/pump.pdf")
                 .then().statusCode(204);
 
+        // a comment carries the bytes, not the text: parsed, it fits the cap, so only the raw-byte
+        // cap keeps it out
+        RestAssured.given().contentType(ContentType.BINARY)
+                .body(("<html><body><!-- " + "x".repeat(300) + " --><p>LAMBDA-7 hides in markup.</p></body></html>")
+                        .getBytes(java.nio.charset.StandardCharsets.UTF_8))
+                .post("/langchain4j-ingest/binary/capped/markup.html")
+                .then().statusCode(204);
+
         // the absence must hold across several poll cycles, not just at one instant
         Awaitility.await().during(3, TimeUnit.SECONDS).atMost(10, TimeUnit.SECONDS)
                 .until(() -> Langchain4jIngestTest.hits("What does the pump tolerate?", "capped").stream()
-                        .noneMatch(hit -> hit.get("text").contains("DELTA-5")));
+                        .noneMatch(hit -> hit.get("text").contains("DELTA-5") || hit.get("text").contains("LAMBDA-7")));
     }
 
     /**
@@ -162,6 +170,24 @@ class Langchain4jIngestTikaTest {
                 "nothing may be ingested from an id-less delivery");
     }
 
+    /**
+     * A consumer-fed parser pipeline still accepts the id carried only as the
+     * {@code CamelLangChain4jIngestDocumentId} exchange property, as the previous builder did: it is
+     * copied into the header the pre-parse guard and the parser read.
+     */
+    @Test
+    void consumerFedParserReadsIdFromExchangeProperty() {
+        RestAssured.given().contentType(ContentType.TEXT)
+                .body("<html><body><p>The TAU-6 valve arrives with an exchange property.</p></body></html>")
+                .post("/langchain4j-ingest/feed-property/htmlfeed/valve.html")
+                .then().statusCode(200).body(org.hamcrest.Matchers.is("ingested"));
+
+        Map<String, String> hit = Langchain4jIngestTest.hit("What arrives with an exchange property?", "htmlfeed",
+                "TAU-6");
+        assertNotNull(hit, "the HTML must be parsed and its text ingested");
+        assertEquals("valve.html", hit.get("documentId"), "the id must come from the exchange property");
+    }
+
     /** The same anti-spoofing contract on a directory pipeline: the file name wins. */
     @Test
     void directoryDocumentCannotSpoofItsId() {
@@ -180,5 +206,24 @@ class Langchain4jIngestTikaTest {
                     assertEquals("honest.html", hit.get("documentId"),
                             "the id must be the file name, not the document's forgery");
                 });
+    }
+
+    /**
+     * A consumer-fed parser pipeline whose {@code source.document-id} is a dotted header name
+     * ({@code doc.id}): the name is read as a header and copied into the canonical one, so the
+     * parser action never substitutes it into its expression, where it would fail the start.
+     */
+    @Test
+    void consumerFedParserReadsDottedIdHeader() {
+        RestAssured.given().contentType(ContentType.TEXT)
+                .queryParam("header", "doc.id")
+                .body("<html><body><p>The SIGMA-2 gauge arrives under a dotted header.</p></body></html>")
+                .post("/langchain4j-ingest/feed/dottedfeed/gauge.html")
+                .then().statusCode(200).body(org.hamcrest.Matchers.is("ingested"));
+
+        Map<String, String> hit = Langchain4jIngestTest.hit("What arrives under a dotted header?", "dottedfeed",
+                "SIGMA-2");
+        assertNotNull(hit, "the HTML must be parsed and its text ingested");
+        assertEquals("gauge.html", hit.get("documentId"), "the id must come from the doc.id header");
     }
 }

@@ -45,6 +45,20 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-langchain4j-ingest</artifactId>
         </dependency>
+        <!-- the pipeline topology lives in the langchain4j-ingest Kamelets: the catalog carries
+             the yamls, the kamelet extension executes them, and yaml-dsl parses the templates -->
+        <dependency>
+            <groupId>org.apache.camel.kamelets</groupId>
+            <artifactId>camel-kamelets</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-kamelet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-yaml-dsl</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-file</artifactId>
