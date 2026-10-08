@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-milvus-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>camel-quarkus-milvus-client</artifactId>
+    <name>Camel Quarkus :: Milvus :: Client</name>
+
+    <description>io.milvus:milvus-sdk-java with grpc &amp; netty package relocations reverted and associated classes stripped away
+        so that camel-quarkus-milvus can use the equivalent quarkus extensions as a replacement</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.milvus</groupId>
+            <artifactId>milvus-sdk-java</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>transform-milvus-sdk-java</id>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>io.milvus:milvus-sdk-java</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <!-- The most specific patterns must come first -->
+                                <relocation>
+                                    <pattern>io.milvus.shaded.io.grpc.netty.shaded.io.grpc</pattern>
+                                    <shadedPattern>io.grpc</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.milvus.shaded.io.grpc.netty.shaded.io.netty</pattern>
+                                    <shadedPattern>io.netty</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.milvus.shaded.io.grpc</pattern>
+                                    <shadedPattern>io.grpc</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <filters>
+                                <filter>
+                                    <artifact>io.milvus:milvus-sdk-java</artifact>
+                                    <excludes>
+                                        <!--
+                                            Remove shaded grpc-netty-shaded packages & native libraries.
+                                            Replaced by grpc-netty, grpc-protobuf, grpc-stub & quarkus-netty.
+                                        -->
+                                        <exclude>io/milvus/shaded/**</exclude>
+                                        <exclude>META-INF/native/**</exclude>
+                                        <exclude>META-INF/native-image/**</exclude>
+                                        <exclude>META-INF/services/io.milvus.shaded.*</exclude>
+                                        <exclude>META-INF/services/reactor.blockhound.integration.BlockHoundIntegration</exclude>
+                                        <exclude>META-INF/io.netty.versions.properties</exclude>
+                                        <exclude>META-INF/maven/io.grpc/**</exclude>
+                                        <exclude>META-INF/maven/io.netty/**</exclude>
+                                        <exclude>META-INF/license/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <createSourcesJar>true</createSourcesJar>
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!--
+                            Quarkus resolves reactor modules to target/classes, which would otherwise be empty.
+                            Unpack the transformed jar so that the classes are visible to the Jandex index.
+                        -->
+                        <id>unpack-transformed-milvus-sdk-java</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <unzip src="${project.build.directory}/${project.build.finalName}.jar" dest="${project.build.outputDirectory}" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

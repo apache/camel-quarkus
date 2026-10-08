@@ -5642,6 +5642,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-milvus-client</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-milvus-deployment</artifactId>
         <version>4.0.0-SNAPSHOT</version>
       </dependency>
@@ -7740,6 +7745,33 @@
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-tracing-bridge-otel</artifactId>
         <version>1.7.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.milvus</groupId>
+        <artifactId>milvus-sdk-java</artifactId>
+        <version>2.6.22</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-common</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>io.minio</groupId>

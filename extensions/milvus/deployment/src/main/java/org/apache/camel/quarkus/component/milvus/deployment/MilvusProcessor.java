@@ -16,80 +16,21 @@
  */
 package org.apache.camel.quarkus.component.milvus.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.commons.ClassRemapper;
-import org.objectweb.asm.commons.Remapper;
 
 class MilvusProcessor {
-
-    /**
-     * Intercepts all Milvus SDK classes during the Quarkus build process to perform
-     * bytecode transformation. This ensures the SDK points to the correct
-     * gRPC/Netty implementations, avoiding 'Class Not Found'
-     */
+    private static final String FEATURE = "camel-milvus";
 
     @BuildStep
-    void relocateAllShadedCalls(
-            CombinedIndexBuildItem index,
-            BuildProducer<BytecodeTransformerBuildItem> transformers) {
-
-        index.getIndex().getKnownClasses().stream()
-                .filter(ci -> {
-                    String name = ci.name().toString();
-                    return name.startsWith("io.milvus") && !name.startsWith("io.milvus.shaded");
-                })
-                .forEach(ci -> {
-                    transformers.produce(new BytecodeTransformerBuildItem(
-                            ci.name().toString(),
-                            (name, cv) -> new ShadedRelocationVisitor(cv)));
-                });
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
-
-    //This build step ensures that the Milvus Java SDK is indexed by Jandex.
 
     @BuildStep
-    IndexDependencyBuildItem indexDependencie() {
-        return new IndexDependencyBuildItem("io.milvus", "milvus-sdk-java");
+    IndexDependencyBuildItem indexDependencies() {
+        // Enables quarkus-grpc-common to register the generated protobuf message classes for reflection
+        return new IndexDependencyBuildItem("org.apache.camel.quarkus", "camel-quarkus-milvus-client");
     }
-
-    /**
-     * Custom ClassRemapper used during the Quarkus build step to intercept and
-     * redirect shaded Netty/gRPC calls within the Milvus SDK.
-     */
-
-    private static class ShadedRelocationVisitor extends ClassRemapper {
-        public ShadedRelocationVisitor(ClassVisitor cv) {
-            super(Opcodes.ASM9, cv, new Remapper(Opcodes.ASM9) {
-                @Override
-                public String map(String internalName) {
-                    if (internalName == null)
-                        return null;
-
-                    if (internalName.startsWith("io/milvus/shaded/io/grpc/netty/shaded/io/grpc")) {
-                        return internalName.replace("io/milvus/shaded/io/grpc/netty/shaded/io/grpc", "io/grpc");
-                    }
-                    if (internalName.startsWith("io/milvus/shaded/io/grpc/netty/shaded/io/netty")) {
-                        return internalName.replace("io/milvus/shaded/io/grpc/netty/shaded/io/netty", "io/netty");
-                    }
-                    if (internalName.startsWith("io/milvus/shaded/io/grpc")) {
-                        return internalName.replace("io/milvus/shaded/io/grpc", "io/grpc");
-                    }
-                    if (internalName.startsWith("io/grpc/netty/shaded/io/grpc")) {
-                        return internalName.replace("io/grpc/netty/shaded/io/grpc", "io/grpc");
-                    }
-                    if (internalName.startsWith("io/grpc/netty/shaded/io/netty")) {
-                        return internalName.replace("io/grpc/netty/shaded/io/netty", "io/netty");
-                    }
-                    return super.map(internalName);
-                }
-            });
-        }
-    }
-
 }

@@ -389,7 +389,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         }
         for (Dependency dependency : dependencies) {
             if ("org.apache.camel.quarkus".equals(dependency.getGroupId())
-                    && !dependency.getArtifactId().endsWith("-component")) {
+                    && !dependency.getArtifactId().endsWith("-component")
+                    // An extension's own client module (e.g. camel-quarkus-kudu-client) has no deployment module
+                    && !dependency.getArtifactId().equals(artifactId + "-client")) {
                 final String depArtifactId = dependency.getArtifactId();
                 if (cache.computeIfAbsent(
                         depArtifactId,
