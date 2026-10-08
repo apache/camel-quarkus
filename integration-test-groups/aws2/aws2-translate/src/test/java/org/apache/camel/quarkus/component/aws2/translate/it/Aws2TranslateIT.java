@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.aws2.translate.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
 @QuarkusIntegrationTest
-@Disabled("Temporarily disabled: this test requires Floci 2.x, but the project currently uses Floci 1.6.0")
 class Aws2TranslateIT extends Aws2TranslateTest {
 }

@@ -24,24 +24,10 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("timer:quarkus-athena?repeatCount=1")
-                .to("aws2-athena://cluster?operation=listQueryExecutions")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-eventbridge?repeatCount=1")
-                .to("aws2-eventbridge://default?operation=listRules")
-                .to("log:sf?showAll=true");
 
         from("timer:quarkus-bedrock?repeatCount=1")
                 .to("aws-bedrock://myaccount?operation=invokeTextModel")
                 .to("log:sf?showAll=true");
-
-        from("timer:quarkus-translate?repeatCount=1")
-                .setHeader(Translate2Constants.SOURCE_LANGUAGE, constant(Translate2LanguageEnum.ITALIAN))
-                .setHeader(Translate2Constants.TARGET_LANGUAGE, constant(Translate2LanguageEnum.GERMAN))
-                .setBody(constant("Ciao"))
-                .to("aws2-translate://cluster?operation=translateText")
-                .log("Translation: ${body}");
 
     }
 

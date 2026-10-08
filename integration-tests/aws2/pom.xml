@@ -37,18 +37,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-athena</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-eventbridge</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-translate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
@@ -105,45 +93,6 @@
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-aws-bedrock-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-aws2-athena-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-aws2-eventbridge-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-aws2-translate-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>

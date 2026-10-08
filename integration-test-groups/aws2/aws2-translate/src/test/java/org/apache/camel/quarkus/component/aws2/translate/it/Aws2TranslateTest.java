@@ -20,7 +20,6 @@ package org.apache.camel.quarkus.component.aws2.translate.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -28,9 +27,7 @@ import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-@Disabled("Temporarily disabled: this test requires Floci 2.x, but the project currently uses Floci 1.6.0")
 class Aws2TranslateTest {
-
     @Test
     public void testTranslate() {
         given()
