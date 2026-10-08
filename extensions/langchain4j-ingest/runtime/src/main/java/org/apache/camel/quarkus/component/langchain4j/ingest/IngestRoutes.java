@@ -48,6 +48,7 @@ import org.apache.camel.component.langchain4j.ingest.LangChain4jIngestHeaders;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.support.builder.ExpressionBuilder;
+import org.apache.camel.support.builder.PredicateBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.URISupport;
@@ -125,6 +126,13 @@ public class IngestRoutes extends RouteBuilder {
                 LOG.infof("Ingestion pipeline '%s' is disabled", name);
                 continue;
             }
+            // runtime keys alone name it and none is its source: most likely filter.* meant for an
+            // @Ingest pipeline under a misspelled name
+            if (pipeline == null && !builderDeclared.isEmpty() && runtime.source().directory().isEmpty()) {
+                throw new IllegalStateException("Ingestion pipeline '" + name + "' has no source.directory, and no"
+                        + " @Ingest method declares it (declared in Java: " + new TreeSet<>(builderDeclared)
+                        + "). Fix the name, or set quarkus.camel.langchain4j.ingest." + name + ".source.directory");
+            }
 
             // a consumer URI says "consume from this"; its absence says "read that directory"
             String uri = pipeline == null ? null : pipeline.source().uri().orElse(null);
@@ -201,7 +209,7 @@ public class IngestRoutes extends RouteBuilder {
 
         IngestPipeline definition = builderPipelines.definition(entry);
         String uri = "file".equals(definition.sourceType()) ? null : definition.sourceUri();
-        compositionRoute(name, uri, definition.asRunTimeConfig(),
+        compositionRoute(name, uri, definition.asRunTimeConfig(external),
                 resolveStore(name, definition.embeddingStoreName().orElse(null)),
                 resolveModel(name, definition.embeddingModelName().orElse(null)),
                 definition.maxSegmentSize(),
@@ -246,17 +254,18 @@ public class IngestRoutes extends RouteBuilder {
 
         // options at their defaults are passed all the same, here and in the other steps: an
         // application-wide camel.kamelet.<kamelet>.* property would otherwise fill them in too.
-        // An unset string option goes as "", which the component reads as unset. An unset bean
-        // option (documentFilter, documentSplitter, idempotentRepository) is left out on purpose:
-        // "" converts to no bean and fails the start, so such a property still reaches it, as
-        // usage.adoc warns
+        // An unset string option goes as "", which the component reads as unset, and an unset
+        // documentFilter as an always-true predicate. An unset documentSplitter or
+        // idempotentRepository is left out on purpose: "" converts to no bean and fails the start,
+        // and neither has a neutral bean, so such a property still reaches it, as usage.adoc warns
         Map<String, Object> sink = new LinkedHashMap<>();
         sink.put("pipelineName", name);
         sink.put("documentIdHeader", LangChain4jIngestHeaders.DOCUMENT_ID);
         sink.put("maxSegmentSize", String.valueOf(maxSegmentSize));
         sink.put("maxOverlapSize", String.valueOf(maxOverlapSize));
         sink.put("embeddingBatchSize", String.valueOf(embeddingBatchSize));
-        sink.put("modality", modality);
+        // lower-cased, as the Kamelet declares it, rather than relying on a case-insensitive enum conversion
+        sink.put("modality", modality.toLowerCase(Locale.ROOT));
         sink.put("contentType", contentType == null ? "" : contentType);
         // 0, no limit, is the endpoint's default too
         sink.put("maxDocumentSize", String.valueOf(maxDocumentSize));
@@ -264,19 +273,20 @@ public class IngestRoutes extends RouteBuilder {
         if (documentSplitterName != null) {
             sink.put("documentSplitter", "#bean:" + documentSplitterName);
         }
-        // filter.* comes from configuration for both declaration styles, the builder having no
-        // filter API, and the component enforces it
-        IngestRunTimeConfig.PipelineRunTimeConfig configured = runTimeConfig.pipelines().get(name);
-        String includeId = configured == null ? "" : configured.filter().includeId().orElse("");
-        String excludeId = configured == null ? "" : configured.filter().excludeId().orElse("");
+        // filter.* comes from configuration for both declaration styles - a builder pipeline's view
+        // delegates to it, the builder having no filter API - and the component enforces it
+        IngestRunTimeConfig.PipelineRunTimeConfig.FilterRunTimeConfig filter = runtime == null
+                ? IngestPipeline.NO_FILTER
+                : runtime.filter();
+        String includeId = filter.includeId().orElse("");
+        String excludeId = filter.excludeId().orElse("");
         sink.put("includeId", includeId);
         sink.put("excludeId", excludeId);
-        if (configured != null) {
-            if (configured.filter().minDocumentSize() != 0) {
-                sink.put("minDocumentSize", String.valueOf(configured.filter().minDocumentSize()));
-            }
-            configured.filter().documentFilter().ifPresent(bean -> sink.put("documentFilter", "#bean:" + bean));
+        if (filter.minDocumentSize() != 0) {
+            sink.put("minDocumentSize", String.valueOf(filter.minDocumentSize()));
         }
+        sink.put("documentFilter", "#bean:" + filter.documentFilter()
+                .orElseGet(() -> bindInstance(name, "document-filter", PredicateBuilder.constant(true))));
         sink.put("embeddingStore", "#bean:" + storeRef);
         sink.put("embeddingModel", "#bean:" + modelRef);
 
@@ -399,7 +409,9 @@ public class IngestRoutes extends RouteBuilder {
         String[] exclude = patterns(excludeId);
         if (include != null || exclude != null) {
             // advisory too: the sink's id patterns, applied before the parse so an excluded
-            // document is never parsed, nor fails the parse or the size guard on every poll
+            // document is never parsed, nor fails the parse or the size guard on every poll.
+            // patterns() and this match mirror the private parsePatterns and idAccepted of the
+            // component's LangChain4jIngestProducer, which stay authoritative - keep them in step
             route = route.choice()
                     .when(exchange -> {
                         String id = exchange.getMessage().getHeader(documentIdHeader, String.class);

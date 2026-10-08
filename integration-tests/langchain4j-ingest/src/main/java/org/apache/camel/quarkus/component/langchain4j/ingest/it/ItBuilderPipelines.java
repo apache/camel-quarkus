@@ -57,12 +57,16 @@ public class ItBuilderPipelines {
                 .splitter(120, 20);
     }
 
-    /** Media with a fixed content type: the ids it is fed carry no extension to derive one from. */
+    /**
+     * Media with a fixed content type: the ids it is fed carry no extension to derive one from. The component reads
+     * a stream only one byte past the byte cap.
+     */
     @Ingest("clips")
     IngestPipeline clips() {
         return IngestPipeline.from(Source.endpoint(direct("clips-feed")))
                 .modality("media")
                 .contentType("audio/wav")
+                .maxDocumentSize(20_000)
                 .embeddingStore("audio-store")
                 .embeddingModel("audio-model");
     }

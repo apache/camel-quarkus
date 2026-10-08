@@ -80,6 +80,23 @@ class Langchain4jIngestAudioTest {
         assertEquals("clip-7", hits.get(0).get("documentId"));
     }
 
+    /**
+     * A consumer-fed media stream over the cap is refused after max + 1 bytes, whatever CamelFileLength it announces:
+     * the component reads it no further (CAMEL-25463), read whole it would report all 32044 bytes.
+     */
+    @Test
+    void oversizedClipIsRefusedBeforeItIsReadWhole() {
+        byte[] clip = wav(1000);
+
+        String outcome = RestAssured.given().contentType(ContentType.BINARY)
+                .queryParam("fileLength", 10)
+                .body(clip)
+                .post("/langchain4j-ingest/feed-binary/clips/big-clip")
+                .then().statusCode(200).extract().asString();
+        assertTrue(outcome.contains("exceeds maxDocumentSize (20001 > 20000 bytes)"), outcome);
+        assertTrue(searchByClip(clip).isEmpty(), "the oversized clip must not be stored");
+    }
+
     /** Query by audio: the clip is embedded with the same model and the store searched for exact hits. */
     private static List<Map<String, String>> searchByClip(byte[] clip) {
         return RestAssured.given().contentType(ContentType.BINARY)
