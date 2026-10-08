@@ -17,8 +17,6 @@
 package org.apache.camel.quarkus.component.aws2;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws2.translate.Translate2Constants;
-import org.apache.camel.component.aws2.translate.Translate2LanguageEnum;
 
 public class CamelRoute extends RouteBuilder {
 

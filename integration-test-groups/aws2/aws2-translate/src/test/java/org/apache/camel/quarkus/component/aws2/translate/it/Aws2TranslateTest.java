@@ -19,21 +19,29 @@ package org.apache.camel.quarkus.component.aws2.translate.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.quarkus.test.support.aws2.Aws2MockBackend;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2TranslateTest {
+
+    @Aws2MockBackend
+    private boolean mockBackend;
+
     @Test
     public void testTranslate() {
         given()
                 .when().get("/translate")
                 .then()
                 .statusCode(200)
-                .body(containsString("Ciao"));
+                // Floci echoes the input, real AWS returns the translation
+                .body(mockBackend ? containsString("Ciao") : not(emptyOrNullString()));
     }
 }
