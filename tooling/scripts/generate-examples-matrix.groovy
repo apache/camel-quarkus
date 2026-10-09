@@ -24,6 +24,7 @@ final int MAX_GROUPS = 2
 final List<Map<String, String>> GROUPS = new ArrayList<>()
 final String EXAMPLES_BRANCH = System.getProperty('EXAMPLES_BRANCH')
 final String EXAMPLES_IGNORE= System.getProperty('EXAMPLES_IGNORE')
+final String EXAMPLES_INCLUDE = System.getProperty('EXAMPLES_INCLUDE')
 
 def ignoredExamples = []
 if (EXAMPLES_IGNORE != null) {
@@ -36,6 +37,9 @@ if (EXAMPLES_IGNORE != null) {
     }
 }
 
+// When set, only the listed examples are included. An empty value includes none
+def includedExamples = EXAMPLES_INCLUDE == null ? null : EXAMPLES_INCLUDE.split(",").findAll { !it.isBlank() }
+
 int groupId = 0
 JsonSlurper jsonSlurper = new JsonSlurper()
 
@@ -47,7 +51,7 @@ try {
     examples.each { example ->
         String projectName = example.link.substring(example.link.lastIndexOf('/') + 1)
 
-        if (ignoredExamples.contains(projectName)) {
+        if (ignoredExamples.contains(projectName) || (includedExamples != null && !includedExamples.contains(projectName))) {
             return
         }
 
