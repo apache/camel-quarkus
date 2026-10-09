@@ -1267,6 +1267,14 @@
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>tools.jackson.core</groupId>
+                        <artifactId>jackson-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>tools.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -2592,6 +2600,10 @@
                     <exclusion>
                         <groupId>org.eclipse</groupId>
                         <artifactId>yasson</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>tools.jackson.core</groupId>
+                        <artifactId>jackson-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
