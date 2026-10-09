@@ -37,11 +37,9 @@
         </dependency>
 
         <!-- test dependencies -->
-        <!-- TODO: Update to camel-quarkus-junit after camel-quarkus-junit5 removal -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <!-- Backwards compat test for users not migrated to camel-quarkus-junit -->
-            <artifactId>camel-quarkus-junit5</artifactId>
+            <artifactId>camel-quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

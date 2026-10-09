@@ -5247,11 +5247,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-junit5</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kafka</artifactId>
         <version>4.0.0-SNAPSHOT</version>
       </dependency>
