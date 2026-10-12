@@ -46,6 +46,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.component.salesforce.PubSubApiConsumer;
 import org.apache.camel.component.salesforce.SalesforceEndpointConfig;
 import org.apache.camel.component.salesforce.api.dto.Attributes;
 import org.apache.camel.component.salesforce.api.dto.CreateSObjectResult;
@@ -66,6 +67,7 @@ import org.apache.camel.quarkus.component.salesforce.generated.QueryRecordsAccou
 import org.apache.camel.quarkus.component.salesforce.model.GlobalObjectsAndHeaders;
 import org.apache.camel.quarkus.component.salesforce.model.TestEventPojo;
 import org.apache.camel.spi.RouteController;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/salesforce")
 public class SalesforceResource {
@@ -172,6 +174,12 @@ public class SalesforceResource {
             throws Exception {
         RouteController controller = context.getRouteController();
         if (action.equals("start")) {
+            // Set by the test resource when the mock Pub / Sub API server is used, as it does not support TLS
+            if (context.getRoute(routeId).getConsumer() instanceof PubSubApiConsumer consumer
+                    && ConfigProvider.getConfig().getOptionalValue("salesforce.pubsub.use-plain-text", Boolean.class)
+                            .orElse(false)) {
+                consumer.setUsePlainTextConnection(true);
+            }
             controller.startRoute(routeId);
         } else if (action.equals("stop")) {
             controller.stopRoute(routeId);

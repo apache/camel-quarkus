@@ -102,35 +102,37 @@ public class SalesforceRoutes extends RouteBuilder {
             from("direct:pubSubPublish")
                     .log("Sent Salesforce topic message: ${body}")
                     .to("salesforce:pubSubPublish:/event/TestEvent__e");
-
-            // AVRO deserialize type (also analogous to SPECIFIC_RECORD)
-            from("salesforce:pubSubSubscribe:/event/TestEvent__e")
-                    .routeId("topicSubscribeAvro")
-                    .autoStartup(false)
-                    .log("Received Salesforce AVRO topic message: ${body}")
-                    .to("seda:pubSubSubscribeAvro");
-
-            // GENERIC_RECORD deserialize type
-            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=GENERIC_RECORD")
-                    .routeId("topicSubscribeGenericRecord")
-                    .autoStartup(false)
-                    .log("Received Salesforce GENERIC_RECORD topic message: ${body}")
-                    .to("seda:pubSubSubscribeGenericRecord");
-
-            // JSON deserialize type
-            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=JSON")
-                    .routeId("topicSubscribeJson")
-                    .autoStartup(false)
-                    .log("Received Salesforce JSON topic message: ${body}")
-                    .to("seda:pubSubSubscribeJson");
-
-            // POJO deserialize type
-            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=POJO&pubSubPojoClass="
-                    + TestEventPojo.class.getName())
-                    .routeId("topicSubscribePojo")
-                    .autoStartup(false)
-                    .log("Received Salesforce POJO topic message: ${body}")
-                    .to("seda:pubSubSubscribePojo");
         }
+
+        // The Pub / Sub API subscribers work with real credentials, or a mock Pub / Sub API server
+
+        // AVRO deserialize type (also analogous to SPECIFIC_RECORD)
+        from("salesforce:pubSubSubscribe:/event/TestEvent__e")
+                .routeId("topicSubscribeAvro")
+                .autoStartup(false)
+                .log("Received Salesforce AVRO topic message: ${body}")
+                .to("seda:pubSubSubscribeAvro");
+
+        // GENERIC_RECORD deserialize type
+        from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=GENERIC_RECORD")
+                .routeId("topicSubscribeGenericRecord")
+                .autoStartup(false)
+                .log("Received Salesforce GENERIC_RECORD topic message: ${body}")
+                .to("seda:pubSubSubscribeGenericRecord");
+
+        // JSON deserialize type
+        from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=JSON")
+                .routeId("topicSubscribeJson")
+                .autoStartup(false)
+                .log("Received Salesforce JSON topic message: ${body}")
+                .to("seda:pubSubSubscribeJson");
+
+        // POJO deserialize type
+        from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=POJO&pubSubPojoClass="
+                + TestEventPojo.class.getName())
+                .routeId("topicSubscribePojo")
+                .autoStartup(false)
+                .log("Received Salesforce POJO topic message: ${body}")
+                .to("seda:pubSubSubscribePojo");
     }
 }
