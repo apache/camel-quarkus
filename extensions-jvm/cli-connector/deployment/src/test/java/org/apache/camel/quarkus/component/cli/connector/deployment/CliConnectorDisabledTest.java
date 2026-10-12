@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.cli.connector.deployment;
 import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.CliConnector;
 import org.apache.camel.spi.CliConnectorFactory;
 import org.apache.camel.support.CamelContextHelper;
 import org.junit.jupiter.api.Test;
@@ -39,5 +40,9 @@ public class CliConnectorDisabledTest {
     void cliConnectorDisabled() {
         CliConnectorFactory factory = CamelContextHelper.findSingleByType(context, CliConnectorFactory.class);
         assertNull(factory);
+
+        // Verify Camel did not fall back to discovering its default factory from the classpath
+        assertNull(context.getCamelContextExtension().getContextPlugin(CliConnectorFactory.class));
+        assertNull(context.hasService(CliConnector.class));
     }
 }
