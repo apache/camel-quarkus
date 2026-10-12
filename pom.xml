@@ -383,6 +383,17 @@
 
     <repositories>
         <repository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2081/</url>
+            <name>Apache Camel 4.23.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -396,6 +407,17 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2081/</url>
+            <name>Apache Camel 4.23.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
