@@ -39,7 +39,8 @@ public class RouteBuilderFailureTest {
                 JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
                         .addClasses(RouteBuilderFailureET.class, HelloResource.class)
                         .add(new StringAsset(
-                                ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                ContinuousTestingTestUtils.appProperties("quarkus.camel.cli.enabled=false",
+                                        "quarkus.naming.enable-jndi=true",
                                         "camel-quarkus.junit.message=Sheldon")),
                                 "application.properties");
                 return ja;

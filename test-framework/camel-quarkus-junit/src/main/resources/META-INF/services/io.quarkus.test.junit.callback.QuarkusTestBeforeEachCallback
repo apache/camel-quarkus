@@ -1,1 +1,2 @@
 org.apache.camel.quarkus.test.BeforeEachCallback
+org.apache.camel.quarkus.test.internal.CamelQuarkusTestCallbacks

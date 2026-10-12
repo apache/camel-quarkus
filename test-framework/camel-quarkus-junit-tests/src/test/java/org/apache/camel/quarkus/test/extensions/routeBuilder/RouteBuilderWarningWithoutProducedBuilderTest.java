@@ -38,7 +38,8 @@ public class RouteBuilderWarningWithoutProducedBuilderTest {
             .setArchiveProducer(() -> {
                 JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
                         .add(new StringAsset(
-                                ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true")),
+                                ContinuousTestingTestUtils.appProperties("quarkus.camel.cli.enabled=false",
+                                        "quarkus.naming.enable-jndi=true")),
                                 "application.properties");
                 return ja;
             })
