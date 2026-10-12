@@ -20,7 +20,6 @@ import java.util.function.BooleanSupplier;
 
 import io.quarkus.builder.Version;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -29,21 +28,30 @@ import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig;
 import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.spi.CliConnectorFactory;
 import org.jboss.logging.Logger;
 
-@BuildSteps(onlyIf = CliConnectorProcessor.CliConnectorEnabled.class)
 class CliConnectorProcessor {
 
     private static final Logger LOG = Logger.getLogger(CliConnectorProcessor.class);
     private static final String FEATURE = "camel-cli-connector";
 
-    @BuildStep
+    @BuildStep(onlyIf = CliConnectorEnabled.class)
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep
+    CamelServicePatternBuildItem cliConnectorFactoryServicePattern() {
+        // The factory is either provided by this extension, or the CLI connector is disabled. This is added as an
+        // exclusion since core defines an include path filter for META-INF/services/org/apache/camel/*
+        return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, false,
+                "META-INF/services/org/apache/camel/" + CliConnectorFactory.FACTORY);
+    }
+
+    @BuildStep(onlyIf = CliConnectorEnabled.class)
     @Record(value = ExecutionTime.STATIC_INIT)
     CamelBeanBuildItem camelBeanBuildItem(CamelCliConnectorRecorder recorder) {
         return new CamelBeanBuildItem("quarkusCliConnectorFactory",
@@ -54,7 +62,7 @@ class CliConnectorProcessor {
     /**
      * Remove this once this extension starts supporting the native mode.
      */
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep(onlyIf = { CliConnectorEnabled.class, NativeOrNativeSourcesBuild.class })
     @Record(value = ExecutionTime.RUNTIME_INIT)
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
