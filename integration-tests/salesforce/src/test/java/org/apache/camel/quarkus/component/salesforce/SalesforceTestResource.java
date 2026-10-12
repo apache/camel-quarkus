@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.stream.Stream;
 
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class SalesforceTestResource extends WireMockTestResourceLifecycleManager {
@@ -27,6 +31,16 @@ public class SalesforceTestResource extends WireMockTestResourceLifecycleManager
     private static final String SALESFORCE_USERNAME = "SALESFORCE_USERNAME";
     private static final String SALESFORCE_PASSWORD = "SALESFORCE_PASSWORD";
 
+    private Server pubSubServer;
+
+    /**
+     * Whether the tests run against mocked Salesforce APIs, which is the case unless Salesforce credentials are provided
+     */
+    public static boolean isMockBackend() {
+        return Stream.of(SALESFORCE_CLIENT_ID, SALESFORCE_CLIENT_SECRET, SALESFORCE_USERNAME, SALESFORCE_PASSWORD)
+                .anyMatch(envVar -> System.getenv(envVar) == null);
+    }
+
     @Override
     protected String getRecordTargetBaseUrl() {
         return SALESFORCE_BASE_URL;
@@ -34,7 +48,7 @@ public class SalesforceTestResource extends WireMockTestResourceLifecycleManager
 
     @Override
     protected boolean isMockingEnabled() {
-        return !envVarsPresent(SALESFORCE_CLIENT_ID, SALESFORCE_CLIENT_SECRET, SALESFORCE_USERNAME, SALESFORCE_PASSWORD);
+        return isMockBackend();
     }
 
     @Override
@@ -46,6 +60,30 @@ public class SalesforceTestResource extends WireMockTestResourceLifecycleManager
             options.put("camel.component.salesforce.password", "password");
             options.put("camel.component.salesforce.clientId", "clientId");
         }
+
+        // The Pub / Sub API uses gRPC, which WireMock cannot stub
+        if (isMockingEnabled()) {
+            try {
+                pubSubServer = ServerBuilder.forPort(0)
+                        .addService(new MockPubSubService())
+                        .build()
+                        .start();
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to start the mock Pub / Sub API server", e);
+            }
+            options.put("camel.component.salesforce.pubSubHost", "localhost");
+            options.put("camel.component.salesforce.pubSubPort", String.valueOf(pubSubServer.getPort()));
+            // The mock Pub / Sub API server does not support TLS
+            options.put("salesforce.pubsub.use-plain-text", "true");
+        }
         return options;
+    }
+
+    @Override
+    public void stop() {
+        if (pubSubServer != null) {
+            pubSubServer.shutdownNow();
+        }
+        super.stop();
     }
 }

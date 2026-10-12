@@ -4,6 +4,8 @@ By default, the Salesforce integration tests use WireMock to stub the API intera
 
 IMPORTANT: Note that when using Wiremock, the Change Data Capture Events test, and the Platform event test are disabled.
 
+The Pub / Sub API uses gRPC, which WireMock cannot stub. A mock Pub / Sub API server is started alongside WireMock instead, and `SalesforcePubSubTest` tests subscribing to events with each `pubSubDeserializeType`. Publishing events is not covered, since the Pub / Sub API client can only publish over TLS. When Salesforce credentials are provided, the mock server is not started, `SalesforcePubSubTest` is disabled, and the Pub / Sub API is tested against Salesforce by `SalesforceIntegrationTest`.
+
 To run `camel-quarkus-salesforce` integration tests using Salesforce API interactions, you must first create a Salesforce developer account https://developer.salesforce.com/.
 
 Next create a new 'Connected App' by visiting Apps  -> App Manager page. In the form, enable OAuth Settings, and set those fields.

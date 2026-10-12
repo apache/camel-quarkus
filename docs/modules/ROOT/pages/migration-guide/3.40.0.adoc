@@ -265,7 +265,7 @@ java.lang.SecurityException: Forbidden com.acme.orders.avro.Order! This class is
 
 Classes annotated with `@org.apache.avro.specific.AvroGenerated` are trusted automatically, which covers everything produced by the `generate-code` goal of `quarkus-maven-plugin` from `src/main/avro`. Nothing needs to be done for those.
 
-Specific records that predate that annotation, which Avro added in 1.9.0, or that were written by hand, have to be trusted explicitly. Prefer the Quarkus configuration properties, which are resolved at build time and so apply in both JVM and native mode:
+Specific records without that annotation, such as those written by hand, have to be trusted explicitly. Prefer the Quarkus configuration properties, which are resolved at build time and so apply in both JVM and native mode:
 
 [source,properties]
 ----
@@ -278,3 +278,27 @@ Camel's upgrade guide additionally asks `camel-avro-rpc` users to trust the `org
 Avro's own `org.apache.avro.SERIALIZABLE_PACKAGES` and `org.apache.avro.SERIALIZABLE_CLASSES` system properties still work as an addendum, since Quarkus adds its trusted classes on top of them rather than replacing them. They are read once, when Avro initializes, so they have to be set on the command line. Note that `*` in `org.apache.avro.SERIALIZABLE_PACKAGES` disables the class loading protection entirely.
 
 Whichever route is used, list only the packages holding your own Avro model classes.
+
+== Salesforce extension changes
+
+=== Pub / Sub API event classes must be trusted by Avro
+
+The Salesforce Pub / Sub API encodes events with Avro, so the Avro change described above also applies to routes that use `pubSubSubscribe` or `pubSubPublish`.
+
+The most likely case to be affected is a subscription with `pubSubDeserializeType=POJO`. The class configured on `pubSubPojoClass` is a plain class, so it is never trusted automatically and each event now fails with:
+
+[source,text]
+----
+java.lang.SecurityException: Forbidden org.foo.TestEvent! This class is not trusted to be included in Avro schemas.
+----
+
+Trust the class, or its package, in `application.properties`.
+
+[source,properties]
+----
+quarkus.avro.trusted-classes=org.foo.TestEvent
+----
+
+Subscriptions with the default `AVRO` type, or with `SPECIFIC_RECORD`, map events to the Avro `SpecificRecord` classes in the `com.sforce.eventbus` package. Those are trusted automatically if they are annotated with `@org.apache.avro.specific.AvroGenerated`, and only need to be trusted explicitly if they lack that annotation, for example because they were written by hand. The `GENERIC_RECORD` and `JSON` types are unaffected.
+
+Refer to the xref:reference/extensions/salesforce.adoc#extensions-salesforce-usage-trusting-classes-used-with-the-pub-sub-api[Salesforce extension documentation] for details.
