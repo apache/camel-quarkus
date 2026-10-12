@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -170,5 +171,13 @@ class PdfTest {
                 .then()
                 .statusCode(200)
                 .body(containsString("content to be included in the created pdf document"));
+    }
+
+    @Test
+    public void cmykToRgb() {
+        RestAssured.get("/pdf/cmykToRgb")
+                .then()
+                .statusCode(200)
+                .body(is("231f20"));
     }
 }

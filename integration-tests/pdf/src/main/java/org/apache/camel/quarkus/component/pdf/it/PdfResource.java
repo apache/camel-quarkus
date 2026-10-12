@@ -39,6 +39,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardDecryptionMaterial;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.jboss.logging.Logger;
 
 @Path("/pdf")
@@ -136,5 +138,14 @@ public class PdfResource {
         LOG.infof("The PDDocument has been merged and contains %d bytes", document.length);
 
         return Response.created(new URI("pdf/merge")).entity(document).build();
+    }
+
+    @Path("/cmykToRgb")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String cmykToRgb() throws IOException {
+        // PDFBox converts DeviceCMYK colors through the ICC profile bundled in its resources
+        PDColor black = new PDColor(new float[] { 0, 0, 0, 1 }, PDDeviceCMYK.INSTANCE);
+        return String.format("%06x", black.toRGB());
     }
 }
