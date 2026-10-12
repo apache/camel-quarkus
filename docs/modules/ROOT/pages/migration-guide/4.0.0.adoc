@@ -45,3 +45,20 @@ factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 ----
 
 Refer to the xref:reference/extensions/xslt.adoc#extensions-xslt-configuration-external-access[XSLT extension documentation] for details.
+
+== Deprecated `camel-quarkus-junit5` test framework artifact removed
+
+The deprecated `camel-quarkus-junit5` artifact, which was retained for backwards compatibility after the test framework was renamed in Camel Quarkus 3.31.0, has been removed.
+
+Replace any dependency on `org.apache.camel.quarkus:camel-quarkus-junit5` with `org.apache.camel.quarkus:camel-quarkus-junit`.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-junit</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+Any remaining imports of `org.apache.camel.test.junit5` in your tests must be updated to `org.apache.camel.test.junit6`. Refer to the xref:migration-guide/3.31.0.adoc[Camel Quarkus 3.31.0 migration guide] for details.

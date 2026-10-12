@@ -35,7 +35,6 @@
     <modules>
         <module>camel-quarkus-junit</module>
         <module>camel-quarkus-junit-tests</module>
-        <module>junit5</module>
     </modules>
 
     <dependencyManagement>
