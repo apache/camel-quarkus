@@ -34,7 +34,6 @@ public class CamelManagementRecorder {
         @Override
         public void configure(CamelContext context) {
             context.setManagementNameStrategy(new DefaultManagementNameStrategy(context));
-            context.setManagementName(context.getName());
         }
     }
 }
