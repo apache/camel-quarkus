@@ -26,6 +26,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.component.telegram.TelegramWebhookProcessor;
 import org.apache.camel.component.telegram.model.EditMessageLiveLocationMessage;
 import org.apache.camel.component.telegram.model.MessageResult;
 import org.apache.camel.component.telegram.model.SendLocationMessage;
@@ -33,6 +34,7 @@ import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
 import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -245,6 +247,8 @@ public class TelegramTest {
                 "}";
         RestAssured.given()
                 .contentType(ContentType.JSON)
+                .header(TelegramWebhookProcessor.SECRET_TOKEN_HEADER,
+                        ConfigProvider.getConfig().getValue("webhook-secret-token", String.class))
                 .body(message)
                 .post("/my-test")
                 .then()
