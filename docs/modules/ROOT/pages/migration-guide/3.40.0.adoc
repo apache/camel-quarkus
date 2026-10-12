@@ -265,7 +265,7 @@ java.lang.SecurityException: Forbidden com.acme.orders.avro.Order! This class is
 
 Classes annotated with `@org.apache.avro.specific.AvroGenerated` are trusted automatically, which covers everything produced by the `generate-code` goal of `quarkus-maven-plugin` from `src/main/avro`. Nothing needs to be done for those.
 
-Specific records that predate that annotation, which Avro added in 1.9.0, or that were written by hand, have to be trusted explicitly. Prefer the Quarkus configuration properties, which are resolved at build time and so apply in both JVM and native mode:
+Specific records without that annotation, such as those written by hand, have to be trusted explicitly. Prefer the Quarkus configuration properties, which are resolved at build time and so apply in both JVM and native mode:
 
 [source,properties]
 ----
