@@ -195,7 +195,7 @@ jobs:
       # Miscellaneous job outputs. Keep sorted alphabetically.
       cache-key: ${{ steps.maven-cache.outputs.cache-key }}
       # Incremental build job outputs. Keep sorted alphabetically.
-      examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
+      examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix || '{"include":[]}' }}
       functional-test-modules: ${{ steps.process-incremental.outputs.functional-test-modules || '{}' }}
       integration-tests-jvm-modules: ${{ steps.process-incremental.outputs.integration-tests-jvm-modules || '' }}
       integration-tests-matrix: ${{ steps.process-incremental.outputs.use-incremental == 'true' && steps.process-incremental.outputs.integration-tests-matrix || steps.set-native-matrix-full.outputs.matrix || '{"include":[]}' }}
@@ -420,6 +420,10 @@ jobs:
           echo "matrix=$MATRIX_FULL" >> $GITHUB_OUTPUT
       - name: Setup Examples Matrix
         id: set-examples-matrix
+        if: steps.process-incremental.outputs.run-examples == 'true'
+        env:
+          INTEGRATION_TESTS_MODULES: ${{ steps.incremental-build.outputs.integration-tests-modules }}
+        shell: '/usr/bin/bash {0}'
         run: |
           EXAMPLES_BRANCH="camel-quarkus-main"
           if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
@@ -428,8 +432,54 @@ jobs:
               EXAMPLES_BRANCH=${GITHUB_BASE_REF}
           fi
 
+          # For incremental builds, only include examples that depend on an affected extension
+          EXAMPLES_INCLUDE_OPTION=""
+          if [ -n "${INTEGRATION_TESTS_MODULES}" ]; then
+            AFFECTED_MODULES=$(echo "${INTEGRATION_TESTS_MODULES}" | jq -r '.modules[]')
+            echo "Affected modules: $(echo ${AFFECTED_MODULES})"
+
+            if echo "${AFFECTED_MODULES}" | grep -qx "core"; then
+              echo "Core extension affected - building all examples"
+            else
+              CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)
+              EXAMPLES_DIR=${{ runner.temp }}/camel-quarkus-examples
+
+              if git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git ${EXAMPLES_DIR} \
+                && cd ${EXAMPLES_DIR} \
+                && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -N org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION}; then
+
+                ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -q -fae dependency:list -DoutputFile=target/deps.txt || true
+
+                FILTERED_MODULES=()
+                for MODULE in $(ls -d */ | tr -d '/'); do
+                  [ -f "${MODULE}/pom.xml" ] || continue
+                  # Multi-module examples have a deps.txt per module
+                  DEPS_FILES=$(find "${MODULE}" -path '*/target/deps.txt')
+                  if [ -z "${DEPS_FILES}" ]; then
+                    echo "${MODULE}: could not determine dependencies - including for safety"
+                    FILTERED_MODULES+=("${MODULE}")
+                    continue
+                  fi
+                  for AFFECTED in ${AFFECTED_MODULES}; do
+                    if grep -qw "camel-quarkus-${AFFECTED}" ${DEPS_FILES}; then
+                      echo "${MODULE}: depends on affected extension camel-quarkus-${AFFECTED}"
+                      FILTERED_MODULES+=("${MODULE}")
+                      break
+                    fi
+                  done
+                done
+
+                EXAMPLES_INCLUDE_OPTION="-DEXAMPLES_INCLUDE=$(IFS=,; echo "${FILTERED_MODULES[*]}")"
+                echo "Filtered examples to build: ${FILTERED_MODULES[*]:-none}"
+                cd -
+              else
+                echo "::warning::Failed to analyze camel-quarkus-examples dependencies, building all examples"
+              fi
+            fi
+          fi
+
           sudo apt install groovy -y --no-install-recommends
-          EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} tooling/scripts/generate-examples-matrix.groovy)
+          EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} ${EXAMPLES_INCLUDE_OPTION} tooling/scripts/generate-examples-matrix.groovy)
           echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
 
   native-tests:
@@ -766,6 +816,7 @@ jobs:
     if: |
       (github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM'))
       && needs.initial-mvn-install.outputs.run-examples == 'true'
+      && fromJson(needs.initial-mvn-install.outputs.examples-matrix).include[0] != null
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
@@ -805,70 +856,7 @@ jobs:
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
             && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -N org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION}
 
-          # Filter examples for incremental builds
           MODULES_TO_BUILD="${EXAMPLE_MODULES//,/ }"
-
-          if [ -n "${{ needs.initial-mvn-install.outputs.integration-tests-modules }}" ]; then
-            echo "Incremental build detected - filtering examples based on affected extensions"
-
-            # Get affected modules from filtered matrix
-            # Get affected modules as space-separated list for iteration
-            AFFECTED_MODULES=$(echo '${{ needs.initial-mvn-install.outputs.integration-tests-modules }}' | jq -r '.modulesCsv' | tr ',' ' ')
-            echo "Affected modules: $AFFECTED_MODULES"
-
-            # Check if extensions-core/core is affected (build all examples if so)
-            if echo "$AFFECTED_MODULES" | grep -q "^core$"; then
-              echo "Core extension affected - building all examples"
-            else
-              # Filter examples based on dependency analysis
-              echo "Affected modules for filtering: $AFFECTED_MODULES"
-              FILTERED_MODULES=()
-
-              for MODULE in ${EXAMPLE_MODULES//,/ }; do
-                echo "Analyzing dependencies for example: $MODULE"
-                cd ${MODULE}
-
-                # Use quarkus:dependency-list which works per-module (root pom.xml is just an aggregator)
-                echo "  Running: ../mvnw quarkus:dependency-list -DoutputFile=target/deps.txt -q"
-                ../mvnw ${CQ_MAVEN_ARGS} quarkus:dependency-list -DoutputFile=target/deps.txt -q 2>&1 || true
-
-                if [ -f target/deps.txt ]; then
-                  echo "  ✓ deps.txt created ($(wc -l < target/deps.txt) lines)"
-                  # Check if any affected extension appears in dependencies
-                  SHOULD_BUILD=false
-                  for AFFECTED in $AFFECTED_MODULES; do
-                    # Convert module name to artifact ID (e.g., "box" -> "camel-quarkus-box")
-                    ARTIFACT_ID="camel-quarkus-${AFFECTED}"
-                    # Use word boundary matching to avoid partial matches (e.g., box matching dropbox)
-                    if grep -qw "$ARTIFACT_ID" target/deps.txt; then
-                      echo "  → Depends on affected extension: $ARTIFACT_ID"
-                      SHOULD_BUILD=true
-                      break
-                    fi
-                  done
-
-                  if [ "$SHOULD_BUILD" == "true" ]; then
-                    FILTERED_MODULES+=("$MODULE")
-                  else
-                    echo "  → No affected dependencies - skipping"
-                  fi
-                else
-                  echo "  → Could not determine dependencies - including for safety"
-                  FILTERED_MODULES+=("$MODULE")
-                fi
-
-                cd -
-              done
-
-              if [ ${#FILTERED_MODULES[@]} -eq 0 ]; then
-                echo "No examples depend on affected extensions - skipping all"
-                exit 0
-              fi
-
-              MODULES_TO_BUILD="${FILTERED_MODULES[@]}"
-              echo "Filtered examples to build: $MODULES_TO_BUILD"
-            fi
-          fi
 
           BUILD_FAILURES=()
 
