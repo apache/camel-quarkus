@@ -62,3 +62,20 @@ Replace any dependency on `org.apache.camel.quarkus:camel-quarkus-junit5` with `
 ----
 
 Any remaining imports of `org.apache.camel.test.junit5` in your tests must be updated to `org.apache.camel.test.junit6`. Refer to the xref:migration-guide/3.31.0.adoc[Camel Quarkus 3.31.0 migration guide] for details.
+
+== Management extension honors `camel.main.jmxManagementNamePattern`
+
+In previous releases, the `camel-quarkus-management` extension ignored the `camel.main.jmxManagementNamePattern` option, and the CamelContext management name was always the CamelContext name.
+
+The option is now honored. If your application sets `camel.main.jmxManagementNamePattern`, the CamelContext management name and the `context` key of the Camel MBean `ObjectName` values change to the name resolved from the pattern.
+
+For example, with the following configuration, Camel MBeans that were previously registered under `org.apache.camel:context=camel-1` are now registered under `org.apache.camel:context=custom-camel-1`.
+
+[source,properties]
+----
+camel.main.jmxManagementNamePattern = custom-#name#
+----
+
+Anything that refers to the Camel MBeans by `ObjectName`, such as monitoring tools or Jolokia requests, must be updated to use the new name. To retain the previous behavior, remove `camel.main.jmxManagementNamePattern` from the application configuration.
+
+Applications that do not set `camel.main.jmxManagementNamePattern` are unaffected.
