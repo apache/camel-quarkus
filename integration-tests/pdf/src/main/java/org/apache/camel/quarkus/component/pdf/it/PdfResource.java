@@ -88,6 +88,14 @@ public class PdfResource {
         return producerTemplate.requestBody("pdf:extractText", Loader.loadPDF(document), String.class);
     }
 
+    @Path("/extractText")
+    @POST
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String extractText(byte[] rawDocument) {
+        return producerTemplate.requestBody("pdf:extractText", rawDocument, String.class);
+    }
+
     @Path("/encrypt/standard")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
