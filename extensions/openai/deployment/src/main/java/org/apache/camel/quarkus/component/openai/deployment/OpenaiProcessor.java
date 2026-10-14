@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.openai.deployment;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,6 +29,7 @@ import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.AdditionalIndexedClassesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
@@ -36,15 +38,26 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourcePatternsBu
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.jackson.deployment.IgnoreJsonDeserializeClassBuildItem;
 import io.quarkus.maven.dependency.ArtifactKey;
+import io.quarkus.paths.PathFilter;
+import org.apache.camel.util.StringHelper;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Type;
 
 class OpenaiProcessor {
     private static final String FEATURE = "camel-openai";
+    private static final String OPENAI_MODELS_PACKAGE = "com.openai.models.";
+    // The model packages backing the operations of the Camel OpenAI component, plus the packages they depend on
+    private static final Set<String> OPENAI_MODELS_SUB_PACKAGES = Set.of(
+            "audio",
+            "chat",
+            "completions",
+            "embeddings",
+            "responses");
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -53,8 +66,31 @@ class OpenaiProcessor {
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("com.openai", "openai-java-core"));
         indexDependency.produce(new IndexDependencyBuildItem("io.modelcontextprotocol.sdk", "mcp-core"));
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void indexOpenAIClasses(
+            CurateOutcomeBuildItem curateOutcome,
+            BuildProducer<AdditionalIndexedClassesBuildItem> additionalIndexedClasses) {
+        // openai-java-core is not indexed as a whole. Around 80% of its model classes (beta, admin, realtime, evals etc.)
+        // are not used by the Camel OpenAI component. If they were indexed, quarkus-jackson would register them for
+        // reflection, which makes the native build considerably slower and the native executable larger
+        Set<String> openAIClassNames = new HashSet<>();
+        PathFilter pathFilter = PathFilter.forIncludes(Set.of("com/openai/**/*.class"));
+        curateOutcome.getApplicationModel()
+                .getRuntimeDependencies()
+                .stream()
+                .filter(dependency -> dependency.getGroupId().equals("com.openai")
+                        && dependency.getArtifactId().equals("openai-java-core"))
+                .forEach(dependency -> dependency.getContentTree(pathFilter).walk(visit -> {
+                    String className = StringHelper.before(visit.getResourceName(), ".class").replace('/', '.');
+                    if (isRequiredClass(className)) {
+                        openAIClassNames.add(className);
+                    }
+                }));
+
+        additionalIndexedClasses.produce(new AdditionalIndexedClassesBuildItem(openAIClassNames.toArray(new String[0])));
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
@@ -126,7 +162,7 @@ class OpenaiProcessor {
                     .stream()
                     .map(ClassInfo::name)
                     .map(DotName::toString)
-                    .filter(className -> className.startsWith("com.openai.models"))
+                    .filter(className -> className.startsWith(OPENAI_MODELS_PACKAGE))
                     .collect(Collectors.toSet());
 
             reflectiveClass.produce(ReflectiveClassBuildItem.builder(openAIModelClassNames.toArray(new String[0]))
@@ -140,6 +176,16 @@ class OpenaiProcessor {
                             "**/*.kotlin_builtins")
                     .build());
         }
+    }
+
+    private static boolean isRequiredClass(String className) {
+        if (!className.startsWith(OPENAI_MODELS_PACKAGE)) {
+            return true;
+        }
+        String relativeName = className.substring(OPENAI_MODELS_PACKAGE.length());
+        int idx = relativeName.indexOf('.');
+        // Classes that are directly within com.openai.models are shared across the sub packages
+        return idx == -1 || OPENAI_MODELS_SUB_PACKAGES.contains(relativeName.substring(0, idx));
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
