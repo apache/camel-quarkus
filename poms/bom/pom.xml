@@ -8638,9 +8638,8 @@
                                 <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.sun.xml.fastinfoset:FastInfoset</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
-                                <!-- Tika parses only the formats whose parser modules are present; applications
-                                     using the langchain4j-ingest tika parser add the modules for their formats;
-                                     moves to camel-quarkus-tika together with the native build steps, see #9087 -->
+                                <!-- Tika parses only the formats whose parser modules are present; camel-quarkus-tika
+                                     applications add the modules for their formats -->
                                 <resolutionEntryPointInclude>org.apache.tika:tika-parser-pdf-module</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <resolutionExcludes>

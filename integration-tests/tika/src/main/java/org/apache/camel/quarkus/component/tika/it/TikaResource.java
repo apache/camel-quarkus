@@ -41,6 +41,9 @@ public class TikaResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response parse(byte[] message) throws Exception {
         final Exchange response = producerTemplate.request("tika:parse", exchange -> exchange.getMessage().setBody(message));
+        if (response.getException() != null) {
+            throw response.getException();
+        }
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .header("Parsed-Content-Type", response.getMessage().getHeader(Exchange.CONTENT_TYPE))
