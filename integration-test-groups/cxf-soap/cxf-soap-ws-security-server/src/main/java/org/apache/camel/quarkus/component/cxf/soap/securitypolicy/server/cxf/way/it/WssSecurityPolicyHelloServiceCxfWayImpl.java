@@ -30,7 +30,8 @@ import org.apache.cxf.annotations.Policy;
         @EndpointProperty(key = "ws-security.encryption.properties", value = "bob.properties"),
         @EndpointProperty(key = "ws-security.signature.username", value = "bob"),
         @EndpointProperty(key = "ws-security.encryption.username", value = "alice"),
-        @EndpointProperty(key = "ws-security.callback-handler", value = "org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it.PasswordCallbackHandler")
+        @EndpointProperty(key = "ws-security.callback-handler", value = "org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it.PasswordCallbackHandler"),
+        @EndpointProperty(key = "ws-security.custom.alg.suite.asymmetric.key.encryption.algorithm", value = "http://www.w3.org/2001/04/xmlenc#rsa-1_5")
 })
 public class WssSecurityPolicyHelloServiceCxfWayImpl implements WssSecurityPolicyHelloServiceCxfWay {
 
