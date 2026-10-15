@@ -20,17 +20,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.quarkus.test.internal.TestContextCleanup;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
 import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.platform.engine.support.store.Namespace.GLOBAL;
 
 public class CallbackUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(CallbackUtil.class);
 
     private CallbackUtil() {
         // Utility class
@@ -69,14 +67,7 @@ public class CallbackUtil {
         // Only remove components created by the test, not pre-existing ones
         Set<String> existingComponents = testInstance.getExistingComponents();
         if (existingComponents != null) {
-            testInstance.context().getComponentNames().forEach(cn -> {
-                if (!existingComponents.contains(cn)) {
-                    LOG.debug("Removing test-created component: {}", cn);
-                    testInstance.context().removeComponent(cn);
-                } else {
-                    LOG.debug("Preserving existing component: {}", cn);
-                }
-            });
+            TestContextCleanup.removeComponentsNotIn(testInstance.context(), existingComponents);
         }
         MockEndpoint.resetMocks(testInstance.context());
     }

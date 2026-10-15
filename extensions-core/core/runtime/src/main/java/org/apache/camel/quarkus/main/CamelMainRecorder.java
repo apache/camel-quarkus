@@ -33,6 +33,7 @@ import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
+import org.apache.camel.quarkus.core.test.CamelTestLifecycleMainListener;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.eclipse.microprofile.config.ConfigProvider;
 
@@ -100,6 +101,10 @@ public class CamelMainRecorder {
 
     public void registerCamelMainEventBridge(RuntimeValue<CamelMain> main, Set<String> observedMainEvents) {
         main.getValue().addMainListener(new CamelMainEventBridge(observedMainEvents));
+    }
+
+    public RuntimeValue<MainListener> createTestLifecycleListener(String testProfileClassName) {
+        return new RuntimeValue<>(new CamelTestLifecycleMainListener(testProfileClassName));
     }
 
     public void customizeDevModeCamelMain(RuntimeValue<CamelMain> main) {

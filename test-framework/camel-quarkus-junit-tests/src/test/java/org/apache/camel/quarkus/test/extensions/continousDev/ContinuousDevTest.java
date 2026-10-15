@@ -35,7 +35,8 @@ public class ContinuousDevTest {
                 public JavaArchive get() {
                     return ShrinkWrap.create(JavaArchive.class).addClasses(HelloResource.class)
                             .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("quarkus.naming.enable-jndi=true",
+                                    ContinuousTestingTestUtils.appProperties("quarkus.camel.cli.enabled=false",
+                                            "quarkus.naming.enable-jndi=true",
                                             "camel-quarkus.junit.message=Sheldon")),
                                     "application.properties");
                 }

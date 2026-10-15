@@ -45,7 +45,9 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.NativeConfig;
@@ -70,6 +72,11 @@ import org.jboss.jandex.IndexView;
 
 class ManagementProcessor {
     private static final String FEATURE = "camel-management";
+    private static final String[] MANAGEMENT_NAME_PATTERN_PROPERTIES = {
+            "camel.main.jmxManagementNamePattern",
+            "camel.main.jmx-management-name-pattern"
+    };
+    private static final String AUXILIARY_APPLICATION_MANAGEMENT_NAME_PATTERN = "#name#-test";
     private static final Class<?>[] CAMEL_MANAGEMENT_ANNOTATIONS = {
             ManagedAttribute.class,
             ManagedNotification.class,
@@ -151,6 +158,22 @@ class ManagementProcessor {
     @BuildStep
     RuntimeCamelContextCustomizerBuildItem configureCamelContext(CamelManagementRecorder recorder) {
         return new RuntimeCamelContextCustomizerBuildItem(recorder.createContextCustomizer());
+    }
+
+    @BuildStep
+    void auxiliaryApplicationManagementName(
+            LaunchModeBuildItem launchMode,
+            BuildProducer<RunTimeConfigurationDefaultBuildItem> runTimeConfigurationDefault) {
+        // An auxiliary application, such as the dev mode continuous testing application, shares the MBeanServer with
+        // the primary application. Use a distinct management name so that the CamelContext MBean names do not clash
+        if (launchMode.isAuxiliaryApplication()) {
+            boolean configured = Stream.of(MANAGEMENT_NAME_PATTERN_PROPERTIES)
+                    .anyMatch(name -> ConfigProvider.getConfig().getOptionalValue(name, String.class).isPresent());
+            if (!configured) {
+                runTimeConfigurationDefault.produce(new RunTimeConfigurationDefaultBuildItem(
+                        MANAGEMENT_NAME_PATTERN_PROPERTIES[0], AUXILIARY_APPLICATION_MANAGEMENT_NAME_PATTERN));
+            }
+        }
     }
 
     @BuildStep
