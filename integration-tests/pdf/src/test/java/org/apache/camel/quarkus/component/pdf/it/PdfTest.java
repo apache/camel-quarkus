@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.pdf.it;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -28,7 +29,10 @@ import io.smallrye.common.os.OS;
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -87,6 +91,34 @@ class PdfTest {
 
         assertTrue(pdfText.contains("content to be included in the created pdf document"));
         assertTrue(pdfText.contains("another line that should be appended"));
+    }
+
+    @Test
+    public void extractTextWithIdentityHFont() throws IOException {
+        // PDType0Font embeds the font with the Identity-H encoding, a predefined CMap which FontBox loads by name
+        ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+        try (PDDocument doc = new PDDocument();
+                InputStream font = PdfTest.class
+                        .getResourceAsStream("/org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf")) {
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            try (PDPageContentStream content = new PDPageContentStream(doc, page)) {
+                content.beginText();
+                content.setFont(PDType0Font.load(doc, font), 12);
+                content.newLineAtOffset(50, 700);
+                content.showText("Identity-H encoded text");
+                content.endText();
+            }
+            doc.save(pdf);
+        }
+
+        RestAssured.given()
+                .contentType(ContentType.BINARY)
+                .body(pdf.toByteArray())
+                .post("/pdf/extractText")
+                .then()
+                .statusCode(200)
+                .body(containsString("Identity-H encoded text"));
     }
 
     @Test

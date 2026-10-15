@@ -49,6 +49,12 @@ class PdfProcessor {
     }
 
     @BuildStep
+    NativeImageResourceDirectoryBuildItem registerFontBoxCMaps() {
+        // FontBox loads predefined CMaps (e.g. Identity-H) by names computed at runtime
+        return new NativeImageResourceDirectoryBuildItem("org/apache/fontbox/cmap");
+    }
+
+    @BuildStep
     void configureRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         for (String className : RUNTIME_INITIALIZED_CLASSES) {
             runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
