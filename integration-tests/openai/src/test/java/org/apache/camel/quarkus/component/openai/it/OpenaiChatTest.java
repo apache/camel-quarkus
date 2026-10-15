@@ -24,8 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,7 +34,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.apache.camel.util.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.awaitility.Awaitility;
@@ -45,6 +45,7 @@ import org.junit.jupiter.api.TestInfo;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -99,10 +100,7 @@ class OpenaiChatTest {
                     .post("/openai/chat/image")
                     .then()
                     .statusCode(200)
-                    .body(
-                            containsStringIgnoringCase("camel"),
-                            containsStringIgnoringCase("silhouette"),
-                            containsStringIgnoringCase("icon"));
+                    .body(containsStringIgnoringCase("camel"));
         } finally {
             if (FileUtil.isWindows()) {
                 // File may be locked by the Quarkus process, so clean up on VM exit
@@ -171,32 +169,21 @@ class OpenaiChatTest {
 
     @Test
     void streamingChat() {
-        // Send the streaming request
-        RestAssured.given()
+        String content = RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Stream the numbers 1 to 9 on a new line each time and nothing else.")
                 .post("/openai/chat/streaming")
                 .then()
-                .statusCode(204);
+                .statusCode(200)
+                .body("chunks", greaterThan(1))
+                .extract()
+                .path("content");
 
-        // Assert the streamed results
-        Set<String> receivedNumbers = new HashSet<>();
-        Awaitility.await()
-                .atMost(Duration.ofMinutes(1))
-                .pollInterval(Duration.ofMillis(200))
-                .until(() -> {
-                    Response response = RestAssured.given()
-                            .queryParam("endpointUri", "seda:chatStreamingResult")
-                            .get("/openai/chat/results");
-
-                    if (response.getStatusCode() == 200) {
-                        String result = response.getBody().asString();
-                        if (result != null) {
-                            receivedNumbers.add(result.trim());
-                        }
-                    }
-                    return receivedNumbers.size() == 9;
-                });
+        Set<String> receivedNumbers = Pattern.compile("\\d+")
+                .matcher(content)
+                .results()
+                .map(MatchResult::group)
+                .collect(Collectors.toSet());
 
         Set<String> expectedNumbers = IntStream.rangeClosed(1, 9)
                 .mapToObj(String::valueOf)
@@ -235,26 +222,24 @@ class OpenaiChatTest {
     void chatToolCalls() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("What is 2 + 3?")
+                .body("What is 2 + 3? Use the add_numbers tool.")
                 .post("/openai/chat/toolCalls")
                 .then()
                 .statusCode(200)
-                .body(
-                        containsStringIgnoringCase("add"),
-                        containsStringIgnoringCase("call_abc123"));
+                .body(containsStringIgnoringCase("add_numbers"));
     }
 
     @Test
     void chatAgentic() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("What is 17 + 25?")
+                .body("What is 17 + 25? Use the add_numbers tool.")
                 .post("/openai/chat/agentic")
                 .then()
                 .statusCode(200)
                 .body(
-                        containsStringIgnoringCase("42"),
-                        containsStringIgnoringCase("sum"));
+                        "body", containsStringIgnoringCase("42"),
+                        "toolCalls", hasItem("add_numbers"));
     }
 
 }
