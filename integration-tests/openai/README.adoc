@@ -31,6 +31,13 @@ export OPENAI_CHAT_MODEL=your-chat-model-name
 export OPENAI_EMBEDDING_MODEL=your-embedding-model-name
 ----
 
+If the provider does not support audio transcription, skip the audio tests with:
+
+[source,shell]
+----
+export OPENAI_AUDIO_ENABLED=false
+----
+
 If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
 
 System property `-Dwiremock.record=true`

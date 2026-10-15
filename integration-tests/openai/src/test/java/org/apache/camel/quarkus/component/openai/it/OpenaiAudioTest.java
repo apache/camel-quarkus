@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.condition.EnabledIfConfig;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.util.FileUtil;
@@ -36,6 +37,7 @@ import org.junit.jupiter.api.TestInfo;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 
+@EnabledIfConfig(named = "openai.audio.enabled", matches = "true")
 @QuarkusTestResource(OpenaiTestResource.class)
 @QuarkusTest
 class OpenaiAudioTest {
