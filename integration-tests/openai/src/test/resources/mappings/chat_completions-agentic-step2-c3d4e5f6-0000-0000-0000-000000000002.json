@@ -8,7 +8,7 @@
     "url" : "/chat/completions",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"messages\":[{\"content\":\"What is 17 + 25?\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
+      "equalToJson" : "{\"messages\":[{\"content\":\"What is 17 + 25? Use the add_numbers tool.\",\"role\":\"user\"}],\"model\":\"gpt-5\"}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     }, {

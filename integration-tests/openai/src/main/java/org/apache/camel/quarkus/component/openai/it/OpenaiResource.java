@@ -71,8 +71,18 @@ public class OpenaiResource {
     @Path("/chat/streaming")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public void chat(String chatMessageContent) {
-        producerTemplate.sendBody("direct:chatStreaming", chatMessageContent);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> chatStreaming(String chatMessageContent) {
+        Exchange exchange = producerTemplate.request("direct:chatStreaming",
+                e -> e.getMessage().setBody(chatMessageContent));
+        if (exchange.getException() != null) {
+            throw new RuntimeException(exchange.getException());
+        }
+
+        Message message = exchange.getMessage();
+        return Map.of(
+                "content", message.getBody(String.class),
+                "chunks", message.getHeader(OpenaiRoutes.STREAMING_CHUNK_COUNT, Integer.class));
     }
 
     @Path("/chat/image")
@@ -118,9 +128,9 @@ public class OpenaiResource {
     @Path("/chat/agentic")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String chatAgentic(String chatMessageContent) {
-        return producerTemplate.requestBody("direct:chatAgentic", chatMessageContent, String.class);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> chatAgentic(String chatMessageContent) {
+        return requestWithToolCalls("direct:chatAgentic", chatMessageContent);
     }
 
     @Path("/chat/routeTools")
@@ -129,6 +139,10 @@ public class OpenaiResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Object> chatRouteTools(@QueryParam("returnDirect") boolean returnDirect, String chatMessageContent) {
         String endpointUri = returnDirect ? "direct:chatRouteToolsReturnDirect" : "direct:chatRouteTools";
+        return requestWithToolCalls(endpointUri, chatMessageContent);
+    }
+
+    private Map<String, Object> requestWithToolCalls(String endpointUri, String chatMessageContent) {
         Exchange exchange = producerTemplate.request(endpointUri,
                 e -> e.getMessage().setBody(chatMessageContent));
         if (exchange.getException() != null) {

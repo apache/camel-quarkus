@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.openai.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import io.quarkus.test.junit.condition.EnabledIfConfig;
 
+@EnabledIfConfig(named = "openai.audio.enabled", matches = "true")
 @QuarkusIntegrationTest
 class OpenaiAudioIT extends OpenaiAudioTest {
 

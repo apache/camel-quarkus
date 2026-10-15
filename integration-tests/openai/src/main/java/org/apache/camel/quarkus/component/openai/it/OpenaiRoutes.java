@@ -16,19 +16,15 @@
  */
 package org.apache.camel.quarkus.component.openai.it;
 
-import java.util.List;
-
 import com.openai.models.chat.completions.ChatCompletionChunk;
-import com.openai.models.chat.completions.ChatCompletionChunk.Choice;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.openai.it.model.Product;
-import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.StringHelper;
 
 public class OpenaiRoutes extends RouteBuilder {
+    public static final String STREAMING_CHUNK_COUNT = "streamingChunkCount";
 
     @Override
     public void configure() throws Exception {
@@ -38,29 +34,37 @@ public class OpenaiRoutes extends RouteBuilder {
 
         from("direct:chatStreaming")
                 .to("openai:chat-completion?streaming=true")
-                .split(body())
+                // Providers split tokens into chunks differently, so join the streamed content rather than inspecting individual chunks
+                .split(body(), (oldExchange, newExchange) -> {
+                    String content = newExchange.getMessage().getBody(String.class);
+                    if (oldExchange == null) {
+                        newExchange.getMessage().setHeader(STREAMING_CHUNK_COUNT, content.isEmpty() ? 0 : 1);
+                        return newExchange;
+                    }
+
+                    if (!content.isEmpty()) {
+                        Message message = oldExchange.getMessage();
+                        message.setBody(message.getBody(String.class) + content);
+                        message.setHeader(STREAMING_CHUNK_COUNT, message.getHeader(STREAMING_CHUNK_COUNT, Integer.class) + 1);
+                    }
+                    return oldExchange;
+                })
                 .streaming()
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         Message message = exchange.getMessage();
                         ChatCompletionChunk chunk = message.getBody(ChatCompletionChunk.class);
-                        message.setBody(null);
-
-                        List<Choice> choices = chunk.choices();
-                        if (!choices.isEmpty()) {
-                            Choice choice = choices.get(0);
-                            choice.delta().content().ifPresent(content -> {
-                                if (ObjectHelper.isNotEmpty(content) && StringHelper.isDigit(content)) {
-                                    message.setBody(content);
-                                }
-                            });
-                        }
+                        String content = chunk.choices()
+                                .stream()
+                                .findFirst()
+                                .flatMap(choice -> choice.delta().content())
+                                .orElse("");
+                        message.setBody(content);
                     }
                 })
-                .filter().simple("${body} != null")
-                .log("Streaming chat chunk: ${body}")
-                .wireTap("seda:chatStreamingResult");
+                .end()
+                .log("Streaming chat response received in ${header." + STREAMING_CHUNK_COUNT + "} chunks: ${body}");
 
         from("direct:chatStructuredOutputWithSchema")
                 .to("openai:chat-completion?jsonSchema=resource:classpath:schema/product.json")
@@ -80,13 +84,17 @@ public class OpenaiRoutes extends RouteBuilder {
                 .setHeader("CamelOpenAIMaxTokens", constant(10))
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 1: ${body}")
+                // reasoning models may spend the whole token budget before producing any content
+                .removeHeader("CamelOpenAIMaxTokens")
                 // here we will limit it via instruction, so the model can "reorganize" the word "John" to fit in the shorter answer
                 .setBody(constant("What is my name? Respond maximum 5 words."))
                 .to("openai:chat-completion?conversationMemory=true")
                 .log("Chat response 2: ${body}");
 
         from("direct:chatToolCalls")
-                .to("openai:chat-completion")
+                .to("openai:chat-completion?autoToolExecution=false"
+                        + "&mcpServer.tools.transportType=streamableHttp"
+                        + "&mcpServer.tools.url=http://localhost:{{quarkus.http.test-port:8081}}")
                 .log("Tool calls response: ${body}");
 
         from("direct:chatAgentic")
