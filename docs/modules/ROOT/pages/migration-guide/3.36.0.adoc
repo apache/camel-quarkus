@@ -60,4 +60,4 @@ This is particularly useful when different tests in the same class need differen
 
 Advice modifications are now automatically cleaned up between test methods to prevent interference between tests. This ensures that each test starts with a clean route state.
 
-For more details, see the xref:user-guide/testing.adoc#_using_advicewith[Testing guide].
+For more details, see the xref:user-guide/testing/camel-quarkus-test-support.adoc#_using_advicewith[Testing guide].

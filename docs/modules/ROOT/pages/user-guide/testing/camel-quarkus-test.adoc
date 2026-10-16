@@ -1,0 +1,209 @@
+= Annotation based testing with `@CamelQuarkusTest`
+
+`@CamelQuarkusTest` configures Camel specific test features with annotation attributes, without extending a base class.
+It implies `@QuarkusTest`.
+
+IMPORTANT: `@CamelQuarkusTest` only works in JVM mode.
+
+To use `@CamelQuarkusTest`, add `camel-quarkus-junit` as a test scoped dependency to your application.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-junit</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+Everything declared on `@CamelQuarkusTest` applies to the whole test class.
+It is set up before the first test method runs and undone after the last one.
+`MockEndpoint` instances are reset after each test method.
+
+== Test routes
+
+Routes for a test class are declared with `routes`.
+They are added before the first test method and removed after the last one.
+Route builder classes declared in a `@CamelQuarkusTest` class, or listed in `routes`, are never discovered as application routes.
+
+`CamelContext`, `ProducerTemplate`, `FluentProducerTemplate` and `ConsumerTemplate` can be injected with `@Inject`, and endpoints with `@EndpointInject`.
+
+[source,java]
+----
+@CamelQuarkusTest(routes = GreetingTest.Routes.class)
+class GreetingTest {
+
+    @Inject
+    ProducerTemplate template;
+
+    @EndpointInject("mock:result")
+    MockEndpoint result;
+
+    @Test
+    void greets() throws Exception {
+        result.expectedBodiesReceived("Hello World");
+        template.sendBody("direct:start", "World");
+        result.assertIsSatisfied();
+    }
+
+    public static class Routes extends RouteBuilder {
+        @Override
+        public void configure() {
+            from("direct:start").transform().simple("Hello ${body}").to("mock:result");
+        }
+    }
+}
+----
+
+== Advising application routes
+
+Advice for the test class is declared with `advices`, and route consumers are replaced with `replaceRouteFromWith`.
+
+[source,java]
+----
+@CamelQuarkusTest(
+        advices = @AdviceRoute(route = "my-kafka-route", advice = KafkaRouteTest.StubKafka.class),
+        replaceRouteFromWith = "my-timer-route=direct:trigger")
+class KafkaRouteTest {
+
+    static class StubKafka extends AdviceWithRouteBuilder {
+        @Override
+        public void configure() {
+            weaveByToUri("kafka:output-topic*").replace().to("mock:kafka-stub");
+        }
+    }
+}
+----
+
+Advice for a single test method is applied with `CamelTestHelper`, which can be injected into the test class.
+It is undone after the test method.
+
+[source,java]
+----
+@CamelQuarkusTest
+class MyRouteTest {
+
+    @Inject
+    CamelTestHelper helper;
+
+    @Test
+    void withMock() throws Exception {
+        helper.adviceRoute("my-route", route -> route.weaveByToUri("kafka:*").replace().to("mock:kafka"));
+        // ...
+    }
+}
+----
+
+`CamelTestHelper` also provides `getMockEndpoint`, `resetMocks` and `startRouteDefinitions`.
+
+== Replacing beans in the Camel registry
+
+Fields and no-arg methods annotated with `@ReplaceInRegistry` are bound to the Camel registry, using the member name as the bean name.
+The previous bindings are restored after the last test method.
+The beans are bound before the routes declared with `routes` are added. Application routes already exist at that point, as do the routes declared with `routes` in <<_shared_mode_and_isolated_mode,isolated mode>>, so routes that look up a bean when they are created do not use the replacement.
+Beans provided by CDI cannot be replaced this way. Use https://quarkus.io/guides/getting-started-testing#mock-support[`@InjectMock` or `QuarkusMock`] for those.
+
+[source,java]
+----
+@CamelQuarkusTest
+class GreeterTest {
+
+    @ReplaceInRegistry
+    Greeter greeter = new FakeGreeter();
+}
+----
+
+== Shared mode and isolated mode
+
+By default, a test class shares the application with the other test classes of the module, and its routes are already started when the test class begins.
+Some features need to act before routes are created. They are only available when the test class owns its application, which is called isolated mode.
+
+A test class runs in isolated mode when it is annotated with `@TestProfile` and no other `@CamelQuarkusTest` class uses the same test profile.
+The usual way is for the test class to be its own test profile, in which case it must be public.
+
+[source,java]
+----
+@CamelQuarkusTest(mockEndpointsAndSkip = "kafka:*")
+@TestProfile(OrdersTest.class)
+public class OrdersTest implements QuarkusTestProfile {
+}
+----
+
+Using a feature that is only available in isolated mode fails the test build.
+
+[cols="2,1,1"]
+|===
+| Feature | Shared mode | Isolated mode
+
+| `routes`, `advices`, `replaceRouteFromWith`, `@ReplaceInRegistry`
+| Yes
+| Yes
+
+| `mockEndpoints`, `mockEndpointsAndSkip`, `stubEndpoints`
+| No
+| Yes
+
+| `autoStartupExclude`
+| No
+| Yes
+
+| `@ProvidesBreakpoint`
+| No
+| Yes
+
+| `dumpRouteCoverage`, `dumpRoute`, `shutdownTimeout`
+| Yes
+| Yes
+|===
+
+In isolated mode, `advices` and `replaceRouteFromWith` are applied before routes are created.
+
+== Debugging, route coverage and route dumps
+
+A `public static` no-arg method annotated with `@ProvidesBreakpoint` and returning `org.apache.camel.spi.Breakpoint` enables the Camel debugger with that breakpoint.
+
+`dumpRouteCoverage = true` writes route coverage to `target/camel-route-coverage` after each test method. It requires `camel-quarkus-management`.
+
+`dumpRoute` writes the routes to `target/camel-route-dump` after each test method, in `xml` or `yaml` format.
+It requires `camel-quarkus-xml-io-dsl` for `xml`, and `camel-quarkus-yaml-io` for `yaml`.
+
+== Continuous testing
+
+Continuous testing only detects test classes annotated with `@QuarkusTest`, or with annotations declared in the test sources that are meta-annotated with `@QuarkusTest`.
+To run `@CamelQuarkusTest` classes in continuous testing, annotate them with `@QuarkusTest` as well.
+
+[source,java]
+----
+@QuarkusTest
+@CamelQuarkusTest(routes = GreetingTest.Routes.class)
+class GreetingTest {
+}
+----
+
+== Migrating from `CamelQuarkusTestSupport`
+
+[cols="1,1"]
+|===
+| `CamelQuarkusTestSupport` | `@CamelQuarkusTest`
+
+| `createRouteBuilder()`
+| `routes`. The routes apply to the whole test class. Test methods that need different routes belong in separate test classes.
+
+| `isMockEndpoints()`, `isMockEndpointsAndSkip()`
+| `mockEndpoints`, `mockEndpointsAndSkip`. These require <<_shared_mode_and_isolated_mode,isolated mode>>, including when only the routes declared with `routes` are mocked.
+
+| `adviceRoute()`
+| `CamelTestHelper.adviceRoute()` or `advices`
+
+| `getMockEndpoint()`
+| `@EndpointInject` or `CamelTestHelper.getMockEndpoint()`
+
+| `@BindToRegistry`, `bindToRegistry()`
+| `@ReplaceInRegistry` or CDI producers
+
+| `isDumpRouteCoverage()`
+| `dumpRouteCoverage`
+
+| `doBeforeEach()`, `doAfterEach()`, `doAfterConstruct()`, `doAfterAll()`
+| JUnit `@BeforeEach`, `@AfterEach`, `@BeforeAll`, `@AfterAll`
+|===
