@@ -18,10 +18,16 @@ package org.apache.camel.quarkus.component.tika.deployment;
 
 import java.util.Set;
 
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ExcludeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
 import org.apache.tika.detect.EncodingDetector;
@@ -46,6 +52,52 @@ class TikaProcessor {
         serviceProvider.produce(new ServiceProviderBuildItem(EncodingDetector.class.getName(),
                 getProviderNames(EncodingDetector.class.getName())));
         serviceProvider.produce(new ServiceProviderBuildItem(Parser.class.getName(), getProviderNames(Parser.class.getName())));
+    }
+
+    /**
+     * Native support for {@code tika-parser-pdf-module} and the PDFBox it brings, when the application adds it. The
+     * PDFBox part is similar to {@code PdfProcessor} of camel-quarkus-pdf, keep them aligned.
+     */
+    @BuildStep
+    void pdfParserModule(
+            BuildProducer<NativeImageResourceDirectoryBuildItem> resourceDirectory,
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass,
+            BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackage,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<ExcludeConfigBuildItem> excludeConfig) {
+        if (!QuarkusClassLoader.isClassPresentAtRuntime("org.apache.tika.parser.pdf.PDFParser")) {
+            return;
+        }
+        // Font metrics, glyph lists, the ICC profile etc. The whole directory, so PDFBox upgrades need no list updates
+        resourceDirectory.produce(new NativeImageResourceDirectoryBuildItem("org/apache/pdfbox/resources"));
+        // FontBox loads predefined CMaps (e.g. Identity-H) by names computed at runtime
+        resourceDirectory.produce(new NativeImageResourceDirectoryBuildItem("org/apache/fontbox/cmap"));
+
+        for (String className : new String[] {
+                "org.apache.pdfbox.pdmodel.font.PDType1Font",
+                "org.apache.pdfbox.pdmodel.PDDocument",
+                "org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler" }) {
+            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
+        }
+        // Text extraction reaches AWT-holding statics in PDFBox's rendering and graphics packages (SoftMask's
+        // ColorModel, the CIE color spaces' ColorSpace), so the packages are deferred wholesale
+        for (String packageName : new String[] {
+                "org.apache.pdfbox.rendering",
+                "org.apache.pdfbox.pdmodel.graphics" }) {
+            runtimeInitializedPackage.produce(new RuntimeInitializedPackageBuildItem(packageName));
+        }
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(
+                "org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler",
+                "org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDParentTreeValue")
+                .constructors().methods().build());
+
+        // The module brings BouncyCastle's bcjmail, whose mailcap S/MIME handlers need jakarta.mail. Without it, the
+        // GraalVM feature of angus-activation (e.g. brought by RESTEasy) fails reflecting over them. Nothing here
+        // needs the mailcap handlers, so the feature is skipped in that case
+        if (!QuarkusClassLoader.isClassPresentAtRuntime("jakarta.mail.Part")) {
+            excludeConfig.produce(new ExcludeConfigBuildItem("org\\.eclipse\\.angus\\.angus-activation-.*\\.jar",
+                    "/META-INF/native-image/org.eclipse.angus/angus-activation/native-image.properties"));
+        }
     }
 
     private Set<String> getProviderNames(String serviceProviderName) throws Exception {
