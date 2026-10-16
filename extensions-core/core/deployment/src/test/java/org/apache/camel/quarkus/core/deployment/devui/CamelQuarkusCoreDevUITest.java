@@ -26,6 +26,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CamelQuarkusCoreDevUITest extends DevUIJsonRPCTest {
     @RegisterExtension
@@ -59,6 +61,59 @@ public class CamelQuarkusCoreDevUITest extends DevUIJsonRPCTest {
         String withGoodOption = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
                 Map.of("id", "browse", "options", Map.of("dump", "false")));
         assertEquals(withGoodOption, withBadOption);
+    }
+
+    @Test
+    void camelCatalogDocReturnsComponentSchema() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelCatalogDoc",
+                Map.of("name", "timer", "optionsFilter", ""));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertEquals("timer", json.getJsonObject("component").getString("scheme"));
+        assertTrue(json.getJsonObject("properties").containsKey("period"));
+    }
+
+    @Test
+    void camelCatalogDocFiltersOptions() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelCatalogDoc",
+                Map.of("name", "timer", "optionsFilter", "period"));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        JsonObject properties = json.getJsonObject("properties");
+        assertTrue(properties.containsKey("period"));
+        assertFalse(properties.containsKey("timerName"));
+    }
+
+    @Test
+    void camelCatalogDocUnknownComponentReturnsError() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelCatalogDoc",
+                Map.of("name", "kafka", "optionsFilter", ""));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertTrue(json.getString("error").contains("camel-quarkus-kafka"));
+    }
+
+    @Test
+    void camelValidateEndpointUriAcceptsValidUri() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelValidateEndpointUri",
+                Map.of("uri", "timer:tick?period=5000"));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertTrue(json.getBoolean("valid"));
+    }
+
+    @Test
+    void camelValidateEndpointUriRejectsUnknownOption() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelValidateEndpointUri",
+                Map.of("uri", "timer:tick?bogusOption=true"));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertFalse(json.getBoolean("valid"));
+        assertTrue(json.getString("errors").contains("bogusOption"));
+    }
+
+    @Test
+    void camelValidateEndpointUriRejectsUnknownComponent() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelValidateEndpointUri",
+                Map.of("uri", "kafka:orders?brokers=localhost:9092"));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertFalse(json.getBoolean("valid"));
+        assertTrue(json.getString("errors").contains("camel-quarkus-kafka"));
     }
 
     @Test
