@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.mcp.server;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import io.quarkiverse.mcp.server.TextContent;
@@ -80,12 +81,17 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         if (tool.inputSchemaJson() != null) {
             definition.setInputSchema(new JsonObject(tool.inputSchemaJson()));
         }
+        if (tool.outputSchemaJson() != null) {
+            definition.setOutputSchema(new JsonObject(tool.outputSchemaJson()));
+        }
         applyAnnotations(definition, tool.annotations());
         definition.setHandler(arguments -> {
             Map<String, Object> args = arguments.args() != null ? arguments.args() : Map.of();
             McpToolCallResult result = tool.handler().call(args);
+            // the text content is kept next to structuredContent for clients without structured output support
             return result.isError()
-                    ? ToolResponse.error(result.text()) : ToolResponse.success(new TextContent(result.text()));
+                    ? ToolResponse.error(result.text())
+                    : new ToolResponse(false, List.of(new TextContent(result.text())), result.structuredContent(), null);
         });
         definition.register();
         LOG.debug("MCP tool added: {}", tool.name());

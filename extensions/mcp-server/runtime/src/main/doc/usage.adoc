@@ -33,6 +33,18 @@ the JSON type (`string`, `integer`, `number`, `boolean`), and the
 `parameter.NAME.enum` options refine the generated input schema. Arguments
 arrive as message headers in the route (`${header.customerId}`).
 
+=== Structured tool output
+
+Tools declaring their output with the `outputSchema` or `outputParameter.NAME`
+options publish it as the MCP `outputSchema`. The route body must then be
+JSON: MCP clients receive it as `structuredContent`, next to the same JSON as
+text content. See
+xref:{cq-camel-components}::ai-tool-component.adoc#_structured_tool_output_outputschema[Structured Tool Output]
+in the AI Tool component documentation.
+
+In native mode, an `outputSchema` loaded from `classpath:` must be
+xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
+
 === Combining the Camel and quarkus-mcp-server configuration
 
 The configuration is split by ownership: `quarkus.camel.mcp-server.*`
