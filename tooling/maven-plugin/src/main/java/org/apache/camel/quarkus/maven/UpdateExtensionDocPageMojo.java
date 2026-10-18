@@ -239,8 +239,10 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 String name = model.getName();
                 String xrefPrefix = "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":");
 
-                if (componentLinkOverrides.containsKey(name)) {
-                    ComponentLinkOverride override = componentLinkOverrides.get(name);
+                // A kind qualified key (e.g. wasm-language) targets one model when several share the same name
+                String overrideKey = componentLinkOverrides.containsKey(name + "-" + kind) ? name + "-" + kind : name;
+                if (componentLinkOverrides.containsKey(overrideKey)) {
+                    ComponentLinkOverride override = componentLinkOverrides.get(overrideKey);
                     if (override != null) {
                         if (override.getName() != null) {
                             name = override.getName();

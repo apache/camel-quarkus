@@ -365,6 +365,10 @@
                                             <name>camel-github</name>
                                             <xrefPrefix>remove</xrefPrefix>
                                         </github>
+                                        <!-- TODO: Remove for Camel > 4.23.0 -->
+                                        <wasm-language>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </wasm-language>
                                     </componentLinkOverrides>
 
                                 </configuration>

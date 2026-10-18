@@ -77,7 +77,7 @@ To override parts of the xref link, the following `update-extension-doc-page` co
 </plugin>
 ----
 
-<1> The original name of the Camel component.
+<1> The original name of the Camel component. When an extension contains several models with the same name (E.g. the `wasm` component and the `wasm` language), qualify the name with its kind (E.g. `wasm-language`) to override the link of only that model.
 <2> The overridden name of the component in the generated xref link.
 <3> The overridden component kind in the generated xref link (`component`, `dataformat`, `language`, `other`).
 <4> The overridden component generated xref link prefix. Useful for rare circumstances where the component requires you to link to an unconventional part of the Camel documentation (E.g. link `manual`).
