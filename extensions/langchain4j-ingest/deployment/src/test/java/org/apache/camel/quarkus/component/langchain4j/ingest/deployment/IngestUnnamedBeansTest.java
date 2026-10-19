@@ -59,6 +59,14 @@ class IngestUnnamedBeansTest {
                 "the pipeline must start with the only store and model beans, unnamed");
     }
 
+    /** Each Kamelet a pipeline is composed from adds a route named after the pipeline. */
+    @Test
+    void kameletRoutesAreNamedAfterThePipeline() {
+        Assertions.assertNotNull(context.getRoute("langchain4j-ingest-docs-source"));
+        Assertions.assertNotNull(context.getRoute("langchain4j-ingest-docs-sink"));
+        Assertions.assertEquals(3, context.getRoutes().size(), "the pipeline's route and one per Kamelet");
+    }
+
     @ApplicationScoped
     public static class UnnamedEmbeddingBeans {
 

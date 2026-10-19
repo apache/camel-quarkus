@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -35,6 +36,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.langchain4j.ingest.IngestResult;
 import org.apache.camel.component.langchain4j.ingest.LangChain4jIngest;
@@ -60,6 +62,10 @@ public class IngestResource {
     @Inject
     @Named("htmlfeed-store")
     EmbeddingStore<TextSegment> htmlfeedStore;
+
+    @Inject
+    @Named("dottedfeed-store")
+    EmbeddingStore<TextSegment> dottedfeedStore;
 
     @Inject
     @Named("datasheets-store")
@@ -90,6 +96,18 @@ public class IngestResource {
     EmbeddingStore<TextSegment> cappedStore;
 
     @Inject
+    @Named("filtered-store")
+    EmbeddingStore<TextSegment> filteredStore;
+
+    @Inject
+    @Named("audio-store")
+    EmbeddingStore<TextSegment> audioStore;
+
+    @Inject
+    @Named("audio-model")
+    DeterministicAudioEmbeddingModel audioModel;
+
+    @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
@@ -106,6 +124,9 @@ public class IngestResource {
 
     @ConfigProperty(name = "ingest.capped.directory")
     String cappedDirectory;
+
+    @ConfigProperty(name = "ingest.audio.directory")
+    String audioDirectory;
 
     /** Asserts a key was committed; registry lookup by name, the same way the pipelines resolve. */
     @GET
@@ -136,6 +157,7 @@ public class IngestResource {
         Path dir = Path.of(switch (pipeline) {
         case "scans" -> scansDirectory;
         case "capped" -> cappedDirectory;
+        case "audio" -> audioDirectory;
         default -> reportsDirectory;
         });
         Files.createDirectories(dir);
@@ -149,12 +171,14 @@ public class IngestResource {
         EmbeddingStore<TextSegment> store = switch (storeName == null ? "products" : storeName) {
         case "custom" -> customStore;
         case "htmlfeed" -> htmlfeedStore;
+        case "dottedfeed" -> dottedfeedStore;
         case "datasheets" -> datasheetsStore;
         case "s3" -> s3Store;
         case "events" -> eventsStore;
         case "jdbc" -> jdbcStore;
         case "reports" -> reportsStore;
         case "capped" -> cappedStore;
+        case "filtered" -> filteredStore;
         case "scans" -> scansStore;
         default -> productsStore;
         };
@@ -174,22 +198,66 @@ public class IngestResource {
                 .toList();
     }
 
+    /** Query by audio: the clip is embedded with the audio model and the audio store searched for exact hits. */
+    @POST
+    @jakarta.ws.rs.Path("/search/audio")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<SearchHit> searchAudio(byte[] clip) {
+        var result = audioStore.search(EmbeddingSearchRequest.builder()
+                .queryEmbedding(audioModel.embeddingOf(clip))
+                .maxResults(10)
+                .minScore(0.99)
+                .build());
+        return result.matches().stream()
+                .map(match -> new SearchHit(
+                        match.embedded().text(),
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_PIPELINE),
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_DOCUMENT_ID)))
+                .toList();
+    }
+
     /** One stored segment with the metadata the pipeline stamped on it. */
     public record SearchHit(String text, String pipeline, String documentId) {
     }
 
-    /** Feeds a pipeline synchronously; the reply carries the outcome, so tests can assert skipped and failures. */
+    /**
+     * Feeds a pipeline synchronously; the reply carries the outcome, so tests can assert skipped and failures.
+     * The id travels in the {@code header} query parameter's header, the canonical one by default.
+     */
     @POST
     @jakarta.ws.rs.Path("/feed/{pipeline}/{documentId:.+}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String feed(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
-            String content) {
+            @QueryParam("header") String header, String content) {
         // every consumer-fed test pipeline reads direct:<pipeline>-feed
         String uri = "direct:" + pipeline + "-feed";
-        IngestResult result = producerTemplate.requestBodyAndHeader(uri, content, IngestHeaders.DOCUMENT_ID,
-                documentId, IngestResult.class);
+        IngestResult result = producerTemplate.requestBodyAndHeader(uri, content,
+                header == null ? IngestHeaders.DOCUMENT_ID : header, documentId, IngestResult.class);
         return result.outcome().label();
+    }
+
+    /**
+     * Feeds a media pipeline the raw bytes as a stream, as a streaming consumer would, optionally announcing a (forged)
+     * CamelFileLength; answers the outcome or the failure message.
+     */
+    @POST
+    @jakarta.ws.rs.Path("/feed-binary/{pipeline}/{documentId:.+}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String feedBinary(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
+            @QueryParam("fileLength") Long fileLength, byte[] content) {
+        Exchange exchange = producerTemplate.request("direct:" + pipeline + "-feed", e -> {
+            e.getMessage().setHeader(IngestHeaders.DOCUMENT_ID, documentId);
+            if (fileLength != null) {
+                e.getMessage().setHeader(Exchange.FILE_LENGTH, fileLength);
+            }
+            e.getMessage().setBody(new ByteArrayInputStream(content));
+        });
+        return exchange.getException() != null
+                ? exchange.getException().getMessage()
+                : exchange.getMessage().getBody(IngestResult.class).outcome().label();
     }
 
     /** Feeds a pipeline carrying different ids in the current and the deprecated header, so tests can assert precedence. */
@@ -217,6 +285,22 @@ public class IngestResource {
         IngestResult result = producerTemplate.requestBodyAndHeader("direct:" + pipeline + "-feed", content,
                 IngestHeaders.LEGACY_DOCUMENT_ID, documentId, IngestResult.class);
         return result.outcome().label();
+    }
+
+    /** Feeds a pipeline carrying the id only as the exchange property; answers the outcome or the failure message. */
+    @POST
+    @jakarta.ws.rs.Path("/feed-property/{pipeline}/{documentId:.+}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String feedProperty(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
+            String content) {
+        Exchange exchange = producerTemplate.request("direct:" + pipeline + "-feed", e -> {
+            e.setProperty(LangChain4jIngest.DOCUMENT_ID_PROPERTY, documentId);
+            e.getMessage().setBody(content);
+        });
+        return exchange.getException() != null
+                ? exchange.getException().getMessage()
+                : exchange.getMessage().getBody(IngestResult.class).outcome().label();
     }
 
     /** Feeds a pipeline without any document id, so tests can assert the pre-parse id guard. */

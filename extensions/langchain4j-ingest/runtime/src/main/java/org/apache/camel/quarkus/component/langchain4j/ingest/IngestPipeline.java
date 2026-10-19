@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.langchain4j.ingest;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.camel.quarkus.component.langchain4j.ingest.IngestRunTimeConfig.PipelineRunTimeConfig.FilterRunTimeConfig;
+
 /**
  * A pipeline declared in Java rather than in configuration, returned from an {@link Ingest}
  * method. Every property has a configuration twin, and both paths share the same runtime.
@@ -26,12 +28,38 @@ import java.util.Set;
 public final class IngestPipeline {
 
     /** The values {@link #parser(String)} and the {@code parser} configuration property accept. */
-    public static final Set<String> SUPPORTED_PARSERS = IngestPipelineDefinition.SUPPORTED_PARSERS;
+    public static final Set<String> SUPPORTED_PARSERS = IngestRoutes.SUPPORTED_PARSERS;
+
+    /** The filters of a pipeline configuration says nothing about: every delivery is accepted. */
+    static final FilterRunTimeConfig NO_FILTER = new FilterRunTimeConfig() {
+
+        @Override
+        public Optional<String> includeId() {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<String> excludeId() {
+            return Optional.empty();
+        }
+
+        @Override
+        public int minDocumentSize() {
+            return 0;
+        }
+
+        @Override
+        public Optional<String> documentFilter() {
+            return Optional.empty();
+        }
+    };
 
     private final Source source;
     private String embeddingStoreName;
     private String embeddingModelName;
     private String parser;
+    private String modality = IngestBuildTimeConfig.DEFAULT_MODALITY;
+    private String contentType;
     private int maxSegmentSize = IngestBuildTimeConfig.DEFAULT_MAX_SEGMENT_SIZE;
     private int maxOverlapSize = IngestBuildTimeConfig.DEFAULT_MAX_OVERLAP_SIZE;
     private int embeddingBatchSize = IngestBuildTimeConfig.DEFAULT_EMBEDDING_BATCH_SIZE;
@@ -100,8 +128,8 @@ public final class IngestPipeline {
     }
 
     /**
-     * Maximum size of one document in characters; 0, the default, means no limit. The twin of
-     * the {@code max-document-size} configuration property.
+     * Maximum size of one document in characters, in bytes with {@code modality("media")}; 0, the
+     * default, means no limit. The twin of the {@code max-document-size} configuration property.
      */
     public IngestPipeline maxDocumentSize(int maxDocumentSize) {
         // the same rule the configuration path is held to at build time
@@ -120,6 +148,36 @@ public final class IngestPipeline {
      */
     public IngestPipeline documentSplitter(String beanName) {
         this.documentSplitterName = beanName;
+        return this;
+    }
+
+    /**
+     * What the consumed payload is: {@code text}, the default, is split and embedded segment by
+     * segment; {@code media} (audio, an image, video or a PDF, told apart by the MIME type) is
+     * embedded whole, as one vector, by a model that declares the matching content type. The
+     * twin of the {@code modality} configuration property.
+     */
+    public IngestPipeline modality(String modality) {
+        // the same rule the configuration path is held to at build time
+        if (!"text".equalsIgnoreCase(modality) && !"media".equalsIgnoreCase(modality)) {
+            throw new IllegalArgumentException("modality must be 'text' or 'media' (got '" + modality + "')");
+        }
+        this.modality = modality;
+        return this;
+    }
+
+    /**
+     * MIME type of a media payload, such as {@code audio/wav}; unset, it is derived from the
+     * document id's file extension. The twin of the {@code content-type} configuration property.
+     */
+    public IngestPipeline contentType(String contentType) {
+        // the same rule the configuration path is held to at build time: the component drops the
+        // parameters after ';', so a value with nothing before them would silently be unset
+        if (contentType == null || contentType.split(";", 2)[0].isBlank()) {
+            throw new IllegalArgumentException(
+                    "content-type must not be blank or only parameters (got '" + contentType + "')");
+        }
+        this.contentType = contentType;
         return this;
     }
 
@@ -143,6 +201,14 @@ public final class IngestPipeline {
         return Optional.ofNullable(parser);
     }
 
+    String modality() {
+        return modality;
+    }
+
+    Optional<String> contentType() {
+        return Optional.ofNullable(contentType);
+    }
+
     int maxSegmentSize() {
         return maxSegmentSize;
     }
@@ -163,8 +229,11 @@ public final class IngestPipeline {
         return Optional.ofNullable(documentSplitterName);
     }
 
-    /** The configuration view, so a builder pipeline reuses every configuration path verbatim. */
-    IngestRunTimeConfig.PipelineRunTimeConfig asRunTimeConfig() {
+    /**
+     * The configuration view, so a builder pipeline reuses the configuration paths verbatim. Its
+     * filter is the configured one, or none: the builder has no filter API.
+     */
+    IngestRunTimeConfig.PipelineRunTimeConfig asRunTimeConfig(IngestRunTimeConfig.PipelineRunTimeConfig configured) {
         IngestRunTimeConfig.PipelineRunTimeConfig.SourceRunTimeConfig sourceConfig = source.asRunTimeConfig();
         return new IngestRunTimeConfig.PipelineRunTimeConfig() {
 
@@ -176,6 +245,11 @@ public final class IngestPipeline {
             @Override
             public SourceRunTimeConfig source() {
                 return sourceConfig;
+            }
+
+            @Override
+            public FilterRunTimeConfig filter() {
+                return configured == null ? NO_FILTER : configured.filter();
             }
         };
     }
