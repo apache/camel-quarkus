@@ -177,7 +177,9 @@ final class TlsConfigurationConverter {
      * operator assumes otherwise.
      */
     private static void applyTransportPolicy(SSLContextParameters parameters, TlsConfiguration tlsConfig, String name) {
-        SSLOptions sslOptions = tlsConfig.getSSLOptions();
+        // Protocols, cipher suites, key exchange groups and CRLs are populated identically on the client and server
+        // options, so either can be read here
+        SSLOptions sslOptions = tlsConfig.getClientSSLOptions();
         if (sslOptions != null) {
             Set<String> protocols = sslOptions.getEnabledSecureTransportProtocols();
             if (protocols != null && !protocols.isEmpty()) {

@@ -27,7 +27,6 @@ public class MdcLoggingTestProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-                "quarkus.log.file.path", "target/quarkus.log",
                 "quarkus.log.file.format", "MDC[%X,%m]%n",
                 "camel.main.javaRoutesExcludePattern", "**/LogRoutes",
                 "camel.main.routeFilterIncludePattern", "direct:mdcLog*",

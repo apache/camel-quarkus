@@ -20,6 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.component.vertx.http.VertxHttpComponent;
 import org.apache.camel.quarkus.component.vertx.http.CamelVertxHttpRecorder;
@@ -32,6 +33,15 @@ class VertxHttpProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    // TODO: Remove when Quarkus registers io.vertx.core.http.impl.ClientMultipartFormUpload for runtime initialization
+    // https://github.com/apache/camel-quarkus/issues/9361
+    // Quarkus VertxProcessor still references the Vert.x 4 name io.vertx.ext.web.client.impl.MultipartFormUpload,
+    // which no longer exists on Vert.x 5, so the registration is skipped
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("io.vertx.core.http.impl.ClientMultipartFormUpload");
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)

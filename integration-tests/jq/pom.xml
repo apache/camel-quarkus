@@ -30,6 +30,12 @@
     <name>Camel Quarkus :: Integration Tests :: JQ</name>
     <description>Integration tests for Camel Quarkus JQ extension</description>
 
+    <properties>
+        <!-- TODO: Re-enable after upgrading to a Quarkus 4 compatible quarkus-jackson-jq - https://github.com/apache/camel-quarkus/issues/9364 -->
+        <skipTests>true</skipTests>
+        <quarkus.build.skip>true</quarkus.build.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

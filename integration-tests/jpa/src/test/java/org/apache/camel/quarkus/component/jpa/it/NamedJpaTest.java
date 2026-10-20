@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.component.jpa.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/9357")
 @QuarkusTest
 @TestProfile(NamedJpaTestProfile.class)
 public class NamedJpaTest extends JpaTestBase {

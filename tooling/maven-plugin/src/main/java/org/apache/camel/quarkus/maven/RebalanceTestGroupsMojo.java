@@ -30,9 +30,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.apache.maven.plugin.AbstractMojo;
@@ -47,6 +44,9 @@ import org.kohsuke.github.GHWorkflowRun;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.yaml.YAMLFactory;
 
 /**
  * Analyzes GitHub Actions CI test groups to identify imbalances and suggest rebalancing.

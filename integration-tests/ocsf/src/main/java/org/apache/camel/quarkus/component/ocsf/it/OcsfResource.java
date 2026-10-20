@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -45,6 +43,8 @@ import org.apache.camel.dataformat.ocsf.model.Remediation;
 import org.apache.camel.dataformat.ocsf.model.ResourceDetails;
 import org.apache.camel.dataformat.ocsf.model.Tactic;
 import org.apache.camel.dataformat.ocsf.model.Technique;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 @Path("/ocsf")
 @ApplicationScoped
@@ -54,7 +54,7 @@ public class OcsfResource {
     ProducerTemplate producerTemplate;
 
     @Inject
-    ObjectMapper objectMapper;
+    JsonMapper jsonMapper;
 
     @Path("/marshal/event")
     @POST
@@ -346,7 +346,7 @@ public class OcsfResource {
     public Response filterBySeverity(String json) {
         try {
             // Parse JSON to read severity_id directly
-            JsonNode node = objectMapper.readTree(json);
+            JsonNode node = jsonMapper.readTree(json);
             int severityId = node.has("severity_id") ? node.get("severity_id").asInt(1) : 1;
 
             // Simulate AWS Security Hub pattern: route based on severity

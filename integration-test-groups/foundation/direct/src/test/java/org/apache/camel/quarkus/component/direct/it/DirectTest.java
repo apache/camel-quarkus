@@ -19,10 +19,10 @@ package org.apache.camel.quarkus.component.direct.it;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class DirectTest {
     }
 
     @Test
-    public void directConsumerProducer() {
+    public void directConsumerProducer(TestLog testLog) {
         final String message1 = UUID.randomUUID().toString();
         final String message2 = UUID.randomUUID().toString();
         RestAssured.given()
@@ -61,7 +61,7 @@ public class DirectTest {
                 .statusCode(204);
 
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);
+            String log = new String(Files.readAllBytes(testLog.getLogFilePath()), StandardCharsets.UTF_8);
             return log.contains(message1) && log.contains(message2);
         });
     }

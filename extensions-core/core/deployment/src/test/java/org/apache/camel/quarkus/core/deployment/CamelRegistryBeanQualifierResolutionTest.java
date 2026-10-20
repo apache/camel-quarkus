@@ -67,7 +67,7 @@ public class CamelRegistryBeanQualifierResolutionTest {
                                     getClass().getSimpleName(),
                                     methodName,
                                     Integer.toString(methodName.hashCode()),
-                                    true, s -> null);
+                                    true);
 
                             RuntimeValue<CamelBeanQualifierResolver> runtimeValueFoo = recorder
                                     .newInstance(FooNamedBeanQualifierResolver.class.getName());

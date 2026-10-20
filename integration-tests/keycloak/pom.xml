@@ -152,6 +152,9 @@
             </activation>
             <properties>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <!-- TODO: Re-enable when Quarkus adopts Mandrel 25.0.5 - https://github.com/apache/camel-quarkus/issues/9359 -->
+                <skipITs>true</skipITs>
+                <quarkus.build.skip>true</quarkus.build.skip>
             </properties>
             <build>
                 <plugins>

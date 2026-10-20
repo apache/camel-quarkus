@@ -23,6 +23,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
+@RegisterForReflection(targets = String.class, fields = false)
 public class KameletRoutes extends RouteBuilder {
 
     @Override

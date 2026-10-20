@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.google.pubsub.deployment;
 
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -26,10 +25,11 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import io.quarkus.jackson.runtime.ObjectMapperProducer;
+import io.quarkus.jackson.runtime.JsonMapperProducer;
 import org.apache.camel.component.google.pubsub.serializer.GooglePubsubSerializer;
 import org.apache.camel.quarkus.component.google.pubsub.GooglePubsubRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import tools.jackson.databind.ObjectMapper;
 
 class GooglePubsubProcessor {
 
@@ -45,7 +45,7 @@ class GooglePubsubProcessor {
         unremovable.produce(new UnremovableBeanBuildItem(
                 new UnremovableBeanBuildItem.BeanClassNameExclusion(ObjectMapper.class.getName())));
         unremovable.produce(new UnremovableBeanBuildItem(
-                new UnremovableBeanBuildItem.BeanClassNameExclusion(ObjectMapperProducer.class.getName())));
+                new UnremovableBeanBuildItem.BeanClassNameExclusion(JsonMapperProducer.class.getName())));
     }
 
     @BuildStep

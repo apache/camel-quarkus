@@ -67,6 +67,14 @@ class TwilioProcessor {
                 .toArray(String[]::new);
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(reflectiveClasses).methods().build());
 
+        // Register Twilio types for Jackson (de)serialization
+        String[] types = index.getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(className -> className.startsWith("com.twilio.type."))
+                .toArray(String[]::new);
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(types).fields().methods().build());
+
         // Register Twilio Endpoint implementors for reflection
         String[] endpointImplementors = index.getAllKnownImplementations(DotName.createSimple(Endpoint.class.getName()))
                 .stream()

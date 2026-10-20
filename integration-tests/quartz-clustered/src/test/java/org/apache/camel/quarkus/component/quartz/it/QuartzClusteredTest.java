@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
@@ -48,18 +49,18 @@ class QuartzClusteredTest {
     }
 
     @Test
-    public void clustering() throws IOException {
+    public void clustering(TestLog testLog) throws IOException {
         Config config = ConfigProvider.getConfig();
         String jdbcUrl = config.getValue("quarkus.datasource.jdbc.url", String.class);
         String datasourceUsername = config.getValue("quarkus.datasource.username", String.class);
         String datasourcePassword = config.getValue("quarkus.datasource.password", String.class);
-        Path quarkusLog = Paths.get("target/quarkus.log");
+        Path quarkusLog = testLog.getLogFilePath();
 
         // Start secondary application process
         QuarkusProcessExecutor quarkusProcessExecutor = new QuarkusProcessExecutor(
                 "-Dquartz.node.name=NodeB",
                 "-Dnode.autostart=true",
-                "-Dquarkus.log.file.path=" + QUARKUS_LOG,
+                "-Dquarkus.log.file.path=" + quarkusLog,
                 "-Dquarkus.datasource.jdbc.url=" + jdbcUrl,
                 "-Dquarkus.datasource.username=" + datasourceUsername,
                 "-Dquarkus.datasource.password=" + datasourcePassword,

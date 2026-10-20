@@ -57,13 +57,14 @@ public class CliToolServer implements QuarkusTestResourceLifecycleManager {
     static volatile boolean reject;
 
     private Vertx vertx;
+    private HttpServer server;
 
     @Override
     public Map<String, String> start() {
         vertx = Vertx.vertx();
         try {
             // frames of 64 KB at most (the Vert.x default), in both directions, as Vert.x and Quarkus servers
-            HttpServer server = vertx.createHttpServer(new HttpServerOptions()
+            server = vertx.createHttpServer(new HttpServerOptions()
                     .setMaxWebSocketMessageSize(MAX_MESSAGE_SIZE))
                     .webSocketHandshakeHandler(handshake -> {
                         REQUEST_URIS.add(handshake.uri());

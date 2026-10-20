@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Milvus</name>
     <description>Integration tests for Camel Quarkus Milvus extension</description>
 
+    <properties>
+        <allow-findbugs>true</allow-findbugs>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.google.pubsub;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InstanceHandle;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.component.google.pubsub.serializer.GooglePubsubSerializer;
+import tools.jackson.databind.ObjectMapper;
 
 @Recorder
 public class GooglePubsubRecorder {

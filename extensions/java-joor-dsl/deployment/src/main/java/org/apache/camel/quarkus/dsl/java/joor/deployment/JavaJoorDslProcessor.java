@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -32,13 +33,14 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.LambdaCapturingTypeBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.LambdaReflectionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.LambdaDescriptor;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -66,7 +68,7 @@ public class JavaJoorDslProcessor {
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void compileClassesAOT(BuildProducer<JavaJoorGeneratedClassBuildItem> generatedClass,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer,
+            BuildProducer<LambdaReflectionBuildItem> lambdaReflection,
             CurateOutcomeBuildItem curateOutcomeBuildItem) throws Exception {
         Map<String, Resource> nameToResource = new HashMap<>();
         LOG.debug("Loading .java resources");
@@ -99,7 +101,7 @@ public class JavaJoorDslProcessor {
                                 .map(Objects::toString)
                                 .collect(Collectors.joining(System.getProperty("path.separator")))));
         for (String className : result.getClassNames()) {
-            registerForReflection(reflectiveClass, lambdaCapturingTypeProducer, result.getClass(className));
+            registerForReflection(reflectiveClass, lambdaReflection, result.getClass(className));
         }
         for (String className : result.getCompiledClassNames()) {
             int index = className.indexOf("$");
@@ -111,14 +113,23 @@ public class JavaJoorDslProcessor {
     }
 
     private void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer, Class<?> aClass) {
+            BuildProducer<LambdaReflectionBuildItem> lambdaReflection, Class<?> aClass) {
         RegisterForReflection annotation = aClass.getAnnotation(RegisterForReflection.class);
         if (annotation == null) {
             return;
         }
 
-        for (String lambdaCapturingType : annotation.lambdaCapturingTypes()) {
-            lambdaCapturingTypeProducer.produce(new LambdaCapturingTypeBuildItem(lambdaCapturingType));
+        if (annotation.lambdaCapturingTypes().length > 0) {
+            throw new IllegalArgumentException(
+                    "The element 'lambdaCapturingTypes' of the annotation 'RegisterForReflection' on " + aClass.getName()
+                            + " is no longer supported. Use the element 'lambdaDescriptors' instead.");
+        }
+        for (LambdaDescriptor lambdaDescriptor : annotation.lambdaDescriptors()) {
+            lambdaReflection.produce(LambdaReflectionBuildItem
+                    .builder(lambdaDescriptor.declaringClass().getName(), lambdaDescriptor.declaringMethod())
+                    .parameterTypes(classNames(lambdaDescriptor.parameterTypes()))
+                    .interfaces(classNames(lambdaDescriptor.interfaces()))
+                    .build());
         }
         boolean methods = annotation.methods();
         boolean fields = annotation.fields();
@@ -148,6 +159,10 @@ public class JavaJoorDslProcessor {
             registerClass(null, className, methods, fields, ignoreNested, serialization, unsafeAllocated,
                     reflectiveClass);
         }
+    }
+
+    private static String[] classNames(Class<?>[] classes) {
+        return Stream.of(classes).map(Class::getName).toArray(String[]::new);
     }
 
     private void registerClass(Class<?> type, String className, boolean methods, boolean fields, boolean ignoreNested,

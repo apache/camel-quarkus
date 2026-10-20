@@ -83,6 +83,7 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
         private final String proxyPassword;
         private final Vertx vertx;
         private final HttpServer proxyServer;
+        private final NetClient netClient;
 
         ProxyServer(int port, String proxyUser, String proxyPassword) {
             this.port = port;
@@ -90,6 +91,7 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
             this.proxyPassword = proxyPassword;
             this.vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(1).setEventLoopPoolSize(1));
             this.proxyServer = vertx.createHttpServer();
+            this.netClient = vertx.createNetClient();
         }
 
         void start() {
@@ -145,8 +147,7 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
                     String[] hostParts = host.split(":");
 
                     // Deal with the result of the CONNECT tunnel and proxy the request / response
-                    NetClient netClient = vertx.createNetClient();
-                    netClient.connect(Integer.parseInt(hostParts[1]), hostParts[0], result -> {
+                    netClient.connect(Integer.parseInt(hostParts[1]), hostParts[0]).onComplete(result -> {
                         if (result.succeeded()) {
                             NetSocket clientSocket = result.result();
                             NetSocket serverSocket = httpServerRequest.toNetSocket().result();

@@ -30,6 +30,12 @@
     <name>Camel Quarkus :: Integration Tests :: OpenAI</name>
     <description>Integration tests for Camel Quarkus OpenAI extension</description>
 
+    <properties>
+        <!-- TODO: Re-enable when quarkus-mcp-server is compatible with Quarkus 4 - https://github.com/apache/camel-quarkus/issues/9362 -->
+        <skipTests>true</skipTests>
+        <quarkus.build.skip>true</quarkus.build.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

@@ -63,7 +63,7 @@ class CamelMainListenerTest {
                     public void execute(BuildContext context) {
                         String methodName = "execute";
                         BytecodeRecorderImpl bri = new BytecodeRecorderImpl(true, getClass().getSimpleName(), methodName,
-                                Integer.toString(methodName.hashCode()), true, s -> null);
+                                Integer.toString(methodName.hashCode()), true);
                         RuntimeValue<MainListener> value = bri.newInstance(CustomMainListener.class.getName());
                         context.produce(new CamelMainListenerBuildItem(value));
                         context.produce(new StaticBytecodeRecorderBuildItem(bri));

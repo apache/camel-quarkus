@@ -21,7 +21,7 @@ import java.util.function.BooleanSupplier;
 import io.quarkus.deployment.IsDevelopment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
-import io.quarkus.devui.spi.JsonRPCProvidersBuildItem;
+import io.quarkus.devjsonrpc.spi.JsonRPCProvidersBuildItem;
 import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptBuildTimeConfig;

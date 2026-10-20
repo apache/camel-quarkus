@@ -59,6 +59,7 @@ public abstract class VertxWebsocketSslTest {
         try (VertxWebsocketTest.WebSocketConnection connection = new VertxWebsocketTest.WebSocketConnection(uri, null, 1,
                 sslOptions)) {
             connection.connect();
+            connection.awaitPeerRegistration();
 
             RestAssured.given()
                     .queryParam("endpointUri",

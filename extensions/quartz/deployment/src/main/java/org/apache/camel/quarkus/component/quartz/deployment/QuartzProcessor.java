@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.quartz.deployment;
 
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -42,8 +43,7 @@ class QuartzProcessor {
     private static final String[] QUARTZ_JOB_CLASSES = new String[] {
             "org.apache.camel.component.quartz.CamelJob",
             "org.apache.camel.component.quartz.StatefulCamelJob",
-            "org.apache.camel.pollconsumer.quartz.QuartzScheduledPollConsumerJob",
-            "org.quartz.utils.C3p0PoolingConnectionProvider"
+            "org.apache.camel.pollconsumer.quartz.QuartzScheduledPollConsumerJob"
     };
     private static final String[] QUARTZ_JOB_CLASSES_WITH_METHODS = new String[] {
             "org.quartz.impl.jdbcjobstore.JobStoreTX",
@@ -66,6 +66,14 @@ class QuartzProcessor {
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
         return ReflectiveClassBuildItem.builder(QUARTZ_JOB_CLASSES).build();
+    }
+
+    @BuildStep
+    void registerC3p0ConnectionProviderForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        if (QuarkusClassLoader.isClassPresentAtRuntime("com.mchange.v2.c3p0.ComboPooledDataSource")) {
+            reflectiveClasses
+                    .produce(ReflectiveClassBuildItem.builder("org.quartz.utils.C3p0PoolingConnectionProvider").build());
+        }
     }
 
     @BuildStep

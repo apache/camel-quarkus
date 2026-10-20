@@ -19,8 +19,13 @@ package org.apache.camel.quarkus.support.azure.core.http.vertx;
 import com.azure.core.http.vertx.VertxProvider;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.gizmo.Gizmo;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Handle;
+import org.objectweb.asm.MethodVisitor;
 
 public class AzureCoreHttpClientVertxProcessor {
 
@@ -35,5 +40,42 @@ public class AzureCoreHttpClientVertxProcessor {
     @BuildStep
     void registerServiceProviders(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
         serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(VertxProvider.class.getName()));
+    }
+
+    @BuildStep
+    BytecodeTransformerBuildItem transformVertxHttpClient() {
+        // azure-core-http-vertx is compiled against Vert.x 4, where HttpClientRequest.reset(long, Throwable) returns
+        // boolean. In Vert.x 5 it returns Future<Void>, so the vertxRequest::reset method reference fails to link and
+        // requests with a streamed body hang. The reference targets a BiConsumer, so the return value is discarded
+        // either way. TODO: Remove when https://github.com/apache/camel-quarkus/issues/9360 is resolved
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform("com.azure.core.http.vertx.VertxHttpClient")
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
+                    @Override
+                    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                            String[] exceptions) {
+                        MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+                        return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                            @Override
+                            public void visitInvokeDynamicInsn(String methodName, String methodDescriptor,
+                                    Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
+                                for (int i = 0; i < bootstrapMethodArguments.length; i++) {
+                                    if (bootstrapMethodArguments[i] instanceof Handle handle
+                                            && handle.getOwner().equals("io/vertx/core/http/HttpClientRequest")
+                                            && handle.getName().equals("reset")
+                                            && handle.getDesc().equals("(JLjava/lang/Throwable;)Z")) {
+                                        bootstrapMethodArguments[i] = new Handle(handle.getTag(), handle.getOwner(),
+                                                handle.getName(), "(JLjava/lang/Throwable;)Lio/vertx/core/Future;",
+                                                handle.isInterface());
+                                    }
+                                }
+                                super.visitInvokeDynamicInsn(methodName, methodDescriptor, bootstrapMethodHandle,
+                                        bootstrapMethodArguments);
+                            }
+                        };
+                    }
+                })
+                .build();
     }
 }

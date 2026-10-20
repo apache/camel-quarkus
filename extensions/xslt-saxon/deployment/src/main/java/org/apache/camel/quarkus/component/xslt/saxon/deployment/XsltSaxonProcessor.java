@@ -49,5 +49,7 @@ class XsltSaxonProcessor {
 
         runtimeInitializedClasses
                 .produce(new RuntimeInitializedClassBuildItem("org.apache.hc.client5.http.impl.auth.NTLMEngineImpl"));
+        // Avoids linking failures at build time from references to the optional Jing dependency
+        runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem("org.xmlresolver.utils.SaxProducer"));
     }
 }

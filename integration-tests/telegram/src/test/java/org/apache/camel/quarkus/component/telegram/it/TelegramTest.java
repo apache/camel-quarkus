@@ -26,6 +26,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.mapper.ObjectMapperType;
 import org.apache.camel.component.telegram.model.EditMessageLiveLocationMessage;
 import org.apache.camel.component.telegram.model.MessageResult;
 import org.apache.camel.component.telegram.model.SendLocationMessage;
@@ -155,13 +156,14 @@ public class TelegramTest {
 
         final SendLocationMessage sendLoc = new SendLocationMessage(29.974834, 31.138577);
         sendLoc.setLivePeriod(120);
+        // MessageResult is a Jackson 2 type with a Jackson 2 JsonNode field
         final MessageResult result = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(sendLoc)
                 .post("/telegram/send-location")
                 .then()
                 .statusCode(201)
-                .extract().body().as(MessageResult.class);
+                .extract().body().as(MessageResult.class, ObjectMapperType.JACKSON_2);
 
         /* Update the location */
         final EditMessageLiveLocationMessage edit = new EditMessageLiveLocationMessage(29.974928, 31.131115);

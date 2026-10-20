@@ -149,8 +149,10 @@ public class CamelNativeImageProcessor {
     }
 
     private boolean shouldRegisterConverter(org.jboss.jandex.AnnotationInstance ai) {
-        AnnotationValue av = ai.value("loader");
-        boolean isLoader = av != null && av.asBoolean();
+        AnnotationValue generateLoader = ai.value("generateLoader");
+        AnnotationValue generateBulkLoader = ai.value("generateBulkLoader");
+        boolean isLoader = (generateLoader != null && generateLoader.asBoolean())
+                || (generateBulkLoader != null && generateBulkLoader.asBoolean());
         // filter out camel-base converters which are automatically inlined in the
         // CoreStaticTypeConverterLoader
         // need to revisit with Camel 3.0.0-M3 which should improve this area

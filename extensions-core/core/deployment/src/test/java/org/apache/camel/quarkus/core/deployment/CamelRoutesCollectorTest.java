@@ -59,7 +59,7 @@ class CamelRoutesCollectorTest {
                     public void execute(BuildContext context) {
                         String methodName = "execute";
                         BytecodeRecorderImpl bri = new BytecodeRecorderImpl(true, getClass().getSimpleName(), methodName,
-                                Integer.toString(methodName.hashCode()), true, s -> null);
+                                Integer.toString(methodName.hashCode()), true);
                         RuntimeValue<RoutesCollector> value = bri.newInstance(CustomRoutesCollector.class.getName());
                         context.produce(new CamelRoutesCollectorBuildItem(value));
                         context.produce(new StaticBytecodeRecorderBuildItem(bri));

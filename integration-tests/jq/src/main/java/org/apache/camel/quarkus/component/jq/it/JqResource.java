@@ -38,8 +38,7 @@ public class JqResource {
     ProducerTemplate producerTemplate;
     @Inject
     CamelContext context;
-    @Inject
-    ObjectMapper mapper;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Path("/expression")
     @GET
