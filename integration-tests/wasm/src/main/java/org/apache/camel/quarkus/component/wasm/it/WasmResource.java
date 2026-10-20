@@ -28,6 +28,7 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.wasm.WasmExitCodeException;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 @Path("/wasm")
@@ -54,6 +55,12 @@ public class WasmResource {
                     "foo", message.getHeader("foo", String.class)))
                     .build();
 
+        } else if (exception instanceof WasmExitCodeException e) {
+            return Response.serverError()
+                    .entity(Map.of(
+                            "exitCode", e.getExitCode(),
+                            "stderr", e.getStderr()))
+                    .build();
         } else {
             String message = exception.getMessage();
             if (exception.getCause() instanceof RuntimeException) {

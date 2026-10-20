@@ -7,7 +7,8 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"self\":\"http://localhost:8080/rest/api/latest/user?username=test\",\"name\":\"test\",\"loginInfo\":{\"failedLoginCount\":2,\"loginCount\":2024,\"lastFailedLoginTime\":\"2025-10-24T07:11:34.283+0000\",\"previousLoginTime\":\"2025-10-24T09:52:21.467+0000\"}}",
+    "transformers" : [ "response-template" ],
+    "body" : "{\"self\":\"{{request.baseUrl}}/rest/api/latest/user?username=test\",\"name\":\"test\",\"loginInfo\":{\"failedLoginCount\":2,\"loginCount\":2024,\"lastFailedLoginTime\":\"2025-10-24T07:11:34.283+0000\",\"previousLoginTime\":\"2025-10-24T09:52:21.467+0000\"}}",
     "headers" : {
       "Keep-Alive" : "timeout=20",
       "X-AREQUESTID" : "592x555x1",
