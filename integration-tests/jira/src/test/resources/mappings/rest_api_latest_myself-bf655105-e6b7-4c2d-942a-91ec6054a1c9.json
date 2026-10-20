@@ -7,7 +7,8 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"self\":\"http://localhost:8080/rest/api/2/user?username=test\",\"key\":\"JIRAUSER10000\",\"name\":\"test\",\"emailAddress\":\"ondrusek.jiri@gmail.com\",\"avatarUrls\":{\"48x48\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=48\",\"24x24\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=24\",\"16x16\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=16\",\"32x32\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=32\"},\"displayName\":\"test\",\"active\":true,\"deleted\":false,\"timeZone\":\"Etc/UTC\",\"locale\":\"en_US\",\"groups\":{\"size\":2,\"items\":[]},\"applicationRoles\":{\"size\":1,\"items\":[]},\"expand\":\"groups,applicationRoles\"}",
+    "transformers" : [ "response-template" ],
+    "body" : "{\"self\":\"{{request.baseUrl}}/rest/api/2/user?username=test\",\"key\":\"JIRAUSER10000\",\"name\":\"test\",\"emailAddress\":\"ondrusek.jiri@gmail.com\",\"avatarUrls\":{\"48x48\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=48\",\"24x24\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=24\",\"16x16\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=16\",\"32x32\":\"https://www.gravatar.com/avatar/827109cd191f5b0a60b29a73d4e57adc?d=mm&s=32\"},\"displayName\":\"test\",\"active\":true,\"deleted\":false,\"timeZone\":\"Etc/UTC\",\"locale\":\"en_US\",\"groups\":{\"size\":2,\"items\":[]},\"applicationRoles\":{\"size\":1,\"items\":[]},\"expand\":\"groups,applicationRoles\"}",
     "headers" : {
       "Keep-Alive" : "timeout=20",
       "X-AREQUESTID" : "592x542x1",

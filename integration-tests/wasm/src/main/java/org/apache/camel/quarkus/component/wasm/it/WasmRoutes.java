@@ -26,42 +26,30 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class WasmRoutes extends RouteBuilder {
     static final Path WASM_MODULE_PATH = Paths.get("target/wasm/modules");
-    static final Path WASM_FUNCTIONS = WASM_MODULE_PATH.resolve("functions.wasm");
+    static final Path WASM_UPPER = WASM_MODULE_PATH.resolve("upper.wasm");
 
     @Override
     public void configure() throws Exception {
-        copyFunctionsToFilesystem();
+        copyUpperToFilesystem();
 
         from("direct:executeFunctionFromClasspath")
-                .toD("wasm:process?module=wasm/modules/functions.wasm");
+                .to("wasm:wasm/modules/upper.wasm");
 
         from("direct:executeFunctionFromFile")
-                .toD("wasm:process?module=file:target/wasm/modules/functions.wasm");
+                .to("wasm:file:target/wasm/modules/upper.wasm");
 
         from("direct:executeFunctionError")
-                .toD("wasm:process_err?module=wasm/modules/functions.wasm");
-
-        from("direct:executeFunctionViaLanguageFromClasspath")
-                .transform()
-                .wasm("transform", "wasm/modules/functions.wasm");
-
-        from("direct:executeFunctionViaLanguageFromFile")
-                .transform()
-                .wasm("transform", "file:target/wasm/modules/functions.wasm");
-
-        from("direct:executeFunctionViaLanguageError")
-                .transform()
-                .wasm("transform_err", "wasm/modules/functions.wasm");
+                .to("wasm:wasm/modules/error.wasm");
     }
 
-    static void copyFunctionsToFilesystem() throws IOException {
+    static void copyUpperToFilesystem() throws IOException {
         Files.createDirectories(WASM_MODULE_PATH);
         try (InputStream stream = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("wasm/modules/functions.wasm")) {
+                .getResourceAsStream("wasm/modules/upper.wasm")) {
             if (stream == null) {
-                throw new RuntimeException("Failed to read functions.wasm from the classpath");
+                throw new RuntimeException("Failed to read upper.wasm from the classpath");
             }
-            Files.copy(stream, WASM_FUNCTIONS);
+            Files.copy(stream, WASM_UPPER);
         }
     }
 }
