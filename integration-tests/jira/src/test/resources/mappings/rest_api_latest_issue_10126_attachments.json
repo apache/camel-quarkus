@@ -1,0 +1,13 @@
+{
+  "name" : "rest_api_latest_issue_10126_attachments",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/10126/attachments",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "contains" : "Camel Quarkus Test Issue Attachment"
+    } ]
+  },
+  "response" : {
+    "status" : 200
+  }
+}

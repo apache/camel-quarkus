@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Platform HTTP Proxy</name>
     <description>Integration tests for Camel Quarkus platform-http extension - Proxy</description>
 
+    <properties>
+        <!-- TODO(#9348): re-enable native when Camel Quarkus moves to Quarkus 4.x (Vert.x 5) -->
+        <ci.native.tests.skip>true</ci.native.tests.skip>
+    </properties>
+
     <dependencies>
 
         <dependency>

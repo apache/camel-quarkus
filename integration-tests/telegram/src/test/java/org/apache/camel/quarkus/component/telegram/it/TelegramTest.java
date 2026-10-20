@@ -34,6 +34,7 @@ import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
 import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -245,8 +246,18 @@ public class TelegramTest {
                 "      \"migrate_from_chat_id\":0\n" +
                 "   }\n" +
                 "}";
+        //a request without the secret token the webhook was registered with is rejected
         RestAssured.given()
                 .contentType(ContentType.JSON)
+                .body(message)
+                .post("/my-test")
+                .then()
+                .statusCode(403);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .header("X-Telegram-Bot-Api-Secret-Token",
+                        ConfigProvider.getConfig().getValue("webhook-secret-token", String.class))
                 .body(message)
                 .post("/my-test")
                 .then()
