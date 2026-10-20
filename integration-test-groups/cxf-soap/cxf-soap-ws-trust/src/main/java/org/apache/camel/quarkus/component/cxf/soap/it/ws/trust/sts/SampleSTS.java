@@ -42,7 +42,8 @@ import org.eclipse.microprofile.config.ConfigProvider;
         @EndpointProperty(key = "ws-security.signature.username", value = "mystskey"),
         @EndpointProperty(key = "ws-security.signature.properties", value = "stsKeystore.properties"),
         @EndpointProperty(key = "ws-security.callback-handler", value = "org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.sts.StsCallbackHandler"),
-        @EndpointProperty(key = "ws-security.validate.token", value = "false")
+        @EndpointProperty(key = "ws-security.validate.token", value = "false"),
+        @EndpointProperty(key = "ws-security.custom.alg.suite.asymmetric.key.encryption.algorithm", value = "http://www.w3.org/2001/04/xmlenc#rsa-1_5")
 })
 public class SampleSTS extends SecurityTokenServiceProvider {
 
