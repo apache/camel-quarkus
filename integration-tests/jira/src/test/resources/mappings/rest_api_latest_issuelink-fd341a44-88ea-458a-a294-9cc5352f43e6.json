@@ -12,6 +12,7 @@
   },
   "response" : {
     "status" : 201,
+    "transformers" : [ "response-template" ],
     "headers" : {
       "Keep-Alive" : "timeout=20",
       "X-AREQUESTID" : "592x571x1",
@@ -29,7 +30,7 @@
       "X-XSS-Protection" : "1; mode=block",
       "X-Seraph-LoginReason" : "OK",
       "Content-Type" : "text/html;charset=UTF-8",
-      "Location" : "http://localhost:8080/rest/api/2/issueLink/10103"
+      "Location" : "{{request.baseUrl}}/rest/api/2/issueLink/10103"
     }
   },
   "uuid" : "fd341a44-88ea-458a-a294-9cc5352f43e6",

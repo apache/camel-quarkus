@@ -61,6 +61,43 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- Compiles the test modules in src/main/wat to wasm/modules on the classpath -->
+                        <id>wat2wasm</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <scripts>
+                                <script>
+                                    File modules = new File(project.build.outputDirectory, 'wasm/modules')
+                                    modules.mkdirs()
+                                    new File(project.basedir, 'src/main/wat').eachFileMatch(~/.*\.wat/) { File wat ->
+                                        new File(modules, wat.name.replace('.wat', '.wasm')).bytes = run.endive.wabt.Wat2Wasm.parse(wat)
+                                    }
+                                </script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>run.endive</groupId>
+                        <artifactId>wabt</artifactId>
+                        <version>${endive.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>native</id>
