@@ -25,8 +25,9 @@ The core skill teaches the AI agent to:
   https://camel.apache.org/manual/camel-report-maven-plugin.html[`camel-report-maven-plugin:validate`]
   goal before delivering them
 * Follow CDI injection patterns for `CamelContext`, `ProducerTemplate`, and named beans
-* Use `CamelQuarkusTestSupport` (not `CamelTestSupport`) for JVM-mode tests, and avoid
-  `@Inject` in `@QuarkusIntegrationTest` native tests
+* Prefer `@CamelQuarkusTest` for JVM-mode tests (plain `@QuarkusTest` when no Camel-specific
+  features are needed), never extend `CamelTestSupport`, and avoid `@Inject` in
+  `@QuarkusIntegrationTest` native tests
 * Apply `@RegisterForReflection` on classes accessed via reflection in native mode
 
 == Dev MCP tools
