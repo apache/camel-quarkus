@@ -1,0 +1,1 @@
+The `ai-resource` component registers Camel routes as read-only resources in a shared `AiResourceRegistry`. To serve the tagged routes as MCP resources, add the `camel-quarkus-mcp-server` extension, see xref:reference/extensions/mcp-server.adoc#extensions-mcp-server-usage-resources[MCP Server resources].

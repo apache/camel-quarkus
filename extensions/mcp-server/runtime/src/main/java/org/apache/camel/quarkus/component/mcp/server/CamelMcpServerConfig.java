@@ -32,7 +32,8 @@ import io.smallrye.config.WithDefault;
 public interface CamelMcpServerConfig {
 
     /**
-     * Whether to expose ai-tool routes as MCP tools through the quarkus-mcp-server extension.
+     * Whether to expose ai-tool routes as MCP tools and ai-resource routes as MCP resources through the
+     * quarkus-mcp-server extension.
      *
      * @asciidoclet
      */
@@ -40,8 +41,9 @@ public interface CamelMcpServerConfig {
     boolean enabled();
 
     /**
-     * Comma-separated list of ai-tool tags to expose as MCP tools. Only tools registered under one of these tags are
-     * exposed; the untagged default pool is never exposed. When not set, no tools are exposed.
+     * Comma-separated list of tags selecting the ai-tool routes to expose as MCP tools and the ai-resource routes to
+     * expose as MCP resources. Only routes registered under one of these tags are exposed; the untagged default pools
+     * are never exposed. When not set, nothing is exposed.
      *
      * @asciidoclet
      */
@@ -55,4 +57,13 @@ public interface CamelMcpServerConfig {
      */
     @WithDefault("20000")
     long toolTimeout();
+
+    /**
+     * Per-read resource execution timeout in milliseconds. A read exceeding the timeout returns an error to the MCP
+     * client; the underlying route keeps running until it completes on its own.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("20000")
+    long resourceTimeout();
 }

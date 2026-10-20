@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.component.mcp.server.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.mcp.server.CamelMcpServerConfig;
 import org.apache.camel.quarkus.component.mcp.server.CamelMcpServerRecorder;
+import org.apache.camel.quarkus.component.mcp.server.QuarkusMcpServerEngineFactory;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 
 class McpServerProcessor {
@@ -36,10 +38,16 @@ class McpServerProcessor {
     }
 
     @BuildStep(onlyIf = McpServerEnabled.class)
+    AdditionalBeanBuildItem mcpServerEngineFactory() {
+        return AdditionalBeanBuildItem.unremovableOf(QuarkusMcpServerEngineFactory.class);
+    }
+
+    @BuildStep(onlyIf = McpServerEnabled.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     RuntimeCamelContextCustomizerBuildItem mcpServerBridge(CamelMcpServerRecorder recorder, CamelMcpServerConfig config) {
         return new RuntimeCamelContextCustomizerBuildItem(
-                recorder.createContextCustomizer(config.tags().orElse(null), config.toolTimeout()));
+                recorder.createContextCustomizer(config.tags().orElse(null), config.toolTimeout(),
+                        config.resourceTimeout()));
     }
 
     static final class McpServerEnabled implements BooleanSupplier {

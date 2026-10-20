@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.mcp.server;
 
-import io.quarkiverse.mcp.server.ToolManager;
 import io.quarkus.arc.Arc;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
@@ -30,16 +29,17 @@ import org.apache.camel.spi.CamelContextCustomizer;
 @Recorder
 public class CamelMcpServerRecorder {
 
-    public RuntimeValue<CamelContextCustomizer> createContextCustomizer(String tags, long toolTimeout) {
+    public RuntimeValue<CamelContextCustomizer> createContextCustomizer(String tags, long toolTimeout, long resourceTimeout) {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {
-                ToolManager toolManager = Arc.container().instance(ToolManager.class).get();
-                QuarkusMcpServerEngine engine = new QuarkusMcpServerEngine(toolManager);
+                QuarkusMcpServerEngine engine = Arc.container().instance(QuarkusMcpServerEngineFactory.class).get()
+                        .createEngine();
 
                 McpServerConfiguration configuration = new McpServerConfiguration();
                 configuration.setTags(tags);
                 configuration.setToolTimeout(toolTimeout);
+                configuration.setResourceTimeout(resourceTimeout);
                 McpServerBridge bridge = new McpServerBridge(configuration);
                 try {
                     // the bridge resolves the engine registry-first
