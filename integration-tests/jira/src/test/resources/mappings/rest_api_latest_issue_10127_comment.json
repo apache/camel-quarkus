@@ -1,0 +1,13 @@
+{
+  "name" : "rest_api_latest_issue_10127_comment",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/10127/comment",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"body\":\"Camel Quarkus Test Issue Comment\"}"
+    } ]
+  },
+  "response" : {
+    "status" : 201
+  }
+}

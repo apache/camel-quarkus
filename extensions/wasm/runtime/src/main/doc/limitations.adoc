@@ -1,0 +1,1 @@
+The `compile=true` option is not supported in native mode. Compiling a module generates JVM classes at runtime, which a native executable cannot load, so the producer fails to start: with its route, or with `lazyStartProducer=true` on the first exchange, which then fails. In native mode, modules are interpreted.
