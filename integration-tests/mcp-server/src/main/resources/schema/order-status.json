@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "orderId": { "type": "string", "description": "The order id" },
+    "status": { "type": "string", "enum": ["pending", "shipped", "delivered"] },
+    "items": {
+      "type": "array",
+      "description": "The ordered SKUs",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["orderId", "status", "items"]
+}

@@ -30,6 +30,8 @@ import io.quarkiverse.mcp.server.test.McpAssured.ToolInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolsPage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -116,6 +118,54 @@ class McpServerTest {
     }
 
     @Test
+    void testOutputSchemaIsPublished() {
+        client().when()
+                .toolsList(page -> {
+                    // outputSchema resource, published as-is with its nested structure
+                    JsonObject orderStatus = toolByName(page, "order_status").outputSchema();
+                    assertThat(orderStatus).isNotNull();
+                    assertThat(orderStatus.getJsonObject("properties").getJsonObject("items")
+                            .getJsonObject("items").getString("type")).isEqualTo("string");
+                    assertThat(orderStatus.getJsonArray("required")).containsExactly("orderId", "status", "items");
+
+                    // flat outputParameter.* options, published as the generated schema
+                    JsonObject weather = toolByName(page, "get_weather").outputSchema();
+                    assertThat(weather).isNotNull();
+                    assertThat(weather.getJsonObject("properties").getJsonObject("temperature")
+                            .getString("type")).isEqualTo("number");
+                    assertThat(weather.getJsonObject("properties").getJsonObject("unit").getJsonArray("enum"))
+                            .containsExactly("celsius", "fahrenheit");
+                    assertThat(weather.getJsonArray("required")).containsExactly("temperature");
+
+                    // tools without an output declaration are unchanged
+                    assertThat(toolByName(page, "say_hello").outputSchema()).isNull();
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testStructuredContentIsReturned() {
+        client().when()
+                .toolsCall("order_status", response -> {
+                    assertThat(response.isError()).isFalse();
+                    assertThat(response.structuredContent()).isEqualTo(new JsonObject()
+                            .put("orderId", "O-1")
+                            .put("status", "shipped")
+                            .put("items", new JsonArray().add("BOOK").add("PEN")));
+                    // the JSON text is still returned for clients without structured output support
+                    assertThat(textOf(response))
+                            .isEqualTo("{\"orderId\":\"O-1\",\"status\":\"shipped\",\"items\":[\"BOOK\",\"PEN\"]}");
+                })
+                .toolsCall("get_weather", response -> {
+                    assertThat(response.isError()).isFalse();
+                    assertThat(response.structuredContent())
+                            .isEqualTo(new JsonObject().put("temperature", 21.5).put("unit", "celsius"));
+                    assertThat(textOf(response)).isEqualTo("{\"temperature\":21.5,\"unit\":\"celsius\"}");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
     void testQuarkusAnnotatedToolsCoexistWithCamelTools() {
         // both tool sources are served by the same MCP server
         client().when()
@@ -133,6 +183,7 @@ class McpServerTest {
                 .toolsCall("say_hello", Map.of("name", "World"), response -> {
                     assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
                     assertThat(textOf(response)).isEqualTo("Hello World");
+                    assertThat(response.structuredContent()).isNull();
                 })
                 .thenAssertResults();
     }

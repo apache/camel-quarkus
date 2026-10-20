@@ -60,5 +60,14 @@ public class McpServerRoutes extends RouteBuilder {
                     List<?> items = e.getMessage().getHeader("items", List.class);
                     e.getMessage().setBody("order for customer " + customer.get("id") + " with " + items.size() + " item(s)");
                 });
+
+        from("ai-tool:order_status?tags=conformance&description=Get the status of an order"
+                + "&outputSchema=classpath:schema/order-status.json")
+                .setBody(constant("{\"orderId\":\"O-1\",\"status\":\"shipped\",\"items\":[\"BOOK\",\"PEN\"]}"));
+
+        from("ai-tool:get_weather?tags=conformance&description=Get the weather"
+                + "&outputParameter.temperature=number&outputParameter.temperature.required=true"
+                + "&outputParameter.unit=string&outputParameter.unit.enum=celsius,fahrenheit")
+                .setBody(constant("{\"temperature\":21.5,\"unit\":\"celsius\"}"));
     }
 }
