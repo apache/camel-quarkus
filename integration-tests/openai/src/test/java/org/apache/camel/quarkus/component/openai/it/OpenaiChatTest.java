@@ -32,13 +32,12 @@ import java.util.stream.IntStream;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.condition.EnabledIfConfig;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.util.FileUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -71,23 +70,14 @@ class OpenaiChatTest {
                 .body(containsStringIgnoringCase("camel"));
     }
 
+    @EnabledIfConfig(named = "openai.vision.enabled", matches = "true")
     @Test
     void chatWithImage() throws IOException {
-        String wireMockUrl = RestAssured.get("/openai/configProperty/wiremock.url")
-                .then()
-                .statusCode(200).extract().body().asString();
-        String openaiUrl = RestAssured.get("/openai/configProperty/camel.component.openai.baseUrl")
-                .then()
-                .statusCode(200).extract().body().asString();
-        // run image test only on openai model or on wiremock
-        Assumptions.assumeTrue(
-                OpenaiTestResource.OPENAI_API_URL.equals(openaiUrl) || StringUtils.isNotEmpty(wireMockUrl),
-                "Needs model which support image operations.");
-        Path path = Paths.get("target/camel-log.png");
+        Path path = Paths.get("target/orange.png");
 
-        try (InputStream stream = OpenaiChatTest.class.getResourceAsStream("/img/camel-logo.png")) {
+        try (InputStream stream = OpenaiChatTest.class.getResourceAsStream("/img/orange.png")) {
             if (stream == null) {
-                throw new IllegalStateException("Failed loading camel-logo.png");
+                throw new IllegalStateException("Failed loading orange.png");
             }
 
             try (OutputStream out = new FileOutputStream(path.toFile())) {
@@ -95,12 +85,12 @@ class OpenaiChatTest {
             }
 
             RestAssured.given()
-                    .queryParam("userMessage", "Describe what you see in this image")
-                    .body("target/camel-log.png")
+                    .queryParam("userMessage", "What colour is this image? Answer with one word.")
+                    .body("target/orange.png")
                     .post("/openai/chat/image")
                     .then()
                     .statusCode(200)
-                    .body(containsStringIgnoringCase("camel"));
+                    .body(containsStringIgnoringCase("orange"));
         } finally {
             if (FileUtil.isWindows()) {
                 // File may be locked by the Quarkus process, so clean up on VM exit
