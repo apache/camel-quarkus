@@ -211,10 +211,23 @@ public class CamelCoreDevUIService {
             result.put("errors", "Malformed endpoint URI, expected scheme:path[?options]");
             return result.toJson();
         }
-        EndpointValidationResult validation = validateEndpointUri(catalog, uri);
+        EndpointValidationResult validation;
+        try {
+            validation = validateEndpointUri(catalog, uri);
+        } catch (RuntimeException e) {
+            result.put("valid", false);
+            result.put("errors", "Could not validate endpoint URI: " + e.getMessage());
+            return result.toJson();
+        }
         if (validation.getUnknownComponent() != null) {
             result.put("valid", false);
-            result.put("errors", missingComponentMessage(validation.getUnknownComponent()));
+            String scheme = StringHelper.before(uri, ":");
+            if (scheme == null || scheme.isBlank()) {
+                // No scheme at all: the catalog reports the whole URI as the unknown component
+                result.put("errors", "Malformed endpoint URI, expected scheme:path[?options]");
+            } else {
+                result.put("errors", missingComponentMessage(validation.getUnknownComponent()));
+            }
             return result.toJson();
         }
         result.put("valid", validation.isSuccess());

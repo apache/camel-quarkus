@@ -118,6 +118,15 @@ public class CamelQuarkusCoreDevUITest extends DevUIJsonRPCTest {
     }
 
     @Test
+    void camelValidateEndpointUriRejectsSchemelessUri() throws Exception {
+        String result = super.executeJsonRPCMethod(String.class, "camelValidateEndpointUri",
+                Map.of("uri", "foobar"));
+        JsonObject json = (JsonObject) Json.decodeValue(result);
+        assertFalse(json.getBoolean("valid"));
+        assertTrue(json.getString("errors").contains("Malformed"));
+    }
+
+    @Test
     void camelValidateEndpointUriRejectsUnknownComponent() throws Exception {
         String result = super.executeJsonRPCMethod(String.class, "camelValidateEndpointUri",
                 Map.of("uri", "kafka:orders?brokers=localhost:9092"));
