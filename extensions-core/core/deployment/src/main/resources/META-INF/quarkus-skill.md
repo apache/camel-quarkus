@@ -31,16 +31,18 @@ public class MyRoute extends EndpointRouteBuilder {
 }
 ```
 
-Beware: builder methods for **all** components compile via `camel-quarkus-core`, even when the component's extension is missing from the `pom.xml`. The route then fails at runtime. Always add the `camel-quarkus-<name>` dependency for every component used.
+Beware: builder methods for **all** components compile via `camel-quarkus-core`, even when the component's extension is missing from the `pom.xml`. The route then fails at runtime. Always add the extension that provides each component used; when its artifact name is not obvious from the scheme (e.g. `smtp` is in `camel-quarkus-mail`), find it in the Quarkus platform catalog.
 
 Plain `RouteBuilder` with string URIs (`from("timer:tick?period=5000")`) also works.
 
-YAML DSL needs `camel-quarkus-yaml-dsl`, and route files are not auto-discovered: list them in `camel.main.routes-include-pattern` in `application.properties`.
+YAML DSL needs `camel-quarkus-yaml-dsl`. Route files are auto-discovered from the default `camel.main.routes-include-pattern` (`classpath:camel/*,classpath:camel-template/*,classpath:camel-rest/*`), so a file under `src/main/resources/camel/` loads with no configuration. Setting that property in `application.properties` **replaces** the defaults, so keep the default patterns if you add your own, or other route files stop loading.
 
 ### Dependencies and configuration
 
 - Import the `io.quarkus.platform:quarkus-camel-bom` in `<dependencyManagement>` (next to `quarkus-bom`) and declare `camel-quarkus-*` dependencies **without versions**.
 - Configure components in `application.properties` with `camel.component.<name>.<option> = value` instead of Java configuration code.
+- In dev and test mode, Quarkus **Dev Services** auto-start backing services (Kafka, databases, Infinispan, ...) and inject their connection config. Do not hardcode that detail (Kafka `brokers`, a JDBC URL, ...): setting it yourself disables the Dev Services wiring. Leave it unset in dev/test and configure it only for production (e.g. with a `%prod.` profile).
+- Components that talk to a backend (kafka, sql, jms, aws, ...) need that backend actually running. In dev/test, Dev Services starts it — but only when a container runtime (Podman or Docker) is reachable, which a sandbox often lacks. A valid URI is not a working route: when a runtime is up, smoke-test end to end (send a message, confirm it is consumed) before calling it done. When none is reachable, Dev Services cannot start the backend — report that as an environment limitation; do not hardcode connection details to fake it, and do not keep retrying a send that cannot succeed.
 - Before using an extension, read its reference page: `https://camel.apache.org/camel-quarkus/latest/reference/extensions/<name>.html`. It documents the extension's usage patterns, configuration, and limitations (such as JVM-only support or native mode constraints).
 
 ### Endpoint options: never guess
@@ -75,9 +77,9 @@ https://camel.apache.org/camel-quarkus/latest/user-guide/testing.html
 
 The mistakes to avoid:
 
-- JVM tests are `@QuarkusTest` extending `CamelQuarkusTestSupport` (from the `camel-quarkus-junit` test dependency). **Never extend `CamelTestSupport`**: it is incompatible with Quarkus.
+- JVM tests: prefer `@CamelQuarkusTest` (from the `camel-quarkus-junit` test dependency). It configures Camel test features through annotation attributes instead of a base class, and implies `@QuarkusTest`. JVM-only. Plain `@QuarkusTest` on its own is fine when you need no Camel-specific test features. The `CamelQuarkusTestSupport` base class is still supported; **never extend `CamelTestSupport`** (not suited to Quarkus).
 - Native tests are `@QuarkusIntegrationTest` extending the JVM test class. The app runs as a separate process, so **`@Inject` does not work there**: assert through REST endpoints (RestAssured) or external effects instead.
-- To mock real endpoints in application routes, use the built-in `adviceRoute("route-id", route -> ...)` helper: route lifecycle and advice cleanup between tests are automatic. Never advise routes created via `createRouteBuilder()` in the test class.
+- With `@CamelQuarkusTest`, declare test routes with the `routes` attribute and inject `ProducerTemplate` / `MockEndpoint` (`@Inject` / `@EndpointInject`). Advise application routes with `advices` / `replaceRouteFromWith`, or per test method through an injected `CamelTestHelper`; `mockEndpoints` / `mockEndpointsAndSkip` need isolated mode (`@TestProfile`). With the `CamelQuarkusTestSupport` base class instead, override `createRouteBuilder()` for test routes and use its `adviceRoute("route-id", route -> ...)` helper; never advise routes created via `createRouteBuilder()`.
 
 ### Native mode pitfalls
 

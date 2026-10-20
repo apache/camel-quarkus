@@ -36,9 +36,9 @@ Use it in a route with the `.bean("myBean", "hello")` EIP (works in every DSL), 
 
 ### POJO consuming and producing
 
-- `@Consume("direct:in")` on a bean method auto-creates a route that delivers messages to that method.
-- `@Produce("direct:out")` on a `ProducerTemplate`, `FluentProducerTemplate`, or custom interface field sends messages to the endpoint.
-- Neither annotation works on setter methods: use fields.
+- `@Consume("direct:in")` goes on the bean **method** that handles the messages: it auto-creates a route delivering each message to that method.
+- `@Produce("direct:out")` goes on a **field** (`ProducerTemplate`, `FluentProducerTemplate`, or a custom interface) to send messages to the endpoint.
+- The field-only rule applies to `@Produce` and `@EndpointInject` (not supported on setter methods). It does **not** apply to `@Consume`, which annotates the method that handles the messages — that method is what the generated route calls.
 
 ### Pitfalls
 
