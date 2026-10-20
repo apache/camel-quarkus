@@ -12,7 +12,8 @@
   },
   "response" : {
     "status" : 201,
-    "body" : "{\"id\":\"10127\",\"key\":\"TEST-123\",\"self\":\"http://localhost:8080/rest/api/latest/issue/10127\"}",
+    "transformers" : [ "response-template" ],
+    "body" : "{\"id\":\"10127\",\"key\":\"TEST-123\",\"self\":\"{{request.baseUrl}}/rest/api/latest/issue/10127\"}",
     "headers" : {
       "Keep-Alive" : "timeout=20",
       "X-AREQUESTID" : "592x531x1",

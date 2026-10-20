@@ -31,6 +31,8 @@
     <description>Cxf Soap tests from ../integration-test-groups/cxf-soap merged together</description>
 
     <properties>
+        <!-- TODO(#9348): re-enable native when Camel Quarkus moves to Quarkus 4.x (Vert.x 5) -->
+        <ci.native.tests.skip>true</ci.native.tests.skip>
         <!-- Placeholder properties used and overriden by the native & disable-awt-tests profiles  -->
         <cxf-soap-grouped.files.excludes />
         <cxf-soap-grouped.files.excludes.if-native />

@@ -1,13 +1,8 @@
-== Recompiling the test functions
+== Test modules
 
-First install the Rust toolchain:
+The test modules are WASI Preview 1 command modules, written in the WebAssembly text format in `src/main/wat`:
 
-https://rustup.rs/
+* `upper.wat` copies its standard input to its standard output in upper case
+* `error.wat` writes `this is an error` to its standard error and exits with code 3
 
-Then compile functions.wasm:
-
-[source,shell]
-----
-cd rust
-./build.sh
-----
+The build compiles them to `wasm/modules/*.wasm` on the classpath with `wat2wasm` from `run.endive:wabt`.

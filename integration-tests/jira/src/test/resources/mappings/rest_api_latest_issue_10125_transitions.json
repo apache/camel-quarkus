@@ -1,0 +1,13 @@
+{
+  "name" : "rest_api_latest_issue_10125_transitions",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/10125/transitions",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"transition\":{\"id\":41}}"
+    } ]
+  },
+  "response" : {
+    "status" : 204
+  }
+}

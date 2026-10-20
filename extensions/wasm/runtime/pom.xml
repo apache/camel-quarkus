@@ -28,13 +28,12 @@
 
     <artifactId>camel-quarkus-wasm</artifactId>
     <name>Camel Quarkus :: Wasm :: Runtime</name>
-    <description>Invoke Wasm functions.</description>
+    <description>Run Wasm programs (WASI Preview 1 command modules) with the message body as standard input.</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.10.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.10.0</camel.quarkus.nativeSince>
         <quarkus.metadata.status>experimental</quarkus.metadata.status>
-        <cq.descriptionSync>false</cq.descriptionSync>
     </properties>
 
     <dependencies>
@@ -45,10 +44,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-wasm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jackson</artifactId>
         </dependency>
     </dependencies>
 

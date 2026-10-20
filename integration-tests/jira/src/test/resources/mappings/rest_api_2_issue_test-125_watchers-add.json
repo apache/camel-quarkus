@@ -1,0 +1,13 @@
+{
+  "name" : "rest_api_2_issue_test-125_watchers",
+  "request" : {
+    "urlPath" : "/rest/api/2/issue/TEST-125/watchers",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "\"test\""
+    } ]
+  },
+  "response" : {
+    "status" : 204
+  }
+}

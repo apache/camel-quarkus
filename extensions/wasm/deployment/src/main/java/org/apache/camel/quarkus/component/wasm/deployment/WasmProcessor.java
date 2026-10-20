@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.component.wasm.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.wasm.WasmSupport.Wrapper;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.wasm.WasiCommand;
 
 class WasmProcessor {
 
@@ -31,7 +31,8 @@ class WasmProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(Wrapper.class).methods(false).fields(true).build();
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        // Holds a static SecureRandom, which must not be created at build time
+        return new RuntimeInitializedClassBuildItem(WasiCommand.class.getName());
     }
 }

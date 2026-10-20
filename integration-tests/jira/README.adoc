@@ -36,3 +36,6 @@ System property `-Dwiremock.record=true`
 Or
 
 Set environment variable `WIREMOCK_RECORD=true`
+
+The recorded responses link to the Jira server, so replace its base URL (E.g. `http://localhost:8080`) with `{{request.baseUrl}}` and add `"transformers" : [ "response-template" ]` to each such response. The client then follows the links to WireMock.
+The requests sent to these links (comments, attachments, watchers, work logs and transitions) bypass WireMock while recording, so their stubs are written by hand. Keep them and update their issue ids: `rest_api_latest_issue_<id>_*.json` and `rest_api_2_issue_*_watchers-*.json`.
