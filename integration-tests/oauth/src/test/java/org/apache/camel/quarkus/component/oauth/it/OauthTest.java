@@ -49,7 +49,7 @@ class OauthTest {
 
         RestAssured.given()
                 .param("name", "SecuredKermit")
-                .param("Authorization", bearerToken)
+                .header("Authorization", bearerToken)
                 .get("/bearer")
                 .then()
                 .statusCode(200)

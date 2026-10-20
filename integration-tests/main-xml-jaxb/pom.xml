@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Main XML Jaxb :: Tests</name>
     <description>The camel integration tests</description>
 
+    <properties>
+        <!-- TODO(#9348): re-enable native when Camel Quarkus moves to Quarkus 4.x (Vert.x 5) -->
+        <ci.native.tests.skip>true</ci.native.tests.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
