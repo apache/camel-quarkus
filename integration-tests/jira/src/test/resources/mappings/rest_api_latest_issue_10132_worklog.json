@@ -1,0 +1,15 @@
+{
+  "name" : "rest_api_latest_issue_10132_worklog",
+  "request" : {
+    "urlPath" : "/rest/api/latest/issue/10132/worklog",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$[?(@.comment == 'Work logged: 30')]"
+    }, {
+      "matchesJsonPath" : "$[?(@.timeSpent == '30m')]"
+    } ]
+  },
+  "response" : {
+    "status" : 201
+  }
+}

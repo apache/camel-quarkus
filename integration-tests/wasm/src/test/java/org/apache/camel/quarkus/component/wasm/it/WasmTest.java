@@ -65,20 +65,17 @@ class WasmTest {
                 .then()
                 .statusCode(500)
                 .body(
-                        "exception", is("this is an error"));
+                        "exitCode", is(3),
+                        "stderr", is("this is an error"));
     }
 
     static Set<String> executeFunctionUris() {
         return Set.of(
                 "executeFunctionFromClasspath",
-                "executeFunctionFromFile",
-                "executeFunctionViaLanguageFromClasspath",
-                "executeFunctionViaLanguageFromFile");
+                "executeFunctionFromFile");
     }
 
     static Set<String> executeFunctionErrorUris() {
-        return Set.of(
-                "executeFunctionError",
-                "executeFunctionViaLanguageError");
+        return Set.of("executeFunctionError");
     }
 }
