@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.23.0</version>
+        <version>4.24.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,8 +39,8 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>4.23</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.0</camel.version>
+        <camel.major.minor>4.24</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.version>${camel.major.minor}.0-SNAPSHOT</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -642,7 +642,7 @@
                                     <exclude>.github/actions/**</exclude>
                                     <exclude>**/my-property</exclude>
                                     <exclude>release-utils/*.sh</exclude>
-                                    <exclude>**/*.wasm</exclude>
+                                    <exclude>**/*.wat</exclude><!-- No header style for the ;; comments of WebAssembly text, the header is added by hand -->
                                     <exclude>**/known_hosts</exclude>
                                 </excludes>
                                 <includes>
@@ -666,7 +666,6 @@
                             <rnc>SCRIPT_STYLE</rnc>
                             <ini>SCRIPT_STYLE</ini>
                             <rng>XML_STYLE</rng>
-                            <rs>DOUBLESLASH_STYLE</rs>
                             <spring.factories>CAMEL_PROPERTIES_STYLE</spring.factories>
                             <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
                             <tm>CAMEL_PROPERTIES_STYLE</tm>

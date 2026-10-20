@@ -1,0 +1,15 @@
+{
+  "name" : "rest_api_2_issue_test-125_watchers",
+  "request" : {
+    "urlPath" : "/rest/api/2/issue/TEST-125/watchers",
+    "method" : "DELETE",
+    "queryParameters" : {
+      "username" : {
+        "equalTo" : "test"
+      }
+    }
+  },
+  "response" : {
+    "status" : 204
+  }
+}

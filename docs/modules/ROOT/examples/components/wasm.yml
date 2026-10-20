@@ -9,5 +9,5 @@ cqJvmSince: 3.10.0
 cqNativeSince: 3.10.0
 cqCamelPartName: wasm
 cqCamelPartTitle: Wasm
-cqCamelPartDescription: Invoke Wasm functions.
+cqCamelPartDescription: Run Wasm programs (WASI Preview 1 command modules) with the message body as standard input.
 cqExtensionPageTitle: Wasm
