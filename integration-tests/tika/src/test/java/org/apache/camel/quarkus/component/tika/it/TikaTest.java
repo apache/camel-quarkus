@@ -16,14 +16,26 @@
  */
 package org.apache.camel.quarkus.component.tika.it;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
@@ -43,6 +55,42 @@ class TikaTest {
     @Test
     public void testXml() throws Exception {
         testParse("quarkus.xml", "application/xml", "Hello Quarkus");
+    }
+
+    @Test
+    public void testPdf() throws Exception {
+        testParse("quarkus.pdf", "application/pdf", "Hello Quarkus");
+    }
+
+    @Test
+    public void testPdfWithIdentityHFont() throws Exception {
+        // PDType0Font embeds the font with the Identity-H encoding, a predefined CMap which FontBox loads by name
+        try (PDDocument doc = new PDDocument();
+                InputStream font = TikaTest.class
+                        .getResourceAsStream("/org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf")) {
+            testParsePdf(createPdf(doc, PDType0Font.load(doc, font), "Hello Identity-H"), "Hello Identity-H");
+        }
+    }
+
+    @Test
+    public void testPdfWithNonEmbeddedFont() throws Exception {
+        // A standard 14 font is not embedded, PDFBox reads its metrics from the AFM files in its resources
+        try (PDDocument doc = new PDDocument()) {
+            PDFont helvetica = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+            testParsePdf(createPdf(doc, helvetica, "Hello Helvetica"), "Hello Helvetica");
+        }
+    }
+
+    @Test
+    public void testEncryptedPdf() throws Exception {
+        // Only an owner password, so Tika opens the document with the empty user password
+        try (PDDocument doc = new PDDocument()) {
+            StandardProtectionPolicy policy = new StandardProtectionPolicy("owner", "", new AccessPermission());
+            policy.setEncryptionKeyLength(256);
+            doc.protect(policy);
+            PDFont helvetica = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+            testParsePdf(createPdf(doc, helvetica, "Hello encrypted"), "Hello encrypted");
+        }
     }
 
     @Test
@@ -68,6 +116,17 @@ class TikaTest {
                 .body(containsStringIgnoringCase(expectedBody == null ? "<body/>" : expectedBody));
     }
 
+    private void testParsePdf(byte[] pdf, String expectedText) {
+        RestAssured.given()
+                .contentType(ContentType.BINARY)
+                .body(pdf)
+                .post("/tika/parse")
+                .then()
+                .statusCode(201)
+                .header("Parsed-Content-Type", startsWith("application/pdf"))
+                .body(containsString(expectedText));
+    }
+
     private void testDetect(String fileName, String expectedContentType) throws Exception {
         post(fileName, "/tika/detect")
                 .body(is(expectedContentType));
@@ -80,6 +139,21 @@ class TikaTest {
                 .post(s)
                 .then()
                 .statusCode(201);
+    }
+
+    private static byte[] createPdf(PDDocument doc, PDFont font, String text) throws IOException {
+        PDPage page = new PDPage();
+        doc.addPage(page);
+        try (PDPageContentStream content = new PDPageContentStream(doc, page)) {
+            content.beginText();
+            content.setFont(font, 12);
+            content.newLineAtOffset(50, 700);
+            content.showText(text);
+            content.endText();
+        }
+        ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+        doc.save(pdf);
+        return pdf.toByteArray();
     }
 
     private byte[] readQuarkusFile(String fileName) throws Exception {
