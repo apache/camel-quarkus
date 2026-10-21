@@ -73,7 +73,7 @@ To use WebSockets with Knative:
 For platform-specific configuration, refer to:
 
 ifeval::[{doc-show-advanced-features} == true]
-* https://docs.openshift.com/container-platform/4.15/networking/ingress-operator.html[OpenShift Ingress Operator documentation]
+* https://docs.redhat.com/en/documentation/openshift_container_platform/4.15/html/networking/configuring-ingress[OpenShift Ingress Operator documentation]
 endif::[]
 ifeval::[{doc-show-advanced-features} == false]
 * https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes Ingress documentation]
