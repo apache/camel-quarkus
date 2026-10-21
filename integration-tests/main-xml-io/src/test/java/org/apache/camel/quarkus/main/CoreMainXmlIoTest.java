@@ -17,10 +17,10 @@
 package org.apache.camel.quarkus.main;
 
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -29,7 +29,6 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.xml.LwModelToXMLDumper;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -125,11 +124,9 @@ public class CoreMainXmlIoTest {
     }
 
     @Test
-    public void testDumpRoutes() {
-        final String logPath = ConfigProvider.getConfig()
-                .getValue("quarkus.log.file.path", String.class);
+    public void testDumpRoutes(TestLog testLog) {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = Files.readString(Paths.get(logPath));
+            String log = Files.readString(testLog.getLogFilePath());
             return logContainsDumpedRoutes(log);
         });
     }

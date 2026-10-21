@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.embedding.Embedding;
@@ -58,6 +57,7 @@ import org.apache.camel.quarkus.component.langchain4j.agent.it.tool.AdditionTool
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.PersistentChatMemoryStore;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.util.ProcessUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import tools.jackson.databind.json.JsonMapper;
 
 import static java.time.Duration.ofSeconds;
 
@@ -216,14 +216,14 @@ public class AgentProducers {
 
     @Produces
     @Identifier("agentWithCustomService")
-    public Agent agentCustom(ObjectMapper objectMapper) {
+    public Agent agentCustom(JsonMapper jsonMapper) {
         ChatModel chatModel = OllamaChatModel.builder()
                 .baseUrl(baseUrl)
                 .modelName(customServiceModelId)
                 .temperature(0.3)
                 .build();
         return new TestPojoAiAgent(new AgentConfiguration()
-                .withChatModel(chatModel), objectMapper);
+                .withChatModel(chatModel), jsonMapper);
     }
 
     @Produces

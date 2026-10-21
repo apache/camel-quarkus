@@ -26,6 +26,7 @@ import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
+import io.restassured.mapper.ObjectMapperType;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -68,14 +69,17 @@ public abstract class KeycloakTestBase {
     public static void configureRestAssured() {
         // Configure REST-assured to ignore unknown properties when deserializing
         // This is needed because the Keycloak server may return newer fields
-        // that the client representation classes don't know about
+        // that the client representation classes don't know about.
+        // Jackson 2 is used explicitly because the Keycloak representations are Jackson 2 types
+        // and the test endpoints read them with the Jackson 2 RESTEasy provider
         RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
-                ObjectMapperConfig.objectMapperConfig().jackson2ObjectMapperFactory(
-                        (cls, charset) -> {
-                            ObjectMapper mapper = new ObjectMapper();
-                            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                            return mapper;
-                        }));
+                ObjectMapperConfig.objectMapperConfig().defaultObjectMapperType(ObjectMapperType.JACKSON_2)
+                        .jackson2ObjectMapperFactory(
+                                (cls, charset) -> {
+                                    ObjectMapper mapper = new ObjectMapper();
+                                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                                    return mapper;
+                                }));
     }
 
     protected String config(String name) {

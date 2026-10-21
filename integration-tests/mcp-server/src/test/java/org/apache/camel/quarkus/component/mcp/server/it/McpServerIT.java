@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.mcp.server.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusIntegrationTest
 class McpServerIT extends McpServerTest {
 

@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.component.google.pubsub;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.component.google.pubsub.serializer.GooglePubsubSerializer;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * A Jackson implementation of {@link GooglePubsubSerializer} which serializes a given payload to JSON instead of

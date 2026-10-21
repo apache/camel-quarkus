@@ -16,12 +16,7 @@
  */
 package org.apache.camel.quarkus.component.log.it;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Optional;
-
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
@@ -33,33 +28,12 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.quarkus.main.events.AfterStart;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 @Path("/log")
 public class LogResource {
     @Inject
     ProducerTemplate producerTemplate;
-
-    @ConfigProperty(name = "quarkus.http.test-port")
-    Optional<Integer> httpTestPort;
-    @ConfigProperty(name = "quarkus.http.port")
-    Optional<Integer> httpPort;
-
-    private int getEffectivePort() {
-        Optional<Integer> portSource = LogUtils.isNativeMode() ? httpPort : httpTestPort;
-        return portSource.orElse(0);
-    }
-
-    public void afterApplicationStartup(@Observes AfterStart event) {
-        try {
-            Files.writeString(LogUtils.resolveQuarkusLogPath(),
-                    "Listening on: http://0.0.0.0:" + getEffectivePort() + System.lineSeparator());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @jakarta.enterprise.inject.Produces
     @Named("mdcLog")

@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.service.tool.ToolExecutor;
@@ -37,6 +35,8 @@ import org.apache.camel.component.ai.tool.AiToolResult;
 import org.apache.camel.component.ai.tool.AiToolSpec;
 import org.apache.camel.support.DefaultExchange;
 import org.jboss.logging.Logger;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Bridges Camel's {@link AiToolRegistry} to langchain4j's {@link ToolProvider} SPI. The deployment processor registers

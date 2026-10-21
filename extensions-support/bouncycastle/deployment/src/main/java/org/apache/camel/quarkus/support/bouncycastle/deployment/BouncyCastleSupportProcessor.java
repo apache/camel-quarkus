@@ -26,6 +26,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
@@ -56,6 +57,11 @@ public class BouncyCastleSupportProcessor {
         recorder.registerBouncyCastleProvider(
                 additionalProviderBuildItems.stream().map(BouncyCastleAdditionalProviderBuildItem::getProviderName).toList(),
                 allCipherTransformations);
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem indexBouncyCastle() {
+        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
     }
 
     @BuildStep()

@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.agent.it.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.Result;
 import dev.langchain4j.service.tool.ToolProvider;
@@ -25,24 +23,21 @@ import org.apache.camel.component.langchain4j.agent.api.Agent;
 import org.apache.camel.component.langchain4j.agent.api.AgentConfiguration;
 import org.apache.camel.component.langchain4j.agent.api.AiAgentBody;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.model.TestPojo;
+import tools.jackson.databind.json.JsonMapper;
 
 public class TestPojoAiAgent implements Agent {
     private final AgentConfiguration configuration;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
 
-    public TestPojoAiAgent(AgentConfiguration configuration, ObjectMapper objectMapper) {
+    public TestPojoAiAgent(AgentConfiguration configuration, JsonMapper jsonMapper) {
         this.configuration = configuration;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
     }
 
     @Override
     public Result<String> chat(AiAgentBody<?> aiAgentBody, ToolProvider toolProvider) {
         TestPojo response = createService().getTestPojo(aiAgentBody.getUserMessage());
-        try {
-            return Result.<String> builder().content(objectMapper.writeValueAsString(response)).build();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return Result.<String> builder().content(jsonMapper.writeValueAsString(response)).build();
     }
 
     CustomAiService createService() {

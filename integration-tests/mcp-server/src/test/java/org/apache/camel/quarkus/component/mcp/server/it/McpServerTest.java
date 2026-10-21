@@ -34,6 +34,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,6 +45,7 @@ import static org.awaitility.Awaitility.await;
  * streamable HTTP. Mirrors {@code McpServerConformanceTestSupport} from camel-mcp-server-api, which cannot be reused
  * as-is here because it manages its own CamelContext outside Quarkus.
  */
+@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusTest
 class McpServerTest {
 

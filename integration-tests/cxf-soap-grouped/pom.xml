@@ -40,10 +40,6 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkiverse.cxf</groupId>
-            <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
         </dependency>
         <dependency>

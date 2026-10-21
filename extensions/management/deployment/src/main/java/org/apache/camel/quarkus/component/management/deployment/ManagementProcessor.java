@@ -20,6 +20,7 @@ import java.io.NotSerializableException;
 import java.io.ObjectStreamException;
 import java.lang.reflect.Modifier;
 import java.rmi.NotBoundException;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -146,12 +147,28 @@ class ManagementProcessor {
         // DefaultManagementMBeanAssembler dynamically instantiates this via the MBeanServer
         managedBeanClasses.add(RequiredModelMBean.class.getName());
 
+        // Managed operations & attributes may be inherited from superclasses that have no management annotations
+        managedBeanClasses.addAll(getSuperClasses(index, managedBeanClasses));
+
         reflectiveClass.produce(
                 ReflectiveClassBuildItem.builder(managedBeanClasses.toArray(String[]::new))
                         .fields().methods().build());
 
         // Add serialization support for some core JDK & Camel classes, plus the javax.management classes that JMX requires
         camelSerialization.produce(new CamelSerializationBuildItem(SERIALIZATION_CLASSES));
+    }
+
+    private static Set<String> getSuperClasses(IndexView index, Set<String> classNames) {
+        Set<String> superClasses = new HashSet<>();
+        for (String className : classNames) {
+            ClassInfo classInfo = index.getClassByName(className);
+            while (classInfo != null && classInfo.superName() != null
+                    && !classInfo.superName().equals(DotName.OBJECT_NAME)) {
+                superClasses.add(classInfo.superName().toString());
+                classInfo = index.getClassByName(classInfo.superName());
+            }
+        }
+        return superClasses;
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)

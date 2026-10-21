@@ -50,6 +50,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.quarkus.support.debezium.DebeziumComponentObserver;
 import org.apache.kafka.connect.source.SourceTask;
 import org.jboss.jandex.DotName;
@@ -66,6 +67,12 @@ public class DebeziumSupportProcessor {
     @BuildStep
     public void configureKafkaComponentForDevServices(BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         additionalBean.produce(AdditionalBeanBuildItem.unremovableOf(DebeziumComponentObserver.class));
+    }
+
+    @BuildStep
+    CamelSerializationBuildItem serialization() {
+        // FileOffsetBackingStore persists offsets with Java serialization
+        return new CamelSerializationBuildItem();
     }
 
     @BuildStep
@@ -95,8 +102,11 @@ public class DebeziumSupportProcessor {
                 "io.debezium.storage.kafka.history.KafkaSchemaHistory",
                 "io.debezium.relational.history.FileDatabaseHistory",
                 "io.debezium.embedded.ConvertingEngineBuilderFactory",
-                "io.debezium.processors.PostProcessorRegistry",
                 "io.debezium.relational.ConcurrentMapTableMappingStorage")
+                .build());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("io.debezium.processors.PostProcessorRegistry")
+                .methods()
                 .build());
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(

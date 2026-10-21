@@ -32,6 +32,9 @@
 
     <properties>
         <cq.sqlJdbcKind>h2</cq.sqlJdbcKind>
+        <!-- TODO: Re-enable when camel-jpa is compiled against Jakarta Persistence 4 - https://github.com/apache/camel-quarkus/issues/9357 -->
+        <skipTests>true</skipTests>
+        <quarkus.build.skip>true</quarkus.build.skip>
     </properties>
 
     <dependencies>

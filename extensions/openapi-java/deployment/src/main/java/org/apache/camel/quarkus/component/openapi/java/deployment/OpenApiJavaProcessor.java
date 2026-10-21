@@ -26,11 +26,6 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
@@ -41,7 +36,10 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.OpenAPISPIConstants;
 import io.quarkus.swaggerui.deployment.SwaggerUiUrlBuildItem;
+import io.smallrye.openapi.api.OpenApiConfig;
+import io.smallrye.openapi.api.SmallRyeOpenAPI;
 import io.smallrye.openapi.api.util.MergeUtil;
+import io.smallrye.openapi.runtime.io.Format;
 import io.smallrye.openapi.runtime.io.IOContext;
 import io.smallrye.openapi.runtime.io.JsonIO;
 import io.smallrye.openapi.runtime.io.OpenAPIDefinitionIO;
@@ -190,20 +188,19 @@ class CamelRestOASFilter implements OASFilter {
                 clearVendorExtensions(openApi);
             }
 
-            // dump to json
-            final ObjectMapper mapper = new ObjectMapper(new JsonFactory());
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
-
             String jsonContent = RestOpenApiSupport.getJsonFromOpenAPIAsString(openApi, bc);
-            final JsonNode node = mapper.readTree(jsonContent);
-
-            OpenAPI oai = new OpenAPIDefinitionIO(IOContext.forJson(JsonIO.newInstance(null))).readObject(node);
-            MergeUtil.merge(openAPI, oai);
+            MergeUtil.merge(openAPI, readOpenAPI(jsonContent));
         } catch (Exception e) {
             LOGGER.warn("Error generating OpenAPI from Camel Rest DSL due to: {}. This exception is ignored.", e.getMessage(),
                     e);
         }
+    }
+
+    private static <V, A extends V, O extends V, AB, OB> OpenAPI readOpenAPI(String json) {
+        JsonIO<V, A, O, AB, OB> jsonIO = JsonIO.newInstance(SmallRyeOpenAPI.JsonProvider.AUTO,
+                OpenApiConfig.fromConfig(ConfigProvider.getConfig()));
+        V value = jsonIO.fromString(json, Format.JSON);
+        return new OpenAPIDefinitionIO<>(IOContext.forJson(jsonIO)).readObject(jsonIO.asObject(value));
     }
 
     /**

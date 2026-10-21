@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ import static org.awaitility.Awaitility.await;
 public class LogTest {
 
     @Test
-    public void logMessage() {
-        Path quarkusLog = LogUtils.resolveQuarkusLogPath();
+    public void logMessage(TestLog testLog) {
+        Path quarkusLog = testLog.getLogFilePath();
         String message = "Hello Camel Quarkus Log";
         RestAssured.given()
                 .queryParam("endpointUri", "direct:log")

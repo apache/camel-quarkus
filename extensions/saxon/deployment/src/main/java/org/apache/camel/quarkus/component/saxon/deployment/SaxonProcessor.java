@@ -72,6 +72,12 @@ class SaxonProcessor {
     }
 
     @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        // Avoids linking failures at build time from references to the optional Jing dependency
+        return new RuntimeInitializedClassBuildItem("org.xmlresolver.utils.SaxProducer");
+    }
+
+    @BuildStep
     void indexSaxonHe(BuildProducer<IndexDependencyBuildItem> deps) {
         deps.produce(new IndexDependencyBuildItem("net.sf.saxon", "Saxon-HE"));
     }

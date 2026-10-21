@@ -17,10 +17,10 @@
 package org.apache.camel.quarkus.main;
 
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -62,9 +62,9 @@ public class CoreMainXmlJaxbTest {
     }
 
     @Test
-    public void testDumpRoutes() {
+    public void testDumpRoutes(TestLog testLog) {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = Files.readString(Paths.get("target/quarkus.log"));
+            String log = Files.readString(testLog.getLogFilePath());
             return logContainsDumpedRoutes(log);
         });
     }

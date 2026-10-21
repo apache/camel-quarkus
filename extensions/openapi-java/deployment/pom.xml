@@ -51,6 +51,10 @@
             <artifactId>quarkus-swagger-ui-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>tools.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
             <scope>test</scope>

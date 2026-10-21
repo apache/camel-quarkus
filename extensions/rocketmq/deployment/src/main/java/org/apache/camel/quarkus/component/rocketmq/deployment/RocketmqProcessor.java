@@ -82,6 +82,7 @@ class RocketmqProcessor {
     private static final List<String> ROCKETMQ_REFLECTIVE_ENUMS = List.of(
             "org.apache.rocketmq.common.consumer.ConsumeFromWhere",
             "org.apache.rocketmq.remoting.protocol.LanguageCode",
+            "org.apache.rocketmq.remoting.protocol.RemotingSysResponseCode",
             "org.apache.rocketmq.remoting.protocol.RequestCode",
             "org.apache.rocketmq.remoting.protocol.ResponseCode",
             "org.apache.rocketmq.remoting.protocol.SerializeType",

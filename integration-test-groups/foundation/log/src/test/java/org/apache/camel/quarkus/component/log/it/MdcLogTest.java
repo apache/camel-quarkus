@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.quarkus.test.common.TestLog;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
@@ -42,8 +43,8 @@ public class MdcLogTest {
     private static final Pattern MDC_LOG_PATTERN = Pattern.compile("^MDC\\[\\{(.*)},(.*)]");
 
     @Test
-    void mdcLogging() {
-        Path quarkusLog = LogUtils.resolveQuarkusLogPath();
+    void mdcLogging(TestLog testLog) {
+        Path quarkusLog = testLog.getLogFilePath();
         String message = "Hello Camel Quarkus MDC Logging";
 
         String id = RestAssured.given()
@@ -74,8 +75,8 @@ public class MdcLogTest {
     }
 
     @Test
-    void mdcLoggingFromExceptionHandler() {
-        Path quarkusLog = LogUtils.resolveQuarkusLogPath();
+    void mdcLoggingFromExceptionHandler(TestLog testLog) {
+        Path quarkusLog = testLog.getLogFilePath();
         String id = RestAssured.given()
                 .queryParam("endpointUri", "direct:mdcLogFromException")
                 .body("Ignored message body")

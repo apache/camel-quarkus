@@ -19,13 +19,16 @@ package org.apache.camel.quarkus.component.platform.http.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.gizmo.Gizmo;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
 import io.vertx.ext.web.Router;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpConsumer;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
@@ -33,6 +36,8 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpReco
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
@@ -46,6 +51,35 @@ class PlatformHttpProcessor {
      * The platform-http component is programmatically configured by the extension thus
      * we can safely prevent camel-quarkus-core to instantiate a default instance.
      */
+    @BuildStep
+    BytecodeTransformerBuildItem transformVertxPlatformHttpConsumer() {
+        // Camel is compiled against Vert.x 4, where HttpServerResponse.reset(long) returns boolean. In Vert.x 5 it
+        // returns Future<Void>, so the call site needs the Vert.x 5 descriptor to link. The result is discarded with a
+        // pop in both cases. TODO: Remove when https://github.com/apache/camel-quarkus/issues/9360 is resolved
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform(VertxPlatformHttpConsumer.class.getName())
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
+                    @Override
+                    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                            String[] exceptions) {
+                        MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+                        return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                            @Override
+                            public void visitMethodInsn(int opcode, String owner, String methodName, String methodDescriptor,
+                                    boolean isInterface) {
+                                if (owner.equals("io/vertx/core/http/HttpServerResponse") && methodName.equals("reset")
+                                        && methodDescriptor.equals("(J)Z")) {
+                                    methodDescriptor = "(J)Lio/vertx/core/Future;";
+                                }
+                                super.visitMethodInsn(opcode, owner, methodName, methodDescriptor, isInterface);
+                            }
+                        };
+                    }
+                })
+                .build();
+    }
+
     @BuildStep
     CamelServiceFilterBuildItem serviceFilter() {
         return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("platform-http"));

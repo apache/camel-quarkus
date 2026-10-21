@@ -29,6 +29,7 @@ import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.WebSocketClient;
 import io.vertx.core.http.WebSocketClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketConstants;
@@ -166,6 +167,8 @@ class VertxWebsocketTest {
             // Connect some peers to the WebSocket
             connectionA.connect();
             connectionB.connect();
+            connectionA.awaitPeerRegistration();
+            connectionB.awaitPeerRegistration();
 
             // Broadcast a message to all connected peers
             RestAssured.given()
@@ -196,6 +199,8 @@ class VertxWebsocketTest {
             // Connect some peers to the WebSocket
             connectionA.connect();
             connectionB.connect();
+            connectionA.awaitPeerRegistration();
+            connectionB.awaitPeerRegistration();
 
             // Broadcast a message to all connected peers
             RestAssured.given()
@@ -354,7 +359,10 @@ class VertxWebsocketTest {
         private final WebSocketClientOptions clientOptions;
         private io.vertx.core.http.WebSocket webSocket;
         private Vertx vertx;
+        private WebSocketClient client;
         private boolean closed;
+        private volatile boolean awaitingPeerRegistration;
+        private volatile String connectionKey;
 
         public WebSocketConnection(URI webSocketUri, String payload) {
             this(webSocketUri, payload, 1);
@@ -374,7 +382,7 @@ class VertxWebsocketTest {
 
         public void connect() throws Exception {
             vertx = Vertx.vertx();
-            io.vertx.core.http.WebSocketClient client = clientOptions != null
+            client = clientOptions != null
                     ? vertx.createWebSocketClient(clientOptions)
                     : vertx.createWebSocketClient();
 
@@ -400,14 +408,31 @@ class VertxWebsocketTest {
                     .toCompletableFuture()
                     .join();
 
-            webSocket.textMessageHandler(message -> {
-                messages.add(message);
-                latch.countDown();
-            });
+            webSocket.textMessageHandler(this::onMessage);
 
             if (payload != null) {
                 webSocket.writeTextMessage(payload);
             }
+        }
+
+        public void awaitPeerRegistration() {
+            awaitingPeerRegistration = true;
+            Awaitility.await().pollInterval(Duration.ofMillis(100)).atMost(Duration.ofSeconds(5)).until(() -> {
+                webSocket.writeTextMessage("ping");
+                return connectionKey != null;
+            });
+        }
+
+        private void onMessage(String message) {
+            if (connectionKey == null && awaitingPeerRegistration) {
+                connectionKey = message;
+                return;
+            }
+            if (message.equals(connectionKey)) {
+                return;
+            }
+            messages.add(message);
+            latch.countDown();
         }
 
         public List<String> getMessages() throws InterruptedException {
@@ -427,6 +452,9 @@ class VertxWebsocketTest {
             closed = true;
             if (webSocket != null && !webSocket.isClosed()) {
                 webSocket.close().toCompletionStage().toCompletableFuture().join();
+            }
+            if (client != null) {
+                client.close().toCompletionStage().toCompletableFuture().join();
             }
             if (vertx != null) {
                 vertx.close().toCompletionStage().toCompletableFuture().join();
