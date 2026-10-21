@@ -82,6 +82,48 @@ class SqlTest {
     }
 
     @Test
+    public void testSqlComponentSecretRotation() {
+        // Ensure the pool holds an idle connection to flush
+        RestAssured.get("/sql/get/Dromedarius")
+                .then()
+                .statusCode(200);
+
+        assertSecretRotationFlushesPool("sql");
+    }
+
+    @Test
+    public void testSqlStoredComponentSecretRotation() {
+        // Ensure the pool holds an idle connection to flush
+        RestAssured.given()
+                .queryParam("numA", 1)
+                .queryParam("numB", 2)
+                .get("/sql/storedproc")
+                .then()
+                .statusCode(200);
+
+        assertSecretRotationFlushesPool("sql-stored");
+    }
+
+    private void assertSecretRotationFlushesPool(String componentName) {
+        long flushCountBefore = getDataSourceFlushCount();
+
+        RestAssured.post("/sql/secretRotation/" + componentName)
+                .then()
+                .statusCode(204);
+
+        await().atMost(10, TimeUnit.SECONDS)
+                .until(() -> getDataSourceFlushCount() > flushCountBefore);
+    }
+
+    private long getDataSourceFlushCount() {
+        return Long.parseLong(RestAssured.get("/sql/flushCount")
+                .then()
+                .statusCode(200)
+                .extract()
+                .asString());
+    }
+
+    @Test
     public void testConsumer() throws InterruptedException {
         testConsumer(1, "consumerRoute", "ViaSql");
     }

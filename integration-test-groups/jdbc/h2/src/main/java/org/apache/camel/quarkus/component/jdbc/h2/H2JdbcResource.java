@@ -22,11 +22,16 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.test.support.jdbc.BaseCamelJdbcResource;
 import org.apache.camel.quarkus.test.support.jdbc.model.Camel;
+import org.apache.camel.spi.SecretRotationAware;
 
 @Path("/test/h2")
 @ApplicationScoped
@@ -44,5 +49,18 @@ public class H2JdbcResource extends BaseCamelJdbcResource {
     @PostConstruct
     void postConstruct() throws Exception {
         super.initialize(postgresqlDataSource, dbKind, context, template);
+    }
+
+    @Path("/datasource/flushCount")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public long getDataSourceFlushCount() {
+        return postgresqlDataSource.getMetrics().flushCount();
+    }
+
+    @Path("/secretRotation")
+    @POST
+    public void secretRotation() throws Exception {
+        ((SecretRotationAware) context.getComponent("jdbc")).onSecretRotation("test");
     }
 }
