@@ -22,7 +22,7 @@ The core skill teaches the AI agent to:
 * Look up endpoint options in the Camel catalog metadata embedded in each component JAR,
   or in the versioned component documentation, instead of guessing URI parameters
 * Validate routes with the
-  https://camel.apache.org/manual/camel-report-maven-plugin.html[`camel-report-maven-plugin:validate`]
+  xref:manual::camel-report-maven-plugin.adoc[`camel-report-maven-plugin:validate`]
   goal before delivering them
 * Follow CDI injection patterns for `CamelContext`, `ProducerTemplate`, and named beans
 * Prefer `@CamelQuarkusTest` for JVM-mode tests (plain `@QuarkusTest` when no Camel-specific
@@ -60,9 +60,9 @@ Quarkus documentation through the same server.
 == Optional: Camel JBang MCP server
 
 Apache Camel also provides a standalone
-https://camel.apache.org/manual/camel-jbang-mcp.html[Camel JBang MCP server]
+xref:manual::camel-jbang-mcp.adoc[Camel JBang MCP server]
 exposing the full Camel catalog as MCP tools, plus authoring and runtime tooling built
-around https://camel.apache.org/manual/camel-jbang.html[Camel JBang].
+around xref:manual::camel-jbang.adoc[Camel JBang].
 
 It is not required for Camel Quarkus development, and its runtime tools (such as `camel_run`)
 target standalone Camel JBang integrations rather than Quarkus applications.
