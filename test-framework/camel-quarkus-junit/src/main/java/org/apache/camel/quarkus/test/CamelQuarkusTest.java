@@ -97,6 +97,22 @@ public @interface CamelQuarkusTest {
     String dumpRoute() default "";
 
     /**
+     * Folder to dump PNG route diagrams to before the first test method, including the routes and advice of the test
+     * class. The diagrams are not dumped when the folder is empty. Requires {@code camel-quarkus-diagram}.
+     */
+    String dumpRouteDiagramFolder() default "";
+
+    /**
+     * Whether to also dump the route topology diagram, showing how routes connect to each other.
+     */
+    boolean dumpRouteDiagramTopology() default true;
+
+    /**
+     * Whether to include external systems, such as Kafka or HTTP endpoints, in the route topology diagram.
+     */
+    boolean dumpRouteDiagramTopologyExternal() default true;
+
+    /**
      * Timeout in seconds for graceful shutdown of routes.
      */
     int shutdownTimeout() default 10;
