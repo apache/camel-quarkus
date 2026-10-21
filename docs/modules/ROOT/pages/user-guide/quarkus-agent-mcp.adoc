@@ -57,13 +57,13 @@ Once active, the assistant loads the Camel Quarkus skill via `quarkus_skills` be
 generating code, and can manage the application lifecycle, run tests, and search the
 Quarkus documentation through the same server.
 
-== Optional: Camel JBang MCP server
+== Optional: Camel MCP server
 
 Apache Camel also provides a standalone
-xref:manual::camel-jbang-mcp.adoc[Camel JBang MCP server]
+xref:manual::camel-jbang-mcp.adoc[Camel MCP server]
 exposing the full Camel catalog as MCP tools, plus authoring and runtime tooling built
-around xref:manual::camel-jbang.adoc[Camel JBang].
+around xref:manual::camel-jbang.adoc[Camel CLI].
 
 It is not required for Camel Quarkus development, and its runtime tools (such as `camel_run`)
-target standalone Camel JBang integrations rather than Quarkus applications.
+target standalone Camel CLI integrations rather than Quarkus applications.
 Its catalog tools can still be a useful complement if you work with both runtimes.
