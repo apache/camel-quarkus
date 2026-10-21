@@ -1,0 +1,69 @@
+= AI-assisted Development
+
+Quarkus ships a https://quarkus.io/blog/introducing-agent-mcp[Quarkus Agent MCP server]
+that exposes extension skills, documentation search and Dev UI tooling to AI coding assistants via the
+https://modelcontextprotocol.io[Model Context Protocol] (MCP).
+
+Camel Quarkus plugs into it with a built-in skill. One MCP server, nothing else to install.
+
+== Built-in Camel Quarkus skills
+
+Camel Quarkus extensions can ship a skill inside their deployment JAR
+(`META-INF/quarkus-skill.md`). The `quarkus_skills` MCP tool discovers each skill
+automatically in any project depending on that extension. No additional setup is required.
+
+Currently, `camel-quarkus-core` ships the main Camel Quarkus skill and `camel-quarkus-bean`
+ships guidance for calling CDI beans from routes.
+
+The core skill teaches the AI agent to:
+
+* Prefer the type-safe Endpoint DSL (`EndpointRouteBuilder`) for defining routes, so that
+  endpoint options are checked at compile time
+* Look up endpoint options in the Camel catalog metadata embedded in each component JAR,
+  or in the versioned component documentation, instead of guessing URI parameters
+* Validate routes with the
+  https://camel.apache.org/manual/camel-report-maven-plugin.html[`camel-report-maven-plugin:validate`]
+  goal before delivering them
+* Follow CDI injection patterns for `CamelContext`, `ProducerTemplate`, and named beans
+* Prefer `@CamelQuarkusTest` for JVM-mode tests (plain `@QuarkusTest` when no Camel-specific
+  features are needed), never extend `CamelTestSupport`, and avoid `@Inject` in
+  `@QuarkusIntegrationTest` native tests
+* Apply `@RegisterForReflection` on classes accessed via reflection in native mode
+
+== Dev MCP tools
+
+When the application runs in dev mode, the `camel-quarkus-core` extension also exposes
+https://quarkus.io/guides/dev-mcp[Dev MCP] tools, proxied by the Quarkus Agent MCP server:
+
+* `camelCatalogDoc` — Camel catalog documentation of a component (endpoint URI syntax and
+  options), from the exact Camel version of the application, with optional keyword filtering
+* `camelValidateEndpointUri` — validates an endpoint URI against the application's catalog:
+  unknown options (with suggestions), invalid values, missing required options
+
+The built-in skill instructs agents to prefer these tools over static lookups whenever
+dev mode is running.
+
+No setup is needed when the tools are accessed through the Quarkus Agent MCP server.
+To connect an MCP client directly instead, enable Dev MCP in the Dev UI settings dialog
+(Dev MCP tab): the tools are then served at `http://localhost:8080/q/dev-mcp`, and the
+tab lists the connected clients.
+
+== Setting up the Quarkus Agent MCP server
+
+Follow the https://quarkus.io/blog/introducing-agent-mcp[Quarkus Agent MCP] guide to install
+and configure the server for your IDE or AI coding assistant.
+
+Once active, the assistant loads the Camel Quarkus skill via `quarkus_skills` before
+generating code, and can manage the application lifecycle, run tests, and search the
+Quarkus documentation through the same server.
+
+== Optional: Camel JBang MCP server
+
+Apache Camel also provides a standalone
+https://camel.apache.org/manual/camel-jbang-mcp.html[Camel JBang MCP server]
+exposing the full Camel catalog as MCP tools, plus authoring and runtime tooling built
+around https://camel.apache.org/manual/camel-jbang.html[Camel JBang].
+
+It is not required for Camel Quarkus development, and its runtime tools (such as `camel_run`)
+target standalone Camel JBang integrations rather than Quarkus applications.
+Its catalog tools can still be a useful complement if you work with both runtimes.
