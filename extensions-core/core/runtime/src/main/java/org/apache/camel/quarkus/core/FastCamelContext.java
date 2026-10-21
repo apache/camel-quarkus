@@ -31,7 +31,6 @@ import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.quarkus.CamelQuarkusBeanPostProcessor;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentNameResolver;

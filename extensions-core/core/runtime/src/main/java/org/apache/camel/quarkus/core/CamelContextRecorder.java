@@ -27,7 +27,6 @@ import org.apache.camel.ContextEvents;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.clock.Clock;
-import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
 import org.apache.camel.quarkus.core.devmode.NoOpModelineFactory;
 import org.apache.camel.quarkus.core.devmode.NoShutdownStrategy;
@@ -119,10 +118,6 @@ public class CamelContextRecorder {
         }
     }
 
-    public RuntimeValue<CamelContextCustomizer> createSourceLocationEnabledCustomizer() {
-        return new RuntimeValue<>(context -> context.setSourceLocationEnabled(true));
-    }
-
     public void registerLifecycleEventBridge(RuntimeValue<CamelContext> context, Set<String> observedLifecycleEvents) {
         context.getValue().addLifecycleStrategy(new CamelLifecycleEventBridge(observedLifecycleEvents));
     }
@@ -131,49 +126,6 @@ public class CamelContextRecorder {
         camelContext.getValue()
                 .getManagementStrategy()
                 .addEventNotifier(new CamelManagementEventBridge(observedManagementEvents));
-    }
-
-    public RuntimeValue<CamelContextCustomizer> createBacklogTracerCustomizer(CamelConfig config) {
-        return new RuntimeValue<>(context -> {
-            // must enable source location so tracer tooling knows to map breakpoints to source code
-            context.setSourceLocationEnabled(true);
-
-            // enable tracer on camel
-            CamelConfig.TraceConfig trace = config.trace();
-            context.setBacklogTracing(trace.enabled());
-            context.setBacklogTracingStandby(trace.standby());
-            context.setBacklogTracingTemplates(trace.traceTemplates());
-
-            BacklogTracer tracer = BacklogTracer.createTracer(context);
-            tracer.setEnabled(trace.enabled());
-            tracer.setStandby(trace.standby());
-            tracer.setBacklogSize(trace.backlogSize());
-            tracer.setRemoveOnDump(trace.removeOnDump());
-            tracer.setBodyMaxChars(trace.bodyMaxChars());
-            tracer.setBodyIncludeStreams(trace.bodyIncludeStreams());
-            tracer.setBodyIncludeFiles(trace.bodyIncludeFiles());
-            tracer.setIncludeExchangeProperties(trace.includeExchangeProperties());
-            tracer.setIncludeExchangeVariables(trace.includeExchangeVariables());
-            tracer.setIncludeException(trace.includeException());
-            tracer.setTraceRests(trace.traceRests());
-            tracer.setTraceTemplates(trace.traceTemplates());
-            tracer.setTracePattern(trace.tracePattern().orElse(null));
-            tracer.setTraceFilter(trace.traceFilter().orElse(null));
-
-            // activityEnabled: prefer quarkus.camel.trace.activity-enabled, fall back to camel.trace.activity-enabled
-            boolean activityEnabled = ConfigProvider.getConfig()
-                    .getOptionalValue("camel.trace.activity-enabled", Boolean.class)
-                    .orElse(trace.activityEnabled());
-            tracer.setActivityEnabled(activityEnabled);
-
-            // activitySize: prefer quarkus.camel.trace.activity-size, fall back to camel.trace.activity-size
-            int activitySize = ConfigProvider.getConfig()
-                    .getOptionalValue("camel.trace.activity-size", Integer.class)
-                    .orElse(trace.activitySize());
-            tracer.setActivitySize(activitySize);
-
-            context.getCamelContextExtension().addContextPlugin(BacklogTracer.class, tracer);
-        });
     }
 
     public RuntimeValue<Clock> createBootClock(boolean isNativeImage) {

@@ -47,8 +47,8 @@ class CamelTraceTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.trace.enabled", "true");
-        props.setProperty("quarkus.camel.trace.backlog-size", "100");
+        props.setProperty("camel.trace.enabled", "true");
+        props.setProperty("camel.trace.backlog-size", "100");
 
         try {
             props.store(writer, "");

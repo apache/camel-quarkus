@@ -20,21 +20,12 @@ import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 
 /**
- * Marker used as synchronization item for Build Steps to ensure all the Build Steps that need to record
- * {@link ExecutionTime#RUNTIME_INIT}.
+ * Marker used as synchronization item for Build Steps that record {@link ExecutionTime#RUNTIME_INIT} tasks that must
+ * complete before the {@link org.apache.camel.quarkus.core.CamelRuntime} is assembled and started.
  * <p>
  * As example some beans can be bound to the {@link org.apache.camel.spi.Registry} at {@link ExecutionTime#STATIC_INIT}
- * but others can only be bound at {@link ExecutionTime#RUNTIME_INIT} and to be sure that the binding happens before the
- * {@link org.apache.camel.quarkus.core.CamelRuntime} is assembled and started a CamelRuntimeTaskBuildItem is produced
- * and the Build Steps producing {@link CamelRuntimeBuildItem} depends on it.
- * <p>
- * The initial barrier required two symmetric Build Items:
- * <ul>
- * <li>CamelRegistryBuildItem
- * <li>CamelRuntimeRegistryBuildItem
- * </ul>
- * Where the second Build Item was useless except for synchronization purpose and has been replaced to this generic
- * CamelRuntimeTaskBuildItem.
+ * but others can only be bound at {@link ExecutionTime#RUNTIME_INIT}. Producing a CamelRuntimeTaskBuildItem from the
+ * Build Step doing the binding ensures that it happens before the Camel runtime starts.
  */
 public final class CamelRuntimeTaskBuildItem extends MultiBuildItem {
     private final String name;

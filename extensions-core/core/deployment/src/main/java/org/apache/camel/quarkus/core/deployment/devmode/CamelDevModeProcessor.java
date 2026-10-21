@@ -16,14 +16,22 @@
  */
 package org.apache.camel.quarkus.core.deployment.devmode;
 
+import java.util.List;
+
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.IsDevelopment;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
 import org.apache.camel.quarkus.core.CamelContextRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
+import org.apache.camel.quarkus.main.CamelMainRecorder;
+import org.jboss.logging.Logger;
 
 import static org.apache.camel.quarkus.core.CamelCapabilities.DSL_MODELINE;
 
@@ -32,6 +40,8 @@ import static org.apache.camel.quarkus.core.CamelCapabilities.DSL_MODELINE;
  */
 @BuildSteps(onlyIf = IsDevelopment.class)
 class CamelDevModeProcessor {
+    private static final Logger LOGGER = Logger.getLogger(CamelDevModeProcessor.class);
+
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     void customizeDevModeCamelContext(
@@ -39,5 +49,29 @@ class CamelDevModeProcessor {
             Capabilities capabilities,
             CamelContextRecorder recorder) {
         recorder.customizeDevModeCamelContext(camelContext.getCamelContext(), capabilities.isMissing(DSL_MODELINE));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void customizeDevModeCamelMain(CamelMainBuildItem camelMain, CamelMainRecorder recorder) {
+        recorder.customizeDevModeCamelMain(camelMain.getInstance());
+    }
+
+    @BuildStep
+    void locations(
+            List<CamelRouteResourceBuildItem> camelRouteResources,
+            BuildProducer<HotDeploymentWatchedFileBuildItem> hotDeploymentWatchedFile) {
+
+        camelRouteResources.stream()
+                .filter(CamelRouteResourceBuildItem::isHotReloadable)
+                .map(CamelRouteResourceBuildItem::getSourcePath)
+                .peek(location -> LOGGER.debugf("Configuring watched file %s", location))
+                .distinct()
+                .map(HotDeploymentWatchedFileBuildItem::new)
+                .forEach(hotDeploymentWatchedFile::produce);
+
+        if (!camelRouteResources.isEmpty()) {
+            LOGGER.info("Camel routes live reload enabled");
+        }
     }
 }

@@ -119,10 +119,6 @@ public class CoreMainResource {
 
         JsonObjectBuilder collector = Json.createObjectBuilder();
         collector.add("type", main.getRoutesCollector().getClass().getName());
-        if (main.getRoutesCollector() instanceof CamelMainRoutesCollector) {
-            CamelMainRoutesCollector crc = (CamelMainRoutesCollector) main.getRoutesCollector();
-            collector.add("type-registry", crc.getRegistryRoutesLoader().getClass().getName());
-        }
 
         JsonObjectBuilder dataformatsInRegistry = Json.createObjectBuilder();
         camelContext.getRegistry().findByTypeWithName(DataFormat.class)

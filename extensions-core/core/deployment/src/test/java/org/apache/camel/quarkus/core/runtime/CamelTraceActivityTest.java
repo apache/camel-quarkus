@@ -47,9 +47,9 @@ class CamelTraceActivityTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.trace.enabled", "true");
-        props.setProperty("quarkus.camel.trace.activity-enabled", "true");
-        props.setProperty("quarkus.camel.trace.activity-size", "200");
+        props.setProperty("camel.trace.enabled", "true");
+        props.setProperty("camel.trace.activity-enabled", "true");
+        props.setProperty("camel.trace.activity-size", "200");
 
         try {
             props.store(writer, "");

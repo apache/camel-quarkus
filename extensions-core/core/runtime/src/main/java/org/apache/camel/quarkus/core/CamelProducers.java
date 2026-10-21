@@ -23,6 +23,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.spi.Registry;
 
 /**
@@ -32,6 +33,7 @@ import org.apache.camel.spi.Registry;
 public class CamelProducers {
     private volatile CamelContext context;
     private volatile CamelRuntime runtime;
+    private volatile CamelMain main;
 
     public void setContext(CamelContext context) {
         this.context = context;
@@ -39,6 +41,10 @@ public class CamelProducers {
 
     public void setRuntime(CamelRuntime runtime) {
         this.runtime = runtime;
+    }
+
+    public void setMain(CamelMain main) {
+        this.main = main;
     }
 
     @Singleton
@@ -57,6 +63,12 @@ public class CamelProducers {
     @Produces
     CamelRuntime camelRuntime() {
         return this.runtime;
+    }
+
+    @Singleton
+    @Produces
+    CamelMain camelMain() {
+        return this.main;
     }
 
     @Produces

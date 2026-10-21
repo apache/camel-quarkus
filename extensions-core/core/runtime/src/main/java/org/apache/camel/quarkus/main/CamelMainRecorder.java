@@ -19,39 +19,48 @@ package org.apache.camel.quarkus.main;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainListenerSupport;
-import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
-import org.apache.camel.quarkus.core.RegistryRoutesLoader;
+import org.apache.camel.quarkus.core.CamelRuntimeConfig;
 import org.apache.camel.quarkus.core.test.CamelTestLifecycleMainListener;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 
 @Recorder
 public class CamelMainRecorder {
+    private static final Logger LOGGER = Logger.getLogger(CamelMainRecorder.class);
+
+    private final RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig;
+
+    public CamelMainRecorder(RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig) {
+        this.camelRuntimeConfig = camelRuntimeConfig;
+    }
+
     public RuntimeValue<CamelMain> createCamelMain(RuntimeValue<CamelContext> runtime,
-            RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container,
             FailureRemedy failureRemedy) {
         CamelMain main = new CamelMain(runtime.getValue(), failureRemedy);
-        main.setRoutesCollector(routesCollector.getValue());
+        main.setRoutesCollector(new CamelMainRoutesCollector());
 
         // properties are loaded through MicroProfile Config so there's
         // no need to look for sources.
         main.setDefaultPropertyPlaceholderLocation("false");
 
         // register to the container
-        container.beanInstance(CamelMainProducers.class).setMain(main);
+        container.beanInstance(CamelProducers.class).setMain(main);
 
         return new RuntimeValue<>(main);
     }
@@ -70,10 +79,6 @@ public class CamelMainRecorder {
 
     public void addListener(RuntimeValue<CamelMain> main, RuntimeValue<MainListener> listener) {
         main.getValue().addMainListener(listener.getValue());
-    }
-
-    public RuntimeValue<RoutesCollector> newRoutesCollector(RuntimeValue<RegistryRoutesLoader> registryRoutesLoader) {
-        return new RuntimeValue<>(new CamelMainRoutesCollector(registryRoutesLoader.getValue()));
     }
 
     public void customizeContext(RuntimeValue<CamelMain> main, List<RuntimeValue<CamelContextCustomizer>> contextCustomizers) {
@@ -97,6 +102,27 @@ public class CamelMainRecorder {
         beanContainer.beanInstance(CamelProducers.class).setRuntime(runtime);
 
         return new RuntimeValue<>(runtime);
+    }
+
+    public void addShutdownTask(ShutdownContext shutdown, RuntimeValue<CamelRuntime> runtime) {
+        shutdown.addShutdownTask(() -> {
+            try {
+                runtime.getValue().stop();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public void start(RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments, String camelQuarkusVersion) {
+        if (camelRuntimeConfig.getValue().bootstrap().enabled()) {
+            try {
+                LOGGER.infof("Apache Camel Quarkus %s is starting", camelQuarkusVersion);
+                runtime.getValue().start(arguments.get());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void registerCamelMainEventBridge(RuntimeValue<CamelMain> main, Set<String> observedMainEvents) {

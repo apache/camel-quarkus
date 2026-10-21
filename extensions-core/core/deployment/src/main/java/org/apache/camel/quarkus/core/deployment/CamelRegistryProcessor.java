@@ -31,7 +31,6 @@ import org.apache.camel.BindToRegistry;
 import org.apache.camel.quarkus.core.BeanQualifierResolverIdentifier;
 import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 import org.apache.camel.quarkus.core.CamelCapabilities;
-import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanInfo;
@@ -83,7 +82,6 @@ public class CamelRegistryProcessor {
     @BuildStep
     public void bindBeansToRegistry(
             CamelRecorder recorder,
-            CamelConfig camelConfig,
             ApplicationArchivesBuildItem applicationArchives,
             ContainerBeansBuildItem containerBeans,
             CamelRegistryBuildItem registry,
@@ -101,8 +99,6 @@ public class CamelRegistryProcessor {
                         PathFilter.Builder::new,
                         (builder, patterns) -> builder.patterns(patterns.isInclude(), patterns.getPatterns()),
                         PathFilter.Builder::combine)
-                .include(camelConfig.service().registry().includePatterns())
-                .exclude(camelConfig.service().registry().excludePatterns())
                 .build();
 
         CamelSupport.services(applicationArchives, pathFilter)

@@ -26,8 +26,8 @@ import io.quarkus.deployment.recording.BytecodeRecorderImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
-import org.apache.camel.main.RoutesCollector;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
+import org.apache.camel.main.MainListener;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -40,7 +40,7 @@ class CamelRoutesCollectorTest {
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
             .addBuildChainCustomizer(buildCustomizer())
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(CustomRoutesCollector.class));
+                    .addClasses(CustomRoutesCollector.class, CustomRoutesCollectorMainListener.class));
 
     @Inject
     CamelMain main;
@@ -60,11 +60,12 @@ class CamelRoutesCollectorTest {
                         String methodName = "execute";
                         BytecodeRecorderImpl bri = new BytecodeRecorderImpl(true, getClass().getSimpleName(), methodName,
                                 Integer.toString(methodName.hashCode()), true);
-                        RuntimeValue<RoutesCollector> value = bri.newInstance(CustomRoutesCollector.class.getName());
-                        context.produce(new CamelRoutesCollectorBuildItem(value));
+                        RuntimeValue<MainListener> value = bri
+                                .newInstance(CustomRoutesCollectorMainListener.class.getName());
+                        context.produce(new CamelMainListenerBuildItem(value));
                         context.produce(new StaticBytecodeRecorderBuildItem(bri));
                     }
-                }).produces(CamelRoutesCollectorBuildItem.class).produces(StaticBytecodeRecorderBuildItem.class).build();
+                }).produces(CamelMainListenerBuildItem.class).produces(StaticBytecodeRecorderBuildItem.class).build();
             }
         };
     }

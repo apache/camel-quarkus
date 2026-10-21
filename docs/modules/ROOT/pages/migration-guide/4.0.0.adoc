@@ -97,3 +97,80 @@ A consumer-fed delivery whose document id resolves to nothing still fails the ex
 Code matching on the message text must be adjusted; matching on the exception type is unaffected.
 
 The default document-id header on consumer-fed pipelines remains `CamelIngestDocumentId` as released — the extension pins it over the component's own `CamelLangChain4jIngestDocumentId` default — so routes that set the header keep working unchanged.
+
+== Configuration properties duplicating Apache Camel options removed
+
+The following configuration properties duplicated standard Apache Camel options and have been removed. Use the Apache Camel properties instead.
+
+[cols="1,1"]
+|===
+|Removed property |Replacement
+
+|`quarkus.camel.trace.<option>`
+|`camel.trace.<option>`
+
+|`quarkus.camel.type-converter.statistics-enabled`
+|`camel.main.typeConverterStatisticsEnabled`
+
+|`quarkus.camel.source-location-enabled`
+|`camel.main.sourceLocationEnabled`
+|===
+
+`camel.main.typeConverterStatisticsEnabled` is read when the application is built, and changing it at runtime has no effect.
+
+== `quarkus.camel.routes-discovery.enabled` removed
+
+The `quarkus.camel.routes-discovery.enabled` configuration property, deprecated since Camel Quarkus 3.26.0, has been removed.
+
+To stop routes from being discovered automatically, exclude all `RouteBuilder` classes and beans instead.
+
+[source,properties]
+----
+quarkus.camel.routes-discovery.exclude-patterns = **
+camel.main.javaRoutesExcludePattern = **
+----
+
+== Core extension build item changes
+
+These changes affect only custom Quarkus extensions that consume build items from `camel-quarkus-core-deployment`. Applications are unaffected.
+
+=== Removed build items
+
+The following build items were removed.
+
+[cols="1,2"]
+|===
+|Build item |Replacement
+
+|`CamelBootstrapCompletedBuildItem`
+|None. To act after Camel has started, observe the `org.apache.camel.quarkus.main.events.AfterStart` CDI event.
+
+|`CamelRuntimeBuildItem`
+|To access the runtime, inject the `org.apache.camel.quarkus.core.CamelRuntime` bean. To run a `RUNTIME_INIT` task before Camel starts, produce a `CamelRuntimeTaskBuildItem`.
+
+|`CamelRoutesCollectorBuildItem`
+|Produce a `CamelMainListenerBuildItem` for a `MainListener` that calls `setRoutesCollector()` in `beforeConfigure()`.
+
+|`CamelRoutesLoaderBuildItems.Registry`
+|None.
+|===
+
+The runtime classes `org.apache.camel.quarkus.core.RegistryRoutesLoader` and `org.apache.camel.quarkus.core.RegistryRoutesLoaders` were removed with them.
+
+=== Relocated classes
+
+The following classes moved to a different package. Update the imports in your extension.
+
+[cols="1,1"]
+|===
+|Previous name |New name
+
+|`org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem`
+|`org.apache.camel.quarkus.core.deployment.spi.CamelMainBuildItem`
+
+|`org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem`
+|`org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem`
+
+|`org.apache.camel.quarkus.core.deployment.main.CamelMainHelper`
+|`org.apache.camel.quarkus.core.deployment.util.CamelMainHelper`
+|===

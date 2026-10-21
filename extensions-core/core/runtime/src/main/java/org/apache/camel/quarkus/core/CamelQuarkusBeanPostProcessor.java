@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.List;
-
+import io.quarkus.arc.ClientProxy;
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 
-public interface RegistryRoutesLoader {
-    List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern, String includePattern);
+public class CamelQuarkusBeanPostProcessor extends DefaultCamelBeanPostProcessor {
+    public CamelQuarkusBeanPostProcessor(CamelContext camelContext) {
+        super(camelContext);
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws Exception {
+        // If the bean is a CDI proxy, unwrap it before processing
+        return super.postProcessBeforeInitialization(ClientProxy.unwrap(bean), beanName);
+    }
 }
