@@ -21,6 +21,7 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jsonb.JsonbDataFormat;
+import org.apache.camel.model.dataformat.JsonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.jsonb.model.AnotherObject;
 import org.apache.camel.quarkus.component.dataformats.json.jsonb.model.DummyObject;
@@ -79,8 +80,8 @@ public class JsonJsonbDataformatsRoute extends RouteBuilder {
                 .unmarshal().json(library, AnotherObject.class);
 
         from("direct:Jsonb-type-as-header")
-                .setHeader("CamelGsonUnmarshalType")
+                .setHeader("CamelJsonbUnmarshallType")
                 .constant("org.apache.camel.quarkus.component.dataformats.json.jsonb.model.AnotherObject")
-                .unmarshal().json(library);
+                .unmarshal(new JsonDataFormat(library).allowUnmarshallType(true));
     }
 }
