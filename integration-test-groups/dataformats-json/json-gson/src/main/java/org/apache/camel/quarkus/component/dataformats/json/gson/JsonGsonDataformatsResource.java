@@ -21,6 +21,7 @@ import jakarta.inject.Inject;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
@@ -93,12 +94,12 @@ public class JsonGsonDataformatsResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public String testXmlUnmarshalDefinition(@PathParam("direct-id") String directId, String statement) {
+    public Response testXmlUnmarshalDefinition(@PathParam("direct-id") String directId, String statement) {
         LOG.infof("Invoking testXmlUnmarshalDefinition(%s, %s)", directId, statement);
         Object object = producerTemplate.requestBody("direct:" + directId, statement);
         String answer = JsonbBuilder.create().toJson(object);
 
-        return answer;
+        return Response.ok(answer).header("unmarshalled-type", object.getClass().getName()).build();
     }
 
 }
