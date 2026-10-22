@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.gson.GsonDataFormat;
+import org.apache.camel.model.dataformat.JsonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.gson.model.*;
 import org.apache.camel.spi.DataFormat;
@@ -103,6 +104,6 @@ public class JsonGsonDataformatsRoute extends RouteBuilder {
         from("direct:Gson-type-as-header")
                 .setHeader("CamelGsonUnmarshalType")
                 .constant("org.apache.camel.quarkus.component.dataformats.json.gson.model.AnotherObject")
-                .unmarshal().json(library);
+                .unmarshal(new JsonDataFormat(library).allowUnmarshallType(true));
     }
 }
