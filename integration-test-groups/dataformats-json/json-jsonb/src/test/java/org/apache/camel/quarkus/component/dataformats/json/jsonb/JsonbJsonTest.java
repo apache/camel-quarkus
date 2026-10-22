@@ -85,6 +85,7 @@ public class JsonbJsonTest {
                 .body(JsonbBuilder.create().toJson(object))
                 .post("/dataformats-json-jsonb/unmarshal/{direct-id}", directId)
                 .then()
+                .header("unmarshalled-type", AnotherObject.class.getName())
                 .body("dummyString", is(object.getDummyString()));
     }
 
