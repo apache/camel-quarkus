@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -65,6 +66,10 @@ class PubnubTest {
                 .post("/pubnub/publish/test")
                 .then()
                 .statusCode(201);
+
+        if (server != null) {
+            server.verify(postRequestedFor(urlPathMatching("/publish/(.*)/(.*)/0/test/0")));
+        }
 
         // Subscribe and consume the message
         RestAssured.get("/pubnub/subscribe")
