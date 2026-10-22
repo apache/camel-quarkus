@@ -132,8 +132,8 @@
         <jetty.version>${jetty-version}</jetty.version>
         <jgroups.version>${jgroups-version}</jgroups.version>
         <jira-rest-client.version>${jira-rest-client-api-version}</jira-rest-client.version>
-        <jnr-constants.version>0.9.11</jnr-constants.version><!-- Mess in web3j transitive deps -->
-        <jnr-ffi.version>2.2.13</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <jnr-constants.version>0.10.4</jnr-constants.version><!-- Mess in web3j transitive deps -->
+        <jnr-ffi.version>2.2.16</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <jolokia.version>2.6.3</jolokia.version>
         <jsch.version>2.28.7</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch:${quarkiverse-jsch.version} dep:com.github.mwiede:jsch -->
         <json-path.version>${json-path-version}</json-path.version>
