@@ -3,6 +3,7 @@
 [id="extensions-knative-consumer"]
 = Knative Consumer
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-knative-consumer
 :cq-artifact-id: camel-quarkus-knative-consumer
 :cq-native-supported: true
 :cq-status: Stable

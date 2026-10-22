@@ -4,6 +4,7 @@
 = Core
 :page-aliases: extensions/core.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-core
 :cq-artifact-id: camel-quarkus-core
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-aws-cloudtrail"]
 = AWS Cloudtrail
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws-cloudtrail
 :cq-artifact-id: camel-quarkus-aws-cloudtrail
 :cq-native-supported: true
 :cq-status: Stable

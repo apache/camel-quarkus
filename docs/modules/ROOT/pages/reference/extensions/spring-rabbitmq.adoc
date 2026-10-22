@@ -3,6 +3,7 @@
 [id="extensions-spring-rabbitmq"]
 = Spring RabbitMQ
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-spring-rabbitmq
 :cq-artifact-id: camel-quarkus-spring-rabbitmq
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-minio"]
 = Minio
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-minio
 :cq-artifact-id: camel-quarkus-minio
 :cq-native-supported: true
 :cq-status: Stable

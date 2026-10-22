@@ -3,6 +3,7 @@
 [id="extensions-zookeeper-master"]
 = ZooKeeper Master
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-zookeeper-master
 :cq-artifact-id: camel-quarkus-zookeeper-master
 :cq-native-supported: false
 :cq-status: Preview

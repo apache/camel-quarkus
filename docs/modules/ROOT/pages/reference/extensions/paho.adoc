@@ -4,6 +4,7 @@
 = Paho
 :page-aliases: extensions/paho.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-paho
 :cq-artifact-id: camel-quarkus-paho
 :cq-native-supported: true
 :cq-status: Stable

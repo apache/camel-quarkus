@@ -4,6 +4,7 @@
 = AWS 2 Simple Queue Service (SQS)
 :page-aliases: extensions/aws2-sqs.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-sqs
 :cq-artifact-id: camel-quarkus-aws2-sqs
 :cq-native-supported: true
 :cq-status: Stable

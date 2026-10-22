@@ -3,6 +3,7 @@
 [id="extensions-debezium-oracle"]
 = Debezium Oracle Connector
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-debezium-oracle
 :cq-artifact-id: camel-quarkus-debezium-oracle
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = FTP
 :page-aliases: extensions/ftp.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ftp
 :cq-artifact-id: camel-quarkus-ftp
 :cq-native-supported: true
 :cq-status: Stable

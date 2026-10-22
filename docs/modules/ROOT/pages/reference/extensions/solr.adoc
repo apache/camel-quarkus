@@ -3,6 +3,7 @@
 [id="extensions-solr"]
 = Solr
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-solr
 :cq-artifact-id: camel-quarkus-solr
 :cq-native-supported: true
 :cq-status: Stable

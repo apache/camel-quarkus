@@ -3,6 +3,7 @@
 [id="extensions-aws2-sts"]
 = AWS 2 Security Token Service (STS)
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-sts
 :cq-artifact-id: camel-quarkus-aws2-sts
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-ldap"]
 = LDAP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ldap
 :cq-artifact-id: camel-quarkus-ldap
 :cq-native-supported: true
 :cq-status: Stable

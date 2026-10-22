@@ -3,6 +3,7 @@
 [id="extensions-aws2-kinesis"]
 = AWS 2 Kinesis
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-kinesis
 :cq-artifact-id: camel-quarkus-aws2-kinesis
 :cq-native-supported: true
 :cq-status: Stable

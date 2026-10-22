@@ -4,6 +4,7 @@
 = Consul
 :page-aliases: extensions/consul.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-consul
 :cq-artifact-id: camel-quarkus-consul
 :cq-native-supported: true
 :cq-status: Stable

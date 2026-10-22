@@ -3,6 +3,7 @@
 [id="extensions-hazelcast"]
 = Hazelcast
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-hazelcast
 :cq-artifact-id: camel-quarkus-hazelcast
 :cq-native-supported: true
 :cq-status: Stable

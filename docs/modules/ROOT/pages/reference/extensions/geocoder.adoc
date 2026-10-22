@@ -3,6 +3,7 @@
 [id="extensions-geocoder"]
 = Geocoder
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-geocoder
 :cq-artifact-id: camel-quarkus-geocoder
 :cq-native-supported: true
 :cq-status: Stable

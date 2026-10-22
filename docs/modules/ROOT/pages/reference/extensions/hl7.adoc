@@ -3,6 +3,7 @@
 [id="extensions-hl7"]
 = HL7
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-hl7
 :cq-artifact-id: camel-quarkus-hl7
 :cq-native-supported: true
 :cq-status: Stable

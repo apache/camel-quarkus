@@ -4,6 +4,7 @@
 = JSON Path
 :page-aliases: extensions/jsonpath.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jsonpath
 :cq-artifact-id: camel-quarkus-jsonpath
 :cq-native-supported: true
 :cq-status: Stable

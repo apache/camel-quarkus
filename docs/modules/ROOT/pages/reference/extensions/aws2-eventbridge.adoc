@@ -3,6 +3,7 @@
 [id="extensions-aws2-eventbridge"]
 = AWS 2 Eventbridge
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-eventbridge
 :cq-artifact-id: camel-quarkus-aws2-eventbridge
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-cbor"]
 = CBOR
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cbor
 :cq-artifact-id: camel-quarkus-cbor
 :cq-native-supported: true
 :cq-status: Stable

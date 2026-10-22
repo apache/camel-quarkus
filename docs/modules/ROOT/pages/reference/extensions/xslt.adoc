@@ -4,6 +4,7 @@
 = XSLT
 :page-aliases: extensions/xslt.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xslt
 :cq-artifact-id: camel-quarkus-xslt
 :cq-native-supported: true
 :cq-status: Stable

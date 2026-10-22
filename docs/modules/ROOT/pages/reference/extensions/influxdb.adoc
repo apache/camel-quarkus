@@ -4,6 +4,7 @@
 = InfluxDB
 :page-aliases: extensions/influxdb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-influxdb
 :cq-artifact-id: camel-quarkus-influxdb
 :cq-native-supported: true
 :cq-status: Stable

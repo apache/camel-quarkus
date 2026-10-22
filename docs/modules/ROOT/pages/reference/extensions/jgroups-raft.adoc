@@ -3,6 +3,7 @@
 [id="extensions-jgroups-raft"]
 = JGroups raft
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jgroups-raft
 :cq-artifact-id: camel-quarkus-jgroups-raft
 :cq-native-supported: false
 :cq-status: Preview

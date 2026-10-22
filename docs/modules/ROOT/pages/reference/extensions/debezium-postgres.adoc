@@ -4,6 +4,7 @@
 = Debezium PostgresSQL Connector
 :page-aliases: extensions/debezium-postgres.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-debezium-postgres
 :cq-artifact-id: camel-quarkus-debezium-postgres
 :cq-native-supported: true
 :cq-status: Stable

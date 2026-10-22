@@ -3,6 +3,7 @@
 [id="extensions-jsonata"]
 = JSONATA
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jsonata
 :cq-artifact-id: camel-quarkus-jsonata
 :cq-native-supported: true
 :cq-status: Stable

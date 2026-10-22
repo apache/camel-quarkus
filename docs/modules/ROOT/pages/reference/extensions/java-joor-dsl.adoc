@@ -3,6 +3,7 @@
 [id="extensions-java-joor-dsl"]
 = Java jOOR DSL
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-java-joor-dsl
 :cq-artifact-id: camel-quarkus-java-joor-dsl
 :cq-native-supported: true
 :cq-status: Stable

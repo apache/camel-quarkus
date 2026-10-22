@@ -4,6 +4,7 @@
 = OGNL
 :page-aliases: extensions/ognl.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ognl
 :cq-artifact-id: camel-quarkus-ognl
 :cq-native-supported: true
 :cq-status: Stable

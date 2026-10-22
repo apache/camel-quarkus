@@ -3,6 +3,7 @@
 [id="extensions-milo"]
 = OPC UA Browser
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-milo
 :cq-artifact-id: camel-quarkus-milo
 :cq-native-supported: true
 :cq-status: Stable

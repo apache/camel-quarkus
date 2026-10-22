@@ -4,6 +4,7 @@
 = SOAP dataformat
 :page-aliases: extensions/soap.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-soap
 :cq-artifact-id: camel-quarkus-soap
 :cq-native-supported: true
 :cq-status: Stable

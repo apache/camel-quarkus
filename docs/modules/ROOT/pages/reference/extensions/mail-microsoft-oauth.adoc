@@ -3,6 +3,7 @@
 [id="extensions-mail-microsoft-oauth"]
 = Mail Microsoft Oauth
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mail-microsoft-oauth
 :cq-artifact-id: camel-quarkus-mail-microsoft-oauth
 :cq-native-supported: true
 :cq-status: Stable

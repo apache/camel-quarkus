@@ -3,6 +3,7 @@
 [id="extensions-flink"]
 = Flink
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-flink
 :cq-artifact-id: camel-quarkus-flink
 :cq-native-supported: false
 :cq-status: Preview

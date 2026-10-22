@@ -3,6 +3,7 @@
 [id="extensions-fastjson"]
 = JSON Fastjson
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-fastjson
 :cq-artifact-id: camel-quarkus-fastjson
 :cq-native-supported: false
 :cq-status: Preview

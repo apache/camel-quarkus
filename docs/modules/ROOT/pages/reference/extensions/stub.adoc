@@ -3,6 +3,7 @@
 [id="extensions-stub"]
 = Stub
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-stub
 :cq-artifact-id: camel-quarkus-stub
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = JMS
 :page-aliases: extensions/jms.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jms
 :cq-artifact-id: camel-quarkus-jms
 :cq-native-supported: true
 :cq-status: Stable

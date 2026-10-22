@@ -3,6 +3,7 @@
 [id="extensions-bonita"]
 = Bonita
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-bonita
 :cq-artifact-id: camel-quarkus-bonita
 :cq-native-supported: false
 :cq-status: Preview

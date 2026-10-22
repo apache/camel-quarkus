@@ -4,6 +4,7 @@
 = Cassandra CQL
 :page-aliases: extensions/cassandraql.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cassandraql
 :cq-artifact-id: camel-quarkus-cassandraql
 :cq-native-supported: true
 :cq-status: Stable
