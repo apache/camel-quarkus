@@ -85,6 +85,7 @@ public class GsonJsonTest {
                 .body(JsonbBuilder.create().toJson(object))
                 .post("/dataformats-json-gson/unmarshal/{direct-id}", directId)
                 .then()
+                .header("unmarshalled-type", AnotherObject.class.getName())
                 .body("dummyString", is(object.getDummyString()));
     }
 
