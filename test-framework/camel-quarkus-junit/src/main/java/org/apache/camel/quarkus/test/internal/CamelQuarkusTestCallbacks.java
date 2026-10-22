@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.test.internal;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,15 +38,20 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.test.CamelQuarkusTest;
 import org.apache.camel.quarkus.test.CamelTestHelper;
+import org.apache.camel.spi.RouteDiagramDumper;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.test.junit6.util.ExtensionHelper;
 import org.apache.camel.test.junit6.util.RouteCoverageDumperExtension;
 import org.apache.camel.test.junit6.util.RouteDumperExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Applies the {@link CamelQuarkusTest} plan around the test classes and methods that use it.
  */
 public class CamelQuarkusTestCallbacks implements QuarkusTestAfterConstructCallback, QuarkusTestBeforeEachCallback,
         QuarkusTestAfterEachCallback, QuarkusTestAfterAllCallback {
+    private static final Logger LOG = LoggerFactory.getLogger(CamelQuarkusTestCallbacks.class);
 
     @Override
     public void afterConstruct(Object testInstance) {
@@ -58,8 +66,9 @@ public class CamelQuarkusTestCallbacks implements QuarkusTestAfterConstructCallb
             // The plan is applied once per class, so every test of the class fails for the same reason
             throw state.classPlanFailure;
         }
-        boolean applyClassPlan = !state.classPlanApplied && !state.isolated;
-        if (!state.classPlanApplied) {
+        boolean firstInstance = !state.classPlanApplied;
+        boolean applyClassPlan = firstInstance && !state.isolated;
+        if (firstInstance) {
             state.classPlanApplied = true;
             state.existingComponents = new HashSet<>(context.getComponentNames());
             if (!state.isolated) {
@@ -70,9 +79,13 @@ public class CamelQuarkusTestCallbacks implements QuarkusTestAfterConstructCallb
         }
         // Bound before the routes of the test class are added, so that they can refer to the beans
         TestPlanSupport.replaceInRegistry(context, state, testInstance);
-        if (applyClassPlan) {
+        if (firstInstance) {
             try {
-                TestPlanSupport.unchecked(() -> TestPlanSupport.applyRoutesAndAdvice(context, state));
+                if (applyClassPlan) {
+                    TestPlanSupport.unchecked(() -> TestPlanSupport.applyRoutesAndAdvice(context, state));
+                }
+                // After the routes and advice of the test class are applied, so that the diagrams include them
+                dumpRouteDiagrams(context, state.annotation);
             } catch (RuntimeException e) {
                 state.classPlanFailure = e;
                 try {
@@ -165,6 +178,27 @@ public class CamelQuarkusTestCallbacks implements QuarkusTestAfterConstructCallb
         TestClassState state = TestClassState.remove(testClass);
         if (state != null && state.classPlanFailure == null) {
             TestPlanSupport.unchecked(() -> TestPlanSupport.revert(camelContext(), state));
+        }
+    }
+
+    private static void dumpRouteDiagrams(CamelContext context, CamelQuarkusTest annotation) {
+        String folder = annotation.dumpRouteDiagramFolder();
+        if (folder.isBlank()) {
+            return;
+        }
+
+        // Not via DumpRoutesStrategy, whose output options are shared with the application and the other test classes
+        RouteDiagramDumper dumper = PluginHelper.getRouteDiagramDumper(context);
+        File output = new File(folder);
+        LOG.info("Dumping route diagrams to: {}", output);
+        try {
+            dumper.dumpRoutesToFolder("*", RouteDiagramDumper.Theme.LIGHT, output);
+            if (annotation.dumpRouteDiagramTopology()) {
+                dumper.dumpTopologyToFolder(RouteDiagramDumper.Theme.LIGHT, annotation.dumpRouteDiagramTopologyExternal(),
+                        output);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 

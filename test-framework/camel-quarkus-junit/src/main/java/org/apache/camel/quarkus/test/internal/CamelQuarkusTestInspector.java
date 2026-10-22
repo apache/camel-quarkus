@@ -62,6 +62,7 @@ public final class CamelQuarkusTestInspector {
     static final String XML_IO_DSL_MARKER = "org.apache.camel.quarkus.dsl.xml.XmlIoDslRecorder";
     static final String XML_JAXB_MARKER = "org.apache.camel.quarkus.component.xml.jaxb.XmlJaxbRecorder";
     static final String YAML_IO_MARKER = "org.apache.camel.quarkus.yaml.io.YamlIORecorder";
+    static final String DIAGRAM_MARKER = "org.apache.camel.quarkus.component.diagram.CamelDiagramRecorder";
 
     private static final List<String> ISOLATED_ONLY_ATTRIBUTES = List.of("mockEndpoints", "mockEndpointsAndSkip",
             "stubEndpoints", "autoStartupExclude");
@@ -230,6 +231,18 @@ public final class CamelQuarkusTestInspector {
             }
             default -> errors.add(String.format("%s: dumpRoute must be \"xml\" or \"yaml\", not \"%s\"", name,
                     dumpRoute.asString()));
+            }
+        }
+        AnnotationValue dumpRouteDiagramFolder = annotation.value("dumpRouteDiagramFolder");
+        if (dumpRouteDiagramFolder != null && !dumpRouteDiagramFolder.asString().isBlank()) {
+            if (!classPresent.test(DIAGRAM_MARKER)) {
+                errors.add(name + ": dumpRouteDiagramFolder requires the camel-quarkus-diagram dependency");
+            }
+        } else {
+            for (String option : List.of("dumpRouteDiagramTopology", "dumpRouteDiagramTopologyExternal")) {
+                if (annotation.value(option) != null) {
+                    errors.add(name + ": " + option + " requires dumpRouteDiagramFolder");
+                }
             }
         }
     }

@@ -99,7 +99,8 @@ class CamelQuarkusTestInspectorTest {
                 "replaceRouteFromWith entry 'route=' must have the format routeId=uri",
                 "routes class " + NoDefaultConstructorRoutes.class.getName() + " must have a no-arg constructor",
                 "routes class " + AbstractRoutes.class.getName() + " must not be abstract",
-                "dumpRoute must be \"xml\" or \"yaml\", not \"json\"");
+                "dumpRoute must be \"xml\" or \"yaml\", not \"json\"",
+                "dumpRouteDiagramTopology requires dumpRouteDiagramFolder");
     }
 
     @Test
@@ -116,7 +117,8 @@ class CamelQuarkusTestInspectorTest {
     void missingDependencies() throws IOException {
         assertErrors(inspect(DumpTest.class, name -> false),
                 "dumpRouteCoverage requires the camel-quarkus-management dependency",
-                "dumpRoute = \"yaml\" requires the camel-quarkus-yaml-io dependency");
+                "dumpRoute = \"yaml\" requires the camel-quarkus-yaml-io dependency",
+                "dumpRouteDiagramFolder requires the camel-quarkus-diagram dependency");
         assertEquals(List.of(), inspect(DumpTest.class, name -> true).errors());
     }
 
@@ -234,7 +236,7 @@ class CamelQuarkusTestInspectorTest {
     }
 
     @CamelQuarkusTest(replaceRouteFromWith = { "no-separator", "route=" }, routes = { NoDefaultConstructorRoutes.class,
-            AbstractRoutes.class }, dumpRoute = "json")
+            AbstractRoutes.class }, dumpRoute = "json", dumpRouteDiagramTopology = false)
     static class InvalidAttributesTest {
     }
 
@@ -254,7 +256,7 @@ class CamelQuarkusTestInspectorTest {
         }
     }
 
-    @CamelQuarkusTest(dumpRouteCoverage = true, dumpRoute = "yaml")
+    @CamelQuarkusTest(dumpRouteCoverage = true, dumpRoute = "yaml", dumpRouteDiagramFolder = "target/diagrams")
     static class DumpTest {
     }
 
