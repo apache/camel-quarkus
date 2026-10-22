@@ -65,6 +65,13 @@ public class MicrometerObservabilityResource {
         return producerTemplate.requestBody("direct:noCustomId", "test", String.class);
     }
 
+    @Path("/trace-observed")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceObserved() {
+        return producerTemplate.requestBody("direct:observed", "Camel", String.class);
+    }
+
     @Path("/trace-upstream")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
