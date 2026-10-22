@@ -17,12 +17,14 @@
 package org.apache.camel.quarkus.component.jdbc.h2;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
@@ -163,5 +165,28 @@ public class CamelH2JdbcTest {
                 .post("/test/" + dbKind + "/execute")
                 .then()
                 .body(equalTo(camelsDbResult));
+    }
+
+    @Test
+    void testSecretRotation() {
+        // Ensure the pool holds an idle connection to flush
+        RestAssured.when().get("/test/" + dbKind + "/species/1").then().statusCode(200);
+
+        long flushCountBefore = getDataSourceFlushCount();
+
+        RestAssured.post("/test/" + dbKind + "/secretRotation")
+                .then()
+                .statusCode(204);
+
+        await().atMost(10, TimeUnit.SECONDS)
+                .until(() -> getDataSourceFlushCount() > flushCountBefore);
+    }
+
+    private long getDataSourceFlushCount() {
+        return Long.parseLong(RestAssured.get("/test/" + dbKind + "/datasource/flushCount")
+                .then()
+                .statusCode(200)
+                .extract()
+                .asString());
     }
 }

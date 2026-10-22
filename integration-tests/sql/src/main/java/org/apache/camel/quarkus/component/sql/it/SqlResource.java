@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.agroal.api.AgroalDataSource;
 import io.quarkus.arc.profile.UnlessBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -38,6 +39,7 @@ import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.sql.SqlConstants;
 import org.apache.camel.quarkus.component.sql.it.model.Camel;
+import org.apache.camel.spi.SecretRotationAware;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
@@ -58,6 +60,9 @@ public class SqlResource {
 
     @Inject
     CamelContext camelContext;
+
+    @Inject
+    AgroalDataSource dataSource;
 
     @Path("/get/{species}")
     @GET
@@ -213,4 +218,17 @@ public class SqlResource {
         return dbKind;
     }
 
+    @Path("/flushCount")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public long getDataSourceFlushCount() {
+        return dataSource.getMetrics().flushCount();
+    }
+
+    @Path("/secretRotation/{componentName}")
+    @POST
+    public void secretRotation(@PathParam("componentName") String componentName) throws Exception {
+        SecretRotationAware component = (SecretRotationAware) camelContext.getComponent(componentName);
+        component.onSecretRotation("test");
+    }
 }

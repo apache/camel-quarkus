@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.jdbc.deployment;
 
+import io.agroal.api.AgroalDataSource;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class JdbcProcessor {
 
@@ -28,4 +30,11 @@ class JdbcProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    ReflectiveClassBuildItem registerAgroalFlushForReflection() {
+        // Required by DataSourceHelper to evict pool connections on secret rotation
+        return ReflectiveClassBuildItem.builder(AgroalDataSource.class, AgroalDataSource.FlushMode.class)
+                .methods()
+                .build();
+    }
 }

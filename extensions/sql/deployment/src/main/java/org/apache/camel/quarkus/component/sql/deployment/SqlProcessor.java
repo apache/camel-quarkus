@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.sql.deployment;
 
 import java.sql.Types;
 
+import io.agroal.api.AgroalDataSource;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -43,5 +44,8 @@ class SqlProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
                 ReflectiveClassBuildItem.builder(Types.class, DefaultExchangeHolder.class).fields().build());
+        // Required by DataSourceHelper to evict pool connections on secret rotation
+        reflectiveClass.produce(
+                ReflectiveClassBuildItem.builder(AgroalDataSource.class, AgroalDataSource.FlushMode.class).methods().build());
     }
 }
