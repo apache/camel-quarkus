@@ -1,0 +1,41 @@
+{
+  "name" : "rest_api_latest_search_new_issues_page_3",
+  "request" : {
+    "urlPath" : "/rest/api/latest/search",
+    "method" : "GET",
+    "queryParameters" : {
+      "jql" : {
+        "hasExactly" : [ {
+          "equalTo" : "created > \"2025-10-23 12:26\" AND project=TEST ORDER BY created DESC"
+        } ]
+      },
+      "expand" : {
+        "hasExactly" : [ {
+          "equalTo" : "schema,names"
+        } ]
+      },
+      "fields" : {
+        "hasExactly" : [ {
+          "equalTo" : "*navigable"
+        } ]
+      },
+      "maxResults" : {
+        "hasExactly" : [ {
+          "equalTo" : "1"
+        } ]
+      },
+      "startAt" : {
+        "hasExactly" : [ {
+          "equalTo" : "2"
+        } ]
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"expand\":\"names,schema\",\"startAt\":2,\"maxResults\":1,\"total\":2,\"issues\":[]}",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8"
+    }
+  }
+}
