@@ -78,7 +78,7 @@ public class PubnubResource {
         if (channel.equals("test")) {
             context.getRouteController().startRoute("subscriber-route");
         }
-        producerTemplate.sendBodyAndHeader("direct:publish", message, PubNubConstants.CHANNEL, channel);
+        producerTemplate.sendBodyAndHeader("direct:publish", message, PubNubConstants.OVERRIDE_CHANNEL, channel);
         return Response.created(new URI("https://camel.apache.org")).build();
     }
 
