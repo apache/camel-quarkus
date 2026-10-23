@@ -104,7 +104,6 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
                     "Several environmental properties are missing (you have to provide either all of them or none." +
                             "Missing properties are: " + String.join(",", missingExternalProperties));
         }
-        MockBackendUtils.logMockBackendUsed();
 
         try {
             // Create a shared network for all containers
