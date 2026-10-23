@@ -30,7 +30,7 @@ import org.apache.camel.quarkus.component.jasypt.CamelJasyptBuildTimeConfig;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptRecorder;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptRuntimeConfigBuilder;
 import org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.jboss.jandex.ClassInfo;
 

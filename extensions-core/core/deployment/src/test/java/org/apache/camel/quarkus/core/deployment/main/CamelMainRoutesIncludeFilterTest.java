@@ -53,7 +53,6 @@ public class CamelMainRoutesIncludeFilterTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.routes-discovery.enabled", "true");
         props.setProperty("quarkus.camel.routes-discovery.include-patterns", "**/*Filtered");
 
         try {

@@ -27,7 +27,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.main.MainListener;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

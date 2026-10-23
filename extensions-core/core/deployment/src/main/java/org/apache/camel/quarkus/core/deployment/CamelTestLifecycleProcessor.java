@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.main;
+package org.apache.camel.quarkus.core.deployment;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -26,7 +26,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.TestProfileBuildItem;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.test.CamelTestLifecycleHook;
 import org.apache.camel.quarkus.main.CamelMainRecorder;
 

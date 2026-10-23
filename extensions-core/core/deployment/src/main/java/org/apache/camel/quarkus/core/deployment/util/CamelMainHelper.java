@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.main;
+package org.apache.camel.quarkus.core.deployment.util;
 
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.Resource;
 import org.apache.camel.support.scan.DefaultPackageScanResourceResolver;
 import org.apache.camel.util.AntPathMatcher;

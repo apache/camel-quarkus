@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.lang.reflect.Modifier;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.ApplicationArchive;
@@ -24,17 +27,64 @@ import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathVisit;
 import io.quarkus.paths.PathVisitor;
-import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RoutesBuilderClassExcludeBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelMainHelper;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.util.FileUtil;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 import static org.apache.camel.quarkus.core.deployment.util.CamelSupport.CLASSPATH_PREFIX;
 
-class CamelRouteResourcesProcessor {
+class CamelRoutesProcessor {
+    private static final DotName ROUTES_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.RoutesBuilder");
+    private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.AdviceWithRouteBuilder");
+
+    @BuildStep
+    public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
+            CombinedIndexBuildItem combinedIndex,
+            CamelConfig camelConfig,
+            List<RoutesBuilderClassExcludeBuildItem> routesBuilderClassExcludes) {
+
+        final IndexView index = combinedIndex.getIndex();
+
+        Set<ClassInfo> allKnownImplementors = index.getAllKnownImplementations(ROUTES_BUILDER_TYPE)
+                .stream()
+                .filter(classInfo -> !classInfo.superName().equals(ADVICE_WITH_ROUTE_BUILDER_TYPE))
+                .collect(Collectors.toSet());
+
+        final Predicate<DotName> pathFilter = new PathFilter.Builder()
+                .exclude(
+                        routesBuilderClassExcludes.stream()
+                                .map(RoutesBuilderClassExcludeBuildItem::getPattern)
+                                .collect(Collectors.toList()))
+                .exclude(camelConfig.routesDiscovery().excludePatterns())
+                .include(camelConfig.routesDiscovery().includePatterns())
+                .build().asDotNamePredicate();
+
+        return allKnownImplementors
+                .stream()
+                // public and non-abstract
+                .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
+                .map(ClassInfo::name)
+                .filter(pathFilter)
+                .sorted()
+                .map(CamelRoutesBuilderClassBuildItem::new)
+                .collect(Collectors.toList());
+    }
+
     @BuildStep
     void camelRouteResources(
             Capabilities capabilities,

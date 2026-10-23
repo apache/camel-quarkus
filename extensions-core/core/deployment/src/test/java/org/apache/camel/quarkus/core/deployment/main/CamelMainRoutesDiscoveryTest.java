@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.util.Properties;
 
 import io.quarkus.test.QuarkusExtensionTest;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
@@ -48,7 +49,8 @@ public class CamelMainRoutesDiscoveryTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.routes-discovery.enabled", "false");
+        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**");
+        props.setProperty("camel.main.javaRoutesExcludePattern", "**");
 
         try {
             props.store(writer, "");
@@ -69,6 +71,14 @@ public class CamelMainRoutesDiscoveryTest {
         @Override
         public void configure() throws Exception {
             from("direct:in").routeId("my-route").to("log:out");
+        }
+    }
+
+    @ApplicationScoped
+    public static class MyRouteBean extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("direct:bean").routeId("my-route-bean").to("log:bean");
         }
     }
 }

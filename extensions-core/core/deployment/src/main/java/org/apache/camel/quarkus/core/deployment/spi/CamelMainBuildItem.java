@@ -18,26 +18,19 @@ package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.RegistryRoutesLoader;
+import org.apache.camel.quarkus.main.CamelMain;
 
-@Deprecated(since = "3.26.0", forRemoval = true)
-public final class CamelRoutesLoaderBuildItems {
-    private CamelRoutesLoaderBuildItems() {
+/**
+ * Holds the {@link CamelMain} {@link RuntimeValue}.
+ */
+public final class CamelMainBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<CamelMain> main;
+
+    public CamelMainBuildItem(RuntimeValue<CamelMain> main) {
+        this.main = main;
     }
 
-    /**
-     * Holds the {@link RegistryRoutesLoader} instance.
-     */
-    public static final class Registry extends SimpleBuildItem {
-        private final RuntimeValue<RegistryRoutesLoader> value;
-
-        public Registry(RuntimeValue<RegistryRoutesLoader> value) {
-            this.value = value;
-        }
-
-        public RuntimeValue<RegistryRoutesLoader> getLoader() {
-            return value;
-        }
+    public RuntimeValue<CamelMain> getInstance() {
+        return main;
     }
-
 }

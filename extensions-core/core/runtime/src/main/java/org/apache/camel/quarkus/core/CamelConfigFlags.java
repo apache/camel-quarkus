@@ -28,13 +28,6 @@ public final class CamelConfigFlags {
         return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(defaultValue);
     }
 
-    public static final class RoutesDiscoveryEnabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return asBoolean("quarkus.camel.routes-discovery.enabled", true);
-        }
-    }
-
     public static final class RuntimeCatalogEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {

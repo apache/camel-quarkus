@@ -39,12 +39,14 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.maven.dependency.ArtifactKey;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
+import org.apache.camel.PropertyInject;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
@@ -55,6 +57,9 @@ import org.apache.camel.language.simple.SimpleNoFileLanguage;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfig.ReflectionConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
+import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
@@ -67,11 +72,13 @@ import org.apache.camel.spi.ScheduledPollConsumerScheduler;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.SecureRandomHelper;
+import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
+import org.jboss.jandex.MethodInfo;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -85,6 +92,9 @@ import static org.apache.commons.lang3.ClassUtils.getPackageName;
 public class CamelNativeImageProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelNativeImageProcessor.class);
 
+    private static final DotName PROPERTY_INJECT_DOTNAME = DotName.createSimple(PropertyInject.class.getName());
+    private static final DotName TRANSFORMER_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.Transformer");
     private static final DotName THROWABLE_TYPE = DotName.createSimple(Throwable.class.getName());
 
     private static final Set<String> EXCEPTION_REGISTRATION_METHODS = Set.of("onException", "doCatch", "exception",
@@ -362,6 +372,102 @@ public class CamelNativeImageProcessor {
         }
     }
 
+    @BuildStep
+    void camelNativeImageResources(
+            List<CamelRouteResourceBuildItem> camelRouteResources,
+            BuildProducer<NativeImageResourceBuildItem> nativeResource) {
+
+        camelRouteResources.stream()
+                .filter(CamelRouteResourceBuildItem::isClasspathResource)
+                .map(CamelRouteResourceBuildItem::getSourcePath)
+                .map(NativeImageResourceBuildItem::new)
+                .forEach(nativeResource::produce);
+
+        String[] resources = Stream.of("components", "dataformats", "languages")
+                .map(k -> "org/apache/camel/main/" + k + ".properties")
+                .toArray(String[]::new);
+        nativeResource.produce(new NativeImageResourceBuildItem(resources));
+    }
+
+    @BuildStep
+    NativeImageResourceBuildItem initResources() {
+        return new NativeImageResourceBuildItem(
+                "META-INF/services/org/apache/camel/bean-processor-factory",
+                "META-INF/services/org/apache/camel/rest-registry-factory");
+    }
+
+    /**
+     * Discovers all Transformer implementations for package scanning and reflection.
+     * This enables transformer.scan() to work in native mode.
+     */
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void discoverTransformers(
+            ApplicationArchivesBuildItem applicationArchives,
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<CamelPackageScanClassBuildItem> packageScanClass,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+        IndexView index = combinedIndex.getIndex();
+
+        Set<String> internalTransformers = new HashSet<>();
+        // Ignore all Transformer implementations from org.apache.camel:camel-* dependencies
+        for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
+            ArtifactKey artifactKey = archive.getKey();
+            if (artifactKey != null && "org.apache.camel".equals(artifactKey.getGroupId())
+                    && artifactKey.getArtifactId().startsWith("camel-")) {
+                internalTransformers.addAll(archive.getIndex().getAllKnownSubclasses(TRANSFORMER_TYPE)
+                        .stream()
+                        .map(classInfo -> classInfo.name().toString())
+                        .collect(Collectors.toSet()));
+            }
+        }
+
+        Set<String> transformerClasses = index.getAllKnownSubclasses(TRANSFORMER_TYPE)
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(className -> !internalTransformers.contains(className))
+                .collect(Collectors.toSet());
+
+        if (!transformerClasses.isEmpty()) {
+            LOGGER.debug("Found Transformer classes: {}", transformerClasses);
+            packageScanClass.produce(new CamelPackageScanClassBuildItem(transformerClasses));
+
+            // Register transformer classes for reflection so they can be instantiated at runtime
+            transformerClasses.forEach(className -> reflectiveClass.produce(
+                    ReflectiveClassBuildItem.builder(className)
+                            .build()));
+        }
+    }
+
+    @BuildStep
+    void registerPropertyInjectClassesForReflection(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndex) {
+        Set<String> propertyInjectClasses = new HashSet<>();
+        combinedIndex.getIndex()
+                .getAnnotations(PROPERTY_INJECT_DOTNAME)
+                .forEach(annotationInstance -> {
+                    AnnotationTarget target = annotationInstance.target();
+                    Kind kind = target.kind();
+                    if (kind == Kind.FIELD) {
+                        propertyInjectClasses.add(target.asField().declaringClass().name().toString());
+                    }
+
+                    if (kind == Kind.METHOD || kind == Kind.METHOD_PARAMETER) {
+                        MethodInfo methodInfo = kind == Kind.METHOD ? target.asMethod() : target.asMethodParameter().method();
+                        DotName dotName = methodInfo.declaringClass().name();
+                        propertyInjectClasses.add(dotName.toString());
+                    }
+                });
+
+        if (!propertyInjectClasses.isEmpty()) {
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(propertyInjectClasses.toArray(new String[0]))
+                    .fields(true)
+                    .methods(true)
+                    .build());
+        }
+    }
+
     /**
      * Checks whether the given class name is a Throwable subclass. First checks the Jandex index (covers application
      * and indexed dependency classes), then falls back to Class.forName() for JDK/unindexed classes.
@@ -444,5 +550,4 @@ public class CamelNativeImageProcessor {
             pendingClasses.clear();
         }
     }
-
 }

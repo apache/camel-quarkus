@@ -14,24 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.main.spi;
+package org.apache.camel.quarkus.core.deployment;
 
-import io.quarkus.builder.item.MultiBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.main.MainListener;
-import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.main.BaseMainSupport;
+import org.apache.camel.main.MainListenerSupport;
 
-/**
- * A {@link MultiBuildItem} holding {@link MainListener}s to add to {@link CamelMain}.
- */
-public final class CamelMainListenerBuildItem extends MultiBuildItem {
-    private final RuntimeValue<MainListener> listener;
-
-    public CamelMainListenerBuildItem(RuntimeValue<MainListener> listener) {
-        this.listener = listener;
-    }
-
-    public RuntimeValue<MainListener> getListener() {
-        return listener;
+public final class CustomRoutesCollectorMainListener extends MainListenerSupport {
+    @Override
+    public void beforeConfigure(BaseMainSupport main) {
+        main.setRoutesCollector(new CustomRoutesCollector());
     }
 }

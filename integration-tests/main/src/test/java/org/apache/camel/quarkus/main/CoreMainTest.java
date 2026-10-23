@@ -28,7 +28,6 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
-import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.quarkus.test.DisabledOnQuarkusPlatform;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
@@ -79,7 +78,6 @@ public class CoreMainTest {
         assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
 
         assertThat(p.getString("routes-collector.type")).isEqualTo(CamelMainRoutesCollector.class.getName());
-        assertThat(p.getString("routes-collector.type-registry")).isEqualTo(RegistryRoutesLoaders.Default.class.getName());
 
         assertThat(p.getList("routeBuilders", String.class))
                 .contains(CamelRoute.class.getName())

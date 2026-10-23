@@ -29,7 +29,6 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultModelReifierFactory;
-import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.CamelBeanPostProcessor;
@@ -40,13 +39,10 @@ import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
-import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.support.PluginHelper;
-import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 
 @Recorder
 public class CamelRecorder {
@@ -134,14 +130,6 @@ public class CamelRecorder {
         return new RuntimeValue<>(new DisabledModelToYAMLDumper());
     }
 
-    public RuntimeValue<RegistryRoutesLoader> newDefaultRegistryRoutesLoader() {
-        return new RuntimeValue<>(new RegistryRoutesLoaders.Default());
-    }
-
-    public RuntimeValue<RegistryRoutesLoader> newDisabledRegistryRoutesLoader() {
-        return new RuntimeValue<>(new RegistryRoutesLoaders.Disabled());
-    }
-
     public RuntimeValue<Builder> factoryFinderResolverBuilder() {
         return new RuntimeValue<>(new FastFactoryFinderResolver.Builder());
     }
@@ -156,14 +144,6 @@ public class CamelRecorder {
 
     public RuntimeValue<ModelReifierFactory> modelReifierFactory() {
         return new RuntimeValue<>(new DefaultModelReifierFactory());
-    }
-
-    public RuntimeValue<ReactiveExecutor> createReactiveExecutor() {
-        return new RuntimeValue<>(new DefaultReactiveExecutor());
-    }
-
-    public RuntimeValue<StartupStepRecorder> newDefaultStartupStepRecorder() {
-        return new RuntimeValue<>(new DefaultStartupStepRecorder());
     }
 
     public Supplier<Endpoint> createEndpoint(String uri, Class<? extends Endpoint> endpointClass) {

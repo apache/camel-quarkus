@@ -15,16 +15,6 @@ https://quarkus.io/guides/all-builditems[Quarkus build items] page.
 |===
 | Class name | Attributes
 
-a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/main/spi/CamelMainBuildItem.java[`org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem`,window=_blank]
-
-Holds the `CamelMain` `RuntimeValue`.
-a|`RuntimeValue<CamelMain> main`
-
-a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/main/spi/CamelMainListenerBuildItem.java[`org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem`,window=_blank]
-
-A `MultiBuildItem` holding `MainListener`s to add to `CamelMain`.
-a|`RuntimeValue<MainListener> listener`
-
 a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/AnnouncedSyntheticBeanBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.AnnouncedSyntheticBeanBuildItem`,window=_blank]
 
 Announces a bean that another extension registers synthetically. `BeanDiscoveryFinishedBuildItem` lists
@@ -71,12 +61,6 @@ a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deploym
 _No Javadoc found_
 a|`RuntimeValue<Clock> bootClockRuntimeValue`
 
-a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelBootstrapCompletedBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelBootstrapCompletedBuildItem`,window=_blank]
-
-A build item that does not carry any data but it is used to signal that all the bootstrap steps have been
-completed.
-a|None
-
 a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelComponentNameResolverBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBuildItem`,window=_blank]
 
 Holds the `ComponentNameResolver` `RuntimeValue`.
@@ -97,6 +81,16 @@ a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deploym
 
 A `SimpleBuildItem` holding a `FactoryFinderResolver` `RuntimeValue`.
 a|`RuntimeValue<FactoryFinderResolver> factoryFinderResolver`
+
+a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelMainBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelMainBuildItem`,window=_blank]
+
+Holds the `CamelMain` `RuntimeValue`.
+a|`RuntimeValue<CamelMain> main`
+
+a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelMainListenerBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem`,window=_blank]
+
+A `MultiBuildItem` holding `MainListener`s to add to `CamelMain`.
+a|`RuntimeValue<MainListener> listener`
 
 a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelModelJAXBContextFactoryBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem`,window=_blank]
 
@@ -168,31 +162,14 @@ a|`String name`
 
 `RuntimeValue<?> value`
 
-a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelRuntimeBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem`,window=_blank]
-
-_No Javadoc found_
-a|`RuntimeValue<CamelRuntime> runtime`
-
-`boolean autoStartup`
-
 a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelRuntimeTaskBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem`,window=_blank]
 
-Marker used as synchronization item for Build Steps to ensure all the Build Steps that need to record
-`ExecutionTime#RUNTIME_INIT`.
+Marker used as synchronization item for Build Steps that record `ExecutionTime#RUNTIME_INIT` tasks that must
+complete before the `org.apache.camel.quarkus.core.CamelRuntime` is assembled and started.
 
 As example some beans can be bound to the `org.apache.camel.spi.Registry` at `ExecutionTime#STATIC_INIT`
-but others can only be bound at `ExecutionTime#RUNTIME_INIT` and to be sure that the binding happens before the
-`org.apache.camel.quarkus.core.CamelRuntime` is assembled and started a CamelRuntimeTaskBuildItem is produced
-and the Build Steps producing `CamelRuntimeBuildItem` depends on it.
-
-The initial barrier required two symmetric Build Items:
-
-* CamelRegistryBuildItem
-
-* CamelRuntimeRegistryBuildItem
-
-Where the second Build Item was useless except for synchronization purpose and has been replaced to this generic
-CamelRuntimeTaskBuildItem.
+but others can only be bound at `ExecutionTime#RUNTIME_INIT`. Producing a CamelRuntimeTaskBuildItem from the
+Build Step doing the binding ensures that it happens before the Camel runtime starts.
 a|`String name`
 
 a|https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/spi/CamelSerializationBuildItem.java[`org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem`,window=_blank]
