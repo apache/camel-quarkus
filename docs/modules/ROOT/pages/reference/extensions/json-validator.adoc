@@ -4,6 +4,7 @@
 = JSON Schema Validator
 :page-aliases: extensions/json-validator.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-json-validator
 :cq-artifact-id: camel-quarkus-json-validator
 :cq-native-supported: true
 :cq-status: Stable

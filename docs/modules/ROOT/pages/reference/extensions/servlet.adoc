@@ -4,6 +4,7 @@
 = Servlet
 :page-aliases: extensions/servlet.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-servlet
 :cq-artifact-id: camel-quarkus-servlet
 :cq-native-supported: true
 :cq-status: Stable

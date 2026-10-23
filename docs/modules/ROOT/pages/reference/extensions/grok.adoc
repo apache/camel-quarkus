@@ -4,6 +4,7 @@
 = Grok
 :page-aliases: extensions/grok.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-grok
 :cq-artifact-id: camel-quarkus-grok
 :cq-native-supported: true
 :cq-status: Stable

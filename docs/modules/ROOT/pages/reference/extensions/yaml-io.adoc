@@ -3,6 +3,7 @@
 [id="extensions-yaml-io"]
 = YAML IO
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-yaml-io
 :cq-artifact-id: camel-quarkus-yaml-io
 :cq-native-supported: true
 :cq-status: Stable

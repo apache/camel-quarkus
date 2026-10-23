@@ -234,6 +234,7 @@
         <maven-scm-plugin.version>2.2.1</maven-scm-plugin.version>
         <maven-shade-plugin.version>3.6.2</maven-shade-plugin.version>
         <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+        <quarkus-documentation-rag-maven-plugin.version>0.0.8</quarkus-documentation-rag-maven-plugin.version>
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
         <!-- Test container image properties -->
@@ -327,6 +328,9 @@
         <module>extensions-support</module>
         <module>extensions</module>
         <module>extensions-jvm</module>
+        <!-- Must come after the extension modules: they regenerate the reference pages that
+             documentation-rag reads. -->
+        <module>documentation-rag</module>
         <module>catalog</module>
         <module>integration-tests-support</module>
         <module>integration-tests</module>
@@ -706,6 +710,32 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-remote-resources-plugin</artifactId>
                     <version>${maven-remote-resources-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <!-- Turns the generated extension reference pages into RAG vector embeddings, so that AI coding
+                         assistants can search them through the Quarkus Agent MCP server. Wired up by the 'full'
+                         profile of the extension aggregator poms, which also derives the per-module guide path. -->
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-documentation-rag-maven-plugin</artifactId>
+                    <version>${quarkus-documentation-rag-maven-plugin.version}</version>
+                    <configuration>
+                        <guideBaseUrl>https://camel.apache.org/camel-quarkus/latest/reference/extensions</guideBaseUrl>
+                        <!-- Antora attributes the generated pages rely on. Kept in sync with docs/antora.yml.
+                             The 'doc-show-*' toggles are deliberately left undefined: the blocks they guard
+                             (badges, user guide link) are page furniture that only adds noise to a chunk. -->
+                        <attributes>
+                            <camel-version>${camel.version}</camel-version>
+                            <cq-camel-components>next@components</cq-camel-components>
+                            <doc-link-icon-lock>icon:lock</doc-link-icon-lock>
+                            <langchain4j-version>${langchain4j.version}</langchain4j-version>
+                            <link-camel-quarkus-source>https://github.com/apache/camel-quarkus/tree/main</link-camel-quarkus-source>
+                            <link-quarkus-code-generator>code.quarkus.io</link-quarkus-code-generator>
+                            <link-quarkus-cxf-doc>https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/dev</link-quarkus-cxf-doc>
+                            <link-quarkus-cxf-source>https://github.com/quarkiverse/quarkus-cxf/tree/main</link-quarkus-cxf-source>
+                            <mapstruct-version>${mapstruct.version}</mapstruct-version>
+                            <project-name>Camel Quarkus</project-name>
+                        </attributes>
+                    </configuration>
                 </plugin>
 
             </plugins>

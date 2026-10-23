@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-web-search"]
 = LangChain4j Web Search
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-web-search
 :cq-artifact-id: camel-quarkus-langchain4j-web-search
 :cq-native-supported: true
 :cq-status: Preview

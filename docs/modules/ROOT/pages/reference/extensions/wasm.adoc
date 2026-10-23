@@ -3,6 +3,7 @@
 [id="extensions-wasm"]
 = Wasm
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-wasm
 :cq-artifact-id: camel-quarkus-wasm
 :cq-native-supported: true
 :cq-status: Experimental

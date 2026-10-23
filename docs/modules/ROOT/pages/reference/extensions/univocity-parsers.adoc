@@ -3,6 +3,7 @@
 [id="extensions-univocity-parsers"]
 = uniVocity CSV
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-univocity-parsers
 :cq-artifact-id: camel-quarkus-univocity-parsers
 :cq-native-supported: true
 :cq-status: Stable

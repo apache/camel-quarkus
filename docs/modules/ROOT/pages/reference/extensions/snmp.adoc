@@ -3,6 +3,7 @@
 [id="extensions-snmp"]
 = SNMP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-snmp
 :cq-artifact-id: camel-quarkus-snmp
 :cq-native-supported: false
 :cq-status: Preview

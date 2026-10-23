@@ -4,6 +4,7 @@
 = JTA
 :page-aliases: extensions/jta.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jta
 :cq-artifact-id: camel-quarkus-jta
 :cq-native-supported: true
 :cq-status: Stable

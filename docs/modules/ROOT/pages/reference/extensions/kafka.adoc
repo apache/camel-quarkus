@@ -4,6 +4,7 @@
 = Kafka
 :page-aliases: extensions/kafka.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-kafka
 :cq-artifact-id: camel-quarkus-kafka
 :cq-native-supported: true
 :cq-status: Stable

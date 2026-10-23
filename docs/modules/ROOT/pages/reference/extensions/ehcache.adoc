@@ -3,6 +3,7 @@
 [id="extensions-ehcache"]
 = Ehcache
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ehcache
 :cq-artifact-id: camel-quarkus-ehcache
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = Google Drive
 :page-aliases: extensions/google-drive.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-drive
 :cq-artifact-id: camel-quarkus-google-drive
 :cq-native-supported: true
 :cq-status: Stable

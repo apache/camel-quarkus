@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-embeddingstore"]
 = LangChain4j Embedding Store
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-embeddingstore
 :cq-artifact-id: camel-quarkus-langchain4j-embeddingstore
 :cq-native-supported: true
 :cq-status: Preview

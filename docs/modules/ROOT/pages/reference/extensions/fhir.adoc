@@ -4,6 +4,7 @@
 = FHIR
 :page-aliases: extensions/fhir.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-fhir
 :cq-artifact-id: camel-quarkus-fhir
 :cq-native-supported: true
 :cq-status: Stable

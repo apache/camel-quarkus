@@ -4,6 +4,7 @@
 = Ref
 :page-aliases: extensions/ref.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ref
 :cq-artifact-id: camel-quarkus-ref
 :cq-native-supported: true
 :cq-status: Stable

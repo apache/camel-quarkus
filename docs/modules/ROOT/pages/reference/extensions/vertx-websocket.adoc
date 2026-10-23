@@ -3,6 +3,7 @@
 [id="extensions-vertx-websocket"]
 = Vert.x WebSocket
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-vertx-websocket
 :cq-artifact-id: camel-quarkus-vertx-websocket
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = JAXB
 :page-aliases: extensions/jaxb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jaxb
 :cq-artifact-id: camel-quarkus-jaxb
 :cq-native-supported: true
 :cq-status: Stable

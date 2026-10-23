@@ -3,6 +3,7 @@
 [id="extensions-drill"]
 = Drill
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-drill
 :cq-artifact-id: camel-quarkus-drill
 :cq-native-supported: false
 :cq-status: Preview

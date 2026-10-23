@@ -3,6 +3,7 @@
 [id="extensions-printer"]
 = Printer
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-printer
 :cq-artifact-id: camel-quarkus-printer
 :cq-native-supported: false
 :cq-status: Preview

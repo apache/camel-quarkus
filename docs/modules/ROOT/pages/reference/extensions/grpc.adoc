@@ -4,6 +4,7 @@
 = gRPC
 :page-aliases: extensions/grpc.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-grpc
 :cq-artifact-id: camel-quarkus-grpc
 :cq-native-supported: true
 :cq-status: Stable

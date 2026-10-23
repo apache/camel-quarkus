@@ -3,6 +3,7 @@
 [id="extensions-jslt"]
 = JSLT
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jslt
 :cq-artifact-id: camel-quarkus-jslt
 :cq-native-supported: true
 :cq-status: Stable

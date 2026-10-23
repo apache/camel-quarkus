@@ -4,6 +4,7 @@
 = PubNub
 :page-aliases: extensions/pubnub.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pubnub
 :cq-artifact-id: camel-quarkus-pubnub
 :cq-native-supported: true
 :cq-status: Stable

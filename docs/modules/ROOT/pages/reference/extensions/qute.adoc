@@ -4,6 +4,7 @@
 = Qute
 :page-aliases: extensions/qute.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-qute
 :cq-artifact-id: camel-quarkus-qute
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-rss"]
 = RSS
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-rss
 :cq-artifact-id: camel-quarkus-rss
 :cq-native-supported: true
 :cq-status: Stable

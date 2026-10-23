@@ -3,6 +3,7 @@
 [id="extensions-diagram"]
 = Diagram
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-diagram
 :cq-artifact-id: camel-quarkus-diagram
 :cq-native-supported: false
 :cq-status: Preview

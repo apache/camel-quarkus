@@ -4,6 +4,7 @@
 = AWS 2 Identity and Access Management (IAM)
 :page-aliases: extensions/aws2-iam.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-iam
 :cq-artifact-id: camel-quarkus-aws2-iam
 :cq-native-supported: true
 :cq-status: Stable

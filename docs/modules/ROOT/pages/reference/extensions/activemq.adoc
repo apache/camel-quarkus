@@ -4,6 +4,7 @@
 = ActiveMQ
 :page-aliases: extensions/activemq.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-activemq
 :cq-artifact-id: camel-quarkus-activemq
 :cq-native-supported: true
 :cq-status: Stable

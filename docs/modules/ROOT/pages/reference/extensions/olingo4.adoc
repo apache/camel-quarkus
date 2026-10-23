@@ -4,6 +4,7 @@
 = Olingo4
 :page-aliases: extensions/olingo4.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-olingo4
 :cq-artifact-id: camel-quarkus-olingo4
 :cq-native-supported: true
 :cq-status: Stable

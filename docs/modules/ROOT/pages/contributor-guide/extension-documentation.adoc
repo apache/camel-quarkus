@@ -83,3 +83,11 @@ To override parts of the xref link, the following `update-extension-doc-page` co
 <4> The overridden component generated xref link prefix. Useful for rare circumstances where the component requires you to link to an unconventional part of the Camel documentation (E.g. link `manual`).
 +
 The component link can be removed entirely by setting `xrefPrefix` to a value of `remove`. This is useful when a component is removed from the Camel core and the Camel Quarkus main branch references the `latest` Camel website docs version.
+
+== Reaching AI coding assistants
+
+The generated pages are also the source of the vector embeddings that AI coding assistants search
+through the Quarkus Agent MCP server. That pipeline is driven entirely from the pages themselves, in
+particular from the `:extensions:` attribute written by the template, which must not be removed.
+
+See xref:contributor-guide/documentation-rag.adoc[AI documentation search] for how it works.

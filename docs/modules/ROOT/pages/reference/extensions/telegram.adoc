@@ -4,6 +4,7 @@
 = Telegram
 :page-aliases: extensions/telegram.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-telegram
 :cq-artifact-id: camel-quarkus-telegram
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-optaplanner"]
 = OptaPlanner
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-optaplanner
 :cq-artifact-id: camel-quarkus-optaplanner
 :cq-native-supported: false
 :cq-status: Preview

@@ -3,6 +3,7 @@
 [id="extensions-google-functions"]
 = GoogleCloudFunctions
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-functions
 :cq-artifact-id: camel-quarkus-google-functions
 :cq-native-supported: false
 :cq-status: Preview

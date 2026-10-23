@@ -3,6 +3,7 @@
 [id="extensions-rocketmq"]
 = RocketMQ
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-rocketmq
 :cq-artifact-id: camel-quarkus-rocketmq
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-browse"]
 = Browse
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-browse
 :cq-artifact-id: camel-quarkus-browse
 :cq-native-supported: true
 :cq-status: Stable

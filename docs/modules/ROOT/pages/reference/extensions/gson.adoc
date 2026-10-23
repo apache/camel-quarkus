@@ -4,6 +4,7 @@
 = Gson
 :page-aliases: extensions/gson.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-gson
 :cq-artifact-id: camel-quarkus-gson
 :cq-native-supported: true
 :cq-status: Stable

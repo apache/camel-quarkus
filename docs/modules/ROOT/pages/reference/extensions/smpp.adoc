@@ -3,6 +3,7 @@
 [id="extensions-smpp"]
 = SMPP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-smpp
 :cq-artifact-id: camel-quarkus-smpp
 :cq-native-supported: false
 :cq-status: Preview

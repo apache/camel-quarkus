@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-agent"]
 = LangChain4j Agent
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-agent
 :cq-artifact-id: camel-quarkus-langchain4j-agent
 :cq-native-supported: true
 :cq-status: Preview

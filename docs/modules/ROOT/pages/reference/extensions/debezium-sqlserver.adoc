@@ -4,6 +4,7 @@
 = Debezium SQL Server Connector
 :page-aliases: extensions/debezium-sqlserver.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-debezium-sqlserver
 :cq-artifact-id: camel-quarkus-debezium-sqlserver
 :cq-native-supported: true
 :cq-status: Stable
