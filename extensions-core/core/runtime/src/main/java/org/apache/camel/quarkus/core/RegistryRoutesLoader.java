@@ -21,6 +21,10 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 
+/**
+ * @deprecated internal API that will be removed in 4.0.0 without replacement. Deprecated in 3.40.1.
+ */
+@Deprecated(since = "3.40.1", forRemoval = true)
 public interface RegistryRoutesLoader {
     List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern, String includePattern);
 }

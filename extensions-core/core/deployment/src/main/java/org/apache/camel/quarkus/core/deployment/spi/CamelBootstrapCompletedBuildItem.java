@@ -21,6 +21,11 @@ import io.quarkus.builder.item.EmptyBuildItem;
 /**
  * A build item that does not carry any data but it is used to signal that all the bootstrap steps have been
  * completed.
+ *
+ * @deprecated nothing consumes this build item. To act after Camel has started, observe the
+ *             {@code org.apache.camel.quarkus.main.events.AfterStart} CDI event. Deprecated in 3.40.1, will be removed
+ *             in 4.0.0.
  */
+@Deprecated(since = "3.40.1", forRemoval = true)
 public final class CamelBootstrapCompletedBuildItem extends EmptyBuildItem {
 }
