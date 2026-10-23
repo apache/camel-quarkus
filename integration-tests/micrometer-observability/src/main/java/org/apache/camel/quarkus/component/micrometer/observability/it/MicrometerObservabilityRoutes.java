@@ -17,10 +17,14 @@
 package org.apache.camel.quarkus.component.micrometer.observability.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
 public class MicrometerObservabilityRoutes extends RouteBuilder {
+
+    @Inject
+    ObservedService observedService;
 
     @Override
     public void configure() throws Exception {
@@ -37,6 +41,14 @@ public class MicrometerObservabilityRoutes extends RouteBuilder {
         from("direct:customId")
                 .routeId("custom-id-route")
                 .setBody(constant("custom-id-response")).id("custom-id-set-body");
+
+        // Calls an @Observed bean, whose quarkus-observation span should be a child of the Camel span
+        from("direct:observed")
+                .routeId("observed-route")
+                .process(exchange -> {
+                    String name = exchange.getMessage().getBody(String.class);
+                    exchange.getMessage().setBody(observedService.greet(name));
+                });
 
         // No custom route id, so nothing is traced when trace-custom-id-only is enabled
         from("direct:noCustomId")

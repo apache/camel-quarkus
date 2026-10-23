@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.micrometer.observability.it;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -113,7 +114,7 @@ class MicrometerObservabilityTest {
 
         assertEquals("direct:excluded", config.getString("excludePatterns"),
                 "exclude-patterns must be wired to the tracer");
-        assertEquals("direct:traced", config.getString("includePatterns"),
+        assertEquals("direct:traced,direct:observed", config.getString("includePatterns"),
                 "include-patterns must be wired to the tracer");
         assertTrue(config.getBoolean("traceProcessors"),
                 "trace-processors=true must be wired to the tracer");
@@ -121,6 +122,39 @@ class MicrometerObservabilityTest {
                 "disable-core-processors=true must be wired to the tracer");
         assertTrue(config.getBoolean("traceHeadersInclusion"),
                 "trace-headers-inclusion=true must be wired to the tracer");
+    }
+
+    /**
+     * Verifies that Camel tracing coexists with quarkus-observation. A route calls an {@code @Observed} bean,
+     * whose span is created by the Quarkus OTel observation handlers. That span must be created exactly once and
+     * be a child of the Camel span that is active while the route processes the exchange.
+     */
+    @Test
+    void testObservedBeanSpanIsChildOfCamelSpan() {
+        RestAssured.get("/micrometer-observability/trace-observed")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello Camel"));
+
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            List<Map<String, String>> spans = getSpans();
+
+            List<Map<String, String>> observedSpans = spans.stream()
+                    .filter(span -> "observed-greeting".equals(span.get("name")))
+                    .toList();
+            assertEquals(1, observedSpans.size(), "Expected exactly one @Observed span, got: " + spans);
+
+            List<Map<String, String>> camelSpans = spans.stream()
+                    .filter(span -> "observed-route".equals(span.get("camel.route.id")))
+                    .toList();
+            assertFalse(camelSpans.isEmpty(), "Expected Camel spans for observed-route, got: " + spans);
+
+            Map<String, String> observedSpan = observedSpans.get(0);
+            assertTrue(camelSpans.stream()
+                    .anyMatch(span -> span.get("spanId").equals(observedSpan.get("parentSpanId"))
+                            && span.get("traceId").equals(observedSpan.get("traceId"))),
+                    "Expected the @Observed span to be a child of a Camel span, got: " + spans);
+        });
     }
 
     /**
@@ -153,5 +187,14 @@ class MicrometerObservabilityTest {
                         "Camel span traceId must match the upstream traceparent traceId");
             }
         });
+    }
+
+    private static List<Map<String, String>> getSpans() {
+        return RestAssured.get("/micrometer-observability/exporter/spans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .jsonPath()
+                .getList("$");
     }
 }
