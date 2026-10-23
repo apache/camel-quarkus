@@ -20,6 +20,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import com.dropbox.core.v2.files.DownloadErrorException;
 import jakarta.inject.Inject;
@@ -33,6 +34,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import static org.apache.camel.component.dropbox.util.DropboxConstants.HEADER_PUT_FILE_NAME;
 
@@ -45,6 +47,9 @@ public class DropboxResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @ConfigProperty(name = "wiremock.url")
+    Optional<String> wireMockUrl;
 
     @Path("/create")
     @POST
@@ -89,11 +94,12 @@ public class DropboxResource {
     }
 
     private String getCredentialsUriOptions() {
-        return "accessToken={{DROPBOX_ACCESS_TOKEN}}" +
+        String options = "accessToken={{DROPBOX_ACCESS_TOKEN}}" +
                 "&clientIdentifier={{DROPBOX_CLIENT_IDENTIFIER}}" +
                 "&refreshToken={{DROPBOX_REFRESH_TOKEN}}" +
                 "&apiKey={{DROPBOX_API_KEY}}" +
                 "&apiSecret={{DROPBOX_API_SECRET}}" +
                 "&expireIn={{DROPBOX_ACCESS_TOKEN_EXPIRES_IN}}";
+        return wireMockUrl.isPresent() ? options + "&client=#wireMockDropboxClient" : options;
     }
 }
