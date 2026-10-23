@@ -51,7 +51,6 @@ public class WeaviateTestResource implements QuarkusTestResourceLifecycleManager
             LOG.warnf("Mock backend is disabled but %s and/or %s are not set, falling back to the Weaviate container",
                     WeaviateResource.WEAVIATE_API_KEY_ENV, WeaviateResource.WEAVIATE_HOST_ENV);
         }
-        MockBackendUtils.logMockBackendUsed();
         container.start();
 
         return Map.of(
