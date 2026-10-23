@@ -49,6 +49,8 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
         ctx.put(SecurityConstants.ENCRYPT_USERNAME, "bob");
         ctx.put(SecurityConstants.ENCRYPT_PROPERTIES,
                 Thread.currentThread().getContextClassLoader().getResource("alice.properties"));
+        ctx.put(SecurityConstants.CUSTOM_ALG_SUITE_ASYMMETRIC_KEY_ENCRYPTION_ALGORITHM,
+                "http://www.w3.org/2001/04/xmlenc#rsa-1_5");
 
         Assertions.assertThat(client.sayHello("foo")).isEqualTo("SecurityPolicy hello foo CXF way");
     }
