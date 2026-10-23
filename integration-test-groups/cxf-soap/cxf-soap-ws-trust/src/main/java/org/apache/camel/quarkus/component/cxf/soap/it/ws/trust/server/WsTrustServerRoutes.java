@@ -68,6 +68,8 @@ public class WsTrustServerRoutes extends RouteBuilder {
         props.put("ws-security.encryption.properties", "serviceKeystore.properties");
         props.put("ws-security.callback-handler",
                 "org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.ServerCallbackHandler");
+        props.put("ws-security.custom.alg.suite.asymmetric.key.encryption.algorithm",
+                "http://www.w3.org/2001/04/xmlenc#rsa-1_5");
         result.setProperties(props);
 
         return result;
