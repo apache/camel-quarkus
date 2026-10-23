@@ -33,6 +33,10 @@ import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated internal API that will be removed in 4.0.0 without replacement. Deprecated in 3.40.1.
+ */
+@Deprecated(since = "3.40.1", forRemoval = true)
 public final class RegistryRoutesLoaders {
     private RegistryRoutesLoaders() {
     }

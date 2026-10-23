@@ -1,0 +1,31 @@
+= Camel Quarkus 3.40.1 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.40.1.
+
+== `quarkus.camel.source-location-enabled` deprecated
+
+`quarkus.camel.source-location-enabled` duplicates the standard Apache Camel `camel.main.sourceLocationEnabled` option. It is deprecated and will be removed in Camel Quarkus 4.0.0. Use the Apache Camel property instead.
+
+[source,properties]
+----
+camel.main.sourceLocationEnabled = true
+----
+
+== Core extension build items deprecated
+
+These changes affect only custom Quarkus extensions that consume build items from `camel-quarkus-core-deployment`. Applications are unaffected.
+
+The following build items are deprecated and will be removed in Camel Quarkus 4.0.0.
+
+[cols="1,2"]
+|===
+|Build item |Replacement
+
+|`CamelBootstrapCompletedBuildItem`
+|None. To act after Camel has started, observe the `org.apache.camel.quarkus.main.events.AfterStart` CDI event.
+
+|`CamelRuntimeBuildItem`
+|To access the runtime, inject the `org.apache.camel.quarkus.core.CamelRuntime` bean. To run a `RUNTIME_INIT` task before Camel starts, produce a `CamelRuntimeTaskBuildItem`.
+|===
+
+The runtime classes `org.apache.camel.quarkus.core.RegistryRoutesLoader` and `org.apache.camel.quarkus.core.RegistryRoutesLoaders` are also deprecated and will be removed in Camel Quarkus 4.0.0.

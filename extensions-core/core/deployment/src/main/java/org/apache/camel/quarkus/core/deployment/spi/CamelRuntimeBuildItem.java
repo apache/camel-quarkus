@@ -20,6 +20,14 @@ import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.quarkus.core.CamelRuntime;
 
+/**
+ * Holds the {@link CamelRuntime} {@link RuntimeValue}.
+ *
+ * @deprecated to access the runtime, inject the {@link CamelRuntime} bean. To run a
+ *             {@link io.quarkus.deployment.annotations.ExecutionTime#RUNTIME_INIT} task before Camel starts, produce a
+ *             {@link CamelRuntimeTaskBuildItem}. Deprecated in 3.40.1, will be removed in 4.0.0.
+ */
+@Deprecated(since = "3.40.1", forRemoval = true)
 public final class CamelRuntimeBuildItem extends SimpleBuildItem {
     private final RuntimeValue<CamelRuntime> runtime;
     private final boolean autoStartup;

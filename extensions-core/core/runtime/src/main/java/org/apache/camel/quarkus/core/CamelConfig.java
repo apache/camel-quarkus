@@ -87,8 +87,11 @@ public interface CamelConfig {
     /**
      * Build time configuration options for enable/disable camel source location.
      *
+     * @deprecated  use the standard Apache Camel {@code camel.main.sourceLocationEnabled} configuration property
+     *              instead. Deprecated in 3.40.1, will be removed in 4.0.0.
      * @asciidoclet
      */
+    @Deprecated(since = "3.40.1", forRemoval = true)
     @WithDefault("false")
     boolean sourceLocationEnabled();
 

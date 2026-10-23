@@ -357,12 +357,6 @@ application.
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-source-location-enabled]]`link:#quarkus-camel-source-location-enabled[quarkus.camel.source-location-enabled]`
-
-Build time configuration options for enable/disable camel source location.
-| `boolean`
-| `false`
-
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-dev-ui-update-interval]]`link:#quarkus-camel-dev-ui-update-interval[quarkus.camel.dev-ui.update-interval]`
 
 The interval at which data is updated in Camel Quarkus Dev UI pages.
@@ -400,6 +394,12 @@ a|icon:lock[title=Fixed at build time] [[quarkus-camel-csimple-on-build-time-ana
 What to do if it is not possible to extract CSimple expressions from a route definition at build time.
 | `fail`, `warn`, `ignore`
 | `warn`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-source-location-enabled]]`link:#quarkus-camel-source-location-enabled[quarkus.camel.source-location-enabled]`
+
+Build time configuration options for enable/disable camel source location.
+| `boolean`
+| `false`
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-trace-enabled]]`link:#quarkus-camel-trace-enabled[quarkus.camel.trace.enabled]`
 
