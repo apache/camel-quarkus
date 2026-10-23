@@ -27,8 +27,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 
 /**
- * A resource registered by the application itself through the quarkus-mcp-server {@link ResourceManager}, at the same
- * uri as the clashing-resource-route ai-resource route.
+ * Resources registered by the application itself through the quarkus-mcp-server {@link ResourceManager}: one at the
+ * same uri as the clashing-resource-route ai-resource route, and one at the uri of the app-config-route ai-resource
+ * route, on another MCP server.
  */
 @ApplicationScoped
 public class QuarkusDefinedResources {
@@ -36,12 +37,19 @@ public class QuarkusDefinedResources {
     void registerResources(@Observes StartupEvent event) {
         // looked up, not injected: any ResourceManager injection point makes quarkus-mcp-server advertise
         // resources listChanged, which would hide a missing injection in QuarkusMcpServerEngineFactory
-        Arc.container().instance(ResourceManager.class).get()
-                .newResource("user_resource")
+        ResourceManager resourceManager = Arc.container().instance(ResourceManager.class).get();
+        resourceManager.newResource("user_resource")
                 .setUri("camel:///user/clash")
                 .setDescription("Resource registered by the application")
                 .setHandler(arguments -> new ResourceResponse(
                         List.of(TextResourceContents.create(arguments.requestUri().value(), "user"))))
+                .register();
+        resourceManager.newResource("other_config")
+                .setUri("camel:///config/app.json")
+                .setServerName("other")
+                .setDescription("Resource registered by the application on another server")
+                .setHandler(arguments -> new ResourceResponse(
+                        List.of(TextResourceContents.create(arguments.requestUri().value(), "other"))))
                 .register();
     }
 }

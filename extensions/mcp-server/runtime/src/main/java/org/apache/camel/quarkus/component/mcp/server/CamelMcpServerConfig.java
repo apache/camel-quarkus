@@ -48,22 +48,4 @@ public interface CamelMcpServerConfig {
      * @asciidoclet
      */
     Optional<String> tags();
-
-    /**
-     * Per-call tool execution timeout in milliseconds. A call exceeding the timeout returns an error result to the
-     * MCP client; the underlying route keeps running until it completes on its own.
-     *
-     * @asciidoclet
-     */
-    @WithDefault("20000")
-    long toolTimeout();
-
-    /**
-     * Per-read resource execution timeout in milliseconds. A read exceeding the timeout returns an error to the MCP
-     * client; the underlying route keeps running until it completes on its own.
-     *
-     * @asciidoclet
-     */
-    @WithDefault("20000")
-    long resourceTimeout();
 }

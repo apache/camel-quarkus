@@ -29,7 +29,13 @@ import org.apache.camel.spi.CamelContextCustomizer;
 @Recorder
 public class CamelMcpServerRecorder {
 
-    public RuntimeValue<CamelContextCustomizer> createContextCustomizer(String tags, long toolTimeout, long resourceTimeout) {
+    private final RuntimeValue<CamelMcpServerRunTimeConfig> runtimeConfig;
+
+    public CamelMcpServerRecorder(RuntimeValue<CamelMcpServerRunTimeConfig> runtimeConfig) {
+        this.runtimeConfig = runtimeConfig;
+    }
+
+    public RuntimeValue<CamelContextCustomizer> createContextCustomizer(String tags) {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {
@@ -38,8 +44,8 @@ public class CamelMcpServerRecorder {
 
                 McpServerConfiguration configuration = new McpServerConfiguration();
                 configuration.setTags(tags);
-                configuration.setToolTimeout(toolTimeout);
-                configuration.setResourceTimeout(resourceTimeout);
+                configuration.setToolTimeout(runtimeConfig.getValue().toolTimeout());
+                configuration.setResourceTimeout(runtimeConfig.getValue().resourceTimeout());
                 McpServerBridge bridge = new McpServerBridge(configuration);
                 try {
                     // the bridge resolves the engine registry-first

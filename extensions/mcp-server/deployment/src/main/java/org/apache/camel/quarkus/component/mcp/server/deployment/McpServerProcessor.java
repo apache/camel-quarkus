@@ -45,9 +45,7 @@ class McpServerProcessor {
     @BuildStep(onlyIf = McpServerEnabled.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     RuntimeCamelContextCustomizerBuildItem mcpServerBridge(CamelMcpServerRecorder recorder, CamelMcpServerConfig config) {
-        return new RuntimeCamelContextCustomizerBuildItem(
-                recorder.createContextCustomizer(config.tags().orElse(null), config.toolTimeout(),
-                        config.resourceTimeout()));
+        return new RuntimeCamelContextCustomizerBuildItem(recorder.createContextCustomizer(config.tags().orElse(null)));
     }
 
     static final class McpServerEnabled implements BooleanSupplier {

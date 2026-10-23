@@ -129,8 +129,8 @@ running.
 
 The configuration is split by ownership: `quarkus.camel.mcp-server.*`
 decides *which tools and resources exist and how they execute* (identical
-semantics on every Camel runtime, except for the resource name and uri
-clashes refused by quarkus-mcp-server), while `quarkus.mcp.server.*` decides
+semantics on every Camel runtime, except for the tool and resource clashes
+refused by quarkus-mcp-server), while `quarkus.mcp.server.*` decides
 *how the server is exposed*. Both are set side by side in
 `application.properties`:
 
@@ -268,7 +268,9 @@ public class CalculatorTools {
 
 is exposed alongside the `ai-tool` routes. Annotated tools are registered at
 build time; Camel tools are added and removed dynamically with the route
-lifecycle. Choose distinct tool names — MCP has a flat tool namespace.
+lifecycle. Choose distinct tool names — MCP has a flat tool namespace: a
+Camel tool whose name is already taken by a tool of the application is
+refused with an ERROR log, while its route keeps running.
 
 [id="extensions-mcp-server-usage-dynamic-tools"]
 === Dynamic tools
@@ -323,14 +325,14 @@ are never exposed. When not set, nothing is exposed.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-tool-timeout]]`link:#quarkus-camel-mcp-server-tool-timeout[quarkus.camel.mcp-server.tool-timeout]`
+a| [[quarkus-camel-mcp-server-tool-timeout]]`link:#quarkus-camel-mcp-server-tool-timeout[quarkus.camel.mcp-server.tool-timeout]`
 
 Per-call tool execution timeout in milliseconds. A call exceeding the timeout returns an error result to the
 MCP client; the underlying route keeps running until it completes on its own.
 | `long`
 | `20000`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-resource-timeout]]`link:#quarkus-camel-mcp-server-resource-timeout[quarkus.camel.mcp-server.resource-timeout]`
+a| [[quarkus-camel-mcp-server-resource-timeout]]`link:#quarkus-camel-mcp-server-resource-timeout[quarkus.camel.mcp-server.resource-timeout]`
 
 Per-read resource execution timeout in milliseconds. A read exceeding the timeout returns an error to the MCP
 client; the underlying route keeps running until it completes on its own.

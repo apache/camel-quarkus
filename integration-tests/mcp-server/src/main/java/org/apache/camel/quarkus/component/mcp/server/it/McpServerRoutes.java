@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.mcp.server.it;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -29,6 +30,9 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 public class McpServerRoutes extends RouteBuilder {
 
     public static final String NOTES_DIR = "target/test-files";
+    // over 57 bytes, so that a MIME Base64 encoder would break the line
+    public static final byte[] REPORT = "%PDF-1.7 latest report, long enough to span more than one MIME Base64 line"
+            .getBytes(StandardCharsets.US_ASCII);
 
     @Override
     public void configure() {
@@ -44,7 +48,7 @@ public class McpServerRoutes extends RouteBuilder {
 
         // between tool-timeout and resource-timeout, like delayed_resource
         from("ai-tool:slow_tool?tags=conformance&description=Exceeds the tool timeout")
-                .delay(3000)
+                .delay(4000)
                 .setBody(constant("done"));
 
         from("ai-tool:hidden_tool?description=Untagged tool, must not be exposed")
@@ -76,6 +80,19 @@ public class McpServerRoutes extends RouteBuilder {
                 + "&outputParameter.unit=string&outputParameter.unit.enum=celsius,fahrenheit")
                 .setBody(constant("{\"temperature\":21.5,\"unit\":\"celsius\"}"));
 
+        // the name is taken by the tool registered in QuarkusDefinedTools, so it is refused once started
+        from("ai-tool:user_tool?tags=conformance"
+                + "&description=Name already taken by an application tool, must be refused")
+                .routeId("clashing-tool-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        // the name is taken by the annotated tool in QuarkusDefinedTools; started with the application, so it is
+        // refused while the MCP bridge starts, which must not fail the application startup
+        from("ai-tool:add_numbers?tags=conformance"
+                + "&description=Name already taken by an annotated tool, must be refused")
+                .setBody(constant("camel"));
+
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
                 + "&description=Application configuration&mimeType=application/json&title=App config")
                 .routeId("app-config-route")
@@ -83,7 +100,7 @@ public class McpServerRoutes extends RouteBuilder {
 
         from("ai-resource:latest_report?resourceUri=camel:///reports/latest.pdf&tags=conformance"
                 + "&description=Latest report&mimeType=application/pdf")
-                .setBody(constant(new byte[] { 0x25, 0x50, 0x44, 0x46 }));
+                .setBody(constant(REPORT));
 
         // an InputStream body, as returned by producers such as aws2-s3 getObject; the file is opened on every read
         from("ai-resource:notes?resourceUri=camel:///notes.txt&tags=conformance"
@@ -102,7 +119,7 @@ public class McpServerRoutes extends RouteBuilder {
 
         from("ai-resource:slow_resource?resourceUri=camel:///slow&tags=conformance"
                 + "&description=Exceeds the resource timeout")
-                .delay(6000)
+                .delay(8000)
                 .setBody(constant("done"));
 
         // between tool-timeout and resource-timeout, like slow_tool
