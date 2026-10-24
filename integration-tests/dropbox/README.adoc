@@ -1,6 +1,8 @@
 == Camel Quarkus Dropbox Integration Tests
 
-To run the Dropbox integration tests, you need a valid Dropbox https://www.dropbox.com/developers[developer account]. Then from
+By default the Dropbox integration tests use WireMock to stub the API interactions.
+
+To run the Dropbox integration tests against the real API, you need a valid Dropbox https://www.dropbox.com/developers[developer account]. Then from
 the developer console, create a new app and make a note of the access token.
 
 You will also require a refresh token for authentication. If you're planning on repeatedly performing tests, then it's a good idea to
@@ -19,3 +21,7 @@ export DROPBOX_API_SECRET=your-app-api-secret
 export DROPBOX_CLIENT_IDENTIFIER=your-client-identifier
 export DROPBOX_REFRESH_TOKEN=your-refresh-token
 ----
+
+WireMock is only disabled when all of the above environment variables are set.
+
+The WireMock stubs are defined in the `stubFor` blocks within `DropboxTestResource`. WireMock recording is not supported, because the Dropbox API is spread across multiple hosts.
