@@ -45,18 +45,36 @@ in the AI Tool component documentation.
 In native mode, an `outputSchema` loaded from `classpath:` must be
 xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
 
+=== Resources
+
+Add the `camel-quarkus-ai-resource` extension to define
+xref:{cq-camel-components}::ai-resource-component.adoc[`ai-resource`] routes:
+the tagged ones are served as MCP resources, selected by the same
+`quarkus.camel.mcp-server.tags`. Like tools, they follow the route lifecycle
+and clients are notified via `notifications/resources/list_changed`. A failed
+read returns a JSON-RPC error with the generic message `Resource read failed`;
+a read exceeding `quarkus.camel.mcp-server.resource-timeout` returns
+`Resource read timed out`. Resource names must be unique, as
+quarkus-mcp-server requires: a resource whose name is already taken, or
+whose uri is already used by a resource the application registers with
+quarkus-mcp-server, is refused with an ERROR log, while its route keeps
+running.
+
 === Combining the Camel and quarkus-mcp-server configuration
 
 The configuration is split by ownership: `quarkus.camel.mcp-server.*`
-decides *which tools exist and how they execute* (identical semantics on
-every Camel runtime), while `quarkus.mcp.server.*` decides *how the server
-is exposed*. Both are set side by side in `application.properties`:
+decides *which tools and resources exist and how they execute* (identical
+semantics on every Camel runtime, except for the tool and resource clashes
+refused by quarkus-mcp-server), while `quarkus.mcp.server.*` decides
+*how the server is exposed*. Both are set side by side in
+`application.properties`:
 
 [source,properties]
 ----
-# Camel-owned: tool selection and execution
+# Camel-owned: tool and resource selection and execution
 quarkus.camel.mcp-server.tags = crm,notify
 quarkus.camel.mcp-server.tool-timeout = 10000
+quarkus.camel.mcp-server.resource-timeout = 5000
 
 # quarkus-mcp-server-owned: serving and server identity
 quarkus.mcp.server.server-info.name = my-integration-app
@@ -182,7 +200,9 @@ public class CalculatorTools {
 
 is exposed alongside the `ai-tool` routes. Annotated tools are registered at
 build time; Camel tools are added and removed dynamically with the route
-lifecycle. Choose distinct tool names — MCP has a flat tool namespace.
+lifecycle. Choose distinct tool names — MCP has a flat tool namespace: a
+Camel tool whose name is already taken by a tool of the application is
+refused with an ERROR log, while its route keeps running.
 
 === Dynamic tools
 

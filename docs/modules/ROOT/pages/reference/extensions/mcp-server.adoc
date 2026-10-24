@@ -18,11 +18,12 @@ ifeval::[{doc-show-badges} == true]
 endif::[]
 
 The MCP Server extension exposes Camel routes registered via the `ai-tool`
-component as tools of a Model Context Protocol (MCP) server, served through
+component as tools, and `ai-resource` routes as resources, of a Model Context
+Protocol (MCP) server, served through
 the quarkiverse https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server]
 extension. No route is needed for the server itself: add the extension, tag
-the `ai-tool` routes to expose, and any MCP client (another Camel
-application, an IDE, a coding agent) can discover and call them.
+the `ai-tool` and `ai-resource` routes to expose, and any MCP client (another
+Camel application, an IDE, a coding agent) can discover and use them.
 
 Tool semantics — tag-based opt-in (the untagged default pool is never
 exposed), flat-namespace collision refusal, per-call timeout and error
@@ -107,19 +108,38 @@ in the AI Tool component documentation.
 In native mode, an `outputSchema` loaded from `classpath:` must be
 xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
 
+[id="extensions-mcp-server-usage-resources"]
+=== Resources
+
+Add the `camel-quarkus-ai-resource` extension to define
+xref:{cq-camel-components}::ai-resource-component.adoc[`ai-resource`] routes:
+the tagged ones are served as MCP resources, selected by the same
+`quarkus.camel.mcp-server.tags`. Like tools, they follow the route lifecycle
+and clients are notified via `notifications/resources/list_changed`. A failed
+read returns a JSON-RPC error with the generic message `Resource read failed`;
+a read exceeding `quarkus.camel.mcp-server.resource-timeout` returns
+`Resource read timed out`. Resource names must be unique, as
+quarkus-mcp-server requires: a resource whose name is already taken, or
+whose uri is already used by a resource the application registers with
+quarkus-mcp-server, is refused with an ERROR log, while its route keeps
+running.
+
 [id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
 === Combining the Camel and quarkus-mcp-server configuration
 
 The configuration is split by ownership: `quarkus.camel.mcp-server.*`
-decides *which tools exist and how they execute* (identical semantics on
-every Camel runtime), while `quarkus.mcp.server.*` decides *how the server
-is exposed*. Both are set side by side in `application.properties`:
+decides *which tools and resources exist and how they execute* (identical
+semantics on every Camel runtime, except for the tool and resource clashes
+refused by quarkus-mcp-server), while `quarkus.mcp.server.*` decides
+*how the server is exposed*. Both are set side by side in
+`application.properties`:
 
 [source,properties]
 ----
-# Camel-owned: tool selection and execution
+# Camel-owned: tool and resource selection and execution
 quarkus.camel.mcp-server.tags = crm,notify
 quarkus.camel.mcp-server.tool-timeout = 10000
+quarkus.camel.mcp-server.resource-timeout = 5000
 
 # quarkus-mcp-server-owned: serving and server identity
 quarkus.mcp.server.server-info.name = my-integration-app
@@ -248,7 +268,9 @@ public class CalculatorTools {
 
 is exposed alongside the `ai-tool` routes. Annotated tools are registered at
 build time; Camel tools are added and removed dynamically with the route
-lifecycle. Choose distinct tool names — MCP has a flat tool namespace.
+lifecycle. Choose distinct tool names — MCP has a flat tool namespace: a
+Camel tool whose name is already taken by a tool of the application is
+refused with an ERROR log, while its route keeps running.
 
 [id="extensions-mcp-server-usage-dynamic-tools"]
 === Dynamic tools
@@ -290,21 +312,30 @@ Boot it is the `camel-mcp-server-starter`.
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-enabled]]`link:#quarkus-camel-mcp-server-enabled[quarkus.camel.mcp-server.enabled]`
 
-Whether to expose ai-tool routes as MCP tools through the quarkus-mcp-server extension.
+Whether to expose ai-tool routes as MCP tools and ai-resource routes as MCP resources through the
+quarkus-mcp-server extension.
 | `boolean`
 | `true`
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-tags]]`link:#quarkus-camel-mcp-server-tags[quarkus.camel.mcp-server.tags]`
 
-Comma-separated list of ai-tool tags to expose as MCP tools. Only tools registered under one of these tags are
-exposed; the untagged default pool is never exposed. When not set, no tools are exposed.
+Comma-separated list of tags selecting the ai-tool routes to expose as MCP tools and the ai-resource routes to
+expose as MCP resources. Only routes registered under one of these tags are exposed; the untagged default pools
+are never exposed. When not set, nothing is exposed.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-tool-timeout]]`link:#quarkus-camel-mcp-server-tool-timeout[quarkus.camel.mcp-server.tool-timeout]`
+a| [[quarkus-camel-mcp-server-tool-timeout]]`link:#quarkus-camel-mcp-server-tool-timeout[quarkus.camel.mcp-server.tool-timeout]`
 
 Per-call tool execution timeout in milliseconds. A call exceeding the timeout returns an error result to the
 MCP client; the underlying route keeps running until it completes on its own.
+| `long`
+| `20000`
+
+a| [[quarkus-camel-mcp-server-resource-timeout]]`link:#quarkus-camel-mcp-server-resource-timeout[quarkus.camel.mcp-server.resource-timeout]`
+
+Per-read resource execution timeout in milliseconds. A read exceeding the timeout returns an error to the MCP
+client; the underlying route keeps running until it completes on its own.
 | `long`
 | `20000`
 |===

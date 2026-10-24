@@ -1,9 +1,10 @@
 The MCP Server extension exposes Camel routes registered via the `ai-tool`
-component as tools of a Model Context Protocol (MCP) server, served through
+component as tools, and `ai-resource` routes as resources, of a Model Context
+Protocol (MCP) server, served through
 the quarkiverse https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server]
 extension. No route is needed for the server itself: add the extension, tag
-the `ai-tool` routes to expose, and any MCP client (another Camel
-application, an IDE, a coding agent) can discover and call them.
+the `ai-tool` and `ai-resource` routes to expose, and any MCP client (another
+Camel application, an IDE, a coding agent) can discover and use them.
 
 Tool semantics — tag-based opt-in (the untagged default pool is never
 exposed), flat-namespace collision refusal, per-call timeout and error

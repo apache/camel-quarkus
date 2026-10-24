@@ -17,18 +17,31 @@
 package org.apache.camel.quarkus.component.mcp.server;
 
 import java.lang.reflect.Type;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
+import io.quarkiverse.mcp.server.BlobResourceContents;
+import io.quarkiverse.mcp.server.JsonRpcErrorCodes;
+import io.quarkiverse.mcp.server.McpException;
+import io.quarkiverse.mcp.server.McpServer;
+import io.quarkiverse.mcp.server.ResourceContents;
+import io.quarkiverse.mcp.server.ResourceManager;
+import io.quarkiverse.mcp.server.ResourceResponse;
 import io.quarkiverse.mcp.server.TextContent;
+import io.quarkiverse.mcp.server.TextResourceContents;
 import io.quarkiverse.mcp.server.ToolManager;
 import io.quarkiverse.mcp.server.ToolResponse;
 import io.vertx.core.json.JsonObject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.ai.tool.AiToolAnnotations;
 import org.apache.camel.component.ai.tool.AiToolParameterHelper.ParameterDef;
+import org.apache.camel.component.mcp.server.McpResourceReadResult;
 import org.apache.camel.component.mcp.server.McpServerEngine;
 import org.apache.camel.component.mcp.server.McpServerInfo;
+import org.apache.camel.component.mcp.server.McpServerResource;
 import org.apache.camel.component.mcp.server.McpServerTool;
 import org.apache.camel.component.mcp.server.McpToolCallResult;
 import org.apache.camel.support.service.ServiceSupport;
@@ -36,19 +49,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link McpServerEngine} publishing tools into the quarkiverse quarkus-mcp-server through its programmatic
- * {@link ToolManager} API. Serving concerns (endpoint path, transports, authentication) are owned by
- * quarkus-mcp-server and configured via {@code quarkus.mcp.server.*}.
+ * {@link McpServerEngine} publishing tools and resources into the quarkiverse quarkus-mcp-server through its
+ * programmatic {@link ToolManager} and {@link ResourceManager} APIs. Serving concerns (endpoint path, transports,
+ * authentication) are owned by quarkus-mcp-server and configured via {@code quarkus.mcp.server.*}.
  */
 public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerEngine {
 
     private static final Logger LOG = LoggerFactory.getLogger(QuarkusMcpServerEngine.class);
 
     private final ToolManager toolManager;
+    private final ResourceManager resourceManager;
+    // names of the tools registered by this engine; a refused tool's name belongs to an application tool
+    private final Set<String> registeredToolNames = ConcurrentHashMap.newKeySet();
+    // uris of the resources registered by this engine; a refused resource's uri may belong to an application resource
+    private final Set<String> registeredResourceUris = ConcurrentHashMap.newKeySet();
     private CamelContext camelContext;
 
-    public QuarkusMcpServerEngine(ToolManager toolManager) {
+    public QuarkusMcpServerEngine(ToolManager toolManager, ResourceManager resourceManager) {
         this.toolManager = toolManager;
+        this.resourceManager = resourceManager;
     }
 
     @Override
@@ -93,18 +112,83 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
                     ? ToolResponse.error(result.text())
                     : new ToolResponse(false, List.of(new TextContent(result.text())), result.structuredContent(), null);
         });
-        definition.register();
+        try {
+            definition.register();
+        } catch (IllegalArgumentException e) {
+            // the name is taken by an application tool: refuse the tool, like the bridge does on a name clash
+            LOG.error("Refusing to expose MCP tool '{}': {}. MCP has a flat tool namespace.", tool.name(), e.getMessage());
+            return;
+        }
+        registeredToolNames.add(tool.name());
         LOG.debug("MCP tool added: {}", tool.name());
     }
 
     @Override
     public void toolRemoved(String toolName) {
+        if (!registeredToolNames.remove(toolName)) {
+            // refused in toolAdded: removing by name would delete the application tool with the same name
+            return;
+        }
         try {
-            toolManager.removeTool(toolName);
+            toolManager.removeTool(toolName, McpServer.DEFAULT);
             LOG.debug("MCP tool removed: {}", toolName);
         } catch (Exception e) {
             LOG.debug("Failed to remove MCP tool {}: {}", toolName, e.getMessage());
         }
+    }
+
+    @Override
+    public void resourceAdded(McpServerResource resource) {
+        ResourceManager.ResourceDefinition definition = resourceManager.newResource(resource.name())
+                .setUri(resource.uri())
+                .setMimeType(resource.mimeType())
+                .setDescription(resource.description());
+        if (resource.title() != null && !resource.title().isBlank()) {
+            definition.setTitle(resource.title());
+        }
+        definition.setHandler(arguments -> {
+            McpResourceReadResult result = resource.handler().read();
+            if (result.isError()) {
+                // resources/read has no in-band error flag; the message is pre-sanitized by the bridge
+                throw new McpException(result.errorMessage(), JsonRpcErrorCodes.INTERNAL_ERROR);
+            }
+            // plain Base64 as in the Vert.x engine: BlobResourceContents.create(String, byte[]) adds MIME line breaks
+            ResourceContents contents = result.blob() != null
+                    ? new BlobResourceContents(resource.uri(), Base64.getEncoder().encodeToString(result.blob()),
+                            resource.mimeType())
+                    : new TextResourceContents(resource.uri(), result.text(), resource.mimeType());
+            return new ResourceResponse(List.of(contents));
+        });
+        try {
+            definition.register();
+        } catch (IllegalArgumentException e) {
+            // quarkus-mcp-server also requires unique names: refuse the resource, like the bridge does on a uri clash
+            LOG.error("Refusing to expose MCP resource '{}': {}. Resource names and uris must be unique.",
+                    resource.uri(), e.getMessage());
+            return;
+        }
+        registeredResourceUris.add(resource.uri());
+        LOG.debug("MCP resource added: {}", resource.uri());
+    }
+
+    @Override
+    public void resourceRemoved(String resourceUri) {
+        if (!registeredResourceUris.remove(resourceUri)) {
+            // refused in resourceAdded: removing by uri would delete another resource with the same uri
+            return;
+        }
+        try {
+            // only from the default server, where resourceAdded registered it
+            resourceManager.removeResource(resourceUri, McpServer.DEFAULT);
+            LOG.debug("MCP resource removed: {}", resourceUri);
+        } catch (Exception e) {
+            LOG.debug("Failed to remove MCP resource {}: {}", resourceUri, e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean supportsResources() {
+        return true;
     }
 
     /**

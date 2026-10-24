@@ -16,9 +16,15 @@
  */
 package org.apache.camel.quarkus.component.mcp.server.it;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -48,5 +54,13 @@ public class McpServerResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String routeStatus(@PathParam("routeId") String routeId) {
         return camelContext.getRouteController().getRouteStatus(routeId).name();
+    }
+
+    @Path("/notes")
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void writeNotes(String content) throws IOException {
+        Files.createDirectories(Paths.get(McpServerRoutes.NOTES_DIR));
+        Files.writeString(Paths.get(McpServerRoutes.NOTES_DIR, "notes.txt"), content);
     }
 }
