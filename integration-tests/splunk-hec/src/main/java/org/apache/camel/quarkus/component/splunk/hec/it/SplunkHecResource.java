@@ -78,11 +78,22 @@ public class SplunkHecResource {
                     .entity(producer.requestBodyAndHeader(url, data, SplunkHECConstants.INDEX_TIME, indexTime, String.class))
                     .build();
         } catch (Exception e) {
-            if (e.getCause() instanceof SSLException) {
+            if (containsSslException(e)) {
                 return Response.status(500).entity("ssl exception").build();
             }
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean containsSslException(Throwable e) {
+        Throwable current = e;
+        while (current != null) {
+            if (current instanceof SSLException) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 
     @Named("sslContextParameters")
