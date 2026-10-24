@@ -28,7 +28,8 @@ import org.apache.cxf.annotations.EndpointProperty;
         @EndpointProperty(key = "ws-security.signature.username", value = "myservicekey"),
         @EndpointProperty(key = "ws-security.signature.properties", value = "serviceKeystore.properties"),
         @EndpointProperty(key = "ws-security.encryption.properties", value = "serviceKeystore.properties"),
-        @EndpointProperty(key = "ws-security.callback-handler", value = "org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.ServerCallbackHandler")
+        @EndpointProperty(key = "ws-security.callback-handler", value = "org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.ServerCallbackHandler"),
+        @EndpointProperty(key = "ws-security.custom.alg.suite.asymmetric.key.encryption.algorithm", value = "http://www.w3.org/2001/04/xmlenc#rsa-1_5")
 })
 public class TrustHelloServiceCxfWayImpl implements TrustHelloServiceCxfWay {
 

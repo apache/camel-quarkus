@@ -131,6 +131,8 @@ public class CxfWsTrustCxfWayTest {
                 Thread.currentThread().getContextClassLoader().getResource("clientKeystore.properties"));
         ctx.put(SecurityConstants.SIGNATURE_USERNAME, "myclientkey");
         ctx.put(SecurityConstants.ENCRYPT_USERNAME, "myservicekey");
+        ctx.put(SecurityConstants.CUSTOM_ALG_SUITE_ASYMMETRIC_KEY_ENCRYPTION_ALGORITHM,
+                "http://www.w3.org/2001/04/xmlenc#rsa-1_5");
     }
 
     /**
@@ -163,6 +165,8 @@ public class CxfWsTrustCxfWayTest {
         props.put(SecurityConstants.STS_TOKEN_PROPERTIES,
                 Thread.currentThread().getContextClassLoader().getResource("clientKeystore.properties"));
         props.put(SecurityConstants.STS_TOKEN_USE_CERT_FOR_KEYINFO, "true");
+        props.put(SecurityConstants.CUSTOM_ALG_SUITE_ASYMMETRIC_KEY_ENCRYPTION_ALGORITHM,
+                "http://www.w3.org/2001/04/xmlenc#rsa-1_5");
         return stsClient;
     }
 }
