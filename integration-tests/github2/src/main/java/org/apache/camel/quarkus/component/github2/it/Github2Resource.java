@@ -24,6 +24,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.github2.GitHub2Constants;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.kohsuke.github.GHCommit;
@@ -34,8 +35,9 @@ import org.kohsuke.github.GitHubBuilder;
 @Path("/github2")
 public class Github2Resource {
 
-    // Upstream GetCommitFileProducer uses the same SHA for both getCommit() and getBlob() calls
     private static final String COMMIT_SHA = "6195efafd0a8100795247e35942b5c61fea79267";
+    // A camel-quarkus commit at which README.adoc contains "Apache Camel extensions for Quarkus"
+    private static final String README_COMMIT_SHA = "1893db0c8d823a9b40100cd487e4103531793592";
     private static final String GITHUB_AUTH_PARAMS = "oauthToken={{env:GITHUB_TOKEN:}}";
 
     @Inject
@@ -52,9 +54,11 @@ public class Github2Resource {
         uri.append(GITHUB_AUTH_PARAMS);
         wireMockUrl.ifPresent(url -> uri.append("&apiUrl=").append(url));
 
-        return producerTemplate.requestBody(
+        return producerTemplate.requestBodyAndHeader(
                 uri.toString(),
-                COMMIT_SHA,
+                "README.adoc",
+                GitHub2Constants.GITHUB_COMMIT_SHA,
+                README_COMMIT_SHA,
                 String.class);
     }
 
