@@ -48,6 +48,7 @@ import org.apache.camel.component.langchain4j.ingest.LangChain4jIngestHeaders;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.support.builder.ExpressionBuilder;
+import org.apache.camel.support.builder.PredicateBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.util.URISupport;
 import org.jboss.logging.Logger;
@@ -68,10 +69,8 @@ public class IngestRoutes extends RouteBuilder {
      */
     static final int DEFAULT_REGISTER_CAPACITY = 100_000;
 
-    // derived from the enum, so a parser added there cannot diverge from the validated set
-    static final Set<String> SUPPORTED_PARSERS = Arrays.stream(Parser.values())
-            .map(parser -> parser.name().toLowerCase(Locale.ROOT))
-            .collect(Collectors.toUnmodifiableSet());
+    /** The pipeline name charset: checked at build time for {@code @Ingest} names, at startup for all. */
+    public static final String NAME_PATTERN = "[A-Za-z0-9._-]+";
 
     private static final String FILE_SOURCE_KAMELET = "langchain4j-ingest-file-source";
     private static final String SINK_KAMELET = "langchain4j-ingest-sink";
@@ -167,7 +166,7 @@ public class IngestRoutes extends RouteBuilder {
                 String other = name + "-" + step;
                 if (enabled.contains(other)) {
                     throw new IllegalStateException("Ingestion pipelines '" + name + "' and '" + other
-                            + "' would both use the route id 'langchain4j-ingest-" + other + "'. Rename one of them.");
+                            + "' would both use the route id '" + id(other) + "'. Rename one of them.");
                 }
             }
         }
@@ -221,7 +220,7 @@ public class IngestRoutes extends RouteBuilder {
 
         // the name is substituted into Kamelet URIs and registry references, so both declaration
         // styles are held to one charset; @Ingest names are already checked at build time
-        if (!name.matches("[A-Za-z0-9._-]+")) {
+        if (!name.matches(NAME_PATTERN)) {
             throw new IllegalStateException(
                     "Ingestion pipeline name '" + name + "' may only contain letters, digits, '.', '_' and '-'");
         }
@@ -231,19 +230,28 @@ public class IngestRoutes extends RouteBuilder {
         String repositoryRef = repositoryRef(name, runtime, uri == null);
 
         // options at their defaults are passed all the same, here and in the other steps: an
-        // application-wide camel.kamelet.<kamelet>.* property would otherwise fill them in too
+        // application-wide camel.kamelet.<kamelet>.* property would otherwise fill them in too.
+        // An unset string option goes as "", which the component reads as unset, and an unset
+        // documentFilter as an always-true predicate. An unset documentSplitter or
+        // idempotentRepository is left out on purpose: "" converts to no bean and fails the start,
+        // and neither has a neutral bean, so such a property still reaches it, as usage.adoc warns
         Map<String, Object> sink = new LinkedHashMap<>();
         sink.put("pipelineName", name);
         sink.put("documentIdHeader", LangChain4jIngestHeaders.DOCUMENT_ID);
         sink.put("maxSegmentSize", String.valueOf(maxSegmentSize));
         sink.put("maxOverlapSize", String.valueOf(maxOverlapSize));
         sink.put("embeddingBatchSize", String.valueOf(embeddingBatchSize));
+        sink.put("modality", "text");
+        sink.put("contentType", "");
         // 0, no limit, is the endpoint's default too
         sink.put("maxDocumentSize", String.valueOf(maxDocumentSize));
         sink.put("minDocumentSize", "0");
         if (documentSplitterName != null) {
             sink.put("documentSplitter", "#bean:" + documentSplitterName);
         }
+        sink.put("includeId", "");
+        sink.put("excludeId", "");
+        sink.put("documentFilter", "#bean:" + bindInstance(name, "document-filter", PredicateBuilder.constant(true)));
         sink.put("embeddingStore", "#bean:" + storeRef);
         sink.put("embeddingModel", "#bean:" + modelRef);
 
@@ -269,7 +277,7 @@ public class IngestRoutes extends RouteBuilder {
             source.put("idempotentRepository", "#bean:" + repositoryRef);
 
             ProcessorDefinition<?> route = from(kameletUri(name, FILE_SOURCE_KAMELET, "source", source))
-                    .routeId("langchain4j-ingest-" + name);
+                    .routeId(id(name));
             if (documentId != null) {
                 // override the source's file-name default; captured before any further step
                 route = route.setHeader(LangChain4jIngestHeaders.DOCUMENT_ID, documentIdExpression(documentId));
@@ -301,7 +309,7 @@ public class IngestRoutes extends RouteBuilder {
                 throw new IllegalStateException(
                         "Ingestion pipeline '" + name + "': '" + uri + "' is not a consumer URI");
             }
-            ProcessorDefinition<?> route = from(uri).routeId("langchain4j-ingest-" + name);
+            ProcessorDefinition<?> route = from(uri).routeId(id(name));
             if (documentId != null && !IngestHeaders.DOCUMENT_ID.equals(documentId)) {
                 // copied into the canonical header the actions read, as on a directory pipeline:
                 // evaluated against the exchange the consumer delivered, before any parse, and a
@@ -378,6 +386,9 @@ public class IngestRoutes extends RouteBuilder {
         }
         Map<String, Object> action = new LinkedHashMap<>();
         action.put("documentIdHeader", documentIdHeader);
+        // the guard above caps the raw payload; the action's own cap would read each file whole
+        // to measure it again, so it is pinned off
+        action.put("maxDocumentSize", "0");
         return route.to(kameletUri(name, Parser.valueOf(parser.toUpperCase(Locale.ROOT)).actionKamelet, "parser", action));
     }
 
@@ -436,8 +447,18 @@ public class IngestRoutes extends RouteBuilder {
     private static String kameletUri(String name, String kamelet, String step, Map<String, Object> properties) {
         Map<String, Object> raw = new LinkedHashMap<>();
         properties.forEach((key, value) -> raw.put(key, raw(name, String.valueOf(value))));
-        return "kamelet:" + kamelet + "/langchain4j-ingest-" + name + "-" + step + "?"
+        return "kamelet:" + kamelet + "/" + id(name, step) + "?"
                 + URISupport.createQueryString(raw) + "&location=classpath:kamelets";
+    }
+
+    /** A pipeline's route id: the component's scheme name, then the pipeline name. */
+    private static String id(String name) {
+        return LangChain4jIngest.SCHEME + "-" + name;
+    }
+
+    /** The id of a pipeline's Kamelet route or registry bean, {@code langchain4j-ingest-<name>-<suffix>}. */
+    private static String id(String name, String suffix) {
+        return id(name) + "-" + suffix;
     }
 
     private static String raw(String name, String value) {
@@ -488,7 +509,7 @@ public class IngestRoutes extends RouteBuilder {
             return repositoryName;
         }
         if (directory) {
-            String ref = "langchain4j-ingest-" + name + "-register";
+            String ref = id(name, "register");
             if (getContext().getRegistry().lookupByNameAndType(ref, IdempotentRepository.class) == null) {
                 getContext().getRegistry().bind(ref,
                         MemoryIdempotentRepository.memoryIdempotentRepository(DEFAULT_REGISTER_CAPACITY));
@@ -530,7 +551,7 @@ public class IngestRoutes extends RouteBuilder {
 
     /** Binds a CDI-resolved instance to the registry, so the Kamelet can reference it. */
     private String bindInstance(String name, String what, Object instance) {
-        String ref = "langchain4j-ingest-" + name + "-" + what;
+        String ref = id(name, what);
         getContext().getRegistry().bind(ref, instance);
         return ref;
     }
@@ -596,17 +617,5 @@ public class IngestRoutes extends RouteBuilder {
                             : "quarkus.camel.langchain4j.ingest." + name + "." + property));
         }
         return handles.get(0).get();
-    }
-
-    /** The supported document parsers, each with the action Kamelet performing the parse. */
-    enum Parser {
-        TIKA("tika-extract-text-action"),
-        DOCLING("docling-convert-action");
-
-        private final String actionKamelet;
-
-        Parser(String actionKamelet) {
-            this.actionKamelet = actionKamelet;
-        }
     }
 }

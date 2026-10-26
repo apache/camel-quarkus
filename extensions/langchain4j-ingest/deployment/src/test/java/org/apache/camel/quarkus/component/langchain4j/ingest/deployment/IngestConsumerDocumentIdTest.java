@@ -17,10 +17,15 @@
 package org.apache.camel.quarkus.component.langchain4j.ingest.deployment;
 
 import io.quarkus.test.QuarkusExtensionTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
+import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.component.langchain4j.ingest.IngestResult;
 import org.apache.camel.quarkus.component.langchain4j.ingest.IngestHeaders;
@@ -37,7 +42,8 @@ class IngestConsumerDocumentIdTest {
 
     @RegisterExtension
     static final QuarkusExtensionTest CONFIG = new QuarkusExtensionTest()
-            .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class, ValidationTestSupport.class))
+            .withApplicationRoot(jar -> jar.addClasses(TestEmbeddingBeans.class, ValidationTestSupport.class,
+                    RejectAllFilter.class))
             // any consumer the test classpath has: the tests hand their exchanges to the routes directly
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.uri", "file:target/consumer-document-id-docs")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.docs.source.document-id", "X-Doc-Id")
@@ -46,9 +52,15 @@ class IngestConsumerDocumentIdTest {
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.plain.source.uri", "file:target/consumer-document-id-plain")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.plain.embedding-store", "store")
             .overrideConfigKey("quarkus.camel.langchain4j.ingest.plain.embedding-model", "model")
-            // meant for an application's own use of the sink Kamelet: the pipelines pin both options
+            // meant for an application's own use of the sink Kamelet: the pipelines pin these options, else
+            // they would fail the start (modality, contentType) or filter every document
             .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.documentIdHeader", "Other-Id")
-            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.minDocumentSize", "1000");
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.minDocumentSize", "1000")
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.modality", "media")
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.contentType", "audio/wav")
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.includeId", "no-such-id")
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.excludeId", "**")
+            .overrideConfigKey("camel.kamelet.langchain4j-ingest-sink.documentFilter", "#bean:rejectAll");
 
     @Inject
     CamelContext context;
@@ -82,7 +94,7 @@ class IngestConsumerDocumentIdTest {
 
     @Test
     void appWideSinkPropertiesDoNotReachThePipeline() throws Exception {
-        // minDocumentSize=1000 would filter this short document
+        // minDocumentSize, includeId, excludeId and documentFilter would each filter this short document
         assertIngested(deliver("plain", e -> e.getMessage().setHeader(IngestHeaders.DOCUMENT_ID, "short.txt")),
                 "short.txt");
         // documentIdHeader=Other-Id would be named here
@@ -105,5 +117,17 @@ class IngestConsumerDocumentIdTest {
         customizer.process(exchange);
         consumer.getProcessor().process(exchange);
         return exchange;
+    }
+
+    /** Named only by the application-wide documentFilter property the pipelines must not pick up. */
+    @ApplicationScoped
+    public static class RejectAllFilter {
+
+        @Produces
+        @Singleton
+        @Named("rejectAll")
+        Predicate rejectAll() {
+            return exchange -> false;
+        }
     }
 }

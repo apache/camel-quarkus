@@ -148,7 +148,7 @@ class Langchain4jIngestProcessor {
             }
             // the charset IngestRoutes holds configured names to at startup: the name ends up in
             // Kamelet URIs and registry references, and an @Ingest name is known already here
-            if (!name.matches("[A-Za-z0-9._-]+")) {
+            if (!name.matches(IngestRoutes.NAME_PATTERN)) {
                 validationErrors.produce(new ValidationErrorBuildItem(new ConfigurationException(
                         "@Ingest on " + location + " has pipeline name '" + name
                                 + "', which may only contain letters, digits, '.', '_' and '-'")));

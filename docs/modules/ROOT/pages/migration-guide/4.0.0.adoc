@@ -93,7 +93,8 @@ A pipeline's own route id is now `langchain4j-ingest-<pipeline-name>` rather tha
 The pipeline is composed from Kamelets now, and each one it uses adds a route: `langchain4j-ingest-<pipeline-name>-source`, `-parser` or `-sink`.
 Tooling that addresses the routes by id — JMX, the management endpoints, `camel.main.*` route policies keyed on ids — must use the new names.
 The prefix is the component's scheme name, so it follows the component.
-To pause a directory pipeline, stop its `langchain4j-ingest-<pipeline-name>-source` route: with `langchain4j-ingest-<pipeline-name>` alone stopped, the directory is still polled and each new file fails after the Kamelet's 30 s timeout.
+To pause a directory pipeline, stop its `langchain4j-ingest-<pipeline-name>-source` route, for example with `camelContext.getRouteController().stopRoute(...)`: with `langchain4j-ingest-<pipeline-name>` alone stopped, the directory is still polled and each new file fails after the Kamelet's 30 s timeout.
+Camel registers the Kamelet routes in JMX only with `camel.main.jmxManagementRegisterRoutesCreateByKamelet=true`.
 
 The extension now depends on `camel-kamelets`, `camel-quarkus-kamelet` and `camel-quarkus-yaml-dsl`.
 

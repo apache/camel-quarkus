@@ -26,7 +26,7 @@ import java.util.Set;
 public final class IngestPipeline {
 
     /** The values {@link #parser(String)} and the {@code parser} configuration property accept. */
-    public static final Set<String> SUPPORTED_PARSERS = IngestRoutes.SUPPORTED_PARSERS;
+    public static final Set<String> SUPPORTED_PARSERS = Parser.NAMES;
 
     private final Source source;
     private String embeddingStoreName;
