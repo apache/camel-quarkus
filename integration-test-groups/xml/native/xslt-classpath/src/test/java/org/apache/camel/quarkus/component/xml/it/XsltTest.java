@@ -127,11 +127,12 @@ public class XsltTest {
         }
     }
 
-    @Test
-    public void xsltExtensionFunction() {
+    @ParameterizedTest
+    @ValueSource(strings = { "extension-function", "extension-function-app" })
+    public void xsltExtensionFunction(String stylesheet) {
         final String actual = RestAssured.given()
                 .body(BODY)
-                .post("/xml/xslt-extension-function")
+                .post("/xml/xslt-extension-function/" + stylesheet)
                 .then()
                 .statusCode(200)
                 .extract().body().asString().trim().replaceAll(">\\s+<", "><");

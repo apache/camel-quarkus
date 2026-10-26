@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.xml.it;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
-@RegisterForReflection(targets = { org.apache.camel.quarkus.test.support.xslt.Functions.class })
-public class FunctionsConfiguration {
+/**
+ * An XSLT extension function defined in the application itself rather than in a separate jar
+ */
+public class AppFunctions {
+    public static String concatDash(String val1, String val2) {
+        return val1 + "-" + val2;
+    }
 }
