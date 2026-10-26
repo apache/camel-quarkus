@@ -7637,12 +7637,12 @@
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-tracing</artifactId>
-        <version>1.7.1</version>
+        <version>1.7.2</version>
       </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-tracing-bridge-otel</artifactId>
-        <version>1.7.1</version>
+        <version>1.7.2</version>
       </dependency>
       <dependency>
         <groupId>io.milvus</groupId>
