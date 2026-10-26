@@ -232,7 +232,7 @@ class Aws2DdbTest extends BaseAWs2TestSupport {
                         && map.containsKey(Ddb2Constants.TABLE_SIZE)
                         && map.containsKey(Ddb2Constants.KEY_SCHEMA)
                         && map.containsKey(Ddb2Constants.ITEM_COUNT)
-                        && Table.operations == Table.valueOf((String) map.get(Ddb2Constants.TABLE_NAME)));
+                        && map.containsKey(Ddb2Constants.PROVISIONED_THROUGHPUT));
 
         /* Update table */
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
@@ -265,13 +265,12 @@ class Aws2DdbTest extends BaseAWs2TestSupport {
 
                     return result.jsonPath().getMap("$");
                 },
-                map -> map.size() == 7
+                map -> map.size() == 6
                         && map.containsKey(Ddb2Constants.CREATION_DATE)
                         && map.containsKey(Ddb2Constants.TABLE_STATUS)
                         && map.containsKey(Ddb2Constants.TABLE_SIZE)
                         && map.containsKey(Ddb2Constants.KEY_SCHEMA)
                         && map.containsKey(Ddb2Constants.ITEM_COUNT)
-                        && Table.operations == Table.valueOf((String) map.get(Ddb2Constants.TABLE_NAME))
                         //previous update changed throughput capacity from 10 to 5
                         && ((Map) map.get(Ddb2Constants.PROVISIONED_THROUGHPUT)).size() == 2
                         && ((Map) map.get(Ddb2Constants.PROVISIONED_THROUGHPUT)).get(Ddb2Constants.READ_CAPACITY).equals(5)

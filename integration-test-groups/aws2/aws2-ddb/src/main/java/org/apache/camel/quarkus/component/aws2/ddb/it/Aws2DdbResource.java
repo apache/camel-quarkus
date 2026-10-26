@@ -279,9 +279,6 @@ public class Aws2DdbResource extends BaseAws2Resource {
                         return CollectionHelper.mapOf(Ddb2Constants.READ_CAPACITY, ptd.readCapacityUnits(),
                                 Ddb2Constants.WRITE_CAPACITY, ptd.writeCapacityUnits());
                     }
-                    if (Ddb2Constants.TABLE_NAME.equals(e.getKey()) && operationsTableName.equals(e.getValue())) {
-                        return Table.operations.toString();
-                    }
                     return e.getValue() == null ? "" : e.getValue().toString();
                 }));
     }
