@@ -8100,7 +8100,7 @@
       <dependency>
         <groupId>org.apache.mina</groupId>
         <artifactId>mina-core</artifactId>
-        <version>2.2.9</version>
+        <version>2.2.10</version>
       </dependency>
       <dependency>
         <groupId>org.apache.pdfbox</groupId>
@@ -8232,7 +8232,7 @@
       <dependency>
         <groupId>org.jgroups</groupId>
         <artifactId>jgroups</artifactId>
-        <version>5.5.7.Final</version>
+        <version>5.5.8.Final</version>
       </dependency>
       <dependency>
         <groupId>org.jolokia</groupId>
@@ -8287,7 +8287,7 @@
       <dependency>
         <groupId>org.mvel</groupId>
         <artifactId>mvel2</artifactId>
-        <version>2.5.4.Final</version>
+        <version>2.6.0.Final</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>
@@ -8302,7 +8302,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8317,7 +8317,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8328,7 +8328,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8343,7 +8343,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8358,7 +8358,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8373,7 +8373,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8388,7 +8388,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>7.0.9</version>
+        <version>7.0.10</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8407,7 +8407,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-redis</artifactId>
-        <version>4.1.1</version>
+        <version>4.1.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
