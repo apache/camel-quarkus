@@ -99,11 +99,11 @@ public class XsltResource {
                 String.class);
     }
 
-    @Path("/xslt-extension-function")
+    @Path("/xslt-extension-function/{stylesheet}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String extensionFunction(String body) {
-        return producerTemplate.requestBody("xslt:xslt/extension-function.xsl", body, String.class);
+    public String extensionFunction(@PathParam("stylesheet") String stylesheet, String body) {
+        return producerTemplate.requestBody("xslt:xslt/" + stylesheet + ".xsl", body, String.class);
     }
 
     @Path("/xslt-saxon-extension-function")
