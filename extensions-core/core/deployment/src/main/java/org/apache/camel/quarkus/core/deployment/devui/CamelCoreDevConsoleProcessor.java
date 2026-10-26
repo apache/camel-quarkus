@@ -67,6 +67,13 @@ public class CamelCoreDevConsoleProcessor {
                 .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, CamelDevUIConstants.CONSOLE_ID_NONE));
 
         cardPageBuildItem.addPage(Page.webComponentPageBuilder()
+                .title("Errors")
+                .icon("font-awesome-solid:bug")
+                .componentLink("qwc-camel-core-errors.js")
+                .metadata(CamelDevUIConstants.CONSOLE_ID_METADATA_KEY, "errors")
+                .metadata(CamelDevUIConstants.ALLOWED_OPTIONS_METADATA_KEY, "stackTrace=true|false"));
+
+        cardPageBuildItem.addPage(Page.webComponentPageBuilder()
                 .title("Events")
                 .icon("font-awesome-solid:bolt-lightning")
                 .componentLink("qwc-camel-core-events.js")
