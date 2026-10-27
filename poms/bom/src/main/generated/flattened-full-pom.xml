@@ -7747,12 +7747,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.38.2</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.38.2</version>
+        <version>3.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -9225,152 +9225,152 @@
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-ant</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-astbuilder</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-cli-commons</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-cli-picocli</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-console</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-contracts</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-datetime</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-dateutil</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-docgenerator</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-ginq</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-groovydoc</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-groovysh</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-jmx</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-json</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-jsr223</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-macro</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-macro-library</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-nio</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-servlet</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-sql</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-swing</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-templates</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-test</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-test-junit5</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-testng</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-toml</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-typecheckers</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-xml</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy-yaml</artifactId>
-        <version>5.0.8</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
