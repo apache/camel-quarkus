@@ -4,6 +4,7 @@
 = iCal
 :page-aliases: extensions/ical.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ical
 :cq-artifact-id: camel-quarkus-ical
 :cq-native-supported: true
 :cq-status: Stable

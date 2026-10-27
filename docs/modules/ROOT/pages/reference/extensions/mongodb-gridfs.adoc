@@ -4,6 +4,7 @@
 = MongoDB GridFS
 :page-aliases: extensions/mongodb-gridfs.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mongodb-gridfs
 :cq-artifact-id: camel-quarkus-mongodb-gridfs
 :cq-native-supported: true
 :cq-status: Stable

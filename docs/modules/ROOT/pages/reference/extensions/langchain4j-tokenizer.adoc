@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-tokenizer"]
 = LangChain4j Tokenizer
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-tokenizer
 :cq-artifact-id: camel-quarkus-langchain4j-tokenizer
 :cq-native-supported: true
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = AWS 2 Translate
 :page-aliases: extensions/aws2-translate.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-translate
 :cq-artifact-id: camel-quarkus-aws2-translate
 :cq-native-supported: true
 :cq-status: Stable

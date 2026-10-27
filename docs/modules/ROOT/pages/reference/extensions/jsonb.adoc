@@ -3,6 +3,7 @@
 [id="extensions-jsonb"]
 = JSON-B
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jsonb
 :cq-artifact-id: camel-quarkus-jsonb
 :cq-native-supported: true
 :cq-status: Stable

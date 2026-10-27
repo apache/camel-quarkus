@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-chat"]
 = LangChain4j Chat
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-chat
 :cq-artifact-id: camel-quarkus-langchain4j-chat
 :cq-native-supported: true
 :cq-status: Preview

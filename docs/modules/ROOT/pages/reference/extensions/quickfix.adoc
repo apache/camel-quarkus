@@ -3,6 +3,7 @@
 [id="extensions-quickfix"]
 = QuickFix
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-quickfix
 :cq-artifact-id: camel-quarkus-quickfix
 :cq-native-supported: false
 :cq-status: Preview

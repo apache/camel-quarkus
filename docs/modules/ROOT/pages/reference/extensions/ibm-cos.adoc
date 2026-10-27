@@ -3,6 +3,7 @@
 [id="extensions-ibm-cos"]
 = IBM Cloud Object Storage
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ibm-cos
 :cq-artifact-id: camel-quarkus-ibm-cos
 :cq-native-supported: true
 :cq-status: Stable

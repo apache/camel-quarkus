@@ -3,6 +3,7 @@
 [id="extensions-tls-registry"]
 = TLS Registry
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-tls-registry
 :cq-artifact-id: camel-quarkus-tls-registry
 :cq-native-supported: true
 :cq-status: Experimental

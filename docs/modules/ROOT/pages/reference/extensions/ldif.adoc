@@ -3,6 +3,7 @@
 [id="extensions-ldif"]
 = LDIF
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ldif
 :cq-artifact-id: camel-quarkus-ldif
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = Simple JMS2
 :page-aliases: extensions/sjms2.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-sjms2
 :cq-artifact-id: camel-quarkus-sjms2
 :cq-native-supported: true
 :cq-status: Stable

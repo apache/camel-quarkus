@@ -3,6 +3,7 @@
 [id="extensions-beanio"]
 = BeanIO
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-beanio
 :cq-artifact-id: camel-quarkus-beanio
 :cq-native-supported: true
 :cq-status: Stable

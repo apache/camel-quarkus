@@ -3,6 +3,7 @@
 [id="extensions-redis"]
 = Redis
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-redis
 :cq-artifact-id: camel-quarkus-redis
 :cq-native-supported: false
 :cq-status: Preview

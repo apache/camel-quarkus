@@ -4,6 +4,7 @@
 = Bindy
 :page-aliases: extensions/bindy.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-bindy
 :cq-artifact-id: camel-quarkus-bindy
 :cq-native-supported: true
 :cq-status: Stable

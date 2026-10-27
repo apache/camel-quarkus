@@ -3,6 +3,7 @@
 [id="extensions-odata"]
 = OData
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-odata
 :cq-artifact-id: camel-quarkus-odata
 :cq-native-supported: true
 :cq-status: Preview

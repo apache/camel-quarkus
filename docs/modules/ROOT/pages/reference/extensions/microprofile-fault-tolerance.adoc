@@ -4,6 +4,7 @@
 = Microprofile Fault Tolerance
 :page-aliases: extensions/microprofile-fault-tolerance.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-microprofile-fault-tolerance
 :cq-artifact-id: camel-quarkus-microprofile-fault-tolerance
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-pgevent"]
 = PostgresSQL Event
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pgevent
 :cq-artifact-id: camel-quarkus-pgevent
 :cq-native-supported: true
 :cq-status: Stable

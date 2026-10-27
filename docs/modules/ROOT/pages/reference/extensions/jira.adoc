@@ -4,6 +4,7 @@
 = Jira
 :page-aliases: extensions/jira.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jira
 :cq-artifact-id: camel-quarkus-jira
 :cq-native-supported: true
 :cq-status: Stable

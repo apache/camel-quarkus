@@ -3,6 +3,7 @@
 [id="extensions-openapi-validator"]
 = OpenAPI Validator
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-openapi-validator
 :cq-artifact-id: camel-quarkus-openapi-validator
 :cq-native-supported: true
 :cq-status: Stable

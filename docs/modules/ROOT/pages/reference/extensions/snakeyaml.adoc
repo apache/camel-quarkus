@@ -4,6 +4,7 @@
 = SnakeYAML
 :page-aliases: extensions/snakeyaml.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-snakeyaml
 :cq-artifact-id: camel-quarkus-snakeyaml
 :cq-native-supported: true
 :cq-status: Stable

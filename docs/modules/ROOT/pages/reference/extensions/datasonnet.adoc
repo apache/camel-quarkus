@@ -3,6 +3,7 @@
 [id="extensions-datasonnet"]
 = DataSonnet
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-datasonnet
 :cq-artifact-id: camel-quarkus-datasonnet
 :cq-native-supported: true
 :cq-status: Stable

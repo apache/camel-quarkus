@@ -4,6 +4,7 @@
 = REST OpenApi
 :page-aliases: extensions/rest-openapi.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-rest-openapi
 :cq-artifact-id: camel-quarkus-rest-openapi
 :cq-native-supported: true
 :cq-status: Stable

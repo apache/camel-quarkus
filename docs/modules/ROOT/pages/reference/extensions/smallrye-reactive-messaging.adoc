@@ -4,6 +4,7 @@
 = SmallRye Reactive Messaging
 :page-aliases: extensions/smallrye-reactive-messaging.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-smallrye-reactive-messaging
 :cq-artifact-id: camel-quarkus-smallrye-reactive-messaging
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = MicroProfile Health
 :page-aliases: extensions/microprofile-health.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-microprofile-health
 :cq-artifact-id: camel-quarkus-microprofile-health
 :cq-native-supported: true
 :cq-status: Stable

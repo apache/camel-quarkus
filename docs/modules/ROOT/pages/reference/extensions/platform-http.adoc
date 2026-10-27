@@ -4,6 +4,7 @@
 = Platform HTTP
 :page-aliases: extensions/platform-http.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-platform-http
 :cq-artifact-id: camel-quarkus-platform-http
 :cq-native-supported: true
 :cq-status: Stable

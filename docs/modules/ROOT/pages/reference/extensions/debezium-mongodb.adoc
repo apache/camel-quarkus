@@ -4,6 +4,7 @@
 = Debezium MongoDB Connector
 :page-aliases: extensions/debezium-mongodb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-debezium-mongodb
 :cq-artifact-id: camel-quarkus-debezium-mongodb
 :cq-native-supported: true
 :cq-status: Stable

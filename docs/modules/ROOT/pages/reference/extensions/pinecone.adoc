@@ -3,6 +3,7 @@
 [id="extensions-pinecone"]
 = Pinecone
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pinecone
 :cq-artifact-id: camel-quarkus-pinecone
 :cq-native-supported: true
 :cq-status: Preview

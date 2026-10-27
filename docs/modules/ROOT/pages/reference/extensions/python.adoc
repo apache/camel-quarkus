@@ -3,6 +3,7 @@
 [id="extensions-python"]
 = Python
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-python
 :cq-artifact-id: camel-quarkus-python
 :cq-native-supported: false
 :cq-status: Preview

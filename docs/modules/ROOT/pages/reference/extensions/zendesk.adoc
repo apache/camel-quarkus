@@ -3,6 +3,7 @@
 [id="extensions-zendesk"]
 = Zendesk
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-zendesk
 :cq-artifact-id: camel-quarkus-zendesk
 :cq-native-supported: true
 :cq-status: Stable

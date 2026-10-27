@@ -4,6 +4,7 @@
 = CouchDB
 :page-aliases: extensions/couchdb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-couchdb
 :cq-artifact-id: camel-quarkus-couchdb
 :cq-native-supported: true
 :cq-status: Stable

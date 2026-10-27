@@ -3,6 +3,7 @@
 [id="extensions-xslt-saxon"]
 = XSLT Saxon
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xslt-saxon
 :cq-artifact-id: camel-quarkus-xslt-saxon
 :cq-native-supported: true
 :cq-status: Stable

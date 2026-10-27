@@ -3,6 +3,7 @@
 [id="extensions-workday"]
 = Workday
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-workday
 :cq-artifact-id: camel-quarkus-workday
 :cq-native-supported: false
 :cq-status: Preview

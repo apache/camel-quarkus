@@ -3,6 +3,7 @@
 [id="extensions-console"]
 = Console
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-console
 :cq-artifact-id: camel-quarkus-console
 :cq-native-supported: false
 :cq-status: Preview

@@ -3,6 +3,7 @@
 [id="extensions-stitch"]
 = Stitch
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-stitch
 :cq-artifact-id: camel-quarkus-stitch
 :cq-native-supported: false
 :cq-status: Preview

@@ -3,6 +3,7 @@
 [id="extensions-knative"]
 = Knative
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-knative
 :cq-artifact-id: camel-quarkus-knative
 :cq-native-supported: true
 :cq-status: Stable
