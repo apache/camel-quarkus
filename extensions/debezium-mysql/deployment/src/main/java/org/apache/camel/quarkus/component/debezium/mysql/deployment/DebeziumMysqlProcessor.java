@@ -16,15 +16,8 @@
  */
 package org.apache.camel.quarkus.component.debezium.mysql.deployment;
 
-import io.debezium.connector.mysql.MySqlConnector;
-import io.debezium.connector.mysql.MySqlConnectorTask;
-import io.debezium.connector.mysql.MySqlSourceInfoStructMaker;
-import io.debezium.connector.mysql.snapshot.query.SelectAllSnapshotQuery;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class DebeziumMysqlProcessor {
 
@@ -33,21 +26,5 @@ class DebeziumMysqlProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                MySqlConnector.class,
-                MySqlConnectorTask.class,
-                MySqlSourceInfoStructMaker.class,
-                SelectAllSnapshotQuery.class).build());
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-mysql"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-binlog"));
     }
 }

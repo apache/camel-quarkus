@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.debezium.sqlserver.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class DebeziumSqlserverProcessor {
 
@@ -29,29 +26,5 @@ class DebeziumSqlserverProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder(new String[] { "io.debezium.connector.sqlserver.SqlServerConnector",
-                "io.debezium.connector.sqlserver.SqlServerConnectorTask" }).build();
-    }
-
-    @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                "io.debezium.connector.sqlserver.SqlServerConnector",
-                "io.debezium.connector.sqlserver.SqlServerConnectorTask",
-                "io.debezium.connector.sqlserver.SqlServerSourceInfoStructMaker",
-                "io.debezium.connector.sqlserver.snapshot.lock.NoSnapshotLock",
-                "io.debezium.connector.sqlserver.snapshot.lock.ExclusiveSnapshotLock",
-                "io.debezium.connector.sqlserver.snapshot.query.SelectAllSnapshotQuery")
-                .methods().fields().build());
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-sqlserver"));
     }
 }
