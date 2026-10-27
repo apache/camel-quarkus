@@ -54,6 +54,47 @@ public interface IngestRunTimeConfig {
          */
         SourceRunTimeConfig source();
 
+        /**
+         * Filters deciding which deliveries are ingested. A rejected delivery is answered with
+         * a `filtered` outcome and never keeps the sink's dedup claim; a directory pipeline does not
+         * read the file again until it changes, its key held in memory even with a persistent
+         * register, so after a restart a changed filter applies to it.
+         */
+        FilterRunTimeConfig filter();
+
+        interface FilterRunTimeConfig {
+
+            /**
+             * Comma-separated Ant-style patterns the document id must match to be ingested,
+             * for example `++**++/++*++.pdf,++**++/++*++.md` (`++*++.pdf` alone misses files in
+             * subdirectories). Matching is case-sensitive, and an id starting with `/` needs a
+             * pattern starting with `/`. A non-matching delivery is rejected before the sink's dedup
+             * claim, without reading the body and, with a `parser`, before the parse. When not set,
+             * every id is accepted.
+             */
+            Optional<String> includeId();
+
+            /**
+             * Comma-separated Ant-style patterns for document ids to skip, for example
+             * `++**++/draft-++*++`. Exclusion wins over `include-id`.
+             */
+            Optional<String> excludeId();
+
+            /**
+             * Minimum size of one document in characters, in bytes with `modality=media`; 0, the
+             * default, means no minimum. A shorter document is answered `filtered` instead of being
+             * written.
+             */
+            @WithDefault("0")
+            int minDocumentSize();
+
+            /**
+             * Name of a Camel `Predicate` bean deciding whether a delivery is ingested,
+             * evaluated with the body available. Looked up by name only.
+             */
+            Optional<String> documentFilter();
+        }
+
         interface SourceRunTimeConfig {
 
             /**
