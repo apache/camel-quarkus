@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.ingest.it;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -95,6 +96,18 @@ public class IngestResource {
     EmbeddingStore<TextSegment> cappedStore;
 
     @Inject
+    @Named("filtered-store")
+    EmbeddingStore<TextSegment> filteredStore;
+
+    @Inject
+    @Named("audio-store")
+    EmbeddingStore<TextSegment> audioStore;
+
+    @Inject
+    @Named("audio-model")
+    DeterministicAudioEmbeddingModel audioModel;
+
+    @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
@@ -111,6 +124,9 @@ public class IngestResource {
 
     @ConfigProperty(name = "ingest.capped.directory")
     String cappedDirectory;
+
+    @ConfigProperty(name = "ingest.audio.directory")
+    String audioDirectory;
 
     /** Asserts a key was committed; registry lookup by name, the same way the pipelines resolve. */
     @GET
@@ -141,6 +157,7 @@ public class IngestResource {
         Path dir = Path.of(switch (pipeline) {
         case "scans" -> scansDirectory;
         case "capped" -> cappedDirectory;
+        case "audio" -> audioDirectory;
         default -> reportsDirectory;
         });
         Files.createDirectories(dir);
@@ -161,6 +178,7 @@ public class IngestResource {
         case "jdbc" -> jdbcStore;
         case "reports" -> reportsStore;
         case "capped" -> cappedStore;
+        case "filtered" -> filteredStore;
         case "scans" -> scansStore;
         default -> productsStore;
         };
@@ -171,6 +189,25 @@ public class IngestResource {
                 .queryEmbedding(model.embed(query).content())
                 .maxResults(1000)
                 .minScore(0.0)
+                .build());
+        return result.matches().stream()
+                .map(match -> new SearchHit(
+                        match.embedded().text(),
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_PIPELINE),
+                        match.embedded().metadata().getString(LangChain4jIngest.METADATA_DOCUMENT_ID)))
+                .toList();
+    }
+
+    /** Query by audio: the clip is embedded with the audio model and the audio store searched for exact hits. */
+    @POST
+    @jakarta.ws.rs.Path("/search/audio")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<SearchHit> searchAudio(byte[] clip) {
+        var result = audioStore.search(EmbeddingSearchRequest.builder()
+                .queryEmbedding(audioModel.embeddingOf(clip))
+                .maxResults(10)
+                .minScore(0.99)
                 .build());
         return result.matches().stream()
                 .map(match -> new SearchHit(
@@ -199,6 +236,28 @@ public class IngestResource {
         IngestResult result = producerTemplate.requestBodyAndHeader(uri, content,
                 header == null ? IngestHeaders.DOCUMENT_ID : header, documentId, IngestResult.class);
         return result.outcome().label();
+    }
+
+    /**
+     * Feeds a media pipeline the raw bytes as a stream, as a streaming consumer would, optionally announcing a (forged)
+     * CamelFileLength; answers the outcome or the failure message.
+     */
+    @POST
+    @jakarta.ws.rs.Path("/feed-binary/{pipeline}/{documentId:.+}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String feedBinary(@PathParam("pipeline") String pipeline, @PathParam("documentId") String documentId,
+            @QueryParam("fileLength") Long fileLength, byte[] content) {
+        Exchange exchange = producerTemplate.request("direct:" + pipeline + "-feed", e -> {
+            e.getMessage().setHeader(IngestHeaders.DOCUMENT_ID, documentId);
+            if (fileLength != null) {
+                e.getMessage().setHeader(Exchange.FILE_LENGTH, fileLength);
+            }
+            e.getMessage().setBody(new ByteArrayInputStream(content));
+        });
+        return exchange.getException() != null
+                ? exchange.getException().getMessage()
+                : exchange.getMessage().getBody(IngestResult.class).outcome().label();
     }
 
     /** Feeds a pipeline carrying different ids in the current and the deprecated header, so tests can assert precedence. */
