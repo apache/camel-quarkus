@@ -93,8 +93,6 @@ jobs:
             "com.amazonaws:aws-java-sdk-core"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
             "com.amazonaws:jmespath-java"
-            # Mismatch between camel-quarkus-grpc & camel-quarkus-twilio
-            "com.auth0:java-jwt"
             # Mismatch between camel-quarkus-cassandraql & camel-quarkus-web3j
             "com.github.jnr:jnr-posix"
             # Mismatch between camel-quarkus-google-bigquery, camel-quarkus-google-functions, camel-quarkus-google-pubsub & camel-quarkus-google-storage
