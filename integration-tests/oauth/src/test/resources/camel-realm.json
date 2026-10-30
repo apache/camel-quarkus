@@ -78,7 +78,20 @@
       ],
       "attributes": {
         "post.logout.redirect.uris": "http://127.0.0.1:8080/##https://example.local/##https://example.k3s/"
-      }
+      },
+      "protocolMappers": [
+        {
+          "name": "camel-client-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "camel-client",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
     }
   ]
 }
