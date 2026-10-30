@@ -35,9 +35,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.smallrye.config.Config;
 import org.apache.camel.component.jira.oauth.JiraOAuthAuthenticationHandler;
 import org.apache.camel.component.jira.oauth.OAuthAsynchronousJiraRestClientFactory;
-import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

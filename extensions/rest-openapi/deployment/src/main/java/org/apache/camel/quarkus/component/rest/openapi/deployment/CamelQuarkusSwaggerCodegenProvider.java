@@ -28,6 +28,7 @@ import java.util.stream.Stream;
 import io.quarkus.bootstrap.prebuild.CodeGenException;
 import io.quarkus.deployment.CodeGenContext;
 import io.quarkus.deployment.CodeGenProvider;
+import io.smallrye.config.Config;
 import io.smallrye.config.SmallRyeConfig;
 import io.swagger.codegen.v3.ClientOptInput;
 import io.swagger.codegen.v3.CodegenArgument;
@@ -36,7 +37,6 @@ import io.swagger.codegen.v3.DefaultGenerator;
 import io.swagger.codegen.v3.config.CodegenConfigurator;
 import org.apache.camel.quarkus.rest.openapi.runtime.RestOpenApiBuildTimeConfig;
 import org.apache.camel.quarkus.rest.openapi.runtime.RestOpenApiBuildTimeConfig.CodeGenConfig;
-import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
 
 import static io.swagger.codegen.v3.generators.features.BeanValidationFeatures.USE_BEANVALIDATION;

@@ -83,6 +83,12 @@
             <groupId>org.apache.sshd</groupId>
             <artifactId>sshd-sftp</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion><!-- Remove after Quarkus excludes jcl-over-slf4j from sshd-sftp via https://github.com/quarkusio/quarkus/pull/57956 -->
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.sshd</groupId>

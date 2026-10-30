@@ -21,10 +21,10 @@ import java.util.stream.IntStream;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.config.Config;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
-import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

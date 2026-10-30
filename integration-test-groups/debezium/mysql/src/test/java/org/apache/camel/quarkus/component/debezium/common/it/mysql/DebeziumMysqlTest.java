@@ -23,9 +23,9 @@ import java.util.Optional;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.smallrye.config.Config;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Type;
-import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;

@@ -135,7 +135,8 @@ class OpenaiProcessor {
             BuildProducer<IgnoreJsonDeserializeClassBuildItem> ignoredJsonDeserializeClass,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<ReflectiveHierarchyBuildItem> reflectiveHierarchy,
-            BuildProducer<NativeImageResourcePatternsBuildItem> nativeResourcePatterns) {
+            BuildProducer<NativeImageResourcePatternsBuildItem> nativeResourcePatterns,
+            BuildProducer<ServiceProviderBuildItem> serviceProvider) {
 
         reflectiveHierarchy.produce(ReflectiveHierarchyBuildItem
                 .builder(Type.create(ChatCompletion.class)).ignoreNested(false)
@@ -175,6 +176,9 @@ class OpenaiProcessor {
                             "META-INF/services/kotlin.reflect.*",
                             "**/*.kotlin_builtins")
                     .build());
+
+            serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(
+                    "kotlin.reflect.jvm.internal.impl.km.internal.extensions.MetadataExtensions"));
         }
     }
 

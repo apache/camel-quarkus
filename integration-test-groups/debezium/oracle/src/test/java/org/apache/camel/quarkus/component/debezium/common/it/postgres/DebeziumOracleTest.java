@@ -22,9 +22,9 @@ import java.sql.SQLException;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.smallrye.config.Config;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Type;
-import org.eclipse.microprofile.config.Config;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;

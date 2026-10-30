@@ -7968,22 +7968,22 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-client</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-extension-providers</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-security-oauth2</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.drill.exec</groupId>
@@ -8024,7 +8024,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-api</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -8039,7 +8039,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-json</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.lz4</groupId>
@@ -8050,7 +8050,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>io.swagger.core.v3</groupId>
@@ -8085,7 +8085,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-transforms</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kudu</groupId>
@@ -8160,17 +8160,6 @@
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-core</artifactId>
         <version>3.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.sshd</groupId>
-        <artifactId>sshd-sftp</artifactId>
-        <version>2.19.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.tika</groupId>
@@ -8575,137 +8564,137 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-bc-stub</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-test-util</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId>
-        <version>4.0.0.Beta1</version>
+        <version>4.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>jakarta.xml.soap</groupId>
@@ -8756,42 +8745,42 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-core</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-integration-tracing-opentelemetry</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-bindings-soap</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-bindings-xml</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-databinding-jaxb</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-features-logging</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-features-metrics</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxws</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
         <exclusions>
           <exclusion>
             <groupId>org.ow2.asm</groupId>
@@ -8802,72 +8791,72 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-simple</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-management</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-json-basic</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-security-jose</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-security-jose-jaxrs</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-security</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-security-saml</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-transports-http</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-addr</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-mex</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-policy</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-rm</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-security</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-wsdl</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
         <exclusions>
           <exclusion>
             <groupId>org.ow2.asm</groupId>
@@ -8878,12 +8867,12 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-common</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-java2ws</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
         <exclusions>
           <exclusion>
             <groupId>org.apache.cxf</groupId>
@@ -8898,27 +8887,27 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-validator</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-wsdlto-core</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf.services.sts</groupId>
         <artifactId>cxf-services-sts-core</artifactId>
-        <version>4.2.3</version>
+        <version>4.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf.xjc-utils</groupId>

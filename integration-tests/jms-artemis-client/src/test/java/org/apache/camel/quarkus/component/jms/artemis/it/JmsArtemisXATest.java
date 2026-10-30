@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jms.artemis.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import org.eclipse.microprofile.config.Config;
+import io.smallrye.config.Config;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
