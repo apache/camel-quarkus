@@ -71,6 +71,12 @@ class KeycloakProcessor {
                 org.keycloak.jose.jws.JWSInput.class,
                 org.keycloak.authorization.client.representation.ServerConfiguration.class)
                 .methods().fields().build());
+
+        // The Keycloak admin client JSON provider extends ResteasyJacksonProvider, and RESTEasy sets its
+        // @Context field reflectively when the client is created
+        // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/9420
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder("dev.resteasy.providers.jackson.ResteasyJacksonProvider")
+                .fields().build());
     }
 
     @BuildStep(onlyIf = CamelCaffeineStatsEnabled.class)

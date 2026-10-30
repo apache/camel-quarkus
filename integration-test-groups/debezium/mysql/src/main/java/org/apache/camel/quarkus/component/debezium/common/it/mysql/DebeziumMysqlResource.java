@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.debezium.common.it.mysql;
 
 import io.debezium.storage.file.history.FileSchemaHistory;
+import io.smallrye.config.Config;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -25,7 +26,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumResource;
 import org.apache.camel.quarkus.test.support.debezium.Type;
-import org.eclipse.microprofile.config.Config;
 
 @Path("/debezium-mysql")
 @ApplicationScoped

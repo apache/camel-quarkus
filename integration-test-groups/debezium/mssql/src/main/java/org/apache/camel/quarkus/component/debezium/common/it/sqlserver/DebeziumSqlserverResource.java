@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.debezium.common.it.sqlserver;
 
 import io.debezium.storage.file.history.FileSchemaHistory;
+import io.smallrye.config.Config;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -27,7 +28,6 @@ import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumResource;
 import org.apache.camel.quarkus.test.support.debezium.Record;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.apache.camel.util.ObjectHelper;
-import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/debezium-sqlserver")
