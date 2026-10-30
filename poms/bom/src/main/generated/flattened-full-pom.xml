@@ -7792,12 +7792,12 @@
       <dependency>
         <groupId>io.quarkiverse.mcp</groupId>
         <artifactId>quarkus-mcp-server-http</artifactId>
-        <version>2.0.3</version>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mcp</groupId>
         <artifactId>quarkus-mcp-server-http-deployment</artifactId>
-        <version>2.0.3</version>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
