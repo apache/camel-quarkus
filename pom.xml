@@ -52,7 +52,7 @@
         <quarkiverse-amazonservices.version>4.0.0.Beta3</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>4.0.0.Beta1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-batik.version>2.0.0.Beta1</quarkiverse-batik.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/batik/quarkus-batik-parent/ -->
-        <quarkiverse-cxf.version>4.0.0.Beta1</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf.version>4.0.0.Beta2</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>2.0.0.Beta1</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-fory.version>1.7.0</quarkiverse-fory.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/fory/quarkus-fory-parent/ -->
         <quarkiverse-groovy.version>3.38.2</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
@@ -65,7 +65,7 @@
         <quarkiverse-minio.version>3.9.2</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>2.4.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.13.0</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
-        <quarkus.version>4.0.0.Beta1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>4.0.0.Beta2</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>4.1.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>2.14.1</quarkus-qpid-jms.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -90,7 +90,7 @@
         <commons-collections4.version>${commons-collections4-version}</commons-collections4.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
-        <cxf.version>4.2.3</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
+        <cxf.version>4.2.4</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <docling-java.version>${docling-java-version}</docling-java.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
@@ -141,7 +141,7 @@
         <json-schema-validator.version>${networknt-json-schema-validator-version}</json-schema-validator.version>
         <json-smart.version>${json-smart-version}</json-smart.version>
         <jxmpp.version>1.1.0</jxmpp.version><!-- @sync org.apache.camel:camel-xmpp:${camel.version} dep:org.jxmpp:jxmpp-jid -->
-        <kafka.version>4.2.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kafka.version>4.2.2</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <keycloak.version>26.7.4</keycloak.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:keycloak.server.version -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlinx.version>1.4.0</kotlinx.version><!--Used by com.squareup.wire:wire-compiler referenced from aws2:kinesis -->
@@ -196,7 +196,7 @@
         <microsoft.graph.version>6.72.0</microsoft.graph.version>
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
-        <sshd.version>2.19.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
+        <sshd.version>2.20.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <tika.version>${tika-version}</tika.version>
         <unboundid-ldapsdk.version>7.0.5</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
