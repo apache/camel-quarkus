@@ -7935,6 +7935,17 @@
         <version>0.24.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>org.apache.sshd</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>sshd-sftp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.19.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jcl-over-slf4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.apache.xmlgraphics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>xmlgraphics-commons</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>2.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
