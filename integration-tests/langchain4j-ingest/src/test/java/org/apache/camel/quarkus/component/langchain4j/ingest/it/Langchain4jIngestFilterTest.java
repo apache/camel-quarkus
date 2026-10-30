@@ -27,7 +27,6 @@ import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -117,10 +116,12 @@ class Langchain4jIngestFilterTest {
 
         Path file = Path.of("target/ingest-docs/draft-pumps.txt").toAbsolutePath();
         String key = file + ":" + Files.getLastModifiedTime(file).toMillis() + ":" + Files.size(file);
+        // the eager register adds the key to the named register when a poll picks the file up, and the filtered
+        // outcome moves it out once the exchange ran, which may be behind other files of the same poll
         Awaitility.await().atMost(30, TimeUnit.SECONDS).during(3, TimeUnit.SECONDS)
                 .pollInterval(100, TimeUnit.MILLISECONDS)
-                .until(() -> registerContains("langchain4j-ingest-products-register", key));
-        assertFalse(registerContains("propertiesRegister", key), "the named register must not hold the key");
+                .until(() -> registerContains("langchain4j-ingest-products-register", key)
+                        && !registerContains("propertiesRegister", key));
     }
 
     private static boolean registerContains(String repo, String key) {
