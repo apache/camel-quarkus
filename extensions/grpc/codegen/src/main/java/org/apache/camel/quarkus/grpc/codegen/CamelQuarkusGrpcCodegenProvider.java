@@ -39,7 +39,7 @@ import io.quarkus.paths.PathFilter;
 import io.quarkus.runtime.util.HashUtil;
 import io.smallrye.common.cpu.CPU;
 import io.smallrye.common.os.OS;
-import org.eclipse.microprofile.config.Config;
+import io.smallrye.config.Config;
 import org.jboss.logging.Logger;
 
 /**
