@@ -16423,28 +16423,28 @@ SAX2 and Stax2 APIs</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar">
+    <component type="library" bom-ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar">
       <group>com.squareup.okhttp3</group>
       <name>okhttp</name>
-      <version>4.12.0</version>
+      <version>4.12.1</version>
       <description>Square’s meticulous HTTP client for Java and Kotlin.</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">6acba053af88fed87e710c6c29911d7c</hash>
-        <hash alg="SHA-1">2f4525d4a200e97e1b87449c2cd9bd2e25b7e8cd</hash>
-        <hash alg="SHA-256">b1050081b14bb7a3a7e55a4d3ef01b5dcfabc453b4573a4fc019767191d5f4e0</hash>
-        <hash alg="SHA-512">da63f77c1cae377b40f6fd00cfbbe8177e760e4e622ae2c66860fffd3bbbdf605c8e8e415762e9263445b2289ee834100237c63949f2e01c30b6704315dd8f7b</hash>
-        <hash alg="SHA-384">0a8fbe4104c511169232caa90bc52b8a842b6b4cfba525b1c749ca25ede252992c1a3b6c0b6b43143949bc1f1eea742e</hash>
-        <hash alg="SHA3-384">f41dde0de63dba9c941083a9e9f9681e5e497149cae49988b1a5b36fe2263d351035ee378e06975b5f3145b91393cd75</hash>
-        <hash alg="SHA3-256">736a6abc2a2128ddcabcf46c9ba70e4656c2bedaeadbe8f9f76bb807db657b05</hash>
-        <hash alg="SHA3-512">b2a39d9dff52994e78774d628228f7b3959d6070db2b535c70a90de70a7a716ed011d4dc210886314c1ebad8478b2460c652a2bf68094dba30d3593a1a750c75</hash>
+        <hash alg="MD5">37b4b640dddeff4bab761129d1243624</hash>
+        <hash alg="SHA-1">b472ba9672d07789e86e94872ae5ce890ef1b68e</hash>
+        <hash alg="SHA-256">86706f20171c58167b4acca46a66a4039d6b7927543b5ed944b7311c3cb52de0</hash>
+        <hash alg="SHA-512">5ee0df2ed681b78281b2364581f9af3be84a1efc0bf625051ebfd8f4b01cf25c9c707078b6ebe473228d642ef60611a2143cc50bc60aadc48e7fb983e79cff56</hash>
+        <hash alg="SHA-384">8a352acf870f520d9075a3d8cae1bbf67020c76520a284075b67395a58686e6e0beace08f14c3da7ba191d841abeecf6</hash>
+        <hash alg="SHA3-384">bb240da77f9662c3bbe4f07503c9649cb422661bbc56ca09c33013a7a3291b7817c3f6df752b458a42526da6c063cf39</hash>
+        <hash alg="SHA3-256">72034159ac6001fd6644b8400d684fb0e87cb222067ea3c240a2c31894f0db66</hash>
+        <hash alg="SHA3-512">245d106fe9ee980df8e8f6575ebe7c13bb95ac16d005b0e98765b71e04fab368f81fe1fba44544af4f3a5269cb54a3435defdbc18687d780913a1141e813de08</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar</purl>
+      <purl>pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://square.github.io/okhttp/</url>
@@ -59656,28 +59656,28 @@ Supported protocols include Echo, Finger, FTP, NNTP, NTP, POP3(S), SMTP(S), Teln
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar">
+    <component type="library" bom-ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar">
       <group>com.squareup.okhttp3</group>
       <name>logging-interceptor</name>
-      <version>4.12.0</version>
+      <version>4.12.1</version>
       <description>Square’s meticulous HTTP client for Java and Kotlin.</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">48029ba5a920bbb533503169cba8e498</hash>
-        <hash alg="SHA-1">e922c1f14d365c0f2bed140cc0825e18462c2778</hash>
-        <hash alg="SHA-256">f3e8d5f0903c250c2b55d2f47fcfe008e80634385da8385161c7a63aaed0c74c</hash>
-        <hash alg="SHA-512">a3c77d43197b0277204e5954d3bfb37921a1d9e388bbac66e7a35f8d5f5081805645c09119be2a7037dc41a18695cbd06d7599f111c97f8a1e37196b8f38a03c</hash>
-        <hash alg="SHA-384">7e13b871a10d57e2a1c9b70d47257b9a5c566794c10ff8ecd7d2c917499248a49151438d261313370b35efe1a4f13fe1</hash>
-        <hash alg="SHA3-384">6289cd5955c89f5f273d691521cced0aed9f55fc617131fdedfbde4ecdbc44de2a27fa22254600dd726200d1d0289db9</hash>
-        <hash alg="SHA3-256">dac8125f48acf2b5ab7e6c75df0c30fecb8a3258461c7a9eaa26a8ef89bae23e</hash>
-        <hash alg="SHA3-512">1ce82428b992f6f99cf79d3e3c6225ce76ff41b66fb0d0562c9c4915eb775ae92b87f269317397a47463107ff23c61ab379aed373dfa1f64a5d7ad7a4032ea1f</hash>
+        <hash alg="MD5">a36e48b92217c32d573131e0bfb935f2</hash>
+        <hash alg="SHA-1">c65c864f5b84d09e368b7c33eb63d4de8171252d</hash>
+        <hash alg="SHA-256">e83104be7361724107fc3c56b72e76ffdfc81ef19a95e4e9957fcf7ee8076f44</hash>
+        <hash alg="SHA-512">6eb4c9222b9bfc637c59fde3ce82cfd7b847a616b0c8518624ec591525716001a4676e72c8b52d7ff48e20a25b1bcc78f68de7dc914b1924e8f292e8dea80b34</hash>
+        <hash alg="SHA-384">89eb0e2f600224bb52c1c0cee109625974f16a2b81b33c79d14af026bf2de10e592f8dba97f0de3a3ed38b80dd9dc67b</hash>
+        <hash alg="SHA3-384">acf7265b969ae12c23e114cf22f8166cb6056038471028ab07d537236314834813dd7bba0e6ec36700c434581a52cc62</hash>
+        <hash alg="SHA3-256">173a935f30b828a17dd2dbf0ff1bd3af92d09f8e47e13d9830dfdc1ee97eb25c</hash>
+        <hash alg="SHA3-512">5fa601688ce3c7da0d81ac1f0164cedb3d441f58e4b1f51c2be760fb065a5adae7025cc6275b1d113c42ffe99ef09ff1d4cee8c9c9120e5137b8ddf870463cc0</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar</purl>
+      <purl>pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://square.github.io/okhttp/</url>
@@ -64353,28 +64353,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-agent-jvm</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: JVM :: Agent</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">854d939d2cc1e702aa49add498da9d15</hash>
-        <hash alg="SHA-1">98c8aa3ad42ca053cd63c676dce34aad5ab14cb4</hash>
-        <hash alg="SHA-256">8b6d3051f84fbbcda98d8591c3f6bf305e00df909c6b5c1a45fc8a2fc4c1db99</hash>
-        <hash alg="SHA-512">cec878f63937a242915bd701522470214306f93eadc61da68fbd92dd9e7a1cbbb5e7a19f10356ef11585774050a15d18ec0aaf43e0df597cfc1db911e4e438da</hash>
-        <hash alg="SHA-384">aec13e9325ea66f16a02d03ac3e83eb251f8e3a438b412c4b71b010071f25b99e34c0cbfcb873a758359eac2311e16cb</hash>
-        <hash alg="SHA3-384">80dc859f2d653ca7e0a1beb92ea8a8d1671f00980d1b559bd63f94d51a00237fdb63cd69c65a90673cb91fa118cb5181</hash>
-        <hash alg="SHA3-256">5c17940f488f78cc08ba006784b4acf2d0f74d525e57a1f9e76e88507cbaa36f</hash>
-        <hash alg="SHA3-512">67d9fbf500f0a3fca8e152a7768d0f7c7c369dc09edbd968f0ee078665f12cc294e91d65ab4482525c9b5918ad8f2f7597ce6e6f64de03ff7dcfc21209fafa1d</hash>
+        <hash alg="MD5">56f5a3671b1a7b16d6133bdb7ef99ce1</hash>
+        <hash alg="SHA-1">2ea294efad46d68eb2594aff48b41e696f69f5ea</hash>
+        <hash alg="SHA-256">b8978c76e480aff165786f8ecc7b7751e680b7c050cc4eb33b8e2f00155585a6</hash>
+        <hash alg="SHA-512">0e1acfecf57c796b4e1747763fbafe2508bb307b07e1794ffb26348f598ebae8e5828a0b99ed3355f43d64c10ec7012da51ec9bd691246c2d5e0f78c6e93754f</hash>
+        <hash alg="SHA-384">e183a6af80538b9e47ebd4664205a9ae7d1114c25a0344aafa8084ec04f389f1a93d2a8655a65e99c5596d74a156d769</hash>
+        <hash alg="SHA3-384">3b1fbf116b8453ca8766bf8761ae53dac16157ecbac407445f941ba13eeabfff11a01009b71a9f03aca19faa1f8c380d</hash>
+        <hash alg="SHA3-256">b426338c06a0e786213644500a493d189165f26cbd5a17275863b77c7ffd5b4f</hash>
+        <hash alg="SHA3-512">8a7424640d156c741a3dbf8b4efef80412e0b3805d5f7b287e657bf3540fd90d03945cfa151e45f1a7024f6a67905889d8480da29af50dc079a74eb1e958d818</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64390,28 +64390,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-json</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: JSON</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">08a3bc082e9c831f9ff04feaeda3e8b8</hash>
-        <hash alg="SHA-1">8052dd4c09854736a172acdb74039776397e9553</hash>
-        <hash alg="SHA-256">426a12c8b1012b1fe5eb8aebdfd42441ab657ae2548d04e8888cf6e9f1998c99</hash>
-        <hash alg="SHA-512">650fc7d7221fce58b0c93992639a684cb816805ae001e56dbf463278122f79106beb034440b322b2c1628a135f56f52e2427a75af8f941ac165d9a20dc66e5ed</hash>
-        <hash alg="SHA-384">25b51f544f9c276021e5d8cd33ec4693ce96acafd9024af9583905fad766ba627db960537b90f0e7026867651761eab1</hash>
-        <hash alg="SHA3-384">651b014693197dee3e28d8f41012c618a569ebb0a7cff18970a670c91e02154b54115ec46a71150289da688dc3fe1e23</hash>
-        <hash alg="SHA3-256">b6e5017e4fd9909707db2a20b401edcc2de45d46f4848ae51cb8533bbb9d888d</hash>
-        <hash alg="SHA3-512">21a678dc7fa5bad7979d558e31f1106f03d2e0f4c66f5873ea42241a6b51e180e9ec0f93af2beb719e07cfdabe982732f68b3e0c1b47e3eb8c9066e9dec44473</hash>
+        <hash alg="MD5">1fe3ac631498955d74f013b717f9c966</hash>
+        <hash alg="SHA-1">316234606402f3875b01191d23f5b2b4a9a1635f</hash>
+        <hash alg="SHA-256">84463e3b73a298939807feccfc306f26da8ebedf463c6dcf5ce6b18a214bbc6c</hash>
+        <hash alg="SHA-512">fdb4e8647b8a793ef1ec984a56db479343901d0f7abce063660620b477dfc10c65550b86399bccc3eea4231a841359b63eeb749ed91d5d1a851c1a9afcb5a66d</hash>
+        <hash alg="SHA-384">01e51d8af8348304d9c2ea1f797091b28c8fe4c6619793b923f6b54a5675c30c68aee9e2f3867f2dd21b8cb33708bb4b</hash>
+        <hash alg="SHA3-384">83418ff784a4a9ad7993ab0498f4ec6d699cc4d0ec8a979502f6f128ed633608bdd253d006baf517f72d03fb75e08cbb</hash>
+        <hash alg="SHA3-256">8a5de5b59c2223c3d6a3daa4b7b3df53385ae132b51e6d95695088c208fbe49c</hash>
+        <hash alg="SHA3-512">1fd4249ebbace7ca202fcf6b8794bfda4f5074b5570c869897ce7285c1667118d4421b347bea78dd821810c696eb60038faea0de6712fb99e9f0e05fbdf97f43</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64427,28 +64427,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-core</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Core</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">a3bdb305688d5a552cb46a463b235fb7</hash>
-        <hash alg="SHA-1">3edea59afde7c431cb34601f92a5d2ce13869714</hash>
-        <hash alg="SHA-256">89c077d86f0bc3c31fd5f5289e655754d4ba2de040e985e60e8a3e6bebeeb0d8</hash>
-        <hash alg="SHA-512">845ab7c145e70a50ff1a1ce123bc64026d0f78e32298b5e0aec71d48efa099a1e9621879465a02871ccd44cf25946c612a2200598c24fadda1ca037cbda8ae6c</hash>
-        <hash alg="SHA-384">10e15f785df01a0d2f61b95be6c7aaf951493aa0e9785f2f95296360dc81f9fe4dd01b949323a8936c1a6d23b3c94a5f</hash>
-        <hash alg="SHA3-384">b1f8395422498e6e786114a55720a2ae3dab74344d85f438fc74bef25e5802f8425be42ebe394fe779d8f2f163d96991</hash>
-        <hash alg="SHA3-256">ecb27509678f03bbb8ff6dd6bef3485ce014b47932b6d1824cabc5be1c5401ce</hash>
-        <hash alg="SHA3-512">2b72b245f3de5ed6cba3c19e21c5ded757c66d8c42a01a927a6a234f43f5821f2c06853f424d994a207a3b86416e6c5a6c7c0213531a7ce96259e4d68c9a9819</hash>
+        <hash alg="MD5">2e18e699c3c1b3166cd7d212c74b622d</hash>
+        <hash alg="SHA-1">c027f90334ba4e3c67bf06c3400a22d5c01431d7</hash>
+        <hash alg="SHA-256">69875aeb8a2e3ca60598a65eb69d744794d32e5b9beb4f4cf7ba832dd875a666</hash>
+        <hash alg="SHA-512">7f62bc3203cf4e74877edc23eef4c5da9cec9e3a86aa91386a97b0b1b6c24254c5d92540640c5fd99b61fec6d2b8823a28c9a78f5a111857d5586fb2ee4e4050</hash>
+        <hash alg="SHA-384">7a96e56154e907bdb80e512502880a2195ff6ac58aee5809c5f3de26fd482e8e479a4cb95d064b8ee2f2f0cbcd482ba7</hash>
+        <hash alg="SHA3-384">237cbe5611e1f3ad0597485dc8aaa4db4d6e5c690312a6b09abb8e01a1faf43b3f5870f240bdeccc2a069588b469b5db</hash>
+        <hash alg="SHA3-256">e44b918007958632e0f14c932d3660bfd2f069d144232d0abf6fd615e406d50f</hash>
+        <hash alg="SHA3-512">662d1486a0dc31d6f4a7127927515e8fcb89fe0dc71a5c77aa1b48725895a22e037dceba64d356ff3183544c57a7a963c394b1544bf743228a82f23d0437ad11</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64464,28 +64464,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-server-core</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Server :: Core</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">c61ed495ca159e8f6398b40fd9e3caa4</hash>
-        <hash alg="SHA-1">f06107a4345c5de335b421501f233bf318eba6ce</hash>
-        <hash alg="SHA-256">041ea001317d9a0b0204beb6ea4cea25796a15f8a33f9a21a8db1f7857f7c753</hash>
-        <hash alg="SHA-512">9b53468c4f5b46c2d6eb960289854d5405658f7903562b1ec7285c2e59c36eb022cf4b09167f513b19e306b5b6ac543fb7ebd6df5e32ee6f0a758b73357ea8e4</hash>
-        <hash alg="SHA-384">345ac799600a2897f1bc1e8086f844eeb52408352419c89b474bf0b4852ea672e5f9d0861c3719cb45f756af4164646e</hash>
-        <hash alg="SHA3-384">ba6baa3a27c8b6ea790583374584837121b72f92cbef770d145fb9eb629bd6de13cdd431f680b345d29a995a6e019c03</hash>
-        <hash alg="SHA3-256">bd4190195536e878104a4ae86ccd3ed7fadb02eaf72f6eefce11ae8a2bc8a9d8</hash>
-        <hash alg="SHA3-512">483df3c479761283ef7db4e59381bfdfa85a95a215be9e2c23426f426075807fa32dbd3bebafc84e6e4046207dd076762f29055175cfa756f6bbddfff09c8c44</hash>
+        <hash alg="MD5">edafafc17def43b60e8394d7844124dc</hash>
+        <hash alg="SHA-1">6196d585b38f493f2ece5b710fa9a0931e1a801a</hash>
+        <hash alg="SHA-256">af183137f2786f45c03e9d5808d2edf8a8b967eea9568ed1ef53c505961d805c</hash>
+        <hash alg="SHA-512">0997edcb28d2d2353f1b62070ffd92b007495347760da2b5b4814aae1f82f18fdb5a357c446a758c6dfbebe77e75d0fe0784bbcc49ed599227dc5b5c2aec5ef7</hash>
+        <hash alg="SHA-384">3ccac09aea24bc498044f08acf4423ecaa3602ff60d35db0723237be7bdca58898489c1bc5cc520ad0cfac6d6a81dd47</hash>
+        <hash alg="SHA3-384">5dba58998cfd920d3c21113edccf7608c820f866d7c15b643a708dcea8c665b02b058fe6327cf887deb3ad7c74d2274c</hash>
+        <hash alg="SHA3-256">4603b9b4086b7adb5b85cb4971c5d00088e6c66a92f200f93d842aa92f787225</hash>
+        <hash alg="SHA3-512">5efdec33dd8a0e62bee9d342742c7047c5dd9955b71258f36d99659375f0aa1b8d8a81757e5b007c6e538a0810c51d9e523371c5f43e04baf4a79f78eafacaa1</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64501,28 +64501,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-server-detector</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Server :: Detector</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">70bcc75431b7dce37c9dfbe7f00a0bad</hash>
-        <hash alg="SHA-1">bd5a6fc2d97c9d73d2431783b95b1571bfb2af35</hash>
-        <hash alg="SHA-256">803b93a214c9c2cfef5bc5d5bb27ffdcf71fe37e51bcafb230613955140f88bb</hash>
-        <hash alg="SHA-512">195dd2bbf2c14fb2d06da9488d107edf0aab7cce18901996981605ef2028e89f282f3998551241e55aa721a598f1c843823eda0a95f7ea7a3f3db3e71ce7810a</hash>
-        <hash alg="SHA-384">dedb27a9f260a54fb06661fa33d2dbc6d61856d7fb4c20c7ccf2f8204eb5f9208d4783f6f487f8c48fc345b26a127109</hash>
-        <hash alg="SHA3-384">9907444ee0b385274a06a6203722adaa3336d805cfd1875c7a7e84e03aeace50aa2aa77999442d4e594a99dc188bdece</hash>
-        <hash alg="SHA3-256">006228705b7cba4da029b65d7a2b3a24d899d9a8c73111c4b66668b1a246692e</hash>
-        <hash alg="SHA3-512">75cf9ab4ebcf3edfbb18fbf97260c53434cd314a5e38a1ccc0ecb77c576afb96419fe393c7d28004d84cb217a637aed58656e16a360c6bd1097bb4d5e80f7d44</hash>
+        <hash alg="MD5">17aa35a7dbc3b9e9c85fcf12dce0c2d9</hash>
+        <hash alg="SHA-1">785b95194b502dafada640b10da0c01629be8244</hash>
+        <hash alg="SHA-256">bc0e5bfd659539d7f818caa76cf5b61c57ae40d52fc720b2313d2afa5d38cbde</hash>
+        <hash alg="SHA-512">0255a45d559f3185f1e7ed64ce2ef702d5a0579add297013c946a61e217da9064594af2f6ca791eb2ce7c65dd603a91d9ff29f2881027da1b54628c1b9c35d8d</hash>
+        <hash alg="SHA-384">baa13bab789595978948518a356dc512cb0d59ccdadd25abefa88ee8afa4547c60e62b8878090b2677e42129f74d1add</hash>
+        <hash alg="SHA3-384">cd729f7fb9a10c9868b9d72fca5a61a76f0be996ee317b3191b57deb68d6b5ecb514745d64017cc961bb43a1934ec4d4</hash>
+        <hash alg="SHA3-256">4b231a49ec7f1152f0d73d2bd1152dddfedbf8931c6a8155c2a454c8ba561527</hash>
+        <hash alg="SHA3-512">e2da80bbbf81a5430f14e2d7f871ecaf401e3a59ff255d9dbc44d888180dc52fea4d24a97b0a74bad9e59098e0f733e0cead8f63302a4b0a8539350b12f14844</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-server-detector@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-server-detector@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64538,28 +64538,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-serializer</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: JSON Serializer</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">8a1baeb87ee28439384a3578870f7cf4</hash>
-        <hash alg="SHA-1">ad27ba1e0ea2b9a6389e4cd7a4129cfc98da74e6</hash>
-        <hash alg="SHA-256">43cdc9f90965907f5cfa1fa419f8701a3bfa7940594b842b05d56fce3edba377</hash>
-        <hash alg="SHA-512">b54692f39ef3d9311ef0877889f37d114ed38bd62debcd620c3a5cb25d2521edfebebbc3c99471c00a8872a92792738e84fe8118d884cf27c1c0ae883004055b</hash>
-        <hash alg="SHA-384">61fc9843d356f0d2f888f60f38d890121b88f17c562f1706629679d38da34e2eeca7a47a0c0072568ddc0c74d128e1b0</hash>
-        <hash alg="SHA3-384">fca232f2be9184feffb79406700e5d877859771fe09bab8dec43f7f9379f69a3c1e04e5b4d63c6cc2ca617d3456d8b2e</hash>
-        <hash alg="SHA3-256">d31a5523f317b216138fdb2f642b9d4521ba305fc31a29c49863f2d07591fd58</hash>
-        <hash alg="SHA3-512">e97ba374fe053f592e8295b602dd67669bec414f15571225efd8843a3d0d6ad8d73891173beb864c2824cd3eda23742a24c5214c74ae5b6866a98ceb9dd49ce3</hash>
+        <hash alg="MD5">e1d1321942dca37fe91a9eb0e2c4724e</hash>
+        <hash alg="SHA-1">73c05e3be9c2e0dc755f75bf35e671ee175a54a4</hash>
+        <hash alg="SHA-256">7631355f36781aab3d0c3962fb53e95a946fc6366f8f4a625b5a27ec2e5ce945</hash>
+        <hash alg="SHA-512">894a92dd00c0f4c662907867834af9d0fbb94f695aadcf69be42d2c4c5a47f8d6f2d3a5de88332551457ecd4c67bf4f69feb79f9436a020e68a6695809c8bdfc</hash>
+        <hash alg="SHA-384">9232ef737fd367cf113e4a70dcbb195d30e79269887b1b4f350af9c75b994a9e560517aeed73481ed622be387e2a6b0d</hash>
+        <hash alg="SHA3-384">2ac7393d486ab01dd84a439d82b68576d5bb65f155e18b580b2fc1e1a3ea92434fe1fce2116e151c09910e06df62c74b</hash>
+        <hash alg="SHA3-256">e1991227dee027c0d22294162fbc2bedfdb02cdc0761a401ab9b50d993534c26</hash>
+        <hash alg="SHA3-512">4e927e40a46d2546adab0a2ec32da97efd994d84b19c3c4d3ac0457dab69a48af894c95a267f15e03a0cc13b0df4ca9a7d80d9027161b0c30eae604b97f636a4</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-serializer@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-serializer@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64575,28 +64575,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-jmx</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: JMX Request Handler</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">0438357a9a4f142996ccdd61d5e4c30f</hash>
-        <hash alg="SHA-1">10ffe229054f321c36915e9780b1255369fa1340</hash>
-        <hash alg="SHA-256">e9086d3567be44dce2a281667e4d1778cfaf97c909464e52642f70c8940ca53e</hash>
-        <hash alg="SHA-512">d8535736b0ec9c1a49fd25f0c44de3825e6f99cd4a558673f5387c0496b577c104cea0e2dd6ebe95b46d871e643313402efcb842614b322268495a69f4361dee</hash>
-        <hash alg="SHA-384">351075cf10ef9fc33c322dc07fa779c312149e096a080173081af43010ba9d361c648adfa49bbff13c576935c3474f32</hash>
-        <hash alg="SHA3-384">636d2d4c4a7af7a71db9c608f50dd1a1706cd42eee2105e035f64d50e6ed1775889296207c0bb52297292b3b980e28cc</hash>
-        <hash alg="SHA3-256">2e8b3ca0377dc047ff2f7070ebbe2e57e4bd991508552e900b5f9b137951ef80</hash>
-        <hash alg="SHA3-512">e9f619561a32d062a5b3ee07d89e5698615b99bb830ac9dee6ef5bb1084cfef24258e5fc52f37932ab00b2cde94dcddfbf0548ee459050dc317cde7e7f420831</hash>
+        <hash alg="MD5">b21797f3d9d6e6c262c9a7d2e98322f1</hash>
+        <hash alg="SHA-1">9bc50141bb15ef6888813aa2e27d73aa56d1187f</hash>
+        <hash alg="SHA-256">ad7dada33840c35777d2caccea01df236e1dae8348890d760e58323152040d96</hash>
+        <hash alg="SHA-512">65aab4f890011d189a04187e166491309d96f1780716db3fd6e58d111f2b22d328e32043bc8232c9a4dd030ff0e04c39dd92e484ba73786a836c0f6c67949e5b</hash>
+        <hash alg="SHA-384">51800fb0b1b4f6c5a4c7fd55d109d9d0924d70a2b6442a13d54b2f92b6d13efef83c8f39f924e343eea1b3be84274e70</hash>
+        <hash alg="SHA3-384">c19f5b4aaa1188c65555d998e64676193ff04b2c77eaa091643bb183a075f1ee6d752da5e92dc28c8fecab6d72a368ae</hash>
+        <hash alg="SHA3-256">c7f8ddf4abc1fc4d16b783d9cea1ac08baf44084d54f3e07bed70095471e97dc</hash>
+        <hash alg="SHA3-512">b5fb972b1144fab89dba8e3acf46bbae0d67fb4ddd617980289745cf91091b88ff241270272e8afd0c7b90d9ea9fb487cca57b6c4047bd1ed9f3da9620fb9b33</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-jmx@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-jmx@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64612,28 +64612,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-discovery</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: Agent Discovery</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">b350d6c23742cb7c75ee9a4dd8c2c79d</hash>
-        <hash alg="SHA-1">a91083bbb1ecdc7763ebabab981855fbbad968d0</hash>
-        <hash alg="SHA-256">88e04a6da1d07b52957a3d729bbb895167df54b3e53d48e8da4a2791231c70b9</hash>
-        <hash alg="SHA-512">638ec62b7b63b6f48e661f2ec7b2ec8d16451172aaab39e9bd95025c58d4bcdc2e38fbb2808122082a985cdb3574d3ab72eb15215f266866d47e4356176feca2</hash>
-        <hash alg="SHA-384">52a0837a40e91a2481e2e63c52ade5fa2121deb4d8490d63760e874e57adb1949666991333396ce9b9e71ce9b53b88de</hash>
-        <hash alg="SHA3-384">9ad2621d4132d11e9a9b7457f3a1f8882aabc8ec76c142c5c94d618efafb614f0f476e099068e32d91ac5ed0f9467d7a</hash>
-        <hash alg="SHA3-256">b8577bbb17282836f7c740bb6d84e85212cfea3902009a108f7b5fc186f0fa88</hash>
-        <hash alg="SHA3-512">944b7e90b29d53ac1b38babb116709cdebe5b426b32ad7a8fe7249dc142a3d305e63bba427511c85b8c5f2757c9b7db670b7a5f0a102aa26611f08b44c4af512</hash>
+        <hash alg="MD5">4623e31f128c9304bc4e226a7169533d</hash>
+        <hash alg="SHA-1">6a69dacff300919b863513316fb3e19770497dea</hash>
+        <hash alg="SHA-256">7dd92f26ad800e7d3cdd9d16a1bde4450caf050993fecc86ebe7dfafb079f831</hash>
+        <hash alg="SHA-512">1ad3677431c568a51bd9bacc0df208a873e2123da7b40ddae1e22c4c470ce40e8b3afd153678bdf49868ada84d659fde72912dec60b5c4afcdb8ddcd9bf7247e</hash>
+        <hash alg="SHA-384">8335155ba73684377eeab9d6e98b0700e87d926ff300a1febdb8409f353d83e4c3ee71ae360b430e56a7fb7d89379c17</hash>
+        <hash alg="SHA3-384">bca02e3a659ebc78c729ee8c7874ee6033640b18370d34a7102efb005a084d4a9358f1a1ad880886ac88746602f69dd0</hash>
+        <hash alg="SHA3-256">1059e6d8a24d233a9466e9e744471e4a66f1496c31ac74fec1d8215361f1d4c4</hash>
+        <hash alg="SHA3-512">09396e6a262dbc76dc81cfb9d795ec7b774b285d5134b9dfb18d8986fbff7cb022cc5e36c420824c52e345b4c4f6809f53fca00bb35316401c2a9d2b2a6a4f50</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-discovery@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-discovery@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64649,28 +64649,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-history</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: History Store</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">a88bbcb340d0e37f5f7be201bf90c048</hash>
-        <hash alg="SHA-1">6ccd1c9b5fe390479367d4c8594b68cc11459258</hash>
-        <hash alg="SHA-256">abf2efba0bdada926cc7310c4e937bd852642377cf458ad938395d68a45c084c</hash>
-        <hash alg="SHA-512">60045f59a753923d82b9bf6619fbae35ac8da40ec8c95a8c0b453d4965b99d3606e93791509b9590c5dfde1fecf160035e489209f4e1e0818f64d3c62030129a</hash>
-        <hash alg="SHA-384">4f7c27513dd107df349023f4c3d6408ad15c49d7f026af0cb045b2b1f4008b7e38d015a59fc5c6b59622d56c5ed04f89</hash>
-        <hash alg="SHA3-384">f9108747f18cebbba1174c15dc9fdb266479b778b621c855ceb5b305d937585e99ae2d9d0f376c6829abca69f0032a38</hash>
-        <hash alg="SHA3-256">eff48319f65643f175123415339eb6e23e1ce8c24f106c184cb4649efd51e4d5</hash>
-        <hash alg="SHA3-512">faeea50e5d2a545acdc8614c2190de42a9d89dce87fe6be484c7ad1539416ba61acebe9b4d6e8777f2cdf893053cc3e91413d072cfa1045dd03350de250df7dd</hash>
+        <hash alg="MD5">d34e2b5bba16c45f2407e94b59171313</hash>
+        <hash alg="SHA-1">cabce8a8f7b523e07c9f2d5b0056f9e6605f4174</hash>
+        <hash alg="SHA-256">e5d395333dc64569667d8d857e5497e4d071cfc9f1d3aa7245708c5f6f37a81d</hash>
+        <hash alg="SHA-512">694ad643c4c9d22472e34ee653b6a63a195e7faeb22e59c5b3aaba1e5a66be89ff7a5ad430b046fa4bff4502115170952989f3afaf19f59efb3cde556a2e776b</hash>
+        <hash alg="SHA-384">4b513f67f0619b93adfa63fce80a5be6be707c466ef98eee3d804821aad7de7df4632943e2f5eaedee5bc4fd7ade0970</hash>
+        <hash alg="SHA3-384">a1f91bedf5f3d99a01a2f5b30e66c4576c69bb186cc62d59a41ff41a41d51a5bb9cd26072de97dd948e60acb8e3cf116</hash>
+        <hash alg="SHA3-256">07d872a73ebc269d0707413d5b24404d320bcfa1732aa69840113c08c54ac7e6</hash>
+        <hash alg="SHA3-512">a5a668824832d9819caa5f12b517249769a29c365d0276ab72cbcff2992799cb1a42c908021ed1d8d85ee42e0a4439ecc581ed9cdd8856370a3582aca99a794b</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-history@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-history@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64686,28 +64686,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-jsr160</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: JSR160 Proxy</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">fa7d829bcfabf268178c20b28dd39ca6</hash>
-        <hash alg="SHA-1">39697aa382e206f15ad6ce1bff2fbc5a76baf118</hash>
-        <hash alg="SHA-256">0921ab39836fe69b29e232ed12427d35a8e560c47056bd3fdd100eaa05e19416</hash>
-        <hash alg="SHA-512">383cbae1a49b1e5ca3f0c18db28950ec07b668cf64feea573d9b6abbdff1de90bc473f52dc2989d29a63b7d1829b6306a372f60adaab79fbe03509bb6312cbf0</hash>
-        <hash alg="SHA-384">46c3b7b729ce0a3f6d14b336fe913c643f7c389d5f9651b9e791b2cc8485413bd386099b5bb5ad3cba5cc83352139a4f</hash>
-        <hash alg="SHA3-384">67f1575cb4c6f809a69d5e47379b8a7ebce80fac9804b32edfdfe539104970d4e7807b1889fc6ad96aa630d39e9f3ee0</hash>
-        <hash alg="SHA3-256">639fc2df4b45cbd734567c4014529d2b9e51a81a0ca2b8df25d7f9128708aa60</hash>
-        <hash alg="SHA3-512">9deb595c49508a1eb8229b7f7f67a305c24e56cae570bbe324926e5ba6154627522c02b7ede6418c2527037f2ef0e5b43fc2244fbb59aa8dcf355c70e513b735</hash>
+        <hash alg="MD5">23bca0653c07c4cc26b80e2da4a18f07</hash>
+        <hash alg="SHA-1">73115b87d60110f84af61b92750fb4adbfd0cb95</hash>
+        <hash alg="SHA-256">6fe0448476daf26784f6b7e2b79b3f5e84ba14d581f144ffa3e2e0ac16bccfea</hash>
+        <hash alg="SHA-512">229bfba676a98d3777eea0969f70e6bc75b3bfa44a94f4e74fd2428ffa03bc6d5eb5010cde64732d9075738aa59286e0216034dafcdcbb3a0dd4f45c465b58d7</hash>
+        <hash alg="SHA-384">2d6d6d5156ea6d4bf68d7813203a2e9b1d3e9bbb321c38212d5727dc012337c518e79e8f8a8964fd8dbba8a81449ee31</hash>
+        <hash alg="SHA3-384">10909523069606a48500efb95c9e53995b6d4437ae25c86fba3111931330861d55d0e888271360f6a81cd44fff4e8f17</hash>
+        <hash alg="SHA3-256">a925ce02f2d04ec96cc9b8dbb6a03efab8efb618446d209f5163c49a886eb72b</hash>
+        <hash alg="SHA3-512">b6403d1508559cbd160187f581f6684609fe2a8468a0216951bd82477510c37b38f9e2ef0f0e053374f0f231d04d62a4829a3127231a73d2d249047e2a260ad8</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64723,28 +64723,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-notif-pull</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: Notification :: Pull</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">709bff1694c23981dc7aea9993741690</hash>
-        <hash alg="SHA-1">6653e8176a9ef5b3e6178dde1e4518e79f8f1dd3</hash>
-        <hash alg="SHA-256">7c96fb3dfd08b32f09f3ab0e56b3d9aeb80fd468530d3d29fb8ed1c4ca1c1b80</hash>
-        <hash alg="SHA-512">ea685a76f41c10e80d1d1cc1586119c14543dd317ae80a3d8c23f19b57ba98ec366c532f01afe7ba98a5036ec660a8d2e96d246de2f2209b9eb4df91609e2980</hash>
-        <hash alg="SHA-384">d26fadeccc80a473696b668c81576e38c028ad33c2766910e966e8c3d8c6cb6b4a92c250d3af367ed070a99d382c4b39</hash>
-        <hash alg="SHA3-384">0c679d95db1d262a487e9dcb2887bc1f1ea1d99cd100e5bdd185ce7c6956ebd41c1d661bf14cb7225c886b40eb92fa59</hash>
-        <hash alg="SHA3-256">cc571442445e22e9b28cddd0fbdeb580b1868b9ae33e40a34b87f6c7823d96aa</hash>
-        <hash alg="SHA3-512">97ff35f8ee492bcead5491c54f39c4f88faf0c1fc80cb72af06868736a9eb44161049adc12c69323c4aa07b900562740652c89b5163fc20fd1881fc7613a1d60</hash>
+        <hash alg="MD5">41452fd55fb2ba69814cb4d4139665ce</hash>
+        <hash alg="SHA-1">37a9ad6c89474ed696bef3e20fc589c5cdaeee7d</hash>
+        <hash alg="SHA-256">ebdd5d5222522b91d6291a2281d4d56766478d104a904a788855c9f4229b893c</hash>
+        <hash alg="SHA-512">b5304d51b6478bf74c7ce1f9d7aa793944e063ce326d31b3689420f483dd259c666c1f56f47dbacfbce516e515f52147657f0470522daff33dc87bec6ff65edd</hash>
+        <hash alg="SHA-384">a28e482fe6de056f314cdb97c6be83562ed5ef147c59a1b98cb6b401ae27eb3751016af5858106c685c385f64052819f</hash>
+        <hash alg="SHA3-384">637747d5e725f8541f7d49ef7884e9f3f3aca51eb636962203418d4309bb03075ef9a76656737db519576d53cc8229c1</hash>
+        <hash alg="SHA3-256">19d0185758701ca671898f634436d9ce5d6309d5665fe8bc4d0a4de3a46cdea2</hash>
+        <hash alg="SHA3-512">c76d81d0afe9334cb5bd42a9e2f2551582c52840962ea692739bb5a6245f80e02e690b912491b4ed8f26a0be3dd308d43f788246ab60e0d43a67b13bc9ffc67c</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -64760,28 +64760,28 @@ abstractions.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.4?type=jar">
       <group>org.jolokia</group>
       <name>jolokia-service-notif-sse</name>
-      <version>2.6.3</version>
+      <version>2.6.4</version>
       <description>Jolokia :: Service :: Notification :: SSE</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">190f29b351db9aeec4dda414fa40148a</hash>
-        <hash alg="SHA-1">257ffd8f99b67b78ecaa4a84d53513ab1a25eb58</hash>
-        <hash alg="SHA-256">287f8c812b2e6b9149431d20da147a5b9f1c071097a463e01769398b736c1cde</hash>
-        <hash alg="SHA-512">50efa26aff12bdc2b96b7b9dfd6ce4766a757beac86bbe256198ee91068961eea685e766d67d9cb24d18739ddc26624938733fd10d3d4b1e6a86eac4af781c0f</hash>
-        <hash alg="SHA-384">ecf44062d1a3c2b4402b2ab8acacbac74568ab4604f84bcfe4873acead68c6ec4dbf4aa450e1f5037a530dba918f5627</hash>
-        <hash alg="SHA3-384">1151bc709dbcf71164eaf04301881f57833080d3532ba58eb2b05e877a5a1accca7a36fa5af5ec7be258ceccc7e188fc</hash>
-        <hash alg="SHA3-256">2ae61797e62a482b5bbe23bb3a734dcef49890305b68709828209c8b055a74d7</hash>
-        <hash alg="SHA3-512">106c2cefe47f074c754531361d35129e8f144d13e98a0297146035abd20d848015735b8002ae66f426316fa7a8951459956249de901f093c3cc7768d8429a78d</hash>
+        <hash alg="MD5">a5d7d0beddaab7d9b7447cbe6bc20bd5</hash>
+        <hash alg="SHA-1">7c0a92676b63c4b8b08afd04556637bbb8db1e59</hash>
+        <hash alg="SHA-256">a46f7b6ac24854c299e977aabb7a88b35f63b24689557d1dae44291c6feca33b</hash>
+        <hash alg="SHA-512">7d636ecb192c701ef6f484d71547a1d9027853b1c11515f111254e1e436fa43b508b914687dddc94112ef653a5dfa8c3ec6051fd2583ce76b9cb6e8c115636e8</hash>
+        <hash alg="SHA-384">8f83a6c1ba484d6cab183e0f72c6a21b1f3c4985e8418e61bdb3f04baa6a0e13cd689ee1acfd093bc2d08cc02cb02557</hash>
+        <hash alg="SHA3-384">aac9b3656c21bd7f040022d791473132b46e3ce60a64e5406cd4928dd57f3358c763878d40f613bb91bf8286b381bbab</hash>
+        <hash alg="SHA3-256">faaab23e0cbc9c9b0f9768515e9439e3cbc9f2c058e8399f9c55ee83860064e4</hash>
+        <hash alg="SHA3-512">15334b88b4dcb6901829b2fd4f49e159503c2b1fadb0c154cd25f782cc8117ff496688b99edef50ff786004f619ab775fbdd5ad9329e91fd2cf2ae84afebfa00</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.3?type=jar</purl>
+      <purl>pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.4?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://jolokia.org/</url>
@@ -73741,6 +73741,48 @@ providers.</description>
         </reference>
       </externalReferences>
     </component>
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.23.0?type=jar">
+      <publisher>The Apache Software Foundation</publisher>
+      <group>org.apache.camel.kamelets</group>
+      <name>camel-kamelets</name>
+      <version>4.23.0</version>
+      <description>Camel Kamelets</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="MD5">04f9961f9690411fac0bd074c45e35b6</hash>
+        <hash alg="SHA-1">d2b58e504d92a06d7a7eaaeb1b7c80d9853276ab</hash>
+        <hash alg="SHA-256">085a299ed47802dc126f53b6ab7c43c9fb0c5e1cd85ae3fb98c46ae8f649ac6b</hash>
+        <hash alg="SHA-512">40154b28dbc20407ef73a25d48f9446f5f5d94c4ccce8d9b94eeab6f9bb2cf7300bb04dff761a775fca3ae5cc98c0107c4e9272b000d04818b093ada5b7c9117</hash>
+        <hash alg="SHA-384">b289924439157efc42b20547957a4da2c95ba3b750151fa5af72dc5d3bb92fe5f2da43bb38631b11582c82b21cc1b4ed</hash>
+        <hash alg="SHA3-384">06f1d4d74de14414157ff37c38207098098a79f4ff6fcc0e79d68fe508a17b76c3150a20b4e09eaa04835a96f372c34c</hash>
+        <hash alg="SHA3-256">be54805c025ca10c62f1a45eff8261a21297d4d67a667771d0463d417c055d99</hash>
+        <hash alg="SHA3-512">e4d0a7828dcde1f9e1a43594c650173d11476443d0dcc038d37df0684cd734034334f417e1f59068cf39ac26cf746b6354481a4b6e05cb5d6c7a88937cbddf35</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
+      <purl>pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.23.0?type=jar</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://camel.apache.org/camel-kamelets-parent/library/camel-kamelets</url>
+        </reference>
+        <reference type="distribution-intake">
+          <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/apache/camel-kamelets/issues</url>
+        </reference>
+        <reference type="mailing-list">
+          <url>dev-subscribe@camel.apache.org</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://gitbox.apache.org/repos/asf?p=camel-kamelets.git;a=summary/library/camel-kamelets</url>
+        </reference>
+      </externalReferences>
+    </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-ingest-deployment@4.0.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.quarkus</group>
@@ -76684,34 +76726,31 @@ providers.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.1?type=jar">
+    <component type="library" bom-ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.2?type=jar">
       <group>io.micrometer</group>
       <name>micrometer-tracing</name>
-      <version>1.7.1</version>
+      <version>1.7.2</version>
       <description>Facade over tracing concepts</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">1f6b333bc226e9d67a481a94fbcf5487</hash>
-        <hash alg="SHA-1">1ef2ac3cdb91e21e9f549e7284c74b899d917bd2</hash>
-        <hash alg="SHA-256">435e97807c1e14ae66e6265a0f713b1525e51b8f3531e63b09d9697494010d89</hash>
-        <hash alg="SHA-512">2708103f4eae9808b9ad782c55abd24b141fc4d12e8463316a32a94bfe0b2d23dd104263cbf10c8566a17903cc6ae23aa1002ae230b456ee1f4d4e4b4f96690f</hash>
-        <hash alg="SHA-384">b6ff248a7ad9442c71ac1f722edb005193595d5b4f0c93e760e19718ded1845982c4129db4ff6539b14741e8166121ca</hash>
-        <hash alg="SHA3-384">13e1e74432d16c3c2683e5d674147ff3ebd195d849ac2d3d56f0a5ef1456e6327f855659f25b6d76c7a73a225af553f3</hash>
-        <hash alg="SHA3-256">efbe06d96a417b4f93b44cc31d3698f00b5ac8793473861d0c5105eaeadd7cf2</hash>
-        <hash alg="SHA3-512">d7358270c9a3005f6090ae043403ff9761c823df3429ef978d73bc006932f4155f768dc60e01c042902d204bce39fbbcf7c0eb5399bfeba0d5a694fdadb5d9d6</hash>
+        <hash alg="MD5">e2e4032b67a1b2c08fbc3076cd88fed7</hash>
+        <hash alg="SHA-1">b7c9cf2196b4241ebe97b4a5e61e7e79219144c9</hash>
+        <hash alg="SHA-256">fbe896b7d07803faab978184186ccda545edfd7494951475b41e4640383827c5</hash>
+        <hash alg="SHA-512">1429985ce80c91658d4ba4927afde9835617a471bb7dcdeffe86bfbb60b501167702b9ef43928ee5c7bb2b396b5391c639deca03ace4d82064f92a0dfc29c176</hash>
+        <hash alg="SHA-384">481842b68428595eb905393eabded9b1e9233487a85f35f69a718da20b71fb71ec7ed32a10f1c6c60ea32ed25460fdcc</hash>
+        <hash alg="SHA3-384">f1bab987925d51f3f6f8d242c11b87fcfd38c8f50bebc555256bb47bf16c70d3fef0eec9b64a9e72c1ca616fa8b499ee</hash>
+        <hash alg="SHA3-256">1d5f1e7c54b7d7158d0744b751b4623a26f06bd1ab0e52eb474e45fb656a4e27</hash>
+        <hash alg="SHA3-512">90d1134a7a54bb96e8c856b1c72a9deff4c31ad5fb6eed22f4e540ad61fbad1a8c9464baf122daac9be58a983e2ffb652606e9fdea963ffd7817511eccf28c06</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/io.micrometer/micrometer-tracing@1.7.1?type=jar</purl>
+      <purl>pkg:maven/io.micrometer/micrometer-tracing@1.7.2?type=jar</purl>
       <externalReferences>
         <reference type="website">
-          <url>https://github.com/micrometer-metrics/tracing-commercial</url>
-        </reference>
-        <reference type="vcs">
-          <url>https://github.com/micrometer-metrics/tracing-commercial.git</url>
+          <url>https://github.com/micrometer-metrics/tracing</url>
         </reference>
       </externalReferences>
     </component>
@@ -77125,34 +77164,31 @@ providers.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.1?type=jar">
+    <component type="library" bom-ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.2?type=jar">
       <group>io.micrometer</group>
       <name>micrometer-tracing-bridge-otel</name>
-      <version>1.7.1</version>
+      <version>1.7.2</version>
       <description>Facade over tracing concepts</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">394c50b2b5624e44853c33692639e4c1</hash>
-        <hash alg="SHA-1">f98040db4b3867c90a4b9537bbf3972663fc76d3</hash>
-        <hash alg="SHA-256">3c9de2464049c10ed2f2575de51c15dab79cbe4487ec13e65687e57db9c233b6</hash>
-        <hash alg="SHA-512">88ff5a336aac82a99bf378ac5667febebef31c4a360091f89f23b54bbc7630fd7b93dc2fa52eefe48dfb718fecf3551379985f84145722d034d81c17048d338d</hash>
-        <hash alg="SHA-384">f44742ae8a927acd336d03d6e47a7d582ba02511b9f8c590523629e2a210be044d7880c31bd17fb55eaf64fd5c34cb59</hash>
-        <hash alg="SHA3-384">aaa7c9ae70d0db8b522eb9d43bc7b608e938564763c7f71db017dbd3432de52130ad17ff00c018b6a331128b39a21ea9</hash>
-        <hash alg="SHA3-256">e9ab4593c281ee05b40e522ccac7196ee9ddbd063645227caeec94114bb6260c</hash>
-        <hash alg="SHA3-512">626f6c071cb42744a7c81ad6ec0c860a1ead9e1e7be19d6531228af7b1dc79c301497d220eff9ac44b209d8c6e58b7c3a5edaecebf0f4f04c8b22869e7f67b1e</hash>
+        <hash alg="MD5">6dd1f8b8e68d590eaddd8ef35103c68d</hash>
+        <hash alg="SHA-1">c3dc0c9250a35de4039c479fdc20d94b30f52b82</hash>
+        <hash alg="SHA-256">eed25d5859539423e9a057c7149c04068d25d148a21c8b2deb3336003a318345</hash>
+        <hash alg="SHA-512">ce905cd203915148421a0f4cd25dea9e54aa8be8d8f82916819c40f0078de429c05588bccb6c2e7c521d3d17cf3ccc413fea1724c1b2a5c1d3b870e0672d09c5</hash>
+        <hash alg="SHA-384">1be89275193ff88cb7d12175c112707ab5c4c733ed94d3ed9e6ee3c94110e7e74f2f133e3d6ccde5551c9486195873a1</hash>
+        <hash alg="SHA3-384">783804bb943b833c6e8241fece46c9da8e9cbd4ada0294b70b7130e6ad98c119fec181a4920efd7b49bd70b347751e61</hash>
+        <hash alg="SHA3-256">304249e22ddff2a831dd44d948445587f232c07ca65952475476d8305d230132</hash>
+        <hash alg="SHA3-512">66f8e851b418a4502d4663f8b83cc001ac5e0fb5c5b1d9e5abf0010b94ba43772bea671fdb88d9b4f524ba5292e07d6e366bae8663246fe38bc8fbf5e9f9a454</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.1?type=jar</purl>
+      <purl>pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.2?type=jar</purl>
       <externalReferences>
         <reference type="website">
-          <url>https://github.com/micrometer-metrics/tracing-commercial</url>
-        </reference>
-        <reference type="vcs">
-          <url>https://github.com/micrometer-metrics/tracing-commercial.git</url>
+          <url>https://github.com/micrometer-metrics/tracing</url>
         </reference>
       </externalReferences>
     </component>
@@ -95109,22 +95145,22 @@ JSON Schema (http://tools.ietf.org/html/draft-zyp-json-schema-03) version 3 gene
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/com.rabbitmq/amqp-client@5.31.0?type=jar">
+    <component type="library" bom-ref="pkg:maven/com.rabbitmq/amqp-client@5.37.0?type=jar">
       <publisher>Broadcom Inc. and its subsidiaries.</publisher>
       <group>com.rabbitmq</group>
       <name>amqp-client</name>
-      <version>5.31.0</version>
+      <version>5.37.0</version>
       <description>The RabbitMQ Java client library allows Java applications to interface with RabbitMQ.</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">a53fbaec4f1397453276c3fac7d1f134</hash>
-        <hash alg="SHA-1">aa764727602cd4d9bef759af4a844acbba81b1dd</hash>
-        <hash alg="SHA-256">6b15782cd3400e14f453e7727347625360bd83bbbd50f74bde8d007069f773f6</hash>
-        <hash alg="SHA-512">cc1eba529bb2ea9849852cfae618551007740bbdbec99f4321e5d88da6e94a8342b0fd77ace653d921282323e470e04c9c9236efe38dbac9213bad4e5fb7a975</hash>
-        <hash alg="SHA-384">646e109aef63504ea56ca766f293d4c896fb5144fdb8aa5bfaadcd3f8012195d39a0d1dfe4fc0d01e8f76b58ef1a9b6d</hash>
-        <hash alg="SHA3-384">36ac14560e66a65f5efa498706c3a4dbd256b9d7b908fb2e7d4bc15082e9ae1314df2911d7db198023c88e4fa77bb397</hash>
-        <hash alg="SHA3-256">09a649fa009c75d296bdc7e6fc2c476905c49af255d3c6c901c32a775a5f5819</hash>
-        <hash alg="SHA3-512">e4f1aeff70571c1159ba6cd0d79a32cf4bff123aeac4411419043888a83c6f4372e5bd914eb2bea05954d377df2add68b2efe362db7633c70e3a6abac09bd70f</hash>
+        <hash alg="MD5">23ca7c2f1a6980a7c8686bd0df93879d</hash>
+        <hash alg="SHA-1">8add79f8648cb8564a49fe7f1de98657f14ac2f1</hash>
+        <hash alg="SHA-256">b27134820890c5e56ed57d27cc50b70742fa2c31b36a6e9e28e14a43f34ff96f</hash>
+        <hash alg="SHA-512">5346956a93405ab256f43eb18567800eb3b93b90fd20443689e6253862d1ff057b687fdc08ada448ce7a0edc91137b050c2bb3c8c940738cf4e27d596cb20fe1</hash>
+        <hash alg="SHA-384">85f577dabefa3cee64ab4313e7435c0a428ff2397a33a5215595e9669dd6a2893f077cc63bbd3de511f496059d6927ee</hash>
+        <hash alg="SHA3-384">f0900c2814ed1668a84671023e2c95e936cae6838c130ec91f0353ece3242da86adc1da303392213e26f34da82a8fa3d</hash>
+        <hash alg="SHA3-256">25633b564dad86f2629942577b69fea85f306e5e45d12ab8e36464f8bd39147d</hash>
+        <hash alg="SHA3-512">b77f4a445acac14c37297bf6937b12ceb3e7a43ebafde52cc523ab15b26312ab9f21a63222b3304ee656612e7798b17f081afb798a01b498b8df5575c6a0f72e</hash>
       </hashes>
       <licenses>
         <license>
@@ -95139,7 +95175,7 @@ JSON Schema (http://tools.ietf.org/html/draft-zyp-json-schema-03) version 3 gene
           <id>MPL-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/com.rabbitmq/amqp-client@5.31.0?type=jar</purl>
+      <purl>pkg:maven/com.rabbitmq/amqp-client@5.37.0?type=jar</purl>
       <externalReferences>
         <reference type="website">
           <url>https://www.rabbitmq.com</url>
@@ -126751,48 +126787,6 @@ Roster, Chat and other functionality.</description>
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.22.1?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.kamelets</group>
-      <name>camel-kamelets</name>
-      <version>4.22.1</version>
-      <description>Camel Kamelets</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">61831e780400cb646eb1f0b2f1a7ae64</hash>
-        <hash alg="SHA-1">8ac3c5a8296a38b90bf32c592c9bed82a42cd066</hash>
-        <hash alg="SHA-256">8fbe196600d8c7fb7cca7e75468a5b9c7c98c1a464a4276334b1a884c8f3ab75</hash>
-        <hash alg="SHA-512">b9693100d258ca5835acf19f17f0a756b5bf963ed919d4620205ffead9fc0ee8b06d43a4c436e3ee8cf1a8c3588d37aa1918068ff3479ef4911e43aca65e1e5e</hash>
-        <hash alg="SHA-384">8ac81b1ee77b6cdf2aa306b1b6295ee18029fff7d71b876756b4866c545bbce28c45226a4d9691df70898f907f5ba12e</hash>
-        <hash alg="SHA3-384">a40275be63d38b1ea6a7b8adc090e7f1d95a5b737f12da79a71a365c2b8354dbfe813469d96bc33488d7880bde62b59a</hash>
-        <hash alg="SHA3-256">5788cd83057f6e418530d23cb5f86662f82d204b2037c3b6c6c16346ac9a8a42</hash>
-        <hash alg="SHA3-512">3b071bf8422974c111259b8f7737bd455fceed581432427acbb30d9ca8f29f922a31402a274e743c8701cc7f684e43e1a966b95a53fc936be86dfa153d22caf9</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.22.1?type=jar</purl>
-      <externalReferences>
-        <reference type="website">
-          <url>https://camel.apache.org/camel-kamelets-parent/library/camel-kamelets</url>
-        </reference>
-        <reference type="distribution-intake">
-          <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/apache/camel-kamelets/issues</url>
-        </reference>
-        <reference type="mailing-list">
-          <url>dev-subscribe@camel.apache.org</url>
-        </reference>
-        <reference type="vcs">
-          <url>https://gitbox.apache.org/repos/asf?p=camel-kamelets.git;a=summary/library/camel-kamelets</url>
-        </reference>
-      </externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-integration-test-keycloak@4.0.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.quarkus</group>
@@ -139462,9 +139456,9 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.4.10?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar">
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar">
+    <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar">
       <dependency ref="pkg:maven/com.squareup.okio/okio@3.16.1?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.4.10?type=jar"/>
     </dependency>
@@ -142133,7 +142127,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/com.squareup.okio/okio-jvm@3.16.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.squareup.wire/wire-grpc-client-jvm@5.2.0?type=jar">
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.wire/wire-runtime-jvm@5.2.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okio/okio-jvm@3.16.1?type=jar"/>
     </dependency>
@@ -142999,7 +142993,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.bitbucket.b_c/jose4j@0.9.6?type=jar"/>
       <dependency ref="pkg:maven/org.bouncycastle/bcprov-jdk18on@1.86?type=jar"/>
       <dependency ref="pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.86?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.github.luben/zstd-jni@1.5.7-16?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.eclipsesource.minimal-json/minimal-json@0.9.5?type=jar"/>
@@ -145187,7 +145181,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.httpcomponents.client5/httpclient5@5.6.4?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.google.maps/google-maps-services@2.2.0?type=jar">
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.google.code.gson/gson@2.14.0?type=jar"/>
       <dependency ref="pkg:maven/io.opencensus/opencensus-api@0.31.0?type=jar"/>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
@@ -146231,8 +146225,8 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/com.ibm.cloud/sdk-core@9.25.0?type=jar"/>
       <dependency ref="pkg:maven/com.ibm.watson/common@16.2.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar">
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+    <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar">
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.4.10?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.ibm.watson/common@16.2.0?type=jar">
@@ -146478,8 +146472,8 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.retrofit2/converter-moshi@2.9.0?type=jar"/>
       <dependency ref="pkg:maven/org.msgpack/msgpack-core@0.9.8?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.squareup.retrofit2/converter-moshi@2.9.0?type=jar">
       <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar"/>
@@ -146884,57 +146878,57 @@ Roster, Chat and other functionality.</description>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-jolokia@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/io.quarkus/quarkus-vertx-http@4.0.0.Beta1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-management@4.0.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.3?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-agent-jvm@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-server-detector@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-serializer@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-core@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-discovery@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-history@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-jsr160@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-json@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
+      <dependency ref="pkg:maven/org.jolokia/jolokia-service-jmx@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-pull@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.3?type=jar">
-      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.3?type=jar"/>
+    <dependency ref="pkg:maven/org.jolokia/jolokia-service-notif-sse@2.6.4?type=jar">
+      <dependency ref="pkg:maven/org.jolokia/jolokia-server-core@2.6.4?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-jolokia-deployment@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/io.quarkus/quarkus-vertx-http-deployment@4.0.0.Beta1?type=jar"/>
@@ -148292,6 +148286,9 @@ Roster, Chat and other functionality.</description>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-ingest@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-langchain4j-ingest@4.23.0?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.23.0?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kamelet@4.0.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-file@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-langchain4j@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-embeddingstore@4.0.0-SNAPSHOT?type=jar"/>
@@ -148303,9 +148300,12 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/dev.langchain4j/langchain4j-core@1.21.0?type=jar"/>
       <dependency ref="pkg:maven/dev.langchain4j/langchain4j@1.21.0?type=jar"/>
     </dependency>
+    <dependency ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.23.0?type=jar"/>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-ingest-deployment@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-file-deployment@4.0.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kamelet-deployment@4.0.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl-deployment@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-ingest@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-langchain4j-deployment@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-langchain4j-embeddingstore-deployment@4.0.0-SNAPSHOT?type=jar"/>
@@ -148701,17 +148701,17 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-micrometer-observability@4.23.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-opentelemetry@4.0.0.Beta1?type=jar"/>
-      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.1?type=jar"/>
+      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-micrometer-observability@4.23.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-telemetry@4.23.0?type=jar"/>
       <dependency ref="pkg:maven/io.micrometer/micrometer-core@1.17.1?type=jar"/>
-      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.1?type=jar"/>
+      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-telemetry@4.23.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.23.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.1?type=jar">
+    <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.2?type=jar">
       <dependency ref="pkg:maven/org.jspecify/jspecify@1.0.0?type=jar"/>
       <dependency ref="pkg:maven/io.micrometer/micrometer-observation@1.17.1?type=jar"/>
       <dependency ref="pkg:maven/io.micrometer/context-propagation@1.2.1?type=jar"/>
@@ -148795,9 +148795,9 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/io.opentelemetry.instrumentation/opentelemetry-instrumentation-api-incubator@2.29.0-alpha?type=jar"/>
       <dependency ref="pkg:maven/io.opentelemetry/opentelemetry-api@1.63.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.1?type=jar">
+    <dependency ref="pkg:maven/io.micrometer/micrometer-tracing-bridge-otel@1.7.2?type=jar">
       <dependency ref="pkg:maven/org.jspecify/jspecify@1.0.0?type=jar"/>
-      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.1?type=jar"/>
+      <dependency ref="pkg:maven/io.micrometer/micrometer-tracing@1.7.2?type=jar"/>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
       <dependency ref="pkg:maven/io.micrometer/micrometer-observation@1.17.1?type=jar"/>
       <dependency ref="pkg:maven/io.opentelemetry/opentelemetry-api@1.63.0?type=jar"/>
@@ -149032,7 +149032,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.commons/commons-lang3@3.20.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.commons/commons-collections4@4.6.0?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains/annotations@26.1.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okio/okio@3.16.1?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okio/okio-jvm@3.16.1?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.4.10?type=jar"/>
@@ -149116,7 +149116,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-minio@4.23.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkiverse.minio/quarkus-minio-native@3.9.2?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-minio@4.23.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.23.0?type=jar"/>
@@ -149626,7 +149626,7 @@ Roster, Chat and other functionality.</description>
     <dependency ref="pkg:maven/com.openai/openai-java-client-okhttp@4.76.0?type=jar">
       <dependency ref="pkg:maven/com.openai/openai-java-core@4.76.0?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.4.10?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.openai/openai-java-core@4.76.0?type=jar">
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.22.2?type=jar"/>
@@ -149888,8 +149888,8 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.github.openstack4j.core.connectors/openstack4j-okhttp@3.12?type=jar">
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.github.openstack4j.core/openstack4j-core@3.12?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.22.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.22.2?type=jar"/>
@@ -150311,8 +150311,8 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/io.grpc/grpc-netty@1.81.0?type=jar"/>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
       <dependency ref="pkg:maven/com.google.api.grpc/proto-google-common-protos@2.74.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.22.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.22.2?type=jar"/>
       <dependency ref="pkg:maven/com.google.code.gson/gson@2.14.0?type=jar"/>
@@ -150440,7 +150440,7 @@ Roster, Chat and other functionality.</description>
     <dependency ref="pkg:maven/com.pubnub/pubnub-kotlin-core-api-jvm@13.4.4?type=jar">
       <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp-jvm@5.2.1?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/org.json/json@20240303?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.4.10?type=jar"/>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
@@ -150463,14 +150463,14 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.retrofit2/converter-gson@3.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp-jvm@5.2.1?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/org.json/json@20240303?type=jar"/>
       <dependency ref="pkg:maven/co.nstant.in/cbor@0.9?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.pubnub/pubnub-kotlin-api-jvm@13.4.4?type=jar">
       <dependency ref="pkg:maven/com.squareup.retrofit2/retrofit@3.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp-jvm@5.2.1?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/org.json/json@20240303?type=jar"/>
       <dependency ref="pkg:maven/com.pubnub/pubnub-kotlin-core-api-jvm@13.4.4?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlinx/kotlinx-datetime-jvm@0.7.1?type=jar"/>
@@ -151204,7 +151204,7 @@ Roster, Chat and other functionality.</description>
     </dependency>
     <dependency ref="pkg:maven/com.slack.api/slack-api-client@1.52.0?type=jar">
       <dependency ref="pkg:maven/com.slack.api/slack-api-model@1.52.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/com.google.code.gson/gson@2.14.0?type=jar"/>
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
     </dependency>
@@ -151445,13 +151445,13 @@ Roster, Chat and other functionality.</description>
     </dependency>
     <dependency ref="pkg:maven/org.springframework.amqp/spring-rabbit@4.1.1?type=jar">
       <dependency ref="pkg:maven/org.springframework.amqp/spring-amqp@4.1.1?type=jar"/>
-      <dependency ref="pkg:maven/com.rabbitmq/amqp-client@5.31.0?type=jar"/>
+      <dependency ref="pkg:maven/com.rabbitmq/amqp-client@5.37.0?type=jar"/>
       <dependency ref="pkg:maven/org.springframework/spring-messaging@7.0.9?type=jar"/>
       <dependency ref="pkg:maven/org.springframework/spring-tx@7.0.9?type=jar"/>
       <dependency ref="pkg:maven/io.micrometer/micrometer-observation@1.17.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.springframework.amqp/spring-amqp@4.1.1?type=jar"/>
-    <dependency ref="pkg:maven/com.rabbitmq/amqp-client@5.31.0?type=jar">
+    <dependency ref="pkg:maven/com.rabbitmq/amqp-client@5.37.0?type=jar">
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.19?type=jar"/>
       <dependency ref="pkg:maven/io.netty/netty-transport@4.2.18.Final?type=jar"/>
       <dependency ref="pkg:maven/io.netty/netty-codec@4.2.18.Final?type=jar"/>
@@ -154230,8 +154230,8 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.web3j/crypto@5.0.0?type=jar"/>
       <dependency ref="pkg:maven/org.web3j/tuples@5.0.0?type=jar"/>
       <dependency ref="pkg:maven/com.github.jnr/jnr-unixsocket@0.21?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/logging-interceptor@4.12.1?type=jar"/>
       <dependency ref="pkg:maven/io.reactivex.rxjava2/rxjava@2.2.21?type=jar"/>
       <dependency ref="pkg:maven/org.java-websocket/Java-WebSocket@1.3.8?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.22.2?type=jar"/>
@@ -156233,12 +156233,11 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-seda@4.0.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.22.1?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.23.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@4.0.0.Beta1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@4.0.0.Beta1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-integration-tests-support-custom-kamelet-resource@4.0.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.kamelets/camel-kamelets@4.22.1?type=jar"/>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-integration-test-keycloak@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-keycloak@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@4.0.0-SNAPSHOT?type=jar"/>
@@ -156783,7 +156782,7 @@ Roster, Chat and other functionality.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-pinecone@4.0.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@4.0.0.Beta1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jackson@4.0.0.Beta1?type=jar"/>
-      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.0?type=jar"/>
+      <dependency ref="pkg:maven/com.squareup.okhttp3/okhttp@4.12.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-integration-test-platform-http@4.0.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@4.0.0-SNAPSHOT?type=jar"/>
