@@ -16,52 +16,84 @@
  */
 package org.apache.camel.quarkus.support.debezium.deployment;
 
-import io.debezium.connector.base.DefaultQueueProvider;
-import io.debezium.connector.common.BaseSourceTask;
-import io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import io.debezium.connector.SourceInfoStructMaker;
 import io.debezium.engine.DebeziumEngine;
-import io.debezium.pipeline.notification.channels.NotificationChannel;
-import io.debezium.pipeline.signal.actions.SignalActionProvider;
-import io.debezium.pipeline.signal.actions.StandardActionProvider;
-import io.debezium.pipeline.signal.channels.FileSignalChannel;
-import io.debezium.pipeline.signal.channels.KafkaSignalChannel;
-import io.debezium.pipeline.signal.channels.SourceSignalChannel;
-import io.debezium.pipeline.signal.channels.jmx.JmxSignalChannel;
-import io.debezium.pipeline.signal.channels.process.InProcessSignalChannel;
-import io.debezium.pipeline.txmetadata.DefaultTransactionMetadataFactory;
-import io.debezium.schema.SchemaTopicNamingStrategy;
-import io.debezium.snapshot.lock.NoLockingSupport;
-import io.debezium.snapshot.mode.AlwaysSnapshotter;
-import io.debezium.snapshot.mode.ConfigurationBasedSnapshotter;
-import io.debezium.snapshot.mode.InitialOnlySnapshotter;
-import io.debezium.snapshot.mode.InitialSnapshotter;
-import io.debezium.snapshot.mode.NoDataSnapshotter;
-import io.debezium.snapshot.mode.RecoverySnapshotter;
-import io.debezium.snapshot.mode.WhenNeededNoDataSnapshotter;
-import io.debezium.snapshot.mode.WhenNeededSnapshotter;
+import io.debezium.pipeline.txmetadata.spi.TransactionMetadataFactory;
+import io.debezium.processors.PostProcessorRegistry;
+import io.debezium.processors.reselect.cache.ReselectColumnCache;
+import io.debezium.relational.TableMappingStorage;
+import io.debezium.relational.history.SchemaHistory;
 import io.debezium.snapshot.spi.SnapshotLock;
-import io.debezium.spi.storage.OffsetStoreProvider;
-import io.debezium.storage.file.history.FileSchemaHistory;
+import io.debezium.spi.topic.TopicNamingStrategy;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
+import io.quarkus.maven.dependency.ResolvedDependency;
+import io.quarkus.paths.PathFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.quarkus.support.debezium.DebeziumComponentObserver;
 import org.apache.kafka.connect.source.SourceTask;
+import org.apache.kafka.connect.storage.Converter;
+import org.apache.kafka.connect.storage.FileOffsetBackingStore;
+import org.apache.kafka.connect.storage.HeaderConverter;
+import org.apache.kafka.connect.storage.KafkaOffsetBackingStore;
+import org.apache.kafka.connect.storage.MemoryOffsetBackingStore;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
 public class DebeziumSupportProcessor {
+    private static final String DEBEZIUM_GROUP_ID = "io.debezium";
+    private static final String SERVICES_PATH = "META-INF/services/";
+    // Holds no plugin implementations and would add thousands of ANTLR classes to the index
+    private static final Set<String> UNINDEXED_ARTIFACTS = Set.of("debezium-ddl-parser");
+
+    // Types whose implementations Debezium instantiates from class names held in connector configuration
+    static final List<Class<?>> CONFIGURABLE_PLUGIN_TYPES = List.of(
+            ReselectColumnCache.class,
+            SchemaHistory.class,
+            SourceInfoStructMaker.class,
+            SourceTask.class,
+            TableMappingStorage.class,
+            TopicNamingStrategy.class,
+            TransactionMetadataFactory.class);
+
+    // Classes named by configuration defaults that are registered for reflection individually
+    static final List<Class<?>> REFLECTIVE_CLASSES = List.of(
+            FileOffsetBackingStore.class,
+            MemoryOffsetBackingStore.class,
+            KafkaOffsetBackingStore.class,
+            DebeziumEngine.BuilderFactory.class,
+            SnapshotLock.class,
+            SourceTask.class);
+
+    // Services registered whether or not a Debezium artifact declares them
+    static final List<Class<?>> REQUIRED_SERVICES = List.of(Converter.class, HeaderConverter.class);
+
+    // Services declared by Debezium artifacts that the embedded engine never loads through ServiceLoader
+    static final Set<String> EXCLUDED_SERVICES = Set.of(
+            "io.debezium.metadata.ComponentMetadataProvider",
+            "org.apache.kafka.connect.sink.SinkConnector",
+            "org.apache.kafka.connect.transforms.Transformation",
+            "org.hibernate.boot.spi.MetadataSourcesContributor",
+            "org.infinispan.protostream.SerializationContextInitializer");
 
     @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+    void addDependencies(CurateOutcomeBuildItem curateOutcome, BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("org.apache.kafka", "connect-json"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-api"));
+        debeziumDependencies(curateOutcome).stream()
+                .filter(dependency -> !UNINDEXED_ARTIFACTS.contains(dependency.getArtifactId()))
+                .forEach(dependency -> indexDependency
+                        .produce(new IndexDependencyBuildItem(dependency.getGroupId(), dependency.getArtifactId())));
     }
 
     @BuildStep
@@ -95,85 +127,52 @@ public class DebeziumSupportProcessor {
                 .toArray(String[]::new);
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(dtos).fields().build());
 
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                "org.apache.kafka.connect.storage.FileOffsetBackingStore",
-                "org.apache.kafka.connect.storage.MemoryOffsetBackingStore",
-                "org.apache.kafka.connect.storage.KafkaOffsetBackingStore",
-                "io.debezium.storage.kafka.history.KafkaSchemaHistory",
-                "io.debezium.relational.history.FileDatabaseHistory",
-                "io.debezium.embedded.ConvertingEngineBuilderFactory",
-                "io.debezium.relational.ConcurrentMapTableMappingStorage")
-                .build());
+        String[] plugins = CONFIGURABLE_PLUGIN_TYPES.stream()
+                .flatMap(type -> {
+                    DotName name = DotName.createSimple(type);
+                    return type.isInterface()
+                            ? index.getAllKnownImplementations(name).stream()
+                            : index.getAllKnownSubclasses(name).stream();
+                })
+                .filter(ci -> !ci.isInterface())
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new);
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(plugins).build());
 
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("io.debezium.processors.PostProcessorRegistry")
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(REFLECTIVE_CLASSES.toArray(Class<?>[]::new)).build());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(PostProcessorRegistry.class)
                 .methods()
                 .build());
-
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                DebeziumEngine.BuilderFactory.class,
-                ConvertingAsyncEngineBuilderFactory.class,
-                DefaultTransactionMetadataFactory.class,
-                SchemaTopicNamingStrategy.class,
-                BaseSourceTask.class,
-                SnapshotLock.class,
-                NoLockingSupport.class,
-                AlwaysSnapshotter.class,
-                InitialSnapshotter.class,
-                InitialOnlySnapshotter.class,
-                NoDataSnapshotter.class,
-                RecoverySnapshotter.class,
-                WhenNeededSnapshotter.class,
-                WhenNeededNoDataSnapshotter.class,
-                ConfigurationBasedSnapshotter.class,
-                SourceSignalChannel.class,
-                KafkaSignalChannel.class,
-                FileSignalChannel.class,
-                JmxSignalChannel.class,
-                InProcessSignalChannel.class,
-                StandardActionProvider.class,
-                SourceTask.class,
-                FileSchemaHistory.class,
-                DefaultQueueProvider.class)
-                .build());
-
     }
 
     @BuildStep
-    ServiceProviderBuildItem registerConverterServiceProviders() {
-        return ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.kafka.connect.storage.Converter");
+    void registerServiceProviders(
+            CurateOutcomeBuildItem curateOutcome,
+            BuildProducer<ServiceProviderBuildItem> serviceProvider) {
+        Set<String> services = new HashSet<>();
+        REQUIRED_SERVICES.forEach(service -> services.add(service.getName()));
+        PathFilter pathFilter = PathFilter.forIncludes(Set.of(SERVICES_PATH + "*"));
+        debeziumDependencies(curateOutcome)
+                .forEach(dependency -> dependency.getContentTree(pathFilter).walk(visit -> {
+                    String resourceName = visit.getResourceName();
+                    if (resourceName.length() > SERVICES_PATH.length()) {
+                        services.add(resourceName.substring(SERVICES_PATH.length()));
+                    }
+                }));
+
+        services.stream()
+                .filter(service -> !EXCLUDED_SERVICES.contains(service))
+                .map(ServiceProviderBuildItem::allProvidersFromClassPath)
+                .forEach(serviceProvider::produce);
     }
 
-    @BuildStep
-    ServiceProviderBuildItem registerSignalActionProviders() {
-        return ServiceProviderBuildItem.allProvidersFromClassPath(SignalActionProvider.class.getName());
+    private static List<ResolvedDependency> debeziumDependencies(CurateOutcomeBuildItem curateOutcome) {
+        return curateOutcome.getApplicationModel()
+                .getRuntimeDependencies()
+                .stream()
+                .filter(dependency -> dependency.getGroupId().equals(DEBEZIUM_GROUP_ID))
+                .toList();
     }
-
-    @BuildStep
-    ServiceProviderBuildItem registerNotificationChannelProviders() {
-        return ServiceProviderBuildItem.allProvidersFromClassPath(NotificationChannel.class.getName());
-    }
-
-    @BuildStep
-    ServiceProviderBuildItem registerOffsetStoreProviders() {
-        return ServiceProviderBuildItem.allProvidersFromClassPath(OffsetStoreProvider.class.getName());
-    }
-
-    @BuildStep
-    void registerNativeImageResources(BuildProducer<NativeImageResourceBuildItem> resources) {
-        resources.produce(new NativeImageResourceBuildItem(
-                "META-INF/services/io.debezium.embedded.async.ConvertingAsyncEngineBuilderFactory"));
-        resources.produce(
-                new NativeImageResourceBuildItem("META-INF/services/io.debezium.engine.DebeziumEngine$BuilderFactory"));
-        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.spi.snapshot.Snapshotter"));
-        resources.produce(
-                new NativeImageResourceBuildItem("META-INF/services/io.debezium.pipeline.signal.channels.SignalChannelReader"));
-        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.processors.PostProcessorProducer"));
-
-        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.snapshot.spi.SnapshotLock"));
-        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.snapshot.spi.SnapshotQuery"));
-        resources.produce(new NativeImageResourceBuildItem("META-INF/services/io.debezium.connector.base.QueueProvider"));
-        resources
-                .produce(new NativeImageResourceBuildItem("META-INF/services/org.apache.kafka.connect.source.SourceConnector"));
-    }
-
 }

@@ -16,16 +16,13 @@
  */
 package org.apache.camel.quarkus.component.debezium.mongodb.deployment;
 
-import io.debezium.connector.mongodb.MongoDbConnector;
-import io.debezium.connector.mongodb.MongoDbConnectorTask;
-import io.debezium.connector.mongodb.MongoDbSourceInfoStructMaker;
-import io.debezium.connector.mongodb.connection.DefaultMongoDbAuthProvider;
-import io.debezium.connector.mongodb.snapshot.query.SelectAllSnapshotQuery;
+import io.debezium.connector.mongodb.connection.MongoDbAuthProvider;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.DotName;
 
 class DebeziumMongodbProcessor {
 
@@ -37,18 +34,12 @@ class DebeziumMongodbProcessor {
     }
 
     @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                MongoDbConnector.class,
-                MongoDbConnectorTask.class,
-                MongoDbSourceInfoStructMaker.class,
-                DefaultMongoDbAuthProvider.class,
-                SelectAllSnapshotQuery.class).build());
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-mongodb"));
+    void reflectiveClasses(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        String[] authProviders = combinedIndex.getIndex()
+                .getAllKnownImplementations(DotName.createSimple(MongoDbAuthProvider.class))
+                .stream()
+                .map(ci -> ci.name().toString())
+                .toArray(String[]::new);
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(authProviders).build());
     }
 }

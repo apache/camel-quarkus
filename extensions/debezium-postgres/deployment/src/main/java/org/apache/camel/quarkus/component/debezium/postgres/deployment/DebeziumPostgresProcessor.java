@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.debezium.postgres.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class DebeziumPostgresProcessor {
@@ -33,24 +30,7 @@ class DebeziumPostgresProcessor {
     }
 
     @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                "io.debezium.connector.postgresql.PostgresConnector",
-                "io.debezium.connector.postgresql.PostgresConnectorTask",
-                "io.debezium.connector.postgresql.PostgresSourceInfoStructMaker",
-                "io.debezium.connector.postgresql.snapshot.lock.NoSnapshotLock",
-                "io.debezium.connector.postgresql.snapshot.lock.SharedSnapshotLock",
-                "io.debezium.connector.postgresql.snapshot.query.SelectAllSnapshotQuery")
-                .build());
-    }
-
-    @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
         return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-postgres"));
     }
 }
