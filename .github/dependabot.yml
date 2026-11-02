@@ -48,6 +48,7 @@ updates:
       - dependency-name: "org.apache.camel.kamelets:camel-kamelets"
       - dependency-name: "io.micrometer:micrometer-tracing"
       - dependency-name: "org.jolokia:jolokia-agent-jvm"
+      - dependency-name: "com.auth0:java-jwt"
       # Test dependencies
       - dependency-name: "org.wiremock:wiremock-standalone"
       - dependency-name: "com.unboundid:unboundid-ldapsdk"
