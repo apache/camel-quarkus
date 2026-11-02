@@ -757,62 +757,62 @@
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-core</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-core-jackson3</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-embeddings</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-guardrails</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-http-client</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-http-client-jdk</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-hugging-face</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-jackson3</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-mcp</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-open-ai</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-reactive-streaming</artifactId>
-        <version>1.21.0-beta31</version>
+        <version>1.23.0-beta33</version>
       </dependency>
       <dependency>
         <groupId>io.atlassian.fugue</groupId>
@@ -1227,12 +1227,12 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>2.0.0.Beta1</version>
+        <version>2.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-        <version>2.0.0.Beta1</version>
+        <version>2.0.0.Beta2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mcp</groupId>

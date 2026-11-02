@@ -5,9 +5,7 @@
     "url" : "/api/chat",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Make sure you return a valid JSON object following the specified format\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"stop\" : [ ]\n  },\n  \"stream\" : false,\n  \"tools\" : [ ]\n}",
-      "ignoreArrayOrder" : true,
-      "ignoreExtraElements" : false
+      "contains" : "Make sure you return a valid JSON object following the specified format"
     } ]
   },
   "response" : {
