@@ -643,7 +643,8 @@ jobs:
           MODULES: ${{ fromJson(needs.initial-mvn-install.outputs.functional-test-modules)['extensions-support'] }}
         run: |
           cd extensions-support
-          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES}"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
+          # -am because tests can read the target directories of the modules they depend on, such as spring/shade
+          if [ -n "${MODULES}" ]; then MODULE_ARGS="-pl ${MODULES} -am"; else MODULE_ARGS="${SCALPEL_TRIM_ARGS} ${SCALPEL_FULL_BUILD_TRIGGERS} ${SCALPEL_EXCLUDE_PATHS}"; fi
           # package rather than test, so that shaded modules such as spring/shade provide their jar to the reactor
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             ${CQ_MAVEN_SKIP_CHECKS} \
