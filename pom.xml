@@ -128,6 +128,7 @@
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-driver-query-builder.version>4.19.2</java-driver-query-builder.version><!-- @sync com.datastax.oss.quarkus:cassandra-quarkus-parent:${cassandra-quarkus.version} prop:java-driver.version -->
         <java-json-tools.json-patch.version>1.13</java-json-tools.json-patch.version><!-- openstack4j transitive dep, replaces com.github.fge:json-patch -->
+        <java-jwt.version>4.6.2</java-jwt.version><!-- Alignment for camel-grpc and twilio -->
         <javassist.version>${javassist-version}</javassist.version><!-- debezium -->
         <jetty.version>${jetty-version}</jetty.version>
         <jgroups.version>${jgroups-version}</jgroups.version>

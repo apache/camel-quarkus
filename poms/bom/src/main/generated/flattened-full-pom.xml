@@ -7277,6 +7277,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>com.auth0</groupId>
+        <artifactId>java-jwt</artifactId>
+        <version>4.6.2</version>
+      </dependency>
+      <dependency>
         <groupId>com.esotericsoftware.kryo</groupId>
         <artifactId>kryo</artifactId>
         <version>2.24.0</version>
