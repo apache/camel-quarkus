@@ -134,8 +134,8 @@ public class CamelRecorder {
         return new RuntimeValue<>(new FastFactoryFinderResolver.Builder());
     }
 
-    public void factoryFinderResolverEntry(RuntimeValue<Builder> builder, String resourcePath, Class<?> cl) {
-        builder.getValue().entry(resourcePath, cl);
+    public void factoryFinderResolverEntry(RuntimeValue<Builder> builder, String resourcePath, String className) {
+        builder.getValue().entry(resourcePath, className);
     }
 
     public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {

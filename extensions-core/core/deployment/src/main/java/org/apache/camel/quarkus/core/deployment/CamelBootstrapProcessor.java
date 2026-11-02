@@ -134,10 +134,12 @@ class CamelBootstrapProcessor {
         RuntimeValue<Builder> builder = recorder.factoryFinderResolverBuilder();
 
         camelServices.forEach(service -> {
+            // Fail the build on unresolvable service classes, as they are only loaded on demand at runtime
+            CamelSupport.loadClass(service.type, TCCL);
             recorder.factoryFinderResolverEntry(
                     builder,
                     FileUtils.nixifyPath(service.path),
-                    CamelSupport.loadClass(service.type, TCCL));
+                    service.type);
         });
 
         return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));

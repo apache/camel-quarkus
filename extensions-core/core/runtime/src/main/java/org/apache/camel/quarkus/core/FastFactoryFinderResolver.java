@@ -16,11 +16,13 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.engine.DefaultFactoryFinderResolver;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.FactoryFinder;
@@ -29,14 +31,18 @@ import org.apache.camel.support.ObjectHelper;
 import org.jboss.logging.Logger;
 
 /**
- * A build time assembled {@link FactoryFinderResolver}.
+ * A build time assembled {@link FactoryFinderResolver}. Classes are loaded on first lookup so that service classes the
+ * application never uses are neither loaded nor initialized at startup.
  */
 public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
     private static final Logger LOG = Logger.getLogger(FastFactoryFinderResolver.class);
-    private final Map<String, Class<?>> classMap;
+    private final Map<String, String> classNames;
+    private final Map<String, Class<?>> classMap = new ConcurrentHashMap<>();
+    private final ClassLoader classLoader;
 
-    FastFactoryFinderResolver(Map<String, Class<?>> classMap) {
-        this.classMap = classMap;
+    FastFactoryFinderResolver(Map<String, String> classNames, ClassLoader classLoader) {
+        this.classNames = classNames;
+        this.classLoader = classLoader;
     }
 
     static String mapKey(String resourcePath, String key) {
@@ -70,29 +76,45 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
     // exposed for testing purpose
     public Map<String, Class<?>> getClassMap() {
-        return Collections.unmodifiableMap(this.classMap);
+        Map<String, Class<?>> result = new LinkedHashMap<>();
+        classNames.keySet().forEach(key -> result.put(key, resolve(key)));
+        return result;
+    }
+
+    private Class<?> resolve(String mapKey) {
+        final String className = classNames.get(mapKey);
+        if (className == null) {
+            return null;
+        }
+        return classMap.computeIfAbsent(mapKey, k -> {
+            try {
+                return Class.forName(className, false, classLoader);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeCamelException("Could not load " + className + " for " + mapKey, e);
+            }
+        });
     }
 
     public static class Builder {
-        private Map<String, Class<?>> classMap = new HashMap<>();
+        private Map<String, String> classNames = new HashMap<>();
 
-        public Builder entry(String resourcePath, Class<?> cl) {
+        public Builder entry(String resourcePath, String className) {
             if (resourcePath.startsWith("/")) {
                 resourcePath = resourcePath.substring(1);
             }
-            classMap.put(resourcePath, cl);
+            classNames.put(resourcePath, className);
             return this;
         }
 
         public FastFactoryFinderResolver build() {
-            Map<String, Class<?>> cm = classMap;
-            classMap = null; // make sure the classMap does not leak through re-using the builder
+            Map<String, String> cn = classNames;
+            classNames = null; // make sure the classNames does not leak through re-using the builder
 
             if (LOG.isDebugEnabled()) {
-                cm.forEach((key, value) -> LOG.debugf("FactoryFinder entry " + key + ": " + value.getName()));
+                cn.forEach((key, value) -> LOG.debugf("FactoryFinder entry " + key + ": " + value));
             }
 
-            return new FastFactoryFinderResolver(cm);
+            return new FastFactoryFinderResolver(cn, Thread.currentThread().getContextClassLoader());
         }
     }
 
@@ -122,7 +144,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         @Override
         public Optional<Class<?>> findClass(String key) {
             final String mapKey = mapKey(path, key);
-            final Class<?> cl = classMap.get(mapKey);
+            final Class<?> cl = resolve(mapKey);
             LOG.tracef("Found a non-optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
@@ -130,7 +152,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         @Override
         public Optional<Class<?>> findOptionalClass(String key) {
             final String mapKey = mapKey(path, key);
-            final Class<?> cl = classMap.get(mapKey);
+            final Class<?> cl = resolve(mapKey);
             LOG.tracef("Found an optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
