@@ -32,7 +32,9 @@ public class TestPojoJsonExtractorOutputGuardrail extends JsonExtractorOutputGua
 
         if (parentResult.isSuccess()) {
             // Return JSON String representation of TestPojo since that's all the agent can handle
-            return OutputGuardrailResult.successWith(parentResult.successfulText());
+            // The parent only rewrites the text when it had to extract the JSON from the LLM response
+            return OutputGuardrailResult.successWith(
+                    parentResult.hasRewrittenResult() ? parentResult.successfulText() : aiMessage.text());
         }
 
         // Return failures
