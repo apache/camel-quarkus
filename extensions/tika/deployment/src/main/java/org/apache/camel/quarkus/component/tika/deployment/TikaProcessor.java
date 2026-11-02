@@ -22,6 +22,7 @@ import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ExcludeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
@@ -42,9 +43,26 @@ class TikaProcessor {
     }
 
     @BuildStep
-    void registerTikaCoreResources(BuildProducer<NativeImageResourceBuildItem> resource) {
+    void registerTikaCoreResources(BuildProducer<NativeImageResourceBuildItem> resource,
+            BuildProducer<NativeImageResourceDirectoryBuildItem> resourceDirectory) {
         resource.produce(new NativeImageResourceBuildItem("org/apache/tika/mime/tika-mimetypes.xml"));
         resource.produce(new NativeImageResourceBuildItem("org/apache/tika/parser/external/tika-external-parsers.xml"));
+        // MojibusterEncodingDetector (brought by tika-parser-text-module) loads its nb-bigram.bin and
+        // utf16-specialist.bin models with Class.getResourceAsStream
+        if (QuarkusClassLoader.isClassPresentAtRuntime("org.apache.tika.ml.chardetect.MojibusterEncodingDetector")) {
+            resourceDirectory.produce(new NativeImageResourceDirectoryBuildItem("org/apache/tika/ml/chardetect"));
+        }
+    }
+
+    /**
+     * MojibusterEncodingDetector, brought by {@code tika-parser-text-module}, resolves charsets by name at runtime,
+     * while native images bundle only a small subset of the JDK charsets by default.
+     */
+    @BuildStep
+    void mojibusterEncodingDetectorCharsets(BuildProducer<NativeImageEnableAllCharsetsBuildItem> enableAllCharsets) {
+        if (QuarkusClassLoader.isClassPresentAtRuntime("org.apache.tika.ml.chardetect.MojibusterEncodingDetector")) {
+            enableAllCharsets.produce(new NativeImageEnableAllCharsetsBuildItem());
+        }
     }
 
     @BuildStep

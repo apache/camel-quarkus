@@ -66,3 +66,13 @@ For other modules, use the version of `org.apache.tika:tika-core` that `camel-ti
 
 In native mode, the HTML, plain text and PDF modules are supported.
 
+[id="extensions-tika-usage-character-encodings-in-native-mode"]
+=== Character encodings in native mode
+
+`tika-parser-text-module`, brought by `camel-tika`, registers Tika's `MojibusterEncodingDetector`.
+It matches candidate encodings by name (`windows-1252`, `ISO-8859-*`, `Shift_JIS`, ...) at runtime, while native images bundle only a small subset of the JDK charsets by default.
+To keep document parsing working, `camel-quarkus-tika` enables all JDK charsets (`-H:+AddAllCharsets`) for your native build when the detector is present.
+
+This adds a few MB to the native executable.
+Because the extension requests the charsets, `quarkus.native.add-all-charsets=false` cannot turn them off, and there is no need to set it to `true` yourself.
+
