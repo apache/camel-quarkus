@@ -138,6 +138,16 @@ quarkus.camel.routes-discovery.exclude-patterns = **
 camel.main.javaRoutesExcludePattern = **
 ----
 
+== Unnamed CDI beans are again visible to Camel by type
+
+Camel looks up several of its SPI types from the registry with `Registry#findByTypeWithName`. For example, `DefaultConfigurationConfigurer` installs a single bean of types such as `UnitOfWorkFactory`, `UuidGenerator` and `ShutdownStrategy` on the `CamelContext`, and the same lookup is used for `BacklogTracer` and `BacklogDebugger`. Since Camel Quarkus 3.26.0, that method omitted CDI beans that declare neither `@Named` nor `@Identifier`, so a bean of such a type was silently ignored.
+
+Those beans are returned again, keyed by their CDI bean identifier, as before Camel Quarkus 3.26.0. An SPI bean no longer needs `@Named` or `@Identifier` to be installed on the `CamelContext`.
+
+The key of an unnamed bean is an opaque CDI identifier, not a bean name, so `Registry#lookupByNameAndType` does not resolve a bean by it. Beans that are looked up by name still need `@Named` or `@Identifier`.
+
+If an application declares both a named and an unnamed bean of the same SPI type, `Registry#findByTypeWithName` now returns two entries and Camel installs neither. In Camel Quarkus 3.40.x, only the named bean was installed. Declare a single bean of such a type, and keep the bean that should apply.
+
 == Core extension build item changes
 
 These changes affect only custom Quarkus extensions that consume build items from `camel-quarkus-core-deployment`. Applications are unaffected.
