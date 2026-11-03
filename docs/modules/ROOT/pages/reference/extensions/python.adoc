@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-python
 :cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Evaluates a Python expression
 :cq-deprecated: false
 :cq-jvm-since: 3.24.0
