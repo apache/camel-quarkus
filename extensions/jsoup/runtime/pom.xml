@@ -33,6 +33,8 @@
     <properties>
         <camel.quarkus.jvmSince>3.38.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.38.0</camel.quarkus.nativeSince>
+        <!-- Note: remove when camel component become stable -->
+        <quarkus.metadata.status>stable</quarkus.metadata.status>
     </properties>
 
     <dependencies>
