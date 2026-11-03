@@ -80,6 +80,19 @@ class Langchain4jIngestAudioTest {
         assertEquals("clip-7", hits.get(0).get("documentId"));
     }
 
+    /** A media document whose type cannot be told from its id is filtered, not failed (CAMEL-26341). */
+    @Test
+    void undeterminedMediaTypeIsFiltered() {
+        byte[] clip = wav(400);
+
+        String outcome = RestAssured.given().contentType(ContentType.BINARY)
+                .body(clip)
+                .post("/langchain4j-ingest/feed-binary/sounds/notes")
+                .then().statusCode(200).extract().asString();
+        assertEquals("filtered", outcome);
+        assertTrue(searchByClip(clip).isEmpty(), "the filtered clip must not be stored");
+    }
+
     /**
      * A consumer-fed media stream over the cap is refused after max + 1 bytes, whatever CamelFileLength it announces:
      * the component reads it no further (CAMEL-25463), read whole it would report all 32044 bytes.
