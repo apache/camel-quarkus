@@ -45,6 +45,7 @@ import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.file.GenericFile;
+import org.apache.camel.component.langchain4j.ingest.IngestIdFilter;
 import org.apache.camel.component.langchain4j.ingest.IngestResult;
 import org.apache.camel.component.langchain4j.ingest.LangChain4jIngest;
 import org.apache.camel.component.langchain4j.ingest.LangChain4jIngestHeaders;
@@ -55,7 +56,6 @@ import org.apache.camel.support.builder.PredicateBuilder;
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.support.service.ServiceSupport;
-import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.URISupport;
 import org.jboss.logging.Logger;
 
@@ -420,19 +420,13 @@ public class IngestRoutes extends RouteBuilder {
                         + " the parse - a parsed document must not supply its own identity");
             }
         });
-        String[] include = patterns(includeId);
-        String[] exclude = patterns(excludeId);
-        if (include != null || exclude != null) {
+        if (!includeId.isBlank() || !excludeId.isBlank()) {
             // advisory too: the sink's id patterns, applied before the parse so an excluded
             // document is never parsed, nor fails the parse or the size guard on every poll.
-            // patterns() and this match mirror the private parsePatterns and idAccepted of the
-            // component's LangChain4jIngestProducer, which stay authoritative - keep them in step
+            // The component's own filter, so the match is the one its producer applies
+            IngestIdFilter idFilter = IngestIdFilter.of(includeId, excludeId);
             route = route.choice()
-                    .when(exchange -> {
-                        String id = exchange.getMessage().getHeader(documentIdHeader, String.class);
-                        return AntPathMatcher.INSTANCE.anyMatch(exclude, id)
-                                || (include != null && !AntPathMatcher.INSTANCE.anyMatch(include, id));
-                    })
+                    .when(exchange -> !idFilter.accepts(exchange.getMessage().getHeader(documentIdHeader, String.class)))
                     .process(exchange -> {
                         String id = exchange.getMessage().getHeader(documentIdHeader, String.class);
                         if (directory) {
@@ -509,15 +503,6 @@ public class IngestRoutes extends RouteBuilder {
                 exchange.getMessage().setBody(bounded);
             }
         };
-    }
-
-    /** Comma-separated id patterns, parsed as the component parses them; null when none remain. */
-    private static String[] patterns(String value) {
-        String[] patterns = Arrays.stream(value.split(","))
-                .map(String::trim)
-                .filter(pattern -> !pattern.isEmpty())
-                .toArray(String[]::new);
-        return patterns.length == 0 ? null : patterns;
     }
 
     /**
