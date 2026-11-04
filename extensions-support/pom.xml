@@ -61,7 +61,6 @@
         <module>reactor-netty</module>
         <module>spring</module>
         <module>swagger</module>
-        <module>webhook</module>
     </modules>
 
     <dependencyManagement>
