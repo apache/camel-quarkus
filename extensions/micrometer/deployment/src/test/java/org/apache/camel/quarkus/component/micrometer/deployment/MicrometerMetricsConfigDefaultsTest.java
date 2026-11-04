@@ -91,6 +91,7 @@ public class MicrometerMetricsConfigDefaultsTest {
         MicrometerExchangeEventNotifier micrometerExchangeEventNotifier = (MicrometerExchangeEventNotifier) optionalExchangeEventNotifier
                 .get();
         assertTrue(micrometerExchangeEventNotifier.getNamingStrategy().isBaseEndpointURI());
+        assertTrue(micrometerExchangeEventNotifier.isRecordLastExchangeTimestamp());
 
         Optional<EventNotifier> optionalRouteEventNotifier = context.getManagementStrategy()
                 .getEventNotifiers()
