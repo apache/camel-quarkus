@@ -3,6 +3,7 @@
 [id="extensions-wordpress"]
 = Wordpress
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-wordpress
 :cq-artifact-id: camel-quarkus-wordpress
 :cq-native-supported: false
 :cq-status: Preview

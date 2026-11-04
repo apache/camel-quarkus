@@ -4,6 +4,7 @@
 = LZF Deflate Compression
 :page-aliases: extensions/lzf.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-lzf
 :cq-artifact-id: camel-quarkus-lzf
 :cq-native-supported: true
 :cq-status: Stable

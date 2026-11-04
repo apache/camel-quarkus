@@ -4,6 +4,7 @@
 = AWS 2 Elastic Kubernetes Service (EKS)
 :page-aliases: extensions/aws2-eks.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-eks
 :cq-artifact-id: camel-quarkus-aws2-eks
 :cq-native-supported: true
 :cq-status: Stable

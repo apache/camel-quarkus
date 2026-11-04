@@ -3,6 +3,7 @@
 [id="extensions-robotframework"]
 = Robot Framework
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-robotframework
 :cq-artifact-id: camel-quarkus-robotframework
 :cq-native-supported: false
 :cq-status: Preview

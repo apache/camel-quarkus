@@ -4,6 +4,7 @@
 = AWS 2 DynamoDB
 :page-aliases: extensions/aws2-ddb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-ddb
 :cq-artifact-id: camel-quarkus-aws2-ddb
 :cq-native-supported: true
 :cq-status: Stable

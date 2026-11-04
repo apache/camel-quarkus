@@ -4,6 +4,7 @@
 = Salesforce
 :page-aliases: extensions/salesforce.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-salesforce
 :cq-artifact-id: camel-quarkus-salesforce
 :cq-native-supported: true
 :cq-status: Stable

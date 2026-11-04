@@ -3,6 +3,7 @@
 [id="extensions-jsonapi"]
 = JSonApi
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jsonapi
 :cq-artifact-id: camel-quarkus-jsonapi
 :cq-native-supported: false
 :cq-status: Preview

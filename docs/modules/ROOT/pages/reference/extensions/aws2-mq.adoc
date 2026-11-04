@@ -4,6 +4,7 @@
 = AWS 2 MQ
 :page-aliases: extensions/aws2-mq.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-mq
 :cq-artifact-id: camel-quarkus-aws2-mq
 :cq-native-supported: true
 :cq-status: Stable

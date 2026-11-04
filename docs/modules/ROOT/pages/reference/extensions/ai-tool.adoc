@@ -3,6 +3,7 @@
 [id="extensions-ai-tool"]
 = AI Tool
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ai-tool
 :cq-artifact-id: camel-quarkus-ai-tool
 :cq-native-supported: true
 :cq-status: Preview

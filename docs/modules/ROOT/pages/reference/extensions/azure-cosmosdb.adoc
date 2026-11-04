@@ -3,6 +3,7 @@
 [id="extensions-azure-cosmosdb"]
 = Azure CosmosDB
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-cosmosdb
 :cq-artifact-id: camel-quarkus-azure-cosmosdb
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = JacksonXML
 :page-aliases: extensions/jacksonxml.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jacksonxml
 :cq-artifact-id: camel-quarkus-jacksonxml
 :cq-native-supported: true
 :cq-status: Stable

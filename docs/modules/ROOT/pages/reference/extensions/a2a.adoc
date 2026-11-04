@@ -3,6 +3,7 @@
 [id="extensions-a2a"]
 = A2A
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-a2a
 :cq-artifact-id: camel-quarkus-a2a
 :cq-native-supported: true
 :cq-status: Preview

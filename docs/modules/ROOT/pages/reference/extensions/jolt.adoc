@@ -4,6 +4,7 @@
 = JOLT
 :page-aliases: extensions/jolt.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jolt
 :cq-artifact-id: camel-quarkus-jolt
 :cq-native-supported: true
 :cq-status: Stable

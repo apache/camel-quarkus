@@ -4,6 +4,7 @@
 = Couchbase
 :page-aliases: extensions/couchbase.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-couchbase
 :cq-artifact-id: camel-quarkus-couchbase
 :cq-native-supported: false
 :cq-status: Preview

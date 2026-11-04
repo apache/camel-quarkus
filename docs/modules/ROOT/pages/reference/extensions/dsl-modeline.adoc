@@ -3,6 +3,7 @@
 [id="extensions-dsl-modeline"]
 = DSL Modeline
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dsl-modeline
 :cq-artifact-id: camel-quarkus-dsl-modeline
 :cq-native-supported: false
 :cq-status: Preview

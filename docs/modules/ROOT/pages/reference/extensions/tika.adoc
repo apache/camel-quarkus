@@ -4,6 +4,7 @@
 = Tika
 :page-aliases: extensions/tika.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-tika
 :cq-artifact-id: camel-quarkus-tika
 :cq-native-supported: true
 :cq-status: Stable

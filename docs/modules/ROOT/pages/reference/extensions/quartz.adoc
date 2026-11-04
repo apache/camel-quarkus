@@ -4,6 +4,7 @@
 = Quartz
 :page-aliases: extensions/quartz.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-quartz
 :cq-artifact-id: camel-quarkus-quartz
 :cq-native-supported: true
 :cq-status: Stable

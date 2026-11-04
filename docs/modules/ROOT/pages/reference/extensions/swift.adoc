@@ -3,6 +3,7 @@
 [id="extensions-swift"]
 = SWIFT
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-swift
 :cq-artifact-id: camel-quarkus-swift
 :cq-native-supported: true
 :cq-status: Stable

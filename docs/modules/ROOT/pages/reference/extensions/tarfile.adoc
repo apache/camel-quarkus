@@ -4,6 +4,7 @@
 = Tar File
 :page-aliases: extensions/tarfile.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-tarfile
 :cq-artifact-id: camel-quarkus-tarfile
 :cq-native-supported: true
 :cq-status: Stable

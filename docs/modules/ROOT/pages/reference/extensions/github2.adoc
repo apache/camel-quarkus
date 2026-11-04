@@ -3,6 +3,7 @@
 [id="extensions-github2"]
 = GitHub2
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-github2
 :cq-artifact-id: camel-quarkus-github2
 :cq-native-supported: true
 :cq-status: Stable

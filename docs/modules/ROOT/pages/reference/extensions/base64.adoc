@@ -4,6 +4,7 @@
 = Base64
 :page-aliases: extensions/base64.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-base64
 :cq-artifact-id: camel-quarkus-base64
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = Box
 :page-aliases: extensions/box.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-box
 :cq-artifact-id: camel-quarkus-box
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-observability-services"]
 = Observability Services
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-observability-services
 :cq-artifact-id: camel-quarkus-observability-services
 :cq-native-supported: true
 :cq-status: Stable

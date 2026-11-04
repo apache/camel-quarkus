@@ -3,6 +3,7 @@
 [id="extensions-ibm-watson-discovery"]
 = IBM Watson Discovery
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ibm-watson-discovery
 :cq-artifact-id: camel-quarkus-ibm-watson-discovery
 :cq-native-supported: true
 :cq-status: Stable

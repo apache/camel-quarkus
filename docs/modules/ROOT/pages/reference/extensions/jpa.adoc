@@ -4,6 +4,7 @@
 = JPA
 :page-aliases: extensions/jpa.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jpa
 :cq-artifact-id: camel-quarkus-jpa
 :cq-native-supported: true
 :cq-status: Stable

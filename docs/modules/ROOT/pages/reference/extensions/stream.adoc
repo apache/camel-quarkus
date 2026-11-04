@@ -4,6 +4,7 @@
 = Stream
 :page-aliases: extensions/stream.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-stream
 :cq-artifact-id: camel-quarkus-stream
 :cq-native-supported: true
 :cq-status: Stable

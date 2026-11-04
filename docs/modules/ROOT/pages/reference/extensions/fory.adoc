@@ -3,6 +3,7 @@
 [id="extensions-fory"]
 = Fory
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-fory
 :cq-artifact-id: camel-quarkus-fory
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-schematron"]
 = Schematron
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-schematron
 :cq-artifact-id: camel-quarkus-schematron
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = Log
 :page-aliases: extensions/log.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-log
 :cq-artifact-id: camel-quarkus-log
 :cq-native-supported: true
 :cq-status: Stable

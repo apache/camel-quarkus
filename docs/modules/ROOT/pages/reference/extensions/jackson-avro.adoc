@@ -3,6 +3,7 @@
 [id="extensions-jackson-avro"]
 = Avro Jackson
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jackson-avro
 :cq-artifact-id: camel-quarkus-jackson-avro
 :cq-native-supported: true
 :cq-status: Stable

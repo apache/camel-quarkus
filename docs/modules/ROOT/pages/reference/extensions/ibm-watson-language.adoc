@@ -3,6 +3,7 @@
 [id="extensions-ibm-watson-language"]
 = IBM Watson Language
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ibm-watson-language
 :cq-artifact-id: camel-quarkus-ibm-watson-language
 :cq-native-supported: true
 :cq-status: Stable

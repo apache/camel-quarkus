@@ -3,6 +3,7 @@
 [id="extensions-weather"]
 = Weather
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-weather
 :cq-artifact-id: camel-quarkus-weather
 :cq-native-supported: true
 :cq-status: Stable

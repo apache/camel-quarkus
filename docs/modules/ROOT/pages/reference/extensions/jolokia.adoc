@@ -3,6 +3,7 @@
 [id="extensions-jolokia"]
 = Jolokia
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jolokia
 :cq-artifact-id: camel-quarkus-jolokia
 :cq-native-supported: true
 :cq-status: Stable

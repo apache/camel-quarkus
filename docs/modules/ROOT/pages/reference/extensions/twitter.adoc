@@ -4,6 +4,7 @@
 = Twitter
 :page-aliases: extensions/twitter.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-twitter
 :cq-artifact-id: camel-quarkus-twitter
 :cq-native-supported: true
 :cq-status: Stable

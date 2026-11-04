@@ -3,6 +3,7 @@
 [id="extensions-iso8583"]
 = ISO-8583
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-iso8583
 :cq-artifact-id: camel-quarkus-iso8583
 :cq-native-supported: true
 :cq-status: Stable

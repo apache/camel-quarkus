@@ -3,6 +3,7 @@
 [id="extensions-djl"]
 = Deep Java Library
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-djl
 :cq-artifact-id: camel-quarkus-djl
 :cq-native-supported: false
 :cq-status: Preview

@@ -3,6 +3,7 @@
 [id="extensions-pg-replication-slot"]
 = PostgresSQL Replication Slot
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pg-replication-slot
 :cq-artifact-id: camel-quarkus-pg-replication-slot
 :cq-native-supported: true
 :cq-status: Stable

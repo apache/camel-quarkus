@@ -3,6 +3,7 @@
 [id="extensions-jooq"]
 = JOOQ
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jooq
 :cq-artifact-id: camel-quarkus-jooq
 :cq-native-supported: false
 :cq-status: Preview

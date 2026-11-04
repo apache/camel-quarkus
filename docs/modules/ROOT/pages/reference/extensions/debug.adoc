@@ -3,6 +3,7 @@
 [id="extensions-debug"]
 = Debug
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-debug
 :cq-artifact-id: camel-quarkus-debug
 :cq-native-supported: true
 :cq-status: Stable

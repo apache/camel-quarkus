@@ -3,6 +3,7 @@
 [id="extensions-dataset"]
 = Dataset
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dataset
 :cq-artifact-id: camel-quarkus-dataset
 :cq-native-supported: true
 :cq-status: Stable

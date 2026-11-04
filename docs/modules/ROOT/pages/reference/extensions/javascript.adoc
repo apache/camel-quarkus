@@ -3,6 +3,7 @@
 [id="extensions-javascript"]
 = JavaScript
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-javascript
 :cq-artifact-id: camel-quarkus-javascript
 :cq-native-supported: false
 :cq-status: Preview

@@ -3,6 +3,7 @@
 [id="extensions-cometd"]
 = CometD
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cometd
 :cq-artifact-id: camel-quarkus-cometd
 :cq-native-supported: false
 :cq-status: Preview

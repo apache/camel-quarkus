@@ -3,6 +3,7 @@
 [id="extensions-jt400"]
 = JT400
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jt400
 :cq-artifact-id: camel-quarkus-jt400
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-xml-io-dsl"]
 = XML IO DSL
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xml-io-dsl
 :cq-artifact-id: camel-quarkus-xml-io-dsl
 :cq-native-supported: true
 :cq-status: Stable

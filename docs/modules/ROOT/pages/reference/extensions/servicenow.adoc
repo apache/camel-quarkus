@@ -4,6 +4,7 @@
 = ServiceNow
 :page-aliases: extensions/servicenow.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-servicenow
 :cq-artifact-id: camel-quarkus-servicenow
 :cq-native-supported: true
 :cq-status: Stable

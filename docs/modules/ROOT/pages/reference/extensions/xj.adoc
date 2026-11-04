@@ -3,6 +3,7 @@
 [id="extensions-xj"]
 = XJ
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xj
 :cq-artifact-id: camel-quarkus-xj
 :cq-native-supported: true
 :cq-status: Stable

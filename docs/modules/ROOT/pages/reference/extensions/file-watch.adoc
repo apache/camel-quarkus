@@ -4,6 +4,7 @@
 = File Watch
 :page-aliases: extensions/file-watch.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-file-watch
 :cq-artifact-id: camel-quarkus-file-watch
 :cq-native-supported: true
 :cq-status: Stable

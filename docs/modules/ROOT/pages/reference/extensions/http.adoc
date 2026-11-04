@@ -4,6 +4,7 @@
 = HTTP
 :page-aliases: extensions/http.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-http
 :cq-artifact-id: camel-quarkus-http
 :cq-native-supported: true
 :cq-status: Stable

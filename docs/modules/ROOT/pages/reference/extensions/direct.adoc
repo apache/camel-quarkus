@@ -4,6 +4,7 @@
 = Direct
 :page-aliases: extensions/direct.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-direct
 :cq-artifact-id: camel-quarkus-direct
 :cq-native-supported: true
 :cq-status: Stable

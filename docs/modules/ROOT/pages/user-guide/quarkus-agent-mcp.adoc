@@ -30,6 +30,31 @@ The core skill teaches the AI agent to:
   `@QuarkusIntegrationTest` native tests
 * Apply `@RegisterForReflection` on classes accessed via reflection in native mode
 
+== Extension reference documentation search
+
+The reference page of every extension is available to the assistant as vector embeddings, so it can
+search our documentation instead of recalling it from training data.
+
+The embeddings live in a single artifact, `camel-quarkus-documentation-rag`. Each extension
+deployment JAR carries a small `META-INF/quarkus-rag-artifact.properties` pointing at it. The MCP
+server reads that pointer, resolves the artifact at the Camel Quarkus version your project uses, and
+downloads it on demand the first time it is needed.
+
+The `quarkus_searchDocs` MCP tool then searches those pages alongside the core Quarkus guides. So an
+agent working on a project with `camel-quarkus-kafka` can search the Kafka extension reference page,
+including its configuration options and its Dev Services behaviour, at the exact version in the
+project.
+
+[NOTE]
+====
+This requires `quarkus-agent-mcp` 1.2.8 or newer. Older servers ignore the pointer, and versions
+before 1.2.8 cannot track the documentation of several extensions coming from one artifact.
+====
+
+The embeddings are generated during a normal build. Pass `-Dquickly` to skip them.
+See xref:contributor-guide/documentation-rag.adoc[AI documentation search] in the contributor
+guide for the details of the pipeline.
+
 == Dev MCP tools
 
 When the application runs in dev mode, the `camel-quarkus-core` extension also exposes

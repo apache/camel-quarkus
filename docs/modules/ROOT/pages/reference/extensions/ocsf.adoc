@@ -3,6 +3,7 @@
 [id="extensions-ocsf"]
 = OCSF
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ocsf
 :cq-artifact-id: camel-quarkus-ocsf
 :cq-native-supported: true
 :cq-status: Stable
