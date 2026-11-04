@@ -158,7 +158,7 @@
                         </executions>
                         <configuration>
                             <systemPropertyVariables>
-                                <quarkus.test.arg-line>-Dcq.jdbcKind=${cq.jdbcKind}</quarkus.test.arg-line>
+                                <quarkus.test.arg-line>-Dcq.jdbcKind=${cq.jdbcKind} ${fips.test.arg-line}</quarkus.test.arg-line>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
