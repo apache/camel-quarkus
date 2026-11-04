@@ -70,6 +70,16 @@
     <build>
         <plugins>
             <plugin>
+                <!-- Continuous testing state leaks between the dev mode tests sharing a JVM
+                     https://github.com/apache/camel-quarkus/issues/9429
+                     https://github.com/quarkusio/quarkus/issues/58083 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <reuseForks>false</reuseForks>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
