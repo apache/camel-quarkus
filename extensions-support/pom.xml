@@ -40,7 +40,6 @@
         <module>azure-core-http-client-vertx</module>
         <module>bouncycastle</module>
         <module>commons-logging</module>
-        <module>consul-client</module>
         <module>debezium</module>
         <module>dsl</module>
         <module>google-cloud</module>
