@@ -6785,16 +6785,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-webhook</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-webhook-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-swift</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>

@@ -8095,16 +8095,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-webhook</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-webhook-deployment</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-swift</artifactId>
         <version>4.0.0-SNAPSHOT</version>
       </dependency>

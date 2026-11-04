@@ -31,7 +31,6 @@ import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpConstants;
-import org.apache.camel.component.webhook.WebhookConfiguration;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.spi.Registry;
 
@@ -165,13 +164,6 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .get("/platform-http/hello-by-name/{name}")
                 .produces("text/plain")
                 .to("direct:greet");
-
-        // Webhook tests
-        from("platform-http:/platform-http/webhookpath")
-                .setBody(constant(WebhookConfiguration.computeDefaultPath("webhook-delegate://test")));
-
-        from("webhook:webhook-delegate://test")
-                .transform(body().prepend("Hello "));
 
         // Basic auth security tests
         from("platform-http:/platform-http/secure/basic?returnHttpRequestHeaders=true")
