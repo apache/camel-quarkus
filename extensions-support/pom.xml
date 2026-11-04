@@ -59,7 +59,6 @@
         <module>mail</module>
         <module>mongodb</module>
         <module>reactor-netty</module>
-        <module>retrofit</module>
         <module>spring</module>
         <module>swagger</module>
         <module>webhook</module>
