@@ -94,6 +94,7 @@ public class CamelMicrometerRecorder {
             if (config.enableExchangeEventNotifier()) {
                 MicrometerExchangeEventNotifier eventNotifier = new MicrometerExchangeEventNotifier();
                 eventNotifier.setBaseEndpointURI(config.baseEndpointURIExchangeEventNotifier());
+                eventNotifier.setRecordLastExchangeTimestamp(config.recordLastExchangeTimestamp());
                 eventNotifier.setLogMetricsOnShutdown(config.logMetricsOnShutdown());
                 if (config.logMetricsOnShutdownFilters().isPresent()) {
                     eventNotifier.setLogMetricsOnShutdownFilters(config.logMetricsOnShutdownFilters().get());

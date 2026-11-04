@@ -53,6 +53,14 @@ public interface CamelMicrometerConfig {
     boolean enableExchangeEventNotifier();
 
     /**
+     * Set whether the MicrometerExchangeEventNotifier should record the timestamp of the last processed exchange.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("true")
+    boolean recordLastExchangeTimestamp();
+
+    /**
      * Whether to use static or dynamic values for Endpoint Name tags in captured metrics. By default, static values are
      * used. When using dynamic tags, then a dynamic to (toD) can compute many different endpoint URIs that,
      * can lead to many tags as the URI is dynamic, so use this with care if setting this option to false.
