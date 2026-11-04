@@ -105,6 +105,12 @@ Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics 
 | `boolean`
 | `true`
 
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-record-last-exchange-timestamp]]`link:#quarkus-camel-metrics-record-last-exchange-timestamp[quarkus.camel.metrics.record-last-exchange-timestamp]`
+
+Set whether the MicrometerExchangeEventNotifier should record the timestamp of the last processed exchange.
+| `boolean`
+| `true`
+
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-metrics-base-endpoint-uri-exchange-event-notifier]]`link:#quarkus-camel-metrics-base-endpoint-uri-exchange-event-notifier[quarkus.camel.metrics.base-endpoint-uri-exchange-event-notifier]`
 
 Whether to use static or dynamic values for Endpoint Name tags in captured metrics. By default, static values are
