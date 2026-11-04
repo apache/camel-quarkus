@@ -6550,16 +6550,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-consul-client</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-consul-client-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-debezium</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -8335,21 +8325,6 @@
                 <groupId>org.jxmpp</groupId>
                 <artifactId>jxmpp-util-cache</artifactId>
                 <version>${jxmpp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kiwiproject</groupId>
-                <artifactId>consul-client</artifactId>
-                <version>${consul-client.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>

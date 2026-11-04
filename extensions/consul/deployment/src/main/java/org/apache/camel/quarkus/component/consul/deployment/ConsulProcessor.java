@@ -16,12 +16,35 @@
  */
 package org.apache.camel.quarkus.component.consul.deployment;
 
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyIgnoreWarningBuildItem;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class ConsulProcessor {
     private static final String FEATURE = "camel-consul";
+    private static final DotName DOT_NAME_JSON_SERIALIZER = DotName.createSimple(
+            "com.fasterxml.jackson.databind.annotation.JsonSerialize");
+    private static final DotName DOT_NAME_JSON_DESERIALIZER = DotName.createSimple(
+            "com.fasterxml.jackson.databind.annotation.JsonDeserialize");
+    private static final DotName DOT_NAME_IMMUTABLE_LIST = DotName.createSimple(
+            "com.google.common.collect.ImmutableList");
+    private static final DotName DOT_NAME_IMMUTABLE_MAP = DotName.createSimple(
+            "com.google.common.collect.ImmutableMap");
+
+    private static final Pattern CLIENT_API_PATTERN = Pattern.compile("org\\.kiwiproject\\.consul\\..*Client\\$Api");
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -33,4 +56,41 @@ class ConsulProcessor {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
+    @BuildStep
+    AdditionalApplicationArchiveMarkerBuildItem applicationArchiveMarkers() {
+        return new AdditionalApplicationArchiveMarkerBuildItem("org/kiwiproject/consul");
+    }
+
+    @BuildStep
+    void ignoredOnReflectiveHierarchyRegistration(BuildProducer<ReflectiveHierarchyIgnoreWarningBuildItem> ignored) {
+        ignored.produce(new ReflectiveHierarchyIgnoreWarningBuildItem(DOT_NAME_IMMUTABLE_LIST));
+        ignored.produce(new ReflectiveHierarchyIgnoreWarningBuildItem(DOT_NAME_IMMUTABLE_MAP));
+    }
+
+    @BuildStep
+    void reflectiveClasses(CombinedIndexBuildItem index, BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        Stream.concat(
+                index.getIndex().getAnnotations(DOT_NAME_JSON_SERIALIZER).stream(),
+                index.getIndex().getAnnotations(DOT_NAME_JSON_DESERIALIZER).stream())
+                .distinct()
+                .map(AnnotationInstance::target)
+                .filter(item -> item.kind() == AnnotationTarget.Kind.CLASS)
+                .map(AnnotationTarget::asClass)
+                .filter(item -> item.name().prefix().toString().startsWith("org.kiwiproject.consul.model"))
+                .flatMap(item -> index.getIndex().getAllKnownSubclasses(item.name()).stream())
+                .map(item -> ReflectiveClassBuildItem.builder(item.name().toString()).methods().build())
+                .forEach(reflectiveClasses::produce);
+    }
+
+    @BuildStep
+    void clientProxies(CombinedIndexBuildItem index, BuildProducer<NativeImageProxyDefinitionBuildItem> proxies) {
+        index.getIndex()
+                .getKnownClasses()
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .filter(className -> CLIENT_API_PATTERN.matcher(className).matches())
+                .map(NativeImageProxyDefinitionBuildItem::new)
+                .forEach(proxies::produce);
+    }
 }
