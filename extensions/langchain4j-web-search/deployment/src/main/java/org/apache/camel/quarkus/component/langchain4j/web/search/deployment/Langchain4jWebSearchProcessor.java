@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -35,22 +34,6 @@ class Langchain4jWebSearchProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    NativeImageProxyDefinitionBuildItem registerRestServiceProxies(CombinedIndexBuildItem combinedIndex) {
-        // If there are any retrofit2 REST service definitions, we need to register native proxy definitions for them
-        Set<String> restServiceClasses = combinedIndex.getIndex()
-                .getSubpackages("dev.langchain4j.web.search")
-                .stream()
-                .flatMap(thePackage -> combinedIndex.getIndex().getClassesInPackage(thePackage).stream())
-                .map(ClassInfo::asClass)
-                .filter(classInfo -> classInfo.annotations().stream().anyMatch(
-                        annotationInstance -> annotationInstance.name().toString().startsWith("retrofit2.http")))
-                .map(ClassInfo::name)
-                .map(DotName::toString)
-                .collect(Collectors.toSet());
-        return new NativeImageProxyDefinitionBuildItem(restServiceClasses.toArray(new String[0]));
     }
 
     @BuildStep
