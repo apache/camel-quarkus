@@ -84,10 +84,23 @@ public class CamelBeanLookupWithIdentifierTest {
         assertNotNull(typeWithName.get("my-identifier"));
     }
 
+    @Test
+    void resolveUnnamedBeanWithType() {
+        Map<String, MyUnnamedBean> typeWithName = context.getRegistry().findByTypeWithName(MyUnnamedBean.class);
+        assertNotNull(typeWithName);
+        assertEquals(1, typeWithName.size());
+        assertNotNull(typeWithName.values().iterator().next());
+    }
+
     @Produces
     @Identifier("my-identifier")
     public MyIdentifiedBean createIdentifiedBean() {
         return new MyIdentifiedBean();
+    }
+
+    @Produces
+    public MyUnnamedBean createUnnamedBean() {
+        return new MyUnnamedBean();
     }
 
     public static class Routes extends RouteBuilder {
@@ -101,5 +114,8 @@ public class CamelBeanLookupWithIdentifierTest {
         public String greet() {
             return "Hello World";
         }
+    }
+
+    public static class MyUnnamedBean {
     }
 }
