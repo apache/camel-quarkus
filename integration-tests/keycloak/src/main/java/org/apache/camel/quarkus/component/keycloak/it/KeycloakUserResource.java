@@ -31,8 +31,10 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.component.keycloak.KeycloakConstants;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -64,10 +66,18 @@ public class KeycloakUserResource extends KeycloakResourceSupport {
         headers.put(KeycloakConstants.USER_FIRST_NAME, firstName);
         headers.put(KeycloakConstants.USER_LAST_NAME, lastName);
 
-        Object result = producerTemplate.requestBodyAndHeaders(
-                getKeycloakEndpoint() + "&operation=createUser",
-                null,
-                headers);
+        Object result;
+        try {
+            result = producerTemplate.requestBodyAndHeaders(
+                    getKeycloakEndpoint() + "&operation=createUser",
+                    null,
+                    headers);
+        } catch (CamelExecutionException e) {
+            if (e.getCause() instanceof WebApplicationException wae) {
+                return Response.status(wae.getResponse().getStatus()).entity(wae.getMessage()).build();
+            }
+            throw e;
+        }
 
         if (result instanceof Response jaxrsResponse) {
             return Response.status(jaxrsResponse.getStatus())
