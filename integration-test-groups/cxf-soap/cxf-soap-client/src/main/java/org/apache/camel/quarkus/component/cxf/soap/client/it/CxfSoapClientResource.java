@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -56,7 +57,7 @@ public class CxfSoapClientResource {
         try {
             final String response = producerTemplate.requestBodyAndHeader(
                     String.format("direct:%s", endpointUri),
-                    new int[] { a, b },
+                    List.of(a, b),
                     CxfConstants.OPERATION_NAME,
                     operation,
                     String.class);
