@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.cxf.soap.wss.client.it;
 
 import java.net.URI;
+import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -43,7 +44,7 @@ public class CxfSoapWssClientResource {
     public Response modulo(@QueryParam("a") int a,
             @QueryParam("b") int b)
             throws Exception {
-        final String response = producerTemplate.requestBody("direct:modulo", new int[] { a, b },
+        final String response = producerTemplate.requestBody("direct:modulo", List.of(a, b),
                 String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
