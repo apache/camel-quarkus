@@ -86,8 +86,12 @@ public class GrpcRoute extends RouteBuilder {
         // Forward on error consumer
         fromF("grpc://localhost:{{camel.grpc.test.forward.error.server.port}}/%s?consumerStrategy=PROPAGATION&forwardOnError=true",
                 PING_PONG_SERVICE)
-                .filter().body(Throwable.class)
-                .to("mock:forwardOnError");
+                .choice()
+                .when(body().isInstanceOf(Throwable.class))
+                .to("mock:forwardOnError")
+                .otherwise()
+                // the reply must be a PongResponse
+                .process(new GrpcProcessor());
 
         // Route controlled stream observer consumer
         fromF("grpc://localhost:{{camel.grpc.test.route.controlled.server.port}}/%s?synchronous=true&consumerStrategy=PROPAGATION&routeControlledStreamObserver=true",
