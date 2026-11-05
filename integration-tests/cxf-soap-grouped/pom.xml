@@ -37,6 +37,7 @@
     </properties>
 
     <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
+    <!-- A new CXF dependency here needs a bc-fips exclusion in the fips profile below too -->
     <dependencies>
         <dependency>
             <groupId>io.quarkiverse.cxf</groupId>
