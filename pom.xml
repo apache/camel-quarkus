@@ -114,6 +114,7 @@
         <graalvm.version>25.0.4.1</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:nativeimage -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
         <groovy.version>5.0.8</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
+        <handlebars.version>4.5.3</handlebars.version><!-- swagger-codegen transitive, upgrade to fix CVE-2026-55760, remove once fixed upstream: https://github.com/apache/camel-quarkus/issues/9453 -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
