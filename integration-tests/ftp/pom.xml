@@ -84,11 +84,23 @@
             <groupId>org.apache.sshd</groupId>
             <artifactId>sshd-sftp</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion><!-- Temporary until the Quarkus 3.33 BOM excludes it (Quarkus PR 57956 backport) -->
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.sshd</groupId>
             <artifactId>sshd-scp</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion><!-- Temporary until the Quarkus 3.33 BOM excludes it (Quarkus PR 57956 backport) -->
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
