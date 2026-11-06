@@ -140,7 +140,7 @@ jobs:
         if: steps.init.outputs.run-checks == 'true'
         with:
           ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Setup Maven Cache
         if: steps.init.outputs.run-checks == 'true'
         uses: ./.github/actions/setup-maven-cache
@@ -495,7 +495,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Reclaim Disk Space
         run: .github/reclaim-disk-space.sh
       - name: Set up JDK 21
@@ -718,7 +718,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Set up JDK 21
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
@@ -770,7 +770,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Set up JDK 21
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
@@ -824,7 +824,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Set up JDK 21
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
