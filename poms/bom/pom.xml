@@ -7370,6 +7370,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.github.jknack</groupId>
+                <artifactId>handlebars</artifactId>
+                <version>${handlebars.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.github.jnr</groupId>
                 <artifactId>jnr-constants</artifactId>
                 <version>${jnr-constants.version}</version>
