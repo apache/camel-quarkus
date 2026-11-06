@@ -63,7 +63,8 @@ for actor in client service sts actas; do
   openssl x509 -req -in "$workDir/$actor.csr" -CA "$workDir/cxfca.pem" -CAkey "$workDir/cxfca.key" -CAcreateserial -days $days -out "$workDir/$actor.crt"
 
   # Export keystores
-  openssl pkcs12 -export -in "$workDir/$actor.crt" -inkey "$workDir/$actor.key" -certfile "$workDir/cxfca.crt" -name "my${actor}key" -out "$destinationDir/${actor}store.pkcs12" -passout pass:"$password" -keypbe "$encryptionAlgo" -certpbe "$encryptionAlgo"
+  # -nomac: OpenSSL on RHEL in FIPS mode would use a PBMAC1 MAC that JDK 21 keytool cannot verify
+  openssl pkcs12 -export -in "$workDir/$actor.crt" -inkey "$workDir/$actor.key" -certfile "$workDir/cxfca.crt" -name "my${actor}key" -out "$destinationDir/${actor}store.pkcs12" -passout pass:"$password" -keypbe "$encryptionAlgo" -certpbe "$encryptionAlgo" -nomac
 done
 
 keytool -import -trustcacerts -alias mystskey     -file "$workDir/sts.crt"     -noprompt -keystore "$destinationDir/servicestore.pkcs12"  -storepass "$password"
