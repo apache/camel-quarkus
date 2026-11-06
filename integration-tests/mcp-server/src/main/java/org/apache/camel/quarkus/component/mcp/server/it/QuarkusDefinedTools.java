@@ -20,14 +20,24 @@ import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
 
 /**
- * A plain quarkus-mcp-server annotated tool living on the same MCP server as the Camel ai-tool routes.
+ * Plain quarkus-mcp-server annotated tools living on the same MCP server as the Camel ai-tool routes.
  */
 public class QuarkusDefinedTools {
+
+    public static final String CLASHING_TOOL_ANSWER = "Quarkus AI tool called (declared with @Tool)";
 
     @Tool(name = "add_numbers", description = "Add two numbers")
     String add(
             @ToolArg(description = "First addend") long a,
             @ToolArg(description = "Second addend") long b) {
         return String.valueOf(a + b);
+    }
+
+    /**
+     * Owns the name that the annotated-clash-route ai-tool route also asks for.
+     */
+    @Tool(name = "clashing_tool", description = "Name also asked for by an ai-tool route")
+    String clashing() {
+        return CLASHING_TOOL_ANSWER;
     }
 }
