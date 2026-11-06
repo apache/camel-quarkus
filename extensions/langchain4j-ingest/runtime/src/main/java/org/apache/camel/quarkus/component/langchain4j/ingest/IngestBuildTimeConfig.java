@@ -88,8 +88,8 @@ public interface IngestBuildTimeConfig {
         /**
          * MIME type of a media payload, such as `audio/wav` or `image/png`, handed to the
          * embedding model. When not set, it is derived from the document id's file extension
-         * through Camel's MIME table; a document whose type cannot be determined, or whose
-         * medium the model does not declare, fails the exchange. Only valid with
+         * through Camel's MIME table; a document whose type cannot be determined is filtered,
+         * one whose medium the model does not declare fails the exchange. Only valid with
          * `modality=media`: set without it, the pipeline is rejected.
          */
         Optional<String> contentType();

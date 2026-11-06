@@ -152,8 +152,8 @@ quarkus.camel.langchain4j.ingest.photos.embedding-store=photos
 quarkus.camel.langchain4j.ingest.photos.filter.include-id=**/*.png,**/*.jpg
 ----
 
-The MIME type handed to the model comes from `content-type` or, when unset, from the file extension through Camel's MIME table (wav, mp3, flac, ogg, opus, m4a, aac and aiff for audio; png, jpg, gif and webp for images; mp4, mov and webm for video; pdf); a file whose type cannot be determined fails the exchange, and `content-type` without `modality=media` is rejected like the parser and splitter conflicts.
-On a directory pipeline such a file — `notes.txt`, `Thumbs.db` — fails again on every poll, so restrict the ids with `filter.include-id`, as above: it is checked before the media type.
+The MIME type handed to the model comes from `content-type` or, when unset, from the file extension through Camel's MIME table (wav, mp3, flac, ogg, opus, m4a, aac and aiff for audio; png, jpg, gif and webp for images; mp4, mov and webm for video; pdf); a file whose type cannot be determined — `notes.txt`, `Thumbs.db` — is answered `FILTERED` and logged at INFO, and `content-type` without `modality=media` is rejected like the parser and splitter conflicts.
+To keep such files out silently, restrict the ids with `filter.include-id`, as above: it is checked before the media type.
 Images are embedded today by several LangChain4j providers; no provider embeds audio out of the box yet, so an audio model is a CDI bean of your own that declares `AUDIO` — typically a client of an audio embedding service — and either way the same bean embeds the query image or clip at retrieval time.
 The Java twin is `IngestPipeline.modality("media")`, and a consumer-fed pipeline embeds the delivered payload the same way.
 
