@@ -25,17 +25,27 @@ import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 
 /**
- * A plain quarkus-mcp-server annotated tool living on the same MCP server as the Camel ai-tool routes, and tools
+ * Plain quarkus-mcp-server annotated tools living on the same MCP server as the Camel ai-tool routes, and tools
  * registered through the quarkus-mcp-server {@link ToolManager}: one under the same name as the clashing-tool-route
  * ai-tool route, and one under the name of the say-hello-route ai-tool route, on another MCP server.
  */
 public class QuarkusDefinedTools {
+
+    public static final String CLASHING_TOOL_ANSWER = "Quarkus AI tool called (declared with @Tool)";
 
     @Tool(name = "add_numbers", description = "Add two numbers")
     String add(
             @ToolArg(description = "First addend") long a,
             @ToolArg(description = "Second addend") long b) {
         return String.valueOf(a + b);
+    }
+
+    /**
+     * Owns the name that the annotated-clash-route ai-tool route also asks for.
+     */
+    @Tool(name = "clashing_tool", description = "Name also asked for by an ai-tool route")
+    String clashing() {
+        return CLASHING_TOOL_ANSWER;
     }
 
     void registerTools(@Observes StartupEvent event) {

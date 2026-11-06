@@ -145,11 +145,17 @@ public class CalculatorTools {
 }
 ----
 
-is exposed alongside the `ai-tool` routes. Annotated tools are registered at
-build time; Camel tools are added and removed dynamically with the route
-lifecycle. Choose distinct tool names — MCP has a flat tool namespace: a
-Camel tool whose name is already taken by a tool of the application is
-refused with an ERROR log, while its route keeps running.
+is exposed alongside the `ai-tool` routes. Quarkus AI tools annotated with @Tool
+are registered at build time; Quarkus AI tools registered via ToolManager are registered at runtime.
+Camel tools are added and removed dynamically with the route lifecycle.
+`quarkus.camel.mcp-server.tags` only selects `ai-tool` routes:
+The Quarkus AI tools registered by the application are always exposed.
+
+Choose distinct tool names — MCP has a flat tool namespace. When an `ai-tool`
+route asks for a name that a tool of the application already has, the
+application tool is kept and the `ai-tool` route is therefore not exposed via
+MCP. The route still starts and an `ERROR` is logged mentioning the name of the
+ignored `ai-tool`.
 
 === Dynamic tools
 

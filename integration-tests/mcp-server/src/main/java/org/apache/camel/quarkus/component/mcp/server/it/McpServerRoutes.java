@@ -30,6 +30,7 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 public class McpServerRoutes extends RouteBuilder {
 
     public static final String NOTES_DIR = "target/test-files";
+    public static final String CLASHING_TOOL_ANSWER = "Camel AI tool called (declared with a from(\"ai-tool:...\") route)";
     // over 57 bytes, so that a MIME Base64 encoder would break the line
     public static final byte[] REPORT = "%PDF-1.7 latest report, long enough to span more than one MIME Base64 line"
             .getBytes(StandardCharsets.US_ASCII);
@@ -40,6 +41,11 @@ public class McpServerRoutes extends RouteBuilder {
                 + "&parameter.name=string&parameter.name.description=Who to greet&parameter.name.required=true")
                 .routeId("say-hello-route")
                 .setBody(simple("Hello ${header.name}"));
+
+        from("ai-tool:missing_required_arg_tool?tags=conformance&description=Description"
+                + "&parameter.name=string&parameter.name.description=RequiredParam&parameter.name.required=true")
+                .routeId("missing-required-arg-route")
+                .setBody(simple("The required tool argument 'name' was set: ${header.name}"));
 
         from("ai-tool:fail_tool?tags=conformance&description=Always fails")
                 .process(e -> {
@@ -62,6 +68,9 @@ public class McpServerRoutes extends RouteBuilder {
                 + "&readOnlyHint=true"
                 + "&idempotentHint=true")
                 .setBody(constant("annotated"));
+
+        from("ai-tool:unannotated_tool?tags=conformance&description=Tool without annotation hints")
+                .setBody(constant("unannotated"));
 
         from("ai-tool:create_order?tags=conformance&description=Create an order"
                 + "&argSchema=classpath:schema/create-order.json")
@@ -87,11 +96,12 @@ public class McpServerRoutes extends RouteBuilder {
                 .autoStartup(false)
                 .setBody(constant("camel"));
 
-        // the name is taken by the annotated tool in QuarkusDefinedTools; started with the application, so it is
+        // the name is owned by the annotated tool in QuarkusDefinedTools; started with the application, so it is
         // refused while the MCP bridge starts, which must not fail the application startup
-        from("ai-tool:add_numbers?tags=conformance"
+        from("ai-tool:clashing_tool?tags=conformance"
                 + "&description=Name already taken by an annotated tool, must be refused")
-                .setBody(constant("camel"));
+                .routeId("annotated-clash-route")
+                .setBody(constant(CLASHING_TOOL_ANSWER));
 
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
                 + "&description=Application configuration&mimeType=application/json&title=App config")
