@@ -196,7 +196,7 @@
         <microsoft.graph.version>6.62.0</microsoft.graph.version>
         <microsoft.graph.auth.version>0.3.0</microsoft.graph.auth.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
-        <sshd.version>2.19.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
+        <sshd.version>2.20.0</sshd.version><!-- Pin version for now, should be sync to quarkus.version again when it is 2.20 as well -->
         <unboundid-ldapsdk.version>7.0.4</unboundid-ldapsdk.version>
         <wiremock.version>3.13.2</wiremock.version>
         <xmlunit.version>2.11.0</xmlunit.version>
