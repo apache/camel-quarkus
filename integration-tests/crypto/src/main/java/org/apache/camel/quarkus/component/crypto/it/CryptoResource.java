@@ -32,22 +32,30 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.crypto.DigitalSignatureConstants;
+import org.apache.camel.support.ResourceHelper;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/crypto")
 public class CryptoResource {
 
     public static final String MESSAGE = "Hello Camel Quarkus Crypto";
-    private static final String ALIAS = "bob";
-    private static final String KEYSTORE = "crypto.jks";
-    private static final String KEYSTORE_PASSWORD = "letmein";
+    private static final String ALIAS = "crypto";
+    static final String KEYSTORE_PASSWORD = "crypto-keystore-password";
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext camelContext;
+
+    @ConfigProperty(name = "crypto.keystore")
+    String keystoreUri;
 
     @Path("/signature/sign")
     @POST
@@ -100,8 +108,8 @@ public class CryptoResource {
 
     @jakarta.enterprise.inject.Produces
     public KeyStore keyStore() throws Exception {
-        KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-        try (InputStream in = getClass().getResourceAsStream("/" + KEYSTORE)) {
+        KeyStore keystore = KeyStore.getInstance("PKCS12");
+        try (InputStream in = ResourceHelper.resolveMandatoryResourceAsInputStream(camelContext, keystoreUri)) {
             keystore.load(in, KEYSTORE_PASSWORD.toCharArray());
         }
         return keystore;

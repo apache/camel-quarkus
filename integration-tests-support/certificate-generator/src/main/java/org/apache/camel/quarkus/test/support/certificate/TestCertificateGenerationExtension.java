@@ -45,6 +45,7 @@ import org.testcontainers.DockerClientFactory;
  */
 public class TestCertificateGenerationExtension implements BeforeAllCallback {
     private static final Logger LOGGER = Logger.getLogger(TestCertificateGenerationExtension.class);
+    private static final String SKIP_PROPERTY = "cq.test.certificates.skip";
 
     public static TestCertificateGenerationExtension getInstance(ExtensionContext extensionContext) {
         return extensionContext.getStore(ExtensionContext.Namespace.GLOBAL)
@@ -57,6 +58,11 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         var maybe = AnnotationUtils.findAnnotation(extensionContext.getRequiredTestClass(), TestCertificates.class);
         if (maybe.isEmpty()) {
+            return;
+        }
+        // the certificates are provided otherwise, e.g. where the non-FIPS BouncyCastle of the generator cannot be used
+        if (Boolean.getBoolean(SKIP_PROPERTY)) {
+            LOGGER.infof("Certificate generation skipped, %s is true", SKIP_PROPERTY);
             return;
         }
         var annotation = maybe.get();
