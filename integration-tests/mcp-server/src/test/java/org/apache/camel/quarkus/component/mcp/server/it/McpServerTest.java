@@ -100,7 +100,8 @@ class McpServerTest {
     void testListToolsExposesOnlySelectedTags() {
         client().when()
                 .toolsList(page -> assertThat(toolNames(page))
-                        .contains("say_hello", "fail_tool", "slow_tool")
+                        .contains("say_hello", "fail_tool", "slow_tool", "annotated_tool", "unannotated_tool",
+                                "create_order")
                         .doesNotContain("hidden_tool", "other_tool"))
                 .thenAssertResults();
     }
@@ -114,6 +115,21 @@ class McpServerTest {
                     assertThat(tool.annotations()).isPresent();
                     assertThat(tool.annotations().orElseThrow().readOnlyHint()).isTrue();
                     assertThat(tool.annotations().orElseThrow().idempotentHint()).isTrue();
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * The negative counterpart of {@link #testToolAnnotationHintsArePublished()}: a tool setting no hint at all
+     * publishes no annotations and no title, rather than the MCP defaults.
+     */
+    @Test
+    void testToolWithoutAnnotationHintsPublishesNone() {
+        client().when()
+                .toolsList(page -> {
+                    ToolInfo tool = toolByName(page, "unannotated_tool");
+                    assertThat(tool.title()).isNull();
+                    assertThat(tool.annotations()).isEmpty();
                 })
                 .thenAssertResults();
     }
@@ -195,12 +211,32 @@ class McpServerTest {
 
     @Test
     void testQuarkusAnnotatedToolsCoexistWithCamelTools() {
-        // both tool sources are served by the same MCP server; the add_numbers ai-tool route is refused
+        // both tool sources are served by the same MCP server
         client().when()
                 .toolsList(page -> assertThat(toolNames(page)).contains("add_numbers", "say_hello"))
                 .toolsCall("add_numbers", Map.of("a", 17, "b", 25), response -> {
                     assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
                     assertThat(textOf(response)).isEqualTo("42");
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * MCP has a flat tool namespace: when an ai-tool route asks for a name an annotated tool already owns, the
+     * annotated tool keeps the name and the route is refused. The route is started with the application, which
+     * is the case that used to fail the startup.
+     */
+    @Test
+    void testCamelToolCollidingWithAnnotatedToolIsRefused() {
+        assertThat(routeStatus("annotated-clash-route")).isEqualTo("Started");
+        client().when()
+                .toolsList(page -> assertThat(toolNames(page)).containsOnlyOnce("clashing_tool"))
+                .toolsCall("clashing_tool", response -> {
+                    assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
+                    // the answer tells which of the two implementations served the call
+                    assertThat(textOf(response))
+                            .isEqualTo(QuarkusDefinedTools.CLASHING_TOOL_ANSWER)
+                            .isNotEqualTo(McpServerRoutes.CLASHING_TOOL_ANSWER);
                 })
                 .thenAssertResults();
     }
@@ -212,6 +248,19 @@ class McpServerTest {
                     assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
                     assertThat(textOf(response)).isEqualTo("Hello World");
                     assertThat(response.structuredContent()).isNull();
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * An argument error is not sanitized the way a route failure is: the client gets the validation message.
+     */
+    @Test
+    void testCallToolMissingRequiredArgument() {
+        client().when()
+                .toolsCall("say_hello", response -> {
+                    assertThat(response.isError()).isTrue();
+                    assertThat(textOf(response)).isEqualTo("Missing required argument 'name' for tool 'say_hello'");
                 })
                 .thenAssertResults();
     }
