@@ -3,8 +3,8 @@
 Please utilize the fips profile when executing tests within a FIPS-enabled environment.
 There are two profiles:
 
-* Use `bcfips` profile to employ the BouncyCastle-FIPS security provider.
-* Use `fips` profile to employ the SunPKCS11-NSS-FIPS security provider.
+* Use `bcfips` profile to employ the BouncyCastle-FIPS security provider. It uses the committed `src/main/resources/crypto-keystore.p12` instead of `@TestCertificates`. To regenerate it, run `./generate-certs.sh` (needs `openssl`) from this directory.
+* Use `fips` profile to employ the SunPKCS11-NSS-FIPS security provider (SunPKCS11-FIPS on JDK 25+).
 
 
 Example of usage:

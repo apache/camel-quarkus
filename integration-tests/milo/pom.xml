@@ -82,7 +82,8 @@
             <properties>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <!-- TODO: https://github.com/apache/camel-quarkus/issues/9001 -->
-                <quarkus.native.additional-build-args-append>-H:-AOTSingleCallsiteInline</quarkus.native.additional-build-args-append>
+                <!-- Not -append, which the fips-jdk25 profile of the root pom sets -->
+                <quarkus.native.additional-build-args>-H:-AOTSingleCallsiteInline</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>

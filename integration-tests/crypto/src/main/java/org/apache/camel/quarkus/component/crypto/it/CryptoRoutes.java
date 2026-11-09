@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.crypto.it;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import javax.crypto.KeyGenerator;
 
@@ -32,7 +33,7 @@ public class CryptoRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         String provider = ConfigProvider.getConfig()
-                .getOptionalValue("quarkus.security.security-providers", String.class).orElse("SUN");
+                .getOptionalValue("quarkus.security.security-providers", String.class).orElse("SunRsaSign");
         // Crypto component using raw keys
         final KeyPair keys = KeyPairGenerator.getInstance("RSA").generateKeyPair();
         from("direct:sign-raw")
@@ -45,11 +46,11 @@ public class CryptoRoutes extends RouteBuilder {
 
         // Crypto component using keys from a keystore
         from("direct:sign")
-                .toF("crypto:sign:basic?privateKey=#myPrivateKey&algorithm=SHA1withDSA&provider=%s&secureRandom=#customSecureRandom",
+                .toF("crypto:sign:basic?privateKey=#myPrivateKey&algorithm=SHA256withRSA&provider=%s&secureRandom=#customSecureRandom",
                         provider);
 
         from("direct:verify")
-                .toF("crypto:verify:basic?publicKey=#myPublicKey&algorithm=SHA1withDSA&provider=%s&secureRandom=#customSecureRandom",
+                .toF("crypto:verify:basic?publicKey=#myPublicKey&algorithm=SHA256withRSA&provider=%s&secureRandom=#customSecureRandom",
                         provider);
 
         // Crypto data format
@@ -62,8 +63,12 @@ public class CryptoRoutes extends RouteBuilder {
     }
 
     private CryptoDataFormat getCryptoDataFormat() throws NoSuchAlgorithmException {
-        KeyGenerator generator = KeyGenerator.getInstance("DES");
-        CryptoDataFormat cdf = new CryptoDataFormat("DES", generator.generateKey());
+        KeyGenerator generator = KeyGenerator.getInstance("AES");
+        CryptoDataFormat cdf = new CryptoDataFormat("AES/CBC/PKCS5Padding", generator.generateKey());
+        byte[] iv = new byte[16];
+        new SecureRandom().nextBytes(iv);
+        cdf.setInitVector(iv);
+        cdf.setShouldInlineInitializationVector(true);
         //workaround for SunPKCS11-NSS-FIPS
         cdf.setShouldAppendHMAC(false);
         return cdf;
