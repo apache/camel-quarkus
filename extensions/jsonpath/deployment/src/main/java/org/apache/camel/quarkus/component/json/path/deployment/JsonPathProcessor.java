@@ -45,7 +45,7 @@ class JsonPathProcessor {
                 .add(ReflectiveClassBuildItem.builder(JacksonJsonAdapter.class).build());
         reflectiveClassBuildItems
                 .add(ReflectiveClassBuildItem
-                        .builder("com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule")
+                        .builder("tools.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule")
                         .build());
 
         return reflectiveClassBuildItems;
