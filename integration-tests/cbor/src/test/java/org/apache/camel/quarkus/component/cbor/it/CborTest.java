@@ -20,14 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.cbor.it.model.Author;
 import org.apache.camel.quarkus.component.cbor.it.model.DummyObject;
 import org.junit.jupiter.api.Test;
+import tools.jackson.dataformat.cbor.CBORMapper;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @QuarkusTest
 class CborTest {
 
-    private static final ObjectMapper CBOR_MAPPER = new ObjectMapper(new CBORFactory());
+    private static final CBORMapper CBOR_MAPPER = new CBORMapper();
 
     @Test
     void marshalUnmarshalMapShouldSucceed() {
@@ -72,7 +70,7 @@ class CborTest {
     }
 
     @Test
-    void unmarshalAuthorViaJmsTypeHeaderShouldSucceed() throws JsonProcessingException {
+    void unmarshalAuthorViaJmsTypeHeaderShouldSucceed() {
         Author author = new Author();
         author.setName("David");
         author.setSurname("Foster Wallace");
@@ -87,7 +85,7 @@ class CborTest {
     }
 
     @Test
-    void unmarshalDummyObjectListShouldSucceed() throws JsonProcessingException {
+    void unmarshalDummyObjectListShouldSucceed() {
         DummyObject first = new DummyObject();
         first.setDummy("value1");
         DummyObject second = new DummyObject();

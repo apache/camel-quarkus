@@ -20,7 +20,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -38,6 +37,7 @@ import org.apache.camel.component.servicenow.ServiceNowParams;
 import org.apache.camel.quarkus.component.servicenow.it.generated.Incident;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
+import tools.jackson.databind.JsonNode;
 
 @Path("/servicenow")
 @ApplicationScoped
@@ -72,7 +72,7 @@ public class ServicenowResource {
         LOG.infof("Sending to servicenow: %s", message);
         final JsonNode response = producerTemplate.requestBodyAndHeaders(
                 "servicenow:" + instance, incident, headers, JsonNode.class);
-        String sysId = response.findPath("sys_id").textValue();
+        String sysId = response.findPath("sys_id").stringValue();
 
         LOG.infof("Got response from servicenow: %s", response);
         return Response
@@ -98,7 +98,7 @@ public class ServicenowResource {
             final JsonNode response = producerTemplate.requestBodyAndHeaders("servicenow:" + instance, null, headers,
                     JsonNode.class);
             LOG.infof("Got response from servicenow: %s", response);
-            String number = response.findPath("number").textValue();
+            String number = response.findPath("number").stringValue();
             return Response.ok(number).build();
         } catch (Exception e) {
             LOG.error(e);
