@@ -8428,6 +8428,11 @@
         <version>3.5.19</version>
       </dependency>
       <dependency>
+        <groupId>org.objenesis</groupId>
+        <artifactId>objenesis</artifactId>
+        <version>3.6</version>
+      </dependency>
+      <dependency>
         <groupId>org.opensearch.client</groupId>
         <artifactId>opensearch-rest-client</artifactId>
         <version>3.7.0</version>
