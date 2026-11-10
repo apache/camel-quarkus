@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.annotation.Generated;
 import org.apache.camel.component.salesforce.api.MultiSelectPicklistDeserializer;
 import org.apache.camel.component.salesforce.api.MultiSelectPicklistSerializer;
@@ -29,6 +27,8 @@ import org.apache.camel.component.salesforce.api.dto.AbstractDescribedSObjectBas
 import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
 import org.apache.camel.component.salesforce.api.dto.SObjectDescriptionUrls;
 import org.apache.camel.component.salesforce.api.dto.SObjectField;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Salesforce DTO for SObject Account

@@ -34,8 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -50,6 +48,8 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Test resource is using opensource conjur. See the instructions from
@@ -285,11 +285,11 @@ public class CyberarkVaultTestResource implements QuarkusTestResourceLifecycleMa
 
         result.put("conjur.reader.username", "host/BotApp/myDemoApp");
         String readApiKey = jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":host:BotApp/myDemoApp").get("api_key")
-                .textValue();
+                .stringValue();
         result.put("conjur.reader.apiKey", readApiKey);
         result.put("conjur.writer.username", "user/Dave@BotApp");
         String writeApiKey = jsonNode.get("created_roles").get(CONJUR_ACCOUNT + ":user:Dave@BotApp").get("api_key")
-                .textValue();
+                .stringValue();
         result.put("conjur.writer.apiKey", writeApiKey);
         result.put("conjur.writer.password", writeApiKey);
 
