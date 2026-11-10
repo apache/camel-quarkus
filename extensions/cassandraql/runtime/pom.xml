@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-cassandraql</artifactId>
     <name>Camel Quarkus :: Cassandra CQL :: Runtime</name>
-    <description>Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.</description>
+    <description>Integrate with Cassandra 2.0+ using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
