@@ -70,7 +70,8 @@ class McpServerTest {
     void testListToolsExposesOnlySelectedTags() {
         client().when()
                 .toolsList(page -> assertThat(toolNames(page))
-                        .contains("say_hello", "fail_tool", "slow_tool")
+                        .contains("say_hello", "fail_tool", "slow_tool", "annotated_tool", "unannotated_tool",
+                                "create_order")
                         .doesNotContain("hidden_tool", "other_tool"))
                 .thenAssertResults();
     }
@@ -84,6 +85,21 @@ class McpServerTest {
                     assertThat(tool.annotations()).isPresent();
                     assertThat(tool.annotations().orElseThrow().readOnlyHint()).isTrue();
                     assertThat(tool.annotations().orElseThrow().idempotentHint()).isTrue();
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * The negative counterpart of {@link #testToolAnnotationHintsArePublished()}: a tool setting no hint at all
+     * publishes no annotations and no title, rather than the MCP defaults.
+     */
+    @Test
+    void testToolWithoutAnnotationHintsPublishesNone() {
+        client().when()
+                .toolsList(page -> {
+                    ToolInfo tool = toolByName(page, "unannotated_tool");
+                    assertThat(tool.title()).isNull();
+                    assertThat(tool.annotations()).isEmpty();
                 })
                 .thenAssertResults();
     }
@@ -121,8 +137,50 @@ class McpServerTest {
         client().when()
                 .toolsList(page -> assertThat(toolNames(page)).contains("add_numbers", "say_hello"))
                 .toolsCall("add_numbers", Map.of("a", 17, "b", 25), response -> {
-                    assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
+                    assertThat(response.isError()).isFalse();
                     assertThat(textOf(response)).isEqualTo("42");
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * MCP has a flat tool namespace: when an ai-tool route asks for a name an annotated tool already owns, the
+     * annotated tool keeps the name and the route is refused. The route is started with the application, which
+     * is the case that used to fail the startup.
+     */
+    @Test
+    void testCamelToolCollidingWithAnnotatedToolIsRefused() {
+        assertThat(routeStatus("annotated-clash-route")).isEqualTo("Started");
+        client().when()
+                .toolsCall("clashing_tool", response -> {
+                    assertThat(response.isError()).isFalse();
+                    // the answer tells which of the two implementations served the call
+                    assertThat(textOf(response))
+                            .isEqualTo(QuarkusDefinedTools.CLASHING_TOOL_ANSWER);
+                })
+                .thenAssertResults();
+
+        controlRoute("annotated-clash-route", "stop");
+        assertThat(routeStatus("annotated-clash-route")).isEqualTo("Stopped");
+
+        client().when()
+                .toolsCall("clashing_tool", response -> {
+                    assertThat(response.isError()).isFalse();
+                    // the answer tells which of the two implementations served the call
+                    assertThat(textOf(response))
+                            .isEqualTo(QuarkusDefinedTools.CLASHING_TOOL_ANSWER);
+                })
+                .thenAssertResults();
+
+        controlRoute("annotated-clash-route", "start");
+        assertThat(routeStatus("annotated-clash-route")).isEqualTo("Started");
+
+        client().when()
+                .toolsCall("clashing_tool", response -> {
+                    assertThat(response.isError()).isFalse();
+                    // the answer tells which of the two implementations served the call
+                    assertThat(textOf(response))
+                            .isEqualTo(QuarkusDefinedTools.CLASHING_TOOL_ANSWER);
                 })
                 .thenAssertResults();
     }
@@ -131,8 +189,23 @@ class McpServerTest {
     void testCallToolSuccess() {
         client().when()
                 .toolsCall("say_hello", Map.of("name", "World"), response -> {
-                    assertThat(response.isError()).isNotEqualTo(Boolean.TRUE);
+                    assertThat(response.isError()).isFalse();
                     assertThat(textOf(response)).isEqualTo("Hello World");
+                })
+                .thenAssertResults();
+    }
+
+    /**
+     * An argument error is not sanitized the way a route failure is: the client gets the validation message.
+     */
+    @Test
+    void testCallToolMissingRequiredArgument() {
+        client().when()
+                .toolsCall("missing_required_arg_tool", response -> {
+                    assertThat(response.isError()).isTrue();
+                    // The error message is expected to come from camel when validating missing required args for an ai-tool route
+                    assertThat(textOf(response))
+                            .isEqualTo("Missing required argument 'name' for tool 'missing_required_arg_tool'");
                 })
                 .thenAssertResults();
     }
@@ -165,31 +238,31 @@ class McpServerTest {
                 .toolsList(page -> assertThat(toolNames(page)).contains("say_hello"))
                 .thenAssertResults();
 
-        controlRoute("stop");
-        assertThat(routeStatus()).isEqualTo("Stopped");
+        controlRoute("say-hello-route", "stop");
+        assertThat(routeStatus("say-hello-route")).isEqualTo("Stopped");
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
                 .toolsList(page -> assertThat(toolNames(page)).doesNotContain("say_hello"))
                 .thenAssertResults());
 
-        controlRoute("start");
-        assertThat(routeStatus()).isEqualTo("Started");
+        controlRoute("say-hello-route", "start");
+        assertThat(routeStatus("say-hello-route")).isEqualTo("Started");
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
                 .toolsList(page -> assertThat(toolNames(page)).contains("say_hello"))
                 .thenAssertResults());
     }
 
-    private static void controlRoute(String action) {
+    private static void controlRoute(String routeId, String action) {
         RestAssured.given()
                 .when()
-                .post("/mcp-server/route/say-hello-route/" + action)
+                .post("/mcp-server/route/" + routeId + "/" + action)
                 .then()
                 .statusCode(204);
     }
 
-    private static String routeStatus() {
+    private static String routeStatus(String routeId) {
         return RestAssured.given()
                 .when()
-                .get("/mcp-server/route/say-hello-route/status")
+                .get("/mcp-server/route/" + routeId + "/status")
                 .then()
                 .statusCode(200)
                 .extract()

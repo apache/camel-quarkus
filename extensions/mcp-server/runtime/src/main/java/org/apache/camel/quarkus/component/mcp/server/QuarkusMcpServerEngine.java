@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.mcp.server;
 
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.quarkiverse.mcp.server.TextContent;
 import io.quarkiverse.mcp.server.ToolManager;
@@ -44,6 +46,8 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     private static final Logger LOG = LoggerFactory.getLogger(QuarkusMcpServerEngine.class);
 
     private final ToolManager toolManager;
+    // names of the tools registered by this engine; a refused tool's name belongs to an application tool
+    private final Set<String> registeredToolNames = ConcurrentHashMap.newKeySet();
     private CamelContext camelContext;
 
     public QuarkusMcpServerEngine(ToolManager toolManager) {
@@ -87,12 +91,23 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
             return result.isError()
                     ? ToolResponse.error(result.text()) : ToolResponse.success(new TextContent(result.text()));
         });
-        definition.register();
+        try {
+            definition.register();
+        } catch (IllegalArgumentException e) {
+            // the name is taken by an application tool: refuse the tool, like the bridge does on a name clash
+            LOG.error("Refusing to expose MCP tool '{}': {}. MCP has a flat tool namespace.", tool.name(), e.getMessage());
+            return;
+        }
+        registeredToolNames.add(tool.name());
         LOG.debug("MCP tool added: {}", tool.name());
     }
 
     @Override
     public void toolRemoved(String toolName) {
+        if (!registeredToolNames.remove(toolName)) {
+            // refused in toolAdded: removing by name would delete the application tool with the same name
+            return;
+        }
         try {
             toolManager.removeTool(toolName);
             LOG.debug("MCP tool removed: {}", toolName);
