@@ -9,5 +9,5 @@ cqJvmSince: 3.39.0
 cqNativeSince: 3.39.0
 cqCamelPartName: mcp-server
 cqCamelPartTitle: MCP Server
-cqCamelPartDescription: Expose ai-tool routes as MCP tools and ai-resource routes as MCP resources over streamable HTTP
+cqCamelPartDescription: Expose ai-tool routes as MCP tools, ai-resource routes as MCP resources and ai-prompt routes as MCP prompts
 cqExtensionPageTitle: MCP Server

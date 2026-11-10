@@ -9372,17 +9372,17 @@
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-core</artifactId>
-        <version>1.1.0</version>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-jid</artifactId>
-        <version>1.1.0</version>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-util-cache</artifactId>
-        <version>1.1.0</version>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.mapstruct</groupId>
