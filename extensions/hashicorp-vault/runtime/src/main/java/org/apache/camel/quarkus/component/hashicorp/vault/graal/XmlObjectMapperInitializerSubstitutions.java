@@ -25,10 +25,11 @@ import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 
 /**
- * Substitute Jackson2ObjectMapperBuilder.build() method to avoid references to XmlMapper, when jackson-dataformat-xml
- * is not on the runtime classpath.
+ * Substitute Jackson2ObjectMapperBuilder.build() method to avoid references to XmlMapper, when Jackson 2 is on the
+ * runtime
+ * classpath but jackson-dataformat-xml is not.
  */
-@TargetClass(className = "org.springframework.http.converter.json.Jackson2ObjectMapperBuilder", onlyWith = JacksonDataformatXmlIsAbsent.class)
+@TargetClass(className = "org.springframework.http.converter.json.Jackson2ObjectMapperBuilder", onlyWith = Jackson2PresentAndDataformatXmlAbsent.class)
 final class XmlObjectMapperInitializerSubstitutions {
     @Alias
     private JsonFactory factory;
@@ -46,14 +47,19 @@ final class XmlObjectMapperInitializerSubstitutions {
     }
 }
 
-final class JacksonDataformatXmlIsAbsent implements BooleanSupplier {
+final class Jackson2PresentAndDataformatXmlAbsent implements BooleanSupplier {
     @Override
     public boolean getAsBoolean() {
+        return isPresent("com.fasterxml.jackson.databind.ObjectMapper")
+                && !isPresent("com.fasterxml.jackson.dataformat.xml.XmlMapper");
+    }
+
+    private static boolean isPresent(String className) {
         try {
-            Thread.currentThread().getContextClassLoader().loadClass("com.fasterxml.jackson.dataformat.xml.XmlMapper");
-            return false;
-        } catch (ClassNotFoundException e) {
+            Thread.currentThread().getContextClassLoader().loadClass(className);
             return true;
+        } catch (ClassNotFoundException e) {
+            return false;
         }
     }
 }
