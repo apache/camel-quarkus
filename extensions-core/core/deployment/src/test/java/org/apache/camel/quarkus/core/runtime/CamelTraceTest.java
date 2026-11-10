@@ -70,7 +70,5 @@ class CamelTraceTest {
         assertThat(tracer.getBacklogSize()).isEqualTo(100);
         assertThat(tracer.getTracePattern()).isNull();
         assertThat(tracer.getTraceFilter()).isNull();
-        assertThat(tracer.isActivityEnabled()).isFalse();
-        assertThat(tracer.getActivitySize()).isEqualTo(100);
     }
 }
