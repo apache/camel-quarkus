@@ -31,7 +31,7 @@ metadata:
   - "integration"
   config:
   - "quarkus.camel.mcp-server"
-  status: "preview"
+  status: "stable"
   integrates:
     - name: "Camel"
       artifact: "org.apache.camel:camel-base"
