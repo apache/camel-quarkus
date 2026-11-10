@@ -1237,12 +1237,12 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>2.0.0.Beta2</version>
+        <version>2.0.0.Beta3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-        <version>2.0.0.Beta2</version>
+        <version>2.0.0.Beta3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mcp</groupId>
