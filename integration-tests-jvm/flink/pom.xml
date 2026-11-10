@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Flink</name>
     <description>Integration tests for Camel Quarkus Flink extension</description>
 
+    <properties>
+        <!-- Flink's local job classloader needs application classes and dependencies on the system classpath. -->
+        <quarkus.package.jar.type>uber-jar</quarkus.package.jar.type>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -59,6 +64,30 @@
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>full</id>
+            <activation>
+                <property>
+                    <name>!quickly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>virtualDependencies</id>
             <activation>
