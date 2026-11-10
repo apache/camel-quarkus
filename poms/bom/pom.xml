@@ -8918,6 +8918,7 @@
                                     <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
                                     <ignoredOverlaps>
                                         <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
+                                        <ignoredOverlap>org.apache.sshd:sshd-sftp</ignoredOverlap><!-- Ignored until Quarkus 3.40.2 is released -->
                                     </ignoredOverlaps>
                                 </configuration>
                             </execution>
