@@ -61,6 +61,7 @@
                         <parentFirstArtifact>org.apache.flink:flink-clients</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-connector-datagen</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-core</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-core-api</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-datastream</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-datastream-api</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-file-sink-common</parentFirstArtifact>
