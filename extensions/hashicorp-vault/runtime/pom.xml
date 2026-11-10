@@ -53,6 +53,11 @@
             <artifactId>camel-hashicorp-vault</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>nativeimage</artifactId>
             <scope>provided</scope>
