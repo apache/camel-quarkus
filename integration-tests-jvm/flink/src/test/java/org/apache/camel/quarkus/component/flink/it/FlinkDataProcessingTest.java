@@ -64,6 +64,13 @@ class FlinkDataProcessingTest {
     }
 
     @Test
+    void collectDataSetUsingObjenesis() {
+        given().contentType(ContentType.TEXT).body("camel\nquarkus")
+                .post("/flink/processing/dataset/objenesis")
+                .then().statusCode(200).body(is("camel:5:false,quarkus:7:false"));
+    }
+
+    @Test
     void voidDataSetCallback() {
         given().contentType(ContentType.TEXT).body(LINES)
                 .post("/flink/processing/dataset/sink/void")

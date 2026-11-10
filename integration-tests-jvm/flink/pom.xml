@@ -31,6 +31,8 @@
     <description>Integration tests for Camel Quarkus Flink extension</description>
 
     <properties>
+        <!-- Flink's Chill serializers reflectively access java.util when initializing Kryo. -->
+        <flink.test.jvm-args>--add-opens=java.base/java.util=ALL-UNNAMED</flink.test.jvm-args>
         <!-- Flink's local job classloader needs application classes and dependencies on the system classpath. -->
         <quarkus.package.jar.type>uber-jar</quarkus.package.jar.type>
     </properties>
@@ -75,7 +77,19 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>@{argLine} ${flink.test.jvm-args}</argLine>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <quarkus.test.arg-line>${flink.test.jvm-args} ${fips.test.arg-line}</quarkus.test.arg-line>
+                            </systemPropertyVariables>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>

@@ -50,6 +50,7 @@ import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.typeutils.GenericTypeInfo;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.CoreOptions;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -99,6 +100,24 @@ public class FlinkDataProcessingResource {
                         FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, callback),
                 List.class);
         return result.stream().map(word -> word.word + ":" + word.count).sorted().collect(Collectors.joining(","));
+    }
+
+    @POST
+    @Path("/dataset/objenesis")
+    public String collectDataSetUsingObjenesis(String text) {
+        DataSet<String> dataSet = dataSetEnvironment().fromCollection(text.lines().toList());
+        DataSetCallback<DataSet<ConstructorOnlyValue>> callback = (ds, payloads) -> {
+            DataSet<String> words = ds;
+            // GenericTypeInfo selects Kryo; the missing no-arg constructor requires its Objenesis fallback.
+            return words.map(new ToConstructorOnlyValue())
+                    .returns(new GenericTypeInfo<>(ConstructorOnlyValue.class)).rebalance();
+        };
+        List<ConstructorOnlyValue> result = template.requestBodyAndHeaders("flink:dataset", null,
+                Map.of(FlinkConstants.FLINK_DATASET_HEADER, dataSet,
+                        FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, callback),
+                List.class);
+        return result.stream().map(value -> value.word + ":" + value.length + ":" + value.constructorInvoked)
+                .sorted().collect(Collectors.joining(","));
     }
 
     @POST
@@ -231,6 +250,26 @@ public class FlinkDataProcessingResource {
         @Override
         public WordCount map(String value) {
             return new WordCount(value, 1);
+        }
+    }
+
+    public static class ConstructorOnlyValue {
+        private String word;
+        private int length;
+        // Kryo does not serialize this flag, so false on collection proves the constructor was bypassed.
+        private transient boolean constructorInvoked;
+
+        public ConstructorOnlyValue(String word) {
+            this.word = word;
+            this.length = word.length();
+            this.constructorInvoked = true;
+        }
+    }
+
+    public static class ToConstructorOnlyValue implements MapFunction<String, ConstructorOnlyValue> {
+        @Override
+        public ConstructorOnlyValue map(String value) {
+            return new ConstructorOnlyValue(value);
         }
     }
 
