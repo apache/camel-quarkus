@@ -24,6 +24,8 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsStringIgnoringCase;
+
 @QuarkusTest
 class ZipFileTest {
     final byte[] UNCOMPRESSED = "Hello World Zip File!".getBytes(StandardCharsets.UTF_8);
@@ -46,6 +48,15 @@ class ZipFileTest {
                 .then().extract().body().asByteArray();
 
         Assertions.assertArrayEquals(UNCOMPRESSED, uncompressed);
+    }
+
+    @Test
+    public void uncompressZstdEntryWithoutZstdJniShouldFail() {
+        RestAssured.given()
+                .get("/zipfile/uncompress/zstd")
+                .then()
+                .statusCode(200)
+                .body(containsStringIgnoringCase("zstd"));
     }
 
     @Test

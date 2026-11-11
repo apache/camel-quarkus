@@ -45,8 +45,9 @@
             <artifactId>camel-zipfile</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.luben</groupId>
-            <artifactId>zstd-jni</artifactId>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>nativeimage</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -44,3 +44,20 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-zipfile-usage"]
+== Usage
+[id="extensions-zipfile-usage-reading-zstd-compressed-zip-entries"]
+=== Reading ZSTD compressed ZIP entries
+
+Reading ZIP entries compressed with the ZSTD method requires the optional `com.github.luben:zstd-jni` library.
+It is not added to the classpath by this extension, so you must add it to your application yourself.
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.luben</groupId>
+    <artifactId>zstd-jni</artifactId>
+</dependency>
+----
+
