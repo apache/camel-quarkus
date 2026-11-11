@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.qute.it;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.quarkus.arc.Arc;
+import io.quarkus.qute.Engine;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -28,8 +30,10 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.qute.QuteComponent;
 import org.apache.camel.component.qute.QuteConstants;
 
 @Path("/qute")
@@ -38,6 +42,18 @@ public class QuteResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext context;
+
+    @Path("/engine")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean isQuarkusEngine() {
+        Engine engine = Arc.container().instance(Engine.class).get();
+        QuteComponent component = context.getComponent("qute", QuteComponent.class);
+        return engine != null && component.getQuteEngine() == engine;
+    }
 
     @Path("/template")
     @POST

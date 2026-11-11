@@ -16,14 +16,8 @@
  */
 package org.apache.camel.quarkus.component.qute.deployment;
 
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.component.qute.QuteComponent;
-import org.apache.camel.quarkus.component.qute.CamelQuteRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class QuteProcessor {
 
@@ -32,15 +26,5 @@ class QuteProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelRuntimeBeanBuildItem quteComponent(CamelQuteRecorder recorder, BeanContainerBuildItem beanContainer) {
-        // set the "real" Qute engine to the Camel Qute component
-        return new CamelRuntimeBeanBuildItem(
-                "qute",
-                QuteComponent.class.getName(),
-                recorder.createQuteComponent(beanContainer.getValue()));
     }
 }

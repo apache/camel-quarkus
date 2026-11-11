@@ -33,6 +33,14 @@ class QuteTest {
     }
 
     @Test
+    public void quarkusEngineAutowired() {
+        RestAssured.get("/qute/engine")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @Test
     public void testInvalidTemplatePath() {
         RestAssured.get("/qute/template/invalid/path")
                 .then()
