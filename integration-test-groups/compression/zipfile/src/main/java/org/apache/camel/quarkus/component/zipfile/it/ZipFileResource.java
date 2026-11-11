@@ -20,9 +20,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -40,6 +43,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.commons.compress.archivers.zip.ZipMethod;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -82,6 +86,42 @@ public class ZipFileResource {
                 .header("content-length", uncompressMessage.length)
                 .entity(uncompressMessage)
                 .build();
+    }
+
+    @Path("/uncompress/zstd")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String uncompressZstd() throws Exception {
+        byte[] content = "Hello ZSTD".getBytes(StandardCharsets.UTF_8);
+        CRC32 crc = new CRC32();
+        crc.update(content);
+
+        ZipEntry entry = new ZipEntry("zstd.txt");
+        entry.setMethod(ZipEntry.STORED);
+        entry.setSize(content.length);
+        entry.setCrc(crc.getValue());
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(baos)) {
+            zipOutputStream.putNextEntry(entry);
+            zipOutputStream.write(content);
+            zipOutputStream.closeEntry();
+        }
+
+        // Rewrite the local file header compression method to ZSTD
+        ByteBuffer zip = ByteBuffer.wrap(baos.toByteArray()).order(ByteOrder.LITTLE_ENDIAN);
+        zip.putShort(8, (short) ZipMethod.ZSTD.getCode());
+
+        try {
+            producerTemplate.requestBody("direct:zipfile-uncompress", zip.array(), byte[].class);
+            return "No exception thrown";
+        } catch (Throwable t) {
+            Throwable rootCause = t;
+            while (rootCause.getCause() != null) {
+                rootCause = rootCause.getCause();
+            }
+            return rootCause.getMessage();
+        }
     }
 
     @Path("/splitIteratorShouldSucceed")

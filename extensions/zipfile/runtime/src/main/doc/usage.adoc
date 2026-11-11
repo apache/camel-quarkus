@@ -1,0 +1,12 @@
+=== Reading ZSTD compressed ZIP entries
+
+Reading ZIP entries compressed with the ZSTD method requires the optional `com.github.luben:zstd-jni` library.
+It is not added to the classpath by this extension, so you must add it to your application yourself.
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.luben</groupId>
+    <artifactId>zstd-jni</artifactId>
+</dependency>
+----
