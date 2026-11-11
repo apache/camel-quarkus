@@ -33,7 +33,6 @@ import org.zeroturnaround.exec.StartedProcess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisabledIfSystemProperty(named = "quarkus.runner", matches = ".*runner.jar", disabledReason = "https://github.com/apache/camel-quarkus/issues/4218")
 public class CommandModeTest {
 
     @Test
@@ -76,6 +75,36 @@ public class CommandModeTest {
         String truncatedCpArg = String.format("%s...", StringHelper.limitLength(classpathArg, 97));
         assertThat(result.outputUTF8()).contains("Unknown option: -cp " + truncatedCpArg);
         assertThat(result.outputUTF8()).contains("Apache Camel Runner takes the following options");
+    }
+
+    @Test
+    void testMainTerminatesOnUnknownArguments() throws InterruptedException, IOException, TimeoutException {
+        final String[] jvmArgs = new String[] {
+                "-Dquarkus.camel.main.arguments.on-unknown=fail",
+                "-Dcamel.main.duration-max-messages=1"
+        };
+
+        final ProcessResult result = new QuarkusProcessExecutor(jvmArgs, "-d", "10", "-cp", "foo.jar", "-t").execute();
+
+        assertThat(result.getExitValue()).isEqualTo(1);
+        assertThat(result.outputUTF8()).doesNotContain("Logging Hello World!");
+        assertThat(result.outputUTF8()).contains("Unknown option: -cp foo.jar");
+        assertThat(result.outputUTF8()).contains("Apache Camel Runner takes the following options");
+    }
+
+    @Test
+    void testMainIgnoresUnknownArguments() throws InterruptedException, IOException, TimeoutException {
+        final String[] jvmArgs = new String[] {
+                "-Dquarkus.camel.main.arguments.on-unknown=ignore",
+                "-Dcamel.main.duration-max-messages=1"
+        };
+
+        final ProcessResult result = new QuarkusProcessExecutor(jvmArgs, "-d", "10", "-cp", "foo.jar", "-t").execute();
+
+        assertThat(result.getExitValue()).isEqualTo(0);
+        assertThat(result.outputUTF8()).contains("Logging Hello World!");
+        assertThat(result.outputUTF8()).doesNotContain("Unknown option: -cp foo.jar");
+        assertThat(result.outputUTF8()).doesNotContain("Apache Camel Runner takes the following options");
     }
 
     @Test

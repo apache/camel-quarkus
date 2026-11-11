@@ -75,7 +75,6 @@ import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.quarkus.main.CamelMainApplication;
-import org.apache.camel.quarkus.main.CamelMainConfig;
 import org.apache.camel.quarkus.main.CamelMainRecorder;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -268,13 +267,11 @@ class CamelBootstrapProcessor {
             CamelMainRecorder recorder,
             CamelContextBuildItem context,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            List<CamelMainListenerBuildItem> listeners,
-            CamelMainConfig config) {
+            List<CamelMainListenerBuildItem> listeners) {
 
         RuntimeValue<CamelMain> main = recorder.createCamelMain(
                 context.getCamelContext(),
-                beanContainer.getValue(),
-                config.arguments().onUnknown());
+                beanContainer.getValue());
 
         for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
             // don't add routes builders that are known by the container
@@ -361,7 +358,6 @@ class CamelBootstrapProcessor {
      * @param commandLineArguments a reference to the raw command line arguments as they were passed to the application.
      * @param shutdown             a reference to a {@link ShutdownContext} used to register the Camel related shutdown
      *                             tasks.
-     * @param camelMainConfig      a {@link CamelMainConfig}
      */
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT)
@@ -379,8 +375,7 @@ class CamelBootstrapProcessor {
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
             List<CamelRuntimeTaskBuildItem> runtimeTasks,
             RawCommandLineArgumentsBuildItem commandLineArguments,
-            ShutdownContextBuildItem shutdown,
-            CamelMainConfig camelMainConfig) {
+            ShutdownContextBuildItem shutdown) {
 
         // Run the customizer before starting the context to give a last chance
         // to amend the Camel Context setup.
@@ -394,8 +389,7 @@ class CamelBootstrapProcessor {
 
         RuntimeValue<CamelRuntime> runtime = recorder.createRuntime(
                 beanContainer.getValue(),
-                main.getInstance(),
-                camelMainConfig.shutdown().timeout().toMillis());
+                main.getInstance());
 
         recorder.addShutdownTask(shutdown, runtime);
         if (index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty()) {

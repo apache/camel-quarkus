@@ -363,25 +363,25 @@ The interval at which data is updated in Camel Quarkus Dev UI pages.
 | link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
 | `5S`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-shutdown-timeout]]`link:#quarkus-camel-main-shutdown-timeout[quarkus.camel.main.shutdown.timeout]`
+a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[quarkus.camel.bootstrap.enabled]`
+
+When set to true, the {@link CamelRuntime} will be started automatically.
+| `boolean`
+| `true`
+
+a| [[quarkus-camel-main-shutdown-timeout]]`link:#quarkus-camel-main-shutdown-timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
 | link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
 | `PT3S`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-main-arguments-on-unknown]]`link:#quarkus-camel-main-arguments-on-unknown[quarkus.camel.main.arguments.on-unknown]`
+a| [[quarkus-camel-main-arguments-on-unknown]]`link:#quarkus-camel-main-arguments-on-unknown[quarkus.camel.main.arguments.on-unknown]`
 
 The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and
 throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn -
 Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
 | `fail`, `warn`, `ignore`
 | `warn`
-
-a| [[quarkus-camel-bootstrap-enabled]]`link:#quarkus-camel-bootstrap-enabled[quarkus.camel.bootstrap.enabled]`
-
-When set to true, the {@link CamelRuntime} will be started automatically.
-| `boolean`
-| `true`
 |===
 
 [.configuration-legend]

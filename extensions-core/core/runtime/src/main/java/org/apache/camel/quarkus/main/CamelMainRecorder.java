@@ -30,7 +30,6 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainListenerSupport;
-import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.CamelRuntimeConfig;
@@ -44,15 +43,18 @@ public class CamelMainRecorder {
     private static final Logger LOGGER = Logger.getLogger(CamelMainRecorder.class);
 
     private final RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig;
+    private final RuntimeValue<CamelMainRunTimeConfig> camelMainRunTimeConfig;
 
-    public CamelMainRecorder(RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig) {
+    public CamelMainRecorder(
+            RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig,
+            RuntimeValue<CamelMainRunTimeConfig> camelMainRunTimeConfig) {
         this.camelRuntimeConfig = camelRuntimeConfig;
+        this.camelMainRunTimeConfig = camelMainRunTimeConfig;
     }
 
     public RuntimeValue<CamelMain> createCamelMain(RuntimeValue<CamelContext> runtime,
-            BeanContainer container,
-            FailureRemedy failureRemedy) {
-        CamelMain main = new CamelMain(runtime.getValue(), failureRemedy);
+            BeanContainer container) {
+        CamelMain main = new CamelMain(runtime.getValue());
         main.setRoutesCollector(new CamelMainRoutesCollector());
 
         // properties are loaded through MicroProfile Config so there's
@@ -94,9 +96,10 @@ public class CamelMainRecorder {
 
     public RuntimeValue<CamelRuntime> createRuntime(
             BeanContainer beanContainer,
-            RuntimeValue<CamelMain> main,
-            long shutdownTimeoutMs) {
-        final CamelRuntime runtime = new CamelMainRuntime(main.getValue(), shutdownTimeoutMs);
+            RuntimeValue<CamelMain> main) {
+        CamelMainRunTimeConfig config = camelMainRunTimeConfig.getValue();
+        main.getValue().setUnknownArgumentRemedy(config.arguments().onUnknown());
+        final CamelRuntime runtime = new CamelMainRuntime(main.getValue(), config.shutdown().timeout().toMillis());
 
         // register to the container
         beanContainer.beanInstance(CamelProducers.class).setRuntime(runtime);
