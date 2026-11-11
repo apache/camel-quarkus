@@ -108,7 +108,7 @@ env:
   SCALPEL_FULL_BUILD_TRIGGERS: "-Dscalpel.fullBuildTriggers=poms/build-parent/**,poms/build-parent-it/**,extensions-core/**,.mvn/**,.github/workflows/ci-build.yaml"
   # Explicit paths rather than **.md / **.adoc globs: some .md and .adoc files are build inputs (test fixtures, packaged resources, doc templates).
   # Scalpel forces a full build for any changed root file that is not excluded. Patterns without a / match at any depth.
-  SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=docs/**,camel-quarkus-sbom/**,.oss-ai-helper-rules/**,.github/*.sh,**/src/main/doc/**,**/README.md,**/README.adoc,README.adoc,AGENTS.md,CLAUDE.md,CHANGELOG.md,SECURITY.md,Jenkinsfile*,LICENSE.txt,NOTICE.txt,KEYS,.asf.yaml,.gitattributes,.gitignore,.gitleaks.toml"
+  SCALPEL_EXCLUDE_PATHS: "-Dscalpel.excludePaths=docs/**,camel-quarkus-sbom/**,.oss-ai-helper-rules/**,.github/*.sh,.github/*.yml,.github/*.yaml,.github/*.md,**/src/main/doc/**,**/README.md,**/README.adoc,README.adoc,AGENTS.md,CLAUDE.md,CHANGELOG.md,SECURITY.md,Jenkinsfile*,LICENSE.txt,NOTICE.txt,KEYS,.asf.yaml,.gitattributes,.gitignore,.gitleaks.toml"
   CQ_MAVEN_SKIP_CHECKS: "-Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip"
   DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
