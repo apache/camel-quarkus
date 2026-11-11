@@ -30,7 +30,7 @@ public class QuteComponent extends DefaultComponent {
 
     @Metadata(defaultValue = "false")
     private boolean allowTemplateFromHeader;
-    @Metadata(label = "advanced")
+    @Metadata(label = "advanced", autowired = true)
     private Engine quteEngine;
 
     public QuteComponent() {
