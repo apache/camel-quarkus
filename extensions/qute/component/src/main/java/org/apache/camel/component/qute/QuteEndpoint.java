@@ -122,12 +122,6 @@ public class QuteEndpoint extends ResourceEndpoint {
         });
     }
 
-    public QuteEndpoint findOrCreateEndpoint(String uri, String newResourceUri) {
-        String newUri = uri.replace(getResourceUri(), newResourceUri);
-        log.debug("Getting endpoint with URI: {}", newUri);
-        return getCamelContext().getEndpoint(newUri, QuteEndpoint.class);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     protected void onExchange(Exchange exchange) throws Exception {
@@ -139,11 +133,8 @@ public class QuteEndpoint extends ResourceEndpoint {
             if (newResourceUri != null) {
                 exchange.getIn().removeHeader(QuteConstants.QUTE_RESOURCE_URI);
 
-                log.debug("{} set to {} creating new endpoint to handle exchange", QuteConstants.QUTE_RESOURCE_URI,
-                        newResourceUri);
-                QuteEndpoint newEndpoint = findOrCreateEndpoint(getEndpointUri(), newResourceUri);
-                newEndpoint.onExchange(exchange);
-                return;
+                log.debug("{} set to {}, using it as the template path", QuteConstants.QUTE_RESOURCE_URI, newResourceUri);
+                path = newResourceUri;
             }
         }
 

@@ -63,6 +63,19 @@ public class QuteResource {
                 QuteConstants.QUTE_TEMPLATE, content, String.class);
     }
 
+    @Path("/template/resource/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTemplateFromResourceUriHeader(@PathParam("name") String name) {
+        int endpointCount = context.getEndpoints().size();
+        String result = producerTemplate.requestBodyAndHeader("direct:dynamic", "World",
+                QuteConstants.QUTE_RESOURCE_URI, name, String.class);
+        if (context.getEndpoints().size() != endpointCount) {
+            throw new IllegalStateException("Unexpected endpoint created for template " + name);
+        }
+        return result;
+    }
+
     @Path("/template/{name}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

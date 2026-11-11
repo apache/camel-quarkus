@@ -57,6 +57,14 @@ class QuteTest {
     }
 
     @Test
+    public void testTemplateResourceUriFromHeader() {
+        RestAssured.get("/qute/template/resource/hello.txt")
+                .then()
+                .statusCode(200)
+                .body(is("Hello World"));
+    }
+
+    @Test
     public void testDynamicTemplateWithContentType() {
         String template = """
                 <html>
