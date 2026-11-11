@@ -7,5 +7,9 @@
     "price": {
       "type": "number"
     }
-  }
+  },
+  "required": [
+    "name",
+    "price"
+  ]
 }
