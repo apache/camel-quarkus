@@ -200,7 +200,6 @@ group-10:
   - ibm-watson-language
   - mail
   - platform-http-proxy
-  - platform-http-proxy-ssl
   - solr
   - swift
   - tls-registry

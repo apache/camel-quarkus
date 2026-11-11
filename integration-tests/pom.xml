@@ -219,7 +219,6 @@
         <module>pinecone</module>
         <module>platform-http</module>
         <module>platform-http-proxy</module>
-        <module>platform-http-proxy-ssl</module>
         <module>pqc</module>
         <module>protobuf</module>
         <module>pubnub</module>

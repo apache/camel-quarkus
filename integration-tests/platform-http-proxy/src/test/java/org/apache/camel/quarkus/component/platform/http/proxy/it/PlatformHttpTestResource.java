@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.platform.http.proxy.it;
 
 import java.util.Map;
 
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class PlatformHttpTestResource extends WireMockTestResourceLifecycleManager {
@@ -39,9 +40,19 @@ public class PlatformHttpTestResource extends WireMockTestResourceLifecycleManag
     public Map<String, String> start() {
         Map<String, String> options = super.start();
         if (options.containsKey("wiremock.url")) {
-            String wiremockUrl = options.get("wiremock.url");
-            options.put("platform.origin.url", wiremockUrl);
+            options.put("platform.origin.url", options.get("wiremock.url"));
+        }
+        if (options.containsKey("wiremock.url.ssl")) {
+            options.put("platform.origin.url.ssl", options.get("wiremock.url.ssl"));
         }
         return options;
+    }
+
+    @Override
+    protected void customizeWiremockConfiguration(WireMockConfiguration config) {
+        config.dynamicHttpsPort();
+        config.keystorePath("target/certs/proxy-ssl-keystore.p12");
+        config.keystorePassword("changeit");
+        config.keyManagerPassword("changeit");
     }
 }

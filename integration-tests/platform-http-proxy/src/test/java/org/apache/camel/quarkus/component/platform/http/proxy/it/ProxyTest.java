@@ -20,22 +20,41 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "proxy-ssl", formats = {
+                Format.PKCS12 }, password = "changeit") })
 @QuarkusTest
 @QuarkusTestResource(PlatformHttpTestResource.class)
-public class ProxyTest {
+class ProxyTest {
     @Test
     void testProxy() {
-
-        final var proxyUrl = "http://localhost:" + RestAssured.port;
-
         String url = given()
                 .get("/platform-http-proxy")
                 .body().asString();
+
+        assertProxied(url);
+    }
+
+    @Test
+    void testProxySsl() {
+        String url = given()
+                .get("/platform-http-proxy/ssl")
+                .body().asString();
+
+        // forcing RestAssured to send a GET instead of CONNECT with proxy settings
+        assertProxied(url.replace("https", "http"));
+    }
+
+    private static void assertProxied(String url) {
+        final var proxyUrl = "http://localhost:" + RestAssured.port;
 
         given()
                 .proxy(proxyUrl)
@@ -54,5 +73,4 @@ public class ProxyTest {
                 .statusCode(200)
                 .body(equalTo("{\"message\": \"Hello World!\"}"));
     }
-
 }

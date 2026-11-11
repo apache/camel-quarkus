@@ -28,9 +28,17 @@ public class PlatformHttpProxyResource {
     @ConfigProperty(name = "platform.origin.url")
     String url;
 
+    @ConfigProperty(name = "platform.origin.url.ssl")
+    String sslUrl;
+
     @GET
     public String getUrl() {
         return url;
     }
 
+    @Path("/ssl")
+    @GET
+    public String getSslUrl() {
+        return sslUrl;
+    }
 }
