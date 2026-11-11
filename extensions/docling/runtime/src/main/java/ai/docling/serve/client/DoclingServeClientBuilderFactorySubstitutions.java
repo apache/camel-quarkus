@@ -19,12 +19,12 @@ package ai.docling.serve.client;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 
-// Remove references to Jackson 3.x
+// Remove references to Jackson 2.x
 @TargetClass(DoclingServeClientBuilderFactory.class)
 final class DoclingServeClientBuilderFactorySubstitutions {
     @Substitute
     public static <C extends DoclingServeClient, B extends DoclingServeClient.DoclingServeClientBuilder<C, B>> B newBuilder(
             ClassLoader classLoader) {
-        return (B) DoclingServeJackson2Client.builder();
+        return (B) DoclingServeJackson3Client.builder();
     }
 }
