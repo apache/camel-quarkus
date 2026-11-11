@@ -50,6 +50,7 @@ updates:
       - dependency-name: "io.micrometer:micrometer-tracing"
       - dependency-name: "org.jolokia:jolokia-agent-jvm"
       - dependency-name: "com.auth0:java-jwt"
+      - dependency-name: "org.json:json"
       # Test dependencies
       - dependency-name: "org.wiremock:wiremock-standalone"
       - dependency-name: "com.unboundid:unboundid-ldapsdk"
