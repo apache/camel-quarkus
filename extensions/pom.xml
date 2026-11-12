@@ -370,6 +370,9 @@
                                         <wasm-language>
                                             <xrefPrefix>remove</xrefPrefix>
                                         </wasm-language>
+                                        <ognl>
+                                            <xrefPrefix>remove</xrefPrefix>
+                                        </ognl>
                                     </componentLinkOverrides>
 
                                 </configuration>

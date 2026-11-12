@@ -23,9 +23,9 @@ Evaluates an OGNL expression (Apache Commons OGNL)
 [id="extensions-ognl-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:languages:ognl-language.adoc[OGNL language]
+* OGNL
 
-Please refer to the above link for usage and configuration details.
+
 
 [id="extensions-ognl-maven-coordinates"]
 == Maven coordinates
