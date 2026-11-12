@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-integration-test-platform-http-proxy</artifactId>
     <name>Camel Quarkus :: Integration Tests :: Platform HTTP Proxy</name>
-    <description>Integration tests for Camel Quarkus platform-http extension - Proxy</description>
+    <description>Integration tests for Camel Quarkus platform-http extension - Proxy over HTTP and HTTPS</description>
 
     <dependencies>
 
@@ -62,6 +62,11 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-certificate-generator</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

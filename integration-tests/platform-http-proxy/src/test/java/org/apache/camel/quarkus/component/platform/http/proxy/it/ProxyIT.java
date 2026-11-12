@@ -14,23 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.platform.http.proxy.ssl.it;
+package org.apache.camel.quarkus.component.platform.http.proxy.it;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@ApplicationScoped
-@Path("/platform-http-proxy-ssl")
-public class PlatformHttpProxySslResource {
-
-    @ConfigProperty(name = "platform.origin.url")
-    String url;
-
-    @GET
-    public String getUrl() {
-        return url;
-    }
-
+@QuarkusIntegrationTest
+class ProxyIT extends ProxyTest {
 }
