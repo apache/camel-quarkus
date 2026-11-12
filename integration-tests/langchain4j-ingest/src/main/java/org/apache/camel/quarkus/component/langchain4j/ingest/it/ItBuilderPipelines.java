@@ -71,6 +71,15 @@ public class ItBuilderPipelines {
                 .embeddingModel("audio-model");
     }
 
+    /** Media without a content type: the type comes from the id's extension, an id without one is filtered. */
+    @Ingest("sounds")
+    IngestPipeline sounds() {
+        return IngestPipeline.from(Source.endpoint(direct("sounds-feed")))
+                .modality("media")
+                .embeddingStore("audio-store")
+                .embeddingModel("audio-model");
+    }
+
     /**
      * The lambda form of the Endpoint DSL — nothing imported, the IDE lists every component off
      * {@code dsl.}. The object key identifies the document, and the store addresses buckets by
