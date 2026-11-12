@@ -22,6 +22,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class QuteSetTemplateViaHeaderTest extends QuteTestBase {
     private Exchange createLetter(String template) {
         Exchange exchange = context.getEndpoint("direct:a").createExchange();
@@ -36,6 +38,8 @@ public class QuteSetTemplateViaHeaderTest extends QuteTestBase {
 
     @Test
     public void testLetter() throws Exception {
+        int endpointCount = context.getEndpoints().size();
+
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(1);
         mock.message(0).body(String.class).contains("Thanks for the order of Camel in Action");
@@ -52,6 +56,8 @@ public class QuteSetTemplateViaHeaderTest extends QuteTestBase {
         template.send("direct:a", createLetter("org/apache/camel/component/qute/letter2.txt"));
 
         mock.assertIsSatisfied();
+
+        assertEquals(endpointCount, context.getEndpoints().size());
     }
 
     @Override
