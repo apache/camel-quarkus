@@ -24,18 +24,18 @@ import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithDefault;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 
-@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
 @ConfigMapping(prefix = "quarkus.camel.main")
-public interface CamelMainConfig {
+public interface CamelMainRunTimeConfig {
     /**
-     * Build time configuration options for `CamelMain` shutdown.
+     * Runtime configuration options for `CamelMain` shutdown.
      *
      * @asciidoclet
      */
     ShutdownConfig shutdown();
 
     /**
-     * Build time configuration options for `CamelMain` arguments
+     * Runtime configuration options for `CamelMain` arguments
      *
      * @asciidoclet
      */

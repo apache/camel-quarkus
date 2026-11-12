@@ -39,11 +39,14 @@ import org.apache.camel.util.StringHelper;
 
 public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
     private final AtomicBoolean engineStarted;
-    private final FailureRemedy failureRemedy;
+    private FailureRemedy failureRemedy = FailureRemedy.warn;
 
-    public CamelMain(CamelContext camelContext, FailureRemedy failureRemedy) {
+    public CamelMain(CamelContext camelContext) {
         this.camelContext = camelContext;
         this.engineStarted = new AtomicBoolean();
+    }
+
+    void setUnknownArgumentRemedy(FailureRemedy failureRemedy) {
         this.failureRemedy = failureRemedy;
     }
 

@@ -71,7 +71,6 @@ group-03:
   - mail-microsoft-oauth
   - main
   - main-command-mode
-  - main-unknown-args-fail
   - main-xml-io
   - main-xml-jaxb
   - main-yaml
@@ -155,7 +154,6 @@ group-08:
   - joor
   - jq
   - langchain4j-chat
-  - main-unknown-args-ignore
   - master-file
   - pdf
   - pinecone
