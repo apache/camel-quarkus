@@ -369,6 +369,50 @@ class IncrementalBuildMojoTest {
     }
 
     @Test
+    void groupTestsAggregatorChangeOutsideSourceDirsIncludesNoConsumers() throws Exception {
+        Files.createDirectories(projectRoot.resolve("integration-test-groups/xml/jvm"));
+        Files.createDirectories(projectRoot.resolve("integration-test-groups/xml/native"));
+        writeConsumerPom("integration-tests-jvm/xml-grouped", "group", "integration-test-groups/xml/jvm");
+        writeConsumerPom("integration-tests/xml-grouped", "group", "integration-test-groups/xml/native");
+        writeReport(false, List.of(module("integration-test-groups/xml", "DIRECT")), null,
+                List.of("integration-test-groups/xml/pom.xml"));
+
+        Map<String, Object> output = execute();
+
+        assertEquals(true, output.get("incrementalBuild"));
+        assertEquals(List.of(), output.get("affectedModules"));
+        assertEquals(Map.of("runTests", false, "modules", ""), output.get("integrationTestsJvm"));
+    }
+
+    @Test
+    void groupTestsAggregatorChangeIncludesConsumersOfSourceDirWithChangedFiles() throws Exception {
+        Files.createDirectories(projectRoot.resolve("integration-test-groups/xml/jvm"));
+        Files.createDirectories(projectRoot.resolve("integration-test-groups/xml/native"));
+        writeConsumerPom("integration-tests-jvm/xml-grouped", "group", "integration-test-groups/xml/jvm");
+        writeConsumerPom("integration-tests/xml-grouped", "group", "integration-test-groups/xml/native");
+        writeReport(false, List.of(module("integration-test-groups/xml", "DIRECT")), null,
+                List.of("integration-test-groups/xml/pom.xml",
+                        "integration-test-groups/xml/jvm/removed/pom.xml"));
+
+        Map<String, Object> output = execute();
+
+        assertEquals(List.of(), output.get("affectedModules"));
+        assertEquals(Map.of("runTests", true, "modules", "xml-grouped"), output.get("integrationTestsJvm"));
+    }
+
+    @Test
+    void copyTestsConsumersNotIncludedForUnrelatedAggregatorChange() throws Exception {
+        Files.createDirectories(projectRoot.resolve("integration-tests/foo"));
+        writeConsumerPom("integration-tests/foo-copy", "copy", "integration-tests/foo");
+        writeReport(false, List.of(
+                module("integration-tests", "DIRECT"),
+                module("integration-tests/bar", "DIRECT")), null,
+                List.of("integration-tests/pom.xml", "integration-tests/bar/pom.xml"));
+
+        assertEquals(List.of("bar"), execute().get("affectedModules"));
+    }
+
+    @Test
     void groupedModuleNameHeuristicUsedWithoutDeclaredSourceDir() throws Exception {
         writeReport(false, List.of(module("integration-test-groups/foo/bar", "DIRECT")));
 
@@ -513,9 +557,17 @@ class IncrementalBuildMojoTest {
 
     private void writeReport(boolean fullBuildTriggered, List<Map<String, Object>> affectedModules,
             List<String> changedProperties) throws IOException {
+        writeReport(fullBuildTriggered, affectedModules, changedProperties, null);
+    }
+
+    private void writeReport(boolean fullBuildTriggered, List<Map<String, Object>> affectedModules,
+            List<String> changedProperties, List<String> changedFiles) throws IOException {
         Map<String, Object> report = new LinkedHashMap<>();
         report.put("fullBuildTriggered", fullBuildTriggered);
         report.put("affectedModules", affectedModules);
+        if (changedFiles != null) {
+            report.put("changedFiles", changedFiles);
+        }
         if (changedProperties != null) {
             report.put("changedProperties", changedProperties);
         }
