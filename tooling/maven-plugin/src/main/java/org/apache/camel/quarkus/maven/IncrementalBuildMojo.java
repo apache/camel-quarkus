@@ -574,7 +574,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             }
 
             boolean isJvm = trimmedPrefix.equals(jvmTestsPrefix.trim());
-            scanTestResourceFiles(dir, changedProps, (moduleName) -> {
+            scanTestResourceFiles(dir, changedProps, (moduleName, file) -> {
                 if (isJvm) {
                     result.jvmModules.add(moduleName);
                 } else {
@@ -586,16 +586,15 @@ public class IncrementalBuildMojo extends AbstractMojo {
         // Scan integration-test-groups/ for direct references
         Path groupsDir = projectRootDir.resolve(integrationTestGroupsPrefix.trim());
         if (Files.isDirectory(groupsDir)) {
-            scanTestResourceFiles(groupsDir, changedProps, (moduleName) -> {
-                result.nativeModules.add(moduleName + "-grouped");
-            });
+            scanTestResourceFiles(groupsDir, changedProps,
+                    (groupName, file) -> addGroupingModules(groupName, file.getParent(), result));
         }
 
         // Scan integration-tests-support/ for references in shared modules
         Path supportDir = projectRootDir.resolve(integrationTestSupportPrefix.trim());
         if (Files.isDirectory(supportDir)) {
             Set<String> affectedSupportModules = new LinkedHashSet<>();
-            scanTestResourceFiles(supportDir, changedProps, affectedSupportModules::add);
+            scanTestResourceFiles(supportDir, changedProps, (moduleName, file) -> affectedSupportModules.add(moduleName));
 
             if (!affectedSupportModules.isEmpty()) {
                 getLog().info("Container properties referenced in support modules: " + affectedSupportModules);
@@ -628,23 +627,52 @@ public class IncrementalBuildMojo extends AbstractMojo {
             paths.add(normalizePath(jvmTestsPrefix.trim()) + "/" + moduleName);
         }
 
-        for (String consumer : findTransitiveConsumers(paths, null)) {
-            if (consumer.startsWith(jvmTestsPrefix)) {
-                result.jvmModules.add(consumer.substring(jvmTestsPrefix.length()));
-            } else if (consumer.startsWith(nativeTestsPrefix)) {
-                result.nativeModules.add(consumer.substring(nativeTestsPrefix.length()));
+        addTestModules(findTransitiveConsumers(paths, null), result);
+    }
+
+    /**
+     * Adds the modules grouping the sources of {@code moduleDir}, a directory under
+     * {@code integration-test-groups/<group>/}. The grouping modules, and whether they are native or JVM only, are
+     * resolved from their declared {@code group-tests.source.dir}. Without one, falls back to a native
+     * {@code <group>-grouped} module.
+     */
+    private void addGroupingModules(String groupName, Path moduleDir, ContainerAffectedModules result)
+            throws IOException {
+        String path = normalizePath(projectRootDir.relativize(moduleDir).toString());
+        Set<String> consumers = findTransitiveConsumers(Set.of(path), null);
+        if (consumers.isEmpty()) {
+            result.nativeModules.add(groupName + "-grouped");
+        } else {
+            addTestModules(consumers, result);
+        }
+    }
+
+    /**
+     * Adds test module {@code paths}, relative to the project root, to the native or JVM module list according to
+     * their prefix.
+     */
+    private void addTestModules(Set<String> paths, ContainerAffectedModules result) {
+        for (String path : paths) {
+            if (path.startsWith(jvmTestsPrefix)) {
+                result.jvmModules.add(path.substring(jvmTestsPrefix.length()));
+            } else if (path.startsWith(nativeTestsPrefix)) {
+                result.nativeModules.add(path.substring(nativeTestsPrefix.length()));
             }
         }
     }
 
     @FunctionalInterface
     private interface ModuleConsumer {
-        void accept(String moduleName);
+        /**
+         * @param moduleName the top-level module directory name below the scanned directory
+         * @param file       the matched file
+         */
+        void accept(String moduleName, Path file) throws IOException;
     }
 
     /**
      * Walks a directory for TestResource.java files containing any of the given property names.
-     * For each match, extracts the top-level module name and passes it to the consumer.
+     * For each match, passes the top-level module name and the matched file to the consumer.
      */
     private void scanTestResourceFiles(Path dir, Set<String> changedProps, ModuleConsumer consumer) throws IOException {
         walkSourceFiles(dir, name -> name.endsWith("TestResource.java"), file -> {
@@ -652,7 +680,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             for (String prop : changedProps) {
                 if (content.contains("\"" + prop + "\"")) {
                     Path relative = dir.relativize(file);
-                    consumer.accept(relative.getName(0).toString());
+                    consumer.accept(relative.getName(0).toString(), file);
                     break;
                 }
             }
@@ -679,7 +707,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
                 }
 
                 boolean isJvm = trimmedPrefix.equals(jvmTestsPrefix.trim());
-                findDependentModules(dir, artifactId, (moduleName) -> {
+                findDependentModules(dir, artifactId, (moduleName, pomFile) -> {
                     if (isJvm) {
                         result.jvmModules.add(moduleName);
                     } else {
@@ -691,9 +719,8 @@ public class IncrementalBuildMojo extends AbstractMojo {
             // Search integration-test-groups/*/*/pom.xml
             Path groupsDir = projectRootDir.resolve(integrationTestGroupsPrefix.trim());
             if (Files.isDirectory(groupsDir)) {
-                findDependentModules(groupsDir, artifactId, (moduleName) -> {
-                    result.nativeModules.add(moduleName + "-grouped");
-                });
+                findDependentModules(groupsDir, artifactId,
+                        (groupName, pomFile) -> addGroupingModules(groupName, pomFile.getParent(), result));
             }
         }
     }
@@ -707,7 +734,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             if (content.contains(artifactId)) {
                 Path relative = dir.relativize(pomFile);
                 String moduleName = relative.getName(0).toString();
-                consumer.accept(moduleName);
+                consumer.accept(moduleName, pomFile);
                 getLog().debug("  " + moduleName + " depends on " + artifactId);
             }
         });
@@ -862,13 +889,12 @@ public class IncrementalBuildMojo extends AbstractMojo {
             return result;
         }
 
-        if (report.affectedModules.isEmpty()) {
-            return result;
-        }
-
         Set<String> jvmModules = new LinkedHashSet<>();
         for (Map<String, Object> module : report.affectedModules) {
             String path = (String) module.get("path");
+            if ("UPSTREAM".equals(module.get("category"))) {
+                continue;
+            }
             if (path != null && path.startsWith(jvmTestsPrefix)) {
                 String moduleName = path.substring(jvmTestsPrefix.length());
                 if (moduleName.contains("/")) {
