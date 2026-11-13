@@ -208,3 +208,9 @@ In previous releases, a Quarkus TLS configuration with `quarkus.tls.<name>.trust
 These components now honor `trust-all`, and accept any server certificate. Review TLS configurations that set `trust-all=true` and are used by Camel components.
 
 The same components can now also use the key store and trust store of a bridged configuration, for example to present a client certificate.
+
+== `camel-quarkus-ognl` removed
+
+The `camel-quarkus-ognl` extension was removed, because the `camel-ognl` component was removed from Apache Camel.
+
+Use another expression language instead, such as `simple` or `groovy`.
