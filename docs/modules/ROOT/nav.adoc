@@ -254,7 +254,6 @@
 *** xref:reference/extensions/oaipmh.adoc[OAI-PMH]
 *** xref:reference/extensions/ocsf.adoc[OCSF]
 *** xref:reference/extensions/odata.adoc[OData]
-*** xref:reference/extensions/ognl.adoc[OGNL]
 *** xref:reference/extensions/milo.adoc[OPC UA Browser]
 *** xref:reference/extensions/oauth.adoc[Oauth]
 *** xref:reference/extensions/observability-services.adoc[Observability Services]
