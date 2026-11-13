@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel CXF"
-description: "Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client"
+description: "Expose SOAP services, or invoke operations of SOAP services, using Apache CXF"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   sponsor: "Apache Software Foundation"
