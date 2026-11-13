@@ -200,3 +200,9 @@ The internal `camel-quarkus-support-retrofit` artifact was removed.
 `camel-quarkus-consul`, `camel-quarkus-influxdb`, `camel-quarkus-langchain4j-web-search` and `camel-quarkus-pubnub` no longer bring in `io.quarkus:quarkus-kotlin`. `camel-quarkus-langchain4j-web-search` also no longer brings in `com.squareup.retrofit2:retrofit`.
 
 An application that relies on either of these dependencies must declare them itself.
+
+== `camel-quarkus-ognl` removed
+
+The `camel-quarkus-ognl` extension was removed, because the `camel-ognl` component was removed from Apache Camel.
+
+Use another expression language instead, such as `simple` or `groovy`.
