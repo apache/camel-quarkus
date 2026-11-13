@@ -211,7 +211,8 @@ public class IncrementalBuildMojo extends AbstractMojo {
         Map<String, Object> raw = jsonMapper.readValue(scalpelReportJson.toFile(), JSON_TYPE_REF);
         ScalpelReport report = expandGeneratedSourceConsumers(
                 Boolean.TRUE.equals(raw.get("fullBuildTriggered")),
-                (List<Map<String, Object>>) raw.get("affectedModules"));
+                (List<Map<String, Object>>) raw.get("affectedModules"),
+                (List<String>) raw.get("changedFiles"));
 
         // Matches the properties written by tooling/scripts/generate-test-containers-config-properties.groovy
         List<String> changedProperties = (List<String>) raw.get("changedProperties");
@@ -235,12 +236,14 @@ public class IncrementalBuildMojo extends AbstractMojo {
      * Likewise {@code integration-tests-jvm/xml-grouped} groups the modules under
      * {@code integration-test-groups/xml/jvm}.
      * <p>
-     * Consumers are matched both for changes inside a declared source directory and for changes at or above it, so
-     * that a change to an aggregator pom such as {@code integration-test-groups/xml} pulls in every consumer beneath
-     * it.
+     * Consumers are matched for affected modules inside a declared source directory. An affected aggregator above it,
+     * such as {@code integration-tests} or {@code integration-test-groups/xml}, only matches when one of
+     * {@code changedFiles} lies inside the source directory, as when a module beneath it is added or removed. Other
+     * aggregator changes, like listing a module outside the source directory, do not alter the consumed sources.
+     * Without {@code changedFiles}, every affected aggregator matches.
      */
     private ScalpelReport expandGeneratedSourceConsumers(boolean fullBuildTriggered,
-            List<Map<String, Object>> affectedModules) throws IOException {
+            List<Map<String, Object>> affectedModules, List<String> changedFiles) throws IOException {
 
         if (affectedModules == null || affectedModules.isEmpty()) {
             return new ScalpelReport(fullBuildTriggered, affectedModules, Set.of());
@@ -254,9 +257,17 @@ public class IncrementalBuildMojo extends AbstractMojo {
             }
         }
 
+        Set<String> normalizedChangedFiles = null;
+        if (changedFiles != null) {
+            normalizedChangedFiles = new LinkedHashSet<>();
+            for (String changedFile : changedFiles) {
+                normalizedChangedFiles.add(normalizePath(changedFile));
+            }
+        }
+
         // Paths whose consumers are known precisely, so that heuristics elsewhere can be skipped for them
         Set<String> resolvedPaths = new LinkedHashSet<>();
-        Set<String> consumers = findTransitiveConsumers(affectedPaths, resolvedPaths);
+        Set<String> consumers = findTransitiveConsumers(affectedPaths, resolvedPaths, normalizedChangedFiles);
         if (consumers.isEmpty()) {
             return new ScalpelReport(fullBuildTriggered, affectedModules, resolvedPaths);
         }
@@ -276,8 +287,12 @@ public class IncrementalBuildMojo extends AbstractMojo {
      * Returns the paths of all modules transitively consuming the sources of any of {@code paths}, excluding
      * {@code paths} themselves. Input paths that matched a declared source directory are added to
      * {@code resolvedPaths} when it is non-null.
+     * <p>
+     * When {@code changedFiles} is non-null, a path above a source directory only matches its consumers if one of
+     * {@code changedFiles} lies inside that source directory.
      */
-    private Set<String> findTransitiveConsumers(Set<String> paths, Set<String> resolvedPaths) throws IOException {
+    private Set<String> findTransitiveConsumers(Set<String> paths, Set<String> resolvedPaths, Set<String> changedFiles)
+            throws IOException {
         Map<String, Set<String>> sourceToConsumers = generatedSourceConsumers();
         if (sourceToConsumers.isEmpty()) {
             return Set.of();
@@ -299,8 +314,13 @@ public class IncrementalBuildMojo extends AbstractMojo {
                         continue;
                     }
 
+                    // Resolved even when skipped below, so that the grouped module name heuristic does not re-add
+                    // the consumers of an aggregator whose change leaves their sources untouched
                     if (resolvedPaths != null) {
                         resolvedPaths.add(path);
+                    }
+                    if (aboveSource && changedFiles != null && !containsPathInside(changedFiles, sourcePath)) {
+                        continue;
                     }
                     for (String consumer : entry.getValue()) {
                         if (seen.add(consumer)) {
@@ -315,6 +335,15 @@ public class IncrementalBuildMojo extends AbstractMojo {
         }
 
         return consumers;
+    }
+
+    private static boolean containsPathInside(Set<String> paths, String dir) {
+        for (String path : paths) {
+            if (path.startsWith(dir + "/")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -627,7 +656,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
             paths.add(normalizePath(jvmTestsPrefix.trim()) + "/" + moduleName);
         }
 
-        addTestModules(findTransitiveConsumers(paths, null), result);
+        addTestModules(findTransitiveConsumers(paths, null, null), result);
     }
 
     /**
@@ -639,7 +668,7 @@ public class IncrementalBuildMojo extends AbstractMojo {
     private void addGroupingModules(String groupName, Path moduleDir, ContainerAffectedModules result)
             throws IOException {
         String path = normalizePath(projectRootDir.relativize(moduleDir).toString());
-        Set<String> consumers = findTransitiveConsumers(Set.of(path), null);
+        Set<String> consumers = findTransitiveConsumers(Set.of(path), null, null);
         if (consumers.isEmpty()) {
             result.nativeModules.add(groupName + "-grouped");
         } else {
