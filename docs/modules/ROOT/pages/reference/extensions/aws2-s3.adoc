@@ -4,6 +4,7 @@
 = AWS 2 S3 Storage Service
 :page-aliases: extensions/aws2-s3.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-s3
 :cq-artifact-id: camel-quarkus-aws2-s3
 :cq-native-supported: true
 :cq-status: Stable

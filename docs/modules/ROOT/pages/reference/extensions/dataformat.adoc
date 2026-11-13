@@ -4,6 +4,7 @@
 = Data Format
 :page-aliases: extensions/dataformat.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dataformat
 :cq-artifact-id: camel-quarkus-dataformat
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-thrift"]
 = Thrift
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-thrift
 :cq-artifact-id: camel-quarkus-thrift
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = XPath
 :page-aliases: extensions/xpath.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xpath
 :cq-artifact-id: camel-quarkus-xpath
 :cq-native-supported: true
 :cq-status: Stable

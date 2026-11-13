@@ -3,6 +3,7 @@
 [id="extensions-stax"]
 = StAX
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-stax
 :cq-artifact-id: camel-quarkus-stax
 :cq-native-supported: true
 :cq-status: Stable

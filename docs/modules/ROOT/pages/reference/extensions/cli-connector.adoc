@@ -3,6 +3,7 @@
 [id="extensions-cli-connector"]
 = CLI Connector
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cli-connector
 :cq-artifact-id: camel-quarkus-cli-connector
 :cq-native-supported: false
 :cq-status: Preview

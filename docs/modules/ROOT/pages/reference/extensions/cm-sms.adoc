@@ -3,6 +3,7 @@
 [id="extensions-cm-sms"]
 = CM SMS Gateway
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cm-sms
 :cq-artifact-id: camel-quarkus-cm-sms
 :cq-native-supported: false
 :cq-status: Preview

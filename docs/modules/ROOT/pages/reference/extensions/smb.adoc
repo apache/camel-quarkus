@@ -3,6 +3,7 @@
 [id="extensions-smb"]
 = SMB
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-smb
 :cq-artifact-id: camel-quarkus-smb
 :cq-native-supported: true
 :cq-status: Stable

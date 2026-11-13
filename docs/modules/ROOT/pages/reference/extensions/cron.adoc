@@ -4,6 +4,7 @@
 = Cron
 :page-aliases: extensions/cron.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cron
 :cq-artifact-id: camel-quarkus-cron
 :cq-native-supported: true
 :cq-status: Stable

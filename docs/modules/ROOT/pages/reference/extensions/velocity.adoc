@@ -3,6 +3,7 @@
 [id="extensions-velocity"]
 = Velocity
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-velocity
 :cq-artifact-id: camel-quarkus-velocity
 :cq-native-supported: true
 :cq-status: Stable

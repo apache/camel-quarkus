@@ -3,6 +3,7 @@
 [id="extensions-dropbox"]
 = Dropbox
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dropbox
 :cq-artifact-id: camel-quarkus-dropbox
 :cq-native-supported: true
 :cq-status: Stable

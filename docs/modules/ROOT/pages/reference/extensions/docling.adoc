@@ -3,6 +3,7 @@
 [id="extensions-docling"]
 = Docling
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-docling
 :cq-artifact-id: camel-quarkus-docling
 :cq-native-supported: true
 :cq-status: Stable

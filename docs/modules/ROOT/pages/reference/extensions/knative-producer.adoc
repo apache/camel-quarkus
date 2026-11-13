@@ -3,6 +3,7 @@
 [id="extensions-knative-producer"]
 = Knative Producer
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-knative-producer
 :cq-artifact-id: camel-quarkus-knative-producer
 :cq-native-supported: true
 :cq-status: Stable

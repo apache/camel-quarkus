@@ -3,6 +3,7 @@
 [id="extensions-flatpack"]
 = Flatpack
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-flatpack
 :cq-artifact-id: camel-quarkus-flatpack
 :cq-native-supported: true
 :cq-status: Stable

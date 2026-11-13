@@ -4,6 +4,7 @@
 = AS2
 :page-aliases: extensions/as2.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-as2
 :cq-artifact-id: camel-quarkus-as2
 :cq-native-supported: true
 :cq-status: Stable

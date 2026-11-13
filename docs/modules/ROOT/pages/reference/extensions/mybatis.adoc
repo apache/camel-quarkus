@@ -3,6 +3,7 @@
 [id="extensions-mybatis"]
 = MyBatis
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mybatis
 :cq-artifact-id: camel-quarkus-mybatis
 :cq-native-supported: true
 :cq-status: Stable

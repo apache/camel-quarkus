@@ -3,6 +3,7 @@
 [id="extensions-jcache"]
 = JCache
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jcache
 :cq-artifact-id: camel-quarkus-jcache
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-cxf-soap"]
 = CXF
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cxf-soap
 :cq-artifact-id: camel-quarkus-cxf-soap
 :cq-native-supported: true
 :cq-status: Stable

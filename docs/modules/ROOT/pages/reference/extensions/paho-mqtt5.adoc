@@ -3,6 +3,7 @@
 [id="extensions-paho-mqtt5"]
 = Paho MQTT5
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-paho-mqtt5
 :cq-artifact-id: camel-quarkus-paho-mqtt5
 :cq-native-supported: true
 :cq-status: Stable

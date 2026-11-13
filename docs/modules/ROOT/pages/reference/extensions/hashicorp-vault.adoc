@@ -3,6 +3,7 @@
 [id="extensions-hashicorp-vault"]
 = Hashicorp Vault
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-hashicorp-vault
 :cq-artifact-id: camel-quarkus-hashicorp-vault
 :cq-native-supported: true
 :cq-status: Stable

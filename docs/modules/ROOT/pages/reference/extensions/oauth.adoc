@@ -3,6 +3,7 @@
 [id="extensions-oauth"]
 = Oauth
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-oauth
 :cq-artifact-id: camel-quarkus-oauth
 :cq-native-supported: true
 :cq-status: Stable

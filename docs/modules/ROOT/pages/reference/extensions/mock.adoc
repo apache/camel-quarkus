@@ -4,6 +4,7 @@
 = Mock
 :page-aliases: extensions/mock.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mock
 :cq-artifact-id: camel-quarkus-mock
 :cq-native-supported: true
 :cq-status: Stable

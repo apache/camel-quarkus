@@ -4,6 +4,7 @@
 = CSV
 :page-aliases: extensions/csv.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-csv
 :cq-artifact-id: camel-quarkus-csv
 :cq-native-supported: true
 :cq-status: Stable

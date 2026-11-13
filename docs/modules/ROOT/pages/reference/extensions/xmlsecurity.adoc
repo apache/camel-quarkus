@@ -3,6 +3,7 @@
 [id="extensions-xmlsecurity"]
 = XML Security Sign
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xmlsecurity
 :cq-artifact-id: camel-quarkus-xmlsecurity
 :cq-native-supported: true
 :cq-status: Stable

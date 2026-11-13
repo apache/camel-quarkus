@@ -3,6 +3,7 @@
 [id="extensions-coap"]
 = CoAP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-coap
 :cq-artifact-id: camel-quarkus-coap
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = Zip Deflate Compression
 :page-aliases: extensions/zip-deflater.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-zip-deflater
 :cq-artifact-id: camel-quarkus-zip-deflater
 :cq-native-supported: true
 :cq-status: Stable

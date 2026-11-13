@@ -4,6 +4,7 @@
 = Google BigQuery
 :page-aliases: extensions/google-bigquery.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-bigquery
 :cq-artifact-id: camel-quarkus-google-bigquery
 :cq-native-supported: true
 :cq-status: Stable

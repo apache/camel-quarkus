@@ -3,6 +3,7 @@
 [id="extensions-saga"]
 = Saga
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-saga
 :cq-artifact-id: camel-quarkus-saga
 :cq-native-supported: true
 :cq-status: Stable

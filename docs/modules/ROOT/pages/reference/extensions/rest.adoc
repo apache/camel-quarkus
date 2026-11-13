@@ -4,6 +4,7 @@
 = Rest
 :page-aliases: extensions/rest.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-rest
 :cq-artifact-id: camel-quarkus-rest
 :cq-native-supported: true
 :cq-status: Stable

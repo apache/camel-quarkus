@@ -4,6 +4,7 @@
 = AWS 2 CloudWatch
 :page-aliases: extensions/aws2-cw.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-cw
 :cq-artifact-id: camel-quarkus-aws2-cw
 :cq-native-supported: true
 :cq-status: Stable

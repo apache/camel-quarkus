@@ -4,6 +4,7 @@
 = OpenStack
 :page-aliases: extensions/openstack.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-openstack
 :cq-artifact-id: camel-quarkus-openstack
 :cq-native-supported: true
 :cq-status: Stable

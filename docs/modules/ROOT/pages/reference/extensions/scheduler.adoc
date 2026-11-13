@@ -4,6 +4,7 @@
 = Scheduler
 :page-aliases: extensions/scheduler.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-scheduler
 :cq-artifact-id: camel-quarkus-scheduler
 :cq-native-supported: true
 :cq-status: Stable

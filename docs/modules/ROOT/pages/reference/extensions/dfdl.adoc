@@ -3,6 +3,7 @@
 [id="extensions-dfdl"]
 = DFDL
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dfdl
 :cq-artifact-id: camel-quarkus-dfdl
 :cq-native-supported: false
 :cq-status: Preview

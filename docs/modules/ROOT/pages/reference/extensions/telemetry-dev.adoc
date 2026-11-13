@@ -3,6 +3,7 @@
 [id="extensions-telemetry-dev"]
 = Telemetry Dev
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-telemetry-dev
 :cq-artifact-id: camel-quarkus-telemetry-dev
 :cq-native-supported: true
 :cq-status: Stable

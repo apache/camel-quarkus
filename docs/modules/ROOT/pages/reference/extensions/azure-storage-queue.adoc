@@ -3,6 +3,7 @@
 [id="extensions-azure-storage-queue"]
 = Azure Storage Queue Service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-storage-queue
 :cq-artifact-id: camel-quarkus-azure-storage-queue
 :cq-native-supported: true
 :cq-status: Stable

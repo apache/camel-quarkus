@@ -4,6 +4,7 @@
 = Avro
 :page-aliases: extensions/avro.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-avro
 :cq-artifact-id: camel-quarkus-avro
 :cq-native-supported: true
 :cq-status: Stable

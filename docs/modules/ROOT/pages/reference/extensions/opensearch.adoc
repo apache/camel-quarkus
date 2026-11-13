@@ -3,6 +3,7 @@
 [id="extensions-opensearch"]
 = OpenSearch
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-opensearch
 :cq-artifact-id: camel-quarkus-opensearch
 :cq-native-supported: false
 :cq-status: Preview

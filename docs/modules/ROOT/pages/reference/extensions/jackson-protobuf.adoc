@@ -3,6 +3,7 @@
 [id="extensions-jackson-protobuf"]
 = Protobuf Jackson
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jackson-protobuf
 :cq-artifact-id: camel-quarkus-jackson-protobuf
 :cq-native-supported: true
 :cq-status: Stable

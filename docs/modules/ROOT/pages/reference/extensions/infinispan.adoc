@@ -4,6 +4,7 @@
 = Infinispan
 :page-aliases: extensions/infinispan.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-infinispan
 :cq-artifact-id: camel-quarkus-infinispan
 :cq-native-supported: true
 :cq-status: Stable

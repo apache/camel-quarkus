@@ -3,6 +3,7 @@
 [id="extensions-aws-bedrock"]
 = AWS Bedrock
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws-bedrock
 :cq-artifact-id: camel-quarkus-aws-bedrock
 :cq-native-supported: true
 :cq-status: Stable

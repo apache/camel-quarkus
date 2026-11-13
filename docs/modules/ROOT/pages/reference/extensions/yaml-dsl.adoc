@@ -3,6 +3,7 @@
 [id="extensions-yaml-dsl"]
 = YAML DSL
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-yaml-dsl
 :cq-artifact-id: camel-quarkus-yaml-dsl
 :cq-native-supported: true
 :cq-status: Stable

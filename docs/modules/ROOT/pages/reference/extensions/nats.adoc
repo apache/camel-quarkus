@@ -3,6 +3,7 @@
 [id="extensions-nats"]
 = Nats
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-nats
 :cq-artifact-id: camel-quarkus-nats
 :cq-native-supported: true
 :cq-status: Stable

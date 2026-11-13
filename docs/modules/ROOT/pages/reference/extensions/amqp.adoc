@@ -4,6 +4,7 @@
 = AMQP
 :page-aliases: extensions/amqp.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-amqp
 :cq-artifact-id: camel-quarkus-amqp
 :cq-native-supported: true
 :cq-status: Stable

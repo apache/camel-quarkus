@@ -3,6 +3,7 @@
 [id="extensions-dns"]
 = DNS
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-dns
 :cq-artifact-id: camel-quarkus-dns
 :cq-native-supported: false
 :cq-status: Preview
