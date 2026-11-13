@@ -129,11 +129,12 @@ class FopProcessor {
         service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(XMLHandler.class.getName()));
         service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ContentHandlerFactory.class.getName()));
         service.produce(
-                ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$Function"));
+                ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.fop.utils.text.AdvancedMessageFormat$Function"));
         service.produce(ServiceProviderBuildItem
-                .allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$ObjectFormatter"));
+                .allProvidersFromClassPath("org.apache.fop.utils.text.AdvancedMessageFormat$ObjectFormatter"));
         service.produce(
-                ServiceProviderBuildItem.allProvidersFromClassPath("org.apache.fop.text.AdvancedMessageFormat$PartFactory"));
+                ServiceProviderBuildItem
+                        .allProvidersFromClassPath("org.apache.fop.utils.text.AdvancedMessageFormat$PartFactory"));
 
         // both fop-core and xmlgraphics-commons
         service.produce(ServiceProviderBuildItem.allProvidersFromClassPath(ImageConverter.class.getName()));

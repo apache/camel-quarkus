@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.qdrant.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.logging.Logger;
 
 class QdrantProcessor {
@@ -29,10 +28,5 @@ class QdrantProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 }

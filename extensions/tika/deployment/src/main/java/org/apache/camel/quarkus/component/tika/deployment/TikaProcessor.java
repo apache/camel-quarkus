@@ -46,7 +46,6 @@ class TikaProcessor {
     void registerTikaCoreResources(BuildProducer<NativeImageResourceBuildItem> resource,
             BuildProducer<NativeImageResourceDirectoryBuildItem> resourceDirectory) {
         resource.produce(new NativeImageResourceBuildItem("org/apache/tika/mime/tika-mimetypes.xml"));
-        resource.produce(new NativeImageResourceBuildItem("org/apache/tika/parser/external/tika-external-parsers.xml"));
         // MojibusterEncodingDetector (brought by tika-parser-text-module) loads its nb-bigram.bin and
         // utf16-specialist.bin models with Class.getResourceAsStream
         if (QuarkusClassLoader.isClassPresentAtRuntime("org.apache.tika.ml.chardetect.MojibusterEncodingDetector")) {

@@ -16,43 +16,15 @@
  */
 package org.apache.camel.quarkus.component.json.validator.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
 
 class JsonValidatorProcessor {
 
     private static final String FEATURE = "camel-json-validator";
-    private static final DotName VALIDATOR_INTERFACE = DotName.createSimple("com.networknt.schema.JsonValidator");
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    IndexDependencyBuildItem addNetworkNtJsonValidatorArtifactToIndex() {
-        return new IndexDependencyBuildItem("com.networknt", "json-schema-validator");
-    }
-
-    /**
-     * Keywords used in schema ("required", "type"...) need matching classes ("RequiredValidator", "TypeValidator"...).
-     * So, let's register all the known JsonValidator implementations for reflective access in native mode.
-     */
-    @BuildStep
-    void registerReflectiveClasses(
-            CombinedIndexBuildItem combinedIndex,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveProducer) {
-        combinedIndex.getIndex()
-                .getAllKnownImplementations(VALIDATOR_INTERFACE)
-                .stream()
-                .map(ClassInfo::name)
-                .map(DotName::toString)
-                .forEach(c -> reflectiveProducer.produce(ReflectiveClassBuildItem.builder(c).build()));
     }
 }

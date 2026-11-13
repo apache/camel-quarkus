@@ -42,7 +42,6 @@ import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.ShutdownListenerBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.pkg.NativeConfig;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
@@ -258,11 +257,6 @@ public class JolokiaProcessor {
         if (!jolokiaReflectiveClasses.isEmpty()) {
             reflectiveClass.produce(ReflectiveClassBuildItem.builder(jolokiaReflectiveClasses.toArray(new String[0])).build());
         }
-    }
-
-    @BuildStep
-    void registerServices(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
-        serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(Serializer.class.getName()));
     }
 
     static final class JolokiaEnabled implements BooleanSupplier {

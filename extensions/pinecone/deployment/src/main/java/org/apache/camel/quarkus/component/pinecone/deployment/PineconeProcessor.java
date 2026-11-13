@@ -62,6 +62,5 @@ class PineconeProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(Configuration.class.getName()));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto"));
     }
 }

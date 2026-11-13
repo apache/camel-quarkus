@@ -22,9 +22,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.apache.camel.component.twitter.AbstractTwitterComponent;
 import twitter4j.OAuthAuthorization;
 
 class TwitterProcessor {
@@ -38,12 +36,6 @@ class TwitterProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(AbstractTwitterComponent.class).methods().build());
     }
 
     @BuildStep
