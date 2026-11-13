@@ -9,5 +9,5 @@ cqJvmSince: 2.12.0
 cqNativeSince: 2.12.0
 cqCamelPartName: cxf
 cqCamelPartTitle: CXF
-cqCamelPartDescription: Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client.
+cqCamelPartDescription: Expose SOAP services, or invoke operations of SOAP services, using Apache CXF.
 cqExtensionPageTitle: CXF
