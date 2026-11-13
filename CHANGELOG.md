@@ -18,6 +18,19 @@
 -->
 # Changelog
 
+## 3.33.4
+
+* [3.33.x] Backports + Quarkus 3.33.4 + Quarkus CXF 3.33.11 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9232
+* [3.33.x] Upgrade Camel to 4.18.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9289
+* [3.33.x] Fixes #9333. Use RSA 1.5 key wrap in WS-SecurityPolicy server tests on FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9373
+* [3.33.x] Use RSA 1.5 key wrap in the programmatic STS tests on FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9377
+* [3.33.x] Upgrade com.rabbitmq:amqp-client to 5.37.0 to address CVEs by @ppalaga in https://github.com/apache/camel-quarkus/pull/9407
+* Prevent jpa tests from starting multiple container instances when qua… by @llowinge in https://github.com/apache/camel-quarkus/pull/9414
+* [3.33.x] Upgrade to Upgrade Quarkus to 3.33.4.1 + Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9433
+* [3.33.x] Ignore the org.apache.sshd:sshd-sftp BOM overlap with the Quarkus 3.33 branch by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9456
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.33.3...3.33.4
+
 ## 3.40.0
 
 * Add asf.yaml to CI workflow ignored paths by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9037
