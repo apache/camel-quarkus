@@ -253,7 +253,6 @@ In case you have performed the above step during some release in the past, you n
 ----
 cd camel-releases-dist
 svn update .
-cd "camel-quarkus/$VERSION"
 ----
 
 Then, ensure that only the latest release from each maintained branches is present (including active LTS versions).
