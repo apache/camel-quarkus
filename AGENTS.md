@@ -56,7 +56,7 @@ examples/            # Example projects (separate repo: camel-quarkus-examples)
 - `poms/bom/pom.xml` - Runtime dependencies BOM
 - `poms/bom-test/pom.xml` - Test dependencies BOM
 - `tooling/scripts/test-categories.yaml` - Test categorization for GitHub Actions CI
-- `docs/antora/antora.yml` - Antora documentation metadata. Note that `docs/local-build.sh` relies on an external `camel-website` repository and is not intended for self-contained local documentation generation within this project.
+- `docs/antora.yml` - Antora documentation metadata. Note that `docs/local-build.sh` relies on an external `camel-website` repository and is not intended for self-contained local documentation generation within this project.
 
 ## Build Commands
 ```bash
@@ -201,7 +201,7 @@ Deferred to commit time — do not run this after each edit. See "Code Formattin
 Tests use the Quarkus test framework based on JUnit 6.
 
 ### Test Structure
-Follow `docs/modules/root/contributor-guide/extension-testing.adoc`.
+Follow `docs/modules/ROOT/pages/contributor-guide/extension-testing.adoc`.
 
 JVM mode tests should be annotated with `@QuarkusTest`.
 
