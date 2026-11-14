@@ -48,7 +48,6 @@ class XPathProcessor {
             "com.sun.org.apache.xpath.internal.functions.FuncLocalPart",
             "com.sun.org.apache.xpath.internal.functions.FuncNamespace",
             "com.sun.org.apache.xpath.internal.functions.FuncNormalizeSpace",
-            "com.sun.org.apache.xpath.internal.functions.FuncNot",
             "com.sun.org.apache.xpath.internal.functions.FuncNumber",
             "com.sun.org.apache.xpath.internal.functions.FuncPosition",
             "com.sun.org.apache.xpath.internal.functions.FuncQname",

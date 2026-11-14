@@ -26,7 +26,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
@@ -114,12 +113,6 @@ class RocketmqProcessor {
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(ROCKETMQ_REFLECTIVE_ENUMS)
                 .fields()
                 .build());
-    }
-
-    @BuildStep
-    void registerResources(BuildProducer<NativeImageResourceBuildItem> resource) {
-        resource.produce(new NativeImageResourceBuildItem(
-                "META-INF/services/org.apache.rocketmq.common.namesrv.TopAddressing"));
     }
 
     @BuildStep

@@ -28,7 +28,6 @@ import java.util.stream.Stream;
 import ai.djl.util.NativeResource;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import dev.langchain4j.agent.tool.Tool;
 import dev.langchain4j.guardrail.InputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrail;
@@ -123,9 +122,6 @@ class SupportLangchain4jProcessor {
                 .forEach(jacksonSupportClasses::add);
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(jacksonSupportClasses.toArray(new String[0])).build());
-
-        // Misc Jackson support
-        ReflectiveClassBuildItem.builder(PropertyNamingStrategies.SnakeCaseStrategy.class).build();
     }
 
     @BuildStep
@@ -332,8 +328,6 @@ class SupportLangchain4jProcessor {
                 "[Ljava.lang.String;",
                 "ai.onnxruntime.OnnxTensor",
                 "ai.onnxruntime.OnnxValue",
-                "ai.onnxruntime.TensorInfo",
-                "ai.onnxruntime.OnnxTensor",
                 "java.lang.Boolean",
                 "java.lang.String"
         };
@@ -346,8 +340,6 @@ class SupportLangchain4jProcessor {
 
         jniRuntimeAccess.produce(
                 new JniRuntimeAccessBuildItem(true, true, true, jniReflectiveClasses));
-
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder("opennlp.tools.sentdetect.SentenceDetectorFactory").build());
     }
 
     @BuildStep

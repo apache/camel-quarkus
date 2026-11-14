@@ -22,8 +22,6 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 class CommonsLoggingSupportProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder("org.apache.commons.logging.LogFactory",
-                "org.apache.commons.logging.impl.LogFactoryImpl",
-                "org.apache.commons.logging.impl.Jdk14Logger").methods().build();
+        return ReflectiveClassBuildItem.builder("org.apache.commons.logging.LogFactory").methods().build();
     }
 }

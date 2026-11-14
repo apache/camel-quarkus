@@ -22,7 +22,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import oracle.jdbc.driver.OracleDriver;
 
 class DebeziumOracleProcessor {
 
@@ -35,9 +34,7 @@ class DebeziumOracleProcessor {
 
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                OracleDriver.class,
-                BufferedLogMinerAdapter.class).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(BufferedLogMinerAdapter.class).build());
     }
 
     @BuildStep

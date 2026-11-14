@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.infinispan.deployment;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
@@ -32,12 +31,6 @@ class InfinispanProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    NativeImageResourceBuildItem nativeImageResources() {
-        // Only required when Camel instantiates and manages its own internal CacheContainer
-        return new NativeImageResourceBuildItem("org/infinispan/protostream/message-wrapping.proto");
     }
 
     @BuildStep

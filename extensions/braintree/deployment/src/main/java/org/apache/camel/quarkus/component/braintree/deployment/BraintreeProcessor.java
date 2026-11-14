@@ -51,9 +51,7 @@ class BraintreeProcessor {
 
     @BuildStep
     void nativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImage) {
-        nativeImage.produce(new NativeImageResourceBuildItem(
-                "ssl/api_braintreegateway_com.ca.crt",
-                "ssl/payments_braintreeapi_com.ca.crt"));
+        nativeImage.produce(new NativeImageResourceBuildItem("ssl/api_braintreegateway_com.ca.crt"));
     }
 
     @Record(ExecutionTime.STATIC_INIT)

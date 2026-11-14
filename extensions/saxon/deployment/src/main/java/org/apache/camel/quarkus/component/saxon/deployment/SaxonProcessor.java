@@ -86,9 +86,4 @@ class SaxonProcessor {
     NativeImageFeatureBuildItem classInitializationFeature() {
         return new NativeImageFeatureBuildItem(SaxonClassInitializationFeature.class);
     }
-
-    @BuildStep
-    void runtimeInit(BuildProducer<RuntimeInitializedClassBuildItem> deps) {
-        deps.produce(new RuntimeInitializedClassBuildItem("org.apache.hc.client5.http.impl.auth.NTLMEngineImpl"));
-    }
 }
