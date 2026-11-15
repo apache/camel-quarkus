@@ -481,6 +481,66 @@ class McpServerTest {
     }
 
     @Test
+    void testListResourceTemplatesExposesCamelTemplates() {
+        client().when()
+                .resourcesTemplatesList(page -> {
+                    var template = page.findByUriTemplate("crm://customers/{id}");
+                    assertThat(template.name()).isEqualTo("customer");
+                    assertThat(template.title()).isEqualTo("Customer");
+                    assertThat(template.description()).isEqualTo("Customer details");
+                    assertThat(template.mimeType()).isEqualTo("text/plain");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testReadResourceTemplate() {
+        client().when()
+                .resourcesRead("crm://customers/42", response -> {
+                    TextResourceContents contents = response.contents().get(0).asText();
+                    assertThat(contents.uri()).isEqualTo("crm://customers/42");
+                    assertThat(contents.mimeType()).isEqualTo("text/plain");
+                    assertThat(contents.text()).isEqualTo("customer 42");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateListReflectsRouteStopAndStart() {
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults();
+
+        controlRoute("customer-resource-template-route", "stop");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).doesNotContain("crm://customers/{id}"))
+                .thenAssertResults());
+
+        controlRoute("customer-resource-template-route", "start");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults());
+    }
+
+    @Test
+    void testStoppingRefusedResourceTemplateKeepsApplicationTemplate() {
+        controlRoute("clashing-resource-template-route", "start");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Started");
+        controlRoute("clashing-resource-template-route", "stop");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Stopped");
+
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.findByUriTemplate("crm://application/{id}").name())
+                        .isEqualTo("application_resource_template"))
+                .resourcesRead("crm://application/42", response -> assertThat(response.contents().get(0).asText().text())
+                        .isEqualTo("application template 42"))
+                .thenAssertResults();
+    }
+
+    @Test
     void testResourceWithDuplicateNameIsRefused() {
         // quarkus-mcp-server requires unique resource names; the application must still start
         client().when()

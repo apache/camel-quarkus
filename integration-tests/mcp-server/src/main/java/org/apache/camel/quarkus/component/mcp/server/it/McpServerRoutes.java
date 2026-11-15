@@ -160,5 +160,18 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("clashing-resource-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
+
+        from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=conformance"
+                + "&description=Customer details&mimeType=text/plain&title=Customer")
+                .routeId("customer-resource-template-route")
+                .process(e -> e.getMessage().setBody(
+                        "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
+
+        // The URI template is already owned by the application through ResourceTemplateManager.
+        from("ai-resource:clashing_template?uriTemplate=crm://application/{id}&tags=conformance"
+                + "&description=Template URI already taken by an application template")
+                .routeId("clashing-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
     }
 }

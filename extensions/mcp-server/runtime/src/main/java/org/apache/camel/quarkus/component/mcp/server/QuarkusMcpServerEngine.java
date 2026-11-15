@@ -30,18 +30,22 @@ import io.quarkiverse.mcp.server.McpServer;
 import io.quarkiverse.mcp.server.ResourceContents;
 import io.quarkiverse.mcp.server.ResourceManager;
 import io.quarkiverse.mcp.server.ResourceResponse;
+import io.quarkiverse.mcp.server.ResourceTemplateManager;
 import io.quarkiverse.mcp.server.TextContent;
 import io.quarkiverse.mcp.server.TextResourceContents;
 import io.quarkiverse.mcp.server.ToolManager;
 import io.quarkiverse.mcp.server.ToolResponse;
 import io.vertx.core.json.JsonObject;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.ai.resource.AiResourceUriTemplate;
 import org.apache.camel.component.ai.tool.AiToolAnnotations;
 import org.apache.camel.component.ai.tool.AiToolParameterHelper.ParameterDef;
 import org.apache.camel.component.mcp.server.McpResourceReadResult;
 import org.apache.camel.component.mcp.server.McpServerEngine;
+import org.apache.camel.component.mcp.server.McpServerRefusedException;
 import org.apache.camel.component.mcp.server.McpServerInfo;
 import org.apache.camel.component.mcp.server.McpServerResource;
+import org.apache.camel.component.mcp.server.McpServerResourceTemplate;
 import org.apache.camel.component.mcp.server.McpServerTool;
 import org.apache.camel.component.mcp.server.McpToolCallResult;
 import org.apache.camel.support.service.ServiceSupport;
@@ -49,9 +53,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link McpServerEngine} publishing tools and resources into the quarkiverse quarkus-mcp-server through its
- * programmatic {@link ToolManager} and {@link ResourceManager} APIs. Serving concerns (endpoint path, transports,
- * authentication) are owned by quarkus-mcp-server and configured via {@code quarkus.mcp.server.*}.
+ * {@link McpServerEngine} publishing tools, resources and resource templates into the quarkiverse quarkus-mcp-server
+ * through its programmatic manager APIs. Serving concerns (endpoint path, transports, authentication) are owned by
+ * quarkus-mcp-server and configured via {@code quarkus.mcp.server.*}.
  */
 public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerEngine {
 
@@ -59,15 +63,20 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
 
     private final ToolManager toolManager;
     private final ResourceManager resourceManager;
+    private final ResourceTemplateManager resourceTemplateManager;
     // names of the tools registered by this engine; a refused tool's name belongs to an application tool
     private final Set<String> registeredToolNames = ConcurrentHashMap.newKeySet();
     // uris of the resources registered by this engine; a refused resource's uri may belong to an application resource
     private final Set<String> registeredResourceUris = ConcurrentHashMap.newKeySet();
+    // map URI templates to names so removal only touches templates registered by this engine
+    private final Map<String, String> registeredResourceTemplates = new ConcurrentHashMap<>();
     private CamelContext camelContext;
 
-    public QuarkusMcpServerEngine(ToolManager toolManager, ResourceManager resourceManager) {
+    public QuarkusMcpServerEngine(
+            ToolManager toolManager, ResourceManager resourceManager, ResourceTemplateManager resourceTemplateManager) {
         this.toolManager = toolManager;
         this.resourceManager = resourceManager;
+        this.resourceTemplateManager = resourceTemplateManager;
     }
 
     @Override
@@ -189,6 +198,154 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     @Override
     public boolean supportsResources() {
         return true;
+    }
+
+    @Override
+    public void resourceTemplateAdded(McpServerResourceTemplate resourceTemplate) {
+        AiResourceUriTemplate matcher;
+        try {
+            matcher = new AiResourceUriTemplate(resourceTemplate.uriTemplate());
+        } catch (IllegalArgumentException e) {
+            throw new McpServerRefusedException(
+                    "Unsupported MCP resource template '" + resourceTemplate.uriTemplate() + "'", e);
+        }
+
+        // Retry cleanup if a previous route stop failed to remove this template.
+        try {
+            removeRegisteredResourceTemplate(resourceTemplate.uriTemplate());
+        } catch (Exception e) {
+            throw new McpServerRefusedException(
+                    "Previously registered MCP resource template '" + resourceTemplate.uriTemplate()
+                            + "' could not be removed before re-registration",
+                    e);
+        }
+
+        // A template must not shadow an application-defined resource or another application-defined template on the
+        // default MCP server. Definitions on other MCP servers are independent and must remain untouched.
+        for (ResourceManager.ResourceInfo existing : resourceManager) {
+            if (existing.serverNames().contains(McpServer.DEFAULT)
+                    && matcher.match(existing.uri()).isPresent()) {
+                throw new McpServerRefusedException(
+                        "Resource template '" + resourceTemplate.uriTemplate()
+                                                       + "' matches application resource '" + existing.uri() + "'");
+            }
+        }
+        for (ResourceTemplateManager.ResourceTemplateInfo existing : resourceTemplateManager) {
+            if (existing.serverNames().contains(McpServer.DEFAULT)
+                    && templatesOverlap(matcher, existing.uriTemplate())) {
+                throw new McpServerRefusedException(
+                        "Resource template '" + resourceTemplate.uriTemplate()
+                                                       + "' overlaps application resource template '"
+                                                       + existing.uriTemplate() + "'");
+            }
+        }
+
+        ResourceTemplateManager.ResourceTemplateDefinition definition = resourceTemplateManager
+                .newResourceTemplate(resourceTemplate.name())
+                .setUriTemplate(resourceTemplate.uriTemplate())
+                .setMimeType(resourceTemplate.mimeType())
+                .setDescription(resourceTemplate.description());
+        if (resourceTemplate.title() != null && !resourceTemplate.title().isBlank()) {
+            definition.setTitle(resourceTemplate.title());
+        }
+        definition.setHandler(arguments -> {
+            String requestedUri = arguments.requestUri().value();
+            McpResourceReadResult result = resourceTemplate.handler().read(requestedUri);
+            if (result.isError()) {
+                throw new McpException(result.errorMessage(), JsonRpcErrorCodes.INTERNAL_ERROR);
+            }
+            // Keep Base64 unwrapped: BlobResourceContents.create(String, byte[]) inserts MIME line breaks.
+            ResourceContents contents = result.blob() != null
+                    ? new BlobResourceContents(requestedUri, Base64.getEncoder().encodeToString(result.blob()),
+                            resourceTemplate.mimeType())
+                    : new TextResourceContents(requestedUri, result.text(), resourceTemplate.mimeType());
+            return new ResourceResponse(List.of(contents));
+        });
+        try {
+            definition.register();
+        } catch (IllegalArgumentException e) {
+            throw new McpServerRefusedException(
+                    "Resource template '" + resourceTemplate.uriTemplate() + "' could not be registered: "
+                                               + e.getMessage(),
+                    e);
+        }
+        registeredResourceTemplates.put(resourceTemplate.uriTemplate(), resourceTemplate.name());
+        LOG.debug("MCP resource template added: {}", resourceTemplate.uriTemplate());
+    }
+
+    @Override
+    public void resourceTemplateRemoved(String uriTemplate) {
+        try {
+            removeRegisteredResourceTemplate(uriTemplate);
+            LOG.debug("MCP resource template removed: {}", uriTemplate);
+        } catch (Exception e) {
+            // Keep the ownership entry so a later route start can retry the removal.
+            LOG.warn(
+                    "Failed to remove MCP resource template {}; ownership retained for retry",
+                    uriTemplate, e);
+        }
+    }
+
+    private void removeRegisteredResourceTemplate(String uriTemplate) throws Exception {
+        String name = registeredResourceTemplates.get(uriTemplate);
+        if (name == null) {
+            // Refused templates are not owned by this engine.
+            return;
+        }
+
+        resourceTemplateManager.removeResourceTemplate(name, McpServer.DEFAULT);
+        registeredResourceTemplates.remove(uriTemplate, name);
+    }
+
+    @Override
+    public boolean supportsResourceTemplates() {
+        return true;
+    }
+
+    /**
+     * Tests whether a Camel resource template can overlap an application-defined template. If the latter uses a
+     * different, valid URI scheme, the templates cannot overlap. Otherwise an unsupported application template is
+     * refused because the engine cannot prove that it is safe to publish both.
+     */
+    private static boolean templatesOverlap(AiResourceUriTemplate candidate, String existingTemplate) {
+        try {
+            return candidate.overlaps(new AiResourceUriTemplate(existingTemplate));
+        } catch (IllegalArgumentException e) {
+            String candidateScheme = uriScheme(candidate.getTemplate());
+            String existingScheme = uriScheme(existingTemplate);
+            if (candidateScheme != null && existingScheme != null
+                    && !candidateScheme.equalsIgnoreCase(existingScheme)) {
+                return false;
+            }
+            throw new McpServerRefusedException(
+                    "Cannot verify whether resource template '" + candidate.getTemplate()
+                                                 + "' overlaps application template '" + existingTemplate + "'",
+                    e);
+        }
+    }
+
+    private static String uriScheme(String uri) {
+        if (uri == null) {
+            return null;
+        }
+        int colon = uri.indexOf(':');
+        if (colon <= 0) {
+            return null;
+        }
+        String scheme = uri.substring(0, colon);
+        char first = scheme.charAt(0);
+        if (!((first >= 'A' && first <= 'Z') || (first >= 'a' && first <= 'z'))) {
+            return null;
+        }
+        for (int i = 1; i < scheme.length(); i++) {
+            char c = scheme.charAt(i);
+            boolean asciiLetterOrDigit = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                    || (c >= '0' && c <= '9');
+            if (!asciiLetterOrDigit && c != '+' && c != '-' && c != '.') {
+                return null;
+            }
+        }
+        return scheme;
     }
 
     /**
