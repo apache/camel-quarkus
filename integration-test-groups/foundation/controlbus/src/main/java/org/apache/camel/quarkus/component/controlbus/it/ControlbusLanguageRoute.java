@@ -33,12 +33,12 @@ public class ControlbusLanguageRoute extends RouteBuilder {
 
         from("direct:header")
                 .setHeader("action", constant("stop"))
-                .to("controlbus:language:header")
+                .to("controlbus:language:header?allowedLanguages=header")
                 .toD("controlbus:route?routeId=lang-control&action=${body}");
 
         from("direct:exchangeProperty")
                 .setProperty("action", constant("stop"))
-                .to("controlbus:language:exchangeProperty")
+                .to("controlbus:language:exchangeProperty?allowedLanguages=exchangeProperty")
                 .toD("controlbus:route?routeId=lang-control&action=${body}");
     }
 }

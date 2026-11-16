@@ -53,7 +53,7 @@ public class ControlbusLanguageResource {
     @POST
     public void simple() throws Exception {
         producerTemplate.sendBody(
-                "controlbus:language:simple",
+                "controlbus:language:simple?allowedLanguages=simple",
                 String.format("${camelContext.getRouteController().stopRoute('%s')}", CONTROL_ROUTE_ID));
     }
 
@@ -61,7 +61,7 @@ public class ControlbusLanguageResource {
     @POST
     public void bean() throws Exception {
         producerTemplate.sendBodyAndHeader(
-                "controlbus:language:bean",
+                "controlbus:language:bean?allowedLanguages=bean",
                 "controlbus-bean?method=stopRoute",
                 "routeId",
                 CONTROL_ROUTE_ID);
