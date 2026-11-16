@@ -16,15 +16,19 @@
  */
 package org.apache.camel.quarkus.component.mcp.server;
 
+import io.quarkiverse.mcp.server.PromptManager;
 import io.quarkiverse.mcp.server.ResourceManager;
+import io.quarkiverse.mcp.server.ResourceTemplateManager;
 import io.quarkiverse.mcp.server.ToolManager;
+import io.quarkus.security.identity.CurrentIdentityAssociation;
+import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 /**
  * Creates the {@link QuarkusMcpServerEngine}. The managers are injected rather than looked up programmatically:
- * quarkus-mcp-server advertises the {@code listChanged} capability of tools and resources only when their manager has
- * an injection point, and the Camel tools and resources change with the route lifecycle.
+ * quarkus-mcp-server advertises the {@code listChanged} capability of tools, resources, resource templates and prompts
+ * when their manager has an injection point, and the Camel features change with the route lifecycle.
  */
 @Singleton
 public class QuarkusMcpServerEngineFactory {
@@ -35,7 +39,21 @@ public class QuarkusMcpServerEngineFactory {
     @Inject
     ResourceManager resourceManager;
 
+    @Inject
+    ResourceTemplateManager resourceTemplateManager;
+
+    @Inject
+    PromptManager promptManager;
+
+    // Security is optional for applications exposing unauthenticated MCP endpoints.
+    @Inject
+    Instance<CurrentIdentityAssociation> currentIdentityAssociation;
+
     QuarkusMcpServerEngine createEngine() {
-        return new QuarkusMcpServerEngine(toolManager, resourceManager);
+        CurrentIdentityAssociation identityAssociation = currentIdentityAssociation.isResolvable()
+                ? currentIdentityAssociation.get()
+                : null;
+        return new QuarkusMcpServerEngine(
+                toolManager, resourceManager, resourceTemplateManager, promptManager, identityAssociation);
     }
 }

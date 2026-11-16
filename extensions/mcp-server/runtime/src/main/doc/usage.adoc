@@ -45,6 +45,42 @@ in the AI Tool component documentation.
 In native mode, an `outputSchema` loaded from `classpath:` must be
 xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
 
+=== Caller identity
+
+For authenticated HTTP requests, the MCP server reads the current Quarkus
+`SecurityIdentity` when a tool is invoked. The Camel MCP bridge puts the
+authenticated Java `Principal`, its name and its role names on the tool
+exchange as these properties:
+
+* `CamelMcpSecurityPrincipal` — the raw `java.security.Principal`.
+* `CamelMcpSecurityPrincipalName` — the principal name.
+* `CamelMcpSecurityPrincipalRoles` — the caller's role names as a collection.
+
+For OIDC requests whose principal implements MicroProfile `JsonWebToken`, the
+bridge also propagates:
+
+* `CamelMcpOAuthSubject` — the validated JWT subject.
+* `CamelMcpOAuthScopes` — the scopes from the JWT `scope` claim.
+* `CamelMcpOAuthClaims` — the JWT claims as a map.
+
+JWT claim extraction is optional: the extension does not require the
+MicroProfile JWT API when the application does not use it. The full
+`CamelOAuthTokenValidationResult` is not synthesized by this Quarkus bridge.
+
+An anonymous request does not populate these properties. Tool routes and
+`AuthorizationPolicy` implementations can inspect the properties to make
+authorization decisions. The identity is resolved for each tool invocation;
+it is not stored in the singleton MCP engine. Applications without a
+Quarkus security extension can still use the MCP server anonymously.
+
+[IMPORTANT]
+====
+The built-in Origin/DNS-rebinding check in quarkus-mcp-server is applied when
+the HTTP host is a loopback address. It is not a configurable allowed-Origin
+policy and should not be relied upon as an Origin allow-list when the server
+is bound to a non-loopback address such as `0.0.0.0`.
+====
+
 === Resources
 
 Add the `camel-quarkus-ai-resource` extension to define
@@ -59,6 +95,41 @@ quarkus-mcp-server requires: a resource whose name is already taken, or
 whose uri is already used by a resource the application registers with
 quarkus-mcp-server, is refused with an ERROR log, while its route keeps
 running.
+
+=== Resource templates
+
+Resource templates are defined with the `uriTemplate` option of the
+`ai-resource` component. The tagged routes are registered with the MCP
+Resource Template Manager and follow the Camel route lifecycle:
+
+[source,java]
+----
+from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=crm"
+     + "&description=Customer details")
+    .process(e -> e.getMessage().setBody(
+        "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id")));
+----
+
+A URI template that overlaps another registered resource template is refused,
+because multiple matching templates make resource reads ambiguous. An exact
+static resource URI can coexist with a template; the MCP server resolves the
+exact resource before trying a template.
+
+=== Prompts
+
+Add the `camel-quarkus-ai-prompt` extension to expose Camel routes registered
+with the `ai-prompt` component as MCP prompts:
+
+[source,java]
+----
+from("ai-prompt:greeting?tags=notify&description=Say hello"
+     + "&argument.name.required=true")
+    .setBody(simple("Hello ${header.name}"));
+----
+
+Prompt routes follow the same tag selection and route lifecycle rules as
+tools and resources. Configure `quarkus.camel.mcp-server.prompt-timeout` to
+set the maximum prompt execution time in milliseconds.
 
 === Combining the Camel and quarkus-mcp-server configuration
 
@@ -75,6 +146,7 @@ side by side in `application.properties`:
 quarkus.camel.mcp-server.tags = crm,notify
 quarkus.camel.mcp-server.tool-timeout = 10000
 quarkus.camel.mcp-server.resource-timeout = 5000
+quarkus.camel.mcp-server.prompt-timeout = 5000
 
 # quarkus-mcp-server-owned: serving and server identity
 quarkus.mcp.server.server-info.name = my-integration-app

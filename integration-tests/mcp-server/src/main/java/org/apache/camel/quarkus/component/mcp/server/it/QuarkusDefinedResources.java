@@ -20,6 +20,7 @@ import java.util.List;
 
 import io.quarkiverse.mcp.server.ResourceManager;
 import io.quarkiverse.mcp.server.ResourceResponse;
+import io.quarkiverse.mcp.server.ResourceTemplateManager;
 import io.quarkiverse.mcp.server.TextResourceContents;
 import io.quarkus.arc.Arc;
 import io.quarkus.runtime.StartupEvent;
@@ -27,9 +28,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 
 /**
- * Resources registered by the application itself through the quarkus-mcp-server {@link ResourceManager}: one at the
- * same uri as the clashing-resource-route ai-resource route, and one at the uri of the app-config-route ai-resource
- * route, on another MCP server.
+ * Resources and resource templates registered by the application itself through the quarkus-mcp-server managers:
+ * resources include one at the same uri as the clashing-resource-route, and one on another MCP server.
  */
 @ApplicationScoped
 public class QuarkusDefinedResources {
@@ -50,6 +50,14 @@ public class QuarkusDefinedResources {
                 .setDescription("Resource registered by the application on another server")
                 .setHandler(arguments -> new ResourceResponse(
                         List.of(TextResourceContents.create(arguments.requestUri().value(), "other"))))
+                .register();
+
+        ResourceTemplateManager templateManager = Arc.container().instance(ResourceTemplateManager.class).get();
+        templateManager.newResourceTemplate("application_resource_template")
+                .setUriTemplate("crm://application/{id}")
+                .setDescription("Resource template registered by the application")
+                .setHandler(arguments -> new ResourceResponse(List.of(TextResourceContents.create(
+                        arguments.requestUri().value(), "application template " + arguments.args().get("id")))))
                 .register();
     }
 }
