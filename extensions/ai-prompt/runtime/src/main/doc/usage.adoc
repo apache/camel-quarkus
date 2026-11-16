@@ -1,0 +1,4 @@
+The `ai-prompt` component registers Camel routes as prompts in a shared `AiPromptRegistry`.
+
+To expose tagged prompt routes over MCP, add the `camel-quarkus-mcp-server` extension.
+See xref:reference/extensions/mcp-server.adoc[MCP Server].

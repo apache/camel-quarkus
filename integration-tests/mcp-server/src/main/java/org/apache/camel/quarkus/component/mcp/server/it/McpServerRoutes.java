@@ -19,11 +19,15 @@ package org.apache.camel.quarkus.component.mcp.server.it;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mcp.server.McpToolCallContext;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
 @ApplicationScoped
@@ -103,6 +107,23 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("annotated-clash-route")
                 .setBody(constant(CLASHING_TOOL_ANSWER));
 
+        from("ai-tool:whoami?tags=conformance&description=Return authenticated caller identity")
+                .process(e -> {
+                    Principal principal = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_PROPERTY, Principal.class);
+                    String principalName = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_NAME_PROPERTY, String.class);
+                    Collection<?> roles = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_ROLES_PROPERTY, Collection.class);
+                    String roleNames = roles == null
+                            ? ""
+                            : roles.stream().map(String::valueOf).sorted().collect(Collectors.joining(","));
+                    e.getMessage().setBody(
+                            (principal != null ? principal.getName() : "no-principal")
+                                    + "|" + (principalName != null ? principalName : "no-name")
+                                    + "|" + roleNames);
+                });
+
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
                 + "&description=Application configuration&mimeType=application/json&title=App config")
                 .routeId("app-config-route")
@@ -160,5 +181,35 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("clashing-resource-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
+
+        from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=conformance"
+                + "&description=Customer details&mimeType=text/plain&title=Customer")
+                .routeId("customer-resource-template-route")
+                .process(e -> e.getMessage().setBody(
+                        "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
+
+        // The URI template is already owned by the application through ResourceTemplateManager.
+        from("ai-resource:clashing_template?uriTemplate=crm://application/{id}&tags=conformance"
+                + "&description=Template URI already taken by an application template")
+                .routeId("clashing-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:greeting?tags=conformance&description=Say hello&title=Greeting"
+                + "&argument.name.description=Who to greet&argument.name.required=true")
+                .routeId("greeting-prompt-route")
+                .setBody(simple("Hello ${header.name}"));
+
+        from("ai-prompt:map_prompt?tags=conformance&description=Return a content block")
+                .routeId("map-prompt-route")
+                .setBody(constant(List.of(Map.of(
+                        "role", "assistant",
+                        "content", Map.of("type", "text", "text", "Map content block")))));
+
+        from("ai-prompt:hidden_prompt?description=Untagged prompt")
+                .setBody(constant("hidden"));
+
+        from("ai-prompt:other_prompt?tags=untrusted&description=Unselected prompt")
+                .setBody(constant("other"));
     }
 }

@@ -108,6 +108,23 @@ in the AI Tool component documentation.
 In native mode, an `outputSchema` loaded from `classpath:` must be
 xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
 
+[id="extensions-mcp-server-usage-caller-identity"]
+=== Caller identity
+
+For authenticated HTTP requests, the MCP server reads the current Quarkus
+`SecurityIdentity` when a tool is invoked. The Camel MCP bridge puts the
+authenticated Java `Principal`, its name and its role names on the tool
+exchange as these properties:
+
+* `CamelMcpSecurityPrincipal` — the raw `java.security.Principal`.
+* `CamelMcpSecurityPrincipalName` — the principal name.
+* `CamelMcpSecurityPrincipalRoles` — the caller's role names as a collection.
+
+An anonymous request does not populate these properties. Tool routes and
+`AuthorizationPolicy` implementations can inspect the properties to make
+authorization decisions. The identity is resolved for each tool invocation;
+it is not stored in the singleton MCP engine.
+
 [id="extensions-mcp-server-usage-resources"]
 === Resources
 
