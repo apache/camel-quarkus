@@ -69,6 +69,10 @@ ifeval::[{doc-show-extra-content} == true]
 include::camel-quarkus-extensions/controlbus-supported-languages.adoc[]
 endif::[]
 
+The language command is off by default. List the languages it may use in the `allowedLanguages` option of the endpoint
+(e.g. `controlbus:language:simple?allowedLanguages=simple`) or of the component
+(e.g. `camel.component.controlbus.allowed-languages = simple,bean`).
+
 [id="extensions-controlbus-usage-bean"]
 ==== Bean
 
@@ -92,7 +96,7 @@ The Simple language can be used to control the state of routes. The following ex
 [source,java]
 ----
 template.sendBody(
-    "controlbus:language:simple", 
+    "controlbus:language:simple?allowedLanguages=simple",
     "${camelContext.getRouteController().stopRoute('foo')}"
 );
 ----
