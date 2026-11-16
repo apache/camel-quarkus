@@ -140,7 +140,6 @@ group-07:
   - langchain4j-rag-bridge-ql4j
   - ldap
   - lumberjack
-  - ognl
   - olingo4
   - openai
   - optaplanner
