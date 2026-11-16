@@ -18,6 +18,37 @@
 -->
 # Changelog
 
+## 3.40.1
+
+* [3.40.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9247
+* [3.40.x] Upgrade Quarkus to 3.40.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9255
+* [3.40.x] Fixes #9251. Use SQL Server 2022 image on FIPS by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9256
+* [3.40.x] Backport. Surface Azure Service Bus send failures  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9266
+* [3.40.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9294
+* [3.40.x] Exclude jackson3 dependencies from opensearch and elasticsearch by @aldettinger in https://github.com/apache/camel-quarkus/pull/9305
+* [3.40.x] Bump sshd-sftp to full bom dependency by @gansheer in https://github.com/apache/camel-quarkus/pull/9309
+* [3.40.x] Backports  by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9335
+* [3.40.x] Upgrade Camel to 4.22.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9347
+* [3.40] Use RSA 1.5 key wrap in the programmatic STS tests on FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9376
+* [3.40.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9381
+* [3.40.x] Upgrade com.rabbitmq:amqp-client to 5.37.0 to address CVEs by @ppalaga in https://github.com/apache/camel-quarkus/pull/9406
+* [3.40.x] mcp-server: Document the mcp-server extension as streamable HTTP only… by @aldettinger in https://github.com/apache/camel-quarkus/pull/9412
+* [3.40.x] Manage com.auth0:java-jwt 4.6.2 in camel-quarkus-bom by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9419
+* [3.40.x] Manage com.github.jknack:handlebars 4.5.3 to fix CVE-2026-55760 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9454
+* [3.40.x] Fixes #9443. Generate cxf-soap-ws-trust test keystores without MAC for RHEL FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/9445
+* [3.40.x] Make Debezium build steps compatible with Debezium 3.6.x and 3.7.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9461
+* [3.40.x] Upgrade Quarkus to 3.40.1.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9463
+* [3.40.x] mcp-server: backport complete test coverage and a fix for application startup failure by @aldettinger in https://github.com/apache/camel-quarkus/pull/9464
+* [3.40.x] Set stable support status for a2a, ai-tool and mcp-server by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9470
+* [3.40.x] Upgrade camel-kamelets to 4.22.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9472
+* [3.40.x] Manage objenesis 3.6, add more Flink tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/9476
+* [3.40.x] Add sshd-sftp exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9478
+* [3.40.x] Upgrade org.json to 20260814 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9482
+* [3.40.x] Remove zstd-jni dependency from camel-quarkus-zipfile by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9480
+* [3.40.x] Stabilize flaky OpenAI structuredOutputWithSchemaResource method by @bhavani111 in https://github.com/apache/camel-quarkus/pull/9488
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.40.0...3.40.1
+
 ## 3.33.4
 
 * [3.33.x] Backports + Quarkus 3.33.4 + Quarkus CXF 3.33.11 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/9232
