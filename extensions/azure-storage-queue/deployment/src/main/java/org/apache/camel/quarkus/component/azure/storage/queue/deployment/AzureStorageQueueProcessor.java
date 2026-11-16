@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.queue.deployment;
 
-import com.azure.xml.XmlSerializable;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -32,7 +31,6 @@ class AzureStorageQueueProcessor {
 
     private static final Logger LOG = Logger.getLogger(AzureStorageQueueProcessor.class);
     private static final String FEATURE = "camel-azure-storage-queue";
-    private static final DotName XML_SERIALIZABLE_NAME = DotName.createSimple(XmlSerializable.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -58,15 +56,6 @@ class AzureStorageQueueProcessor {
                 .sorted()
                 .toArray(String[]::new);
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).fields().build());
-
-        final String[] knownSerializableImpls = combinedIndex.getIndex()
-                .getAllKnownImplementations(XML_SERIALIZABLE_NAME)
-                .stream()
-                .map(ClassInfo::name)
-                .map(DotName::toString)
-                .sorted()
-                .toArray(String[]::new);
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(knownSerializableImpls).methods().build());
     }
 
     @BuildStep

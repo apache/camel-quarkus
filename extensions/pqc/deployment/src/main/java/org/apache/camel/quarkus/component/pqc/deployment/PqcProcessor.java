@@ -20,7 +20,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.support.bouncycastle.BouncyCastleRecorder;
@@ -41,11 +40,6 @@ class PqcProcessor {
     @BuildStep
     NativeImageSecurityProviderBuildItem registerBcpqcSecurityProvider() {
         return new NativeImageSecurityProviderBuildItem("org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider");
-    }
-
-    @BuildStep
-    IndexDependencyBuildItem indexBouncyCastlePQC() {
-        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
     }
 
     @BuildStep

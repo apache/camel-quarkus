@@ -41,11 +41,6 @@ class DropboxProcessor {
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("io.netty.handler.codec.compression.ZstdConstants");
-    }
-
-    @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
         Stream.of(
                 DbxRequestUtil.class.getName(),

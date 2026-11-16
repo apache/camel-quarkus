@@ -16,22 +16,13 @@
  */
 package org.apache.camel.quarkus.component.azure.key.vault.deployment;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import com.azure.json.JsonSerializable;
-import com.azure.security.keyvault.secrets.implementation.SecretClientImpl;
 import com.microsoft.azure.proton.transport.proxy.impl.DigestProxyChallengeProcessorImpl;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.jboss.jandex.ClassInfo;
 
 class AzureKeyVaultProcessor {
     private static final String FEATURE = "camel-azure-key-vault";
@@ -52,29 +43,10 @@ class AzureKeyVaultProcessor {
     }
 
     @BuildStep
-    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        Set<String> keyVaultModelClasses = combinedIndex.getIndex()
-                .getAllKnownImplementations(JsonSerializable.class)
-                .stream()
-                .map(ClassInfo::toString)
-                .filter(className -> className.startsWith("com.azure.security.keyvault"))
-                .collect(Collectors.toSet());
-
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(keyVaultModelClasses.toArray(new String[0]))
-                .methods(true)
-                .build());
-    }
-
-    @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         runtimeInitializedClass
                 .produce(new RuntimeInitializedClassBuildItem("com.microsoft.azure.proton.transport.ws.impl.Utils"));
         runtimeInitializedClass
                 .produce(new RuntimeInitializedClassBuildItem(DigestProxyChallengeProcessorImpl.class.getName()));
-    }
-
-    @BuildStep
-    NativeImageProxyDefinitionBuildItem nativeImageProxyDefinitions() {
-        return new NativeImageProxyDefinitionBuildItem(SecretClientImpl.SecretClientService.class.getName());
     }
 }

@@ -35,11 +35,6 @@ class PubnubProcessor {
     }
 
     @BuildStep
-    IndexDependencyBuildItem indexDependencies() {
-        return new IndexDependencyBuildItem("com.pubnub", "pubnub-gson");
-    }
-
-    @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
@@ -70,9 +65,8 @@ class PubnubProcessor {
     }
 
     @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("com.pubnub", "pubnub-core-impl"));
-        indexDependency.produce(new IndexDependencyBuildItem("com.pubnub", "pubnub-kotlin-impl"));
+    IndexDependencyBuildItem indexDependencies() {
+        return new IndexDependencyBuildItem("com.pubnub", "pubnub-kotlin-impl");
     }
 
 }

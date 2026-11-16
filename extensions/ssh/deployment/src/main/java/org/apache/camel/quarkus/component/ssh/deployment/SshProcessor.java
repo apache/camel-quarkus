@@ -28,7 +28,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -86,11 +85,6 @@ class SshProcessor {
                 .toArray(String[]::new);
 
         return ReflectiveClassBuildItem.builder(dtos).methods().fields().build();
-    }
-
-    @BuildStep
-    IndexDependencyBuildItem registerDependencyForIndex2() {
-        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
     }
 
     @BuildStep

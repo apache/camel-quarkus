@@ -33,7 +33,6 @@ class GoogleBigqueryProcessor {
     @BuildStep
     public List<RuntimeInitializedClassBuildItem> runtimeInitializedClass() {
         return List.of(
-                new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto"),
                 new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.BaseAllocator"),
                 new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.netty.DefaultAllocationManagerFactory"),
                 new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.netty.NettyAllocationManager"));

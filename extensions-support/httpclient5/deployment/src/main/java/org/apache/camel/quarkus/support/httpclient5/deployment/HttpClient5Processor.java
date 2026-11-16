@@ -39,7 +39,7 @@ class HttpClient5Processor {
     @BuildStep
     NativeImageResourceBuildItem suffixListResource() {
         // Required by org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader
-        return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
+        return new NativeImageResourceBuildItem("org/publicsuffix/list/effective_tld_names.dat");
     }
 
     @BuildStep

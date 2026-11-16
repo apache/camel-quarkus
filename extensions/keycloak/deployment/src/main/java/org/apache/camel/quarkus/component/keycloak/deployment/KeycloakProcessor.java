@@ -21,7 +21,6 @@ import java.util.function.BooleanSupplier;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
@@ -43,12 +42,6 @@ class KeycloakProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    IndexDependencyBuildItem indexDependencies() {
-        // Enables Jackson 2 annotation scanning of the Keycloak representation classes
-        return new IndexDependencyBuildItem("org.keycloak", "keycloak-core");
     }
 
     @BuildStep
