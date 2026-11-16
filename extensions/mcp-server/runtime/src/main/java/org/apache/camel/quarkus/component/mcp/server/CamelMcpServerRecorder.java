@@ -46,6 +46,7 @@ public class CamelMcpServerRecorder {
                 configuration.setTags(tags);
                 configuration.setToolTimeout(runtimeConfig.getValue().toolTimeout());
                 configuration.setResourceTimeout(runtimeConfig.getValue().resourceTimeout());
+                configuration.setPromptTimeout(runtimeConfig.getValue().promptTimeout());
                 McpServerBridge bridge = new McpServerBridge(configuration);
                 try {
                     // the bridge resolves the engine registry-first
