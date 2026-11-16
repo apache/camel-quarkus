@@ -30,19 +30,20 @@ import io.quarkiverse.mcp.server.TextResourceContents;
 import io.quarkiverse.mcp.server.ToolResponse;
 import io.quarkiverse.mcp.server.test.McpAssured;
 import io.quarkiverse.mcp.server.test.McpAssured.McpStreamableTestClient;
+import io.quarkiverse.mcp.server.test.McpAssured.PromptInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ResourceInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ResourcesPage;
 import io.quarkiverse.mcp.server.test.McpAssured.ServerCapability;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolsPage;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +54,6 @@ import static org.awaitility.Awaitility.await;
  * streamable HTTP. Mirrors {@code McpServerConformanceTestSupport} from camel-mcp-server-api, which cannot be reused
  * as-is here because it manages its own CamelContext outside Quarkus.
  */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusTest
 class McpServerTest {
 
@@ -481,6 +481,130 @@ class McpServerTest {
     }
 
     @Test
+    void testListResourceTemplatesExposesCamelTemplates() {
+        client().when()
+                .resourcesTemplatesList(page -> {
+                    var template = page.findByUriTemplate("crm://customers/{id}");
+                    assertThat(template.name()).isEqualTo("customer");
+                    assertThat(template.title()).isEqualTo("Customer");
+                    assertThat(template.description()).isEqualTo("Customer details");
+                    assertThat(template.mimeType()).isEqualTo("text/plain");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testReadResourceTemplate() {
+        client().when()
+                .resourcesRead("crm://customers/42", response -> {
+                    TextResourceContents contents = response.contents().get(0).asText();
+                    assertThat(contents.uri()).isEqualTo("crm://customers/42");
+                    assertThat(contents.mimeType()).isEqualTo("text/plain");
+                    assertThat(contents.text()).isEqualTo("customer 42");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateListReflectsRouteStopAndStart() {
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults();
+
+        controlRoute("customer-resource-template-route", "stop");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).doesNotContain("crm://customers/{id}"))
+                .thenAssertResults());
+
+        controlRoute("customer-resource-template-route", "start");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults());
+    }
+
+    @Test
+    void testStoppingRefusedResourceTemplateKeepsApplicationTemplate() {
+        controlRoute("clashing-resource-template-route", "start");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Started");
+        controlRoute("clashing-resource-template-route", "stop");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Stopped");
+
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.findByUriTemplate("crm://application/{id}").name())
+                        .isEqualTo("application_resource_template"))
+                .resourcesRead("crm://application/42", response -> assertThat(response.contents().get(0).asText().text())
+                        .isEqualTo("application template 42"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testListPromptsExposesCamelPrompts() {
+        client().when()
+                .promptsList(page -> {
+                    assertThat(page.prompts()).extracting(PromptInfo::name)
+                            .contains("greeting", "map_prompt")
+                            .doesNotContain("hidden_prompt", "other_prompt");
+
+                    PromptInfo prompt = page.findByName("greeting");
+                    assertThat(prompt.title()).isEqualTo("Greeting");
+                    assertThat(prompt.description()).isEqualTo("Say hello");
+                    assertThat(prompt.arguments()).hasSize(1);
+                    assertThat(prompt.arguments().get(0).name()).isEqualTo("name");
+                    assertThat(prompt.arguments().get(0).required()).isTrue();
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testGetPromptWithArguments() {
+        client().when()
+                .promptsGet("greeting", Map.of("name", "World"), response -> {
+                    assertThat(response.messages()).hasSize(1);
+                    assertThat(response.messages().get(0).role().toString()).isEqualTo("USER");
+                    assertThat(response.messages().get(0).content().asText().text())
+                            .isEqualTo("Hello World");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testGetPromptConvertsMapContentBlock() {
+        client().when()
+                .promptsGet("map_prompt", Map.of(), response -> {
+                    assertThat(response.messages()).hasSize(1);
+                    assertThat(response.messages().get(0).role().toString()).isEqualTo("ASSISTANT");
+                    assertThat(response.messages().get(0).content().asText().text())
+                            .isEqualTo("Map content block");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testPromptListReflectsRouteStopAndStart() {
+        client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).contains("greeting"))
+                .thenAssertResults();
+
+        controlRoute("greeting-prompt-route", "stop");
+
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).doesNotContain("greeting"))
+                .thenAssertResults());
+
+        controlRoute("greeting-prompt-route", "start");
+
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).contains("greeting"))
+                .thenAssertResults());
+    }
+
+    @Test
     void testResourceWithDuplicateNameIsRefused() {
         // quarkus-mcp-server requires unique resource names; the application must still start
         client().when()
@@ -536,6 +660,21 @@ class McpServerTest {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
                 .resourcesList(page -> assertThat(resourceUris(page)).contains("camel:///config/app.json"))
                 .thenAssertResults());
+    }
+
+    @Test
+    @TestSecurity(user = "alice", roles = { "admin", "operator" })
+    void testAuthenticatedCallerIdentityIsPropagated() {
+        client().when()
+                .toolsCall("whoami", Map.of(), response -> assertThat(textOf(response)).isEqualTo("alice|alice|admin,operator"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testAnonymousCallerHasNoIdentity() {
+        client().when()
+                .toolsCall("whoami", Map.of(), response -> assertThat(textOf(response)).isEqualTo("no-principal|no-name|"))
+                .thenAssertResults();
     }
 
     private static void controlRoute(String routeId, String action) {
