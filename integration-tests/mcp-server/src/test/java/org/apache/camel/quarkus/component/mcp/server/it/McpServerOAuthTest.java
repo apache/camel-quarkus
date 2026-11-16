@@ -28,11 +28,13 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /** Exercises a real Keycloak/OIDC identity through MCP and into a Camel tool route. */
+@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusTest
 @QuarkusTestResource(value = McpServerKeycloakTestResource.class, restrictToAnnotatedClass = true)
 class McpServerOAuthTest {
@@ -62,6 +64,7 @@ class McpServerOAuthTest {
         assertThat(metadata).contains("authorization_servers").contains(issuer);
     }
 
+    // This exercises quarkus-mcp-server's loopback DNS-rebinding check, not a general Origin allow-list.
     @Test
     void untrustedOriginIsRejectedEvenWithValidBearerToken() {
         postInitialize(accessToken(), 403, true);
@@ -82,6 +85,13 @@ class McpServerOAuthTest {
                     .toolsCall("whoami", Map.of(), response -> {
                         String content = textOf(response);
                         assertThat(content).startsWith("alice|alice|").contains("mcp-operator");
+                    })
+                    .toolsCall("whooauth", Map.of(), response -> {
+                        String[] context = textOf(response).split("\\|", -1);
+                        assertThat(context).hasSize(3);
+                        assertThat(context[0]).isNotBlank();
+                        assertThat(context[1]).contains("profile");
+                        assertThat(context[2]).isEqualTo("alice");
                     })
                     .thenAssertResults();
         } finally {

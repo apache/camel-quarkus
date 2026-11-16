@@ -51,6 +51,7 @@ public class McpServerKeycloakTestResource implements QuarkusTestResourceLifecyc
 
         String issuer = keycloak.getServerUrl() + "/realms/" + REALM_NAME;
         return Map.ofEntries(
+                Map.entry("quarkus.oidc.enabled", "true"),
                 Map.entry("quarkus.oidc.auth-server-url", issuer),
                 Map.entry("quarkus.oidc.client-id", "mcp-test-client"),
                 Map.entry("quarkus.oidc.credentials.secret", "mcp-test-secret"),

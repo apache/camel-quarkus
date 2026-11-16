@@ -18,7 +18,10 @@ package org.apache.camel.quarkus.component.mcp.server;
 
 import java.lang.reflect.Type;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -131,6 +134,11 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
      * tool callback so concurrent MCP requests cannot share or overwrite each other's identity.
      */
     private McpToolCallContext currentToolCallContext() {
+        // Applications without quarkus-security do not have this association.
+        if (currentIdentityAssociation == null) {
+            return McpToolCallContext.EMPTY;
+        }
+
         SecurityIdentity identity = currentIdentityAssociation.getIdentity();
         if (identity == null || identity.isAnonymous()) {
             return McpToolCallContext.EMPTY;
@@ -147,14 +155,92 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
                 .sorted()
                 .toList();
 
-        if (principal == null && principalName == null && roles.isEmpty()) {
+        OAuthIdentity oauth = oauthIdentity(principal);
+
+        if (principal == null && principalName == null && roles.isEmpty() && oauth == null) {
             return McpToolCallContext.EMPTY;
         }
 
         return new McpToolCallContext(
                 principal,
                 principalName,
-                roles.isEmpty() ? null : roles);
+                roles.isEmpty() ? null : roles,
+                oauth != null ? oauth.subject() : null,
+                oauth != null ? oauth.scopes() : null,
+                oauth != null ? oauth.claims() : null,
+                null);
+    }
+
+    /**
+     * Extracts OAuth information from a MicroProfile JWT principal without making
+     * the MP JWT API a mandatory runtime dependency of the MCP extension.
+     */
+    private static OAuthIdentity oauthIdentity(Principal principal) {
+        if (principal == null) {
+            return null;
+        }
+
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            if (classLoader == null) {
+                classLoader = principal.getClass().getClassLoader();
+            }
+
+            Class<?> jwtType = Class.forName(
+                    "org.eclipse.microprofile.jwt.JsonWebToken", false, classLoader);
+
+            if (!jwtType.isInstance(principal)) {
+                return null;
+            }
+
+            String subject = (String) jwtType.getMethod("getSubject").invoke(principal);
+            Object claimNames = jwtType.getMethod("getClaimNames").invoke(principal);
+
+            Map<String, Object> claims = new LinkedHashMap<>();
+            if (claimNames instanceof Collection<?> names) {
+                var getClaim = jwtType.getMethod("getClaim", String.class);
+                for (Object name : names) {
+                    if (name instanceof String claimName) {
+                        claims.put(claimName, getClaim.invoke(principal, claimName));
+                    }
+                }
+            }
+
+            List<String> scopes = oauthScopes(claims.get("scope"));
+
+            return new OAuthIdentity(
+                    subject,
+                    scopes.isEmpty() ? null : scopes,
+                    claims.isEmpty() ? null : claims);
+        } catch (ReflectiveOperationException | LinkageError | RuntimeException e) {
+            // The MP JWT API is optional. Principal/name/roles propagation must still work.
+            LOG.debug("Unable to extract OAuth JWT information from MCP caller principal", e);
+            return null;
+        }
+    }
+
+    private static List<String> oauthScopes(Object scopeClaim) {
+        if (scopeClaim instanceof String scopeString) {
+            if (scopeString.isBlank()) {
+                return List.of();
+            }
+            return Arrays.stream(scopeString.trim().split("\\s+"))
+                    .filter(scope -> !scope.isBlank())
+                    .toList();
+        }
+
+        if (scopeClaim instanceof Collection<?> values) {
+            return values.stream()
+                    .filter(value -> value != null)
+                    .map(String::valueOf)
+                    .filter(scope -> !scope.isBlank())
+                    .toList();
+        }
+
+        return List.of();
+    }
+
+    private record OAuthIdentity(String subject, List<String> scopes, Map<String, Object> claims) {
     }
 
     @Override
@@ -285,22 +371,14 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
                     e);
         }
 
-        // A template must not shadow an application-defined resource or another application-defined template on the
-        // default MCP server. Definitions on other MCP servers are independent and must remain untouched.
-        for (ResourceManager.ResourceInfo existing : resourceManager) {
-            if (existing.serverNames().contains(McpServer.DEFAULT)
-                    && matcher.match(existing.uri()).isPresent()) {
-                throw new McpServerRefusedException(
-                        "Resource template '" + resourceTemplate.uriTemplate()
-                                + "' matches application resource '" + existing.uri() + "'");
-            }
-        }
+        // Multiple matching templates make resource reads ambiguous in quarkus-mcp-server.
+        // Definitions on other MCP servers are independent and must remain untouched.
         for (ResourceTemplateManager.ResourceTemplateInfo existing : resourceTemplateManager) {
             if (existing.serverNames().contains(McpServer.DEFAULT)
                     && templatesOverlap(matcher, existing.uriTemplate())) {
                 throw new McpServerRefusedException(
                         "Resource template '" + resourceTemplate.uriTemplate()
-                                + "' overlaps application resource template '"
+                                + "' overlaps resource template '"
                                 + existing.uriTemplate() + "'");
             }
         }

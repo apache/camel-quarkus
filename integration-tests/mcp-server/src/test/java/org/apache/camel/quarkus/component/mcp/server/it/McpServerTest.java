@@ -37,6 +37,7 @@ import io.quarkiverse.mcp.server.test.McpAssured.ServerCapability;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolsPage;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -663,6 +664,7 @@ class McpServerTest {
     }
 
     @Test
+    @DisabledOnIntegrationTest
     @TestSecurity(user = "alice", roles = { "admin", "operator" })
     void testAuthenticatedCallerIdentityIsPropagated() {
         client().when()

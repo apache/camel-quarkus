@@ -31,7 +31,7 @@
 
     <artifactId>camel-quarkus-ai-prompt</artifactId>
     <name>Camel Quarkus :: AI Prompt :: Runtime</name>
-    <description>Framework-agnostic consumer endpoint that registers Camel routes as MCP prompts.</description>
+    <description>Consumer endpoint that registers a Camel route as an MCP prompt.</description>
 
     <properties>
         <quarkus.metadata.status>preview</quarkus.metadata.status>

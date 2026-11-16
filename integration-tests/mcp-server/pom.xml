@@ -30,7 +30,13 @@
     <name>Camel Quarkus :: Integration Tests :: MCP Server</name>
     <description>Integration tests for Camel Quarkus MCP Server extension</description>
 
-<dependencies>
+    <properties>
+        <!-- TODO: Re-enable when quarkus-mcp-server is compatible with Quarkus 4 - https://github.com/apache/camel-quarkus/issues/9362 -->
+        <skipTests>true</skipTests>
+        <quarkus.build.skip>true</quarkus.build.skip>
+    </properties>
+
+    <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-mcp-server</artifactId>
@@ -64,7 +70,6 @@
         <dependency>
             <groupId>io.quarkiverse.mcp</groupId>
             <artifactId>quarkus-mcp-server-test</artifactId>
-            <version>${quarkiverse-mcp-server.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -210,6 +215,17 @@
                     </exclusions>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>skip-testcontainers-tests</id>
+            <activation>
+                <property>
+                    <name>skip-testcontainers-tests</name>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
         </profile>
     </profiles>
 </project>

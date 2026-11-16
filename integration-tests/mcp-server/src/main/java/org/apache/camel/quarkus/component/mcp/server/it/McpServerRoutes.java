@@ -124,6 +124,27 @@ public class McpServerRoutes extends RouteBuilder {
                                     + "|" + roleNames);
                 });
 
+        from("ai-tool:whooauth?tags=conformance&description=Return OAuth caller context")
+                .process(e -> {
+                    String subject = e.getProperty(
+                            McpToolCallContext.OAUTH_SUBJECT_PROPERTY, String.class);
+                    Collection<?> scopes = e.getProperty(
+                            McpToolCallContext.OAUTH_SCOPES_PROPERTY, Collection.class);
+                    Map<?, ?> claims = e.getProperty(
+                            McpToolCallContext.OAUTH_CLAIMS_PROPERTY, Map.class);
+
+                    String scopeNames = scopes == null
+                            ? ""
+                            : scopes.stream().map(String::valueOf).sorted()
+                                    .collect(Collectors.joining(" "));
+                    Object username = claims != null ? claims.get("preferred_username") : null;
+
+                    e.getMessage().setBody(
+                            (subject != null ? subject : "no-subject")
+                                    + "|" + scopeNames
+                                    + "|" + (username != null ? username : "no-claim"));
+                });
+
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
                 + "&description=Application configuration&mimeType=application/json&title=App config")
                 .routeId("app-config-route")
