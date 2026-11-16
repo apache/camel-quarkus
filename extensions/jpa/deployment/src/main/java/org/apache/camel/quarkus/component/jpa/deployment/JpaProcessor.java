@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.jpa.deployment;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
@@ -46,6 +47,27 @@ import org.objectweb.asm.Opcodes;
 class JpaProcessor {
 
     private static final String FEATURE = "camel-jpa";
+    private static final String ENTITY_MANAGER = "jakarta/persistence/EntityManager";
+    private static final String ENTITY_MANAGER_FACTORY = "jakarta/persistence/EntityManagerFactory";
+    private static final Map<String, String> ENTITY_MANAGER_QUERY_DESCRIPTORS = Map.of(
+            "createQuery(Ljava/lang/String;)Ljakarta/persistence/Query;",
+            "(Ljava/lang/String;)Ljakarta/persistence/StatementOrTypedQuery;",
+            "createNamedQuery(Ljava/lang/String;)Ljakarta/persistence/Query;",
+            "(Ljava/lang/String;)Ljakarta/persistence/StatementOrTypedQuery;",
+            "createNativeQuery(Ljava/lang/String;)Ljakarta/persistence/Query;",
+            "(Ljava/lang/String;)Ljakarta/persistence/StatementOrTypedQuery;",
+            "createNativeQuery(Ljava/lang/String;Ljava/lang/Class;)Ljakarta/persistence/Query;",
+            "(Ljava/lang/String;Ljava/lang/Class;)Ljakarta/persistence/TypedQuery;");
+    private static final Set<String> JAKARTA_PERSISTENCE_3_CALLERS = Set.of(
+            "org.apache.camel.component.jpa.JpaConsumer",
+            "org.apache.camel.component.jpa.JpaEndpoint",
+            "org.apache.camel.component.jpa.JpaHelper",
+            "org.apache.camel.component.jpa.QueryBuilder$1",
+            "org.apache.camel.component.jpa.QueryBuilder$2",
+            "org.apache.camel.component.jpa.QueryBuilder$3",
+            "org.apache.camel.component.jpa.QueryBuilder$4",
+            "org.apache.camel.processor.idempotent.jpa.JpaMessageIdRepository",
+            "org.apache.camel.processor.keyvalue.jpa.JpaKeyValueRepository");
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -166,6 +188,56 @@ class JpaProcessor {
                     };
                 })
                 .build();
+    }
+
+    // TODO: Remove this when camel-jpa is compiled against Jakarta Persistence 4
+    // https://github.com/apache/camel-quarkus/issues/9357
+    @BuildStep
+    void transformJakartaPersistence3MethodCalls(BuildProducer<BytecodeTransformerBuildItem> transformers) {
+        // camel-jpa is compiled against Jakarta Persistence 3.2. Rewrite method calls whose
+        // descriptors no longer exist in Jakarta Persistence 4 so that they link to the new API
+        for (String className : JAKARTA_PERSISTENCE_3_CALLERS) {
+            transformers.produce(new BytecodeTransformerBuildItem.Builder()
+                    .setClassToTransform(className)
+                    .setCacheable(true)
+                    .setVisitorFunction((name, classVisitor) -> new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
+                        @Override
+                        public MethodVisitor visitMethod(int access, String methodName, String descriptor,
+                                String signature, String[] exceptions) {
+                            MethodVisitor visitor = super.visitMethod(access, methodName, descriptor, signature, exceptions);
+                            return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                                @Override
+                                public void visitMethodInsn(int opcode, String owner, String name, String desc,
+                                        boolean isInterface) {
+                                    if (owner.equals(ENTITY_MANAGER_FACTORY)
+                                            && name.equals("createEntityManager")
+                                            && desc.equals("()Ljakarta/persistence/EntityManager;")) {
+                                        // createEntityManager() -> createEntityManager(new EntityManager.CreationOption[0])
+                                        super.visitInsn(Opcodes.ICONST_0);
+                                        super.visitTypeInsn(Opcodes.ANEWARRAY,
+                                                "jakarta/persistence/EntityManager$CreationOption");
+                                        super.visitMethodInsn(opcode, owner, name,
+                                                "([Ljakarta/persistence/EntityManager$CreationOption;)Ljakarta/persistence/EntityManager;",
+                                                isInterface);
+                                        return;
+                                    }
+
+                                    if (owner.equals(ENTITY_MANAGER)) {
+                                        // Query creation methods now return subtypes of Query
+                                        String newDesc = ENTITY_MANAGER_QUERY_DESCRIPTORS.get(name + desc);
+                                        if (newDesc != null) {
+                                            super.visitMethodInsn(opcode, owner, name, newDesc, isInterface);
+                                            return;
+                                        }
+                                    }
+
+                                    super.visitMethodInsn(opcode, owner, name, desc, isInterface);
+                                }
+                            };
+                        }
+                    })
+                    .build());
+        }
     }
 
     @BuildStep
