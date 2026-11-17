@@ -1,0 +1,1 @@
+org.apache.camel.quarkus.component.aws.bedrock.it.AwsBedrockTestEnvCustomizer

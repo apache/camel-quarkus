@@ -1,0 +1,19 @@
+== Camel Quarkus AWS Bedrock Integration Tests
+
+Integration tests for Camel Quarkus AWS Bedrock extension.
+
+By default the tests run against the Floci Bedrock Runtime stub, which returns canned responses.
+
+=== Running against real AWS
+
+Export the credentials described in the parent `README.adoc` (`AWS_ACCESS_KEY`, `AWS_SECRET_KEY` & `AWS_REGION`, or `AWS_USE_DEFAULT_CREDENTIALS_PROVIDER=true` & `AWS_REGION`).
+
+The tests use the `amazon.nova-micro-v1:0` model by default. The model must be enabled for your account in the chosen region.
+To use a different model, or a cross-region inference profile (required in some regions), export `AWS_BEDROCK_MODEL_ID`:
+
+[source,shell]
+----
+export AWS_BEDROCK_MODEL_ID=eu.amazon.nova-micro-v1:0
+----
+
+The `invokeTextModel` test sends a request body in the Amazon Nova `messages-v1` format, so `AWS_BEDROCK_MODEL_ID` must reference an Amazon Nova text model.

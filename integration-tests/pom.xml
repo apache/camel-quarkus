@@ -56,7 +56,6 @@
         <module>arangodb</module>
         <module>as2</module>
         <module>avro</module>
-        <module>aws2</module>
         <module>aws2-grouped</module>
         <module>azure-grouped</module>
         <module>base64</module>
