@@ -200,3 +200,11 @@ The internal `camel-quarkus-support-retrofit` artifact was removed.
 `camel-quarkus-consul`, `camel-quarkus-influxdb`, `camel-quarkus-langchain4j-web-search` and `camel-quarkus-pubnub` no longer bring in `io.quarkus:quarkus-kotlin`. `camel-quarkus-langchain4j-web-search` also no longer brings in `com.squareup.retrofit2:retrofit`.
 
 An application that relies on either of these dependencies must declare them itself.
+
+== TLS Registry extension honors `trust-all` for all components
+
+In previous releases, a Quarkus TLS configuration with `quarkus.tls.<name>.trust-all=true` was applied only to Camel components that create their SSL context from the bridged `SSLContextParameters` bean, such as `camel-quarkus-http`. Components that build their own trust managers from the bean, such as `camel-quarkus-vertx-http`, ignored the option and used the JVM default trust store.
+
+These components now honor `trust-all`, and accept any server certificate. Review TLS configurations that set `trust-all=true` and are used by Camel components.
+
+The same components can now also use the key store and trust store of a bridged configuration, for example to present a client certificate.

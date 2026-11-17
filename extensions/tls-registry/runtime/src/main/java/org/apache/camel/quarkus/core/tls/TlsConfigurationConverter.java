@@ -19,13 +19,23 @@ package org.apache.camel.quarkus.core.tls;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.X509KeyManager;
 
 import io.quarkus.tls.TlsConfiguration;
+import io.vertx.core.Vertx;
+import io.vertx.core.net.KeyCertOptions;
 import io.vertx.core.net.SSLOptions;
 import org.apache.camel.CamelContext;
 import org.apache.camel.support.jsse.CipherSuitesParameters;
@@ -34,6 +44,7 @@ import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.NamedGroupsParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.SecureSocketProtocolsParameters;
+import org.apache.camel.support.jsse.TrustAllTrustManager;
 import org.apache.camel.support.jsse.TrustManagersParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +54,9 @@ import org.slf4j.LoggerFactory;
  */
 final class TlsConfigurationConverter {
     private static final Logger LOG = LoggerFactory.getLogger(TlsConfigurationConverter.class);
+    // The KeyStore API needs a password to hold a private key, and components need it to read the key
+    // back, so getKeyManagers() returns it together with the in-memory copy. At least 32 characters for FIPS providers, as Vert.x does
+    private static final String KEY_STORE_DUMMY_PASSWORD = "camel-quarkus-tls-registry-in-memory-key-store";
 
     private TlsConfigurationConverter() {
         // Utility class
@@ -53,7 +67,8 @@ final class TlsConfigurationConverter {
      *
      * This implementation delegates to Quarkus's pre-configured SSLContext and also
      * provides access to the underlying keystores for components that need them
-     * (e.g., camel-vertx-http).
+     * (e.g., camel-vertx-http). The key store handed out by {@code getKeyManagers()} is an in-memory copy of the
+     * Quarkus key material, see {@link #copyKeyEntries}.
      *
      * The Quarkus TLS registry handles all the complexity of:
      *
@@ -78,10 +93,16 @@ final class TlsConfigurationConverter {
      *
      * @param  tlsConfig the Quarkus TLS configuration
      * @param  name      the configuration name (for logging)
+     * @param  vertx     the Vert.x instance, used to read the key material of the configuration
      * @return           SSLContextParameters that delegates to Quarkus's TLS configuration
      */
-    static SSLContextParameters convert(TlsConfiguration tlsConfig, String name) {
+    static SSLContextParameters convert(TlsConfiguration tlsConfig, String name, Vertx vertx) {
         SSLContextParameters parameters = new SSLContextParameters() {
+            // Copied on first use, since most components never read it. A certificate reload replaces this whole
+            // bean, see TlsRegistryHelper.registerOrUpdateBean
+            private KeyStore keyStoreCopy;
+            private boolean keyStoreCopied;
+
             @Override
             public SSLContext createSSLContext(CamelContext camelContext) throws GeneralSecurityException, IOException {
                 final SSLContext delegate;
@@ -111,56 +132,40 @@ final class TlsConfigurationConverter {
 
             @Override
             public KeyManagersParameters getKeyManagers() {
-                KeyStore keyStore = tlsConfig.getKeyStore();
+                KeyStore keyStore = keyStoreCopy();
                 if (keyStore == null) {
                     return null;
                 }
 
-                // Create a KeyManagersParameters that wraps the Quarkus keystore
                 KeyManagersParameters kmp = new KeyManagersParameters();
-
-                // Create KeyStoreParameters wrapping the pre-loaded Quarkus keystore
-                KeyStoreParameters ksp = new KeyStoreParameters() {
-                    @Override
-                    public KeyStore createKeyStore() {
-                        // Return the already-loaded Quarkus keystore
-                        return keyStore;
-                    }
-                };
-                kmp.setKeyStore(ksp);
-
+                kmp.setKeyStore(keyStoreParameters(keyStore, KEY_STORE_DUMMY_PASSWORD));
+                kmp.setKeyPassword(KEY_STORE_DUMMY_PASSWORD);
                 return kmp;
+            }
+
+            private synchronized KeyStore keyStoreCopy() {
+                if (!keyStoreCopied) {
+                    keyStoreCopy = copyKeyEntries(tlsConfig, name, vertx);
+                    keyStoreCopied = true;
+                }
+                return keyStoreCopy;
             }
 
             @Override
             public TrustManagersParameters getTrustManagers() {
-                KeyStore trustStore = tlsConfig.getTrustStore();
-
-                // If no truststore and not trust-all mode, return null
-                // This is valid for scenarios where no server verification is needed
-                if (trustStore == null && !tlsConfig.isTrustAll()) {
-                    return null;
-                }
-
-                // If trust-all is enabled, return null and let the SSLContext handle it
-                // The SSLContext from Quarkus is already configured for trust-all
-                if (tlsConfig.isTrustAll()) {
-                    return null;
-                }
-
-                // Create a TrustManagersParameters that wraps the Quarkus truststore
                 TrustManagersParameters tmp = new TrustManagersParameters();
+                if (tlsConfig.isTrustAll()) {
+                    // Carried over as the trust manager, which components honour in preference to a trust store
+                    tmp.setTrustManager(TrustAllTrustManager.INSTANCE);
+                    return tmp;
+                }
 
-                // Create KeyStoreParameters wrapping the pre-loaded Quarkus truststore
-                KeyStoreParameters ksp = new KeyStoreParameters() {
-                    @Override
-                    public KeyStore createKeyStore() {
-                        // Return the already-loaded Quarkus truststore
-                        return trustStore;
-                    }
-                };
-                tmp.setKeyStore(ksp);
-
+                KeyStore trustStore = tlsConfig.getTrustStore();
+                if (trustStore == null) {
+                    // The component falls back to the JVM default trust store
+                    return null;
+                }
+                tmp.setKeyStore(keyStoreParameters(trustStore, null));
                 return tmp;
             }
         };
@@ -168,6 +173,92 @@ final class TlsConfigurationConverter {
         applyTransportPolicy(parameters, tlsConfig, name);
 
         return parameters;
+    }
+
+    /**
+     * Copy the private keys and certificate chains of a Quarkus TLS configuration into a new in-memory key store
+     * protected by {@link #KEY_STORE_DUMMY_PASSWORD}.
+     *
+     * Components that build their own KeyManagerFactory from {@link SSLContextParameters#getKeyManagers()} need the
+     * key password alongside the key store. The password of the key store loaded by Quarkus is not available to
+     * Camel: it is the configured password, an alias password, or for PEM an internal Vert.x one. Reading the keys
+     * through the key manager that Vert.x builds for the configuration avoids needing it, and keeps the alias
+     * selection Vert.x applies when {@code key-store.*.alias} is set.
+     *
+     * @return the key store, or null when the configuration has no key store
+     */
+    private static KeyStore copyKeyEntries(TlsConfiguration tlsConfig, String name, Vertx vertx) {
+        KeyCertOptions options = tlsConfig.getKeyStoreOptions();
+        KeyStore source = tlsConfig.getKeyStore();
+        if (options == null || source == null) {
+            return null;
+        }
+
+        try {
+            X509KeyManager keyManager = x509KeyManager(options.getKeyManagerFactory(vertx));
+
+            // The key manager does not list its aliases directly, only the ones matching a key type. It may also name
+            // them differently from the source key store, depending on the KeyManagerFactory algorithm
+            Set<String> keyTypes = new LinkedHashSet<>();
+            for (String alias : Collections.list(source.aliases())) {
+                Certificate certificate = source.getCertificate(alias);
+                if (source.isKeyEntry(alias) && certificate != null) {
+                    keyTypes.add(certificate.getPublicKey().getAlgorithm());
+                }
+            }
+
+            Set<String> aliases = new LinkedHashSet<>();
+            for (String keyType : keyTypes) {
+                addAll(aliases, keyManager.getServerAliases(keyType, null));
+                addAll(aliases, keyManager.getClientAliases(keyType, null));
+            }
+
+            KeyStore copy = KeyStore.getInstance(KeyStore.getDefaultType());
+            copy.load(null, null);
+            for (String alias : aliases) {
+                PrivateKey key = keyManager.getPrivateKey(alias);
+                X509Certificate[] chain = keyManager.getCertificateChain(alias);
+                if (key != null && chain != null && chain.length > 0) {
+                    copy.setKeyEntry(alias, key, KEY_STORE_DUMMY_PASSWORD.toCharArray(), chain);
+                }
+            }
+
+            if (!keyTypes.isEmpty() && copy.size() == 0) {
+                // Fail rather than return no key managers, which would silently connect without a client certificate
+                throw new IllegalStateException("No private key could be read from the key store");
+            }
+            return copy;
+        } catch (Exception e) {
+            throw new IllegalStateException(
+                    "Failed to read the key material of Quarkus TLS configuration '" + name + "'", e);
+        }
+    }
+
+    /**
+     * Do not override createKeyStore(); the inherited keyStore field shadows captured locals.
+     */
+    private static KeyStoreParameters keyStoreParameters(KeyStore keyStore, String password) {
+        KeyStoreParameters parameters = new KeyStoreParameters();
+        parameters.setKeyStore(keyStore);
+        parameters.setPassword(password);
+        return parameters;
+    }
+
+    private static X509KeyManager x509KeyManager(KeyManagerFactory keyManagerFactory) {
+        if (keyManagerFactory != null) {
+            for (KeyManager keyManager : keyManagerFactory.getKeyManagers()) {
+                if (keyManager instanceof X509KeyManager x509KeyManager) {
+                    return x509KeyManager;
+                }
+            }
+        }
+        throw new IllegalStateException("No X509KeyManager available for the key store");
+    }
+
+    private static void addAll(Set<String> target, String[] values) {
+        if (values != null) {
+            Collections.addAll(target, values);
+        }
     }
 
     /**

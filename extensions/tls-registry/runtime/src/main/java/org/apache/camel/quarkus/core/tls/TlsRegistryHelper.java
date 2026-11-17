@@ -22,6 +22,7 @@ import io.quarkus.arc.Arc;
 import io.quarkus.tls.TlsConfiguration;
 import io.quarkus.tls.TlsConfigurationRegistry;
 import io.quarkus.tls.runtime.config.TlsConfig;
+import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.slf4j.Logger;
@@ -80,14 +81,16 @@ final class TlsRegistryHelper {
      * @param config       the TLS registry configuration
      * @param name         the TLS configuration name
      * @param tlsConfig    the TLS configuration
+     * @param vertx        the Vert.x instance
      */
     static void registerOrUpdateBean(
             CamelContext camelContext,
             TlsRegistryConfig config,
             String name,
-            TlsConfiguration tlsConfig) {
+            TlsConfiguration tlsConfig,
+            Vertx vertx) {
 
-        SSLContextParameters sslParams = TlsConfigurationConverter.convert(tlsConfig, name);
+        SSLContextParameters sslParams = TlsConfigurationConverter.convert(tlsConfig, name, vertx);
         boolean isDefault = isDefaultConfig(name);
 
         if (isDefault && config.quarkusDefaultAsGlobal()) {
@@ -107,15 +110,17 @@ final class TlsRegistryHelper {
      * @param  config                the TLS registry configuration
      * @param  name                  the TLS configuration name
      * @param  tlsConfig             the TLS configuration
+     * @param  vertx                 the Vert.x instance
      * @throws IllegalStateException if a bean with the same name already exists
      */
     static void registerBean(
             CamelContext camelContext,
             TlsRegistryConfig config,
             String name,
-            TlsConfiguration tlsConfig) {
+            TlsConfiguration tlsConfig,
+            Vertx vertx) {
 
-        SSLContextParameters sslParams = TlsConfigurationConverter.convert(tlsConfig, name);
+        SSLContextParameters sslParams = TlsConfigurationConverter.convert(tlsConfig, name, vertx);
         boolean isDefault = isDefaultConfig(name);
 
         if (isDefault && config.quarkusDefaultAsGlobal()) {
