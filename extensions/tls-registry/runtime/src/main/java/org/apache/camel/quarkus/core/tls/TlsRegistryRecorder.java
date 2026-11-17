@@ -23,6 +23,7 @@ import io.quarkus.runtime.annotations.Recorder;
 import io.quarkus.tls.TlsConfiguration;
 import io.quarkus.tls.TlsConfigurationRegistry;
 import io.quarkus.tls.runtime.config.TlsConfig;
+import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
 import org.apache.camel.spi.ContextReloadStrategy;
 import org.apache.camel.support.DefaultContextReloadStrategy;
@@ -50,8 +51,10 @@ public class TlsRegistryRecorder {
      * Called at RUNTIME_INIT after the Camel context is created.
      *
      * @param camelContextRuntimeValue the Camel context
+     * @param vertxRuntimeValue        the Vert.x instance, used to read the key material of TLS configurations
      */
-    public void registerTlsConfigurations(RuntimeValue<CamelContext> camelContextRuntimeValue) {
+    public void registerTlsConfigurations(RuntimeValue<CamelContext> camelContextRuntimeValue,
+            RuntimeValue<Vertx> vertxRuntimeValue) {
         TlsRegistryConfig config = tlsRegistryConfigRuntimeValue.getValue();
 
         if (!config.enabled()) {
@@ -67,6 +70,7 @@ public class TlsRegistryRecorder {
         }
 
         CamelContext camelContext = camelContextRuntimeValue.getValue();
+        Vertx vertx = vertxRuntimeValue.getValue();
 
         // Configure context reloading for cert updates if required
         if (config.reloadOnCertificateUpdate() && camelContext.hasService(ContextReloadStrategy.class) == null) {
@@ -81,7 +85,7 @@ public class TlsRegistryRecorder {
         // Process default TLS configuration
         Optional<TlsConfiguration> defaultTls = tlsRegistry.getDefault();
         if (defaultTls.isPresent()) {
-            TlsRegistryHelper.registerBean(camelContext, config, "default", defaultTls.get());
+            TlsRegistryHelper.registerBean(camelContext, config, "default", defaultTls.get(), vertx);
         }
 
         // Process all named TLS configurations
@@ -90,7 +94,7 @@ public class TlsRegistryRecorder {
             Optional<TlsConfiguration> namedTls = tlsRegistry.get(name);
             if (namedTls.isPresent()) {
                 LOG.debug("Processing named TLS configuration '{}'", name);
-                TlsRegistryHelper.registerBean(camelContext, config, name, namedTls.get());
+                TlsRegistryHelper.registerBean(camelContext, config, name, namedTls.get(), vertx);
             }
         }
     }

@@ -23,6 +23,7 @@ import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.core.tls.TlsCertificateReloadObserver;
@@ -46,9 +47,10 @@ public class TlsRegistryProcessor {
     @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     CamelRuntimeTaskBuildItem registerTlsConfigurations(
             TlsRegistryRecorder recorder,
-            CamelContextBuildItem camelContext) {
+            CamelContextBuildItem camelContext,
+            VertxBuildItem vertx) {
 
-        recorder.registerTlsConfigurations(camelContext.getCamelContext());
+        recorder.registerTlsConfigurations(camelContext.getCamelContext(), vertx.getVertx());
 
         return new CamelRuntimeTaskBuildItem("tls-registry");
     }

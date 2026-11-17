@@ -27,6 +27,10 @@ public class TlsRegistryRoutes extends RouteBuilder {
         from("direct:https-with-named-ssl")
                 .toD("https://${header.host}?sslContextParameters=#${header.sslBeanName}");
 
+        // Route using a named SSL configuration with a component that builds its own key managers from the bean
+        from("direct:vertx-https-with-named-ssl")
+                .toD("vertx-http:https://${header.host}?sslContextParameters=#${header.sslBeanName}");
+
         // Route using global SSL configuration (enabled by default in application.properties)
         from("direct:https-with-global-ssl")
                 .toD("https://${header.host}");

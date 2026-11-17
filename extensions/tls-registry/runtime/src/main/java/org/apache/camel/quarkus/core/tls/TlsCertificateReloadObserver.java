@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import io.quarkus.tls.CertificateUpdatedEvent;
 import io.quarkus.tls.TlsConfiguration;
 import io.quarkus.tls.TlsConfigurationRegistry;
+import io.vertx.core.Vertx;
 import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -53,6 +54,9 @@ public class TlsCertificateReloadObserver {
 
     @Inject
     TlsRegistryConfig config;
+
+    @Inject
+    Vertx vertx;
 
     private final AtomicReference<ScheduledFuture<?>> pendingReload = new AtomicReference<>();
     private ScheduledExecutorService scheduler;
@@ -92,7 +96,7 @@ public class TlsCertificateReloadObserver {
             }
 
             // Update the bean in the Camel registry
-            TlsRegistryHelper.registerOrUpdateBean(camelContext, config, event.name(), tlsConfig.get());
+            TlsRegistryHelper.registerOrUpdateBean(camelContext, config, event.name(), tlsConfig.get(), vertx);
 
             // Schedule a debounced context reload to restart routes with new certificates
             scheduleCamelContextReload();

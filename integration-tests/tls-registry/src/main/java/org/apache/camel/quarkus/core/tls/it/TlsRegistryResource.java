@@ -29,6 +29,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.support.jsse.SSLContextParameters;
@@ -46,6 +47,9 @@ public class TlsRegistryResource {
 
     @ConfigProperty(name = "quarkus.http.ssl-port", defaultValue = "8443")
     int httpsPort;
+
+    @ConfigProperty(name = "tls-registry.mtls.port", defaultValue = "8543")
+    int mtlsPort;
 
     @Path("/beans")
     @GET
@@ -108,6 +112,33 @@ public class TlsRegistryResource {
                 null,
                 Map.of("host", host, "sslBeanName", sslBeanName),
                 String.class);
+    }
+
+    /**
+     * Calls the {@link MutualTlsServer} with the given component and SSLContextParameters bean.
+     */
+    @Path("/mtls/{component}/{sslBeanName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response callMutualTls(@PathParam("component") String component, @PathParam("sslBeanName") String sslBeanName) {
+        String route = switch (component) {
+        case "http" -> "direct:https-with-named-ssl";
+        case "vertx-http" -> "direct:vertx-https-with-named-ssl";
+        default -> throw new IllegalArgumentException("Unknown component " + component);
+        };
+        try {
+            return Response.ok(producerTemplate.requestBodyAndHeaders(route,
+                    null,
+                    Map.of("host", "localhost:" + mtlsPort, "sslBeanName", sslBeanName),
+                    String.class)).build();
+        } catch (Exception e) {
+            // Report the cause chain, so that a test can tell a rejected handshake from any other failure
+            StringBuilder causes = new StringBuilder();
+            for (Throwable cause = e; cause != null; cause = cause.getCause()) {
+                causes.append(cause.getClass().getName()).append(": ").append(cause.getMessage()).append('\n');
+            }
+            return Response.serverError().entity(causes.toString()).build();
+        }
     }
 
     @Path("/http/call-with-global-ssl")
