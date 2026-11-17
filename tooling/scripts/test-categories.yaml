@@ -37,7 +37,6 @@ group-01:
   - mllp
   - qdrant
 group-02:
-  - aws2
   - beanio
   - cyberark-vault
   - google-pubsub

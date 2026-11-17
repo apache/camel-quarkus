@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.aws.bedrock.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 
 class AwsBedrockProcessor {
 
@@ -26,5 +27,13 @@ class AwsBedrockProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ServiceProviderBuildItem asyncHttpService() {
+        // BedrockEndpoint always creates an async client, which needs an SdkAsyncHttpService in native mode
+        return new ServiceProviderBuildItem(
+                "software.amazon.awssdk.http.async.SdkAsyncHttpService",
+                "software.amazon.awssdk.http.nio.netty.NettySdkAsyncHttpService");
     }
 }

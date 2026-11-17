@@ -234,6 +234,8 @@ public class Aws2TestEnvContext {
 
     private static String camelServiceComponentName(Service service) {
         switch (service) {
+        case BEDROCK_RUNTIME:
+            return "camel.component.aws-bedrock";
         case DYNAMODB:
             return "camel.component.aws2-ddb";
         case DYNAMODB_STREAMS:
