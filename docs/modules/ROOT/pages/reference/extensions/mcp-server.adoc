@@ -192,6 +192,23 @@ The tools are served over streamable HTTP only. The stdio transport, used
 by MCP clients that launch the server as a subprocess, is not supported by
 this extension.
 
+[id="extensions-mcp-server-usage-mcp-protocol-versions"]
+=== MCP protocol versions
+
+The quarkus-mcp-server extension serves two kinds of MCP clients on the same
+endpoint, and the Camel routes reach both without any Camel configuration:
+
+* clients of the protocol versions that open with an `initialize` handshake
+  (2025-11-25 and earlier) get a session, kept in memory by the application;
+* clients of protocol version 2026-07-28 have no session: each request carries
+  its protocol version and is served on its own, so such a client keeps working
+  when the application restarts, and any instance can answer its requests.
+  They are told about changed tool or resource lists through a
+  `subscriptions/listen` request.
+
+Clients that open with `initialize` always get a session; serving them without
+one is not offered by this extension.
+
 [id="extensions-mcp-server-usage-mixing-with-quarkus-mcp-server-annotated-tools"]
 === Mixing with quarkus-mcp-server annotated tools
 
