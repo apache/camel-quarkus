@@ -52,6 +52,15 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hashicorp-vault</artifactId>
         </dependency>
+        <!-- The optional AWS SDK of the aws-iam login: native image links HashicorpVaultAwsIam at build time -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-aws2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>auth</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>nativeimage</artifactId>
