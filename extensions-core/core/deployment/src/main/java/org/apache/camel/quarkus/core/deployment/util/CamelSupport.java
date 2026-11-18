@@ -19,9 +19,12 @@ package org.apache.camel.quarkus.core.deployment.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
@@ -33,10 +36,14 @@ import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.CamelContext;
+import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.converter.AnnotationTypeConverterLoader;
+import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
+import org.apache.camel.support.PluginHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.ClassInfo;
 
@@ -136,7 +143,12 @@ public final class CamelSupport {
     }
 
     public static CamelContext newBuildTimeCamelContext(boolean init) {
-        CamelContext context = new DefaultCamelContext(false);
+        CamelContext context = new DefaultCamelContext(false) {
+            @Override
+            protected TypeConverter createTypeConverter() {
+                return new BuildTimeTypeConverter(this);
+            }
+        };
         if (init) {
             context.init();
         }
@@ -175,5 +187,26 @@ public final class CamelSupport {
         }
 
         return extensions;
+    }
+
+    /**
+     * Skips the lookup of {@value AnnotationTypeConverterLoader#META_INF_SERVICES} files, which Camel does only for a
+     * startup warning. QuarkusClassLoader handles a {@code META-INF/services/<name>} lookup by loading {@code <name>}
+     * as a class, which fails with {@code NoClassDefFoundError} for {@code org/apache/camel/TypeConverter}.
+     */
+    static final class BuildTimeTypeConverter extends DefaultTypeConverter {
+        BuildTimeTypeConverter(AbstractCamelContext context) {
+            super(context, PluginHelper.getPackageScanClassResolver(context), context.getInjector(),
+                    Boolean.TRUE.equals(context.isLoadTypeConverters()),
+                    Boolean.TRUE.equals(context.isTypeConverterStatisticsEnabled()));
+        }
+
+        @Override
+        protected Collection<URL> getLoaderUrls(String basePath) throws IOException {
+            if (AnnotationTypeConverterLoader.META_INF_SERVICES.equals(basePath)) {
+                return List.of();
+            }
+            return super.getLoaderUrls(basePath);
+        }
     }
 }
