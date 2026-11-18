@@ -28,6 +28,7 @@ import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -79,7 +80,10 @@ class TlsRegistryMutualTlsTest {
                 .get("/tls-registry/mtls/" + component + "/client-no-key")
                 .then()
                 .statusCode(500)
-                .body(containsString("javax.net.ssl.SSLHandshakeException: (certificate_required)"));
+                // On Windows the rejection can surface as an aborted connection rather than the TLS alert
+                .body(anyOf(
+                        containsString("javax.net.ssl.SSLHandshakeException: (certificate_required)"),
+                        containsString("java.net.SocketException: An established connection was aborted")));
     }
 
     public static class MutualTlsProfile implements QuarkusTestProfile {

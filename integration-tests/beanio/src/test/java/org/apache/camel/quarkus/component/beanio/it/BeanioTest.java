@@ -33,9 +33,11 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.xmlunit.builder.DiffBuilder;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @QuarkusTest
 class BeanioTest {
@@ -72,11 +74,6 @@ class BeanioTest {
         String expected = IOUtils.toString(
                 BeanioTest.class.getResourceAsStream("/employees-%s.txt".formatted(type.toLowerCase())),
                 StandardCharsets.UTF_8);
-        if (type.equals("XML")) {
-            // Clean up XML to match what is returned from beanio
-            expected = expected.replaceAll("(?s)<!--.*?-->", "").replaceAll(">[\\s\r\n]*<", "><");
-        }
-
         String result = RestAssured.given()
                 .queryParam("type", type)
                 .contentType(ContentType.JSON)
@@ -88,7 +85,13 @@ class BeanioTest {
                 .body()
                 .asString();
 
-        assertEquals(expected.trim(), result.trim());
+        if (type.equals("XML")) {
+            assertFalse(DiffBuilder.compare(expected).withTest(result)
+                    .ignoreComments().ignoreWhitespace().checkForSimilar().build()
+                    .hasDifferences());
+        } else {
+            assertEquals(expected.trim(), result.trim());
+        }
     }
 
     @ParameterizedTest
