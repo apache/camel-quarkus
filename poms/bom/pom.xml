@@ -8701,6 +8701,7 @@
                                     <baseBomPath>${project.basedir}/src/main/generated/flattened-reduced-pom.xml</baseBomPath>
                                     <ignoredOverlaps>
                                         <ignoredOverlap>org.glassfish.jaxb:jaxb-runtime</ignoredOverlap><!-- Comes from quarkus-cxf-bom -->
+                                        <ignoredOverlap>com.fasterxml.woodstox:woodstox-core</ignoredOverlap><!-- Newly managed in quarkus-bom and is also managed in quarkus-cxf-bom -->
                                     </ignoredOverlaps>
                                 </configuration>
                             </execution>
