@@ -15,17 +15,10 @@
 # limitations under the License.
 #
 
-apiVersion: camel.apache.org/v1
-kind: Pipe
-metadata:
-  name: greeting-pipe
-spec:
-  source:
-    ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1
-      name: greeting-from-property
-    properties:
-      greeting: "Hello Pipe"
-  sink:
-    uri: "seda:greetingFromProperty"
+
+- from:
+    uri: "kamelet:greeting-from-property"
+    parameters:
+      greeting: "Hello YAML route"
+    steps:
+      - to: "seda:greetingFromProperty"
