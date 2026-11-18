@@ -109,10 +109,10 @@ public class KameletResource {
         return consumerTemplate.receiveBody("seda:greeting", 10000, String.class);
     }
 
-    @Path("/pipe")
+    @Path("/yaml-route")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String pipe() {
+    public String yamlRoute() {
         return consumerTemplate.receiveBody("seda:greetingFromProperty", 10000, String.class);
     }
 

@@ -126,11 +126,11 @@ class KameletTest {
     }
 
     @Test
-    public void pipe() {
-        RestAssured.get("/kamelet/pipe")
+    public void kameletInYamlRoute() {
+        RestAssured.get("/kamelet/yaml-route")
                 .then()
                 .statusCode(200)
-                .body(is("Hello Pipe"));
+                .body(is("Hello YAML route"));
     }
 
     @Test
