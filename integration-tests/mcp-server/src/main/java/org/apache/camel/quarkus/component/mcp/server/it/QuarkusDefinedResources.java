@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.mcp.server.it;
 
 import java.util.List;
 
+import io.quarkiverse.mcp.server.RequestUri;
+import io.quarkiverse.mcp.server.Resource;
 import io.quarkiverse.mcp.server.ResourceManager;
 import io.quarkiverse.mcp.server.ResourceResponse;
 import io.quarkiverse.mcp.server.TextResourceContents;
@@ -27,12 +29,38 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 
 /**
- * Resources registered by the application itself through the quarkus-mcp-server {@link ResourceManager}: one at the
- * same uri as the clashing-resource-route ai-resource route, and one at the uri of the app-config-route ai-resource
- * route, on another MCP server.
+ * Resources defined by the application itself.
+ * <p>
+ * With {@link Resource}, registered at build time before any route starts: one per outcome an ai-resource route can
+ * meet, named after it. Each returns its own content, so a read tells which resource served it.
+ * <p>
+ * With {@link ResourceManager}, registered on startup: one at the uri of the clashing-resource-route ai-resource
+ * route, and one at the uri of the app-config-route ai-resource route, on another MCP server.
  */
 @ApplicationScoped
 public class QuarkusDefinedResources {
+
+    public static final String NO_CLASH_CONTENT = "read from @Resource annotated_no_clash";
+    public static final String URI_CLASH_CONTENT = "read from @Resource annotated_uri_clash";
+    public static final String NAME_CLASH_CONTENT = "read from @Resource annotated_name_clash";
+
+    /** Clashes with nothing: exposed next to the Camel resources. */
+    @Resource(name = "annotated_no_clash", uri = "camel:///annotated/no-clash", description = "Resource declared with @Resource, clashing with nothing", mimeType = "text/plain")
+    ResourceResponse annotatedNoClash(RequestUri uri) {
+        return new ResourceResponse(List.of(TextResourceContents.create(uri.value(), NO_CLASH_CONTENT)));
+    }
+
+    /** Owns the uri of the camel_uri_clash route, whose name is free: that route is refused on the uri. */
+    @Resource(name = "annotated_uri_clash", uri = "camel:///annotated/uri-clash", description = "Uri also asked for by an ai-resource route")
+    ResourceResponse annotatedUriClash(RequestUri uri) {
+        return new ResourceResponse(List.of(TextResourceContents.create(uri.value(), URI_CLASH_CONTENT)));
+    }
+
+    /** Owns the name of the annotated_name_clash route, whose uri is free: that route is refused on the name. */
+    @Resource(name = "annotated_name_clash", uri = "camel:///annotated/name-clash", description = "Name also asked for by an ai-resource route")
+    ResourceResponse annotatedNameClash(RequestUri uri) {
+        return new ResourceResponse(List.of(TextResourceContents.create(uri.value(), NAME_CLASH_CONTENT)));
+    }
 
     void registerResources(@Observes StartupEvent event) {
         // looked up, not injected: any ResourceManager injection point makes quarkus-mcp-server advertise

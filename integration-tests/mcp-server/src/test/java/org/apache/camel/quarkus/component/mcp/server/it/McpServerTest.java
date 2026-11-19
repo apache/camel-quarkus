@@ -506,6 +506,63 @@ class McpServerTest {
     }
 
     @Test
+    void testAnnotatedResourceWithoutClashCoexistsWithCamelResources() {
+        client().when()
+                .resourcesList(page -> assertThat(resourceUris(page))
+                        .contains("camel:///annotated/no-clash", "camel:///config/app.json"))
+                .resourcesRead("camel:///annotated/no-clash",
+                        response -> assertThat(response.contents().get(0).asText().text())
+                                .isEqualTo(QuarkusDefinedResources.NO_CLASH_CONTENT))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testCamelResourceCollidingWithAnnotatedResourceUriIsRefused() {
+        assertThat(routeStatus("annotated-uri-clash-route")).isEqualTo("Started");
+        client().when()
+                .resourcesRead("camel:///annotated/uri-clash",
+                        response -> assertThat(response.contents().get(0).asText().text())
+                                .isEqualTo(QuarkusDefinedResources.URI_CLASH_CONTENT))
+                .thenAssertResults();
+
+        // stopping the refused route must leave the annotated resource in place
+        controlRoute("annotated-uri-clash-route", "stop");
+        assertThat(routeStatus("annotated-uri-clash-route")).isEqualTo("Stopped");
+        try {
+            client().when()
+                    .resourcesRead("camel:///annotated/uri-clash",
+                            response -> assertThat(response.contents().get(0).asText().text())
+                                    .isEqualTo(QuarkusDefinedResources.URI_CLASH_CONTENT))
+                    .thenAssertResults();
+        } finally {
+            controlRoute("annotated-uri-clash-route", "start");
+        }
+    }
+
+    @Test
+    void testCamelResourceCollidingWithAnnotatedResourceNameIsRefused() {
+        assertThat(routeStatus("annotated-name-clash-route")).isEqualTo("Started");
+        client().when()
+                .resourcesList(page -> assertThat(resourceUris(page)).doesNotContain("camel:///camel/name-clash"))
+                .resourcesRead("camel:///annotated/name-clash",
+                        response -> assertThat(response.contents().get(0).asText().text())
+                                .isEqualTo(QuarkusDefinedResources.NAME_CLASH_CONTENT))
+                .thenAssertResults();
+
+        controlRoute("annotated-name-clash-route", "stop");
+        assertThat(routeStatus("annotated-name-clash-route")).isEqualTo("Stopped");
+        try {
+            client().when()
+                    .resourcesRead("camel:///annotated/name-clash",
+                            response -> assertThat(response.contents().get(0).asText().text())
+                                    .isEqualTo(QuarkusDefinedResources.NAME_CLASH_CONTENT))
+                    .thenAssertResults();
+        } finally {
+            controlRoute("annotated-name-clash-route", "start");
+        }
+    }
+
+    @Test
     void testStoppingResourceRouteKeepsResourceOfOtherServer() {
         // the application registered a resource at the same uri on another MCP server
         controlRoute("app-config-route", "stop");
