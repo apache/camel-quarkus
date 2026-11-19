@@ -19,9 +19,13 @@ package org.apache.camel.quarkus.component.ai.tool.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
@@ -169,6 +173,123 @@ class AiToolTest {
                 .then()
                 .statusCode(200)
                 .body(is("name=Alice, camel=, extra="));
+    }
+
+    @Test
+    void toolWithSeveralTagsIsVisibleUnderEachTag() {
+        RestAssured.get("/ai-tool/tools/tag/weather").then().statusCode(200).body(containsString("typedTool"));
+        RestAssured.get("/ai-tool/tools/tag/math").then().statusCode(200).body(containsString("typedTool"));
+        RestAssured.get("/ai-tool/tools/tag/search").then().statusCode(200).body(not(containsString("typedTool")));
+    }
+
+    @Test
+    void descriptionDefaultsToToolName() {
+        RestAssured.get("/ai-tool/tools/typedTool/description")
+                .then()
+                .statusCode(200)
+                .body(is("typedTool"));
+    }
+
+    @Test
+    void parameterTypesAndDescriptionInSchema() {
+        RestAssured.get("/ai-tool/tools/typedTool/schema")
+                .then()
+                .statusCode(200)
+                .body("properties.amount.type", is("number"))
+                .body("properties.enabled.type", is("boolean"))
+                .body("properties.count.type", is("integer"))
+                .body("properties.note.type", is("string"))
+                .body("properties.note.description", is("Free text"));
+    }
+
+    @Test
+    void toolHints() {
+        RestAssured.get("/ai-tool/tools/typedTool/annotations")
+                .then()
+                .statusCode(200)
+                .body(containsString("destructiveHint=true"))
+                .body(containsString("openWorldHint=false"));
+    }
+
+    @Test
+    void nullBodyReturnsNoResult() {
+        RestAssured.given()
+                .post("/ai-tool/execute/typedTool")
+                .then()
+                .statusCode(200)
+                .body(is("No result"));
+    }
+
+    @Test
+    void inlineArgSchema() {
+        RestAssured.get("/ai-tool/tools/searchInline/schema")
+                .then()
+                .statusCode(200)
+                .body("required", hasItem("query"));
+
+        RestAssured.given()
+                .post("/ai-tool/execute/searchInline")
+                .then()
+                .statusCode(400)
+                .body(containsString("query"));
+
+        RestAssured.given()
+                .queryParam("param", "query=camel")
+                .post("/ai-tool/execute/searchInline")
+                .then()
+                .statusCode(200)
+                .body(is("Results for camel"));
+    }
+
+    @Test
+    void argSchemaFromClasspathResource() {
+        RestAssured.get("/ai-tool/tools/searchFromResource/schema")
+                .then()
+                .statusCode(200)
+                .body("properties.query.description", is("The search phrase from the resource"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(delimiter = '|', value = {
+            "argSchemaAndParameters     | argSchema and parameter.* are mutually exclusive",
+            "argSchemaNotObject         | argSchema must be a JSON object",
+            "argSchemaWithoutProperties | argSchema must be a JSON Schema object with a properties map",
+            "argSchemaBadRequired       | argSchema required entry 'b' is not declared in properties",
+            "duplicateName              | Duplicate tool name 'getWeather' under tag 'weather'" })
+    void invalidToolIsRejected(String name, String message) {
+        RestAssured.given()
+                .post("/ai-tool/invalid/" + name)
+                .then()
+                .statusCode(200)
+                .body(containsString(message));
+    }
+
+    @Test
+    void producerIsNotSupported() {
+        RestAssured.given()
+                .post("/ai-tool/producer")
+                .then()
+                .statusCode(200)
+                .body(containsString("ai-tool does not support producer mode"));
+    }
+
+    @Test
+    void suspendAndResumeReRegistersTool() {
+        RestAssured.given()
+                .post("/ai-tool/routes/typedTool/suspend-resume")
+                .then()
+                .statusCode(200)
+                .body(is("deregistered:weather:typedTool,deregistered:math:typedTool,suspended:hidden,"
+                        + "registered:weather:typedTool,registered:math:typedTool,resumed:visible"));
+    }
+
+    @Test
+    void toolsAreRegisteredBeforeRouteConsumersStart() {
+        RestAssured.get("/ai-tool/tools/at-startup")
+                .then()
+                .statusCode(200)
+                .body(containsString("getWeather"))
+                .body(containsString("typedTool"));
     }
 
     @Test
