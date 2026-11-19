@@ -18,13 +18,17 @@ package org.apache.camel.quarkus.core.deployment.catalog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.camel.catalog.impl.AbstractCamelCatalog;
 import org.apache.camel.tooling.model.BaseOptionModel;
 import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.LanguageModel;
 
 public class BuildTimeCamelCatalog extends AbstractCamelCatalog {
 
@@ -37,50 +41,92 @@ public class BuildTimeCamelCatalog extends AbstractCamelCatalog {
     }
 
     /**
+     * Gets the models of the components that are on the classpath, one per component scheme
+     *
+     * @return List of {@link ComponentModel} instances
+     */
+    public List<ComponentModel> getComponentModels() {
+        return getModels("component", this::componentModel);
+    }
+
+    /**
+     * Gets the models of the data formats that are on the classpath
+     *
+     * @return List of {@link DataFormatModel} instances
+     */
+    public List<DataFormatModel> getDataFormatModels() {
+        return getModels("dataformat", this::dataFormatModel);
+    }
+
+    /**
+     * Gets the models of the languages that are on the classpath
+     *
+     * @return List of {@link LanguageModel} instances
+     */
+    public List<LanguageModel> getLanguageModels() {
+        return getModels("language", this::languageModel);
+    }
+
+    /**
      * Gets a list of all component, endpoint, dataformat & language options for the components that are on the classpath
      *
      * @return List of {@link BaseOptionModel} instances
      */
     public List<BaseOptionModel> getAllOptions() {
         List<BaseOptionModel> options = new ArrayList<>();
-        BuildTimeJsonSchemaResolver resolver = getJSonSchemaResolver();
-        Set<SchemaResource> schemaResources = resolver.getSchemaResources();
-
-        // Component options
-        List<ComponentModel> componentModels = schemaResources
-                .stream()
-                .map(SchemaResource::getName)
-                .map(this::componentModel)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        // For components we need to combine the component options with the endpoint options
-        componentModels.stream()
-                .flatMap(componentModel -> componentModel.getComponentOptions().stream())
-                .forEach(options::add);
-
-        componentModels.stream()
-                .flatMap(componentModel -> componentModel.getEndpointOptions().stream())
-                .forEach(options::add);
-
-        // DataFormat options
-        schemaResources
-                .stream()
-                .map(SchemaResource::getName)
-                .map(this::dataFormatModel)
-                .filter(Objects::nonNull)
-                .flatMap(dataFormatModel -> dataFormatModel.getOptions().stream())
-                .forEach(options::add);
-
-        // Language options
-        schemaResources
-                .stream()
-                .map(SchemaResource::getName)
-                .map(this::languageModel)
-                .filter(Objects::nonNull)
-                .flatMap(languageModel -> languageModel.getOptions().stream())
-                .forEach(options::add);
-
+        List<ComponentModel> componentModels = getComponentModels();
+        componentModels.forEach(model -> options.addAll(model.getComponentOptions()));
+        componentModels.forEach(model -> options.addAll(model.getEndpointOptions()));
+        getDataFormatModels().forEach(model -> options.addAll(model.getOptions()));
+        getLanguageModels().forEach(model -> options.addAll(model.getOptions()));
         return options;
+    }
+
+    /**
+     * Gets the names of the component options of the given Java type, keyed by component scheme. Schemes without such
+     * an option are omitted.
+     *
+     * @param  javaType the Java type of the options to find
+     * @return          Map of component scheme to option names
+     */
+    public Map<String, List<String>> getComponentOptionNames(Class<?> javaType) {
+        return getOptionNames(javaType, ComponentModel::getComponentOptions);
+    }
+
+    /**
+     * Gets the names of the endpoint options of the given Java type, keyed by component scheme. Schemes without such
+     * an option are omitted.
+     *
+     * @param  javaType the Java type of the options to find
+     * @return          Map of component scheme to option names
+     */
+    public Map<String, List<String>> getEndpointOptionNames(Class<?> javaType) {
+        return getOptionNames(javaType, ComponentModel::getEndpointOptions);
+    }
+
+    private Map<String, List<String>> getOptionNames(Class<?> javaType,
+            Function<ComponentModel, List<? extends BaseOptionModel>> optionsResolver) {
+        Map<String, List<String>> optionNames = new TreeMap<>();
+        for (ComponentModel model : getComponentModels()) {
+            List<String> names = optionsResolver.apply(model)
+                    .stream()
+                    .filter(option -> javaType.getName().equals(option.getJavaType()))
+                    .map(BaseOptionModel::getName)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            if (!names.isEmpty()) {
+                optionNames.put(model.getScheme(), names);
+            }
+        }
+        return optionNames;
+    }
+
+    private <T> List<T> getModels(String type, Function<String, T> modelResolver) {
+        return getJSonSchemaResolver().getSchemaResources()
+                .stream()
+                .filter(resource -> type.equals(resource.getType()))
+                .map(SchemaResource::getName)
+                .map(modelResolver)
+                .filter(Objects::nonNull)
+                .toList();
     }
 }

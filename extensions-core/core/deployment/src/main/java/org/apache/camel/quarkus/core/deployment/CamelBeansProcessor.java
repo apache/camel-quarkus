@@ -127,11 +127,14 @@ class CamelBeansProcessor {
                 .collect(Collectors.toList());
 
         for (AnnotationInstance instance : annotations) {
-            SchemaResource resource = new SchemaResource();
-            resource.setName(instance.value().asString());
-            resource.setType(instance.name().withoutPackagePrefix().toLowerCase());
-            resource.setClassName(instance.target().asClass().name());
-            resources.add(resource);
+            // A class can serve several comma separated names, each with its own JSON schema
+            for (String name : instance.value().asString().split(",")) {
+                SchemaResource resource = new SchemaResource();
+                resource.setName(name.trim());
+                resource.setType(instance.name().withoutPackagePrefix().toLowerCase());
+                resource.setClassName(instance.target().asClass().name());
+                resources.add(resource);
+            }
         }
 
         BuildTimeJsonSchemaResolver resolver = new BuildTimeJsonSchemaResolver(resources);
