@@ -292,6 +292,23 @@ class AiToolTest {
                 .body(containsString("typedTool"));
     }
 
+    @ParameterizedTest
+    @CsvSource({ "yamlGreet, YAML", "xmlGreet, XML" })
+    void toolFromDslRoute(String toolName, String dsl) {
+        RestAssured.given()
+                .post("/ai-tool/execute/" + toolName)
+                .then()
+                .statusCode(400)
+                .body(containsString("name"));
+
+        RestAssured.given()
+                .queryParam("param", "name=Alice")
+                .post("/ai-tool/execute/" + toolName)
+                .then()
+                .statusCode(200)
+                .body(is("Hello from " + dsl + ", Alice!"));
+    }
+
     @Test
     void executeNonExistentTool() {
         RestAssured.given()
