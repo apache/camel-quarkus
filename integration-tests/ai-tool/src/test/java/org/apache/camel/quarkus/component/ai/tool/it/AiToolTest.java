@@ -150,6 +150,28 @@ class AiToolTest {
     }
 
     @Test
+    void camelPrefixedArgumentIsNotSetAsHeader() {
+        RestAssured.given()
+                .queryParam("param", "name=Alice")
+                .queryParam("param", "CamelOverride=injected")
+                .post("/ai-tool/execute/echoHeaders")
+                .then()
+                .statusCode(200)
+                .body(is("name=Alice, camel=, extra="));
+    }
+
+    @Test
+    void undeclaredArgumentIsIgnored() {
+        RestAssured.given()
+                .queryParam("param", "name=Alice")
+                .queryParam("param", "extra=injected")
+                .post("/ai-tool/execute/echoHeaders")
+                .then()
+                .statusCode(200)
+                .body(is("name=Alice, camel=, extra="));
+    }
+
+    @Test
     void executeNonExistentTool() {
         RestAssured.given()
                 .post("/ai-tool/execute/nonExistent")

@@ -70,5 +70,13 @@ public class AiToolRoutes extends RouteBuilder {
         from("ai-tool:failingTool?tags=test"
                 + "&description=A tool that always fails")
                 .throwException(new IllegalStateException("Intentional failure"));
+
+        // CamelOverride is declared, but argument names starting with "Camel" must never become headers;
+        // "extra" is not declared, so it must be dropped
+        from("ai-tool:echoHeaders?tags=test"
+                + "&description=Echo the received headers"
+                + "&parameter.name=string"
+                + "&parameter.CamelOverride=string")
+                .setBody(simple("name=${header.name}, camel=${header.CamelOverride}, extra=${header.extra}"));
     }
 }
