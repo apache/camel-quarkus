@@ -16,11 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jq.it;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -30,6 +25,11 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.StringNode;
 
 @Path("/jq")
 @ApplicationScoped
@@ -44,7 +44,7 @@ public class JqResource {
     @GET
     public void expression() throws Exception {
         MockEndpoint endpoint = context.getEndpoint("mock:expression", MockEndpoint.class);
-        endpoint.expectedBodiesReceived(new TextNode("bar"));
+        endpoint.expectedBodiesReceived(new StringNode("bar"));
 
         ObjectNode node = mapper.createObjectNode()
                 .put("foo", "bar")
@@ -59,7 +59,7 @@ public class JqResource {
     @GET
     public void expressionHeader() throws Exception {
         MockEndpoint endpoint = context.getEndpoint("mock:expressionHeader", MockEndpoint.class);
-        TextNode expected = new TextNode("bar");
+        StringNode expected = new StringNode("bar");
         endpoint.expectedBodiesReceived(expected);
 
         ObjectNode node = mapper.createObjectNode().put("foo", "bar");

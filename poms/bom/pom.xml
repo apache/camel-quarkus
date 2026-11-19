@@ -1871,6 +1871,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jackson3</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jacksonxml</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -2018,16 +2023,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jq</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>net.thisptr</groupId>
-                        <artifactId>jackson-jq</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>net.thisptr</groupId>
-                        <artifactId>jackson-jq-extra</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
