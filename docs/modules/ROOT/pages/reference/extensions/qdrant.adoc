@@ -3,6 +3,7 @@
 [id="extensions-qdrant"]
 = Qdrant
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-qdrant
 :cq-artifact-id: camel-quarkus-qdrant
 :cq-native-supported: true
 :cq-status: Stable

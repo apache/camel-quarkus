@@ -3,6 +3,7 @@
 [id="extensions-twilio"]
 = Twilio
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-twilio
 :cq-artifact-id: camel-quarkus-twilio
 :cq-native-supported: true
 :cq-status: Stable

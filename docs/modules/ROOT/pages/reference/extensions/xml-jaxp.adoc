@@ -4,6 +4,7 @@
 = XML JAXP
 :page-aliases: extensions/xml-jaxp.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xml-jaxp
 :cq-artifact-id: camel-quarkus-xml-jaxp
 :cq-native-supported: true
 :cq-status: Stable

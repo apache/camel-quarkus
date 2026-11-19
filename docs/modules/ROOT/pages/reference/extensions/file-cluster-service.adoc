@@ -3,6 +3,7 @@
 [id="extensions-file-cluster-service"]
 = File Cluster Service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-file-cluster-service
 :cq-artifact-id: camel-quarkus-file-cluster-service
 :cq-native-supported: true
 :cq-status: Stable

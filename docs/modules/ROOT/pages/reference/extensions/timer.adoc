@@ -4,6 +4,7 @@
 = Timer
 :page-aliases: extensions/timer.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-timer
 :cq-artifact-id: camel-quarkus-timer
 :cq-native-supported: true
 :cq-status: Stable

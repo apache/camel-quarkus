@@ -4,6 +4,7 @@
 = JDBC
 :page-aliases: extensions/jdbc.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jdbc
 :cq-artifact-id: camel-quarkus-jdbc
 :cq-native-supported: true
 :cq-status: Stable

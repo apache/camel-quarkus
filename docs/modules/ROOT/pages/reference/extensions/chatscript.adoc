@@ -3,6 +3,7 @@
 [id="extensions-chatscript"]
 = ChatScript
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-chatscript
 :cq-artifact-id: camel-quarkus-chatscript
 :cq-native-supported: false
 :cq-status: Preview

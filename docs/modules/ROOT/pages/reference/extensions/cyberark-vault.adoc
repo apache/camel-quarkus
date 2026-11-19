@@ -3,6 +3,7 @@
 [id="extensions-cyberark-vault"]
 = CyberArk Vault
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-cyberark-vault
 :cq-artifact-id: camel-quarkus-cyberark-vault
 :cq-native-supported: true
 :cq-status: Stable

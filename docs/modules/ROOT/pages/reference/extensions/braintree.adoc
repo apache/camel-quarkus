@@ -4,6 +4,7 @@
 = Braintree
 :page-aliases: extensions/braintree.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-braintree
 :cq-artifact-id: camel-quarkus-braintree
 :cq-native-supported: true
 :cq-status: Stable

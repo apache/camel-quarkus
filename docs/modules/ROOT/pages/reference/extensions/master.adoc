@@ -4,6 +4,7 @@
 = Master
 :page-aliases: extensions/master.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-master
 :cq-artifact-id: camel-quarkus-master
 :cq-native-supported: true
 :cq-status: Stable

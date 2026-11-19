@@ -4,6 +4,7 @@
 = Bean
 :page-aliases: extensions/bean.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-bean
 :cq-artifact-id: camel-quarkus-bean
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-jq"]
 = JQ
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jq
 :cq-artifact-id: camel-quarkus-jq
 :cq-native-supported: true
 :cq-status: Stable

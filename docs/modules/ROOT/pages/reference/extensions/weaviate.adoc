@@ -3,6 +3,7 @@
 [id="extensions-weaviate"]
 = weaviate
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-weaviate
 :cq-artifact-id: camel-quarkus-weaviate
 :cq-native-supported: true
 :cq-status: Stable

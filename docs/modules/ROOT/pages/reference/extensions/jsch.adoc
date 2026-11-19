@@ -3,6 +3,7 @@
 [id="extensions-jsch"]
 = SCP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jsch
 :cq-artifact-id: camel-quarkus-jsch
 :cq-native-supported: true
 :cq-status: Stable

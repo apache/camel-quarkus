@@ -3,6 +3,7 @@
 [id="extensions-azure-servicebus"]
 = Azure ServiceBus
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-servicebus
 :cq-artifact-id: camel-quarkus-azure-servicebus
 :cq-native-supported: true
 :cq-status: Stable

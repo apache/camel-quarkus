@@ -4,6 +4,7 @@
 = AWS 2 Simple Notification System (SNS)
 :page-aliases: extensions/aws2-sns.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-sns
 :cq-artifact-id: camel-quarkus-aws2-sns
 :cq-native-supported: true
 :cq-status: Stable

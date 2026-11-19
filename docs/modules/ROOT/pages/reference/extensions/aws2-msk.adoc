@@ -4,6 +4,7 @@
 = AWS 2 Managed Streaming for Apache Kafka (MSK)
 :page-aliases: extensions/aws2-msk.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-msk
 :cq-artifact-id: camel-quarkus-aws2-msk
 :cq-native-supported: true
 :cq-status: Stable

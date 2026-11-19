@@ -3,6 +3,7 @@
 [id="extensions-kubernetes-cluster-service"]
 = Kubernetes Cluster Service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-kubernetes-cluster-service
 :cq-artifact-id: camel-quarkus-kubernetes-cluster-service
 :cq-native-supported: true
 :cq-status: Stable

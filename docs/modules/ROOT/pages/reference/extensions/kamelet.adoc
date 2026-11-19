@@ -3,6 +3,7 @@
 [id="extensions-kamelet"]
 = Kamelet
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-kamelet
 :cq-artifact-id: camel-quarkus-kamelet
 :cq-native-supported: true
 :cq-status: Stable

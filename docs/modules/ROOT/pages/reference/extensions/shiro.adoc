@@ -3,6 +3,7 @@
 [id="extensions-shiro"]
 = Shiro
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-shiro
 :cq-artifact-id: camel-quarkus-shiro
 :cq-native-supported: true
 :cq-status: Stable

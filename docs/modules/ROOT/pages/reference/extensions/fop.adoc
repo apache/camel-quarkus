@@ -3,6 +3,7 @@
 [id="extensions-fop"]
 = FOP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-fop
 :cq-artifact-id: camel-quarkus-fop
 :cq-native-supported: true
 :cq-status: Stable

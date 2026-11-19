@@ -3,6 +3,7 @@
 [id="extensions-jgroups"]
 = JGroups
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-jgroups
 :cq-artifact-id: camel-quarkus-jgroups
 :cq-native-supported: false
 :cq-status: Preview

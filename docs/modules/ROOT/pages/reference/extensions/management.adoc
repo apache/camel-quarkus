@@ -3,6 +3,7 @@
 [id="extensions-management"]
 = Management
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-management
 :cq-artifact-id: camel-quarkus-management
 :cq-native-supported: true
 :cq-status: Stable

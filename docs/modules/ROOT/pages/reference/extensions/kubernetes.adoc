@@ -4,6 +4,7 @@
 = Kubernetes
 :page-aliases: extensions/kubernetes.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-kubernetes
 :cq-artifact-id: camel-quarkus-kubernetes
 :cq-native-supported: true
 :cq-status: Stable

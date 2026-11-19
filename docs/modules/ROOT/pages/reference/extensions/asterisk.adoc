@@ -3,6 +3,7 @@
 [id="extensions-asterisk"]
 = Asterisk
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-asterisk
 :cq-artifact-id: camel-quarkus-asterisk
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = File
 :page-aliases: extensions/file.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-file
 :cq-artifact-id: camel-quarkus-file
 :cq-native-supported: true
 :cq-status: Stable

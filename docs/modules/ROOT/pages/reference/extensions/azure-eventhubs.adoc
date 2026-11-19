@@ -3,6 +3,7 @@
 [id="extensions-azure-eventhubs"]
 = Azure Event Hubs
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-eventhubs
 :cq-artifact-id: camel-quarkus-azure-eventhubs
 :cq-native-supported: true
 :cq-status: Stable

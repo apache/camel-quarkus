@@ -4,6 +4,7 @@
 = Google Calendar
 :page-aliases: extensions/google-calendar.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-calendar
 :cq-artifact-id: camel-quarkus-google-calendar
 :cq-native-supported: true
 :cq-status: Stable

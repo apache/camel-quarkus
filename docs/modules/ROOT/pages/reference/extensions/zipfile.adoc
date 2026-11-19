@@ -4,6 +4,7 @@
 = Zip File
 :page-aliases: extensions/zipfile.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-zipfile
 :cq-artifact-id: camel-quarkus-zipfile
 :cq-native-supported: true
 :cq-status: Stable

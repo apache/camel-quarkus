@@ -4,6 +4,7 @@
 = Netty
 :page-aliases: extensions/netty.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-netty
 :cq-artifact-id: camel-quarkus-netty
 :cq-native-supported: true
 :cq-status: Stable

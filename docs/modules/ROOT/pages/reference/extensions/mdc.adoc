@@ -3,6 +3,7 @@
 [id="extensions-mdc"]
 = Mdc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mdc
 :cq-artifact-id: camel-quarkus-mdc
 :cq-native-supported: true
 :cq-status: Stable

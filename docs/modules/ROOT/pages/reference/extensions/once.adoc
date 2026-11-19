@@ -3,6 +3,7 @@
 [id="extensions-once"]
 = Once
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-once
 :cq-artifact-id: camel-quarkus-once
 :cq-native-supported: true
 :cq-status: Stable

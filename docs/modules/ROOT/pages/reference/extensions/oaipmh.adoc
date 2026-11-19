@@ -3,6 +3,7 @@
 [id="extensions-oaipmh"]
 = OAI-PMH
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-oaipmh
 :cq-artifact-id: camel-quarkus-oaipmh
 :cq-native-supported: true
 :cq-status: Stable

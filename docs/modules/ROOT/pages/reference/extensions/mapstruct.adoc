@@ -3,6 +3,7 @@
 [id="extensions-mapstruct"]
 = MapStruct
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mapstruct
 :cq-artifact-id: camel-quarkus-mapstruct
 :cq-native-supported: true
 :cq-status: Stable

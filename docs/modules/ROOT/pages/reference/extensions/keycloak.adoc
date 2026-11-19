@@ -3,6 +3,7 @@
 [id="extensions-keycloak"]
 = Keycloak
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-keycloak
 :cq-artifact-id: camel-quarkus-keycloak
 :cq-native-supported: true
 :cq-status: Preview

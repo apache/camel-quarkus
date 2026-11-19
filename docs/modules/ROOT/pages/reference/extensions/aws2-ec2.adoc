@@ -4,6 +4,7 @@
 = AWS 2 Elastic Compute Cloud (EC2)
 :page-aliases: extensions/aws2-ec2.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-ec2
 :cq-artifact-id: camel-quarkus-aws2-ec2
 :cq-native-supported: true
 :cq-status: Stable

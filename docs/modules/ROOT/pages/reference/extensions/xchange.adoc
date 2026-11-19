@@ -3,6 +3,7 @@
 [id="extensions-xchange"]
 = XChange
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xchange
 :cq-artifact-id: camel-quarkus-xchange
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-azure-storage-datalake"]
 = Azure storage datalake service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-storage-datalake
 :cq-artifact-id: camel-quarkus-azure-storage-datalake
 :cq-native-supported: true
 :cq-status: Stable

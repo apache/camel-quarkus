@@ -3,6 +3,7 @@
 [id="extensions-lucene"]
 = Lucene
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-lucene
 :cq-artifact-id: camel-quarkus-lucene
 :cq-native-supported: false
 :cq-status: Preview

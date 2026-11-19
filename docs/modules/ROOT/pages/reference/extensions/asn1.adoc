@@ -3,6 +3,7 @@
 [id="extensions-asn1"]
 = ASN.1 File
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-asn1
 :cq-artifact-id: camel-quarkus-asn1
 :cq-native-supported: false
 :cq-status: Preview

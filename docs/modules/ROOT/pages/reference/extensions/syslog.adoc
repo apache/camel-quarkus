@@ -3,6 +3,7 @@
 [id="extensions-syslog"]
 = Syslog
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-syslog
 :cq-artifact-id: camel-quarkus-syslog
 :cq-native-supported: true
 :cq-status: Stable

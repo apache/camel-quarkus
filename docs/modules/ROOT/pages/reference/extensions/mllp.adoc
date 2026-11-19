@@ -3,6 +3,7 @@
 [id="extensions-mllp"]
 = MLLP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mllp
 :cq-artifact-id: camel-quarkus-mllp
 :cq-native-supported: true
 :cq-status: Stable

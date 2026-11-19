@@ -3,6 +3,7 @@
 [id="extensions-aws2-lambda"]
 = AWS 2 Lambda
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-lambda
 :cq-artifact-id: camel-quarkus-aws2-lambda
 :cq-native-supported: true
 :cq-status: Stable

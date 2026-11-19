@@ -4,6 +4,7 @@
 = OpenAPI Java
 :page-aliases: extensions/openapi-java.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-openapi-java
 :cq-artifact-id: camel-quarkus-openapi-java
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-disruptor"]
 = Disruptor
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-disruptor
 :cq-artifact-id: camel-quarkus-disruptor
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-openai"]
 = OpenAI
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-openai
 :cq-artifact-id: camel-quarkus-openai
 :cq-native-supported: true
 :cq-status: Stable

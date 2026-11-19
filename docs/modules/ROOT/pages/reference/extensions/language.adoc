@@ -3,6 +3,7 @@
 [id="extensions-language"]
 = Language
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-language
 :cq-artifact-id: camel-quarkus-language
 :cq-native-supported: true
 :cq-status: Stable

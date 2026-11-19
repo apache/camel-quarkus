@@ -3,6 +3,7 @@
 [id="extensions-pulsar"]
 = Pulsar
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pulsar
 :cq-artifact-id: camel-quarkus-pulsar
 :cq-native-supported: false
 :cq-status: Preview

@@ -4,6 +4,7 @@
 = SAP NetWeaver
 :page-aliases: extensions/sap-netweaver.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-sap-netweaver
 :cq-artifact-id: camel-quarkus-sap-netweaver
 :cq-native-supported: true
 :cq-status: Stable

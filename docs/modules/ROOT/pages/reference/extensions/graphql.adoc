@@ -4,6 +4,7 @@
 = GraphQL
 :page-aliases: extensions/graphql.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-graphql
 :cq-artifact-id: camel-quarkus-graphql
 :cq-native-supported: true
 :cq-status: Stable

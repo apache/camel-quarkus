@@ -4,6 +4,7 @@
 = Protobuf
 :page-aliases: extensions/protobuf.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-protobuf
 :cq-artifact-id: camel-quarkus-protobuf
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = Slack
 :page-aliases: extensions/slack.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-slack
 :cq-artifact-id: camel-quarkus-slack
 :cq-native-supported: true
 :cq-status: Stable
