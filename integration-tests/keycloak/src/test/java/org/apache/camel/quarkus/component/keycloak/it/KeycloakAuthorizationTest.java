@@ -41,6 +41,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
  * - Policies
  * - Permissions
  */
+@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

@@ -18,7 +18,9 @@
 package org.apache.camel.quarkus.component.keycloak.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusIntegrationTest
 public class KeycloakEvaluatePermissionTestIT extends KeycloakEvaluatePermissionTest {
 }
