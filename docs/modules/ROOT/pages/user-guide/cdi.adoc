@@ -4,7 +4,7 @@
 CDI plays a central role in Quarkus and Camel Quarkus offers a first class support for it too.
 
 You may use `@Inject`, `@ConfigProperty` and similar annotations e.g. to inject beans and configuration values to
-your Camel `RouteBuilder`. Here is the `RouteBuilder` from our `timer-log-cdi` xref:user-guide/examples.adoc[example]:
+your Camel `RouteBuilder`. For example:
 
 [source,java]
 ----
@@ -37,7 +37,7 @@ complex than the one of the plain `RouteBuilder`. In other words, using `@Applic
 with some boot time penalty, and you should therefore only annotate your `RouteBuilder` with `@ApplicationScoped` when
 you really need it.
 
-<2> The value for the `timer.period` property is defined in `src/main/resources/application.properties` of the example project.
+<2> The value for the `timer.period` property can be defined in `src/main/resources/application.properties`.
 
 TIP: Please refer to the https://quarkus.io/guides/cdi-reference[Quarkus Dependency Injection guide] for more details.
 
