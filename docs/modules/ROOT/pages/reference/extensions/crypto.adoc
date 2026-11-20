@@ -47,13 +47,6 @@ endif::[]
 
 [id="extensions-crypto-usage"]
 == Usage
-[id="extensions-crypto-usage-security-provider"]
-=== Security Provider
-
-This extension requires a BouncyCastle security provider to be https://quarkus.io/guides/security-customization#registering-security-providers[registered] and also utilizes the quarkus security extension.
-
-NOTE: If no BouncyCastle provider is registered via the  `quarkus.security.security-providers` configuration property, then a default `BC` provider is registered automatically.
-
 [id="extensions-crypto-usage-fips"]
 === FIPS
 
