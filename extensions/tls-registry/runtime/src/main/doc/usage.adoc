@@ -118,7 +118,7 @@ Some `quarkus.tls.*` options have no equivalent in `SSLContextParameters`, becau
 |Not carried over. Protocol negotiation is handled by the consuming component.
 
 |`pqc-enforcement-policy`
-|Not carried over. Use `quarkus.tls.<name>.key-exchange-groups`, which is, to constrain the groups Camel offers.
+|Not carried over. Use `quarkus.tls.<name>.key-exchange-groups`, which is carried over, to constrain the groups Camel offers.
 |===
 
 These options continue to apply to Quarkus's own TLS consumers as normal. Only the Camel bridge is affected.

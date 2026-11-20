@@ -49,7 +49,7 @@ class MyIT extends MyTest {
 }
 ----
 
-An example implementation of a native can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
+An example implementation of a native test can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
 [[jvm-vs-native-tests]]
 == `@QuarkusTest` Vs `@QuarkusIntegrationTest`
@@ -96,11 +96,11 @@ Note that these settings have a higher precedence than the settings in `applicat
 [source,java]
 ----
 import java.util.Map;
-import java.util.HashMap;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
 
 public class MyTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -109,7 +109,7 @@ public class MyTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         // Start the needed container(s)
-        myContainer = new GenericContainer(DockerImageName.parse("my/image:1.0.0"))
+        myContainer = new GenericContainer<>(DockerImageName.parse("my/image:1.0.0"))
                 .withExposedPorts(1234)
                 .waitingFor(Wait.forListeningPort());
 
@@ -117,10 +117,9 @@ public class MyTestResource implements QuarkusTestResourceLifecycleManager {
 
         // Pass the configuration to the application under test
         // You can also pass camel component property names / values to automatically configure Camel components
-        return new HashMap<>() {{
-                put("my-container.host", container.getHost());
-                put("my-container.port", "" + container.getMappedPort(1234));
-        }};
+        return Map.of(
+                "my-container.host", myContainer.getHost(),
+                "my-container.port", String.valueOf(myContainer.getMappedPort(1234)));
     }
 
     @Override

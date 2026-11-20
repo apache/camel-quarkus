@@ -122,8 +122,8 @@ from("direct:pods")
 
 When using any of the OpenShift specific components:
 
-* `openenshift-build-configs`
-* `openenshift-builds`
+* `openshift-build-configs`
+* `openshift-builds`
 * `openshift-deploymentconfigs`
 
 You must add the following dependency to your application.

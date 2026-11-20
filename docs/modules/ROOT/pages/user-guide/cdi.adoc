@@ -52,6 +52,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.stream.Collectors;
 import java.util.List;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Route;
 
 @ApplicationScoped
 public class MyBean {
@@ -137,6 +138,7 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.direct.DirectEndpoint;
 
 @ApplicationScoped
 class MyBean {
@@ -185,7 +187,7 @@ class MyProduceBean {
     ProduceInterface produceInterface;
 
     void doSomething() {
-        produceInterface.sayHello("Kermit")
+        produceInterface.sayHello("Kermit");
     }
 
 }

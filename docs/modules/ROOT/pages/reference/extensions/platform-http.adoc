@@ -86,7 +86,7 @@ Then you can use the Camel REST DSL:
 ----
 rest()
     .get("/my-get-endpoint")
-        .to("direct:handleGetRequest");
+        .to("direct:handleGetRequest")
 
     .post("/my-post-endpoint")
         .to("direct:handlePostRequest");

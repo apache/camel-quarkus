@@ -10,7 +10,7 @@ Camel will autowire client into the Minio component.
 This configuration allows definition of only one minio client, therefore it isn't possible to define several different minio endpoints, which run together.
 
 * Provide client/clients for camel registry (e.g. CDI producer/bean) and reference them from endpoint.
-[source,properties]
+[source]
 ----
 minio:foo?minioClient=#minioClient
 ----
