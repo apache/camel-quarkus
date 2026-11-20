@@ -45,8 +45,8 @@ because the test project needs to get finished. You need to build `poms/bom` one
 +
 The
 `description` comes from Camel Catalog. If it looks improper or too long due to concatenation of multiple
-component descriptions, you may override it by setting an explicit `<description>` in the runtime `pom.xml`
-of your new extension. If you think the value coming from Camel Catalog should be changed, please
+component descriptions, you may override it by setting an explicit `<description>` together with
+`<cq.descriptionSync>false</cq.descriptionSync>` in the runtime `pom.xml` of your new extension. If you think the value coming from Camel Catalog should be changed, please
 https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel issue] and ask to fix the metadata
 for the given Camel component.
 +
@@ -64,7 +64,7 @@ Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] pag
 
 9. Complete the integration test module under `integration-tests/foo-abc`,
    following the xref:contributor-guide/extension-testing.adoc[Extension testing] guide.
-   Make sure the tests are passing both in the JVM mode (`mvn test`) and in the native mode (`mvn verify -Pnative`).
+   Make sure the tests are passing both in the JVM mode (`mvn test`) and in the native mode (`mvn verify -Dnative`).
 
 10. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
    ask for help in the given GitHub issue or via https://camel.zulipchat.com[Camel Quarkus chat].
