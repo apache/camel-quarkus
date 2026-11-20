@@ -12,8 +12,8 @@ This guide outlines various ways to create a new Camel Quarkus application.
 * GraalVM with the `native-image` command installed and the `GRAALVM_HOME` environment variable set. See
   https://quarkus.io/guides/building-native-image[Building a native executable] section of the Quarkus
   documentation.
-* If you are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
-  if you choose this option.
+* Alternatively, a container runtime such as Docker or Podman can be used to build native executables without a local
+  GraalVM installation. Add `-Dquarkus.native.container-build=true` to the native build command if you choose this option.
 
 == {link-quarkus-code-generator}
 
@@ -61,7 +61,7 @@ Check the documentation of the given plugin to discover how to create projects i
 The following plugins provide support for content assist when editing Camel routes and `application.properties`:
 
 * https://marketplace.visualstudio.com/items?itemName=redhat.vscode-apache-camel[VS Code Language support for Camel] - a part of the https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack[Camel extension pack]
-* https://marketplace.eclipse.org/content/language-support-apache-camel[Eclipse Desktop Language Support for Camel] - a part of https://tools.jboss.org/[Jboss Tools] and https://developers.redhat.com/products/codeready-studio[CodeReady Studio]
+* https://marketplace.eclipse.org/content/language-support-apache-camel[Eclipse Desktop Language Support for Camel]
 * https://plugins.jetbrains.com/plugin/9371-apache-camel[Apache Camel IDEA plugin] (not always up to date)
 * Users of other https://microsoft.github.io/language-server-protocol/implementors/tools/[IDEs supporting Language Server Protocol]
 may choose to install and configure https://github.com/camel-tooling/camel-language-server[Camel Language Server] manually
@@ -153,17 +153,13 @@ The JVM mode tests are run by `maven-surefire-plugin` in the `test` Maven phase:
 mvn clean test
 ----
 
-This should take about 15 seconds.
-
 The native mode tests are verified by `maven-failsafe-plugin` in the `verify` phase. Pass the `native` property to
 activate the profile that runs them:
 
 [source,shell]
 ----
-mvn clean verify -Pnative
+mvn clean verify -Dnative
 ----
-
-This takes about 2.5 minutes (once you have all dependencies cached).
 
 ==== Package and run the application
 
@@ -174,22 +170,14 @@ This takes about 2.5 minutes (once you have all dependencies cached).
 [source,shell]
 ----
 mvn clean package
-ls -lh target/quarkus-app
-...
--rw-r--r--. 1 ppalaga ppalaga 238K Oct 11 18:55  quarkus-run.jar
-...
 ----
 
-You can run it as follows:
+The runnable `quarkus-run.jar` is created in the `target/quarkus-app` directory. You can run it as follows:
 
 [source,shell]
 ----
 java -jar target/quarkus-app/quarkus-run.jar
-...
-[io.quarkus] (main) Quarkus started in 1.163s. Listening on: http://[::]:8080
 ----
-
-Notice the boot time around a second.
 
 The thin `jar` contains just the application code. To run it, the dependencies in `target/quarkus-app/lib` are required too.
 
@@ -199,34 +187,18 @@ To prepare a native executable using GraalVM, run the following command:
 
 [source,shell]
 ----
-mvn clean package -Pnative
-ls -lh target
-...
--rwxr-xr-x. 1 ppalaga ppalaga  46M Oct 11 18:57  my-app-0.0.1-SNAPSHOT-runner
-...
+mvn clean package -Dnative
 ----
 
-Note that the `runner` in the listing above has no `.jar` extension and has the `x` (executable) permission set. Thus,
-it can be run directly:
+The native executable is created in the `target` directory. Its name ends with `-runner`, it has no `.jar` extension,
+and it has the `x` (executable) permission set. Thus, it can be run directly:
 
 [source,shell]
 ----
 ./target/*-runner
-...
-[io.quarkus] (main) Quarkus started in 0.013s. Listening on: http://[::]:8080
-...
 ----
 
-Check how fast it started and check how little memory it consumes:
-
-[source,shell]
-----
-ps -o rss,command -p $(pgrep my-app)
-  RSS COMMAND
-34916 ./target/my-app-0.0.1-SNAPSHOT-runner
-----
-
-That's under 35 MB of RAM!
+Compare how quickly it starts and how little memory it consumes with the JVM mode application.
 
 TIP: https://quarkus.io/guides/building-native-image[Quarkus Native executable guide] contains more details
 including
