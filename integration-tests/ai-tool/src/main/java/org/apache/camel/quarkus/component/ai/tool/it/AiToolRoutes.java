@@ -79,15 +79,8 @@ public class AiToolRoutes extends RouteBuilder {
                 + "&parameter.CamelOverride=string")
                 .setBody(simple("name=${header.name}, camel=${header.CamelOverride}, extra=${header.extra}"));
 
-        // No description, several tags, aliased and default parameter types, hints; the route sets no body
-        from("ai-tool:typedTool?tags=weather,math"
-                + "&parameter.amount=double"
-                + "&parameter.enabled=bool"
-                + "&parameter.count=long"
-                + "&parameter.note.description=Free text"
-                + "&destructiveHint=true"
-                + "&openWorldHint=false")
-                .routeId("typedTool")
+        // No description, several tags; the route sets no body
+        from("ai-tool:typedTool?tags=weather,math")
                 .log("typedTool called");
 
         from("ai-tool:searchInline?tags=search"
@@ -100,11 +93,5 @@ public class AiToolRoutes extends RouteBuilder {
                 + "&description=Search with a schema from the classpath"
                 + "&argSchema=classpath:ai-tool/search-schema.json")
                 .setBody(simple("Results for ${header.query}"));
-
-        // Started before all other routes: AiToolResource records the tools registered at that moment
-        from("ai-tool:startupProbe?tags=probe&description=Startup probe")
-                .routeId("startupProbe")
-                .startupOrder(1)
-                .log("startupProbe called");
     }
 }
