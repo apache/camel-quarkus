@@ -159,7 +159,7 @@ camel.main.routes-include-pattern = routes/routes.yaml, routes/rests.yaml, rests
     from:
       uri: "timer:from-yaml?period=1000"
       steps:
-        - set-body:
+        - setBody:
             constant: "Hello YAML!"
         - to: "log:from-yaml"
 ----
@@ -178,14 +178,14 @@ camel.main.routes-include-pattern = routes/routes.yaml, routes/rests.yaml, rests
     from:
       uri: "direct:greet"
       steps:
-        - set-body:
+        - setBody:
             constant: "Hello YAML!"
 ----
 
 .Route Templates
 [source,yaml]
 ----
-- route-template:
+- routeTemplate:
     id: "myTemplate"
     parameters:
       - name: "name"
@@ -196,13 +196,13 @@ camel.main.routes-include-pattern = routes/routes.yaml, routes/rests.yaml, rests
     from:
       uri: "timer:{{name}}?period={{myPeriod}}"
       steps:
-      - set-body:
+      - setBody:
           expression:
             simple: "{{greeting}} ${body}"
       - log: "${body}"
 
-- templated-route:
-    route-template-ref: "myTemplate"
+- templatedRoute:
+    routeTemplateRef: "myTemplate"
     parameters:
       - name: "name"
         value: "tick"
