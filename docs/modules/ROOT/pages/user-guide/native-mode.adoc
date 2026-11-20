@@ -66,7 +66,7 @@ For instance, with an exception handler like this
 [source,java]
 ----
 onException(MyException.class).handled(true);
-from("direct:route-that-could-produce-my-exception").throw(MyException.class);
+from("direct:route-that-could-produce-my-exception").throwException(new MyException());
 ----
 
 the class `MyException` should be registered for reflection, see more in xref:user-guide/native-mode.adoc#reflection[Registering classes for reflection].

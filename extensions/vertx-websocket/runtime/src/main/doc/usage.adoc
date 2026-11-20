@@ -62,7 +62,7 @@ from("vertx-websocket:/my-websocket-path")
     .log("Got body: ${body}");
 
 from("direct:sendToWebSocket")
-    .log("vertx-websocket:/my-websocket-path");
+    .to("vertx-websocket:/my-websocket-path");
 ----
 
 Or alternatively, you can refer to the full host & port configuration for the Quarkus HTTP server.
@@ -70,7 +70,7 @@ Or alternatively, you can refer to the full host & port configuration for the Qu
 [source,java]
 ----
 from("direct:sendToWebSocket")
-    .log("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path");
+    .to("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path");
 ----
 
 When producing messages to an external WebSocket server, then you must always provide the host name and port (if required).

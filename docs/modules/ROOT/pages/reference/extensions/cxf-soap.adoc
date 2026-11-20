@@ -126,7 +126,7 @@ public interface CalculatorService {
 }
 ----
 
-<1> NOTE: JAX-WS annotations are required. The Simple CXF Frontend is not supported. Complex parameter types require JAXB annotations to work in properly in native mode.
+<1> NOTE: JAX-WS annotations are required. The Simple CXF Frontend is not supported. Complex parameter types require JAXB annotations to work properly in native mode.
 
 [TIP]
 ====
@@ -219,6 +219,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import {javaxOrJakartaPackagePrefix}.enterprise.context.ApplicationScoped;
 import {javaxOrJakartaPackagePrefix}.enterprise.inject.Produces;
+import {javaxOrJakartaPackagePrefix}.inject.Inject;
 import {javaxOrJakartaPackagePrefix}.inject.Named;
 
 @ApplicationScoped

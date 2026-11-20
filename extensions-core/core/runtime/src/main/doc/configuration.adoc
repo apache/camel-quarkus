@@ -55,9 +55,9 @@ When specifying a custom bean via properties in native mode with configuration l
 
 For instance, the custom bean definition below involves the use of reflection for bean instantiation and setter invocation:
 [source,properties]
----
+----
 camel.beans.customBeanWithSetterInjection = #class:org.example.PropertiesCustomBeanWithSetterInjection
 camel.beans.customBeanWithSetterInjection.counter = 123
----
+----
 
 As such, the class `PropertiesCustomBeanWithSetterInjection` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection], note that field access could be omitted in this case.

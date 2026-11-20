@@ -124,6 +124,7 @@ then you can do this with a custom Servlet class through the `jakarta.servlet.an
 
 [source,java]
 ----
+import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 

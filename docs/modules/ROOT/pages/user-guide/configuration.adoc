@@ -53,7 +53,7 @@ import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @ApplicationScoped
-public static class EventHandler {
+public class EventHandler {
     public void onComponentAdd(@Observes ComponentAddEvent event) {
         if (event.getComponent() instanceof LogComponent) {
             /* Perform some custom configuration of the component */
@@ -126,7 +126,7 @@ In case autowiring is performed for some component option, you should see a simi
 
 [source,shell]
 ----
-Autowired property: exchangeFormatter on component: log as exactly one instance of type: software.amazon.org.apache.camel.spi.ExchangeFormatter (org.apache.camel.support.processor.DefaultExchangeFormatter) found in the registry
+Autowired property: exchangeFormatter on component: log as exactly one instance of type: org.apache.camel.spi.ExchangeFormatter (org.apache.camel.support.processor.DefaultExchangeFormatter) found in the registry
 ----
 
 === Default beans and Camel component autowiring
