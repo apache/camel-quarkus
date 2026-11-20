@@ -28,7 +28,7 @@ promoting. E.g. if you are promoting an extension with `artifactId` `camel-quark
 +
 The `promote` mojo does the following for you:
 +
-* Copies the test module from `extensions-jvm/foo/integration-test` to `integration-tests/foo`
+* Copies the test module from `integration-tests-jvm/foo` to `integration-tests/foo`
 * Adjusts the `name` and `artifactId` of the test module
 * Adds `native` profile to the test module
 * Creates a native test class extending the existing JVM mode test class
