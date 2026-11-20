@@ -25,7 +25,6 @@ import static io.restassured.RestAssured.given;
 /**
  * Tests for error handling scenarios in the Keycloak component.
  */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

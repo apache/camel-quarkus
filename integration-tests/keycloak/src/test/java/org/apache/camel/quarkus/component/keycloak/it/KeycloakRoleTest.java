@@ -21,7 +21,6 @@ import java.util.List;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

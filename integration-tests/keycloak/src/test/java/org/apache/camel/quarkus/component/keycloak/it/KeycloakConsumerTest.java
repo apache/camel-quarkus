@@ -30,7 +30,6 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Integration test for Keycloak consumer operations - consuming admin events and regular events.
  */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
