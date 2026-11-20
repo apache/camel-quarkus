@@ -22,9 +22,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import jakarta.enterprise.util.Nonbinding;
-import jakarta.interceptor.InterceptorBinding;
-
 /**
  * Filters the Camel AI tools exposed to a {@code @RegisterAiService} by tag. When placed on a
  * {@code @RegisterAiService} interface, only {@code ai-tool:} routes whose {@code tags} parameter includes the
@@ -38,11 +35,9 @@ import jakarta.interceptor.InterceptorBinding;
  * }
  * </pre>
  */
-@InterceptorBinding
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface CamelAiTools {
-    @Nonbinding
     String value() default "";
 }
