@@ -2,7 +2,7 @@
   "id" : "d110a55b-70f9-4d24-bb63-53ca9fd2e95e",
   "name" : "maps_api_geocode_json",
   "request" : {
-    "url" : "/maps/api/geocode/json?key=AIzaFakeKey&latlng=24.77684040%2C-76.28490470",
+    "url" : "/maps/api/geocode/json?key=AIzaFakeKey&language=en&latlng=24.77684040%2C-76.28490470",
     "method" : "GET"
   },
   "response" : {
