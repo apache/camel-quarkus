@@ -77,6 +77,6 @@ ifeval::[{doc-show-advanced-features} == true]
 endif::[]
 ifeval::[{doc-show-advanced-features} == false]
 * https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes Ingress documentation]
-* https://knative.dev/docs/serving/services/configure-requests/#protocol-selection[Knative protocol selection documentation]
+* https://github.com/knative/docs/tree/main/code-samples/serving/grpc-ping-go[Knative gRPC sample] (name the container port `h2c`)
 endif::[]
 

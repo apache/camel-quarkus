@@ -48,7 +48,7 @@ endif::[]
 == Usage
 This extension leverages https://quarkus.io/guides/micrometer[Quarkus Micrometer]. Quarkus supports a variety of Micrometer metric registry implementations.
 
-Your application should declare the following dependency or  one of the dependencies listed in the https://quarkiverse.github.io/quarkiverse-docs/quarkus-micrometer-registry/dev/index.html[quarkiverse documentation], depending on the monitoring solution you want to work with.
+Your application should declare the following dependency or  one of the dependencies listed in the https://docs.quarkiverse.io/quarkus-micrometer-registry/dev/index.html[quarkiverse documentation], depending on the monitoring solution you want to work with.
 
 [source,xml]
 ----

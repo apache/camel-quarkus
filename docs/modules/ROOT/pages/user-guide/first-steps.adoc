@@ -10,7 +10,7 @@ This guide outlines various ways to create a new Camel Quarkus application.
 * JDK 17+ with `JAVA_HOME` configured appropriately
 * Apache Maven {min-maven-version}+ ({target-maven-version} is recommended)
 * GraalVM with the `native-image` command installed and the `GRAALVM_HOME` environment variable set. See
-  https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
+  https://quarkus.io/guides/building-native-image[Building a native executable] section of the Quarkus
   documentation.
 * If you are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
@@ -62,7 +62,7 @@ The following plugins provide support for content assist when editing Camel rout
 
 * https://marketplace.visualstudio.com/items?itemName=redhat.vscode-apache-camel[VS Code Language support for Camel] - a part of the https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack[Camel extension pack]
 * https://marketplace.eclipse.org/content/language-support-apache-camel[Eclipse Desktop Language Support for Camel] - a part of https://tools.jboss.org/[Jboss Tools] and https://developers.redhat.com/products/codeready-studio[CodeReady Studio]
-* https://plugins.jetbrains.com/plugin/9371-apache-camel-idea-plugin[Apache Camel IDEA plugin] (not always up to date)
+* https://plugins.jetbrains.com/plugin/9371-apache-camel[Apache Camel IDEA plugin] (not always up to date)
 * Users of other https://microsoft.github.io/language-server-protocol/implementors/tools/[IDEs supporting Language Server Protocol]
 may choose to install and configure https://github.com/camel-tooling/camel-language-server[Camel Language Server] manually
 
@@ -224,9 +224,9 @@ ps -o rss,command -p $(pgrep my-app)
 
 That's under 35 MB of RAM!
 
-TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable guide] contains more details
+TIP: https://quarkus.io/guides/building-native-image[Quarkus Native executable guide] contains more details
 including
-https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].
+https://quarkus.io/guides/building-native-image#creating-a-container[steps for creating a container image].
 
 == What's next?
 

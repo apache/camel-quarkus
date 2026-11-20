@@ -16,7 +16,7 @@ xref:manual::release-guide.adoc[Camel Release guide].
 For new major / minor version releases:
 
 * When releasing after a recent Quarkus release, check for new releases of third party Quarkus extensions we depend on.
-  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L48-L61[Primary dependencies] section of the top level `pom.xml`.
+  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml[Primary dependencies] section of the top level `pom.xml`.
   If there are new releases, upgrade the versions accordingly and run `mvn cq:sync-versions -N` from the root directory of the source tree.
   Note that some of the versions are mandated by quarkus, so camel-quarkus should use the same values as the quarkus-platform bom.
 * Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
@@ -327,7 +327,7 @@ git clone git@github.com:quarkusio/quarkus-platform.git
 ----
 * For patch releases `git checkout` the appropriate platform maintenance branch (e.g 3.20).
 +
-* Change `camel-quarkus.version` property in the Quarkus platform top level `https://github.com/quarkusio/quarkus-platform/blob/main/pom.xml#L54[pom.xml]` to the newly released version:
+* Change `camel-quarkus.version` property in the Quarkus platform top level `https://github.com/quarkusio/quarkus-platform/blob/main/pom.xml[pom.xml]` to the newly released version:
 +
 [source,shell]
 ----
