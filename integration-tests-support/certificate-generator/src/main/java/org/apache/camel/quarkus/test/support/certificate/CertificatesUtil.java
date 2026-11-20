@@ -26,6 +26,10 @@ public class CertificatesUtil {
         return file(name + "-keystore", extension);
     }
 
+    public static String truststoreFile(String name, String extension) {
+        return file(name + "-truststore", extension);
+    }
+
     public static String caCrt(String name) {
         return file(name + "-ca", "crt");
     }
