@@ -19,8 +19,11 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
@@ -80,9 +83,9 @@ class AiToolLangchain4jTest {
                 .body(containsString("news"));
     }
 
-    // Verifies that the @CamelAiTools interceptor filters tools by tag: a service tagged "adminTag"
+    // Verifies that @CamelAiTools filters tools by tag: a service tagged "adminTag"
     // should not see the getWeather tool (tagged "weatherTag"), so the mock model won't call it
-    // and "1111" won't appear in the response. Fails if the interceptor is broken and all tools are visible.
+    // and "1111" won't appear in the response. Fails if the tag filter is broken and all tools are visible.
     @Test
     void weatherWithWrongTagTest() {
         RestAssured.given()
@@ -92,6 +95,20 @@ class AiToolLangchain4jTest {
                 .then()
                 .statusCode(200)
                 .body(not(containsString("1111")));
+    }
+
+    // The streaming model answers with the names of the tools it was offered: only the tagged tool is expected,
+    // also when the Multi service is called on the event loop
+    @ParameterizedTest
+    @ValueSource(strings = { "non-blocking", "blocking" })
+    void weatherStreamingServiceGetsOnlyTaggedTools(String mode) {
+        RestAssured.given()
+                .contentType("text/plain")
+                .body("What is the weather in Prague?")
+                .post("/ai-tool-langchain4j/weather-streaming/" + mode + "/chat")
+                .then()
+                .statusCode(200)
+                .body(is("getWeather"));
     }
 
 }

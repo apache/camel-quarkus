@@ -44,9 +44,9 @@ class AiToolLangchain4jOllamaTest {
                 .body(containsString("1111"));
     }
 
-    // Verifies that the @CamelAiTools interceptor filters tools by tag: a service tagged "adminTag"
+    // Verifies that @CamelAiTools filters tools by tag: a service tagged "adminTag"
     // should not see the getWeather tool (tagged "weatherTag"), so the real LLM won't call it
-    // and "1111" won't appear in the response. Fails if the interceptor is broken and all tools are visible.
+    // and "1111" won't appear in the response. Fails if the tag filter is broken and all tools are visible.
     @Test
     void weatherWithWrongTag() {
         RestAssured.given()
