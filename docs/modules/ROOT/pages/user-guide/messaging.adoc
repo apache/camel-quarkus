@@ -11,6 +11,9 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |AMQP
 |xref:reference/extensions/amqp.adoc[`camel-quarkus-amqp`]
 
+|Apache ActiveMQ Classic
+|xref:reference/extensions/activemq.adoc[`camel-quarkus-activemq`] or xref:reference/extensions/activemq6.adoc[`camel-quarkus-activemq6`]
+
 |Apache ActiveMQ Artemis
 |https://quarkus.io/guides/jms#artemis-jms[`quarkus-artemis`] in conjunction with either xref:reference/extensions/jms.adoc[`camel-quarkus-jms`] or xref:reference/extensions/sjms2.adoc[`camel-quarkus-sjms2`]
 
@@ -18,15 +21,12 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |xref:reference/extensions/kafka.adoc[`camel-quarkus-kafka`]
 
 |Apache Pulsar
-|xref:reference/extensions/pulsar.adoc[`camel-quarkus-pulsar`]
+|xref:reference/extensions/pulsar.adoc[`camel-quarkus-pulsar`] (JVM mode only)
 
 |AWS Kinesis
 |xref:reference/extensions/aws2-kinesis.adoc[`camel-quarkus-aws2-kinesis`]
 
-|AWS MQ
-|xref:reference/extensions/aws2-mq.adoc[`camel-quarkus-aws2-mq`]
-
-|AWS Simple Notification System (SNS)
+|AWS Simple Notification Service (SNS)
 |xref:reference/extensions/aws2-sns.adoc[`camel-quarkus-aws2-sns`]
 
 |AWS Simple Queue Service (SQS)
@@ -35,6 +35,9 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |Azure Event Hubs
 |xref:reference/extensions/azure-eventhubs.adoc[`camel-quarkus-azure-eventhubs`]
 
+|Azure Service Bus
+|xref:reference/extensions/azure-servicebus.adoc[`camel-quarkus-azure-servicebus`]
+
 |Azure Storage Queue
 |xref:reference/extensions/azure-storage-queue.adoc[`camel-quarkus-azure-storage-queue`]
 
@@ -42,13 +45,10 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |xref:reference/extensions/google-pubsub.adoc[`camel-quarkus-google-pubsub`]
 
 |Ignite
-|xref:reference/extensions/ignite.adoc[`camel-quarkus-ignite`]
+|xref:reference/extensions/ignite.adoc[`camel-quarkus-ignite`] (JVM mode only)
 
 |JT400
 |xref:reference/extensions/jt400.adoc[`camel-quarkus-jt400`]
-
-|MQTT
-|xref:reference/extensions/paho.adoc[`camel-quarkus-paho`]
 
 |MQTT 5
 |xref:reference/extensions/paho-mqtt5.adoc[`camel-quarkus-paho-mqtt5`]
@@ -61,4 +61,4 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 
 |===
 
-NOTE: For JMS brokers not listed in the table above, use `camel-quarkus-jms` or `camel-quarkus-sjms2`. Then add your preferred JMS client libraries to the project dependencies. Not all third party client libraries are guaranteed to work out of the box in native mode.
+NOTE: For JMS brokers not listed in the table above, use `camel-quarkus-jms`, `camel-quarkus-sjms` or `camel-quarkus-sjms2`. Then add your preferred JMS client libraries to the project dependencies. Not all third party client libraries are guaranteed to work out of the box in native mode.

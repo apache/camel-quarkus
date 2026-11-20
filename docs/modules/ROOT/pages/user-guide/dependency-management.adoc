@@ -14,7 +14,7 @@ The easiest and most straightforward way to get the dependency versions right in
 All of these allow you to select extensions and scaffold a new Maven or Gradle project.
 
 TIP: The universe of available extensions spans over Quarkus Core, Camel Quarkus and several other third party participating projects,
-such as Hazelcast, Cassandra, Kogito, OptaPlanner, etc.
+such as Hazelcast, Cassandra, etc.
 
 The generated `pom.xml` will look similar to the following:
 
@@ -134,7 +134,7 @@ Note that if you do this, some dependencies in `camel-quarkus-bom` may not be pe
 
 IMPORTANT: Ensure that the major.minor version parts of `quarkus.platform.version` & `camel-quarkus.version` match. Mixing different release streams will likely result in build or runtime errors.
 
-When upgrading from one major release to another (E.g. from 2.x to 3.x).
+When upgrading from one major release to another (e.g. from 3.x to 4.x),
 Quarkus provides an https://quarkus.io/guides/update-quarkus[updater tool] that can apply the necessary modifications to your project and make it compatible with the new major release.
 
 In addition, Camel & Camel Quarkus publish migration guides that document potential breaking changes.
