@@ -53,11 +53,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-keycloak</artifactId>
         </dependency>
-        <!-- Use Quarkus Keycloak Admin Client extension for native mode support -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-keycloak-admin-resteasy-client</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-caffeine</artifactId>

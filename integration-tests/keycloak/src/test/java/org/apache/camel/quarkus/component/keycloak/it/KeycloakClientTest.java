@@ -40,7 +40,6 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
  * - Client scopes
  * - Client secrets
  */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9528")
 @QuarkusTest
 @QuarkusTestResource(KeycloakTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

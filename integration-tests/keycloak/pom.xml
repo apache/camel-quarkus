@@ -67,6 +67,18 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-test-keycloak-server</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <!-- Avoid Jackson 3 Keycloak client classes clashing with the Jackson 2 variants from camel-keycloak -->
+                <!-- TODO: Remove this - https://github.com/apache/camel-quarkus/issues/9528 -->
+                <exclusion>
+                    <groupId>org.keycloak</groupId>
+                    <artifactId>keycloak-admin-client-jackson3</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.keycloak</groupId>
+                    <artifactId>keycloak-client-common-synced-jackson3</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
