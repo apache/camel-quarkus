@@ -12,7 +12,7 @@ For example when using any of the following:
 
 [source,java]
 ----
-package org.acme.MyPojo;
+package org.acme;
 
 @RegisterForReflection
 public class MyPojo {

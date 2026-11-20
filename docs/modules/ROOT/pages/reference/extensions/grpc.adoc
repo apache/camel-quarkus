@@ -137,7 +137,7 @@ For example, to include SSL / TLS keys and certificates.
 
 [source,properties]
 ----
-quarkus.native.resources.includes = certs/*.pem,certs.*.key
+quarkus.native.resources.includes = certs/*.pem,certs/*.key
 ----
 
 More information about selecting resources for inclusion in the native executable can be found in the xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[native mode guide].

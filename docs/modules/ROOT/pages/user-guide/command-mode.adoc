@@ -33,7 +33,6 @@ The route definition could look like the following:
 ----
 import org.apache.camel.builder.RouteBuilder;
 
-@ApplicationScoped
 public class CamelRoute extends RouteBuilder {
 
     @Override
@@ -207,7 +206,7 @@ https://github.com/apache/camel-quarkus/tree/main/integration-tests/main-command
 
 Bonus: The integration test module shows a way how to test command line applications.
 
-== Full control over starting Camel by invoking `CamelMainApplication` directly.
+== Full control over starting Camel by invoking `CamelMainApplication` directly
 
 If you need to perform some custom logic before starting Camel (or even not starting it at all),
 you can do so by implementing a `@QuarkusMain` class and starting `CamelMainApplication` yourself

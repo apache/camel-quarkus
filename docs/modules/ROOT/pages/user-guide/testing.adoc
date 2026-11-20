@@ -53,7 +53,7 @@ class MyIT extends MyTest {
 }
 ----
 
-An example implementation of a native can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
+An example implementation of a native test can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
 [[jvm-vs-native-tests]]
 == `@QuarkusTest` Vs `@QuarkusIntegrationTest`
