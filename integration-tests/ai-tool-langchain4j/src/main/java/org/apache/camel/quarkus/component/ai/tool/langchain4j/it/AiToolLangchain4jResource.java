@@ -19,6 +19,9 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.annotation.NonBlocking;
+import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -34,6 +37,7 @@ import org.apache.camel.component.ai.tool.AiToolSpec;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.AdminAiService;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.WeatherAiService;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.WeatherAiServiceWrongTag;
+import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.WeatherStreamingAiService;
 
 @Path("/ai-tool-langchain4j")
 @ApplicationScoped
@@ -50,6 +54,9 @@ public class AiToolLangchain4jResource {
 
     @Inject
     WeatherAiServiceWrongTag weatherAiServiceWrongTag;
+
+    @Inject
+    WeatherStreamingAiService weatherStreamingAiService;
 
     @Path("/weather/chat")
     @POST
@@ -73,6 +80,25 @@ public class AiToolLangchain4jResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String weatherChatWrongTag(String message) {
         return weatherAiServiceWrongTag.chat(message);
+    }
+
+    // Runs on the event loop, so quarkus-langchain4j resolves the tools of the Multi on a worker thread
+    @Path("/weather-streaming/non-blocking/chat")
+    @POST
+    @NonBlocking
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Uni<String> weatherStreamingChatNonBlocking(String message) {
+        return weatherStreamingAiService.chat(message).collect().with(Collectors.joining());
+    }
+
+    @Path("/weather-streaming/blocking/chat")
+    @POST
+    @Blocking
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Uni<String> weatherStreamingChatBlocking(String message) {
+        return weatherStreamingAiService.chat(message).collect().with(Collectors.joining());
     }
 
     @Path("/tools/{tag}")
