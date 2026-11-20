@@ -67,12 +67,14 @@ With Camel Main, you can set a property that points to the location of XML files
 
 [source,properties]
 ----
-camel.main.routes-include-pattern = routes/routes.xml, file:src/main/routes/rests.xml, file:src/main/rests/route-template.xml
+camel.main.routes-include-pattern = routes/routes.xml, rests/rests.xml, templates/route-template.xml
 ----
 
 [NOTE]
 ====
-Path globbing like `camel.main.routes-include-pattern = *./routes.xml` currently does not work in native mode.
+By default, routes are loaded from `classpath:camel/*`, `classpath:camel-template/*` and `classpath:camel-rest/*`.
+Setting `camel.main.routes-include-pattern` replaces these defaults.
+Patterns may contain wildcards, e.g. `classpath:routes/*.xml`.
 ====
 
 
@@ -148,7 +150,7 @@ With Camel Main, you can set a property that points to the location of YAML file
 
 [source,properties]
 ----
-camel.main.routes-include-pattern = routes/routes.yaml, routes/rests.yaml, rests/route-template.yaml
+camel.main.routes-include-pattern = routes/routes.yaml, rests/rests.yaml, templates/route-template.yaml
 ----
 
 .Route
