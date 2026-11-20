@@ -15,7 +15,7 @@ Only `classpath:` URIs are supported on Quarkus native mode. `file:`, `http:` an
 and included stylesheets are classpath-relative. Nested classpath includes are resolved at build time.
 `<xsl:message>` XSLT elements are supported in JVM mode only right now.
 
-If `aggregate` DSL is used, `XsltSaxonAggregationStrategy` has to be used such as
+If `aggregate` DSL is used, `XsltSaxonAggregationStrategy` from the `camel-quarkus-xslt-saxon` extension has to be used such as
 [source,java]
 ----
 from("file:src/test/resources?noop=true&sortBy=file:name&antInclude=*.xml")
