@@ -2,7 +2,7 @@
   "id" : "53546caa-453a-4b55-b0bc-0a47d49bdae3",
   "name" : "maps_api_geocode_json",
   "request" : {
-    "url" : "/maps/api/geocode/json?key=AIzaFakeKey&address=calle+marie+curie%2C+sevilla%2C+sevilla",
+    "url" : "/maps/api/geocode/json?key=AIzaFakeKey&address=calle+marie+curie%2C+sevilla%2C+sevilla&language=en",
     "method" : "GET"
   },
   "response" : {
