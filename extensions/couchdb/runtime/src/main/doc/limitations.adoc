@@ -1,1 +1,0 @@
-Only Producer mode is supported on Camel Quarkus at this stage.
