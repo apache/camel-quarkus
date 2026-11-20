@@ -12,7 +12,7 @@ Here are the directories containing integration tests:
 
 * `https://github.com/apache/camel-quarkus/tree/main/integration-tests[integration-tests]`
 * `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups[integration-test-groups/*]`
-* `https://github.com/apache/camel-quarkus/tree/main/extensions-jvm[extensions-jvm/*/integration-test]`
+* `https://github.com/apache/camel-quarkus/tree/main/integration-tests-jvm[integration-tests-jvm/*]`
 
 == Anatomy of an extension integration test
 

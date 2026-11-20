@@ -37,8 +37,8 @@ An example implementation can be found https://github.com/apache/camel-quarkus/b
 Providing all extensions your application depends on are supported in native mode,
 you should test that your application works correctly native mode.
 The test logic defined in JVM mode can be reused in native mode, by inheriting from the respective JVM mode class.
-The `@QuarkusIntegrationTest` annotation instructs the Quarkus JUnit extension to compile the application under test to a native image
-and will start it before running the tests.
+The `@QuarkusIntegrationTest` annotation instructs the Quarkus JUnit extension to start the application artifact produced by the build
+(a native executable when building with `-Dnative`) before running the tests.
 
 [source,java]
 ----

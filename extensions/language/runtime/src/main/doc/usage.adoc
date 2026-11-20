@@ -9,6 +9,7 @@ The Language extension only handles the passing of an Exchange to a script for e
 * Ref
 * Simple
 * Tokenize
+* Variable
 
 To use any other language, you must add the corresponding dependency. Consult the xref:reference/languages.adoc[Languages Guide] for details.
 

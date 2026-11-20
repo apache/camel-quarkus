@@ -33,7 +33,7 @@ import '@vaadin/grid/vaadin-grid-sort-column.js';
 
 export class QwcCamelFoo extends QwcCamelCore { <1>
     constructor() {
-        super('route', {}); <2>
+        super('foo', {}); <2>
     }
 
     render() {

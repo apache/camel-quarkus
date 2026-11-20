@@ -13,7 +13,7 @@
 4. Let others know that you work on the given extension by either creating a
    https://github.com/apache/camel-quarkus/issues/new[new issue] or asking to assign an existing one to you.
 
-5. Scaffold the necessary Maven modules using `quarkus-maven-plugin`. As an example let's add a new extension for
+5. Scaffold the necessary Maven modules using `cq-maven-plugin`. As an example let's add a new extension for
    supporting an imaginary Camel component `foo-abc`:
 +
 [source,shell]
@@ -31,15 +31,14 @@ The above sequence of commands does the following:
   (a.k.a. the runtime module) and `camel-quarkus-foo-abc-deployment`.
 * These three modules are linked where necessary:
 ** `camel-quarkus-foo-abc-parent` is added to the `<modules>` of `camel-quarkus-extensions`
-** `camel-quarkus-foo-abc` is added to the `<dependencyManagement>` of the runtime BOM (Bill of Materials) `poms/bom/pom.xml`
-** `camel-quarkus-foo-abc-deployment` is added to the `<dependencyManagement>` of the deployment BOM (Bill of Materials) `poms/bom-deployment/pom.xml`
+** `camel-quarkus-foo-abc` and `camel-quarkus-foo-abc-deployment` are added to the `<dependencyManagement>` of the BOM (Bill of Materials) `poms/bom/pom.xml`
 * It creates a basic `FooAbcProcessor` class in the deployment module.
 * It also creates a stub of an integration test module under `integration-tests/foo-abc`.
 +
-6. Add the extension name to the right category in  `tooling/scripts/test-categories.yaml` file.
+6. Add the integration test module name to the right category in `tooling/scripts/test-categories.yaml` file.
 +
 Compilation performed immediately after generating the modules should pass flawlessly but running the tests will fail
-because the test project needs to get finished. You need to build `poms/bom` and `poms/bom-deployment` one time first.
+because the test project needs to get finished. You need to build `poms/bom` one time first.
 
 7. Review the generated
    `extensions/foo-abc/runtime/src/main/resources/META-INF/quarkus-extension.yaml` file.
