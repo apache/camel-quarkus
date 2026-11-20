@@ -12,7 +12,7 @@ Here is an https://github.com/apache/camel-quarkus/blob/main/extensions/activemq
 name: "Camel ActiveMQ"
 description: "Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/activemq.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/activemq.html"
   categories:
   - "integration"
 ----

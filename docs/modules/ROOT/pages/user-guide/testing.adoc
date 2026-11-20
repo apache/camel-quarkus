@@ -60,7 +60,7 @@ An example implementation of a native test can be found https://github.com/apach
 
 JVM mode tests annotated with `@QuarkusTest` are executed in the same JVM as the application under test.
 This makes it possible to https://quarkus.io/guides/getting-started-testing#injection-into-tests[`@Inject`] CDI beans from the application into the test code.
-You can also define new beans or even override beans from the application using https://quarkus.io/guides/getting-started-testing#cdi-alternative-mechanism[`@jakarta.enterprise.inject.Alternative`] and https://quarkus.io/guides/getting-started-testing#cdi-alternative-mechanism[`@jakarta.annotation.Priority`].
+You can also define new beans or even override beans from the application using https://quarkus.io/guides/getting-started-testing#mock-cdi-alternative[`@jakarta.enterprise.inject.Alternative`] and https://quarkus.io/guides/getting-started-testing#mock-cdi-alternative[`@jakarta.annotation.Priority`].
 
 These options do not work in native mode for tests annotated with `@QuarkusIntegrationTest`, as they are executed in a JVM hosted in a process separate from the running native application.
 

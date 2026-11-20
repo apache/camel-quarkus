@@ -14,7 +14,7 @@ Note that this extension automatically enables native serialization support for 
 
 === Connection Pooling
 
-You can use the `quarkus-pooled-jms` extension to get pooling support for the connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
+You can use the `quarkus-pooled-jms` extension to get pooling support for the connections. Refer to the https://docs.quarkiverse.io/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
 
 Just add the following dependency to your `pom.xml`:
 [source,xml]

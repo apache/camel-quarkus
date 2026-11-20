@@ -66,7 +66,7 @@ ifeval::[{doc-show-extra-content} == true]
 include::camel-quarkus-extensions/jms-connection-pooling.adoc[]
 endif::[]
 
-You can use the `quarkus-pooled-jms` extension to get pooling and XA support for JMS connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
+You can use the `quarkus-pooled-jms` extension to get pooling and XA support for JMS connections. Refer to the https://docs.quarkiverse.io/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
 Currently, it can work with `quarkus-artemis-jms`, `quarkus-qpid-jms` and `ibmmq-client`. Just add the dependency to your `pom.xml`:
 [source,xml]
 ----

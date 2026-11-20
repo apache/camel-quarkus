@@ -87,7 +87,7 @@ quarkus.mcp.server.traffic-logging.text-limit = 200
 ----
 
 See the
-https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#configuration-reference[quarkus-mcp-server configuration reference]
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/reference-configuration.html[quarkus-mcp-server configuration reference]
 for the full list of `quarkus.mcp.server.*` properties (dev UI,
 authentication, guardrails, pagination, timeouts).
 
