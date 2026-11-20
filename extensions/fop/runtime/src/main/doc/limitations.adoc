@@ -1,6 +1,6 @@
 === JDK 25+
 
-Due to an https://issues.apache.org/jira/browse/FOP-3275[issue] with Apache FOP encountered with JDK 25+, https://www.saxonica.com/documentation12/documentation.xml[`Saxon-HE`] is required to avoid reentrant XML parsing problems.
+Due to an https://issues.apache.org/jira/browse/FOP-3275[issue] with Apache FOP encountered with JDK 25+, https://www.saxonica.com/documentation12/documentation.html[`Saxon-HE`] is required to avoid reentrant XML parsing problems.
 
 `Saxon-HE` can be added to your application as follows.
 

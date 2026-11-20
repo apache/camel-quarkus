@@ -56,7 +56,7 @@ An example implementation of a native test can be found https://github.com/apach
 
 JVM mode tests annotated with `@QuarkusTest` are executed in the same JVM as the application under test.
 This makes it possible to https://quarkus.io/guides/getting-started-testing#injection-into-tests[`@Inject`] CDI beans from the application into the test code.
-You can also define new beans or even override beans from the application using https://quarkus.io/guides/getting-started-testing#cdi-alternative-mechanism[`@jakarta.enterprise.inject.Alternative`] and https://quarkus.io/guides/getting-started-testing#cdi-alternative-mechanism[`@jakarta.annotation.Priority`].
+You can also define new beans or even override beans from the application using https://quarkus.io/guides/getting-started-testing#mock-cdi-alternative[`@jakarta.enterprise.inject.Alternative`] and https://quarkus.io/guides/getting-started-testing#mock-cdi-alternative[`@jakarta.annotation.Priority`].
 
 These options do not work in native mode for tests annotated with `@QuarkusIntegrationTest`, as they are executed in a JVM hosted in a process separate from the running native application.
 
@@ -80,7 +80,7 @@ For more information about `QuarkusIntegrationTest` see the https://quarkus.io/g
 === Testcontainers
 
 Sometimes your application needs to access an external service such as a message broker, database, etc.
-If a container image is available for the service of interest, https://www.testcontainers.org/[Testcontainers]
+If a container image is available for the service of interest, https://testcontainers.com/[Testcontainers]
 can be used to start and stop these services for testing.
 
 For the application to work properly, it is often essential to pass the connection configuration data
@@ -150,11 +150,11 @@ More information can be found in the https://quarkus.io/guides/getting-started-t
 
 It is sometimes useful to stub HTTP interactions with third party services & APIs so that tests do not have to connect to live endpoints, as this can incur costs and the service may not always be 100% available or reliable.
 
-An excellent tool for mocking & recording HTTP interactions is http://wiremock.org/[WireMock]. It is used extensively throughout the Camel Quarkus test suite for various component extensions. Here follows a typical workflow
+An excellent tool for mocking & recording HTTP interactions is https://wiremock.org/[WireMock]. It is used extensively throughout the Camel Quarkus test suite for various component extensions. Here follows a typical workflow
 for setting up WireMock.
 
 First set up the WireMock server. Note that it is important to configure the Camel component under test to pass any HTTP interactions through the WireMock proxy. This is usually achieved by configuring a component property
-that determines the API endpoint URL. Sometimes things are less straightforward and some extra work is required to configure the API client library, as was the case for https://github.com/apache/camel-quarkus/blob/main/integration-tests/twilio/src/main/java/org/apache/camel/quarkus/component/twilio/it/TwilioResource.java#L83[Twilio].
+that determines the API endpoint URL. Sometimes things are less straightforward and some extra work is required to configure the API client library, as was the case for https://github.com/apache/camel-quarkus/blob/main/integration-tests/twilio/src/main/java/org/apache/camel/quarkus/component/twilio/it/TwilioResource.java[Twilio].
 
 [source,java]
 ----

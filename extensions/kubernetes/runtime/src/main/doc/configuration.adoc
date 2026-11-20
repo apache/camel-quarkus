@@ -28,7 +28,7 @@ quarkus.kubernetes-client.master-url=https://my.k8s.host
 quarkus.kubernetes-client.namespace=my-namespace
 ----
 
-The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#quarkus-kubernetes-client_configuration[Quarkus Kubernetes Client guide].
+The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#configuration-reference[Quarkus Kubernetes Client guide].
 
 If you want to suppress this behavior, you can disable autowiring and all configuration will be driven from the documented component and endpoint options.
 

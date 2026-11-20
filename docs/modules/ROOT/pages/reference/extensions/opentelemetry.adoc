@@ -113,7 +113,7 @@ public class MyRoutes extends RouteBuilder {
 }
 ----
 
-There is more information about CDI instrumentation in the https://quarkus.io/guides/opentelemetry#cdi[Quarkus OpenTelemetry guide].
+There is more information about CDI instrumentation in the https://quarkus.io/guides/opentelemetry-tracing#cdi[Quarkus OpenTelemetry guide].
 
 
 [id="extensions-opentelemetry-additional-camel-quarkus-configuration"]
