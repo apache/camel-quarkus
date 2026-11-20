@@ -44,7 +44,7 @@ For patch releases where a release maintenance branch already exists:
 
 [source,shell]
 ----
-export BRANCH=3.20.x # The maintenance branch you want to release from
+export BRANCH=3.40.x # The maintenance branch you want to release from
 git checkout $BRANCH
 git reset --hard upstream/$BRANCH
 export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
@@ -214,8 +214,8 @@ After `release:prepare`, some generated files in the release branch need to be r
 
 [source,shell]
 ----
-export BRANCH=3.20.x # The LTS maintenance branch you released from
-export VERSION=... # The version you just released, e.g. 3.20.1
+export BRANCH=3.40.x # The LTS maintenance branch you released from
+export VERSION=... # The version you just released, e.g. 3.40.1
 git checkout "$BRANCH"
 git reset --hard upstream/$BRANCH
 mvn cq:sync-versions -N
@@ -342,7 +342,7 @@ https://{link-quarkus-code-generator}/[{link-quarkus-code-generator}] as well as
 ----
 git clone git@github.com:quarkusio/quarkus-platform.git
 ----
-* For patch releases `git checkout` the appropriate platform maintenance branch (e.g 3.20).
+* For patch releases `git checkout` the appropriate platform maintenance branch (e.g. 3.40).
 +
 * Change `camel-quarkus.version` property in the Quarkus platform top level `https://github.com/quarkusio/quarkus-platform/blob/main/pom.xml[pom.xml]` to the newly released version:
 +
@@ -411,7 +411,7 @@ The following needs to be done:
 +
 [source,markdown]
 ----
-Check the full [release announcement](https://camel.apache.org/blog/2021/06/camel-quarkus-release-2.0.0/)
+Check the full [release announcement](https://camel.apache.org/blog/<year>/<month>/camel-quarkus-release-<version>/)
 ----
 +
   * Click the green "Publish release" button at the bottom
@@ -432,7 +432,7 @@ This section needs to be executed only when a Quarkus Platform release has been 
 It should be the case most of the time.
 In this case, right after the newest Quarkus Platform becomes available on https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-bom/[Maven Central]:
 
-NOTE: For patch releases, the instructions that follow are mostly the same. Except that you must `git checkout` the desired maintenance branch (E.g 3.20.x), perform any updates on there and send PRs to the same upstream maintenance branch.
+NOTE: For patch releases, the instructions that follow are mostly the same. Except that you must `git checkout` the desired maintenance branch (e.g. 3.40.x), perform any updates on there and send PRs to the same upstream maintenance branch.
 There is no need to interact with the `camel-quarkus-main` branch in this case.
 
 * Make sure all https://github.com/apache/camel-quarkus-examples/pulls[PRs] against `camel-quarkus-main` branch are merged.
@@ -440,7 +440,7 @@ There is no need to interact with the `camel-quarkus-main` branch in this case.
 +
 [source,shell]
 ----
-NEW_PLATFORM_VERSION=... # E.g. 2.2.0.Final
+NEW_PLATFORM_VERSION=... # e.g. 4.0.0
 git fetch upstream
 git checkout camel-quarkus-main
 git reset --hard upstream/camel-quarkus-main
@@ -462,7 +462,7 @@ git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
 +
 [source,shell]
 ----
-NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
+NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 4.0.0
 git checkout main
 git fetch upstream
 git reset --hard upstream/main

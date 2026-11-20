@@ -34,6 +34,7 @@ The `promote` mojo does the following for you:
 * Creates a native test class extending the existing JVM mode test class
 * Copies the rest of the extension code from `extensions-jvm/foo` to `extensions/foo`
 * Removes the warning build step from the processor class in the deployment module
+* Adds the `camel.quarkus.nativeSince` property to the runtime module's `pom.xml`
 
 4. Assign the integration test to an existing or new test category in `tooling/scripts/test-categories.yaml` so that
    it gets executed by the CI.
@@ -43,7 +44,7 @@ The `promote` mojo does the following for you:
 [source,shell]
 ----
 cd integration-tests/foo
-mvn clean verify -Pnative
+mvn clean verify -Dnative
 ----
 +
 Consider shifting some tasks from runtime to build time.
