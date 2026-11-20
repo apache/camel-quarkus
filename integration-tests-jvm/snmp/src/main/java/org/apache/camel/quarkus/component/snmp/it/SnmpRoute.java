@@ -59,8 +59,8 @@ public class SnmpRoute extends RouteBuilder {
         from("snmp:0.0.0.0:" + trap1Port + "?protocol=udp&type=TRAP&snmpVersion=1")
                 .process(e -> snmpResults.get("v1_trap").add(e.getIn().getBody(SnmpMessage.class)));
 
-        //TRAP consumer snmpVersion=3
-        from("snmp:0.0.0.0:" + trap3Port + "?protocol=udp&type=TRAP&snmpVersion=3")
+        //TRAP consumer snmpVersion=3 (receives only the traps of its user, CAMEL-27224)
+        from("snmp:0.0.0.0:" + trap3Port + "?protocol=udp&type=TRAP&snmpVersion=3&securityName=test&securityLevel=1")
                 .process(e -> snmpResults.get("v3_trap").add(e.getIn().getBody(SnmpMessage.class)));
     }
 
