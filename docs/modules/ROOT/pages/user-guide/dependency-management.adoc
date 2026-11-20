@@ -63,7 +63,7 @@ The generated `pom.xml` will look similar to the following:
 ====
 BOM stands for "Bill of Materials" - it is a `pom.xml` whose main purpose is to manage the versions of artifacts
 so that end users importing the BOM in their projects do not need to care which particular versions of the artifacts
-are supposed to work together. In other words, having a BOM imported in the `<depependencyManagement>` section
+are supposed to work together. In other words, having a BOM imported in the `<dependencyManagement>` section
 of your `pom.xml` allows you to avoid specifying versions for the dependencies managed by the given BOM.
 ====
 
@@ -76,7 +76,7 @@ With https://quarkus.io/guides/cli-tooling[Quarkus CLI] you can select the exten
 Quarkus CLI also comes in handy when upgrading the BOM versions.
 
 The `io.quarkus.platform` BOMs are aligned with each other.
-That means that if an artifact is managed more than one BOM, it is always managed in the same version.
+That means that if an artifact is managed by more than one BOM, it is always managed in the same version.
 This has the advantage that application developers do not need to care for the compatibility of the individual artifacts
 that may come from various independent projects.
 Note that not all combinations of artifacts managed by the various BOMs are tested.

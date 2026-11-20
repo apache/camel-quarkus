@@ -35,7 +35,7 @@ public class MyRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:example")
-            .to("freemarker:templates/email.ftl?configuration=myFreemarkerConfig")
+            .to("freemarker:templates/email.ftl?configuration=myFreemarkerConfig");
 
     }
 }
