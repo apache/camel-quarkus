@@ -85,11 +85,11 @@ public class GreetingBean {
 
 Camel provides various methods of handling exceptions. Some of these require that any exception classes referenced in their DSL definitions are registered for reflection.
 
-`*on-exception*`
+`*onException*`
 
 [source,yaml]
 ----
-- on-exception:
+- onException:
     handled:
       constant: "true"
     exception:
@@ -106,7 +106,7 @@ public class MyHandledException {
 }
 ----
 
-`*throw-exception*`
+`*throwException*`
 
 [source,yaml]
 ----
@@ -119,8 +119,8 @@ public class MyHandledException {
             when:
               - simple: "${body} == 'bad value'"
                 steps:
-                  - throw-exception:
-                      exception-type: "org.acme.ForcedException"
+                  - throwException:
+                      exceptionType: "org.acme.ForcedException"
                       message: "Forced exception"
             otherwise:
               steps:
@@ -134,7 +134,7 @@ public class ForcedException {
 }
 ----
 
-`*do-catch*`
+`*doCatch*`
 
 [source,yaml]
 ----
@@ -143,10 +143,10 @@ public class ForcedException {
     from:
       uri: "direct:tryCatch"
       steps:
-        - do-try:
+        - doTry:
             steps:
               - to: "direct:readFile"
-            do-catch:
+            doCatch:
               - exception:
                   - "java.io.FileNotFoundException"
                 steps:
