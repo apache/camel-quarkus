@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.ftps.it;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.camel.quarkus.component.ftp.it.FtpTestResource;
 import org.apache.ftpserver.listener.ListenerFactory;
@@ -26,6 +28,13 @@ public class FtpsTestResource extends FtpTestResource {
 
     public FtpsTestResource() {
         super("ftps");
+    }
+
+    @Override
+    public Map<String, String> start() {
+        Map<String, String> config = new HashMap<>(super.start());
+        config.put("camel.ftps.test-truststore", Path.of(FtpsTest.CERTIFICATE_TRUSTSTORE_FILE).toAbsolutePath().toString());
+        return config;
     }
 
     @Override
