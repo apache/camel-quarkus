@@ -142,7 +142,6 @@ group-07:
   - ognl
   - olingo4
   - openai
-  - optaplanner
   - pg-replication-slot
   - sjms2-artemis-client
   - splunk-hec

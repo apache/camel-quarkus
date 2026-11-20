@@ -73,6 +73,7 @@
         <module>lucene</module>
         <module>mvel</module>
         <module>opensearch</module>
+        <module>optaplanner</module>
         <module>printer</module>
         <module>pulsar</module>
         <module>python</module>
