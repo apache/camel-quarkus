@@ -35,6 +35,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(value = FtpsTestResource.class, restrictToAnnotatedClass = true)
 class FtpsTest {
     static final String CERTIFICATE_KEYSTORE_FILE = CertificatesUtil.keystoreFile("ftp", "p12");
+    static final String CERTIFICATE_TRUSTSTORE_FILE = CertificatesUtil.truststoreFile("ftp", "p12");
 
     @Test
     public void testFtpsComponent() {
