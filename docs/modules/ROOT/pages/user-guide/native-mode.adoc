@@ -16,7 +16,7 @@ In such a case, you may consider using the configuration option below:
 quarkus.native.add-all-charsets = true
 ----
 
-See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets] in Quarkus documentation.
+See also https://quarkus.io/guides/all-config#quarkus-core_quarkus-native-add-all-charsets[quarkus.native.add-all-charsets] in Quarkus documentation.
 
 [[locale]]
 == Locale
@@ -54,7 +54,7 @@ quarkus.native.resources.includes = docs/*,images/*
 In the example above, resources named `docs/included.adoc` and `images/included.png` would be embedded in the native executable.
 
 `quarkus.native.resources.includes` is a list of comma separated Ant-path style glob patterns.
-Please refer to https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.resources.includes[Quarkus documentation] for more details.
+Please refer to https://quarkus.io/guides/building-native-image#quarkus-core_quarkus-native-resources-includes[Quarkus documentation] for more details.
 
 [[using-onexception-clause-in-native-mode]]
 == Using the onException clause in native mode
@@ -83,7 +83,7 @@ require reflection and register them automatically.
 However, in some situations, Quarkus extensions may miss some classes, and it is up to the application developer to
 register them. There are two ways to do that:
 
-1. The `https://quarkus.io/guides/writing-native-applications-tips#alternative-with-registerforreflection[@io.quarkus.runtime.annotations.RegisterForReflection]`
+1. The `https://quarkus.io/guides/writing-native-applications-tips#registerForReflection[@io.quarkus.runtime.annotations.RegisterForReflection]`
 annotation can be used to register classes on which it is used, or it can also register third party classes via
 its `targets` attribute.
 +

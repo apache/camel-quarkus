@@ -7,7 +7,7 @@
 
 * `git`
 * GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set, see
-  https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
+  https://quarkus.io/guides/building-native-image[Building a native executable] section of the Quarkus
   documentation.
 * If you are on Linux, `docker` or `podman` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
@@ -46,7 +46,7 @@ A build with integration tests in both the JVM mode and the native mode:
 mvn clean install -Pnative
 ----
 
-TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - the Maven Daemon] for faster builds. When using `mvnd` on macOS, make sure the mvnd version matches your installed Maven version (`mvn`) to avoid compilation failures due to missing dependencies.
+TIP: You may want to install and use https://github.com/apache/maven-mvnd[`mvnd` - the Maven Daemon] for faster builds. When using `mvnd` on macOS, make sure the mvnd version matches your installed Maven version (`mvn`) to avoid compilation failures due to missing dependencies.
 
 TIP: For building native images on macOS, you usually **do not need** to use `-Dquarkus.native.container-build`. This option is primarily intended for Linux systems, where the native image build runs inside a Docker container. On macOS, GraalVM can typically generate the native image directly, so omitting this option simplifies the build and avoids unnecessary errors.
 

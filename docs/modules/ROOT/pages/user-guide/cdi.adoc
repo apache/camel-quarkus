@@ -39,7 +39,7 @@ you really need it.
 
 <2> The value for the `timer.period` property is defined in `src/main/resources/application.properties` of the example project.
 
-TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Quarkus Dependency Injection guide] for more details.
+TIP: Please refer to the https://quarkus.io/guides/cdi-reference[Quarkus Dependency Injection guide] for more details.
 
 == Accessing `CamelContext`
 

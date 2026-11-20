@@ -5,7 +5,7 @@ section of Camel Quarkus user guide.
 
 There are two different configuration approaches:
 
-* Minio client can be defined via quarkus properties leveraging the Quarkiverse Minio (see http://github.com/quarkiverse/quarkiverse-minio#configuration-reference[documentation]).
+* Minio client can be defined via quarkus properties leveraging the Quarkiverse Minio (see https://docs.quarkiverse.io/quarkus-minio/dev/index.html#_configuration_reference[documentation]).
 Camel will autowire client into the Minio component.
 This configuration allows definition of only one minio client, therefore it isn't possible to define several different minio endpoints, which run together.
 

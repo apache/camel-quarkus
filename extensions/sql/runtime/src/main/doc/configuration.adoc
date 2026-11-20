@@ -16,7 +16,7 @@ the URI options `datasource` or `dataSourceRef`. Refer to the SQL component docu
 
 ==== Zero configuration with Quarkus Dev Services
 
-In dev and test mode you can take advantage of https://quarkus.io/guides/datasource#dev-services-configuration-free-databases[Configuration Free Databases]. The Camel SQL component will be automatically configured to use a `DataSource` that points to a local containerized instance of the database matching the JDBC driver type that you have selected.
+In dev and test mode you can take advantage of https://quarkus.io/guides/datasource#dev-services[Configuration Free Databases]. The Camel SQL component will be automatically configured to use a `DataSource` that points to a local containerized instance of the database matching the JDBC driver type that you have selected.
 
 === SQL scripts
 

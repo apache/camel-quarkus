@@ -1,4 +1,4 @@
-Please refer to https://quarkiverse.github.io/quarkiverse-docs/quarkus-mybatis/dev/index.html[Quarkus MyBatis] for configuration. It must enable the following options
+Please refer to https://docs.quarkiverse.io/quarkus-mybatis/dev/index.html[Quarkus MyBatis] for configuration. It must enable the following options
 
 [source, properties]
 ----
