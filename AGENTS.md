@@ -43,8 +43,7 @@ integration-tests/   # Integration tests JVM + native
 integration-test-groups/  # Groupings of integration tests, primarilly for boosting CI speed & efficiency
 integration-tests-jvm/   # JVM-only extension integration tests
 integration-tests-support/ # Shared test utilities and test containers support
-poms/bom/            # Runtime Bill of Materials
-poms/bom-deployment/ # Deployment Bill of Materials
+poms/bom/            # Bill of Materials (runtime and deployment artifacts)
 tooling/             # Maven plugin, scripts, templates, and tooling
 catalog/             # Camel Quarkus catalog
 docs/                # AsciiDoc documentation (Antora-based)
@@ -170,7 +169,7 @@ For extensions providing JVM only support:
 ```
 
 ### 2. Add to Test Categories (native only)
-Add the extension name to `tooling/scripts/test-categories.yaml`. Test categories should not be overloaded with too many extensions. But should be 'balanced' to ensure each one completes in roughly the same time as others.
+Add the extension's integration test module name (e.g. `kafka`, or a grouped module such as `http-grouped`) to `tooling/scripts/test-categories.yaml`. Test categories should not be overloaded with too many extensions. But should be 'balanced' to ensure each one completes in roughly the same time as others.
 
 ### 3. Review Extension Metadata
 View `extensions/kafka/runtime/src/main/resources/META-INF/quarkus-extension.yaml`

@@ -53,6 +53,7 @@ endif::[]
 A `RestProducerFactory` implementation must be available when using the rest-openapi extension. The currently known extensions are:
 
 * camel-quarkus-http
+* camel-quarkus-vertx-http
 ifeval::[{doc-show-advanced-features} == true]
 * camel-quarkus-netty-http
 endif::[]

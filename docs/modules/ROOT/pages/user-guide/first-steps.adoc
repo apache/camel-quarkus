@@ -95,17 +95,21 @@ cd rest-json
 
 ==== Explore the application code
 
-The application has two compile dependencies:
+The application has three compile dependencies:
 
 [source,xml,subs="attributes+"]
 ----
 <dependency>
     <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-platform-http</artifactId>
+    <artifactId>camel-quarkus-jackson</artifactId>
 </dependency>
 <dependency>
     <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-jackson</artifactId>
+    <artifactId>camel-quarkus-rest</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-direct</artifactId>
 </dependency>
 ----
 

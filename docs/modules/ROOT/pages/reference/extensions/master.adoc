@@ -48,8 +48,9 @@ endif::[]
 [id="extensions-master-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-This extension can be used in conjunction with extensions below:
+This extension requires a cluster service. Use it in conjunction with one of the extensions below:
 
-* xref:reference/extensions/file.adoc[Camel Quarkus File]
-* xref:reference/extensions/kubernetes.adoc[Camel Quarkus Kubernetes]
+* xref:reference/extensions/file-cluster-service.adoc[Camel Quarkus File Cluster Service]
+* xref:reference/extensions/infinispan-cluster-service.adoc[Camel Quarkus Infinispan Cluster Service]
+* xref:reference/extensions/kubernetes-cluster-service.adoc[Camel Quarkus Kubernetes Cluster Service]
 
