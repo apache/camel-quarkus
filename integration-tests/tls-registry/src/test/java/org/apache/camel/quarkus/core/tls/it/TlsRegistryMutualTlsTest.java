@@ -80,10 +80,13 @@ class TlsRegistryMutualTlsTest {
                 .get("/tls-registry/mtls/" + component + "/client-no-key")
                 .then()
                 .statusCode(500)
-                // On Windows the rejection can surface as an aborted connection rather than the TLS alert
+                // With TLS 1.3 the client finishes its handshake before the server rejects it, so a client already
+                // writing the request may see the closed socket instead of the TLS alert
                 .body(anyOf(
                         containsString("javax.net.ssl.SSLHandshakeException: (certificate_required)"),
-                        containsString("java.net.SocketException: An established connection was aborted")));
+                        containsString("java.net.SocketException: An established connection was aborted"),
+                        containsString("java.net.SocketException: Broken pipe"),
+                        containsString("java.net.SocketException: Connection reset")));
     }
 
     public static class MutualTlsProfile implements QuarkusTestProfile {
