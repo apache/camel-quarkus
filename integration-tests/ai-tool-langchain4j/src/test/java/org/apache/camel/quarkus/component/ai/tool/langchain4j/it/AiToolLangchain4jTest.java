@@ -18,10 +18,13 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 class AiToolLangchain4jTest {
@@ -38,7 +41,7 @@ class AiToolLangchain4jTest {
     }
 
     @Test
-    void weatherServiceTestWithWrongTag() {
+    void adminServiceCallsNewsToolForAnyQuestion() {
         RestAssured.given()
                 .contentType("text/plain")
                 .body("What is the weather in Prague?")
@@ -91,7 +94,36 @@ class AiToolLangchain4jTest {
                 .post("/ai-tool-langchain4j/weather-wrong-tag/chat")
                 .then()
                 .statusCode(200)
-                .body(not(containsString("1111")));
+                .body(not(containsString("1111")))
+                // the service still receives the tools of its own tag
+                .body(containsString("offered tools: getNews"));
+    }
+
+    @Test
+    void serviceWithoutCamelAiToolsReceivesAllTools() {
+        chat("all-tools", "list")
+                .body(is("failingTool,getNews,getWeather"));
+    }
+
+    @Test
+    void invalidJsonArgumentsAreReportedToModel() {
+        chat("all-tools", "call getWeather {not json")
+                .body(startsWith("Invalid arguments: could not parse the provided JSON arguments"));
+    }
+
+    @Test
+    void toolFailureIsSanitized() {
+        chat("all-tools", "call failingTool {}")
+                .body(is("Tool execution failed"));
+    }
+
+    private static ValidatableResponse chat(String service, String message) {
+        return RestAssured.given()
+                .contentType("text/plain")
+                .body(message)
+                .post("/ai-tool-langchain4j/" + service + "/chat")
+                .then()
+                .statusCode(200);
     }
 
 }

@@ -36,5 +36,8 @@ public class AiToolLangchain4jRoutes extends RouteBuilder {
                 + "&parameter.topic.required=true"
                 + "&parameter.topic.description=The news topic")
                 .setBody(simple("Latest news about ${header.topic}"));
+
+        from("ai-tool:failingTool?tags=failTag&description=A tool that always fails")
+                .throwException(new IllegalStateException("Internal failure detail"));
     }
 }

@@ -70,5 +70,28 @@ public class AiToolRoutes extends RouteBuilder {
         from("ai-tool:failingTool?tags=test"
                 + "&description=A tool that always fails")
                 .throwException(new IllegalStateException("Intentional failure"));
+
+        // CamelOverride is declared, but argument names starting with "Camel" must never become headers;
+        // "extra" is not declared, so it must be dropped
+        from("ai-tool:echoHeaders?tags=test"
+                + "&description=Echo the received headers"
+                + "&parameter.name=string"
+                + "&parameter.CamelOverride=string")
+                .setBody(simple("name=${header.name}, camel=${header.CamelOverride}, extra=${header.extra}"));
+
+        // No description, several tags; the route sets no body
+        from("ai-tool:typedTool?tags=weather,math")
+                .log("typedTool called");
+
+        from("ai-tool:searchInline?tags=search"
+                + "&description=Search with an inline schema"
+                + "&argSchema=RAW({\"type\":\"object\",\"properties\":{\"query\":{\"type\":\"string\"}},"
+                + "\"required\":[\"query\"]})")
+                .setBody(simple("Results for ${header.query}"));
+
+        from("ai-tool:searchFromResource?tags=search"
+                + "&description=Search with a schema from the classpath"
+                + "&argSchema=classpath:ai-tool/search-schema.json")
+                .setBody(simple("Results for ${header.query}"));
     }
 }
