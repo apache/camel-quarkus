@@ -48,8 +48,6 @@ public class CamelAiToolProvider implements ToolProvider {
 
     private static final Logger LOG = Logger.getLogger(CamelAiToolProvider.class);
     static final Map<String, String> TAG_MAP = new ConcurrentHashMap<>();
-    // Set by CamelAiToolsInterceptor before each AI service call so provideTools() can filter by the calling service's tag
-    private static final ThreadLocal<String> CURRENT_TAG = new ThreadLocal<>();
     private static final Set<String> CAMEL_AGENT_SERVICE_INTERFACES = Set.of(
             "org.apache.camel.component.langchain4j.agent.api.AiAgentWithMemoryService",
             "org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService");
@@ -63,18 +61,6 @@ public class CamelAiToolProvider implements ToolProvider {
     @Inject
     AiToolSpecConverter converter;
 
-    static String getCurrentTag() {
-        return CURRENT_TAG.get();
-    }
-
-    static void setCurrentTag(String tag) {
-        CURRENT_TAG.set(tag);
-    }
-
-    static void clearCurrentTag() {
-        CURRENT_TAG.remove();
-    }
-
     @Override
     public ToolProviderResult provideTools(ToolProviderRequest request) {
         if (isCamelAgentRequest(request)) {
@@ -86,7 +72,11 @@ public class CamelAiToolProvider implements ToolProvider {
         }
 
         AiToolRegistry registry = AiToolRegistry.getOrCreate(camelContext);
-        String effectiveTag = CURRENT_TAG.get();
+        // Resolved from the request, not from the calling thread: Multi-returning AI services called on the event
+        // loop provide their tools on a worker thread
+        String effectiveTag = request.invocationContext() != null
+                ? TAG_MAP.get(request.invocationContext().interfaceName())
+                : null;
         Set<AiToolSpec> tools = effectiveTag != null ? registry.getToolsByTag(effectiveTag) : registry.getAllTools();
 
         ToolProviderResult.Builder resultBuilder = ToolProviderResult.builder();
