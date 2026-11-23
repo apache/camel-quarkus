@@ -18,8 +18,10 @@ package org.apache.camel.quarkus.component.ai.tool.langchain4j.it.model;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
+import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.ToolExecutionResultMessage;
@@ -59,8 +61,13 @@ public class WrongTagToolCallingChatModel implements Supplier<ChatModel> {
                                 .build();
                     }
 
+                    String offered = chatRequest.toolSpecifications() == null
+                            ? ""
+                            : chatRequest.toolSpecifications().stream()
+                                    .map(ToolSpecification::name)
+                                    .collect(Collectors.joining(","));
                     return ChatResponse.builder()
-                            .aiMessage(new AiMessage("No weather tool available"))
+                            .aiMessage(new AiMessage("No weather tool available, offered tools: " + offered))
                             .build();
                 }
 

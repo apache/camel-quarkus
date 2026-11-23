@@ -32,6 +32,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.component.ai.tool.AiToolRegistry;
 import org.apache.camel.component.ai.tool.AiToolSpec;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.AdminAiService;
+import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.AllToolsAiService;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.WeatherAiService;
 import org.apache.camel.quarkus.component.ai.tool.langchain4j.it.service.WeatherAiServiceWrongTag;
 
@@ -50,6 +51,9 @@ public class AiToolLangchain4jResource {
 
     @Inject
     WeatherAiServiceWrongTag weatherAiServiceWrongTag;
+
+    @Inject
+    AllToolsAiService allToolsAiService;
 
     @Path("/weather/chat")
     @POST
@@ -73,6 +77,14 @@ public class AiToolLangchain4jResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String weatherChatWrongTag(String message) {
         return weatherAiServiceWrongTag.chat(message);
+    }
+
+    @Path("/all-tools/chat")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String allToolsChat(String message) {
+        return allToolsAiService.chat(message);
     }
 
     @Path("/tools/{tag}")

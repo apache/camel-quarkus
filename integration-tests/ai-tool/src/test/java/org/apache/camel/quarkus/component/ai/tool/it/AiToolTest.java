@@ -21,7 +21,9 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
@@ -147,6 +149,81 @@ class AiToolTest {
                 .post("/ai-tool/execute/failingTool")
                 .then()
                 .statusCode(500);
+    }
+
+    @Test
+    void camelPrefixedArgumentIsNotSetAsHeader() {
+        RestAssured.given()
+                .queryParam("param", "name=Alice")
+                .queryParam("param", "CamelOverride=injected")
+                .post("/ai-tool/execute/echoHeaders")
+                .then()
+                .statusCode(200)
+                .body(is("name=Alice, camel=, extra="));
+    }
+
+    @Test
+    void undeclaredArgumentIsIgnored() {
+        RestAssured.given()
+                .queryParam("param", "name=Alice")
+                .queryParam("param", "extra=injected")
+                .post("/ai-tool/execute/echoHeaders")
+                .then()
+                .statusCode(200)
+                .body(is("name=Alice, camel=, extra="));
+    }
+
+    @Test
+    void toolWithSeveralTagsIsVisibleUnderEachTag() {
+        RestAssured.get("/ai-tool/tools/tag/weather").then().statusCode(200).body(containsString("typedTool"));
+        RestAssured.get("/ai-tool/tools/tag/math").then().statusCode(200).body(containsString("typedTool"));
+        RestAssured.get("/ai-tool/tools/tag/search").then().statusCode(200).body(not(containsString("typedTool")));
+    }
+
+    @Test
+    void descriptionDefaultsToToolName() {
+        RestAssured.get("/ai-tool/tools/typedTool/description")
+                .then()
+                .statusCode(200)
+                .body(is("typedTool"));
+    }
+
+    @Test
+    void nullBodyReturnsNoResult() {
+        RestAssured.given()
+                .post("/ai-tool/execute/typedTool")
+                .then()
+                .statusCode(200)
+                .body(is("No result"));
+    }
+
+    @Test
+    void inlineArgSchema() {
+        RestAssured.get("/ai-tool/tools/searchInline/schema")
+                .then()
+                .statusCode(200)
+                .body("required", hasItem("query"));
+
+        RestAssured.given()
+                .post("/ai-tool/execute/searchInline")
+                .then()
+                .statusCode(400)
+                .body(containsString("query"));
+
+        RestAssured.given()
+                .queryParam("param", "query=camel")
+                .post("/ai-tool/execute/searchInline")
+                .then()
+                .statusCode(200)
+                .body(is("Results for camel"));
+    }
+
+    @Test
+    void argSchemaFromClasspathResource() {
+        RestAssured.get("/ai-tool/tools/searchFromResource/schema")
+                .then()
+                .statusCode(200)
+                .body("properties.query.description", is("The search phrase from the resource"));
     }
 
     @Test
