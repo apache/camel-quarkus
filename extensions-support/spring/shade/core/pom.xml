@@ -81,6 +81,7 @@
                                         <include>org/springframework/util/concurrent/**</include>
                                         <include>org/springframework/util/comparator/**</include>
                                         <include>org/springframework/util/function/**</include>
+                                        <include>org/springframework/util/unit/**</include>
                                         <include>org/springframework/util/xml/**</include>
                                     </includes>
                                 </filter>
