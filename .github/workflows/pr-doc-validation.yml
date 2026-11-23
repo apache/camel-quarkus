@@ -25,6 +25,7 @@ on:
       - '**.adoc'
       - '!**/README.adoc'
       - 'docs/antora.yml'
+      - '.github/workflows/pr-doc-validation.yml'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
