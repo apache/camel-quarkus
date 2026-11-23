@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "The search phrase from the resource"
+    }
+  },
+  "required": ["query"]
+}
