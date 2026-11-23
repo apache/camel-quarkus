@@ -33,7 +33,6 @@ import io.quarkus.runtime.configuration.ConfigurationException;
 import org.apache.camel.quarkus.component.ai.tool.AiToolRecorder;
 import org.apache.camel.quarkus.component.ai.tool.AiToolSpecConverterImpl;
 import org.apache.camel.quarkus.component.ai.tool.CamelAiToolProvider;
-import org.apache.camel.quarkus.component.ai.tool.CamelAiToolsInterceptor;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.DotName;
@@ -116,7 +115,6 @@ class AiToolProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     void configureCamelAiToolTags(
             CombinedIndexBuildItem combinedIndex,
-            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
             AiToolRecorder recorder) {
 
         IndexView index = combinedIndex.getIndex();
@@ -139,10 +137,5 @@ class AiToolProcessor {
         }
 
         recorder.setCamelAiToolTagMap(tagMap);
-
-        additionalBeans.produce(AdditionalBeanBuildItem.builder()
-                .addBeanClasses(CamelAiToolsInterceptor.class)
-                .setUnremovable()
-                .build());
     }
 }
