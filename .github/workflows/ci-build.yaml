@@ -51,7 +51,7 @@ on:
       - '.github/workflows/label-issue.yaml'
       - '.github/workflows/quarkus-master-cron.yaml'
       - '.github/workflows/synchronize-dependabot-branch.yaml'
-      - '.github/workflows/pr-doc-validation.yaml'
+      - '.github/workflows/pr-doc-validation.yml'
       - 'docs/antora.yml'
       - 'release-utils/**'
   pull_request:
@@ -88,7 +88,7 @@ on:
       - '.github/workflows/quarkus-lts-ci-build.yaml'
       - '.github/workflows/quarkus-master-cron.yaml'
       - '.github/workflows/synchronize-dependabot-branch.yaml'
-      - '.github/workflows/pr-doc-validation.yaml'
+      - '.github/workflows/pr-doc-validation.yml'
       - 'docs/antora.yml'
       - 'release-utils/**'
 
