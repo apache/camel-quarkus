@@ -58,7 +58,6 @@ jobs:
         shell: bash
         run: |
           cd camel-website
-          yarn install
+          yarn install --immutable
           cd ../camel-quarkus/docs
-          yarn install
           ./local-build.sh quick
