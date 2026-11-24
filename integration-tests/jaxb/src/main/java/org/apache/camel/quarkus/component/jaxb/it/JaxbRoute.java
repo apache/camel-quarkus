@@ -104,7 +104,10 @@ public class JaxbRoute extends RouteBuilder {
         from("direct:marshalPartClassFromHeader")
                 .setHeader(JaxbConstants.JAXB_PART_CLASS, constant(PartClassPerson.class.getName()))
                 .setHeader(JaxbConstants.JAXB_PART_NAMESPACE, constant(String.format("{%s}person", PartClassPerson.NAMESPACE)))
-                .marshal().jaxb(PartClassPerson.class.getPackageName());
+                .marshal(dataFormat().jaxb()
+                        .contextPath(PartClassPerson.class.getPackageName())
+                        .allowPartClassFromHeader(true)
+                        .end());
 
         from("direct:unmarshalPartClass")
                 .unmarshal(jaxbDataFormatWithPartClass);
@@ -112,7 +115,10 @@ public class JaxbRoute extends RouteBuilder {
         from("direct:unmarshalPartClassFromHeader")
                 .setHeader(JaxbConstants.JAXB_PART_CLASS, constant(PartClassPerson.class.getName()))
                 .setHeader(JaxbConstants.JAXB_PART_NAMESPACE, constant(String.format("{%s}person", PartClassPerson.NAMESPACE)))
-                .unmarshal().jaxb(PartClassPerson.class.getPackageName());
+                .unmarshal(dataFormat().jaxb()
+                        .contextPath(PartClassPerson.class.getPackageName())
+                        .allowPartClassFromHeader(true)
+                        .end());
 
         from("direct:unmarshalIgnoreJaxbElement")
                 .unmarshal(jaxbDataFormatIgnoreElement);
