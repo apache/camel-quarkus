@@ -80,13 +80,15 @@ Arguments passed by the LLM are set as exchange headers (e.g. `${header.city}`).
 [id="extensions-ai-tool-usage-schema-mcp-hints-and-return-direct"]
 === Schema, MCP hints and return direct
 
-Instead of `parameter.*` options, `argSchema` takes a raw JSON Schema, inline or as a resource such as `classpath:schemas/order.json`. The two are mutually exclusive. The schema needs an object root with at least one property in `properties`. Only the top-level properties are set as headers.
+Instead of `parameter.*` options, `argSchema` takes a raw JSON Schema, inline or as a resource such as `classpath:schemas/order.json`. The two are mutually exclusive. The schema needs an object root with at least one property in `properties`. Only the top-level properties are set as headers. In native mode, a `classpath:` schema must be added to the native image, e.g. `quarkus.native.resources.includes=schemas/order.json`.
 
 Further options (see the Camel `ai-tool` documentation for details):
 
 * `title` - display title for MCP tool listings.
 * `readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint` - MCP hints. They are advisory, Camel does not enforce them, and an unset hint is not published.
 * `returnDirect` - AI producers that support it (such as `openai`) return the tool result to the caller without sending it back to the model. Also published as an MCP hint.
+
+`title` and the MCP hints are not passed to Quarkus LangChain4j AI services: their tool specification has only the name, description and parameters (`ToolSpecification.metadata()` is empty).
 
 [source,java]
 ----

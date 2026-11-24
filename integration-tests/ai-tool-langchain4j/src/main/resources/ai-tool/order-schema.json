@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "customer": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The customer name" },
+        "email": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sku": { "type": "string" },
+          "quantity": { "type": "integer" }
+        },
+        "required": ["sku", "quantity"]
+      }
+    },
+    "priority": { "type": "string", "enum": ["LOW", "HIGH"] }
+  },
+  "required": ["customer", "items"]
+}

@@ -48,7 +48,7 @@ public class CamelAiToolProvider implements ToolProvider {
 
     private static final Logger LOG = Logger.getLogger(CamelAiToolProvider.class);
     static final Map<String, String> TAG_MAP = new ConcurrentHashMap<>();
-    private static final Set<String> CAMEL_AGENT_SERVICE_INTERFACES = Set.of(
+    static final Set<String> CAMEL_AGENT_SERVICE_INTERFACES = Set.of(
             "org.apache.camel.component.langchain4j.agent.api.AiAgentWithMemoryService",
             "org.apache.camel.component.langchain4j.agent.api.AiAgentWithoutMemoryService");
 
