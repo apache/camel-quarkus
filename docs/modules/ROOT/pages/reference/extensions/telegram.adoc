@@ -63,6 +63,7 @@ Maven users, for example, can add *camel-quarkus-rest* extension to their `pom.x
 </dependency>
 ----
 
+
 [id="extensions-telegram-ssl-in-native-mode"]
 == SSL in native mode
 
