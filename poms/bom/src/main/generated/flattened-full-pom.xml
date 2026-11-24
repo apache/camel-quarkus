@@ -7914,7 +7914,7 @@
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-query-builder</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
         <exclusions>
           <exclusion>
             <groupId>com.github.spotbugs</groupId>
@@ -24497,7 +24497,7 @@
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-core</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
         <exclusions>
           <exclusion>
             <groupId>io.dropwizard.metrics</groupId>
@@ -24512,7 +24512,7 @@
       <dependency>
         <groupId>org.apache.tinkerpop</groupId>
         <artifactId>gremlin-core</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.6</version>
         <exclusions>
           <exclusion>
             <groupId>com.carrotsearch</groupId>
@@ -24535,12 +24535,12 @@
       <dependency>
         <groupId>org.apache.tinkerpop</groupId>
         <artifactId>tinkergraph-gremlin</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.6</version>
       </dependency>
       <dependency>
         <groupId>com.esri.geometry</groupId>
         <artifactId>esri-geometry-api</artifactId>
-        <version>1.2.1</version>
+        <version>2.2.4</version>
       </dependency>
       <dependency>
         <groupId>com.github.spotbugs</groupId>
@@ -24555,7 +24555,7 @@
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client</artifactId>
-        <version>1.4.1</version>
+        <version>1.5.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.github.spotbugs</groupId>
@@ -24570,52 +24570,52 @@
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client-deployment</artifactId>
-        <version>1.4.1</version>
+        <version>1.5.0</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-test-framework</artifactId>
-        <version>1.4.1</version>
+        <version>1.5.0</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-mapper-processor</artifactId>
-        <version>1.4.1</version>
+        <version>1.5.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-core-shaded</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-mapper-processor</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-mapper-runtime</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-guava-shaded</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-test-infra</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-metrics-micrometer</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cassandra</groupId>
         <artifactId>java-driver-metrics-microprofile</artifactId>
-        <version>4.19.2</version>
+        <version>4.19.4</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId>
