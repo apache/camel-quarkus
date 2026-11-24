@@ -17,17 +17,12 @@
 package org.apache.camel.quarkus.component.oauth.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.oauth.OAuthBearerTokenProcessor;
 import org.apache.camel.oauth.OAuthClientCredentialsProcessor;
 
 @ApplicationScoped
 public class OathRoutes extends RouteBuilder {
-
-    @Inject
-    private CamelContext camelContext;
 
     @Override
     public void configure() throws Exception {
@@ -48,11 +43,7 @@ public class OathRoutes extends RouteBuilder {
 
         from("platform-http:/bearer")
                 .routeId("bearer")
-                .process(e -> {
-                    camelContext.getGlobalOptions().put("Authorization", e.getIn().getHeader("Authorization", String.class));
-                })
                 .process(new OAuthBearerTokenProcessor())
-                .process(e -> camelContext.getGlobalOptions().remove("Authorization"))
                 .setBody(simple("Hello ${header.name} - bearerToken"));
 
     }

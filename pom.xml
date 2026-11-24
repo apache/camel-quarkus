@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.18.5</version>
+        <version>4.18.6</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -40,7 +40,7 @@
 
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>4.18</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.5</camel.version>
+        <camel.version>${camel.major.minor}.6</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -375,6 +375,28 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2094/</url>
+            <name>Apache Camel 4.18.6 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -388,6 +410,28 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-2094/</url>
+            <name>Apache Camel 4.18.6 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
@@ -448,7 +492,7 @@
                         <preparationGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Prepare release" -N</preparationGoals>
                         <completionGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Set next development version" -N</completionGoals>
                         <!-- release:perform config -->
-                        <releaseProfiles combine.self="override" />
+                        <releaseProfiles combine.self="override"/>
                         <goals>deploy</goals>
                         <!-- Both release:prepare and release:perform config -->
                         <arguments>-Dapache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
@@ -472,7 +516,7 @@
                     <version>${maven-shade-plugin.version}</version>
                     <configuration>
                         <transformers>
-                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer" />
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
                         </transformers>
                     </configuration>
                 </plugin>

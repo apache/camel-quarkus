@@ -67,8 +67,9 @@ public class GrpcResource {
                 .setPingName(pingName)
                 .setPingId(pingId)
                 .build();
+        final String resolvedPort = context.resolvePropertyPlaceholders(portPropertyPlaceholder);
         final Map<String, Object> headers = Map.of(
-                "port", portPropertyPlaceholder,
+                "port", resolvedPort,
                 GRPC_METHOD_NAME_HEADER, methodName,
                 "isSync", String.valueOf(synchronous));
 

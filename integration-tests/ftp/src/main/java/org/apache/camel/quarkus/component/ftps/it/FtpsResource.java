@@ -39,6 +39,10 @@ import org.apache.camel.ProducerTemplate;
 public class FtpsResource {
 
     private static final long TIMEOUT_MS = 1000;
+    private static final String FTPS_URI = "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin"
+            + "&ftpClient.trustStore.file=target/certs/ftp-truststore.p12"
+            + "&ftpClient.trustStore.type=PKCS12"
+            + "&ftpClient.trustStore.password=password";
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -51,7 +55,7 @@ public class FtpsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getFile(@PathParam("fileName") String fileName) {
         return consumerTemplate.receiveBody(
-                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&fileName=" + fileName,
+                FTPS_URI + "&fileName=" + fileName,
                 TIMEOUT_MS,
                 String.class);
     }
@@ -61,7 +65,7 @@ public class FtpsResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createFile(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
-        producerTemplate.sendBodyAndHeader("ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin", fileContent,
+        producerTemplate.sendBodyAndHeader(FTPS_URI, fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -72,7 +76,7 @@ public class FtpsResource {
     @DELETE
     public void deleteFile(@PathParam("fileName") String fileName) {
         consumerTemplate.receiveBody(
-                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&delete=true&fileName=" + fileName,
+                FTPS_URI + "&delete=true&fileName=" + fileName,
                 TIMEOUT_MS,
                 String.class);
     }
@@ -81,7 +85,7 @@ public class FtpsResource {
     @PUT
     public void moveToDoneFile(@PathParam("fileName") String fileName) {
         consumerTemplate.receiveBody(
-                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&move=${headers.CamelFileName}.done&fileName="
+                FTPS_URI + "&move=${headers.CamelFileName}.done&fileName="
                         + fileName,
                 TIMEOUT_MS,
                 String.class);
