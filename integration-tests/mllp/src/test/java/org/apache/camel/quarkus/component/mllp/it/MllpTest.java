@@ -57,24 +57,26 @@ class MllpTest {
 
     @Test
     public void testCharsetFromMsh18() {
-        // Set up the message with a charset and some characters that it cannot deal with
-        String messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||ISO-8859-1").replace("INHOUSE", "ÏNHOUSE");
+        // Set up the message with a charset and a character that it cannot encode
+        String messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||ISO-8859-1").replace("INHOUSE", "ŁNHOUSE");
 
-        // Expect garbled INHOUSE text because the chosen charset cannot support special characters
+        // Expect a replaced character because the message is encoded in the MSH-18 charset
         RestAssured.given()
+                .contentType("text/plain; charset=UTF-8")
                 .body(messageWithCharset)
                 .post("/mllp/charset/msh18")
                 .then()
-                .body(containsString("Ã\u008FNHOUSE"))
+                .body(containsString("?NHOUSE"))
                 .statusCode(200);
 
         // Try again with UTF-8
-        messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||UTF-8").replace("INHOUSE", "ÏNHOUSE");
+        messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||UTF-8").replace("INHOUSE", "ŁNHOUSE");
         RestAssured.given()
+                .contentType("text/plain; charset=UTF-8")
                 .body(messageWithCharset)
                 .post("/mllp/charset/msh18")
                 .then()
-                .body(containsString("ÏNHOUSE"))
+                .body(containsString("ŁNHOUSE"))
                 .statusCode(200);
     }
 }
