@@ -75,6 +75,7 @@ the `org.apache.camel.quarkus.component.ai.tool.CamelAiTools` annotation.
 
 * It takes a single tag. A comma-separated list is not split.
 * A blank tag fails the build (when Quarkus LangChain4j and `camel-langchain4j-agent` are present).
+* It only applies to `@RegisterAiService` interfaces. On any other class (such as a CDI bean calling the service) it has no effect and the build logs a warning.
 * It has no effect on Camel agents (`langchain4j-agent` endpoints), which receive no tools from this bridge.
 
 [source,java]
