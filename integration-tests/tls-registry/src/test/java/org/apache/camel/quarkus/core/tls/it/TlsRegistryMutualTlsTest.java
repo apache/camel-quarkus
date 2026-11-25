@@ -25,7 +25,6 @@ import io.restassured.RestAssured;
 import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -74,7 +73,6 @@ class TlsRegistryMutualTlsTest {
      * Proves the server enforces client authentication, so that the tests above are meaningful. Asserting the
      * handshake failure, rather than any error, also rules out the server not having started.
      */
-    @Disabled("https://github.com/apache/camel-quarkus/issues/9530")
     @ParameterizedTest
     @ValueSource(strings = { "http", "vertx-http" })
     void callWithoutClientCertificateIsRejected(String component) {

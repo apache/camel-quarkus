@@ -32,8 +32,6 @@
 
     <properties>
         <cq.sqlJdbcKind>h2</cq.sqlJdbcKind>
-        <!-- TODO(https://github.com/apache/camel-quarkus/issues/9530): re-enable native when https://issues.apache.org/jira/browse/CAMEL-27239 is fixed -->
-        <ci.native.tests.skip>true</ci.native.tests.skip>
     </properties>
 
     <dependencies>

@@ -7106,7 +7106,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -7125,12 +7125,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -7145,17 +7145,17 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.glassfish</groupId>
@@ -7170,7 +7170,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>8.12.1</version>
+        <version>9.0.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
@@ -7211,7 +7211,7 @@
       <dependency>
         <groupId>com.atlassian.jira</groupId>
         <artifactId>jira-rest-java-client-core</artifactId>
-        <version>6.0.4</version>
+        <version>7.0.2</version>
         <exclusions>
           <exclusion>
             <groupId>com.atlassian.sal</groupId>
@@ -7687,12 +7687,12 @@
       <dependency>
         <groupId>io.quarkiverse.batik</groupId>
         <artifactId>quarkus-batik</artifactId>
-        <version>2.0.0.Beta1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.batik</groupId>
         <artifactId>quarkus-batik-deployment</artifactId>
-        <version>2.0.0.Beta1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
@@ -8162,101 +8162,6 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-anim</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-awt-util</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-bridge</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-codec</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-constants</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-css</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-dom</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-ext</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-extension</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-gvt</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-i18n</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-parser</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-script</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-shared-resources</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-svg-dom</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-svggen</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-transcoder</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-util</artifactId>
-        <version>1.20</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-xml</artifactId>
-        <version>1.20</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>

@@ -189,6 +189,7 @@ public final class CamelSupport {
         return extensions;
     }
 
+    // TODO(CAMEL-27115): remove when DefaultTypeConverter.loadCoreAndFastTypeConverters() also catches LinkageError
     /**
      * Skips the lookup of {@value AnnotationTypeConverterLoader#META_INF_SERVICES} files, which Camel does only for a
      * startup warning. QuarkusClassLoader handles a {@code META-INF/services/<name>} lookup by loading {@code <name>}
