@@ -32,7 +32,8 @@ import dev.langchain4j.model.chat.response.ChatResponse;
 
 /**
  * Mock model driven by the user message: {@code list} answers with the names of the offered tools (or
- * {@code none}), {@code call <tool> <arguments>} calls the tool and answers with its result.
+ * {@code none}), {@code schema <tool>} answers with the JSON of the offered tool specification,
+ * {@code call <tool> <arguments>} calls the tool and answers with its result.
  */
 public class ScriptedChatModel implements Supplier<ChatModel> {
 
@@ -64,9 +65,18 @@ public class ScriptedChatModel implements Supplier<ChatModel> {
                 }
 
                 List<ToolSpecification> tools = chatRequest.toolSpecifications();
-                return answer(tools == null || tools.isEmpty()
-                        ? "none"
-                        : tools.stream().map(ToolSpecification::name).sorted().collect(Collectors.joining(",")));
+                if (tools == null || tools.isEmpty()) {
+                    return answer("none");
+                }
+                if (text.startsWith("schema ")) {
+                    String name = text.substring("schema ".length());
+                    return answer(tools.stream()
+                            .filter(tool -> tool.name().equals(name))
+                            .map(ToolSpecification::toJson)
+                            .findFirst()
+                            .orElse("none"));
+                }
+                return answer(tools.stream().map(ToolSpecification::name).sorted().collect(Collectors.joining(",")));
             }
         };
     }
