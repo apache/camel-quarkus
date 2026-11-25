@@ -188,6 +188,7 @@
         <xmlgraphics-commons.version>2.11</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
+        <wire-runtime.version>${squareup-wire-version}</wire-runtime.version><!-- Overrides Wire 5.2.0 from software.amazon.glue:schema-registry-serde referenced from aws2-kinesis -->
         <zookeeper.version>${zookeeper-version}</zookeeper.version>
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
