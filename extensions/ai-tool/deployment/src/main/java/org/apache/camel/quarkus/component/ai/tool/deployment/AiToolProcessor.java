@@ -35,6 +35,7 @@ import org.apache.camel.quarkus.component.ai.tool.AiToolSpecConverterImpl;
 import org.apache.camel.quarkus.component.ai.tool.CamelAiToolProvider;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
@@ -44,6 +45,8 @@ class AiToolProcessor {
     private static final String FEATURE = "camel-ai-tool";
     private static final DotName CAMEL_AI_TOOLS_DOTNAME = DotName
             .createSimple("org.apache.camel.quarkus.component.ai.tool.CamelAiTools");
+    private static final DotName REGISTER_AI_SERVICE_DOTNAME = DotName
+            .createSimple("io.quarkiverse.langchain4j.RegisterAiService");
 
     private static final Logger LOG = Logger.getLogger(AiToolProcessor.class);
 
@@ -96,6 +99,12 @@ class AiToolProcessor {
                                 + "would expose every registered Camel AI tool to the service instead of the "
                                 + "intended subset. Give it the tag used by the ai-tool: routes it should see, or "
                                 + "remove the annotation to receive all tools deliberately.")));
+                continue;
+            }
+            ClassInfo target = annotation.target().asClass();
+            if (!target.isInterface() || !target.hasDeclaredAnnotation(REGISTER_AI_SERVICE_DOTNAME)) {
+                LOG.warnf("@CamelAiTools on %s has no effect: it only applies to @RegisterAiService interfaces. "
+                        + "Move it to the AI service interface.", target.name());
             }
         }
     }
