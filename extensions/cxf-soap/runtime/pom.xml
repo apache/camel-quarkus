@@ -45,6 +45,10 @@
             <artifactId>camel-cxf-soap</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-jaxb</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf</artifactId>
         </dependency>
