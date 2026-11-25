@@ -431,15 +431,16 @@ jobs:
               EXAMPLES_BRANCH=${GITHUB_BASE_REF}
           fi
 
-          # For incremental builds, only include examples that depend on an affected extension
+          # For incremental builds, only include examples that depend on a Camel Quarkus artifact affected by the change
           EXAMPLES_INCLUDE_OPTION=""
+          SCALPEL_REPORT=${GITHUB_WORKSPACE}/target/scalpel-report.json
           if [ -n "${INTEGRATION_TESTS_MODULES}" ]; then
-            AFFECTED_MODULES=$(echo "${INTEGRATION_TESTS_MODULES}" | jq -r '.modules[]')
-            echo "Affected modules: $(echo ${AFFECTED_MODULES})"
+            AFFECTED_ARTIFACTS=${{ runner.temp }}/affected-artifacts.txt
+            if [ -f "${SCALPEL_REPORT}" ] \
+              && jq -r '.affectedModules[] | select(.category != "UPSTREAM" and .groupId == "org.apache.camel.quarkus") | "\(.groupId):\(.artifactId):"' "${SCALPEL_REPORT}" > ${AFFECTED_ARTIFACTS} \
+              && [ -s "${AFFECTED_ARTIFACTS}" ]; then
+              echo "Affected artifacts: $(cut -d: -f2 ${AFFECTED_ARTIFACTS} | tr '\n' ' ')"
 
-            if echo "${AFFECTED_MODULES}" | grep -qx "core"; then
-              echo "Core extension affected - building all examples"
-            else
               CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)
               EXAMPLES_DIR=${{ runner.temp }}/camel-quarkus-examples
 
@@ -459,13 +460,11 @@ jobs:
                     FILTERED_MODULES+=("${MODULE}")
                     continue
                   fi
-                  for AFFECTED in ${AFFECTED_MODULES}; do
-                    if grep -qw "camel-quarkus-${AFFECTED}" ${DEPS_FILES}; then
-                      echo "${MODULE}: depends on affected extension camel-quarkus-${AFFECTED}"
-                      FILTERED_MODULES+=("${MODULE}")
-                      break
-                    fi
-                  done
+                  MATCH=$(grep -ohF -f ${AFFECTED_ARTIFACTS} ${DEPS_FILES} | head -1)
+                  if [ -n "${MATCH}" ]; then
+                    echo "${MODULE}: depends on affected artifact $(echo ${MATCH} | cut -d: -f2)"
+                    FILTERED_MODULES+=("${MODULE}")
+                  fi
                 done
 
                 EXAMPLES_INCLUDE_OPTION="-DEXAMPLES_INCLUDE=$(IFS=,; echo "${FILTERED_MODULES[*]}")"
@@ -474,6 +473,8 @@ jobs:
               else
                 echo "::warning::Failed to analyze camel-quarkus-examples dependencies, building all examples"
               fi
+            else
+              echo "::warning::No affected artifacts found in the Scalpel report, building all examples"
             fi
           fi
 
