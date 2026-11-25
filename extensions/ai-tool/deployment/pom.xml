@@ -49,6 +49,11 @@
             <artifactId>langchain4j</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-langchain4j-agent</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
