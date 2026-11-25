@@ -32,11 +32,14 @@ public class McpServerKeycloakTestResource implements QuarkusTestResourceLifecyc
 
     private static final Logger LOG = LoggerFactory.getLogger(McpServerKeycloakTestResource.class);
     private static final String REALM_NAME = "mcp";
+    static final String ISSUER_PROPERTY = "mcp.test.keycloak.issuer";
 
     private KeycloakContainer keycloak;
 
     @Override
     public Map<String, String> start() {
+        // Clear any value left by an earlier test-resource lifecycle.
+        System.clearProperty(ISSUER_PROPERTY);
         System.setProperty("keycloak.docker.image",
                 ConfigProvider.getConfig().getValue("keycloak.container.image", String.class));
 
@@ -50,6 +53,8 @@ public class McpServerKeycloakTestResource implements QuarkusTestResourceLifecyc
         keycloak.start();
 
         String issuer = keycloak.getServerUrl() + "/realms/" + REALM_NAME;
+        // Keep the test JVM in sync with the current Testcontainers-mapped port.
+        System.setProperty(ISSUER_PROPERTY, issuer);
         return Map.ofEntries(
                 Map.entry("quarkus.oidc.enabled", "true"),
                 Map.entry("quarkus.oidc.auth-server-url", issuer),
@@ -63,13 +68,19 @@ public class McpServerKeycloakTestResource implements QuarkusTestResourceLifecyc
                 Map.entry("quarkus.oidc.resource-metadata.force-https-scheme", "false"),
                 Map.entry("quarkus.http.host", "localhost"),
                 Map.entry("quarkus.http.auth.permission.mcp.paths", "/mcp,/mcp/*"),
-                Map.entry("quarkus.http.auth.permission.mcp.policy", "authenticated"));
+                Map.entry("quarkus.http.auth.permission.mcp.policy", "authenticated"),
+                Map.entry("quarkus.oidc.tenant-enabled", "true"));
     }
 
     @Override
     public void stop() {
-        if (keycloak != null) {
-            keycloak.stop();
+        try {
+            if (keycloak != null) {
+                keycloak.stop();
+            }
+        } finally {
+            keycloak = null;
+            System.clearProperty(ISSUER_PROPERTY);
         }
     }
 }

@@ -18,11 +18,11 @@ ifeval::[{doc-show-badges} == true]
 endif::[]
 
 The MCP Server extension exposes Camel routes registered via the `ai-tool`
-component as tools, `ai-resource` routes as resources, and `ai-prompt` routes
-as prompts, of a Model Context Protocol (MCP) server, served through
+component as tools, and `ai-resource` routes as resources, of a Model Context
+Protocol (MCP) server, served through
 the quarkiverse https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server]
 extension. No route is needed for the server itself: add the extension, tag
-the `ai-tool`, `ai-resource` and `ai-prompt` routes to expose, and any MCP client (another
+the `ai-tool` and `ai-resource` routes to expose, and any MCP client (another
 Camel application, an IDE, a coding agent) can discover and use them.
 
 The server is exposed over streamable HTTP. Tool semantics — tag-based
@@ -161,7 +161,7 @@ whose uri is already used by a resource the application registers with
 quarkus-mcp-server, is refused with an ERROR log, while its route keeps
 running.
 
-[id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
+[id="extensions-mcp-server-usage-resource-templates"]
 === Resource templates
 
 Resource templates are defined with the `uriTemplate` option of the
@@ -181,6 +181,7 @@ because multiple matching templates make resource reads ambiguous. An exact
 static resource URI can coexist with a template; the MCP server resolves the
 exact resource before trying a template.
 
+[id="extensions-mcp-server-usage-prompts"]
 === Prompts
 
 Add the `camel-quarkus-ai-prompt` extension to expose Camel routes registered
@@ -197,6 +198,7 @@ Prompt routes follow the same tag selection and route lifecycle rules as
 tools and resources. Configure `quarkus.camel.mcp-server.prompt-timeout` to
 set the maximum prompt execution time in milliseconds.
 
+[id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
 === Combining the Camel and quarkus-mcp-server configuration
 
 The configuration is split by ownership: `quarkus.camel.mcp-server.*`
@@ -350,15 +352,15 @@ on its own.
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-enabled]]`link:#quarkus-camel-mcp-server-enabled[quarkus.camel.mcp-server.enabled]`
 
-Whether to expose ai-tool routes as MCP tools, ai-resource routes as MCP resources and ai-prompt routes as MCP prompts through the
+Whether to expose ai-tool routes as MCP tools and ai-resource routes as MCP resources through the
 quarkus-mcp-server extension.
 | `boolean`
 | `true`
 
 a|icon:lock[title=Fixed at build time] [[quarkus-camel-mcp-server-tags]]`link:#quarkus-camel-mcp-server-tags[quarkus.camel.mcp-server.tags]`
 
-Comma-separated list of tags selecting the ai-tool routes to expose as MCP tools, the ai-resource routes to
-expose as MCP resources and the ai-prompt routes to expose as MCP prompts. Only routes registered under one of these tags are exposed; the untagged default pools
+Comma-separated list of tags selecting the ai-tool routes to expose as MCP tools and the ai-resource routes to
+expose as MCP resources. Only routes registered under one of these tags are exposed; the untagged default pools
 are never exposed. When not set, nothing is exposed.
 | `string`
 | 
@@ -379,8 +381,8 @@ client; the underlying route keeps running until it completes on its own.
 
 a| [[quarkus-camel-mcp-server-prompt-timeout]]`link:#quarkus-camel-mcp-server-prompt-timeout[quarkus.camel.mcp-server.prompt-timeout]`
 
-Per-prompt execution timeout in milliseconds. A prompt exceeding the timeout returns an error to the MCP
-client; the underlying route keeps running until it completes.
+Per-prompt execution timeout in milliseconds. A prompt exceeding the timeout returns
+an error to the MCP client; the underlying route keeps running until it completes.
 | `long`
 | `20000`
 |===

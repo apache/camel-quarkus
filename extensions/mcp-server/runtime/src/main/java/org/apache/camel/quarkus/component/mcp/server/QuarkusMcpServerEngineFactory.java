@@ -53,7 +53,7 @@ public class QuarkusMcpServerEngineFactory {
         CurrentIdentityAssociation identityAssociation = currentIdentityAssociation.isResolvable()
                 ? currentIdentityAssociation.get()
                 : null;
-        return new QuarkusMcpServerEngine(
-                toolManager, resourceManager, resourceTemplateManager, promptManager, identityAssociation);
+        return new QuarkusMcpServerEngine(toolManager, resourceManager, resourceTemplateManager, promptManager,
+                identityAssociation);
     }
 }

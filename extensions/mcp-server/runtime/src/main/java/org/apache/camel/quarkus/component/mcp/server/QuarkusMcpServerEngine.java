@@ -92,6 +92,8 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     private final Set<String> registeredToolNames = ConcurrentHashMap.newKeySet();
     // uris of the resources registered by this engine; a refused resource's uri may belong to an application resource
     private final Set<String> registeredResourceUris = ConcurrentHashMap.newKeySet();
+    // URI template -> name; remove only templates registered by this engine.
+    private final Map<String, String> registeredResourceTemplateNames = new ConcurrentHashMap<>();
     // map URI templates to names so removal only touches templates registered by this engine
     private final Map<String, String> registeredResourceTemplates = new ConcurrentHashMap<>();
     // prompt names registered by this engine; a refused name belongs to an application prompt
@@ -446,49 +448,21 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     }
 
     /**
-     * Tests whether a Camel resource template can overlap an application-defined template. If the latter uses a
-     * different, valid URI scheme, the templates cannot overlap. Otherwise an unsupported application template is
-     * refused because the engine cannot prove that it is safe to publish both.
+     * Tests whether a Camel resource template overlaps another template when both use URI-template syntax
+     * understood by {@link AiResourceUriTemplate}. Quarkiverse MCP Server also accepts templates outside that
+     * syntax (for example, variables in query parameters); those templates are left to its matcher rather than
+     * causing otherwise unrelated Camel templates to be refused.
      */
     private static boolean templatesOverlap(AiResourceUriTemplate candidate, String existingTemplate) {
         try {
             return candidate.overlaps(new AiResourceUriTemplate(existingTemplate));
         } catch (IllegalArgumentException e) {
-            String candidateScheme = uriScheme(candidate.getTemplate());
-            String existingScheme = uriScheme(existingTemplate);
-            if (candidateScheme != null && existingScheme != null
-                    && !candidateScheme.equalsIgnoreCase(existingScheme)) {
-                return false;
-            }
-            throw new McpServerRefusedException(
-                    "Cannot verify whether resource template '" + candidate.getTemplate()
-                            + "' overlaps application template '" + existingTemplate + "'",
-                    e);
+            LOG.debug(
+                    "Skipping overlap check against resource template '{}' because its URI-template syntax is "
+                            + "not supported by Camel's matcher",
+                    existingTemplate, e);
+            return false;
         }
-    }
-
-    private static String uriScheme(String uri) {
-        if (uri == null) {
-            return null;
-        }
-        int colon = uri.indexOf(':');
-        if (colon <= 0) {
-            return null;
-        }
-        String scheme = uri.substring(0, colon);
-        char first = scheme.charAt(0);
-        if (!((first >= 'A' && first <= 'Z') || (first >= 'a' && first <= 'z'))) {
-            return null;
-        }
-        for (int i = 1; i < scheme.length(); i++) {
-            char c = scheme.charAt(i);
-            boolean asciiLetterOrDigit = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-                    || (c >= '0' && c <= '9');
-            if (!asciiLetterOrDigit && c != '+' && c != '-' && c != '.') {
-                return null;
-            }
-        }
-        return scheme;
     }
 
     @Override

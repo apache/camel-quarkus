@@ -203,16 +203,58 @@ public class McpServerRoutes extends RouteBuilder {
                 .autoStartup(false)
                 .setBody(constant("camel"));
 
+        from("ai-resource:vip_customer?resourceUri=crm://customers/vip&tags=conformance"
+                + "&description=VIP customer&mimeType=text/plain")
+                .routeId("vip-customer-resource-route")
+                .setBody(constant("vip customer"));
+
         from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=conformance"
                 + "&description=Customer details&mimeType=text/plain&title=Customer")
                 .routeId("customer-resource-template-route")
                 .process(e -> e.getMessage().setBody(
                         "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
 
+        from("ai-resource:hidden_customer_template?uriTemplate=crm://hidden-customers/{id}"
+                + "&description=Untagged resource template, must not be exposed")
+                .routeId("hidden-customer-resource-template-route")
+                .setBody(constant("hidden"));
+
+        from("ai-resource:other_customer_template?uriTemplate=crm://other-customers/{id}&tags=untrusted"
+                + "&description=Unselected resource template, must not be exposed")
+                .routeId("other-customer-resource-template-route")
+                .setBody(constant("other"));
+
         // The URI template is already owned by the application through ResourceTemplateManager.
         from("ai-resource:clashing_template?uriTemplate=crm://application/{id}&tags=conformance"
                 + "&description=Template URI already taken by an application template")
                 .routeId("clashing-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-resource:clashing_annotated_template?uriTemplate=crm://annotated/{key}&tags=conformance"
+                + "&description=Overlaps an annotated application template")
+                .routeId("clashing-annotated-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-resource:name_clash_template?uriTemplate=crm://unrelated/{id}&tags=conformance"
+                + "&description=Name already taken by an annotated application template")
+                .routeId("same-name-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:clashing_prompt?tags=conformance&description=Name already taken by an annotated prompt")
+                .routeId("clashing-prompt-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:mcpjava_clashing_prompt?tags=conformance&description=Name already taken by an mcpjava prompt")
+                .routeId("mcpjava-clashing-prompt-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:user_prompt?tags=conformance&description=Name already taken by a programmatic prompt")
+                .routeId("clashing-programmatic-prompt-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
 

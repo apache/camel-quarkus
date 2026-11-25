@@ -28,13 +28,11 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /** Exercises a real Keycloak/OIDC identity through MCP and into a Camel tool route. */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusTest
 @QuarkusTestResource(value = McpServerKeycloakTestResource.class, restrictToAnnotatedClass = true)
 class McpServerOAuthTest {
@@ -55,7 +53,7 @@ class McpServerOAuthTest {
 
     @Test
     void protectedResourceMetadataIsPublished() {
-        String issuer = ConfigProvider.getConfig().getValue("quarkus.oidc.auth-server-url", String.class);
+        String issuer = keycloakIssuer();
         String metadata = RestAssured.get("/.well-known/oauth-protected-resource")
                 .then()
                 .statusCode(200)
@@ -99,8 +97,16 @@ class McpServerOAuthTest {
         }
     }
 
+    private static String keycloakIssuer() {
+        String issuer = System.getProperty(McpServerKeycloakTestResource.ISSUER_PROPERTY);
+        if (issuer == null || issuer.isBlank()) {
+            throw new IllegalStateException("Keycloak issuer system property was not set by the test resource");
+        }
+        return issuer;
+    }
+
     private static String accessToken() {
-        String issuer = ConfigProvider.getConfig().getValue("quarkus.oidc.auth-server-url", String.class);
+        String issuer = keycloakIssuer();
         return RestAssured.given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("grant_type", "password")
@@ -124,8 +130,8 @@ class McpServerOAuthTest {
             request.header("Authorization", "Bearer " + token);
         }
         if (untrustedOrigin) {
-            request.header("Host", "evil.example.com")
-                    .header("Origin", "http://evil.example.com");
+            // Keep Host bound to the real localhost destination; only Origin is hostile.
+            request.header("Origin", "http://evil.example.com");
         }
         request.post("/mcp").then().statusCode(expectedStatus);
     }

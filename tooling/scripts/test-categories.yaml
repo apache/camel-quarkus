@@ -233,6 +233,7 @@ group-12:
   - knative
   - langchain4j-web-search
   - mcp-server
+  - mcp-server-no-security
   - odata
   - openapi-java
   - openapi-validator
