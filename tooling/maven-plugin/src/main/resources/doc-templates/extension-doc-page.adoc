@@ -3,6 +3,12 @@
 [#if pageAliases?? ]:page-aliases: [=pageAliases]
 [/#if]
 :linkattrs:
+[#-- ':extensions:' identifies the extension this page documents. quarkus-documentation-rag-maven-plugin
+     derives the RAG source name from it. Without it the source name falls back to the file name and
+     comes out as 'quarkus-<artifactIdBase>', which claims to be a core Quarkus extension and collides
+     with real ones such as quarkus-core. Kept as a template comment so it stays out of the 334
+     generated pages. --]
+:extensions: org.apache.camel.quarkus:camel-quarkus-[=artifactIdBase]
 :cq-artifact-id: camel-quarkus-[=artifactIdBase]
 :cq-native-supported: [=nativeSupported?then('true', 'false')]
 :cq-status: [=status]

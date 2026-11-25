@@ -28,6 +28,7 @@
 ** xref:contributor-guide/create-jvm-only-extension.adoc[Create JVM-only extension]
 ** xref:contributor-guide/extension-metadata.adoc[Extension metadata]
 ** xref:contributor-guide/extension-documentation.adoc[Extension documentation]
+** xref:contributor-guide/documentation-rag.adoc[AI documentation search]
 ** xref:contributor-guide/extension-testing.adoc[Testing extensions]
 ** xref:contributor-guide/create-new-example.adoc[Create new example]
 ** xref:contributor-guide/create-new-dev-ui-page.adoc[Create new Dev UI page]

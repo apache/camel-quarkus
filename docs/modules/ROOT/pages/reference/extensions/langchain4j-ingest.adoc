@@ -3,6 +3,7 @@
 [id="extensions-langchain4j-ingest"]
 = LangChain4j Ingest
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-langchain4j-ingest
 :cq-artifact-id: camel-quarkus-langchain4j-ingest
 :cq-native-supported: true
 :cq-status: Experimental

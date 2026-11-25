@@ -3,6 +3,7 @@
 [id="extensions-stringtemplate"]
 = String Template
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-stringtemplate
 :cq-artifact-id: camel-quarkus-stringtemplate
 :cq-native-supported: true
 :cq-status: Stable

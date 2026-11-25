@@ -3,6 +3,7 @@
 [id="extensions-opentelemetry2"]
 = Opentelemetry2
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-opentelemetry2
 :cq-artifact-id: camel-quarkus-opentelemetry2
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = Vert.x
 :page-aliases: extensions/vertx.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-vertx
 :cq-artifact-id: camel-quarkus-vertx
 :cq-native-supported: true
 :cq-status: Stable

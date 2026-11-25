@@ -3,6 +3,7 @@
 [id="extensions-vertx-http"]
 = Vert.x HTTP Client
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-vertx-http
 :cq-artifact-id: camel-quarkus-vertx-http
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = Attachments
 :page-aliases: extensions/attachments.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-attachments
 :cq-artifact-id: camel-quarkus-attachments
 :cq-native-supported: true
 :cq-status: Stable

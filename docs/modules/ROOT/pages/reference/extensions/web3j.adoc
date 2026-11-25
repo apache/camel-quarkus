@@ -3,6 +3,7 @@
 [id="extensions-web3j"]
 = Web3j Ethereum Blockchain
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-web3j
 :cq-artifact-id: camel-quarkus-web3j
 :cq-native-supported: false
 :cq-status: Preview

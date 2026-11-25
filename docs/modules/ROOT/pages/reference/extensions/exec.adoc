@@ -4,6 +4,7 @@
 = Exec
 :page-aliases: extensions/exec.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-exec
 :cq-artifact-id: camel-quarkus-exec
 :cq-native-supported: true
 :cq-status: Stable

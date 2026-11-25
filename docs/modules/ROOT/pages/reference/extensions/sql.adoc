@@ -4,6 +4,7 @@
 = SQL
 :page-aliases: extensions/sql.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-sql
 :cq-artifact-id: camel-quarkus-sql
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = AWS 2 Key Management Service (KMS)
 :page-aliases: extensions/aws2-kms.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-kms
 :cq-artifact-id: camel-quarkus-aws2-kms
 :cq-native-supported: true
 :cq-status: Stable

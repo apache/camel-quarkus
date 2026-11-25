@@ -4,6 +4,7 @@
 = Validator
 :page-aliases: extensions/validator.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-validator
 :cq-artifact-id: camel-quarkus-validator
 :cq-native-supported: true
 :cq-status: Stable

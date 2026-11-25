@@ -4,6 +4,7 @@
 = Mustache
 :page-aliases: extensions/mustache.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mustache
 :cq-artifact-id: camel-quarkus-mustache
 :cq-native-supported: true
 :cq-status: Stable

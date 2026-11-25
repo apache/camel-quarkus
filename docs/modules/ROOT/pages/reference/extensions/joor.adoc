@@ -3,6 +3,7 @@
 [id="extensions-joor"]
 = jOOR
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-joor
 :cq-artifact-id: camel-quarkus-joor
 :cq-native-supported: true
 :cq-status: Stable

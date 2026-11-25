@@ -4,6 +4,7 @@
 = Control Bus
 :page-aliases: extensions/controlbus.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-controlbus
 :cq-artifact-id: camel-quarkus-controlbus
 :cq-native-supported: true
 :cq-status: Stable

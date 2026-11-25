@@ -3,6 +3,7 @@
 [id="extensions-mina-sftp"]
 = MINA SFTP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mina-sftp
 :cq-artifact-id: camel-quarkus-mina-sftp
 :cq-native-supported: true
 :cq-status: Stable

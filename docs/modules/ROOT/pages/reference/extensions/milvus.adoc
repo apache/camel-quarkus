@@ -3,6 +3,7 @@
 [id="extensions-milvus"]
 = Milvus
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-milvus
 :cq-artifact-id: camel-quarkus-milvus
 :cq-native-supported: true
 :cq-status: Stable

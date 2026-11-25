@@ -3,6 +3,7 @@
 [id="extensions-google-storage"]
 = Google Storage
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-storage
 :cq-artifact-id: camel-quarkus-google-storage
 :cq-native-supported: true
 :cq-status: Stable

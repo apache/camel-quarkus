@@ -3,6 +3,7 @@
 [id="extensions-micrometer"]
 = Micrometer
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-micrometer
 :cq-artifact-id: camel-quarkus-micrometer
 :cq-native-supported: true
 :cq-status: Stable

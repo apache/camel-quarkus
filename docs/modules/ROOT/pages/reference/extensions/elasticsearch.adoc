@@ -3,6 +3,7 @@
 [id="extensions-elasticsearch"]
 = Elasticsearch
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-elasticsearch
 :cq-artifact-id: camel-quarkus-elasticsearch
 :cq-native-supported: true
 :cq-status: Stable

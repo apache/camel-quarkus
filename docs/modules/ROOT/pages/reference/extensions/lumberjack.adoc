@@ -3,6 +3,7 @@
 [id="extensions-lumberjack"]
 = Lumberjack
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-lumberjack
 :cq-artifact-id: camel-quarkus-lumberjack
 :cq-native-supported: true
 :cq-status: Stable

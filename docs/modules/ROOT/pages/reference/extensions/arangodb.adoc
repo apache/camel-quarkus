@@ -3,6 +3,7 @@
 [id="extensions-arangodb"]
 = ArangoDb
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-arangodb
 :cq-artifact-id: camel-quarkus-arangodb
 :cq-native-supported: true
 :cq-status: Stable

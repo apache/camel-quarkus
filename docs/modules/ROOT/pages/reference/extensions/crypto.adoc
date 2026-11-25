@@ -3,6 +3,7 @@
 [id="extensions-crypto"]
 = Crypto (JCE)
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-crypto
 :cq-artifact-id: camel-quarkus-crypto
 :cq-native-supported: true
 :cq-status: Stable

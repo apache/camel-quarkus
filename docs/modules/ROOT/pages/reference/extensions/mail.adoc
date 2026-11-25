@@ -4,6 +4,7 @@
 = Mail
 :page-aliases: extensions/mail.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mail
 :cq-artifact-id: camel-quarkus-mail
 :cq-native-supported: true
 :cq-status: Stable

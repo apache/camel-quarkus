@@ -4,6 +4,7 @@
 = AWS 2 Athena
 :page-aliases: extensions/aws2-athena.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-athena
 :cq-artifact-id: camel-quarkus-aws2-athena
 :cq-native-supported: true
 :cq-status: Stable

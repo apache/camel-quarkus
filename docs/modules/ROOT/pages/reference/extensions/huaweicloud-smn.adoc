@@ -3,6 +3,7 @@
 [id="extensions-huaweicloud-smn"]
 = SimpleNotification
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-huaweicloud-smn
 :cq-artifact-id: camel-quarkus-huaweicloud-smn
 :cq-native-supported: false
 :cq-status: Preview

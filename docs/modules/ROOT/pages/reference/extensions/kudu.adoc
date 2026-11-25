@@ -4,6 +4,7 @@
 = Kudu
 :page-aliases: extensions/kudu.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-kudu
 :cq-artifact-id: camel-quarkus-kudu
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-barcode"]
 = Barcode
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-barcode
 :cq-artifact-id: camel-quarkus-barcode
 :cq-native-supported: false
 :cq-status: Preview

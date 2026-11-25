@@ -3,6 +3,7 @@
 [id="extensions-xmpp"]
 = XMPP
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-xmpp
 :cq-artifact-id: camel-quarkus-xmpp
 :cq-native-supported: false
 :cq-status: Preview

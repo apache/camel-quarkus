@@ -3,6 +3,7 @@
 [id="extensions-azure-key-vault"]
 = Azure Key Vault
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-key-vault
 :cq-artifact-id: camel-quarkus-azure-key-vault
 :cq-native-supported: true
 :cq-status: Stable

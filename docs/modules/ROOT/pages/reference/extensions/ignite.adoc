@@ -3,6 +3,7 @@
 [id="extensions-ignite"]
 = Ignite Cache
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ignite
 :cq-artifact-id: camel-quarkus-ignite
 :cq-native-supported: false
 :cq-status: Preview

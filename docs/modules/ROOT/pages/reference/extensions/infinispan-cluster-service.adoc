@@ -3,6 +3,7 @@
 [id="extensions-infinispan-cluster-service"]
 = Infinispan Cluster Service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-infinispan-cluster-service
 :cq-artifact-id: camel-quarkus-infinispan-cluster-service
 :cq-native-supported: true
 :cq-status: Stable

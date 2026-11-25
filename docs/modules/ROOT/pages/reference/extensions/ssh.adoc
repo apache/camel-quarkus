@@ -3,6 +3,7 @@
 [id="extensions-ssh"]
 = SSH
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-ssh
 :cq-artifact-id: camel-quarkus-ssh
 :cq-native-supported: true
 :cq-status: Stable

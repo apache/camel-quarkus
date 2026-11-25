@@ -4,6 +4,7 @@
 = MongoDB
 :page-aliases: extensions/mongodb.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mongodb
 :cq-artifact-id: camel-quarkus-mongodb
 :cq-native-supported: true
 :cq-status: Stable

@@ -3,6 +3,7 @@
 [id="extensions-elasticsearch-rest-client"]
 = Elasticsearch Low level Rest Client
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-elasticsearch-rest-client
 :cq-artifact-id: camel-quarkus-elasticsearch-rest-client
 :cq-native-supported: true
 :cq-status: Stable

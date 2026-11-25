@@ -3,6 +3,7 @@
 [id="extensions-activemq6"]
 = ActiveMQ 6.x
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-activemq6
 :cq-artifact-id: camel-quarkus-activemq6
 :cq-native-supported: true
 :cq-status: Stable

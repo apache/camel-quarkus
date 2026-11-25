@@ -3,6 +3,7 @@
 [id="extensions-azure-storage-blob"]
 = Azure Storage Blob Service
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-azure-storage-blob
 :cq-artifact-id: camel-quarkus-azure-storage-blob
 :cq-native-supported: true
 :cq-status: Stable

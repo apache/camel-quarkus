@@ -3,6 +3,7 @@
 [id="extensions-smooks"]
 = Smooks
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-smooks
 :cq-artifact-id: camel-quarkus-smooks
 :cq-native-supported: false
 :cq-status: Preview

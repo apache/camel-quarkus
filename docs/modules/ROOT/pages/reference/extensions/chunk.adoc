@@ -3,6 +3,7 @@
 [id="extensions-chunk"]
 = Chunk
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-chunk
 :cq-artifact-id: camel-quarkus-chunk
 :cq-native-supported: false
 :cq-status: Preview

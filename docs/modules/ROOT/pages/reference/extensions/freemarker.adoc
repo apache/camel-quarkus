@@ -3,6 +3,7 @@
 [id="extensions-freemarker"]
 = Freemarker
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-freemarker
 :cq-artifact-id: camel-quarkus-freemarker
 :cq-native-supported: true
 :cq-status: Stable

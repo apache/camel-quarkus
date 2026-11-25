@@ -3,6 +3,7 @@
 [id="extensions-lra"]
 = LRA
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-lra
 :cq-artifact-id: camel-quarkus-lra
 :cq-native-supported: true
 :cq-status: Stable

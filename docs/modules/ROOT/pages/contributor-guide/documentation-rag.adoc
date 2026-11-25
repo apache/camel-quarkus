@@ -1,0 +1,364 @@
+= AI documentation search
+
+The reference page of every extension is turned into vector embeddings, so that AI coding assistants
+can search our documentation at the version used by the project they work on, instead of recalling it
+from training data. The search is served by the
+https://quarkus.io/blog/introducing-agent-mcp[Quarkus Agent MCP server] through its
+`quarkus_searchDocs` tool, alongside the core Quarkus guides.
+
+See xref:user-guide/quarkus-agent-mcp.adoc[AI-assisted development] for the user-facing side.
+
+IMPORTANT: There is nothing to do when adding an extension. The whole pipeline is driven from the
+generated reference page, and a new extension is picked up automatically. This page exists because the
+moving parts are spread across the build and are not obvious from any single `pom.xml`.
+
+== The pipeline
+
+[source,text]
+----
+extensions/*, extensions-jvm/*, extensions-core/*
+  |
+  | update-extension-doc-page (camel-quarkus-maven-plugin)
+  v
+docs/modules/ROOT/pages/reference/extensions/*.adoc        <1>
+  |
+  | generate-rag (quarkus-documentation-rag-maven-plugin)
+  v
+documentation-rag/target/.../META-INF/quarkus-rag.sql      <2>
+  |
+  | packaged as
+  v
+camel-quarkus-documentation-rag-<version>.jar             <3>
+  ^
+  | resolved from META-INF/quarkus-rag-artifact.properties
+  |
+Quarkus Agent MCP server  <-- camel-quarkus-*-deployment.jar  <4>
+----
+
+<1> The generated reference pages. They are the single source of truth: no extension writes anything
+RAG specific of its own.
+<2> The `documentation-rag` module runs
+https://github.com/quarkusio/quarkus-documentation-rag[quarkus-documentation-rag-maven-plugin] once
+over the whole reference directory. It parses each page, splits it into semantic chunks, computes a
+384 dimension embedding per chunk, and writes one SQL fragment holding every chunk of every extension.
+<3> The fragment is published as a single artifact, `camel-quarkus-documentation-rag`.
+<4> Every extension deployment JAR carries a small pointer file naming that artifact. The server reads
+the pointer, downloads the artifact on demand, and loads the embeddings into its vector database.
+
+Generation is skipped by `-Dquickly`, like the rest of the documentation tooling.
+
+== Source naming and the `:extensions:` attribute
+
+Each chunk is tagged with a *source*, which is the unit the server tracks, purges and reloads. Sources
+are global to the server's database: ours sit next to the core Quarkus ones.
+
+The plugin resolves the source name of a page in this order:
+
+. the `extensionName` plugin parameter, if set. It applies to *all* pages of one execution, so it is of
+  no use to us: we run a single execution for every extension.
+. the `:extensions:` attribute of the page, taking the part after the last `:`.
+. otherwise `quarkus-` followed by the file name.
+
+So `update-extension-doc-page` writes the attribute into every page:
+
+[source,asciidoc]
+----
+:extensions: org.apache.camel.quarkus:camel-quarkus-kafka
+----
+
+which yields the source `camel-quarkus-kafka`.
+
+=== Why the fallback is not an option
+
+Without the attribute, `kafka.adoc` would be published under the source `quarkus-kafka`, and
+`core.adoc` under `quarkus-core`. Those are real core Quarkus source names. Since the server deletes a
+source before reloading it, publishing our pages under them would remove genuine Quarkus documentation
+from the user's database.
+
+=== It also decides whether a row keeps its own source
+
+The server post-processes every fragment it loads, because the plugin's metadata assumes one artifact
+per extension. Among other things it rewrites each row's `source` to the artifactId of the dependency
+that pointed at the artifact, *unless* the row's metadata declares its own extension and that
+extension's groupId matches the pointing dependency's group.
+
+That declaration is exactly what the `:extensions:` attribute produces. With it, every row keeps its
+own source: `camel-quarkus-kafka`, `camel-quarkus-jms`, and so on. Without it, all the chunks of the
+shared artifact would be rewritten to one single source, whichever extension happened to be scanned
+first, and the reload would purge that one source only. One shared artifact for all extensions does
+not work without the attribute.
+
+=== This is the upstream convention
+
+The same mechanism is used by the Quarkus guides themselves. Both forms coexist in
+`io.quarkus:quarkus-documentation-core-rag`:
+
+|===
+| Upstream guide | Source | Comes from
+
+| `kafka-getting-started.adoc`
+| `quarkus-messaging-kafka`
+| the attribute
+
+| `cdi-integration.adoc`
+| `quarkus-arc`
+| the attribute
+
+| `all-config.adoc`
+| `quarkus-all-config`
+| the file name
+|===
+
+A guide that documents one specific extension carries `:extensions:`. The file name fallback is for
+general guides. Each of our reference pages documents exactly one extension, so the attribute is the
+correct metadata for it.
+
+=== Keep it in the template
+
+The attribute is written by the
+https://raw.githubusercontent.com/apache/camel-quarkus/main/tooling/maven-plugin/src/main/resources/doc-templates/extension-doc-page.adoc[FreeMarker template],
+never by hand in a page. That is what makes a new extension work with no extra step.
+
+It cannot be supplied from anywhere else. The plugin reads the attribute by scanning the first 120
+lines of the raw file, before AsciiDoc parsing, so a value passed through the plugin's `attributes`
+map, an `include::`, or a shared partial is not seen. It has to be in the page itself.
+
+Two alternatives were considered and rejected:
+
+|===
+| Alternative | Why not
+
+| Copy the pages to a staging directory at build time and inject the attribute there, keeping the
+published pages free of it
+| Works, and the mapping is mechanical since the file name is the `artifactIdBase`. But it moves the
+naming rule out of the template and into a build script, and hides from readers that these pages are
+RAG sources.
+
+| Add a `sourceNamePrefix` parameter upstream so that the file name fallback yields
+`camel-quarkus-<file>`
+| The cleanest long term fix, and worth proposing since it would serve any multi extension repository.
+It needs a plugin release, and it does not remove the need for correct per page metadata.
+|===
+
+== The `documentation-rag` module
+
+[source,text]
+----
+documentation-rag/
+├── pom.xml
+└── src/main/pointer/META-INF/quarkus-rag-artifact.properties
+----
+
+The module has no Java source. It exists to run the plugin once and to hold the one copy of the
+pointer file.
+
+Two things about its place in the build are deliberate:
+
+* It is declared in the root `<modules>` *after* `extensions`, `extensions-jvm` and `extensions-core`.
+  Those modules regenerate the reference pages that this module reads, so reversing the order would
+  embed the previous build's documentation.
+* It is in the root `<modules>` and not in the `standard-build` profile where `docs` lives. That
+  profile is disabled during a release, so the artifact would never be published.
+
+The directory holding the pointer is called `pointer`, not `resources`, on purpose: the file must not
+be packaged into this artifact, only into the extensions.
+
+== The pointer file
+
+[source,properties]
+----
+groupId=org.apache.camel.quarkus
+artifactId=camel-quarkus-documentation-rag
+----
+
+There is a single copy of it in the repository. No extension module contains one.
+
+A `maven-resources-plugin:copy-resources` execution, declared in `extensions/pom.xml`,
+`extensions-jvm/pom.xml` and `extensions-core/pom.xml`, copies it into
+`${project.build.outputDirectory}` at `process-resources`. A parent's build plugins are inherited by
+every module of its tree, so that single declaration reaches every extension without any of the 334
+extension poms mentioning it. `maven-jar-plugin` then packages it like any other class path resource.
+
+It also lands in the runtime JARs, where it is inert: the server only ever reads the pointer from a
+`*-deployment` JAR. Maven offers no declarative way to restrict an inherited execution to the
+deployment modules only.
+
+No version is given in the file on purpose. See below.
+
+== Walkthrough: an assistant adds a Camel extension
+
+The most common case is a project with no Camel Quarkus dependency at all. The user asks for a Camel
+route, and our documentation has to become available along the way.
+
+[source,text]
+----
+Project with no Camel Quarkus dependency
+        |
+        |  "add a Camel route that consumes from Kafka"
+        v
+   quarkus_skills / quarkus_searchDocs
+        |      ~/.m2 holds no camel-quarkus-*-deployment jar
+        |      -> no pointer found
+        |      -> no Camel Quarkus skill, no Camel Quarkus pages
+        v
+   the assistant edits the pom
+        |      camel-quarkus-bom + camel-quarkus-kafka
+        v
+   build, or dev mode start (quarkus_start)
+        |      augmentation resolves camel-quarkus-kafka-deployment
+        |      and downloads it into ~/.m2
+        v
+   quarkus_searchDocs, called again
+        |      scan finds camel-quarkus-kafka-deployment-<version>.jar
+        |      reads META-INF/quarkus-rag-artifact.properties
+        |      downloads camel-quarkus-documentation-rag:<version>
+        |      loads its sources into the vector database
+        v
+   the Kafka extension reference page is searchable,
+   at the version the project actually uses
+----
+
+Three things follow from this.
+
+*The first search returns nothing of ours, and that is by design.* The documentation follows the
+dependencies. Nothing is loaded for an extension the project does not use, which is what keeps the
+answers scoped to the project and the versions right. The same holds for every non core extension,
+ours and any Quarkiverse one.
+
+*The pages arrive at the same moment as the skill.* Both are read from the deployment JAR, so the
+assistant gets the Camel Quarkus skill and the searchable reference pages in one step, once the
+dependency is resolved and the project has been built or started once. A `mvn dependency:list`, which
+is what the server uses to resolve dependencies, downloads the runtime JAR but not the deployment one:
+only a build or a dev mode start pulls that.
+
+*No MCP server restart is needed.* Discovery runs on every documentation search. What the database
+already holds is fingerprinted in `rag_sources`, so an unchanged artifact is not reloaded, while a
+newly added dependency is picked up on the next search.
+
+NOTE: The download happens during that next search, so it is the one that pays for it. See the scan
+budget below.
+
+== How the server gets the artifact
+
+Nothing is configured on the server side, and no coordinate of ours is compiled into it. The whole
+contract is a fixed path inside the deployment JAR plus the two keys in the pointer.
+
+=== Finding the pointer
+
+On the first documentation search in a project, the server resolves that project's dependencies,
+transitively, and for each one outside the `io.quarkus` group:
+
+. derives the deployment JAR path in the local Maven repository, by appending `-deployment` to the
+  artifactId, at the dependency's own version;
+. skips the dependency when that file is not there. The server never downloads a deployment JAR, so
+  the pointer is only found once the project has been built at least once, which is also what puts
+  the deployment JARs in the local repository;
+. reads `META-INF/quarkus-rag-artifact.properties` from the JAR;
+. resolves the artifact named there, *at the version of the dependency that carried the pointer*.
+
+Since every one of our deployment JARs carries the same pointer, the server deduplicates: only the
+first lookup runs, and the artifact is resolved once per project rather than 334 times.
+
+=== Downloading it
+
+Three attempts, in this order:
+
+[source,text]
+----
+1. ~/.m2/repository/org/apache/camel/quarkus/camel-quarkus-documentation-rag/<version>/*.jar
+       | not there
+       v
+2. HTTP GET <project repository>/org/apache/camel/quarkus/.../*.jar
+       | SNAPSHOT version, or not HTTP 200
+       v
+3. mvn dependency:get -Dtransitive=false -q \
+       -Dartifact=org.apache.camel.quarkus:camel-quarkus-documentation-rag:<version>
+       (run in the project directory, with the project's own Maven)
+----
+
+. *Local repository.* A plain file lookup at the conventional path. Nothing touches the network when
+  the artifact is already there.
+. *Direct HTTP download.* The base URL is the repository configured for the project, so a mirror or
+  an internal repository is honoured, and credentials from the project's settings are sent with the
+  request. The JAR is written straight into its local repository path, so this step is also what
+  caches it: one download per version per machine. 60 second timeout. Skipped outright for a
+  `-SNAPSHOT` version, whose real file name cannot be guessed without reading the snapshot metadata.
+. *Maven fallback.* The server shells out to `dependency:get` in the project directory. This is what
+  resolves SNAPSHOTs, and anything behind a repository or an authentication scheme the previous step
+  could not handle. 120 second timeout.
+
+When all three fail, the server falls back to looking for RAG SQL inside the deployment JAR itself,
+finds none in ours, and logs a warning. Documentation search then has no Camel Quarkus pages, and
+everything else keeps working.
+
+So a released Camel Quarkus needs nothing beyond the artifact being on Maven Central, which the
+normal release takes care of. A locally built SNAPSHOT needs `mvn install`, so that step 1 or step 3
+can find it.
+
+=== Scan budget
+
+The scan is bounded by `agent-mcp.doc-search.non-core-scan-budget-millis`, 120 seconds by default.
+Once the budget is exceeded the server starts no new download and finishes the pass with what is
+available locally. A first search on a slow network can therefore return partial results, and pick up
+the rest on the next one.
+
+=== Loading
+
+The artifact holds one SQL file with every chunk of every extension. On load the server collects the
+distinct sources that file declares, deletes the existing rows of exactly those sources with
+`DELETE FROM rag_documents WHERE metadata->>'source' = ANY(?)`, then runs the inserts. Each source is
+fingerprinted in a `rag_sources` table, so an unchanged artifact is not reloaded on the next start,
+while a rebuilt one is.
+
+WARNING: No Maven dependency, BOM entry or parent relationship links an extension to
+`camel-quarkus-documentation-rag`. The version match is a convention, and it holds only because
+everything in this repository is released in lockstep. A module versioned independently would break
+resolution silently.
+
+== Required Quarkus Agent MCP version
+
+NOTE: The pointer mechanism requires `quarkus-agent-mcp` 1.2.8 or newer. Older servers ignore the file
+entirely. Versions between 1.1.5 and 1.2.7 do read it, but cannot track several documentation sources
+coming from a single artifact, which would duplicate every chunk on each reload.
+
+== Building and inspecting locally
+
+Regenerate the embeddings from the current state of the reference pages:
+
+[source,shell]
+----
+mvn install -pl documentation-rag
+----
+
+Check that every extension produced its own source, and that none of them collides with a core Quarkus
+name:
+
+[source,shell]
+----
+unzip -p documentation-rag/target/camel-quarkus-documentation-rag-*.jar META-INF/quarkus-rag.sql \
+  | grep -oE '"source":"[^"]+"' | sort -u | wc -l
+----
+
+Check that a deployment JAR carries the pointer and no inline SQL:
+
+[source,shell]
+----
+unzip -l extensions/kafka/deployment/target/camel-quarkus-kafka-deployment-*.jar \
+  | grep quarkus-rag
+----
+
+A locally built SNAPSHOT is only visible to the server once it is installed in the local repository,
+since there is nothing to download from Maven Central.
+
+== Known limitations
+
+* Recall. The server indexes its vector table with a pgvector `ivfflat` index and queries it with the
+  default `ivfflat.probes = 1`, which searches a single cluster. Measured over 16 queries on a loaded
+  database, recall@10 is around 54% at `probes = 1` and reaches 100% at `probes = 50`, for a latency
+  cost of a few milliseconds. Chunks that rank first under an exact search can therefore be missed.
+  This affects core Quarkus documentation just as much as ours, and is reported upstream.
+* Citation URLs. Chunk citations are built by the plugin from the `guideBaseUrl` configured in the
+  root `pom.xml` plus the page file name, for example
+  `https://camel.apache.org/camel-quarkus/latest/reference/extensions/kafka`. The server rewrites
+  only citation URLs pointing at `quarkus.io/guides`, so ours pass through untouched. Nothing in the
+  build verifies that they resolve.

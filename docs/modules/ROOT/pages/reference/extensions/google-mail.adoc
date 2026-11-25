@@ -4,6 +4,7 @@
 = Google Mail
 :page-aliases: extensions/google-mail.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-google-mail
 :cq-artifact-id: camel-quarkus-google-mail
 :cq-native-supported: true
 :cq-status: Stable

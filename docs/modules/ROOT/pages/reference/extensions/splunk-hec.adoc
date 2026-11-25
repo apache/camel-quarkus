@@ -3,6 +3,7 @@
 [id="extensions-splunk-hec"]
 = Splunk HEC
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-splunk-hec
 :cq-artifact-id: camel-quarkus-splunk-hec
 :cq-native-supported: true
 :cq-status: Stable

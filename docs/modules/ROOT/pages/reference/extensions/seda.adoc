@@ -4,6 +4,7 @@
 = SEDA
 :page-aliases: extensions/seda.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-seda
 :cq-artifact-id: camel-quarkus-seda
 :cq-native-supported: true
 :cq-status: Stable

@@ -4,6 +4,7 @@
 = PDF
 :page-aliases: extensions/pdf.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-pdf
 :cq-artifact-id: camel-quarkus-pdf
 :cq-native-supported: true
 :cq-status: Stable

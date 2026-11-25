@@ -4,6 +4,7 @@
 = AWS 2 Simple Email Service (SES)
 :page-aliases: extensions/aws2-ses.adoc
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-aws2-ses
 :cq-artifact-id: camel-quarkus-aws2-ses
 :cq-native-supported: true
 :cq-status: Stable

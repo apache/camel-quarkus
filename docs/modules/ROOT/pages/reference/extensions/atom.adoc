@@ -3,6 +3,7 @@
 [id="extensions-atom"]
 = Atom
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-atom
 :cq-artifact-id: camel-quarkus-atom
 :cq-native-supported: true
 :cq-status: Stable

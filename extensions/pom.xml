@@ -325,6 +325,38 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Copies the RAG artifact pointer into every extension deployment JAR, so that the
+                     Quarkus Agent MCP server knows where to fetch the reference documentation
+                     embeddings. Declared here rather than in 334 poms: a parent's build plugins are
+                     inherited by every module of the tree. Not gated on a profile, because the pointer
+                     is tiny and always correct for a released artifact. It lands in the runtime JARs
+                     too, where it is inert: the server only ever reads it from a '*-deployment' JAR. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-quarkus-rag-artifact-pointer</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${maven.multiModuleProjectDirectory}/documentation-rag/src/main/pointer</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>full</id>

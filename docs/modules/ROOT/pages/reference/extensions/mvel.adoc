@@ -3,6 +3,7 @@
 [id="extensions-mvel"]
 = MVEL
 :linkattrs:
+:extensions: org.apache.camel.quarkus:camel-quarkus-mvel
 :cq-artifact-id: camel-quarkus-mvel
 :cq-native-supported: false
 :cq-status: Preview
