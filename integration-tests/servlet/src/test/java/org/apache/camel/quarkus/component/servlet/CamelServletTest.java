@@ -216,6 +216,7 @@ public class CamelServletTest {
 
         // The CamelContext instance is only needed to ensure the correct ClassLoader is used for deserialization.
         // It is not built, so it does not init a type converter, which fails under QuarkusClassLoader
+        // TODO(CAMEL-27115): use new DefaultCamelContext() again when the type converter init works under QuarkusClassLoader
         CamelContext context = new DefaultCamelContext(false);
         context.setApplicationContextClassLoader(Thread.currentThread().getContextClassLoader());
         Object exception = HttpHelper.deserializeJavaObjectFromStream(response, context);

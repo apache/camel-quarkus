@@ -30,6 +30,8 @@ import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.TaskUtils;
 import org.springframework.util.ErrorHandler;
 
+// TODO: copied from Spring's ConcurrentTaskScheduler, re-check it on each Spring upgrade and remove it when Spring
+// no longer links the JSR-236 API in native mode
 /**
  * Remove the JSR-236 (jakarta.enterprise.concurrent) code paths of Spring's ConcurrentTaskScheduler, used by
  * camel-hashicorp-vault for token renewal. The JSR-236 API is not on the classpath.
