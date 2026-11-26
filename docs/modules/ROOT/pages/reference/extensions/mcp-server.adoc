@@ -118,11 +118,11 @@ the tagged ones are served as MCP resources, selected by the same
 and clients are notified via `notifications/resources/list_changed`. A failed
 read returns a JSON-RPC error with the generic message `Resource read failed`;
 a read exceeding `quarkus.camel.mcp-server.resource-timeout` returns
-`Resource read timed out`. Resource names must be unique, as
-quarkus-mcp-server requires: a resource whose name is already taken, or
-whose uri is already used by a resource the application registers with
-quarkus-mcp-server, is refused with an ERROR log, while its route keeps
-running.
+`Resource read timed out`. Resource names and uris must be unique, as
+quarkus-mcp-server requires: a resource whose name or uri is already taken
+is refused with an ERROR log, while its route keeps running. See
+<<extensions-mcp-server-usage-mixing-with-quarkus-mcp-server-annotated-resources,Mixing with quarkus-mcp-server annotated resources>>
+for resources the application defines itself.
 
 [id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
 === Combining the Camel and quarkus-mcp-server configuration
@@ -240,6 +240,39 @@ route asks for a name that a tool of the application already has, the
 application tool is kept and the `ai-tool` route is therefore not exposed via
 MCP. The route still starts and an `ERROR` is logged mentioning the name of the
 ignored `ai-tool`.
+
+[id="extensions-mcp-server-usage-mixing-with-quarkus-mcp-server-annotated-resources"]
+=== Mixing with quarkus-mcp-server annotated resources
+
+Resources work the same way: `ai-resource` routes coexist with resources the
+application defines with quarkus-mcp-server, and both appear in the same
+`resources/list`. For example, a `@Resource`-annotated method:
+
+[source,java]
+----
+public class DocumentationResources {
+
+    @Resource(name = "readme", uri = "app:///readme", description = "Project README", mimeType = "text/plain")
+    ResourceResponse readme(RequestUri uri) {
+        return new ResourceResponse(List.of(TextResourceContents.create(uri.value(), "...")));
+    }
+}
+----
+
+is served alongside the `ai-resource` routes. Resources annotated with
+`@Resource` are registered at build time, resources registered via
+`ResourceManager` at runtime, and Camel resources are added and removed
+dynamically with the route lifecycle.
+`quarkus.camel.mcp-server.tags` only selects `ai-resource` routes: the
+resources registered by the application are always exposed.
+
+Choose distinct resource names *and* uris — quarkus-mcp-server requires both
+to be unique. When an `ai-resource` route asks for a name or a uri that a
+resource of the application already has, the application resource is kept and
+the `ai-resource` route is therefore not exposed via MCP. The route still
+starts and an `ERROR` is logged mentioning the name and the uri of the ignored
+`ai-resource`. Stopping such a refused route leaves the application resource
+in place.
 
 [id="extensions-mcp-server-usage-dynamic-tools"]
 === Dynamic tools

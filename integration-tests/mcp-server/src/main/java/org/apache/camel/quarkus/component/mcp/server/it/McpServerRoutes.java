@@ -154,11 +154,20 @@ public class McpServerRoutes extends RouteBuilder {
                 + "&description=Name already taken, must be refused")
                 .setBody(constant("second"));
 
-        // the uri is taken by the resource registered in QuarkusDefinedResources, so it is refused once started
         from("ai-resource:clashing_resource?resourceUri=camel:///user/clash&tags=conformance"
                 + "&description=Uri already taken by an application resource, must be refused")
                 .routeId("clashing-resource-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
+
+        from("ai-resource:camel_uri_clash?resourceUri=camel:///annotated/uri-clash&tags=conformance"
+                + "&description=Uri already taken by an annotated resource, must be refused")
+                .routeId("annotated-uri-clash-route")
+                .setBody(constant("camel uri clash route"));
+
+        from("ai-resource:annotated_name_clash?resourceUri=camel:///camel/name-clash&tags=conformance"
+                + "&description=Name already taken by an annotated resource, must be refused")
+                .routeId("annotated-name-clash-route")
+                .setBody(constant("camel name clash route"));
     }
 }

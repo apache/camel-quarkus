@@ -162,9 +162,8 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         try {
             definition.register();
         } catch (IllegalArgumentException e) {
-            // quarkus-mcp-server also requires unique names: refuse the resource, like the bridge does on a uri clash
-            LOG.error("Refusing to expose MCP resource '{}': {}. Resource names and uris must be unique.",
-                    resource.uri(), e.getMessage());
+            LOG.error("Refusing to expose MCP resource '{}' at uri '{}': {}. Resource names and uris must be unique.",
+                    resource.name(), resource.uri(), e.getMessage());
             return;
         }
         registeredResourceUris.add(resource.uri());
