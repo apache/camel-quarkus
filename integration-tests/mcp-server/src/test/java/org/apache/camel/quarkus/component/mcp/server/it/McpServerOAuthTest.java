@@ -140,7 +140,7 @@ class McpServerOAuthTest {
         if (untrustedOrigin) {
             // With CORS disabled for this module, this message proves the MCP server's
             // loopback DNS-rebinding check (rather than Quarkus CORS) rejected the request.
-            assertThat(response.asString() + " " + response.getStatusLine()).contains("Invalid origin");
+            assertThat(response.getStatusLine()).endsWith(" 403 Invalid origin");
         }
     }
 

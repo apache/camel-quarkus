@@ -128,13 +128,18 @@ than invoking the Camel route.
 The Quarkiverse MCP Server matcher treats the literal parts of a URI template
 as regular expressions and recognizes only `{name}` variables whose names
 match `\w+`. To keep Camel and Quarkus matching consistent, Camel `ai-resource`
-templates with regex metacharacters anywhere in the literal URI (including its
-authority and path, e.g. `.`), or variable names containing characters outside
-ASCII letters, digits and underscore, are refused. Query-parameter templates
-are therefore not supported for Camel `ai-resource` routes. If an
-application-defined template uses Quarkiverse-specific regex syntax in its
-authority, a Camel template whose authority can match that expression is also
-refused, even when the authority strings differ.
+templates whose literal URI contains regex metacharacters (including `.`), or
+whose variable names contain characters outside ASCII letters, digits and
+underscore, are refused. This conservative check also rejects otherwise-valid
+dotted URIs such as `crm://api.example.com/customers/{id}`,
+`docs://manual/v4.24/{page}` and `file:///data/reports.d/{name}`. This is an
+upstream Quarkiverse matcher limitation: it treats literal text as regex rather
+than quoting it. The restriction should only be relaxed after the upstream
+matcher quotes literal segments and template-overlap checks account for regex
+semantics. Query-parameter templates are therefore not supported for Camel
+`ai-resource` routes. If an application-defined template uses Quarkiverse-specific
+regex syntax in its authority, a Camel template whose authority can match that
+expression is also refused, even when the authority strings differ.
 ====
 
 === Prompts

@@ -678,9 +678,14 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     }
 
     /*
-     * Quarkiverse MCP Server compiles the literal parts of a URI template as raw
-     * regular expressions and replaces only {\w+} variables. Reject syntax that
-     * Camel accepts but the Quarkus matcher would interpret differently.
+     * Quarkiverse MCP Server compiles literal URI-template text as a raw regular
+     * expression and replaces only {\w+} variables. Reject syntax that Camel
+     * accepts but the Quarkus matcher would interpret differently.
+     *
+     * In particular, keep '.' rejected even though it occurs in ordinary
+     * hostnames, version strings and file names. The upstream matcher treats it
+     * as a wildcard, which can make otherwise disjoint Camel templates overlap.
+     * Revisit this restriction after quarkus-mcp-server quotes literal segments.
      */
     private static void validateQuarkusResourceTemplate(String uriTemplate) {
         int index = 0;
