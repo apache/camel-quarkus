@@ -1046,137 +1046,137 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-bc-stub</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-integration-tracing-opentelemetry-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-jaxb-plugins-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-management-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-santuario-xmlsec-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-test-util</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId>
-        <version>4.0.0.CR1</version>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.fory</groupId>
@@ -8525,7 +8525,7 @@
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-secure-xml</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
@@ -9009,17 +9009,17 @@
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-bindings</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-policy</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-ws-security-common</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
         <exclusions>
           <exclusion>
             <groupId>io.dropwizard.metrics</groupId>
@@ -9038,17 +9038,17 @@
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-ws-security-dom</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-ws-security-policy-stax</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.wss4j</groupId>
         <artifactId>wss4j-ws-security-stax</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
@@ -9089,7 +9089,7 @@
       <dependency>
         <groupId>org.codehaus.woodstox</groupId>
         <artifactId>stax2-api</artifactId>
-        <version>4.3.1</version>
+        <version>4.3.2</version>
       </dependency>
       <dependency>
         <groupId>org.cryptacular</groupId>
