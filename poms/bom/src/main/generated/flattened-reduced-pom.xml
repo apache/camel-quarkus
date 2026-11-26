@@ -8967,7 +8967,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-api</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -8987,7 +8987,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-json</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.lz4</groupId>
@@ -8998,7 +8998,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>io.swagger.core.v3</groupId>
@@ -9033,7 +9033,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-transforms</artifactId>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kudu</groupId>
@@ -9123,17 +9123,6 @@
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-core</artifactId>
         <version>3.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.sshd</groupId>
-        <artifactId>sshd-sftp</artifactId>
-        <version>2.19.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.velocity</groupId>
