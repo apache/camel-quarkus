@@ -21,13 +21,11 @@ import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.smallrye.config.Config;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@Disabled("https://github.com/apache/camel-quarkus/issues/9366")
 @TestProfile(JmsArtemisXAEnabled.class)
 public class JmsArtemisXATest {
     @BeforeAll

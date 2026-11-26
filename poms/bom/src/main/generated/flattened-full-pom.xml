@@ -7782,12 +7782,12 @@
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms</artifactId>
-        <version>2.13.0</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms-deployment</artifactId>
-        <version>2.13.0</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
