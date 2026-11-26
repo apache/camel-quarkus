@@ -7,3 +7,4 @@ com.atlassian.pom
 com.atlassian.plugins.rest
 com.atlassian.sal
 io.atlassian.fugue
+io.atlassian.util.concurrent
