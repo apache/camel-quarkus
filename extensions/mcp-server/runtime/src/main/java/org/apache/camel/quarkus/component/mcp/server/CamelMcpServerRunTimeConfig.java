@@ -45,4 +45,13 @@ public interface CamelMcpServerRunTimeConfig {
      */
     @WithDefault("20000")
     long resourceTimeout();
+
+    /**
+     * Per-prompt execution timeout in milliseconds. A prompt exceeding the timeout returns
+     * an error to the MCP client; the underlying route keeps running until it completes.
+     *
+     * @asciidoclet
+     */
+    @WithDefault("20000")
+    long promptTimeout();
 }

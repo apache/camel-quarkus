@@ -1,0 +1,56 @@
+{
+  "realm": "mcp",
+  "enabled": true,
+  "sslRequired": "none",
+  "accessTokenLifespan": 300,
+  "roles": {
+    "realm": [
+      {
+        "name": "mcp-operator",
+        "description": "May invoke MCP tools"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice-password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "mcp-operator"
+      ],
+      "firstName": "Alice",
+      "lastName": "MCP Test",
+      "email": "alice@example.test",
+      "requiredActions": []
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "mcp-test-client",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "mcp-test-secret",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "fullScopeAllowed": true,
+      "defaultClientScopes": [
+        "profile",
+        "email",
+        "roles"
+      ]
+    }
+  ]
+}

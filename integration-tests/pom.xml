@@ -178,6 +178,7 @@
         <module>master-infinispan</module>
         <module>master-openshift</module>
         <module>mcp-server</module>
+        <module>mcp-server-no-security</module>
         <module>mdc</module>
         <module>micrometer</module>
         <module>micrometer-observability</module>

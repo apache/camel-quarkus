@@ -45,6 +45,47 @@ in the AI Tool component documentation.
 In native mode, an `outputSchema` loaded from `classpath:` must be
 xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[embedded in the native executable].
 
+=== Caller identity
+
+For authenticated HTTP requests, the MCP server reads the current Quarkus
+`SecurityIdentity` when a tool is invoked. The Camel MCP bridge puts the
+authenticated Java `Principal`, its name and its role names on the tool
+exchange as these properties:
+
+* `CamelMcpSecurityPrincipal` — the raw `java.security.Principal`.
+* `CamelAiToolSecurityPrincipalName` — the principal name.
+* `CamelAiToolSecurityPrincipalRoles` — the caller's role names as a collection.
+
+For OIDC requests whose principal implements MicroProfile `JsonWebToken`, the
+bridge also propagates:
+
+* `CamelMcpOAuthSubject` — the validated JWT subject.
+* `CamelMcpOAuthScopes` — scopes read from both the JWT `scope` and `scp` claims,
+  split on whitespace and de-duplicated.
+* `CamelMcpOAuthClaims` — the JWT payload claims as a map. The synthetic
+  `raw_token` entry is deliberately excluded so the caller's bearer credential
+  is never copied to an exchange property. Nested JSON-P objects and arrays are
+  normalized to Java maps and lists, and JSON-P scalar values are converted to
+  their corresponding Java values.
+
+JWT claim extraction is optional: the extension does not require the
+MicroProfile JWT API when the application does not use it. The full
+`CamelOAuthTokenValidationResult` is not synthesized by this Quarkus bridge.
+
+An anonymous request does not populate these properties. Tool routes and
+`AuthorizationPolicy` implementations can inspect the properties to make
+authorization decisions. The identity is resolved for each tool invocation;
+it is not stored in the singleton MCP engine. Applications without a
+Quarkus security extension can still use the MCP server anonymously.
+
+[IMPORTANT]
+====
+The built-in Origin/DNS-rebinding check in quarkus-mcp-server is applied when
+the HTTP host is a loopback address. It is not a configurable allowed-Origin
+policy and should not be relied upon as an Origin allow-list when the server
+is bound to a non-loopback address such as `0.0.0.0`.
+====
+
 === Resources
 
 Add the `camel-quarkus-ai-resource` extension to define
@@ -59,6 +100,73 @@ quarkus-mcp-server requires: a resource whose name is already taken, or
 whose uri is already used by a resource the application registers with
 quarkus-mcp-server, is refused with an ERROR log, while its route keeps
 running.
+
+=== Resource templates
+
+Resource templates are defined with the `uriTemplate` option of the
+`ai-resource` component. The tagged routes are registered with the MCP
+Resource Template Manager and follow the Camel route lifecycle:
+
+[source,java]
+----
+from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=crm"
+     + "&description=Customer details")
+    .process(e -> e.getMessage().setBody(
+        "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id")));
+----
+
+A URI template that overlaps another registered resource template is refused,
+because multiple matching templates make resource reads ambiguous. An exact
+static resource URI can coexist with a template; the MCP server resolves the
+exact resource before trying a template. At read time, Camel also rechecks the
+complete requested URI, so a loose Quarkus regex match (for example, a query
+suffix on the final path segment) is returned as `RESOURCE_NOT_FOUND` rather
+than invoking the Camel route.
+
+[IMPORTANT]
+====
+The Quarkiverse MCP Server matcher treats the literal parts of a URI template
+as regular expressions and recognizes only `{name}` variables whose names
+match `\w+`. To keep Camel and Quarkus matching consistent, Camel `ai-resource`
+templates whose literal URI contains regex metacharacters (including `.`), or
+whose variable names contain characters outside ASCII letters, digits and
+underscore, are refused. This conservative check also rejects otherwise-valid
+dotted URIs such as `crm://api.example.com/customers/{id}`,
+`docs://manual/v4.24/{page}` and `file:///data/reports.d/{name}`. This is an
+upstream Quarkiverse matcher limitation: it treats literal text as regex rather
+than quoting it. The restriction should only be relaxed after the upstream
+matcher quotes literal segments and template-overlap checks account for regex
+semantics. Query-parameter templates are therefore not supported for Camel
+`ai-resource` routes. If an application-defined template uses Quarkiverse-specific
+regex syntax in its authority, a Camel template whose authority can match that
+expression is also refused, even when the authority strings differ.
+====
+
+=== Prompts
+
+Add the `camel-quarkus-ai-prompt` extension to expose Camel routes registered
+with the `ai-prompt` component as MCP prompts:
+
+[source,java]
+----
+from("ai-prompt:greeting?tags=notify&description=Say hello"
+     + "&argument.name.required=true")
+    .setBody(simple("Hello ${header.name}"));
+----
+
+Prompt routes follow the same tag selection and route lifecycle rules as
+tools and resources. Configure `quarkus.camel.mcp-server.prompt-timeout` to
+set the maximum prompt execution time in milliseconds.
+
+[NOTE]
+====
+The current Quarkiverse MCP Server `PromptManager` API converts prompt argument
+values to strings before invoking the registered handler. The Camel bridge
+therefore cannot distinguish a non-string JSON value (for example, `42`) from
+a caller-supplied string (`"42"`) or reject the original JSON type. Send prompt
+arguments as strings. Strict JSON type validation requires support from the
+upstream `PromptManager` API.
+====
 
 === Combining the Camel and quarkus-mcp-server configuration
 
@@ -75,6 +183,7 @@ side by side in `application.properties`:
 quarkus.camel.mcp-server.tags = crm,notify
 quarkus.camel.mcp-server.tool-timeout = 10000
 quarkus.camel.mcp-server.resource-timeout = 5000
+quarkus.camel.mcp-server.prompt-timeout = 5000
 
 # quarkus-mcp-server-owned: serving and server identity
 quarkus.mcp.server.server-info.name = my-integration-app

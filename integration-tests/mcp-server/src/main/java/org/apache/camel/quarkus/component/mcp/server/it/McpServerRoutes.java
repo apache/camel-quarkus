@@ -19,11 +19,15 @@ package org.apache.camel.quarkus.component.mcp.server.it;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mcp.server.McpToolCallContext;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
 @ApplicationScoped
@@ -103,6 +107,48 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("annotated-clash-route")
                 .setBody(constant(CLASHING_TOOL_ANSWER));
 
+        from("ai-tool:whoami?tags=conformance&description=Return authenticated caller identity")
+                .process(e -> {
+                    Principal principal = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_PROPERTY, Principal.class);
+                    String principalName = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_NAME_PROPERTY, String.class);
+                    Collection<?> roles = e.getProperty(
+                            McpToolCallContext.SECURITY_PRINCIPAL_ROLES_PROPERTY, Collection.class);
+                    String roleNames = roles == null
+                            ? ""
+                            : roles.stream().map(String::valueOf).sorted().collect(Collectors.joining(","));
+                    e.getMessage().setBody(
+                            (principal != null ? principal.getName() : "no-principal")
+                                    + "|" + (principalName != null ? principalName : "no-name")
+                                    + "|" + roleNames);
+                });
+
+        from("ai-tool:whooauth?tags=conformance&description=Return OAuth caller context")
+                .process(e -> {
+                    String subject = e.getProperty(
+                            McpToolCallContext.OAUTH_SUBJECT_PROPERTY, String.class);
+                    Collection<?> scopes = e.getProperty(
+                            McpToolCallContext.OAUTH_SCOPES_PROPERTY, Collection.class);
+                    Map<?, ?> claims = e.getProperty(
+                            McpToolCallContext.OAUTH_CLAIMS_PROPERTY, Map.class);
+
+                    String scopeNames = scopes == null
+                            ? ""
+                            : scopes.stream().map(String::valueOf).sorted()
+                                    .collect(Collectors.joining(" "));
+                    Object username = claims != null ? claims.get("preferred_username") : null;
+                    boolean rawTokenPresent = claims != null && claims.containsKey("raw_token");
+                    boolean realmAccessIsMap = claims != null && claims.get("realm_access") instanceof Map<?, ?>;
+
+                    e.getMessage().setBody(
+                            (subject != null ? subject : "no-subject")
+                                    + "|" + scopeNames
+                                    + "|" + (username != null ? username : "no-claim")
+                                    + "|" + rawTokenPresent
+                                    + "|" + realmAccessIsMap);
+                });
+
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
                 + "&description=Application configuration&mimeType=application/json&title=App config")
                 .routeId("app-config-route")
@@ -160,5 +206,110 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("clashing-resource-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
+
+        from("ai-resource:vip_customer?resourceUri=crm://customers/vip&tags=conformance"
+                + "&description=VIP customer&mimeType=text/plain")
+                .routeId("vip-customer-resource-route")
+                .setBody(constant("vip customer"));
+
+        from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=conformance"
+                + "&description=Customer details&mimeType=text/plain&title=Customer")
+                .routeId("customer-resource-template-route")
+                .process(e -> e.getMessage().setBody(
+                        "customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
+
+        from("ai-resource:hidden_customer_template?uriTemplate=crm://hidden-customers/{id}"
+                + "&description=Untagged resource template, must not be exposed")
+                .routeId("hidden-customer-resource-template-route")
+                .setBody(constant("hidden"));
+
+        from("ai-resource:other_customer_template?uriTemplate=crm://other-customers/{id}&tags=untrusted"
+                + "&description=Unselected resource template, must not be exposed")
+                .routeId("other-customer-resource-template-route")
+                .setBody(constant("other"));
+
+        // The URI template is already owned by the application through ResourceTemplateManager.
+        from("ai-resource:clashing_template?uriTemplate=crm://application/{id}&tags=conformance"
+                + "&description=Template URI already taken by an application template")
+                .routeId("clashing-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-resource:clashing_annotated_template?uriTemplate=crm://annotated/{key}&tags=conformance"
+                + "&description=Overlaps an annotated application template")
+                .routeId("clashing-annotated-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        // A native query-parameter template on the same authority must not block
+        // this independent Camel path template.
+        from("ai-resource:search_customer?uriTemplate=crm://search/orders/{id}&tags=conformance")
+                .routeId("search-customer-resource-template-route")
+                .autoStartup(false)
+                .process(e -> e.getMessage().setBody(
+                        "search customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
+
+        // The Quarkus matcher compiles literal URI-template text as a regex. These
+        // two Camel-valid forms must be refused rather than registered ambiguously.
+        from("ai-resource:unsupported_regex_literal?uriTemplate=crm://api/v1.0/{id}&tags=conformance")
+                .routeId("unsupported-regex-literal-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        from("ai-resource:unsupported_dotted_variable?uriTemplate=crm://dotted/{customer.id}&tags=conformance")
+                .routeId("unsupported-variable-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        // The application template's dot is a regex wildcard to Quarkiverse, so
+        // this Camel template can overlap it despite Camel's literal comparison.
+        from("ai-resource:regex_overlap?uriTemplate=crm://regex/api/v1x0/{id}&tags=conformance")
+                .routeId("regex-overlap-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        // The application authority's dot matches 'x' in this Camel authority.
+        from("ai-resource:regex_authority_overlap?uriTemplate=crm://apixv1/customers/{id}&tags=conformance")
+                .routeId("regex-authority-overlap-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        from("ai-resource:name_clash_template?uriTemplate=crm://unrelated/{id}&tags=conformance"
+                + "&description=Name already taken by an annotated application template")
+                .routeId("same-name-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:clashing_prompt?tags=conformance&description=Name already taken by an annotated prompt")
+                .routeId("clashing-prompt-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:mcpjava_clashing_prompt?tags=conformance&description=Name already taken by an mcpjava prompt")
+                .routeId("mcpjava-clashing-prompt-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:user_prompt?tags=conformance&description=Name already taken by a programmatic prompt")
+                .routeId("clashing-programmatic-prompt-route")
+                .autoStartup(false)
+                .setBody(constant("camel"));
+
+        from("ai-prompt:greeting?tags=conformance&description=Say hello&title=Greeting"
+                + "&argument.name.description=Who to greet&argument.name.required=true")
+                .routeId("greeting-prompt-route")
+                .setBody(simple("Hello ${header.name}"));
+
+        from("ai-prompt:map_prompt?tags=conformance&description=Return a content block")
+                .routeId("map-prompt-route")
+                .setBody(constant(List.of(Map.of(
+                        "role", "assistant",
+                        "content", Map.of("type", "text", "text", "Map content block")))));
+
+        from("ai-prompt:hidden_prompt?description=Untagged prompt")
+                .setBody(constant("hidden"));
+
+        from("ai-prompt:other_prompt?tags=untrusted&description=Unselected prompt")
+                .setBody(constant("other"));
     }
 }

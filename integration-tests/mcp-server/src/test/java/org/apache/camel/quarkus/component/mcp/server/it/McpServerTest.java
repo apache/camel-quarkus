@@ -30,19 +30,21 @@ import io.quarkiverse.mcp.server.TextResourceContents;
 import io.quarkiverse.mcp.server.ToolResponse;
 import io.quarkiverse.mcp.server.test.McpAssured;
 import io.quarkiverse.mcp.server.test.McpAssured.McpStreamableTestClient;
+import io.quarkiverse.mcp.server.test.McpAssured.PromptInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ResourceInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ResourcesPage;
 import io.quarkiverse.mcp.server.test.McpAssured.ServerCapability;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolInfo;
 import io.quarkiverse.mcp.server.test.McpAssured.ToolsPage;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +55,6 @@ import static org.awaitility.Awaitility.await;
  * streamable HTTP. Mirrors {@code McpServerConformanceTestSupport} from camel-mcp-server-api, which cannot be reused
  * as-is here because it manages its own CamelContext outside Quarkus.
  */
-@Disabled("https://github.com/apache/camel-quarkus/issues/9362")
 @QuarkusTest
 class McpServerTest {
 
@@ -72,6 +73,16 @@ class McpServerTest {
     }
 
     // a client of the other MCP server configured in application.properties
+    // A Streamable HTTP client needs its subsidiary SSE stream open to receive server notifications.
+    private McpStreamableTestClient notificationClient() {
+        return McpAssured.newStreamableClient()
+                .setBaseUri(URI.create("http://localhost:%d".formatted(
+                        ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class))))
+                .setOpenSubsidiarySse(true)
+                .build()
+                .connect();
+    }
+
     private McpStreamableTestClient otherClient() {
         if (otherClient == null) {
             otherClient = McpAssured.newStreamableClient()
@@ -481,6 +492,272 @@ class McpServerTest {
     }
 
     @Test
+    void testListResourceTemplatesExposesCamelTemplates() {
+        client().when()
+                .resourcesTemplatesList(page -> {
+                    var template = page.findByUriTemplate("crm://customers/{id}");
+                    assertThat(template.name()).isEqualTo("customer");
+                    assertThat(template.title()).isEqualTo("Customer");
+                    assertThat(template.description()).isEqualTo("Customer details");
+                    assertThat(template.mimeType()).isEqualTo("text/plain");
+
+                    assertThat(page.templates())
+                            .extracting(resourceTemplate -> resourceTemplate.uriTemplate())
+                            .contains("crm://annotated/{id}", "crm://search?q={term}",
+                                    "crm://regex/api/v1.0/{id}", "crm://api.v1/customers/{id}")
+                            .doesNotContain("crm://hidden-customers/{id}",
+                                    "crm://other-customers/{id}");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testReadResourceTemplate() {
+        client().when()
+                // An exact static resource must win over a matching resource template.
+                .resourcesRead("crm://customers/vip",
+                        response -> assertThat(response.contents().get(0).asText().text())
+                                .isEqualTo("vip customer"))
+                .resourcesRead("crm://customers/42", response -> {
+                    TextResourceContents contents = response.contents().get(0).asText();
+                    assertThat(contents.uri()).isEqualTo("crm://customers/42");
+                    assertThat(contents.mimeType()).isEqualTo("text/plain");
+                    assertThat(contents.text()).isEqualTo("customer 42");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateListReflectsRouteStopAndStart() {
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults();
+
+        controlRoute("customer-resource-template-route", "stop");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).doesNotContain("crm://customers/{id}"))
+                .thenAssertResults());
+
+        controlRoute("customer-resource-template-route", "start");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .resourcesTemplatesList(page -> assertThat(page.templates())
+                        .extracting(template -> template.uriTemplate()).contains("crm://customers/{id}"))
+                .thenAssertResults());
+    }
+
+    @Test
+    void testStoppingRefusedResourceTemplateKeepsApplicationTemplate() {
+        controlRoute("clashing-resource-template-route", "start");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Started");
+        controlRoute("clashing-resource-template-route", "stop");
+        assertThat(routeStatus("clashing-resource-template-route")).isEqualTo("Stopped");
+
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(page.findByUriTemplate("crm://application/{id}").name())
+                        .isEqualTo("application_resource_template"))
+                .resourcesRead("crm://application/42", response -> assertThat(response.contents().get(0).asText().text())
+                        .isEqualTo("application template 42"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testUnmatchedResourceTemplateUriReturnsNotFound() {
+        client().when()
+                .resourcesRead("crm://customers")
+                .withErrorAssert(error -> assertThat(error.code())
+                        .isEqualTo(JsonRpcErrorCodes.RESOURCE_NOT_FOUND))
+                .send()
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateLifecycleSendsListChangedNotifications() {
+        McpStreamableTestClient connectedClient = notificationClient();
+        try {
+            int notificationsBeforeStop = connectedClient.snapshot().notifications().size();
+
+            controlRoute("customer-resource-template-route", "stop");
+            var afterStop = connectedClient.waitForNotifications(notificationsBeforeStop + 1);
+            assertThat(afterStop.notifications()).anySatisfy(notification -> assertThat(notification.getString("method"))
+                    .isEqualTo("notifications/resources/list_changed"));
+
+            controlRoute("customer-resource-template-route", "start");
+            var afterStart = connectedClient.waitForNotifications(afterStop.notifications().size() + 1);
+            assertThat(afterStart.notifications()).anySatisfy(notification -> assertThat(notification.getString("method"))
+                    .isEqualTo("notifications/resources/list_changed"));
+        } finally {
+            connectedClient.disconnect();
+        }
+    }
+
+    @Test
+    void testStoppingRefusedAnnotatedResourceTemplateKeepsApplicationTemplate() {
+        controlRoute("clashing-annotated-resource-template-route", "start");
+        assertThat(routeStatus("clashing-annotated-resource-template-route")).isEqualTo("Started");
+        controlRoute("clashing-annotated-resource-template-route", "stop");
+        assertThat(routeStatus("clashing-annotated-resource-template-route")).isEqualTo("Stopped");
+
+        client().when()
+                .resourcesTemplatesList(page -> assertThat(
+                        page.findByUriTemplate("crm://annotated/{id}").name())
+                        .isEqualTo("annotated_resource_template"))
+                .resourcesRead("crm://annotated/42",
+                        response -> assertThat(response.contents().get(0).asText().text()).isEqualTo("annotated 42"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testStoppingSameNameResourceTemplateKeepsApplicationTemplate() {
+        controlRoute("same-name-resource-template-route", "start");
+        assertThat(routeStatus("same-name-resource-template-route")).isEqualTo("Started");
+        controlRoute("same-name-resource-template-route", "stop");
+        assertThat(routeStatus("same-name-resource-template-route")).isEqualTo("Stopped");
+
+        client().when()
+                .resourcesRead("crm://annotated-name/42", response -> assertThat(response.contents().get(0).asText().text())
+                        .isEqualTo("annotated name 42"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateDoesNotMatchQuerySuffix() {
+        client().when()
+                .resourcesRead("crm://customers/42?view=full")
+                .withErrorAssert(error -> assertThat(error.code())
+                        .isEqualTo(JsonRpcErrorCodes.RESOURCE_NOT_FOUND))
+                .send()
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateMatcherCompatibility() {
+        controlRoute("search-customer-resource-template-route", "start");
+        controlRoute("unsupported-regex-literal-resource-template-route", "start");
+        controlRoute("unsupported-variable-resource-template-route", "start");
+        controlRoute("regex-overlap-resource-template-route", "start");
+        controlRoute("regex-authority-overlap-resource-template-route", "start");
+        try {
+            assertThat(routeStatus("search-customer-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("unsupported-regex-literal-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("unsupported-variable-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("regex-overlap-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("regex-authority-overlap-resource-template-route")).isEqualTo("Started");
+
+            client().when()
+                    .resourcesTemplatesList(page -> assertThat(page.templates())
+                            .extracting(template -> template.uriTemplate())
+                            .contains("crm://search/orders/{id}")
+                            .doesNotContain("crm://api/v1.0/{id}", "crm://dotted/{customer.id}",
+                                    "crm://regex/api/v1x0/{id}", "crm://apixv1/customers/{id}"))
+                    .thenAssertResults();
+
+            client().when()
+                    .resourcesRead("crm://search/orders/42", response -> assertThat(
+                            response.contents().get(0).asText().text()).isEqualTo("search customer 42"))
+                    .thenAssertResults();
+        } finally {
+            controlRoute("search-customer-resource-template-route", "stop");
+            controlRoute("unsupported-regex-literal-resource-template-route", "stop");
+            controlRoute("unsupported-variable-resource-template-route", "stop");
+            controlRoute("regex-overlap-resource-template-route", "stop");
+            controlRoute("regex-authority-overlap-resource-template-route", "stop");
+        }
+    }
+
+    @Test
+    void testListPromptsExposesCamelPrompts() {
+        client().when()
+                .promptsList(page -> {
+                    assertThat(page.prompts()).extracting(PromptInfo::name)
+                            .contains("greeting", "map_prompt", "clashing_prompt", "mcpjava_clashing_prompt", "user_prompt")
+                            .doesNotContain("hidden_prompt", "other_prompt");
+
+                    PromptInfo prompt = page.findByName("greeting");
+                    assertThat(prompt.title()).isEqualTo("Greeting");
+                    assertThat(prompt.description()).isEqualTo("Say hello");
+                    assertThat(prompt.arguments()).hasSize(1);
+                    assertThat(prompt.arguments().get(0).name()).isEqualTo("name");
+                    assertThat(prompt.arguments().get(0).required()).isTrue();
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testGetPromptWithArguments() {
+        client().when()
+                .promptsGet("greeting", Map.of("name", "World"), response -> {
+                    assertThat(response.messages()).hasSize(1);
+                    assertThat(response.messages().get(0).role().toString()).isEqualTo("USER");
+                    assertThat(response.messages().get(0).content().asText().text())
+                            .isEqualTo("Hello World");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testGetPromptConvertsMapContentBlock() {
+        client().when()
+                .promptsGet("map_prompt", Map.of(), response -> {
+                    assertThat(response.messages()).hasSize(1);
+                    assertThat(response.messages().get(0).role().toString()).isEqualTo("ASSISTANT");
+                    assertThat(response.messages().get(0).content().asText().text())
+                            .isEqualTo("Map content block");
+                })
+                .thenAssertResults();
+    }
+
+    @Test
+    void testPromptListReflectsRouteStopAndStart() {
+        client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).contains("greeting"))
+                .thenAssertResults();
+
+        controlRoute("greeting-prompt-route", "stop");
+
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).doesNotContain("greeting"))
+                .thenAssertResults());
+
+        controlRoute("greeting-prompt-route", "start");
+
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
+                .promptsList(page -> assertThat(page.prompts())
+                        .extracting(PromptInfo::name).contains("greeting"))
+                .thenAssertResults());
+    }
+
+    @Test
+    void testStoppingRefusedPromptRoutesKeepsApplicationPrompts() {
+        assertApplicationPromptSurvivesRouteStop(
+                "clashing-prompt-route", "clashing_prompt",
+                QuarkusDefinedPrompts.QUARKIVERSE_PROMPT_ANSWER);
+        assertApplicationPromptSurvivesRouteStop(
+                "mcpjava-clashing-prompt-route", "mcpjava_clashing_prompt",
+                QuarkusDefinedPrompts.MCPJAVA_PROMPT_ANSWER);
+        assertApplicationPromptSurvivesRouteStop(
+                "clashing-programmatic-prompt-route", "user_prompt",
+                QuarkusDefinedPrompts.PROGRAMMATIC_PROMPT_ANSWER);
+    }
+
+    @Test
+    void testStoppingPromptRouteKeepsApplicationPromptOnOtherServer() {
+        controlRoute("greeting-prompt-route", "stop");
+        try {
+            otherClient().when()
+                    .promptsGet("greeting", Map.of(),
+                            response -> assertThat(response.messages().get(0).content().asText().text())
+                                    .isEqualTo(QuarkusDefinedPrompts.OTHER_SERVER_PROMPT_ANSWER))
+                    .thenAssertResults();
+        } finally {
+            controlRoute("greeting-prompt-route", "start");
+        }
+    }
+
+    @Test
     void testResourceWithDuplicateNameIsRefused() {
         // quarkus-mcp-server requires unique resource names; the application must still start
         client().when()
@@ -536,6 +813,34 @@ class McpServerTest {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> client().when()
                 .resourcesList(page -> assertThat(resourceUris(page)).contains("camel:///config/app.json"))
                 .thenAssertResults());
+    }
+
+    @Test
+    @DisabledOnIntegrationTest
+    @TestSecurity(user = "alice", roles = { "admin", "operator" })
+    void testAuthenticatedCallerIdentityIsPropagated() {
+        client().when()
+                .toolsCall("whoami", Map.of(), response -> assertThat(textOf(response)).isEqualTo("alice|alice|admin,operator"))
+                .thenAssertResults();
+    }
+
+    @Test
+    void testAnonymousCallerHasNoIdentity() {
+        client().when()
+                .toolsCall("whoami", Map.of(), response -> assertThat(textOf(response)).isEqualTo("no-principal|no-name|"))
+                .thenAssertResults();
+    }
+
+    private void assertApplicationPromptSurvivesRouteStop(String routeId, String promptName, String expected) {
+        controlRoute(routeId, "start");
+        assertThat(routeStatus(routeId)).isEqualTo("Started");
+        controlRoute(routeId, "stop");
+        assertThat(routeStatus(routeId)).isEqualTo("Stopped");
+
+        client().when()
+                .promptsGet(promptName, Map.of(),
+                        response -> assertThat(response.messages().get(0).content().asText().text()).isEqualTo(expected))
+                .thenAssertResults();
     }
 
     private static void controlRoute(String routeId, String action) {
