@@ -632,7 +632,7 @@ class McpServerTest {
     }
 
     @Test
-    void testResourceTemplatesUnsupportedByQuarkusMatcherAreRefused() {
+    void testResourceTemplateMatcherCompatibility() {
         controlRoute("search-customer-resource-template-route", "start");
         controlRoute("unsupported-regex-literal-resource-template-route", "start");
         controlRoute("unsupported-variable-resource-template-route", "start");

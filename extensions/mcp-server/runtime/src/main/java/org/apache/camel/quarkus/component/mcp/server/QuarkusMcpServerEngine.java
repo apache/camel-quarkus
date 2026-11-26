@@ -96,8 +96,6 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
     private final Set<String> registeredToolNames = ConcurrentHashMap.newKeySet();
     // uris of the resources registered by this engine; a refused resource's uri may belong to an application resource
     private final Set<String> registeredResourceUris = ConcurrentHashMap.newKeySet();
-    // URI template -> name; remove only templates registered by this engine.
-    private final Map<String, String> registeredResourceTemplateNames = new ConcurrentHashMap<>();
     // map URI templates to names so removal only touches templates registered by this engine
     private final Map<String, String> registeredResourceTemplates = new ConcurrentHashMap<>();
     // prompt names registered by this engine; a refused name belongs to an application prompt
