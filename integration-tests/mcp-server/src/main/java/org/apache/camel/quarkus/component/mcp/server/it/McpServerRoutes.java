@@ -138,11 +138,15 @@ public class McpServerRoutes extends RouteBuilder {
                             : scopes.stream().map(String::valueOf).sorted()
                                     .collect(Collectors.joining(" "));
                     Object username = claims != null ? claims.get("preferred_username") : null;
+                    boolean rawTokenPresent = claims != null && claims.containsKey("raw_token");
+                    boolean realmAccessIsMap = claims != null && claims.get("realm_access") instanceof Map<?, ?>;
 
                     e.getMessage().setBody(
                             (subject != null ? subject : "no-subject")
                                     + "|" + scopeNames
-                                    + "|" + (username != null ? username : "no-claim"));
+                                    + "|" + (username != null ? username : "no-claim")
+                                    + "|" + rawTokenPresent
+                                    + "|" + realmAccessIsMap);
                 });
 
         from("ai-resource:app_config?resourceUri=camel:///config/app.json&tags=conformance"
@@ -236,6 +240,39 @@ public class McpServerRoutes extends RouteBuilder {
                 .routeId("clashing-annotated-resource-template-route")
                 .autoStartup(false)
                 .setBody(constant("camel"));
+
+        // A native query-parameter template on the same authority must not block
+        // this independent Camel path template.
+        from("ai-resource:search_customer?uriTemplate=crm://search/orders/{id}&tags=conformance")
+                .routeId("search-customer-resource-template-route")
+                .autoStartup(false)
+                .process(e -> e.getMessage().setBody(
+                        "search customer " + e.getMessage().getHeader("CamelAiResourceTemplateVariable.id", String.class)));
+
+        // The Quarkus matcher compiles literal URI-template text as a regex. These
+        // two Camel-valid forms must be refused rather than registered ambiguously.
+        from("ai-resource:unsupported_regex_literal?uriTemplate=crm://api/v1.0/{id}&tags=conformance")
+                .routeId("unsupported-regex-literal-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        from("ai-resource:unsupported_dotted_variable?uriTemplate=crm://dotted/{customer.id}&tags=conformance")
+                .routeId("unsupported-variable-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        // The application template's dot is a regex wildcard to Quarkiverse, so
+        // this Camel template can overlap it despite Camel's literal comparison.
+        from("ai-resource:regex_overlap?uriTemplate=crm://regex/api/v1x0/{id}&tags=conformance")
+                .routeId("regex-overlap-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
+
+        // The application authority's dot matches 'x' in this Camel authority.
+        from("ai-resource:regex_authority_overlap?uriTemplate=crm://apixv1/customers/{id}&tags=conformance")
+                .routeId("regex-authority-overlap-resource-template-route")
+                .autoStartup(false)
+                .setBody(constant("must not be exposed"));
 
         from("ai-resource:name_clash_template?uriTemplate=crm://unrelated/{id}&tags=conformance"
                 + "&description=Name already taken by an annotated application template")

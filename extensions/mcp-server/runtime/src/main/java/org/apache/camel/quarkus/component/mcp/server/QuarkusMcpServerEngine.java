@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -51,6 +52,8 @@ import io.quarkiverse.mcp.server.ToolManager;
 import io.quarkiverse.mcp.server.ToolResponse;
 import io.quarkus.security.identity.CurrentIdentityAssociation;
 import io.quarkus.security.identity.SecurityIdentity;
+import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.ai.resource.AiResourceUriTemplate;
@@ -81,6 +84,7 @@ import org.slf4j.LoggerFactory;
 public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerEngine {
 
     private static final Logger LOG = LoggerFactory.getLogger(QuarkusMcpServerEngine.class);
+    private static final String QUARKUS_TEMPLATE_REGEX_METACHARACTERS = "\\.^$|?*+()[]{}";
 
     private final ToolManager toolManager;
     private final ResourceManager resourceManager;
@@ -202,13 +206,15 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
             if (claimNames instanceof Collection<?> names) {
                 var getClaim = jwtType.getMethod("getClaim", String.class);
                 for (Object name : names) {
-                    if (name instanceof String claimName) {
-                        claims.put(claimName, getClaim.invoke(principal, claimName));
+                    if (name instanceof String claimName && !"raw_token".equals(claimName)) {
+                        // quarkus-oidc exposes the original bearer token as a synthetic raw_token
+                        // claim. Never copy credentials into Camel exchange properties.
+                        claims.put(claimName, normalizeJsonClaim(getClaim.invoke(principal, claimName)));
                     }
                 }
             }
 
-            List<String> scopes = oauthScopes(claims.get("scope"));
+            List<String> scopes = oauthScopes(claims);
 
             return new OAuthIdentity(
                     subject,
@@ -221,25 +227,61 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         }
     }
 
-    private static List<String> oauthScopes(Object scopeClaim) {
-        if (scopeClaim instanceof String scopeString) {
-            if (scopeString.isBlank()) {
-                return List.of();
-            }
-            return Arrays.stream(scopeString.trim().split("\\s+"))
+    static List<String> oauthScopes(Map<String, Object> claims) {
+        Set<String> scopes = new LinkedHashSet<>();
+        addScopes(scopes, claims.get("scope"));
+        // Some identity providers (including Microsoft Entra ID) use the scp claim.
+        addScopes(scopes, claims.get("scp"));
+        return List.copyOf(scopes);
+    }
+
+    private static void addScopes(Set<String> scopes, Object claim) {
+        if (claim instanceof String scopeString && !scopeString.isBlank()) {
+            Arrays.stream(scopeString.trim().split("\\s+"))
                     .filter(scope -> !scope.isBlank())
-                    .toList();
+                    .forEach(scopes::add);
+        } else if (claim instanceof Collection<?> values) {
+            values.forEach(value -> addScopes(scopes, value));
+        }
+    }
+
+    /**
+     * Converts JSON-P claim values to ordinary Java values without making JSON-P a
+     * mandatory dependency of this extension. This keeps claims usable by Camel
+     * routes in the same way as claims decoded by the Main and Spring Boot engines.
+     */
+    static Object normalizeJsonClaim(Object value) {
+        if (value == null || value instanceof String || value instanceof Number || value instanceof Boolean) {
+            return value;
+        }
+        if (value instanceof JsonObject jsonObject) {
+            return normalizeJsonClaim(jsonObject.getMap());
+        }
+        if (value instanceof JsonArray jsonArray) {
+            return normalizeJsonClaim(jsonArray.getList());
+        }
+        if (value instanceof Map<?, ?> map) {
+            Map<String, Object> normalized = new LinkedHashMap<>();
+            map.forEach((key, entryValue) -> {
+                if (key instanceof String name) {
+                    normalized.put(name, normalizeJsonClaim(entryValue));
+                }
+            });
+            return normalized;
+        }
+        if (value instanceof Collection<?> values) {
+            return values.stream().map(QuarkusMcpServerEngine::normalizeJsonClaim).toList();
         }
 
-        if (scopeClaim instanceof Collection<?> values) {
-            return values.stream()
-                    .filter(value -> value != null)
-                    .map(String::valueOf)
-                    .filter(scope -> !scope.isBlank())
-                    .toList();
+        try {
+            // JSON-P values implement toString() as their JSON representation. Vert.x
+            // decodes objects/arrays as JsonObject/JsonArray, so recurse to ordinary maps/lists.
+            return normalizeJsonClaim(Json.decodeValue(value.toString()));
+        } catch (RuntimeException e) {
+            // Preserve unfamiliar provider-specific claim objects rather than failing auth.
+            LOG.debug("Unable to normalize JWT claim value of type {}", value.getClass().getName(), e);
+            return value;
         }
-
-        return List.of();
     }
 
     private record OAuthIdentity(String subject, List<String> scopes, Map<String, Object> claims) {
@@ -358,9 +400,11 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         AiResourceUriTemplate matcher;
         try {
             matcher = new AiResourceUriTemplate(resourceTemplate.uriTemplate());
+            validateQuarkusResourceTemplate(resourceTemplate.uriTemplate());
         } catch (IllegalArgumentException e) {
             throw new McpServerRefusedException(
-                    "Unsupported MCP resource template '" + resourceTemplate.uriTemplate() + "'", e);
+                    "Unsupported MCP resource template '" + resourceTemplate.uriTemplate() + "': " + e.getMessage(),
+                    e);
         }
 
         // Retry cleanup if a previous route stop failed to remove this template.
@@ -376,8 +420,24 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         // Multiple matching templates make resource reads ambiguous in quarkus-mcp-server.
         // Definitions on other MCP servers are independent and must remain untouched.
         for (ResourceTemplateManager.ResourceTemplateInfo existing : resourceTemplateManager) {
-            if (existing.serverNames().contains(McpServer.DEFAULT)
-                    && templatesOverlap(matcher, existing.uriTemplate())) {
+            if (!existing.serverNames().contains(McpServer.DEFAULT)) {
+                continue;
+            }
+            // A native Quarkus template may use regex syntax in its authority or path that Camel's
+            // literal matcher cannot model. Fail closed when its authority expression can match
+            // this Camel template, even when the authority strings differ.
+            boolean pathRegexWithSameAuthority = hasQuarkusRegexSyntaxInPath(existing.uriTemplate())
+                    && uriAuthority(resourceTemplate.uriTemplate())
+                            .equals(uriAuthority(existing.uriTemplate()));
+            if (quarkusAuthorityMayOverlap(existing.uriTemplate(), resourceTemplate.uriTemplate())
+                    || pathRegexWithSameAuthority) {
+                throw new McpServerRefusedException(
+                        "Resource template '" + resourceTemplate.uriTemplate()
+                                + "' cannot be checked safely against application template '"
+                                + existing.uriTemplate()
+                                + "' because its URI authority or path uses regex syntax that Camel cannot model");
+            }
+            if (templatesOverlap(matcher, existing.uriTemplate())) {
                 throw new McpServerRefusedException(
                         "Resource template '" + resourceTemplate.uriTemplate()
                                 + "' overlaps resource template '"
@@ -395,6 +455,12 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
         }
         definition.setHandler(arguments -> {
             String requestedUri = arguments.requestUri().value();
+            if (matcher.match(requestedUri).isEmpty()) {
+                // quarkus-mcp-server's regex accepts some URIs outside Camel's RFC 6570
+                // path-segment matcher (for example, a query suffix on the final segment).
+                throw new McpException("Resource URI does not match the registered template",
+                        JsonRpcErrorCodes.RESOURCE_NOT_FOUND);
+            }
             McpResourceReadResult result = resourceTemplate.handler().read(requestedUri);
             if (result.isError()) {
                 throw new McpException(result.errorMessage(), JsonRpcErrorCodes.INTERNAL_ERROR);
@@ -444,6 +510,226 @@ public class QuarkusMcpServerEngine extends ServiceSupport implements McpServerE
 
     @Override
     public boolean supportsResourceTemplates() {
+        return true;
+    }
+
+    private static boolean hasQuarkusRegexSyntaxInPath(String uriTemplate) {
+        int colon = uriTemplate.indexOf(':');
+        if (colon <= 0) {
+            return true;
+        }
+        int pathStart = uriTemplate.startsWith("//", colon + 1)
+                ? uriTemplate.indexOf('/', colon + 3)
+                : uriTemplate.indexOf('/', colon + 1);
+        // A native query-parameter template without a path (e.g. crm://search?q={term})
+        // cannot overlap a Camel path template and must not block unrelated registrations.
+        if (pathStart < 0) {
+            return false;
+        }
+        String path = uriTemplate.substring(pathStart + 1);
+        int queryStart = path.indexOf('?');
+        if (queryStart >= 0) {
+            path = path.substring(0, queryStart);
+        }
+        for (int index = 0; index < path.length();) {
+            char current = path.charAt(index);
+            if (current == '{') {
+                int end = path.indexOf('}', index + 1);
+                if (end < 0 || !isQuarkusTemplateVariableName(path.substring(index + 1, end))) {
+                    return true;
+                }
+                index = end + 1;
+            } else if (current == '}' || QUARKUS_TEMPLATE_REGEX_METACHARACTERS.indexOf(current) >= 0) {
+                return true;
+            } else {
+                index++;
+            }
+        }
+        return false;
+    }
+
+    private static String uriAuthority(String uriTemplate) {
+        int colon = uriTemplate.indexOf(':');
+        if (colon <= 0) {
+            return uriTemplate;
+        }
+
+        int authorityStart = uriTemplate.startsWith("//", colon + 1)
+                ? colon + 3
+                : colon + 1;
+
+        int authorityEnd = uriTemplate.length();
+        int pathStart = uriTemplate.indexOf('/', authorityStart);
+        int queryStart = uriTemplate.indexOf('?', authorityStart);
+        int fragmentStart = uriTemplate.indexOf('#', authorityStart);
+
+        if (pathStart >= 0) {
+            authorityEnd = Math.min(authorityEnd, pathStart);
+        }
+        if (queryStart >= 0) {
+            authorityEnd = Math.min(authorityEnd, queryStart);
+        }
+        if (fragmentStart >= 0) {
+            authorityEnd = Math.min(authorityEnd, fragmentStart);
+        }
+
+        return uriTemplate.substring(0, authorityEnd);
+    }
+
+    private static String uriScheme(String uriTemplate) {
+        int colon = uriTemplate.indexOf(':');
+        return colon > 0 ? uriTemplate.substring(0, colon) : "";
+    }
+
+    /**
+     * Checks whether an application-defined Quarkus authority pattern can match
+     * a Camel authority. Quarkus treats literal regex metacharacters as regex
+     * syntax, while Camel treats them literally.
+     */
+    private static boolean quarkusAuthorityMayOverlap(
+            String applicationTemplate, String camelTemplate) {
+        String applicationAuthority = uriAuthority(applicationTemplate);
+        String camelAuthority = uriAuthority(camelTemplate);
+
+        if (!uriScheme(applicationTemplate).equals(uriScheme(camelTemplate))) {
+            return false;
+        }
+
+        // A Camel authority variable can match an application authority even when
+        // their literal strings differ. Fail closed rather than trying to intersect
+        // two URI-template patterns.
+        if (camelAuthority.indexOf('{') >= 0) {
+            return true;
+        }
+
+        if (!hasQuarkusRegexSyntaxInAuthority(applicationTemplate)) {
+            return false;
+        }
+
+        try {
+            return camelAuthority.matches(toQuarkusRegex(applicationAuthority));
+        } catch (IllegalArgumentException e) {
+            // If the application authority pattern cannot be parsed here, fail
+            // closed rather than risk registering an ambiguous Camel template.
+            return true;
+        }
+    }
+
+    private static boolean hasQuarkusRegexSyntaxInAuthority(String uriTemplate) {
+        int colon = uriTemplate.indexOf(':');
+        if (colon <= 0) {
+            return true;
+        }
+
+        int authorityStart = uriTemplate.startsWith("//", colon + 1)
+                ? colon + 3
+                : colon + 1;
+
+        String authority = uriAuthority(uriTemplate);
+        if (authorityStart >= authority.length()) {
+            return false;
+        }
+
+        for (int index = authorityStart; index < authority.length(); index++) {
+            char current = authority.charAt(index);
+            if (current == '{' || current == '}'
+                    || QUARKUS_TEMPLATE_REGEX_METACHARACTERS.indexOf(current) >= 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Preserves Quarkus' raw regex syntax and converts URI-template variables
+     * to a non-slash expression for authority matching.
+     */
+    private static String toQuarkusRegex(String uriAuthority) {
+        StringBuilder regex = new StringBuilder();
+
+        for (int index = 0; index < uriAuthority.length();) {
+            char current = uriAuthority.charAt(index);
+
+            if (current == '{') {
+                int end = uriAuthority.indexOf('}', index + 1);
+                if (end < 0
+                        || !isQuarkusTemplateVariableName(
+                                uriAuthority.substring(index + 1, end))) {
+                    throw new IllegalArgumentException("Invalid URI-template variable in authority");
+                }
+
+                regex.append("[^/]+");
+                index = end + 1;
+                continue;
+            }
+
+            if (current == '}') {
+                throw new IllegalArgumentException("Unmatched closing brace in authority");
+            }
+
+            // Deliberately do not quote regex metacharacters. The Quarkiverse
+            // matcher interprets these characters as regular-expression syntax.
+            regex.append(current);
+            index++;
+        }
+
+        return regex.toString();
+    }
+
+    /*
+     * Quarkiverse MCP Server compiles the literal parts of a URI template as raw
+     * regular expressions and replaces only {\w+} variables. Reject syntax that
+     * Camel accepts but the Quarkus matcher would interpret differently.
+     */
+    private static void validateQuarkusResourceTemplate(String uriTemplate) {
+        int index = 0;
+        boolean hasVariable = false;
+        while (index < uriTemplate.length()) {
+            char current = uriTemplate.charAt(index);
+            if (current == '{') {
+                int end = uriTemplate.indexOf('}', index + 1);
+                if (end < 0) {
+                    throw new IllegalArgumentException("unclosed URI-template variable");
+                }
+                String variable = uriTemplate.substring(index + 1, end);
+                if (!isQuarkusTemplateVariableName(variable)) {
+                    throw new IllegalArgumentException(
+                            "variable names must contain only ASCII letters, digits or underscore (\\w+)");
+                }
+                hasVariable = true;
+                index = end + 1;
+                continue;
+            }
+            if (current == '}') {
+                throw new IllegalArgumentException("unmatched closing brace in URI template");
+            }
+            if (QUARKUS_TEMPLATE_REGEX_METACHARACTERS.indexOf(current) >= 0) {
+                throw new IllegalArgumentException(
+                        "literal character '" + current + "' is a regular-expression metacharacter "
+                                + "in the Quarkiverse MCP Server URI-template matcher");
+            }
+            index++;
+        }
+        if (!hasVariable) {
+            throw new IllegalArgumentException("URI template must contain at least one variable");
+        }
+    }
+
+    private static boolean isQuarkusTemplateVariableName(String variable) {
+        if (variable.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < variable.length(); i++) {
+            char current = variable.charAt(i);
+            boolean wordCharacter = current >= 'a' && current <= 'z'
+                    || current >= 'A' && current <= 'Z'
+                    || current >= '0' && current <= '9'
+                    || current == '_';
+            if (!wordCharacter) {
+                return false;
+            }
+        }
         return true;
     }
 

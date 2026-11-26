@@ -117,15 +117,20 @@ authenticated Java `Principal`, its name and its role names on the tool
 exchange as these properties:
 
 * `CamelMcpSecurityPrincipal` — the raw `java.security.Principal`.
-* `CamelMcpSecurityPrincipalName` — the principal name.
-* `CamelMcpSecurityPrincipalRoles` — the caller's role names as a collection.
+* `CamelAiToolSecurityPrincipalName` — the principal name.
+* `CamelAiToolSecurityPrincipalRoles` — the caller's role names as a collection.
 
 For OIDC requests whose principal implements MicroProfile `JsonWebToken`, the
 bridge also propagates:
 
 * `CamelMcpOAuthSubject` — the validated JWT subject.
-* `CamelMcpOAuthScopes` — the scopes from the JWT `scope` claim.
-* `CamelMcpOAuthClaims` — the JWT claims as a map.
+* `CamelMcpOAuthScopes` — scopes read from both the JWT `scope` and `scp` claims,
+  split on whitespace and de-duplicated.
+* `CamelMcpOAuthClaims` — the JWT payload claims as a map. The synthetic
+  `raw_token` entry is deliberately excluded so the caller's bearer credential
+  is never copied to an exchange property. Nested JSON-P objects and arrays are
+  normalized to Java maps and lists, and JSON-P scalar values are converted to
+  their corresponding Java values.
 
 JWT claim extraction is optional: the extension does not require the
 MicroProfile JWT API when the application does not use it. The full
@@ -179,7 +184,24 @@ from("ai-resource:customer?uriTemplate=crm://customers/{id}&tags=crm"
 A URI template that overlaps another registered resource template is refused,
 because multiple matching templates make resource reads ambiguous. An exact
 static resource URI can coexist with a template; the MCP server resolves the
-exact resource before trying a template.
+exact resource before trying a template. At read time, Camel also rechecks the
+complete requested URI, so a loose Quarkus regex match (for example, a query
+suffix on the final path segment) is returned as `RESOURCE_NOT_FOUND` rather
+than invoking the Camel route.
+
+[IMPORTANT]
+====
+The Quarkiverse MCP Server matcher treats the literal parts of a URI template
+as regular expressions and recognizes only `{name}` variables whose names
+match `\w+`. To keep Camel and Quarkus matching consistent, Camel `ai-resource`
+templates with regex metacharacters anywhere in the literal URI (including its
+authority and path, e.g. `.`), or variable names containing characters outside
+ASCII letters, digits and underscore, are refused. Query-parameter templates
+are therefore not supported for Camel `ai-resource` routes. If an
+application-defined template uses Quarkiverse-specific regex syntax in its
+authority, a Camel template whose authority can match that expression is also
+refused, even when the authority strings differ.
+====
 
 [id="extensions-mcp-server-usage-prompts"]
 === Prompts
@@ -197,6 +219,16 @@ from("ai-prompt:greeting?tags=notify&description=Say hello"
 Prompt routes follow the same tag selection and route lifecycle rules as
 tools and resources. Configure `quarkus.camel.mcp-server.prompt-timeout` to
 set the maximum prompt execution time in milliseconds.
+
+[NOTE]
+====
+The current Quarkiverse MCP Server `PromptManager` API converts prompt argument
+values to strings before invoking the registered handler. The Camel bridge
+therefore cannot distinguish a non-string JSON value (for example, `42`) from
+a caller-supplied string (`"42"`) or reject the original JSON type. Send prompt
+arguments as strings. Strict JSON type validation requires support from the
+upstream `PromptManager` API.
+====
 
 [id="extensions-mcp-server-usage-combining-the-camel-and-quarkus-mcp-server-configuration"]
 === Combining the Camel and quarkus-mcp-server configuration

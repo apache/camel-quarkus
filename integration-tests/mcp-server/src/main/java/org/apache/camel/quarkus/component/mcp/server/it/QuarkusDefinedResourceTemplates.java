@@ -37,6 +37,20 @@ public class QuarkusDefinedResourceTemplates {
         return TextResourceContents.create(uri.value(), "annotated name " + id);
     }
 
+    // Quarkiverse MCP Server treats the dot as a regex wildcard in this template.
+    // A Camel template with v1x0 in the same authority must therefore be refused.
+    @ResourceTemplate(name = "regex_literal_resource_template", uriTemplate = "crm://regex/api/v1.0/{id}", description = "Template with regex metacharacter in literal text")
+    TextResourceContents regexLiteral(RequestUri uri, String id) {
+        return TextResourceContents.create(uri.value(), "regex literal " + id);
+    }
+
+    // The dot in the application-defined URI authority is a regex wildcard.
+    // It matches 'x' in the Camel template's authority, so that route is refused.
+    @ResourceTemplate(name = "regex_authority_resource_template", uriTemplate = "crm://api.v1/customers/{id}", description = "Template with regex metacharacter in authority")
+    TextResourceContents regexAuthority(RequestUri uri, String id) {
+        return TextResourceContents.create(uri.value(), "regex authority " + id);
+    }
+
     // Quarkiverse MCP Server accepts URI-template variables in query parameters. Camel's
     // AiResourceUriTemplate parser intentionally does not parse this form.
     @ResourceTemplate(name = "query_resource_template", uriTemplate = "crm://search?q={term}", description = "Search template with a query parameter")

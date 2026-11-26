@@ -86,10 +86,12 @@ class McpServerOAuthTest {
                     })
                     .toolsCall("whooauth", Map.of(), response -> {
                         String[] context = textOf(response).split("\\|", -1);
-                        assertThat(context).hasSize(3);
+                        assertThat(context).hasSize(5);
                         assertThat(context[0]).isNotBlank();
-                        assertThat(context[1]).contains("profile");
+                        assertThat(context[1]).contains("profile").doesNotContain("\"");
                         assertThat(context[2]).isEqualTo("alice");
+                        assertThat(context[3]).isEqualTo("false"); // raw_token must not enter exchange properties
+                        assertThat(context[4]).isEqualTo("true"); // JSON-P realm_access is exposed as a Java Map
                     })
                     .thenAssertResults();
         } finally {
@@ -133,7 +135,13 @@ class McpServerOAuthTest {
             // Keep Host bound to the real localhost destination; only Origin is hostile.
             request.header("Origin", "http://evil.example.com");
         }
-        request.post("/mcp").then().statusCode(expectedStatus);
+        var response = request.post("/mcp");
+        assertThat(response.statusCode()).isEqualTo(expectedStatus);
+        if (untrustedOrigin) {
+            // With CORS disabled for this module, this message proves the MCP server's
+            // loopback DNS-rebinding check (rather than Quarkus CORS) rejected the request.
+            assertThat(response.asString() + " " + response.getStatusLine()).contains("Invalid origin");
+        }
     }
 
     private static String textOf(ToolResponse response) {

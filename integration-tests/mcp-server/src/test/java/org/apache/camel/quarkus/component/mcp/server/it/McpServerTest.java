@@ -503,7 +503,8 @@ class McpServerTest {
 
                     assertThat(page.templates())
                             .extracting(resourceTemplate -> resourceTemplate.uriTemplate())
-                            .contains("crm://annotated/{id}", "crm://search?q={term}")
+                            .contains("crm://annotated/{id}", "crm://search?q={term}",
+                                    "crm://regex/api/v1.0/{id}", "crm://api.v1/customers/{id}")
                             .doesNotContain("crm://hidden-customers/{id}",
                                     "crm://other-customers/{id}");
                 })
@@ -618,6 +619,51 @@ class McpServerTest {
                 .resourcesRead("crm://annotated-name/42", response -> assertThat(response.contents().get(0).asText().text())
                         .isEqualTo("annotated name 42"))
                 .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplateDoesNotMatchQuerySuffix() {
+        client().when()
+                .resourcesRead("crm://customers/42?view=full")
+                .withErrorAssert(error -> assertThat(error.code())
+                        .isEqualTo(JsonRpcErrorCodes.RESOURCE_NOT_FOUND))
+                .send()
+                .thenAssertResults();
+    }
+
+    @Test
+    void testResourceTemplatesUnsupportedByQuarkusMatcherAreRefused() {
+        controlRoute("search-customer-resource-template-route", "start");
+        controlRoute("unsupported-regex-literal-resource-template-route", "start");
+        controlRoute("unsupported-variable-resource-template-route", "start");
+        controlRoute("regex-overlap-resource-template-route", "start");
+        controlRoute("regex-authority-overlap-resource-template-route", "start");
+        try {
+            assertThat(routeStatus("search-customer-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("unsupported-regex-literal-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("unsupported-variable-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("regex-overlap-resource-template-route")).isEqualTo("Started");
+            assertThat(routeStatus("regex-authority-overlap-resource-template-route")).isEqualTo("Started");
+
+            client().when()
+                    .resourcesTemplatesList(page -> assertThat(page.templates())
+                            .extracting(template -> template.uriTemplate())
+                            .contains("crm://search/orders/{id}")
+                            .doesNotContain("crm://api/v1.0/{id}", "crm://dotted/{customer.id}",
+                                    "crm://regex/api/v1x0/{id}", "crm://apixv1/customers/{id}"))
+                    .thenAssertResults();
+
+            client().when()
+                    .resourcesRead("crm://search/orders/42", response -> assertThat(
+                            response.contents().get(0).asText().text()).isEqualTo("search customer 42"))
+                    .thenAssertResults();
+        } finally {
+            controlRoute("search-customer-resource-template-route", "stop");
+            controlRoute("unsupported-regex-literal-resource-template-route", "stop");
+            controlRoute("unsupported-variable-resource-template-route", "stop");
+            controlRoute("regex-overlap-resource-template-route", "stop");
+            controlRoute("regex-authority-overlap-resource-template-route", "stop");
+        }
     }
 
     @Test
