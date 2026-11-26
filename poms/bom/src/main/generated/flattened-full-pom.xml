@@ -7802,12 +7802,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>2.4.3</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>2.4.3</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
