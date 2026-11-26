@@ -51,10 +51,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-debezium-oracle</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-debezium-postgres</artifactId>
         </dependency>
         <dependency>
@@ -117,11 +113,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers-oracle-xe</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-mongodb</artifactId>
             <scope>test</scope>
@@ -164,7 +155,7 @@
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/debezium</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
                                 <group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
-                                <group-tests.files.excludes>${group-tests.files.excludes}</group-tests.files.excludes>
+                                <group-tests.files.excludes>oracle,${group-tests.files.excludes}</group-tests.files.excludes>
                             </properties>
                         </configuration>
                     </execution>
@@ -239,19 +230,6 @@
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-debezium-postgres-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-debezium-oracle-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>

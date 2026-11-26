@@ -113,6 +113,7 @@ group-06:
   - exec
   - file
   - hashicorp-vault
+  - jdbc-db2
   - jsonpath
   - kamelet
   - langchain4j-chat-ql4j
@@ -132,6 +133,7 @@ group-07:
   - dataformats-json-grouped
   - dropbox
   - geocoder
+  - jdbc-oracle
   - jslt
   - langchain4j-embeddings
   - langchain4j-embeddings-ql4j
@@ -149,6 +151,7 @@ group-08:
   - azure-grouped
   - crypto
   - crypto-pgp
+  - debezium-oracle
   - joor
   - jq
   - langchain4j-chat

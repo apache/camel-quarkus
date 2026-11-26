@@ -54,10 +54,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-db2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
         </dependency>
         <dependency>
@@ -71,10 +67,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-mysql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-oracle</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -151,6 +143,7 @@
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/jdbc</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
                                 <group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
+                                <group-tests.files.excludes>db2,oracle,${group-tests.files.excludes}</group-tests.files.excludes>
                             </properties>
                         </configuration>
                     </execution>

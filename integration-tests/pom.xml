@@ -79,6 +79,7 @@
         <module>dataformats-json-grouped</module>
         <module>datasonnet</module>
         <module>debezium-grouped</module>
+        <module>debezium-oracle</module>
         <module>debug</module>
         <module>disruptor</module>
         <module>docling</module>
@@ -123,7 +124,9 @@
         <module>java-joor-dsl</module>
         <module>jaxb</module>
         <module>jcache</module>
+        <module>jdbc-db2</module>
         <module>jdbc-grouped</module>
+        <module>jdbc-oracle</module>
         <module>jfr</module>
         <module>jira</module>
         <module>jms-artemis-client</module>
