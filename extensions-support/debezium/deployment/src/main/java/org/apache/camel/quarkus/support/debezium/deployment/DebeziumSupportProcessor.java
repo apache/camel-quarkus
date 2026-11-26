@@ -35,6 +35,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.maven.dependency.ResolvedDependency;
@@ -145,6 +146,12 @@ public class DebeziumSupportProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(PostProcessorRegistry.class)
                 .methods()
                 .build());
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        // Obtains the platform MBeanServer in its static initializer
+        return new RuntimeInitializedClassBuildItem("io.debezium.rest.MetricsResource");
     }
 
     @BuildStep
