@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jackson-protobuf</artifactId>
+            <artifactId>camel-jackson3-protobuf</artifactId>
         </dependency>
     </dependencies>
 

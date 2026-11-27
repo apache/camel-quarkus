@@ -16,25 +16,50 @@
  */
 package org.apache.camel.quarkus.component.jacksonxml.deployment;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.deployment.util.ServiceUtil;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
+import tools.jackson.core.TokenStreamFactory;
+import tools.jackson.databind.ObjectMapper;
 
 class JacksonxmlProcessor {
 
     private static final String FEATURE = "camel-jacksonxml";
+    private static final String SERVICES_PREFIX = "META-INF/services/";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProviders) {
+        Stream.of(TokenStreamFactory.class, ObjectMapper.class)
+                .map(Class::getName)
+                .forEach(serviceName -> {
+                    try {
+                        final Set<String> names = ServiceUtil.classNamesNamedIn(Thread.currentThread().getContextClassLoader(),
+                                SERVICES_PREFIX + serviceName);
+                        serviceProviders.produce(new ServiceProviderBuildItem(serviceName, new ArrayList<>(names)));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 
     @BuildStep

@@ -346,18 +346,18 @@
                                 <phase>process-classes</phase>
                                 <configuration>
                                     <componentLinkOverrides>
-                                        <!-- TODO: Remove for Camel > 4.20.0 -->
+                                        <!-- The Jackson extensions provide camel-jackson3*, whose doc pages have a 3 suffix -->
                                         <jackson>
-                                            <name>jackson2</name>
+                                            <name>jackson3</name>
                                         </jackson>
                                         <avroJackson>
-                                            <name>avroJackson2</name>
+                                            <name>avroJackson3</name>
                                         </avroJackson>
                                         <protobufJackson>
-                                            <name>protobufJackson2</name>
+                                            <name>protobufJackson3</name>
                                         </protobufJackson>
                                         <jacksonXml>
-                                            <name>jacksonXml2</name>
+                                            <name>jacksonXml3</name>
                                         </jacksonXml>
                                         <!-- TODO: Remove for Camel > 4.21.0 -->
                                         <github>

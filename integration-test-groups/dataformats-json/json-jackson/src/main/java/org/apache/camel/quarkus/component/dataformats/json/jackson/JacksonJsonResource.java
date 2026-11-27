@@ -21,7 +21,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -32,10 +31,11 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.jackson.JacksonConstants;
+import org.apache.camel.component.jackson3.JacksonConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.dataformats.json.jackson.model.*;
 import org.jboss.logging.Logger;
+import tools.jackson.databind.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -243,7 +243,7 @@ public class JacksonJsonResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jackson-objectmapper-in", person);
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("{\"first_name\":\"John\",\"last_name\":\"Doe\",\"age\":44}", marshalledAsString);
+        assertEquals("{\"age\":44,\"first_name\":\"John\",\"last_name\":\"Doe\"}", marshalledAsString);
 
         producerTemplate.sendBody("direct:jackson-objectmapper-back", marshalled);
 
@@ -273,7 +273,7 @@ public class JacksonJsonResource {
     public void jacksonMarshalModule() throws Exception {
         MockEndpoint mock = context.getEndpoint("mock:jackson-module-marshal", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        mock.message(0).body(String.class).isEqualTo("{\"my-name\":\"Camel\",\"my-country\":\"Denmark\"}");
+        mock.message(0).body(String.class).isEqualTo("{\"my-country\":\"Denmark\",\"my-name\":\"Camel\"}");
 
         TestOtherPojo pojo = new TestOtherPojo();
         pojo.setName("Camel");
@@ -479,7 +479,7 @@ public class JacksonJsonResource {
             order.setPartName("Camel");
 
             String json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo-test", order);
-            assertEquals("{\"id\":0,\"part_name\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}", json);
+            assertEquals("{\"amount\":1,\"customer_name\":\"Acme\",\"id\":0,\"part_name\":\"Camel\"}", json);
         }
 
     }
@@ -531,7 +531,7 @@ public class JacksonJsonResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jackson-view-inPojoAgeView", in);
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("{\"age\":30,\"height\":190}", marshalledAsString);
+        assertEquals("{\"age\":30}", marshalledAsString);
 
         producerTemplate.sendBody("direct:jackson-view-backPojoAgeView", marshalled);
 
@@ -543,7 +543,7 @@ public class JacksonJsonResource {
     public void jacksonModuleRef() throws Exception {
         MockEndpoint mock = context.getEndpoint("mock:jackson-module-ref-marshal", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        mock.message(0).body(String.class).isEqualTo("{\"my-name\":\"Camel\",\"my-country\":\"Denmark\"}");
+        mock.message(0).body(String.class).isEqualTo("{\"my-country\":\"Denmark\",\"my-name\":\"Camel\"}");
 
         TestOtherPojo pojo = new TestOtherPojo();
         pojo.setName("Camel");
@@ -595,7 +595,7 @@ public class JacksonJsonResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jackson-timezone-in", in.getTime());
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("1493139610000", marshalledAsString);
+        assertEquals("\"2017-04-25T17:00:10.000Z\"", marshalledAsString);
 
         mock.expectedMessageCount(1);
 

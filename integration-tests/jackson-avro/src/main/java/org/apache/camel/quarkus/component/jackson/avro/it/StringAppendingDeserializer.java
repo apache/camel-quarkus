@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.jackson.avro.it;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.deser.std.StdDeserializer;
 
 /**
  * Simple deserializer to append a String onto the text field on a {@link Pojo} instance
@@ -31,17 +29,13 @@ public class StringAppendingDeserializer extends StdDeserializer<Pojo> {
     public static final String STRING_TO_APPEND = " Custom Deserialized";
 
     public StringAppendingDeserializer() {
-        this(null);
-    }
-
-    public StringAppendingDeserializer(Class<?> src) {
-        super(src);
+        super(Pojo.class);
     }
 
     @Override
-    public Pojo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        JsonNode jsonNode = p.getCodec().readTree(p);
-        String text = jsonNode.get("text").asText();
+    public Pojo deserialize(JsonParser p, DeserializationContext ctxt) {
+        JsonNode jsonNode = p.readValueAsTree();
+        String text = jsonNode.get("text").asString();
         Pojo pojo = new Pojo();
         pojo.setText(text + STRING_TO_APPEND);
         return pojo;

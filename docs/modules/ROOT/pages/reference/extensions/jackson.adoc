@@ -20,6 +20,13 @@ endif::[]
 
 Marshal POJOs to JSON and back using Jackson.
 
+[id="extensions-jackson-whats-inside"]
+== What's inside
+
+* xref:{cq-camel-components}:dataformats:jackson3-dataformat.adoc[JSON Jackson data format]
+
+Please refer to the above link for usage and configuration details.
+
 [id="extensions-jackson-maven-coordinates"]
 == Maven coordinates
 
@@ -40,6 +47,14 @@ endif::[]
 
 [id="extensions-jackson-usage"]
 == Usage
+[id="extensions-jackson-usage-jackson-3"]
+=== Jackson 3
+
+This extension provides the `jackson` data format of `camel-jackson3`, which is based on Jackson 3 (`tools.jackson`), like the
+Quarkus Jackson extension. The data format uses the defaults of Jackson 3, and your own `ObjectMapper`, modules and
+(de)serializers must use the Jackson 3 API. See the Jackson 3 section of the
+xref:manual::camel-4x-upgrade-guide-4_24.adoc[Camel 4.24 upgrade guide] for the differences to Jackson 2.
+
 [id="extensions-jackson-usage-configuring-the-jackson-objectmapper"]
 === Configuring the Jackson `ObjectMapper`
 
@@ -58,9 +73,9 @@ You can pass a custom `ObjectMapper` instance to `JacksonDataFormat` as follows.
 
 [source,java]
 ----
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.component.jackson3.JacksonDataFormat;
 
 public class Routes extends RouteBuilder {
     public void configure() {
@@ -81,7 +96,7 @@ The Quarkus Jackson extension exposes an `ObjectMapper` CDI bean which can be di
 [source,java]
 ----
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.component.jackson3.JacksonDataFormat;
 
 public class Routes extends RouteBuilder {
     public void configure() {
@@ -118,17 +133,17 @@ public class Routes extends RouteBuilder {
 }
 ----
 
-You can perform customizations on the Quarkus `ObjectMapper` with a `ObjectMapperCustomizer`.
+You can perform customizations on the Quarkus `ObjectMapper` with a `JsonMapperBuilderCustomizer`.
 
 [source,java]
 ----
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.quarkus.jackson.ObjectMapperCustomizer;
+import io.quarkus.jackson.JsonMapperBuilderCustomizer;
+import tools.jackson.databind.json.JsonMapper;
 
 @Singleton
-public class RegisterCustomModuleCustomizer implements ObjectMapperCustomizer {
-    public void customize(ObjectMapper mapper) {
-        mapper.registerModule(new CustomModule());
+public class RegisterCustomModuleCustomizer implements JsonMapperBuilderCustomizer {
+    public void customize(JsonMapper.Builder builder) {
+        builder.addModule(new CustomModule());
     }
 }
 ----
@@ -137,9 +152,9 @@ It's also possible to `@Inject` the Quarkus `ObjectMapper` and pass it to the `J
 
 [source,java]
 ----
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.component.jackson3.JacksonDataFormat;
 
 @ApplicationScoped
 public class Routes extends RouteBuilder {

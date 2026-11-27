@@ -16,13 +16,14 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json.jackson.model;
 
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import tools.jackson.core.Version;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.databind.PropertyNamingStrategies;
+import tools.jackson.databind.cfg.MapperBuilder;
 
 @RegisterForReflection
-public class MyModule extends Module {
+public class MyModule extends JacksonModule {
 
     @Override
     public String getModuleName() {
@@ -36,14 +37,16 @@ public class MyModule extends Module {
 
     @Override
     public void setupModule(SetupContext context) {
-        context.setNamingStrategy(new PropertyNamingStrategies.NamingBase() {
-            private static final long serialVersionUID = 1L;
+        if (context.getOwner() instanceof MapperBuilder<?, ?> builder) {
+            builder.propertyNamingStrategy(new PropertyNamingStrategies.NamingBase() {
+                private static final long serialVersionUID = 1L;
 
-            @Override
-            public String translate(String propertyName) {
-                return "my-" + propertyName;
-            }
-        });
+                @Override
+                public String translate(String propertyName) {
+                    return "my-" + propertyName;
+                }
+            });
+        }
     }
 
 }

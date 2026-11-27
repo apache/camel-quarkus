@@ -37,11 +37,11 @@ public class JacksonProcessor {
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<>();
         items.add(
-                ReflectiveClassBuildItem.builder("com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule")
+                ReflectiveClassBuildItem.builder("tools.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule")
                         .fields().build());
-        items.add(ReflectiveClassBuildItem.builder("com.fasterxml.jackson.databind.JsonNode").build());
-        if (QuarkusClassLoader.isClassPresentAtRuntime("com.fasterxml.jackson.datatype.joda.JodaModule")) {
-            items.add(ReflectiveClassBuildItem.builder("com.fasterxml.jackson.datatype.joda.JodaModule").build());
+        items.add(ReflectiveClassBuildItem.builder("tools.jackson.databind.JsonNode").build());
+        if (QuarkusClassLoader.isClassPresentAtRuntime("tools.jackson.datatype.joda.JodaModule")) {
+            items.add(ReflectiveClassBuildItem.builder("tools.jackson.datatype.joda.JodaModule").build());
             items.add(ReflectiveClassBuildItem.builder("org.joda.time.DateTime").build());
         }
         return items;

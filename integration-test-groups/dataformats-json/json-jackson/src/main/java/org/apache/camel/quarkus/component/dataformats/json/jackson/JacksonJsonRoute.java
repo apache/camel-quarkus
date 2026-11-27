@@ -19,15 +19,15 @@ package org.apache.camel.quarkus.component.dataformats.json.jackson;
 
 import java.util.TimeZone;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonConstants;
-import org.apache.camel.component.jackson.JacksonDataFormat;
-import org.apache.camel.component.jackson.ListJacksonDataFormat;
+import org.apache.camel.component.jackson3.JacksonConstants;
+import org.apache.camel.component.jackson3.JacksonDataFormat;
+import org.apache.camel.component.jackson3.ListJacksonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.jackson.model.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule;
 
 public class JacksonJsonRoute extends RouteBuilder {
 

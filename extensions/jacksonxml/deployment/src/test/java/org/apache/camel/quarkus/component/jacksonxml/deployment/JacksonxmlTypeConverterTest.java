@@ -24,7 +24,7 @@ import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jacksonxml.JacksonXMLConstants;
+import org.apache.camel.component.jackson3xml.JacksonXMLConstants;
 import org.apache.camel.support.DefaultExchange;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

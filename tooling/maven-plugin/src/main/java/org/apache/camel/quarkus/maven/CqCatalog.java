@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -48,6 +49,16 @@ import org.apache.camel.tooling.model.PojoBeanModel;
 import org.apache.camel.tooling.model.TransformerModel;
 
 public class CqCatalog {
+
+    /**
+     * Extensions whose Camel artifact has another name. The Jackson extensions keep their names and provide the
+     * Jackson 3 line of Camel (camel-jackson3*), to which the catalog gives the jackson data formats.
+     */
+    private static final Map<String, String> CAMEL_ARTIFACT_ID_BASES = Map.of(
+            "jackson", "jackson3",
+            "jackson-avro", "jackson3-avro",
+            "jackson-protobuf", "jackson3-protobuf",
+            "jacksonxml", "jackson3xml");
 
     public enum Flavor {
         camel("org.apache.camel", "camel-catalog", "org/apache/camel/catalog") {
@@ -147,7 +158,9 @@ public class CqCatalog {
             } else if ("qute".equals(cqArtifactIdBase)) {
                 filter = model -> "camel-quarkus-qute-component".equals(model.getArtifactId());
             } else {
-                filter = model -> ("camel-" + cqArtifactIdBase).equals(model.getArtifactId());
+                final String camelArtifactId = "camel-"
+                        + CAMEL_ARTIFACT_ID_BASES.getOrDefault(cqArtifactIdBase, cqArtifactIdBase);
+                filter = model -> camelArtifactId.equals(model.getArtifactId());
             }
             break;
         case camelQuarkus:

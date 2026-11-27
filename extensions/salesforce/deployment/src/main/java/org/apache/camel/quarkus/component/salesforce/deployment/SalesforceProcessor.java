@@ -25,9 +25,13 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveFieldBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
 import org.apache.camel.support.jsse.KeyStoreParameters;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -37,6 +41,7 @@ class SalesforceProcessor {
     private static final String SALESFORCE_EVENTBUS_PACKAGE = "com.sforce.eventbus";
     private static final String SALESFORCE_INTERNAL_DTO_PACKAGE = "org.apache.camel.component.salesforce.internal.dto";
     private static final String FEATURE = "camel-salesforce";
+    private static final DotName JSON_VALUE = DotName.createSimple("com.fasterxml.jackson.annotation.JsonValue");
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -82,6 +87,23 @@ class SalesforceProcessor {
 
         // Ensure package scanning for user DTO classes can work in native mode
         packageScanClass.produce(new CamelPackageScanClassBuildItem(userDtoClasses));
+    }
+
+    // Jackson invokes @JsonValue members reflectively, such as the value() of the generated picklist enums, and
+    // Quarkus does not register them
+    @BuildStep
+    void registerJsonValueMembers(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod,
+            BuildProducer<ReflectiveFieldBuildItem> reflectiveField) {
+        for (AnnotationInstance instance : combinedIndex.getIndex().getAnnotations(JSON_VALUE)) {
+            AnnotationTarget target = instance.target();
+            if (target.kind() == AnnotationTarget.Kind.METHOD) {
+                reflectiveMethod.produce(new ReflectiveMethodBuildItem(getClass().getName(), target.asMethod()));
+            } else if (target.kind() == AnnotationTarget.Kind.FIELD) {
+                reflectiveField.produce(new ReflectiveFieldBuildItem(getClass().getName(), target.asField()));
+            }
+        }
     }
 
     @BuildStep

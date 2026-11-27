@@ -29,7 +29,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.jacksonxml.JacksonXMLConstants;
+import org.apache.camel.component.jackson3xml.JacksonXMLConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.dataformats.json.jackson.model.TestJAXBPojo;
 import org.apache.camel.quarkus.component.dataformats.json.jackson.model.TestOtherPojo;
@@ -223,7 +223,7 @@ public class JacksonXmlResource {
         MockEndpoint mock = context.getEndpoint("mock:jacksonxml-marshal-module", MockEndpoint.class);
         mock.expectedMessageCount(1);
         mock.message(0).body(String.class)
-                .isEqualTo("<TestOtherPojo><my-name>Camel</my-name><my-country>Denmark</my-country></TestOtherPojo>");
+                .isEqualTo("<TestOtherPojo><my-country>Denmark</my-country><my-name>Camel</my-name></TestOtherPojo>");
 
         TestOtherPojo pojo = new TestOtherPojo();
         pojo.setName("Camel");
@@ -404,7 +404,7 @@ public class JacksonXmlResource {
         marshalled = producerTemplate.requestBody("direct:jacksonxml-xml-inAgeView", view);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
 
-        assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
+        assertEquals("<TestPojoView><age>30</age></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-xml-backAgeView", marshalled);
 
@@ -443,7 +443,7 @@ public class JacksonXmlResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jacksonxml-jsonview-inPojoAgeView", in);
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
+        assertEquals("<TestPojoView><age>30</age></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-jsonview-backPojoAgeView", marshalled);
 
@@ -457,7 +457,7 @@ public class JacksonXmlResource {
         marshalled = producerTemplate.requestBody("direct:jacksonxml-jsonview-inPojoWeightView", in);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
 
-        assertEquals("<TestPojoView><height>190</height><weight>70</weight></TestPojoView>", marshalledAsString);
+        assertEquals("<TestPojoView><weight>70</weight></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-jsonview-backPojoWeightView", marshalled);
 
@@ -470,7 +470,7 @@ public class JacksonXmlResource {
         MockEndpoint mock = context.getEndpoint("mock:jacksonxml-moduleref-marshal", MockEndpoint.class);
         mock.expectedMessageCount(1);
         mock.message(0).body(String.class)
-                .isEqualTo("<TestOtherPojo><my-name>Camel</my-name><my-country>Denmark</my-country></TestOtherPojo>");
+                .isEqualTo("<TestOtherPojo><my-country>Denmark</my-country><my-name>Camel</my-name></TestOtherPojo>");
 
         TestOtherPojo pojo = new TestOtherPojo();
         pojo.setName("Camel");
@@ -519,7 +519,7 @@ public class JacksonXmlResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jacksonxml-datatimezone-in", in.getTime());
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("<Date>1493139610000</Date>", marshalledAsString);
+        assertEquals("<Date>2017-04-25T17:00:10.000Z</Date>", marshalledAsString);
 
         mock.expectedMessageCount(1);
 

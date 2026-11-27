@@ -91,7 +91,8 @@ public class JacksonXmlTest {
         RestAssured.get("/dataformats-json-jackson/jacksonxml/marshal-includedefault")
                 .then()
                 .statusCode(200)
-                .body(equalTo("<TestOtherPojo><name>Camel</name><country/></TestOtherPojo>"));
+                .body(equalTo(
+                        "<TestOtherPojo><country xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\"/><name>Camel</name></TestOtherPojo>"));
     }
 
     @Test

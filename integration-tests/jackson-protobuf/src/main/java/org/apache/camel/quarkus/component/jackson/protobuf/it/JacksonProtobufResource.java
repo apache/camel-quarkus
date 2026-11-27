@@ -19,11 +19,6 @@ package org.apache.camel.quarkus.component.jackson.protobuf.it;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.dataformat.protobuf.ProtobufMapper;
-import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchema;
-import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchemaLoader;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -33,9 +28,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.jackson.SchemaResolver;
-import org.apache.camel.component.jackson.protobuf.JacksonProtobufDataFormat;
+import org.apache.camel.component.jackson3.SchemaResolver;
+import org.apache.camel.component.jackson3.protobuf.JacksonProtobufDataFormat;
 import org.apache.camel.util.IOHelper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.dataformat.protobuf.ProtobufMapper;
+import tools.jackson.dataformat.protobuf.schema.ProtobufSchema;
+import tools.jackson.dataformat.protobuf.schema.ProtobufSchemaLoader;
 
 @Path("/jackson-protobuf")
 @ApplicationScoped
@@ -64,7 +64,7 @@ public class JacksonProtobufResource {
             builder.entity(result.getText());
         } else if (type.equals("json-node")) {
             JsonNode result = producerTemplate.requestBody(directUri, message, JsonNode.class);
-            builder.entity(result.at("/text").asText());
+            builder.entity(result.at("/text").asString());
         } else {
             throw new IllegalArgumentException("Unknown unmarshal type: " + type);
         }
@@ -91,10 +91,8 @@ public class JacksonProtobufResource {
 
     @Named
     public ProtobufMapper protobufMapper() {
-        ProtobufMapper protobufMapper = new ProtobufMapper();
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Pojo.class, new StringAppendingDeserializer());
-        protobufMapper.registerModule(module);
-        return protobufMapper;
+        return ProtobufMapper.builder().addModule(module).build();
     }
 }

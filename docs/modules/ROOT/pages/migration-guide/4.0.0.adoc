@@ -214,3 +214,17 @@ The same components can now also use the key store and trust store of a bridged 
 The `camel-quarkus-ognl` extension was removed, because the `camel-ognl` component was removed from Apache Camel.
 
 Use another expression language instead, such as `simple` or `groovy`.
+
+== Jackson extensions use Jackson 3
+
+`camel-quarkus-jackson`, `camel-quarkus-jacksonxml`, `camel-quarkus-jackson-avro` and `camel-quarkus-jackson-protobuf` now provide the Jackson 3 data formats of Camel: `camel-jackson3`, `camel-jackson3xml`, `camel-jackson3-avro` and `camel-jackson3-protobuf`. The extension names and the data format names (`jackson`, `jacksonXml`, `avroJackson` and `protobufJackson`) are unchanged.
+
+Code that configures these data formats must use the Jackson 3 API, which is the one the Quarkus Jackson extension uses:
+
+* The Camel classes are in the `org.apache.camel.component.jackson3`, `org.apache.camel.component.jackson3xml`, `org.apache.camel.component.jackson3.avro` and `org.apache.camel.component.jackson3.protobuf` packages.
+* An `ObjectMapper`, module, serializer or deserializer you give to the data formats must use the Jackson 3 classes in the `tools.jackson` packages. Jackson annotations stay in `com.fasterxml.jackson.annotation`.
+* With `autoDiscoverObjectMapper` enabled, the data format now finds the `ObjectMapper` of the Quarkus Jackson extension.
+
+The data formats use the defaults of Jackson 3. Refer to the Jackson 3 section of the xref:manual::camel-4x-upgrade-guide-4_24.adoc[Camel 4.24 upgrade guide] for the differences to Jackson 2.
+
+`camel-quarkus-aws2-ddb` and `camel-quarkus-google-sheets` no longer depend on `camel-quarkus-jackson`. Add `camel-quarkus-jackson` to your application if it uses the `jackson` data format.

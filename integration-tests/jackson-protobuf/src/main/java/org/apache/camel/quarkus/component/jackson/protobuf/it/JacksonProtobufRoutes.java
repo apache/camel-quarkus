@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.jackson.protobuf.it;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.ProtobufLibrary;
+import tools.jackson.databind.JsonNode;
 
 public class JacksonProtobufRoutes extends RouteBuilder {
     @Override

@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.dataformats.json.jackson;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -51,7 +50,7 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json-jackson/jackson/marshal-includedefault")
                 .then()
                 .statusCode(200)
-                .body(equalTo("{\"name\":\"Camel\",\"country\":null}"));
+                .body(equalTo("{\"country\":null,\"name\":\"Camel\"}"));
     }
 
     @Test
@@ -110,7 +109,6 @@ public class JacksonJsonTest {
                 .statusCode(204);
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/9356")
     @Test
     void jacksonObjectMapper() {
         RestAssured.get("/dataformats-json-jackson/jackson/object-mapper")
@@ -146,7 +144,6 @@ public class JacksonJsonTest {
                 .statusCode(204);
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/9356")
     @Test
     void jacksonConversionPojo() {
         RestAssured.get("/dataformats-json-jackson/jackson/conversion-pojo")

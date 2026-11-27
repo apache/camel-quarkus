@@ -20,7 +20,7 @@ import io.quarkus.test.QuarkusExtensionTest;
 import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonConstants;
+import org.apache.camel.component.jackson3.JacksonConstants;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,8 @@ public class JacksonTypeConverterPojoTest {
         order.setPartName("Camel");
 
         String json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo", order);
-        assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customerName\":\"Acme\"}", json);
+        // Jackson 3 sorts properties alphabetically by default
+        assertEquals("{\"amount\":1,\"customerName\":\"Acme\",\"id\":0,\"partName\":\"Camel\"}", json);
 
     }
 

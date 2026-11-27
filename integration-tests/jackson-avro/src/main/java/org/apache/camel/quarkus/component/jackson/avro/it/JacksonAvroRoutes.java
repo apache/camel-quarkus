@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.jackson.avro.it;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.AvroLibrary;
+import tools.jackson.databind.JsonNode;
 
 public class JacksonAvroRoutes extends RouteBuilder {
 

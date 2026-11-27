@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jackson-avro</artifactId>
+            <artifactId>camel-jackson3-avro</artifactId>
         </dependency>
     </dependencies>
 

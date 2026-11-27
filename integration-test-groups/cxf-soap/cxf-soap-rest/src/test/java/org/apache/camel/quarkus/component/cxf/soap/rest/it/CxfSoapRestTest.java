@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.rest.it;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -27,6 +26,7 @@ import org.jboss.eap.quickstarts.wscalculator.calculator.Operands;
 import org.jboss.eap.quickstarts.wscalculator.calculator.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
 
 @QuarkusTest
 @QuarkusTestResource(value = CxfRestTestResource.class)

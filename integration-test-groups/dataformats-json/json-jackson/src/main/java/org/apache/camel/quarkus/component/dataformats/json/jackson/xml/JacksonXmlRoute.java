@@ -20,9 +20,9 @@ package org.apache.camel.quarkus.component.dataformats.json.jackson.xml;
 import java.util.TimeZone;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jacksonxml.JacksonXMLConstants;
-import org.apache.camel.component.jacksonxml.JacksonXMLDataFormat;
-import org.apache.camel.component.jacksonxml.ListJacksonXMLDataFormat;
+import org.apache.camel.component.jackson3xml.JacksonXMLConstants;
+import org.apache.camel.component.jackson3xml.JacksonXMLDataFormat;
+import org.apache.camel.component.jackson3xml.ListJacksonXMLDataFormat;
 import org.apache.camel.quarkus.component.dataformats.json.jackson.model.*;
 
 public class JacksonXmlRoute extends RouteBuilder {

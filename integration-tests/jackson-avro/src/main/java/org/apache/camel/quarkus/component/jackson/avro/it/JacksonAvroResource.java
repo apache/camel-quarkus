@@ -28,10 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.dataformat.avro.AvroMapper;
-import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -46,9 +42,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.avro.Schema;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.jackson.SchemaResolver;
-import org.apache.camel.component.jackson.avro.JacksonAvroDataFormat;
+import org.apache.camel.component.jackson3.SchemaResolver;
+import org.apache.camel.component.jackson3.avro.JacksonAvroDataFormat;
 import org.apache.commons.io.IOUtils;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.dataformat.avro.AvroMapper;
+import tools.jackson.dataformat.avro.AvroSchema;
 
 @Path("/jackson-avro")
 @ApplicationScoped
@@ -89,7 +89,7 @@ public class JacksonAvroResource {
             builder.entity(result.getText());
         } else if (type.equals("json-node")) {
             JsonNode result = producerTemplate.requestBody(directUri, message, JsonNode.class);
-            builder.entity(result.at("/text").asText());
+            builder.entity(result.at("/text").asString());
         } else if (type.equals("pojo-list")) {
             List<Pojo> result = producerTemplate.requestBody(directUri, message, List.class);
             StringJoiner joiner = new StringJoiner(" ");
@@ -189,11 +189,9 @@ public class JacksonAvroResource {
 
     @Named
     public AvroMapper avroMapper() {
-        AvroMapper avroMapper = new AvroMapper();
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Pojo.class, new StringAppendingDeserializer());
-        avroMapper.registerModule(module);
-        return avroMapper;
+        return AvroMapper.builder().addModule(module).build();
     }
 
     private SchemaResolver createSchemaResolver(String schemaPath) throws IOException {
