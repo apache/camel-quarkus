@@ -35,6 +35,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.pqc.PQCConstants;
+import org.apache.camel.component.pqc.stateful.StatefulKeyState;
 import org.bouncycastle.jcajce.SecretKeyWithEncapsulation;
 import org.jboss.logging.Logger;
 
@@ -88,6 +90,53 @@ public class PqcResource {
 
         Object verification = exchange.getMessage().getHeader("CamelPQCVerification");
         return Boolean.TRUE.equals(verification);
+    }
+
+    // Stateful signature tests: no keyPair is configured, so camel-pqc uses its own default key material
+    @Path("/default/sign/{algorithm}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @jakarta.ws.rs.Produces(MediaType.TEXT_PLAIN)
+    public String signWithDefaultMaterial(String message, @PathParam("algorithm") String algorithm) {
+        Exchange exchange = producerTemplate.request(
+                "pqc:sign?operation=sign&signatureAlgorithm=" + algorithm,
+                ex -> ex.getIn().setBody(message.getBytes(StandardCharsets.UTF_8)));
+
+        byte[] signature = exchange.getMessage().getHeader(PQCConstants.SIGNATURE, byte[].class);
+        return Base64.getEncoder().encodeToString(signature);
+    }
+
+    @Path("/default/verify/{algorithm}/{message}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @jakarta.ws.rs.Produces(MediaType.TEXT_PLAIN)
+    public boolean verifyWithDefaultMaterial(String signature,
+            @PathParam("algorithm") String algorithm,
+            @PathParam("message") String message) {
+        Exchange exchange = producerTemplate.request(
+                "pqc:verify?operation=verify&signatureAlgorithm=" + algorithm,
+                ex -> {
+                    ex.getIn().setBody(message.getBytes(StandardCharsets.UTF_8));
+                    ex.getIn().setHeader(PQCConstants.SIGNATURE, Base64.getDecoder().decode(signature));
+                });
+
+        return Boolean.TRUE.equals(exchange.getMessage().getHeader(PQCConstants.VERIFY));
+    }
+
+    @Path("/default/keyState/{algorithm}")
+    @POST
+    @jakarta.ws.rs.Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> keyStateWithDefaultMaterial(@PathParam("algorithm") String algorithm) {
+        Exchange exchange = producerTemplate.request(
+                "pqc:keyState?operation=getKeyState&signatureAlgorithm=" + algorithm,
+                ex -> {
+                });
+
+        StatefulKeyState state = exchange.getMessage().getHeader(PQCConstants.KEY_STATE, StatefulKeyState.class);
+        return Map.of(
+                "algorithm", state.getAlgorithm(),
+                "index", state.getIndex(),
+                "usagesRemaining", state.getUsagesRemaining());
     }
 
     @Path("/kem/encapsulate/{algorithm}/{keyAlgorithm}/{length}")

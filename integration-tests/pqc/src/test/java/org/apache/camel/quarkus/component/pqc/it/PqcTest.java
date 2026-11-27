@@ -66,6 +66,61 @@ class PqcTest {
                 .body(equalTo("true"));
     }
 
+    @ParameterizedTest
+    @EnumSource(value = PQCSignatureAlgorithms.class, names = { "LMS", "HSS", "XMSS", "XMSSMT" })
+    public void testStatefulSignAndVerifyWithDefaultMaterial(PQCSignatureAlgorithms signatureAlgorithm) {
+        String algorithm = signatureAlgorithm.name();
+
+        Map<String, Object> stateBefore = getDefaultMaterialKeyState(algorithm);
+
+        String signature = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Hello")
+                .post("/pqc/default/sign/" + algorithm)
+                .then()
+                .statusCode(200)
+                .extract()
+                .asString();
+
+        assertThat(signature).isNotBlank();
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(signature)
+                .post("/pqc/default/verify/" + algorithm + "/Hello")
+                .then()
+                .statusCode(200)
+                .body(equalTo("true"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(signature)
+                .post("/pqc/default/verify/" + algorithm + "/Wrong_text")
+                .then()
+                .statusCode(200)
+                .body(equalTo("false"));
+
+        // Signing with a stateful key consumes one one-time signature
+        Map<String, Object> stateAfter = getDefaultMaterialKeyState(algorithm);
+        assertThat(toLong(stateAfter.get("index"))).isEqualTo(toLong(stateBefore.get("index")) + 1);
+        assertThat(toLong(stateAfter.get("usagesRemaining")))
+                .isEqualTo(toLong(stateBefore.get("usagesRemaining")) - 1);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> getDefaultMaterialKeyState(String algorithm) {
+        return RestAssured.post("/pqc/default/keyState/" + algorithm)
+                .then()
+                .statusCode(200)
+                .body("algorithm", notNullValue())
+                .extract()
+                .as(Map.class);
+    }
+
+    private static long toLong(Object value) {
+        return ((Number) value).longValue();
+    }
+
     @Test
     public void testNegativeSignAndVerify() {
         // Sign operation using Falcon algorithm
