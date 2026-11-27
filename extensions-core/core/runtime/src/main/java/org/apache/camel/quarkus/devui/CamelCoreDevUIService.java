@@ -25,15 +25,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
 import io.quarkus.runtime.annotations.DevMCPEnableByDefault;
 import io.quarkus.runtime.annotations.JsonRpcDescription;
 import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
-import io.smallrye.mutiny.subscription.Cancellable;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.CamelContext;
 import org.apache.camel.catalog.EndpointValidationResult;
@@ -56,7 +53,6 @@ public class CamelCoreDevUIService {
     private static final Logger LOG = Logger.getLogger(CamelCoreDevUIService.class);
     private static volatile Set<String> ALLOWED_CONSOLE_IDS = Collections.emptySet();
     private static volatile Map<String, Map<String, Set<String>>> ALLOWED_CONSOLE_OPTIONS = Collections.emptyMap();
-    private final Map<String, ConsoleSubscription> PROCESSORS = new ConcurrentHashMap<>();
 
     static void setAllowedConsoleIds(Set<String> consoleIds) {
         ALLOWED_CONSOLE_IDS = Set.copyOf(consoleIds);
@@ -87,23 +83,6 @@ public class CamelCoreDevUIService {
     }
 
     /**
-     * Deactivates a Dev UI subscription for the given Camel console id.
-     *
-     * @param  id The id of the Camel console
-     * @return    {@code true} if the console was deactivated, else {@code false}
-     */
-    public boolean deactivateConsoleStream(String id) {
-        ConsoleSubscription subscription = PROCESSORS.remove(id);
-        if (subscription != null) {
-            synchronized (subscription) {
-                subscription.cancel();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Gets a JSON String representation of a Camel console.
      *
      * @param  id      The id of the Camel console
@@ -115,11 +94,12 @@ public class CamelCoreDevUIService {
             LOG.debugf("Rejected Dev UI request for console '%s' — not in the allowlist", id);
             return "{}";
         }
-        return getOrCreateConsoleSubscription(id, sanitizeOptions(id, options)).callDevConsole();
+        return callDevConsole(id, sanitizeOptions(id, options));
     }
 
     /**
-     * Streams a JSON String representation of a Camel console.
+     * Streams a JSON String representation of a Camel console, refreshed at the configured Dev UI update interval.
+     * Each call returns an independent stream with its own options, which ends when the caller cancels it.
      *
      * @param  id      The id of the Camel console
      * @param  options The map of options to influence the JSON output
@@ -130,26 +110,13 @@ public class CamelCoreDevUIService {
             LOG.debugf("Rejected Dev UI stream request for console '%s' — not in the allowlist", id);
             return Multi.createFrom().empty();
         }
-        return getOrCreateConsoleSubscription(id, sanitizeOptions(id, options)).getBroadcaster();
-    }
-
-    /**
-     * Updates the map of options for a given console subscription.
-     *
-     * @param  id      The id of the Camel console
-     * @param  options The updated map of options to influence the JSON output
-     * @return         {@code true} if the options were updated, else {@code false}
-     */
-    public boolean updateConsoleOptions(String id, Map<String, Object> options) {
-        if (!isConsoleAllowed(id)) {
-            LOG.debugf("Rejected Dev UI options update for console '%s' — not in the allowlist", id);
-            return false;
-        }
         Map<String, Object> sanitized = sanitizeOptions(id, options);
-        return PROCESSORS.computeIfPresent(id, (key, consoleSubscription) -> {
-            consoleSubscription.setOptions(sanitized);
-            return consoleSubscription;
-        }) != null;
+        Duration interval = ConfigProvider.getConfig().getValue("quarkus.camel.dev-ui.update-interval", Duration.class);
+        return Multi.createFrom()
+                .ticks()
+                .every(interval)
+                .onOverflow().drop()
+                .map(tick -> callDevConsole(id, sanitized));
     }
 
     /**
@@ -419,68 +386,24 @@ public class CamelCoreDevUIService {
         return sanitized;
     }
 
-    ConsoleSubscription getOrCreateConsoleSubscription(String id, Map<String, Object> options) {
-        return PROCESSORS.computeIfAbsent(id, consoleId -> new ConsoleSubscription(consoleId, options));
-    }
-
-    /**
-     * Enables any Camel console to have its data streamed and updated within a specified period.
-     */
-    static final class ConsoleSubscription {
-        private final String id;
-        private final Map<String, Object> options;
-        private final Cancellable cancellable;
-        private final BroadcastProcessor<String> broadcaster;
-
-        ConsoleSubscription(String id, Map<String, Object> options) {
-            this.id = id;
-            this.options = new ConcurrentHashMap<>(options);
-            this.broadcaster = BroadcastProcessor.create();
-            this.cancellable = Multi.createFrom()
-                    .ticks()
-                    .every(ConfigProvider.getConfig().getValue("quarkus.camel.dev-ui.update-interval", Duration.class))
-                    .subscribe()
-                    .with(this::broadcast);
-        }
-
-        void broadcast(Long invocationCount) {
-            broadcaster.onNext(callDevConsole());
-        }
-
-        void cancel() {
-            cancellable.cancel();
-        }
-
-        BroadcastProcessor<String> getBroadcaster() {
-            return broadcaster;
-        }
-
-        String callDevConsole() {
-            String result = "{}";
-            DevConsoleRegistry devConsoleRegistry = getContextPlugin(DevConsoleRegistry.class);
-            if (devConsoleRegistry != null) {
-                Optional<DevConsole> devConsoleOptional = devConsoleRegistry.getConsole(id);
-                if (devConsoleOptional.isPresent()) {
-                    DevConsole devConsole = devConsoleOptional.get();
-                    try {
-                        JsonObject json = (JsonObject) devConsole.call(DevConsole.MediaType.JSON, options);
-                        if (json != null) {
-                            result = json.toJson();
-                            LOG.debug(result);
-                        }
-                    } catch (Exception e) {
-                        LOG.debugf(e, "Error calling DevConsole %s", id);
+    private static String callDevConsole(String id, Map<String, Object> options) {
+        String result = "{}";
+        DevConsoleRegistry devConsoleRegistry = getContextPlugin(DevConsoleRegistry.class);
+        if (devConsoleRegistry != null) {
+            Optional<DevConsole> devConsoleOptional = devConsoleRegistry.getConsole(id);
+            if (devConsoleOptional.isPresent()) {
+                DevConsole devConsole = devConsoleOptional.get();
+                try {
+                    JsonObject json = (JsonObject) devConsole.call(DevConsole.MediaType.JSON, options);
+                    if (json != null) {
+                        result = json.toJson();
+                        LOG.debug(result);
                     }
+                } catch (Exception e) {
+                    LOG.debugf(e, "Error calling DevConsole %s", id);
                 }
             }
-            return result;
         }
-
-        void setOptions(Map<String, Object> options) {
-            synchronized (this.options) {
-                this.options.clear();
-                this.options.putAll(options);
-            }
-        }
+        return result;
     }
 }

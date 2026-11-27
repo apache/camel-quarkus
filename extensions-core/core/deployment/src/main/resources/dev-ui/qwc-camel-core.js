@@ -63,17 +63,18 @@ export class QwcCamelCore extends QwcHotReloadElement {
         super();
         this._consoleId = consoleId;
         this._consoleOptions = consoleOptions;
+        this._streamGeneration = 0;
     }
 
     connectedCallback() {
         super.connectedCallback();
-        if (!this._consoleData) {
-            this.hotReload();
-        }
+        // Leaving the page cancels its stream, so reopen it on every attach. Any data already shown stays until
+        // the new fetch replaces it
+        this.hotReload();
     }
 
     disconnectedCallback() {
-        this.disableConsoleUpdates();
+        this._cancelObserver();
         super.disconnectedCallback();
     }
 
@@ -88,21 +89,22 @@ export class QwcCamelCore extends QwcHotReloadElement {
             this.jsonRpc._setExtensionName('camel-quarkus-core');
         }
 
+        // Each stream is bound to the options it was opened with, so take a copy
+        const options = {...this._consoleOptions};
+        const generation = this._streamGeneration;
+
         // Fetch initial data
-        this.jsonRpc.getConsoleJSON({'id': this._consoleId, 'options': this._consoleOptions}).then((consoleData) => {
+        this.jsonRpc.getConsoleJSON({'id': this._consoleId, 'options': options}).then((consoleData) => {
+            // Skip if the page was disconnected, or the options changed, while this fetch was in flight
+            if (generation !== this._streamGeneration || !this.isConnected) {
+                return;
+            }
             this._consoleData = JSON.parse(consoleData.result);
 
             // Set up live data streaming
-            this._observer = this.jsonRpc.streamConsole({'id': this._consoleId, 'options': this._consoleOptions}).onNext(consoleData => {
+            this._observer = this.jsonRpc.streamConsole({'id': this._consoleId, 'options': options}).onNext(consoleData => {
                 this._consoleData = JSON.parse(consoleData.result);
             });
-        });
-    }
-
-    disableConsoleUpdates() {
-        // Cancel live updates
-        this.jsonRpc.deactivateConsoleStream({'id': this._consoleId}).then((response) => {
-            this._cancelObserver();
         });
     }
 
@@ -112,7 +114,9 @@ export class QwcCamelCore extends QwcHotReloadElement {
         } else {
             delete this._consoleOptions[key];
         }
-        this.jsonRpc.updateConsoleOptions({'id': this._consoleId, 'options': this._consoleOptions});
+        // Reopen the stream with the new options
+        this._cancelObserver();
+        this.enableConsoleUpdates();
     }
 
     consoleData() {
@@ -165,8 +169,10 @@ export class QwcCamelCore extends QwcHotReloadElement {
     }
 
     _cancelObserver(){
+        this._streamGeneration++;
         if(this._observer){
             this._observer.cancel();
+            this._observer = null;
         }
     }
 }
