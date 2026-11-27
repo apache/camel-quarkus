@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Asynchronously call another endpoint from any Camel Context in the same JVM.
+:cq-description: Asynchronously call another endpoint from the same Camel Context.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Asynchronously call another endpoint from any Camel Context in the same JVM.
+Asynchronously call another endpoint from the same Camel Context.
 
 [id="extensions-seda-whats-inside"]
 == What's inside

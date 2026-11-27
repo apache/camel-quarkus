@@ -20,13 +20,6 @@ endif::[]
 
 Marshal POJOs to JSON and back using Jackson.
 
-[id="extensions-jackson-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}:dataformats:jackson2-dataformat.adoc[JSON Jackson data format]
-
-Please refer to the above link for usage and configuration details.
-
 [id="extensions-jackson-maven-coordinates"]
 == Maven coordinates
 

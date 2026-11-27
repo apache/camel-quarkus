@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: seda
 cqCamelPartTitle: SEDA
-cqCamelPartDescription: Asynchronously call another endpoint from any Camel Context in the same JVM.
+cqCamelPartDescription: Asynchronously call another endpoint from the same Camel Context.
 cqExtensionPageTitle: SEDA

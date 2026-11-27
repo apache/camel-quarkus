@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-ibm-watson-language
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Perform natural language processing using IBM Watson Natural Language Understanding
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 3.30.0
 :cq-native-since: 3.35.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.30.0## [.badge-key]##Native since##[.badge-supported]##3.35.0##
+[.badge-key]##JVM since##[.badge-supported]##3.30.0## [.badge-key]##Native since##[.badge-supported]##3.35.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Perform natural language processing using IBM Watson Natural Language Understanding
