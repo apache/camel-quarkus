@@ -43,9 +43,9 @@ public class CamelQuarkusCoreDevUIErrorsTest extends DevUIJsonRPCTest {
     }
 
     @Test
-    void errorsConsoleCapturesRoutingErrors() {
+    void errorsConsoleCapturesRoutingErrors() throws Exception {
         JsonObject failure = await().atMost(Duration.ofSeconds(10)).until(() -> {
-            JsonArray errors = getErrors();
+            JsonArray errors = getErrors(true);
             return errors.isEmpty() ? null : errors.getJsonObject(0);
         }, error -> error != null);
 
@@ -57,11 +57,15 @@ public class CamelQuarkusCoreDevUIErrorsTest extends DevUIJsonRPCTest {
         assertEquals(IllegalStateException.class.getName(), exception.getString("type"));
         assertEquals("Forced failure", exception.getString("message"));
         assertTrue(exception.getString("stackTrace").contains("IllegalStateException"));
+
+        // Each one-off call is made with its own options, not those of an earlier call
+        JsonObject withoutStackTrace = getErrors(false).getJsonObject(0).getJsonObject("exception");
+        assertFalse(withoutStackTrace.containsKey("stackTrace"));
     }
 
-    private JsonArray getErrors() throws Exception {
+    private JsonArray getErrors(boolean stackTrace) throws Exception {
         String result = super.executeJsonRPCMethod(String.class, "getConsoleJSON",
-                Map.of("id", "errors", "options", Map.of("stackTrace", "true")));
+                Map.of("id", "errors", "options", Map.of("stackTrace", String.valueOf(stackTrace))));
         JsonObject json = (JsonObject) Json.decodeValue(result);
         assertTrue(json.getBoolean("enabled"));
         return json.getJsonArray("errors");
