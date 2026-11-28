@@ -70,6 +70,8 @@ class CamelBeansProcessor {
             "org.apache.camel.Producer");
     private static final DotName PREDICATE_TYPE = DotName.createSimple(
             "org.apache.camel.Predicate");
+    private static final DotName SIMPLE_FUNCTION_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.SimpleFunction");
 
     private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
             ROUTES_BUILDER_TYPE,
@@ -79,7 +81,8 @@ class CamelBeansProcessor {
             LANGUAGE_TYPE,
             COMPONENT_TYPE,
             PRODUCER_TYPE,
-            PREDICATE_TYPE);
+            PREDICATE_TYPE,
+            SIMPLE_FUNCTION_TYPE);
 
     private static final DotName[] CATALOG_SCHEMA_TYPES = {
             DotName.createSimple(Component.class.getName()),
