@@ -57,6 +57,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.mcp</groupId>
+            <artifactId>quarkus-mcp-server-http</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>

@@ -2,6 +2,13 @@
 
 The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 4.0.0.
 
+== MCP Server applications select their transport
+
+`camel-quarkus-mcp-server` now depends on Quarkiverse MCP Server Core.
+To keep serving MCP tools and resources over streamable HTTP, add
+`io.quarkiverse.mcp:quarkus-mcp-server-http` as a dependency of your application.
+See xref:reference/extensions/mcp-server.adoc#extensions-mcp-server-usage-choosing-a-transport[Choosing a transport].
+
 == XSLT extension changes
 
 === Xalan was replaced by the XSLT implementation built into the JDK

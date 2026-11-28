@@ -40,12 +40,39 @@
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.mcp</groupId>
-            <artifactId>quarkus-mcp-server-http-deployment</artifactId>
+            <artifactId>quarkus-mcp-server-core-deployment</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>mcp-server-does-not-select-a-transport</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-http</exclude>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-http-deployment</exclude>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-stdio</exclude>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-stdio-deployment</exclude>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-websocket</exclude>
+                                        <exclude>io.quarkiverse.mcp:quarkus-mcp-server-websocket-deployment</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Expose ai-tool routes as MCP tools and ai-resource routes as MCP resources over streamable HTTP
+:cq-description: Expose ai-tool routes as MCP tools and ai-resource routes as MCP resources
 :cq-deprecated: false
 :cq-jvm-since: 3.39.0
 :cq-native-since: 3.39.0
@@ -21,12 +21,10 @@ The MCP Server extension exposes Camel routes registered via the `ai-tool`
 component as tools, and `ai-resource` routes as resources, of a Model Context
 Protocol (MCP) server, served through
 the quarkiverse https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[quarkus-mcp-server]
-extension. No route is needed for the server itself: add the extension, tag
-the `ai-tool` and `ai-resource` routes to expose, and any MCP client (another
-Camel application, an IDE, a coding agent) can discover and use them.
+extension. Add the extension and your chosen transport, then tag the `ai-tool`
+and `ai-resource` routes you want MCP clients to discover and use.
 
-The server is exposed over streamable HTTP. Tool semantics — tag-based
-opt-in (the untagged default pool is never exposed), flat-namespace
+Tool semantics — tag-based opt-in (the untagged default pool is never exposed), flat-namespace
 collision refusal, per-call timeout and error sanitization — are owned by
 the `camel-mcp-server-api` bridge. Serving concerns (endpoint path,
 authentication) are owned by quarkus-mcp-server and configured via
@@ -60,6 +58,32 @@ endif::[]
 
 [id="extensions-mcp-server-usage"]
 == Usage
+[id="extensions-mcp-server-usage-choosing-a-transport"]
+=== Choosing a transport
+
+Add a Quarkiverse MCP Server transport dependency to make the server reachable
+by clients. For the streamable HTTP examples on this page, add the following
+dependency to your application:
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.mcp</groupId>
+    <artifactId>quarkus-mcp-server-http</artifactId>
+</dependency>
+----
+
+If your application's BOM does not manage the transport, specify a Quarkiverse
+MCP Server version compatible with your Quarkus version.
+
+Quarkiverse MCP Server also provides `quarkus-mcp-server-stdio` and
+`quarkus-mcp-server-websocket`.
+For details on transport selection and configuration, see the
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html[Quarkiverse MCP Server documentation].
+
+[id="extensions-mcp-server-usage-defining-tools"]
+=== Defining tools
+
 Define tools as regular `ai-tool` routes and give them tags:
 
 [source,java]
@@ -159,9 +183,9 @@ authentication, guardrails, pagination, timeouts).
 [id="extensions-mcp-server-usage-connecting-mcp-clients"]
 === Connecting MCP clients
 
-Any MCP client can connect over streamable HTTP. Another Camel integration
-can consume the tools with the camel-openai MCP client and automatic tool
-execution:
+With the HTTP transport installed, MCP clients can connect over streamable HTTP.
+Another Camel integration can consume the tools with the camel-openai MCP
+client and automatic tool execution:
 
 [source,java]
 ----
@@ -188,14 +212,10 @@ A coding agent or IDE is configured with the same URL, e.g. in an
 }
 ----
 
-The tools are served over streamable HTTP only. The stdio transport, used
-by MCP clients that launch the server as a subprocess, is not supported by
-this extension.
-
 [id="extensions-mcp-server-usage-mcp-protocol-versions"]
 === MCP protocol versions
 
-The quarkus-mcp-server extension serves two kinds of MCP clients on the same
+The HTTP transport serves two kinds of MCP clients on the same
 endpoint, and the Camel routes reach both without any Camel configuration:
 
 * clients of the protocol versions that open with an `initialize` handshake
